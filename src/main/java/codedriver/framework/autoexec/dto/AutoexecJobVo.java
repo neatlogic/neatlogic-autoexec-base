@@ -10,13 +10,14 @@ import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lvzk
  * @since 2021/4/12 11:48
  **/
 public class AutoexecJobVo extends BasePageVo {
-    @EntityField(name = "作业id", type = ApiParamType.LONG)
+    @EntityField(name = "作业id(如果是人工发起则id正常生成，其它情况存放来源id)", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "作业名称（唯一标识）", type = ApiParamType.STRING)
     private String name;
@@ -36,10 +37,21 @@ public class AutoexecJobVo extends BasePageVo {
     private String operationType;
     @EntityField(name = "执行用户", type = ApiParamType.STRING)
     private String exec_user;
+    @EntityField(name = "来源", type = ApiParamType.STRING)
+    private String source;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
     private Integer thread_count;
     @EntityField(name = "作业其它配置", type = ApiParamType.LONG)
     private String config;
+    @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
+    private List<AutoexecJobPhaseVo> jobPhaseVoList;
+
+    //param
+    private String combopName;
+    private List<String> statusList;
+    private List<String> sourceList;
+    private List<String> execUserList;
+    private List<String> combopOperationTypeList;
 
     public Long getId() {
         return id;
@@ -135,5 +147,61 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setConfig(String config) {
         this.config = config;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public List<String> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<String> statusList) {
+        this.statusList = statusList;
+    }
+
+    public List<String> getSourceList() {
+        return sourceList;
+    }
+
+    public void setSourceList(List<String> sourceList) {
+        this.sourceList = sourceList;
+    }
+
+    public List<String> getExecUserList() {
+        return execUserList;
+    }
+
+    public void setExecUserList(List<String> execUserList) {
+        this.execUserList = execUserList;
+    }
+
+    public List<String> getCombopOperationTypeList() {
+        return combopOperationTypeList;
+    }
+
+    public void setCombopOperationTypeList(List<String> combopOperationTypeList) {
+        this.combopOperationTypeList = combopOperationTypeList;
+    }
+
+    public String getCombopName() {
+        return combopName;
+    }
+
+    public void setCombopName(String combopName) {
+        this.combopName = combopName;
+    }
+
+    public List<AutoexecJobPhaseVo> getJobPhaseVoList() {
+        return jobPhaseVoList;
+    }
+
+    public void setJobPhaseVoList(List<AutoexecJobPhaseVo> jobPhaseVoList) {
+        this.jobPhaseVoList = jobPhaseVoList;
     }
 }
