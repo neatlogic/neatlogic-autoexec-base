@@ -10,6 +10,8 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 
+import java.util.List;
+
 public class AutoexecScriptVersionVo extends BaseEditorVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
@@ -28,6 +30,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
     private String config;
     @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
     private Integer isActive;
+
+    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptVersionParamVo> paramList;
+    @EntityField(name = "脚本内容行列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptLineVo> lineList;
 
     public AutoexecScriptVersionVo() {
     }
@@ -97,5 +104,21 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
 
     public void setIsActive(Integer isActive) {
         this.isActive = isActive;
+    }
+
+    public List<AutoexecScriptVersionParamVo> getParamList() {
+        return paramList;
+    }
+
+    public void setParamList(List<AutoexecScriptVersionParamVo> paramList) {
+        this.paramList = paramList;
+    }
+
+    public List<AutoexecScriptLineVo> getLineList() {
+        return lineList;
+    }
+
+    public void setLineList(List<AutoexecScriptLineVo> lineList) {
+        this.lineList = lineList;
     }
 }
