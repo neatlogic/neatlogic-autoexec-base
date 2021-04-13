@@ -3,12 +3,18 @@
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
-package codedriver.framework.autoexec.dto;
+package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.TimeUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.MapUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -45,13 +51,53 @@ public class AutoexecJobVo extends BasePageVo {
     private String config;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseVo> jobPhaseVoList;
+    @EntityField(name = "作业耗时", type = ApiParamType.STRING)
+    private String costTime;
+    @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
+    private Integer isCanJobPause;
+    @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
+    private Integer isCanJobStop;
+    @EntityField(name = "是否允许继续作业", type = ApiParamType.INTEGER)
+    private Integer isCanJobGoon;
+    @EntityField(name = "是否允许重跑作业", type = ApiParamType.INTEGER)
+    private Integer isCanJobRedo;
+    @EntityField(name = "是否允许重置节点", type = ApiParamType.INTEGER)
+    private Integer isCanJobNodeReset;
+    @EntityField(name = "是否允许忽略节点", type = ApiParamType.INTEGER)
+    private Integer isCanJobNodeIgnore;
 
     //param
+    @JSONField(serialize = false)
     private String combopName;
+    @JSONField(serialize = false)
     private List<String> statusList;
+    @JSONField(serialize = false)
     private List<String> sourceList;
+    @JSONField(serialize = false)
     private List<String> execUserList;
+    @JSONField(serialize = false)
     private List<String> combopOperationTypeList;
+
+    public AutoexecJobVo() {
+    }
+
+    public AutoexecJobVo(JSONObject jsonObj) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        JSONObject startTimeJson = jsonObj.getJSONObject("startTime");
+        jsonObj.remove("startTime");
+        AutoexecJobVo jobVo = JSONObject.toJavaObject(jsonObj, AutoexecJobVo.class);
+        this.setCombopName(jobVo.getCombopName());
+        this.setCombopOperationTypeList(jobVo.getCombopOperationTypeList());
+        this.setSourceList(jobVo.getSourceList());
+        this.setStatusList(jobVo.getStatusList());
+        if (MapUtils.isNotEmpty(startTimeJson)) {
+            JSONObject timeJson = TimeUtil.getStartTimeAndEndTimeByDateJson(startTimeJson);
+            this.setStartTime(TimeUtil.convertStringToDate(timeJson.getString("startTime"), TimeUtil.YYYY_MM_DD_HH_MM_SS));
+            this.setEndTime(TimeUtil.convertStringToDate(timeJson.getString("endTime"), TimeUtil.YYYY_MM_DD_HH_MM_SS));
+        }
+        this.setCurrentPage(jobVo.getCurrentPage());
+        this.setPageSize(jobVo.getPageSize());
+    }
 
     public Long getId() {
         return id;
@@ -203,5 +249,68 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setJobPhaseVoList(List<AutoexecJobPhaseVo> jobPhaseVoList) {
         this.jobPhaseVoList = jobPhaseVoList;
+    }
+
+    public String getCostTime() {
+        if (startTime != null) {
+            if (endTime != null) {
+                return TimeUtil.millisecondsTransferMaxTimeUnit(endTime.getTime() - startTime.getTime());
+            } else {
+                return TimeUtil.millisecondsTransferMaxTimeUnit(new Date().getTime() - startTime.getTime());
+            }
+        }
+        return costTime;
+    }
+
+    public void setCostTime(String costTime) {
+        this.costTime = costTime;
+    }
+
+    public Integer getIsCanJobPause() {
+        return isCanJobPause;
+    }
+
+    public void setIsCanJobPause(Integer isCanJobPause) {
+        this.isCanJobPause = isCanJobPause;
+    }
+
+    public Integer getIsCanJobStop() {
+        return isCanJobStop;
+    }
+
+    public void setIsCanJobStop(Integer isCanJobStop) {
+        this.isCanJobStop = isCanJobStop;
+    }
+
+    public Integer getIsCanJobGoon() {
+        return isCanJobGoon;
+    }
+
+    public void setIsCanJobGoon(Integer isCanJobGoon) {
+        this.isCanJobGoon = isCanJobGoon;
+    }
+
+    public Integer getIsCanJobRedo() {
+        return isCanJobRedo;
+    }
+
+    public void setIsCanJobRedo(Integer isCanJobRedo) {
+        this.isCanJobRedo = isCanJobRedo;
+    }
+
+    public Integer getIsCanJobNodeReset() {
+        return isCanJobNodeReset;
+    }
+
+    public void setIsCanJobNodeReset(Integer isCanJobNodeReset) {
+        this.isCanJobNodeReset = isCanJobNodeReset;
+    }
+
+    public Integer getIsCanJobNodeIgnore() {
+        return isCanJobNodeIgnore;
+    }
+
+    public void setIsCanJobNodeIgnore(Integer isCanJobNodeIgnore) {
+        this.isCanJobNodeIgnore = isCanJobNodeIgnore;
     }
 }
