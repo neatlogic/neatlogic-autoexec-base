@@ -7,11 +7,11 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecScriptNotAnyVersionException extends ApiRuntimeException {
+public class AutoexecScriptHasNotAnyVersionException extends ApiRuntimeException {
 
     private static final long serialVersionUID = -577160769530099576L;
 
-    public AutoexecScriptNotAnyVersionException() {
+    public AutoexecScriptHasNotAnyVersionException() {
         super("当前脚本没有任何版本");
     }
 
