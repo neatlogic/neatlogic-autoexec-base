@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 
 /**
@@ -13,7 +14,7 @@ import codedriver.framework.restful.annotation.EntityField;
  * @author: linbq
  * @since: 2021/4/13 10:04
  **/
-public class AutoexecCombopParamVo {
+public class AutoexecCombopParamVo extends BasePageVo {
     @EntityField(name = "组合工具id", type = ApiParamType.LONG)
     private Long combopId;
     @EntityField(name = "参数名", type = ApiParamType.STRING)
