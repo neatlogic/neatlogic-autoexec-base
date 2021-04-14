@@ -5,7 +5,9 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
+import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -18,16 +20,27 @@ import com.alibaba.fastjson.JSONObject;
  **/
 public class AutoexecCombopVo extends BaseEditorVo {
 
+    @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
     private String uk;
+    @EntityField(name = "显示名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "描述", type = ApiParamType.STRING)
     private String description;
+    @EntityField(name = "类型id", type = ApiParamType.LONG)
     private Long typeId;
+    @EntityField(name = "类型名称", type = ApiParamType.STRING)
     private String typeName;
+    @EntityField(name = "状态", type = ApiParamType.INTEGER)
     private Integer isActive;
+    @EntityField(name = "操作类型", type = ApiParamType.INTEGER)
     private String operationType;
+    @EntityField(name = "通知策略id", type = ApiParamType.LONG)
     private Long notifyPolicyId;
+    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
+    @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
     private int referenceCount;
     private transient String configStr;
 

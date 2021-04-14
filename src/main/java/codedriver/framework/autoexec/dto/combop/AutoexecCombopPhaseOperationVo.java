@@ -10,7 +10,7 @@ package codedriver.framework.autoexec.dto.combop;
  * @author: linbq
  * @since: 2021/4/13 10:08
  **/
-public class AutoexecCombopParseOperationVo {
+public class AutoexecCombopPhaseOperationVo {
     private Long combopPhaseId;
     private Long operationId;
     private String operationType;
