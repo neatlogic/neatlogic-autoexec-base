@@ -32,7 +32,7 @@ public class AutoexecScriptVo extends BaseEditorVo {
     @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
     private String risk;
     @EntityField(name = "操作级别颜色", type = ApiParamType.STRING)
-    private String color;
+    private String riskColor;
     @EntityField(name = "当前激活版本号", type = ApiParamType.INTEGER)
     private Integer currentVersion;
     @EntityField(name = "版本总数", type = ApiParamType.INTEGER)
@@ -229,11 +229,11 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.isReviewing = isReviewing;
     }
 
-    public String getColor() {
-        return color;
+    public String getRiskColor() {
+        return riskColor;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setRiskColor(String riskColor) {
+        this.riskColor = riskColor;
     }
 }
