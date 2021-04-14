@@ -12,6 +12,7 @@ import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,9 +51,13 @@ public class AutoexecJobVo extends BasePageVo {
     @EntityField(name = "作业其它配置", type = ApiParamType.LONG)
     private String config;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
-    private List<AutoexecJobPhaseVo> jobPhaseList;
+    private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
+    @EntityField(name = "全局参数Str", type = ApiParamType.STRING)
+    private String paramStr;
+    @EntityField(name = "全局参数JSON", type = ApiParamType.JSONOBJECT)
+    private JSONObject param;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
     private Integer isCanJobPause;
     @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
@@ -243,12 +248,12 @@ public class AutoexecJobVo extends BasePageVo {
         this.combopName = combopName;
     }
 
-    public List<AutoexecJobPhaseVo> getJobPhaseList() {
-        return jobPhaseList;
+    public List<AutoexecJobPhaseVo> getPhaseList() {
+        return phaseList;
     }
 
-    public void setJobPhaseList(List<AutoexecJobPhaseVo> jobPhaseList) {
-        this.jobPhaseList = jobPhaseList;
+    public void setPhaseList(List<AutoexecJobPhaseVo> phaseList) {
+        this.phaseList = phaseList;
     }
 
     public String getCostTime() {
@@ -312,5 +317,20 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setIsCanJobNodeIgnore(Integer isCanJobNodeIgnore) {
         this.isCanJobNodeIgnore = isCanJobNodeIgnore;
+    }
+
+    public String getParamStr() {
+        return paramStr;
+    }
+
+    public void setParamStr(String paramStr) {
+        this.paramStr = paramStr;
+    }
+
+    public JSONObject getParam() {
+        if(StringUtils.isNotBlank(paramStr)){
+            return JSONObject.parseObject(paramStr);
+        }
+        return param;
     }
 }

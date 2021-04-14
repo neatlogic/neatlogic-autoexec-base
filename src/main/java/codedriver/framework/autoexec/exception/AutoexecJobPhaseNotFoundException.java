@@ -11,8 +11,8 @@ public class AutoexecJobPhaseNotFoundException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 4522850144891547590L;
 
-    public AutoexecJobPhaseNotFoundException(Long id) {
-        super("作业剧本：'" + id + "'不存在");
+    public AutoexecJobPhaseNotFoundException(String uk) {
+        super("作业剧本：'" + uk + "'不存在");
     }
 
 

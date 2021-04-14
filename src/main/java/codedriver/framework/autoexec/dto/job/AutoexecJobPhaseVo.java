@@ -35,7 +35,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     @EntityField(name = "作业剧本执行方式", type = ApiParamType.STRING)
     private String execMode;
     @EntityField(name = "作业剧本操作集合", type = ApiParamType.JSONARRAY)
-    private List<AutoexecJobPhaseOperationVo> jobPhaseOperationList;
+    private List<AutoexecJobPhaseOperationVo> operationList;
     @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "作业剧本唯一标识", type = ApiParamType.STRING)
@@ -115,12 +115,12 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.execMode = execMode;
     }
 
-    public List<AutoexecJobPhaseOperationVo> getJobPhaseOperationList() {
-        return jobPhaseOperationList;
+    public List<AutoexecJobPhaseOperationVo> getOperationList() {
+        return operationList;
     }
 
-    public void setJobPhaseOperationList(List<AutoexecJobPhaseOperationVo> jobPhaseOperationList) {
-        this.jobPhaseOperationList = jobPhaseOperationList;
+    public void setOperationList(List<AutoexecJobPhaseOperationVo> operationList) {
+        this.operationList = operationList;
     }
 
     public String getName() {
