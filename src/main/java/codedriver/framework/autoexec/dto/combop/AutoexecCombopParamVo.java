@@ -17,7 +17,6 @@ public class AutoexecCombopParamVo {
     private String description;
     private Integer isRequired;
     private String type;
-    private String mode;
 
     public Long getCombopId() {
         return combopId;
@@ -65,13 +64,5 @@ public class AutoexecCombopParamVo {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
     }
 }
