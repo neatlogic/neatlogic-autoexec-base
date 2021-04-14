@@ -59,6 +59,9 @@ public class AutoexecScriptVo extends BaseEditorVo {
     @EntityField(name = "脚本内容行", type = ApiParamType.JSONARRAY)
     private List<String> lineList;
 
+    @EntityField(name = "版本")
+    private AutoexecScriptVersionVo versionVo;
+
     @EntityField(name = "是否待审批", type = ApiParamType.INTEGER)
     private Integer isReviewing;
 
@@ -219,6 +222,14 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setLineList(List<String> lineList) {
         this.lineList = lineList;
+    }
+
+    public AutoexecScriptVersionVo getVersionVo() {
+        return versionVo;
+    }
+
+    public void setVersionVo(AutoexecScriptVersionVo versionVo) {
+        this.versionVo = versionVo;
     }
 
     public Integer getIsReviewing() {
