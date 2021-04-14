@@ -12,7 +12,7 @@ import codedriver.framework.util.SnowflakeUtil;
  * @author: linbq
  * @since: 2021/4/13 10:05
  **/
-public class AutoexecCombopParseVo {
+public class AutoexecCombopPhaseVo {
     private Long id;
     private Long combopId;
     private String uk;
