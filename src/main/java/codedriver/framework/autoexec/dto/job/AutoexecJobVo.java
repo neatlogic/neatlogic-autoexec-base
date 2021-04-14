@@ -50,7 +50,7 @@ public class AutoexecJobVo extends BasePageVo {
     @EntityField(name = "作业其它配置", type = ApiParamType.LONG)
     private String config;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
-    private List<AutoexecJobPhaseVo> jobPhaseVoList;
+    private List<AutoexecJobPhaseVo> jobPhaseList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
@@ -243,12 +243,12 @@ public class AutoexecJobVo extends BasePageVo {
         this.combopName = combopName;
     }
 
-    public List<AutoexecJobPhaseVo> getJobPhaseVoList() {
-        return jobPhaseVoList;
+    public List<AutoexecJobPhaseVo> getJobPhaseList() {
+        return jobPhaseList;
     }
 
-    public void setJobPhaseVoList(List<AutoexecJobPhaseVo> jobPhaseVoList) {
-        this.jobPhaseVoList = jobPhaseVoList;
+    public void setJobPhaseList(List<AutoexecJobPhaseVo> jobPhaseList) {
+        this.jobPhaseList = jobPhaseList;
     }
 
     public String getCostTime() {
