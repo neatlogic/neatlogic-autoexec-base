@@ -7,11 +7,11 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecScriptNameOrLabelRepeatException extends ApiRuntimeException {
+public class AutoexecScriptNameOrUkRepeatException extends ApiRuntimeException {
 
     private static final long serialVersionUID = -2206138186638390045L;
 
-    public AutoexecScriptNameOrLabelRepeatException(String name) {
+    public AutoexecScriptNameOrUkRepeatException(String name) {
         super("脚本：'" + name + "'已存在");
     }
 
