@@ -17,9 +17,9 @@ public class AutoexecScriptVo extends BaseEditorVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "唯一标识", type = ApiParamType.STRING)
-    private String name;
+    private String uk;
     @EntityField(name = "名称", type = ApiParamType.STRING)
-    private String label;
+    private String name;
     @EntityField(name = "执行方式", type = ApiParamType.STRING)
     private String execMode;
     @EntityField(name = "分类ID", type = ApiParamType.LONG)
@@ -75,20 +75,20 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.id = id;
     }
 
+    public String getUk() {
+        return uk;
+    }
+
+    public void setUk(String uk) {
+        this.uk = uk;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public String getExecMode() {
