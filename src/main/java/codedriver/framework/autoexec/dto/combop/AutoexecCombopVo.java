@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 组合工具Vo类
+ *
  * @author: linbq
  * @since: 2021/4/13 9:54
  **/
@@ -22,6 +23,7 @@ public class AutoexecCombopVo extends BaseEditorVo {
     private String name;
     private String description;
     private Long typeId;
+    private String typeName;
     private Integer isActive;
     private String operationType;
     private Long notifyPolicyId;
@@ -30,7 +32,7 @@ public class AutoexecCombopVo extends BaseEditorVo {
     private transient String configStr;
 
     public Long getId() {
-        if(id == null){
+        if (id == null) {
             id = SnowflakeUtil.uniqueLong();
         }
         return id;
@@ -70,6 +72,14 @@ public class AutoexecCombopVo extends BaseEditorVo {
 
     public void setTypeId(Long typeId) {
         this.typeId = typeId;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public Integer getIsActive() {
@@ -113,7 +123,7 @@ public class AutoexecCombopVo extends BaseEditorVo {
     }
 
     public String getConfigStr() {
-        if(this.config == null){
+        if (this.config == null) {
             return null;
         }
         return config.toJSONString();
