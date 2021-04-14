@@ -9,6 +9,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class AutoexecScriptAuditVo extends BaseEditorVo {
@@ -27,7 +28,16 @@ public class AutoexecScriptAuditVo extends BaseEditorVo {
     @EntityField(name = "内容", type = ApiParamType.STRING)
     private String content;
 
+    private JSONObject config;
+
     public AutoexecScriptAuditVo() {
+    }
+
+    public AutoexecScriptAuditVo(Long scriptId, Long scriptVersionId, String operate, JSONObject config) {
+        this.scriptId = scriptId;
+        this.scriptVersionId = scriptVersionId;
+        this.operate = operate;
+        this.config = config;
     }
 
     public Long getId() {
@@ -79,5 +89,13 @@ public class AutoexecScriptAuditVo extends BaseEditorVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public JSONObject getConfig() {
+        return config;
+    }
+
+    public void setConfig(JSONObject config) {
+        this.config = config;
     }
 }
