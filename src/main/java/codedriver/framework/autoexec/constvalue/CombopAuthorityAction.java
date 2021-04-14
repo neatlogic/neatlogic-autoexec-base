@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.constvalue;
 
 /**
+ * 组合工具授权类型
  * @author: linbq
  * @since: 2021/4/14 7:38
  **/

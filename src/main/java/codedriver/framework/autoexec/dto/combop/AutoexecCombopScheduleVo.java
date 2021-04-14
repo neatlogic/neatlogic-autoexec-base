@@ -9,6 +9,7 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.util.SnowflakeUtil;
 
 /**
+ * 组合共定时作业Vo类
  * @author: linbq
  * @since: 2021/4/13 10:08
  **/
