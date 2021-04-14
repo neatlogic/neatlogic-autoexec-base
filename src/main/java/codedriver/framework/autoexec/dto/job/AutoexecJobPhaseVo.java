@@ -3,12 +3,13 @@
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
-package codedriver.framework.autoexec.dto;
+package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,12 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private String execMode;
     @EntityField(name = "作业剧本操作集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseOperationVo> jobPhaseOperationVoList;
+    @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
+    private String combopPhaseName;
+    @EntityField(name = "作业剧本唯一标识", type = ApiParamType.STRING)
+    private String combopPhaseUk;
+    @EntityField(name = "状态统计数量", type = ApiParamType.STRING)
+    private List<AutoexecJobPhaseNodeStatusCountVo> statusCountVoList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -96,5 +103,33 @@ public class AutoexecJobPhaseVo extends BasePageVo {
 
     public void setJobPhaseOperationVoList(List<AutoexecJobPhaseOperationVo> jobPhaseOperationVoList) {
         this.jobPhaseOperationVoList = jobPhaseOperationVoList;
+    }
+
+    public String getCombopPhaseName() {
+        return combopPhaseName;
+    }
+
+    public void setCombopPhaseName(String combopPhaseName) {
+        this.combopPhaseName = combopPhaseName;
+    }
+
+    public String getCombopPhaseUk() {
+        return combopPhaseUk;
+    }
+
+    public void setCombopPhaseUk(String combopPhaseUk) {
+        this.combopPhaseUk = combopPhaseUk;
+    }
+
+    public List<AutoexecJobPhaseNodeStatusCountVo> getStatusCountVoList() {
+        return statusCountVoList;
+    }
+
+    public void setStatusCountVoList(List<AutoexecJobPhaseNodeStatusCountVo> statusCountVoList) {
+        this.statusCountVoList = statusCountVoList;
+    }
+
+    public void addStatusCountVo(AutoexecJobPhaseNodeStatusCountVo statusCountVo){
+        this.statusCountVoList.add(statusCountVo);
     }
 }
