@@ -13,13 +13,12 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 /**
- * 参数映射模式枚举类
- *
+ * 全局参数类型枚举类
  * @author: linbq
- * @since: 2021/4/14 17:47
+ * @since: 2021/4/15 14:26
  **/
-public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量", new JSONObject() {
+public enum ParamType implements IEnum {
+    TEXT("text", "文本", new JSONObject() {
         {
             this.put("type", "text");
             this.put("value", "");
@@ -27,30 +26,12 @@ public enum ParamMappingMode implements IEnum {
             this.put("maxlength", 50);
         }
     }),
-    GLOBAL_PARAM("globalparam", "全局参数", new JSONObject() {
+    PASSWORD("password", "密码", new JSONObject() {
         {
-            this.put("type", FormHandlerType.SELECT.toString());
-            this.put("search", true);
-            this.put("dynamicUrl", "api/rest/autoexec/combop/param/list");
-            this.put("rootName", "list");
-            this.put("valueName", "key");
-            this.put("textName", "key");
-            this.put("multiple", true);
+            this.put("type", "password");
             this.put("value", "");
             this.put("defaultValue", "");
-        }
-    }),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数", new JSONObject() {
-        {
-            this.put("type", FormHandlerType.SELECT.toString());
-            this.put("search", true);
-            this.put("dynamicUrl", "api/rest/autoexec/combop/param/list");
-            this.put("rootName", "list");
-            this.put("valueName", "key");
-            this.put("textName", "key");
-            this.put("multiple", true);
-            this.put("value", "");
-            this.put("defaultValue", "");
+            this.put("maxlength", 50);
         }
     });
 
@@ -58,7 +39,7 @@ public enum ParamMappingMode implements IEnum {
     private String text;
     private JSONObject config;
 
-    private ParamMappingMode(String value, String text, JSONObject config) {
+    private ParamType(String value, String text, JSONObject config) {
         this.value = value;
         this.text = text;
         this.config = config;
@@ -86,7 +67,7 @@ public enum ParamMappingMode implements IEnum {
     @Override
     public List getValueTextList() {
         JSONArray resultList = new JSONArray();
-        for (ParamMappingMode e : values()) {
+        for (ParamType e : values()) {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
