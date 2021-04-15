@@ -45,6 +45,9 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> outputParamList;
 
+    @EntityField(name = "驳回原因", type = ApiParamType.STRING)
+    private String rejectReason;
+
     public AutoexecScriptVersionVo() {
     }
 
@@ -143,5 +146,13 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
             outputParamList = paramList.stream().filter(o -> "output".equals(o.getType())).collect(Collectors.toList());
         }
         return outputParamList;
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 }
