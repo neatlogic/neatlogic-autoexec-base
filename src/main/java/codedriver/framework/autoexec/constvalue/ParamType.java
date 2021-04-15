@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 /**
+ * 全局参数类型枚举类
  * @author: linbq
  * @since: 2021/4/15 14:26
  **/
