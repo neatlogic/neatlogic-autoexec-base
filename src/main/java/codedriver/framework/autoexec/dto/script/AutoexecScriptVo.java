@@ -3,7 +3,7 @@
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
-package codedriver.framework.autoexec.dto;
+package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -17,9 +17,9 @@ public class AutoexecScriptVo extends BaseEditorVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "唯一标识", type = ApiParamType.STRING)
-    private String name;
+    private String uk;
     @EntityField(name = "名称", type = ApiParamType.STRING)
-    private String label;
+    private String name;
     @EntityField(name = "执行方式", type = ApiParamType.STRING)
     private String execMode;
     @EntityField(name = "分类ID", type = ApiParamType.LONG)
@@ -31,14 +31,16 @@ public class AutoexecScriptVo extends BaseEditorVo {
     private String type;
     @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
     private String risk;
+    @EntityField(name = "操作级别颜色", type = ApiParamType.STRING)
+    private String riskColor;
     @EntityField(name = "当前激活版本号", type = ApiParamType.INTEGER)
     private Integer currentVersion;
     @EntityField(name = "版本总数", type = ApiParamType.INTEGER)
     private Integer versionCount;
     @EntityField(name = "待审批版本数", type = ApiParamType.INTEGER)
-    private Integer reviewingVersionCount;
+    private Integer submittedVersionCount;
     @EntityField(name = "已通过版本数", type = ApiParamType.INTEGER)
-    private Integer reviewedVersionCount;
+    private Integer passedVersionCount;
 
     @EntityField(name = "版本ID", type = ApiParamType.LONG)
     private Long versionId;
@@ -57,6 +59,9 @@ public class AutoexecScriptVo extends BaseEditorVo {
     @EntityField(name = "脚本内容行", type = ApiParamType.JSONARRAY)
     private List<String> lineList;
 
+    @EntityField(name = "是否待审批", type = ApiParamType.INTEGER)
+    private Integer isReviewing;
+
 
     public AutoexecScriptVo() {
     }
@@ -72,20 +77,20 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.id = id;
     }
 
+    public String getUk() {
+        return uk;
+    }
+
+    public void setUk(String uk) {
+        this.uk = uk;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public String getExecMode() {
@@ -144,20 +149,20 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.versionCount = versionCount;
     }
 
-    public Integer getReviewingVersionCount() {
-        return reviewingVersionCount;
+    public Integer getSubmittedVersionCount() {
+        return submittedVersionCount;
     }
 
-    public void setReviewingVersionCount(Integer reviewingVersionCount) {
-        this.reviewingVersionCount = reviewingVersionCount;
+    public void setSubmittedVersionCount(Integer submittedVersionCount) {
+        this.submittedVersionCount = submittedVersionCount;
     }
 
-    public Integer getReviewedVersionCount() {
-        return reviewedVersionCount;
+    public Integer getPassedVersionCount() {
+        return passedVersionCount;
     }
 
-    public void setReviewedVersionCount(Integer reviewedVersionCount) {
-        this.reviewedVersionCount = reviewedVersionCount;
+    public void setPassedVersionCount(Integer passedVersionCount) {
+        this.passedVersionCount = passedVersionCount;
     }
 
     public Long getVersionId() {
@@ -214,5 +219,21 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setLineList(List<String> lineList) {
         this.lineList = lineList;
+    }
+
+    public Integer getIsReviewing() {
+        return isReviewing;
+    }
+
+    public void setIsReviewing(Integer isReviewing) {
+        this.isReviewing = isReviewing;
+    }
+
+    public String getRiskColor() {
+        return riskColor;
+    }
+
+    public void setRiskColor(String riskColor) {
+        this.riskColor = riskColor;
     }
 }
