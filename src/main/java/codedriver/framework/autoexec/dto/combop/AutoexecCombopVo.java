@@ -9,7 +9,6 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -42,6 +41,12 @@ public class AutoexecCombopVo extends BaseEditorVo {
     private JSONObject config;
     @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
     private int referenceCount;
+    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+    private Integer editable;
+    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
+    private Integer deletable;
+    @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
+    private Integer executable;
     private transient String configStr;
 
     public Long getId() {
@@ -133,6 +138,30 @@ public class AutoexecCombopVo extends BaseEditorVo {
 
     public void setReferenceCount(int referenceCount) {
         this.referenceCount = referenceCount;
+    }
+
+    public Integer getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Integer editable) {
+        this.editable = editable;
+    }
+
+    public Integer getDeletable() {
+        return deletable;
+    }
+
+    public void setDeletable(Integer deletable) {
+        this.deletable = deletable;
+    }
+
+    public Integer getExecutable() {
+        return executable;
+    }
+
+    public void setExecutable(Integer executable) {
+        this.executable = executable;
     }
 
     public String getConfigStr() {
