@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.script;
 
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -64,6 +65,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     @EntityField(name = "是否待审批", type = ApiParamType.INTEGER)
     private Integer isReviewing;
+
+    @EntityField(name = "关联的组合工具", type = ApiParamType.JSONARRAY)
+    private List<AutoexecCombopVo> combopList;
+
+    @EntityField(name = "关联的组合工具数", type = ApiParamType.INTEGER)
+    private Integer referenceCount;
 
 
     public AutoexecScriptVo() {
@@ -246,5 +253,21 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setRiskColor(String riskColor) {
         this.riskColor = riskColor;
+    }
+
+    public List<AutoexecCombopVo> getCombopList() {
+        return combopList;
+    }
+
+    public void setCombopList(List<AutoexecCombopVo> combopList) {
+        this.combopList = combopList;
+    }
+
+    public Integer getReferenceCount() {
+        return referenceCount;
+    }
+
+    public void setReferenceCount(Integer referenceCount) {
+        this.referenceCount = referenceCount;
     }
 }
