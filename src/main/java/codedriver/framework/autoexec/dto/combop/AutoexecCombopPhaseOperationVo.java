@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 组合工具阶段操作Vo类
  * @author: linbq
@@ -15,7 +17,9 @@ public class AutoexecCombopPhaseOperationVo {
     private Long operationId;
     private String operationType;
     private String failPolicy;
+    private JSONObject config;
     private Integer sort;
+    private transient String configStr;
 
     public Long getCombopPhaseId() {
         return combopPhaseId;
@@ -49,11 +53,26 @@ public class AutoexecCombopPhaseOperationVo {
         this.failPolicy = failPolicy;
     }
 
+    public JSONObject getConfig() {
+        return config;
+    }
+
+    public void setConfig(String config) {
+        this.config = JSONObject.parseObject(config);
+    }
+
     public Integer getSort() {
         return sort;
     }
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getConfigStr() {
+        if (this.config == null) {
+            return null;
+        }
+        return config.toJSONString();
     }
 }
