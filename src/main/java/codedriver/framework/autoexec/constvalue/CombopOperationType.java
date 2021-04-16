@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.constvalue;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+
 /**
  * 组合工具操作类型
  * @author: linbq
@@ -20,8 +22,8 @@ public enum CombopOperationType {
         this.text = text;
     }
 
-    private String value;
-    private String text;
+    private final String value;
+    private final String text;
 
     public String getValue() {
         return value;
@@ -29,5 +31,14 @@ public enum CombopOperationType {
 
     public String getText() {
         return text;
+    }
+
+    public static String getText(String name) {
+        for (CombopOperationType s : CombopOperationType.values()) {
+            if (s.getValue().equals(name)) {
+                return s.getText();
+            }
+        }
+        return "";
     }
 }
