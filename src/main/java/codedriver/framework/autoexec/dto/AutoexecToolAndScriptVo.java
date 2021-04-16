@@ -37,7 +37,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     private String riskColor;
 
     @JSONField(serialize = false)
-    private transient List<Long> toolTypeIdList;
+    private transient List<Long> typeIdList;
 
     @JSONField(serialize = false)
     private transient List<Long> riskIdList;
@@ -125,12 +125,12 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         this.riskName = riskName;
     }
 
-    public List<Long> getToolTypeIdList() {
-        return toolTypeIdList;
+    public List<Long> getTypeIdList() {
+        return typeIdList;
     }
 
-    public void setToolTypeIdList(List<Long> toolTypeIdList) {
-        this.toolTypeIdList = toolTypeIdList;
+    public void setTypeIdList(List<Long> typeIdList) {
+        this.typeIdList = typeIdList;
     }
 
     public List<Long> getRiskIdList() {
