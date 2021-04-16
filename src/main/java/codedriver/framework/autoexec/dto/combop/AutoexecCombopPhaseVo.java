@@ -6,9 +6,11 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 组合工具阶段Vo类
+ *
  * @author: linbq
  * @since: 2021/4/13 10:05
  **/
@@ -18,11 +20,12 @@ public class AutoexecCombopPhaseVo {
     private String uk;
     private String name;
     private String execMode;
-    private String config;
+    private JSONObject config;
     private Integer sort;
+    private transient String configStr;
 
     public Long getId() {
-        if(id == null){
+        if (id == null) {
             id = SnowflakeUtil.uniqueLong();
         }
         return id;
@@ -64,12 +67,12 @@ public class AutoexecCombopPhaseVo {
         this.execMode = execMode;
     }
 
-    public String getConfig() {
+    public JSONObject getConfig() {
         return config;
     }
 
     public void setConfig(String config) {
-        this.config = config;
+        this.config = JSONObject.parseObject(config);
     }
 
     public Integer getSort() {
@@ -78,5 +81,12 @@ public class AutoexecCombopPhaseVo {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getConfigStr() {
+        if (this.config == null) {
+            return null;
+        }
+        return config.toJSONString();
     }
 }
