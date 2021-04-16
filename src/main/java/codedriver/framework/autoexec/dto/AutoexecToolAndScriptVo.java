@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.autoexec.constvalue.ToolType;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -20,7 +21,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     private String uk;
     @EntityField(name = "名称", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "类型(tool:工具;script:脚本)", type = ApiParamType.STRING)
+    @EntityField(name = "类型(tool:工具;script:脚本)", type = ApiParamType.ENUM, member = ToolType.class)
     private String type;
     @EntityField(name = "执行方式", type = ApiParamType.STRING)
     private String execMode;
