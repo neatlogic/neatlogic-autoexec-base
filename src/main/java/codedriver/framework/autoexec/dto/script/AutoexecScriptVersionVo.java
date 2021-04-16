@@ -9,8 +9,11 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AutoexecScriptVersionVo extends BaseEditorVo {
 
@@ -32,9 +35,15 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
     private Integer isActive;
 
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecScriptVersionParamVo> paramList;
+    @JSONField(serialize = false)
+    private transient List<AutoexecScriptVersionParamVo> paramList;
     @EntityField(name = "脚本内容行列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptLineVo> lineList;
+
+    @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptVersionParamVo> intputParamList;
+    @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptVersionParamVo> outputParamList;
 
     public AutoexecScriptVersionVo() {
     }
@@ -120,5 +129,19 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
 
     public void setLineList(List<AutoexecScriptLineVo> lineList) {
         this.lineList = lineList;
+    }
+
+    public List<AutoexecScriptVersionParamVo> getIntputParamList() {
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(intputParamList)) {
+            intputParamList = paramList.stream().filter(o -> "input".equals(o.getType())).collect(Collectors.toList());
+        }
+        return intputParamList;
+    }
+
+    public List<AutoexecScriptVersionParamVo> getOutputParamList() {
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
+            outputParamList = paramList.stream().filter(o -> "output".equals(o.getType())).collect(Collectors.toList());
+        }
+        return outputParamList;
     }
 }
