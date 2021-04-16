@@ -44,8 +44,8 @@ public enum ParamMappingMode implements IEnum {
         {
             this.put("type", FormHandlerType.SELECT.toString());
             this.put("search", true);
-            this.put("dynamicUrl", "api/rest/autoexec/combop/param/list");
-            this.put("rootName", "list");
+            this.put("dynamicUrl", "api/rest/autoexec/script/outputparam/list");
+//            this.put("rootName", "list");
             this.put("valueName", "key");
             this.put("textName", "key");
             this.put("multiple", true);
