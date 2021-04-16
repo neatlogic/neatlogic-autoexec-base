@@ -27,7 +27,7 @@ public enum ParamMappingMode implements IEnum {
             this.put("maxlength", 50);
         }
     }),
-    GLOBAL_PARAM("globalparam", "全局参数", new JSONObject() {
+    TOP_LEVEL_PARAM("toplevelparam", "顶层参数", new JSONObject() {
         {
             this.put("type", FormHandlerType.SELECT.toString());
             this.put("search", true);
