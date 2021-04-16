@@ -8,7 +8,6 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
-import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     private String uk;
     @EntityField(name = "名称", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "类型(工具或脚本)", type = ApiParamType.STRING)
+    @EntityField(name = "类型(tool:工具;script:脚本)", type = ApiParamType.STRING)
     private String type;
     @EntityField(name = "执行方式", type = ApiParamType.STRING)
     private String execMode;
