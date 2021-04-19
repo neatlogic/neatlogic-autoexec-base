@@ -13,6 +13,14 @@ public class AutoexecJobParamContentVo {
     private String hash;
     private String content;
 
+    public AutoexecJobParamContentVo() {
+    }
+
+    public AutoexecJobParamContentVo(String hash, String content) {
+        this.hash = hash;
+        this.content = content;
+    }
+
     public String getHash() {
         return hash;
     }

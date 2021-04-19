@@ -5,12 +5,20 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.DigestUtils;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * @author lvzk
@@ -35,15 +43,43 @@ public class AutoexecJobPhaseOperationVo {
     private Integer failIgnore;
     @EntityField(name = "解析器 python|perl等", type = ApiParamType.STRING)
     private String parser;
-    @EntityField(name = "全局参数Str", type = ApiParamType.STRING)
+    @EntityField(name = "参数Str", type = ApiParamType.STRING)
     private String paramStr;
-    @EntityField(name = "全局参数JSON", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "参数JSON", type = ApiParamType.JSONOBJECT)
     private JSONObject param;
     @EntityField(name = "入参", type = ApiParamType.JSONARRAY)
     private JSONArray inputParamList;
     @EntityField(name = "出参", type = ApiParamType.JSONARRAY)
     private JSONArray outputParamList;
+    private String paramHash;
 
+    private String script;
+    private String scriptHash;
+
+    public AutoexecJobPhaseOperationVo() {
+    }
+
+    public AutoexecJobPhaseOperationVo(JSONObject operationJson, Integer i, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, List<AutoexecScriptLineVo> scriptLineVoList) {
+        this.execMode = phaseVo.getExecMode();
+        this.uk = scriptVo.getUk();
+        this.name = scriptVo.getName();
+        this.jobPhaseId = phaseVo.getId();
+        this.type = CombopOperationType.SCRIPT.getValue();
+        this.execMode = scriptVo.getExecMode();
+        this.failPolicy = operationJson.getString("failPolicy");
+        this.parser = scriptVersionVo.getParser();
+        //拼接操作脚本到config
+        JSONObject operationConfigJson = operationJson.getJSONObject("config");
+        StringBuilder scriptSb = new StringBuilder();
+        for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
+            scriptSb.append(lineVo.getContent());
+        }
+        String script = scriptSb.toString();
+        operationConfigJson.put("script", script);
+        this.script = script;
+        this.paramStr = operationConfigJson.toString();
+
+    }
 
     public Long getId() {
         return id;
@@ -86,7 +122,7 @@ public class AutoexecJobPhaseOperationVo {
     }
 
     public JSONObject getParam() {
-        if(StringUtils.isNotBlank(paramStr)){
+        if (StringUtils.isNotBlank(paramStr)) {
             return JSONObject.parseObject(paramStr);
         }
         return param;
@@ -133,13 +169,35 @@ public class AutoexecJobPhaseOperationVo {
     }
 
     public Integer getFailIgnore() {
-        if(StringUtils.isNotBlank(failPolicy)){
-            if(FailPolicy.GOON.getValue().equalsIgnoreCase(failPolicy)){
+        if (StringUtils.isNotBlank(failPolicy)) {
+            if (FailPolicy.GOON.getValue().equalsIgnoreCase(failPolicy)) {
                 return 1;
-            }else{
+            } else {
                 return 0;
             }
         }
         return failIgnore;
+    }
+
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    public String getScriptHash() {
+        if(StringUtils.isNotBlank(script)){
+            scriptHash = DigestUtils.md5DigestAsHex(script.getBytes(StandardCharsets.UTF_8));
+        }
+        return scriptHash;
+    }
+
+    public String getParamHash() {
+        if(StringUtils.isNotBlank(paramStr)){
+            paramHash = DigestUtils.md5DigestAsHex(paramStr.getBytes(StandardCharsets.UTF_8));
+        }
+        return paramHash;
     }
 }
