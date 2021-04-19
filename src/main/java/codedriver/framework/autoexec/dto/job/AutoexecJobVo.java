@@ -10,12 +10,16 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,10 +60,11 @@ public class AutoexecJobVo extends BasePageVo {
     private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
-    @EntityField(name = "全局参数Str", type = ApiParamType.STRING)
+    @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
     private String paramStr;
-    @EntityField(name = "全局参数JSON", type = ApiParamType.JSONOBJECT)
-    private JSONObject param;
+    @EntityField(name = "运行参数JSON", type = ApiParamType.JSONOBJECT)
+    private JSONArray param;
+    private String paramHash;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
     private Integer isCanJobPause;
     @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
@@ -88,13 +93,14 @@ public class AutoexecJobVo extends BasePageVo {
     public AutoexecJobVo() {
     }
 
-    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount){
+    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONArray jobParam){
         this.operationId = combopVo.getId();
         this.operationType = operationType;
         this.name = combopVo.getName();
         this.status = JobStatus.PENDING.getValue();
         this.source = source;
         this.threadCount = threadCount;
+        this.paramStr = jobParam.toJSONString();
     }
 
 
@@ -117,6 +123,9 @@ public class AutoexecJobVo extends BasePageVo {
     }
 
     public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
         return id;
     }
 
@@ -339,10 +348,18 @@ public class AutoexecJobVo extends BasePageVo {
         this.paramStr = paramStr;
     }
 
-    public JSONObject getParam() {
+    public JSONArray getParam() {
         if(StringUtils.isNotBlank(paramStr)){
-            return JSONObject.parseObject(paramStr);
+            return JSONObject.parseArray(paramStr);
         }
-        return param;
+        return null;
     }
+
+    public String getParamHash() {
+        if(StringUtils.isNotBlank(paramStr)){
+            paramHash = DigestUtils.md5DigestAsHex(paramStr.getBytes(StandardCharsets.UTF_8));
+        }
+        return paramHash;
+    }
+
 }
