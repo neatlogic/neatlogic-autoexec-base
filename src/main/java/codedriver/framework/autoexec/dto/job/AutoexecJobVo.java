@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -12,6 +14,7 @@ import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,17 +45,21 @@ public class AutoexecJobVo extends BasePageVo {
     @EntityField(name = "操作类型", type = ApiParamType.STRING)
     private String operationType;
     @EntityField(name = "执行用户", type = ApiParamType.STRING)
-    private String exec_user;
+    private String execUser;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
-    private Integer thread_count;
+    private Integer threadCount;
     @EntityField(name = "作业其它配置", type = ApiParamType.LONG)
     private String config;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
-    private List<AutoexecJobPhaseVo> jobPhaseVoList;
+    private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
+    @EntityField(name = "全局参数Str", type = ApiParamType.STRING)
+    private String paramStr;
+    @EntityField(name = "全局参数JSON", type = ApiParamType.JSONOBJECT)
+    private JSONObject param;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
     private Integer isCanJobPause;
     @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
@@ -80,6 +87,16 @@ public class AutoexecJobVo extends BasePageVo {
 
     public AutoexecJobVo() {
     }
+
+    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount){
+        this.operationId = combopVo.getId();
+        this.operationType = operationType;
+        this.name = combopVo.getName();
+        this.status = JobStatus.PENDING.getValue();
+        this.source = source;
+        this.threadCount = threadCount;
+    }
+
 
     public AutoexecJobVo(JSONObject jsonObj) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -171,20 +188,20 @@ public class AutoexecJobVo extends BasePageVo {
         this.operationType = operationType;
     }
 
-    public String getExec_user() {
-        return exec_user;
+    public String getExecUser() {
+        return execUser;
     }
 
-    public void setExec_user(String exec_user) {
-        this.exec_user = exec_user;
+    public void setExecUser(String execUser) {
+        this.execUser = execUser;
     }
 
-    public Integer getThread_count() {
-        return thread_count;
+    public Integer getThreadCount() {
+        return threadCount;
     }
 
-    public void setThread_count(Integer thread_count) {
-        this.thread_count = thread_count;
+    public void setThreadCount(Integer threadCount) {
+        this.threadCount = threadCount;
     }
 
     public String getConfig() {
@@ -243,12 +260,12 @@ public class AutoexecJobVo extends BasePageVo {
         this.combopName = combopName;
     }
 
-    public List<AutoexecJobPhaseVo> getJobPhaseVoList() {
-        return jobPhaseVoList;
+    public List<AutoexecJobPhaseVo> getPhaseList() {
+        return phaseList;
     }
 
-    public void setJobPhaseVoList(List<AutoexecJobPhaseVo> jobPhaseVoList) {
-        this.jobPhaseVoList = jobPhaseVoList;
+    public void setPhaseList(List<AutoexecJobPhaseVo> phaseList) {
+        this.phaseList = phaseList;
     }
 
     public String getCostTime() {
@@ -312,5 +329,20 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setIsCanJobNodeIgnore(Integer isCanJobNodeIgnore) {
         this.isCanJobNodeIgnore = isCanJobNodeIgnore;
+    }
+
+    public String getParamStr() {
+        return paramStr;
+    }
+
+    public void setParamStr(String paramStr) {
+        this.paramStr = paramStr;
+    }
+
+    public JSONObject getParam() {
+        if(StringUtils.isNotBlank(paramStr)){
+            return JSONObject.parseObject(paramStr);
+        }
+        return param;
     }
 }

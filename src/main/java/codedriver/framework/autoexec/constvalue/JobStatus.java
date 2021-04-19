@@ -2,11 +2,12 @@ package codedriver.framework.autoexec.constvalue;
 
 public enum JobStatus {
     PENDING("pending", "未开始", "#8E949F"),
+    LINING("lining", "排队中", "#8E949F"),
     RUNNING("running", "进行中", "#2d84fb"),
     PAUSING("pausing", "暂停中", "#2d84fb"),
     PAUSED("paused", "已暂停", "#8E949F"),
     STOPPING("stopping", "停止中", "#2d84fb"),
-    ABORTED("stopped", "已停止", "#8E949F"),
+    STOPPED("stopped", "已停止", "#8E949F"),
     SUCCEED("succeed", "已成功", "#25b865"),
     FAILED("failed", "已失败", "#f71010"),
     IGNORED("ignored", "已忽略", "#8E949F");

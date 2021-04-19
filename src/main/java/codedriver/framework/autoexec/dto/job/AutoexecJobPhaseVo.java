@@ -24,6 +24,8 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private Long jobId;
     @EntityField(name = "作业状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "失败原因", type = ApiParamType.STRING)
+    private String errorMsg;
     @EntityField(name = "作业剧本开始时间", type = ApiParamType.STRING)
     private Date startTime;
     @EntityField(name = "作业剧本结束时间", type = ApiParamType.STRING)
@@ -33,13 +35,21 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     @EntityField(name = "作业剧本执行方式", type = ApiParamType.STRING)
     private String execMode;
     @EntityField(name = "作业剧本操作集合", type = ApiParamType.JSONARRAY)
-    private List<AutoexecJobPhaseOperationVo> jobPhaseOperationVoList;
+    private List<AutoexecJobPhaseOperationVo> operationList;
     @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
-    private String combopPhaseName;
+    private String name;
     @EntityField(name = "作业剧本唯一标识", type = ApiParamType.STRING)
-    private String combopPhaseUk;
+    private String uk;
     @EntityField(name = "状态统计数量", type = ApiParamType.STRING)
     private List<AutoexecJobPhaseNodeStatusCountVo> statusCountVoList = new ArrayList<>();
+
+    public AutoexecJobPhaseVo() {}
+
+    public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
+        this.id = _id;
+        this.status = _status;
+        this.errorMsg = _errorMsg;
+    }
 
     public Long getId() {
         return id;
@@ -63,6 +73,14 @@ public class AutoexecJobPhaseVo extends BasePageVo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 
     public Date getStartTime() {
@@ -97,28 +115,20 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.execMode = execMode;
     }
 
-    public List<AutoexecJobPhaseOperationVo> getJobPhaseOperationVoList() {
-        return jobPhaseOperationVoList;
+    public String getName() {
+        return name;
     }
 
-    public void setJobPhaseOperationVoList(List<AutoexecJobPhaseOperationVo> jobPhaseOperationVoList) {
-        this.jobPhaseOperationVoList = jobPhaseOperationVoList;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCombopPhaseName() {
-        return combopPhaseName;
+    public String getUk() {
+        return uk;
     }
 
-    public void setCombopPhaseName(String combopPhaseName) {
-        this.combopPhaseName = combopPhaseName;
-    }
-
-    public String getCombopPhaseUk() {
-        return combopPhaseUk;
-    }
-
-    public void setCombopPhaseUk(String combopPhaseUk) {
-        this.combopPhaseUk = combopPhaseUk;
+    public void setUk(String uk) {
+        this.uk = uk;
     }
 
     public List<AutoexecJobPhaseNodeStatusCountVo> getStatusCountVoList() {
@@ -131,5 +141,13 @@ public class AutoexecJobPhaseVo extends BasePageVo {
 
     public void addStatusCountVo(AutoexecJobPhaseNodeStatusCountVo statusCountVo){
         this.statusCountVoList.add(statusCountVo);
+    }
+
+    public List<AutoexecJobPhaseOperationVo> getOperationList() {
+        return operationList;
+    }
+
+    public void setOperationList(List<AutoexecJobPhaseOperationVo> operationList) {
+        this.operationList = operationList;
     }
 }
