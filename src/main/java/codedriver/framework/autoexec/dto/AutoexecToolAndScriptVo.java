@@ -6,12 +6,15 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ToolType;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
@@ -35,6 +38,14 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     private String riskName;
     @EntityField(name = "操作级别颜色", type = ApiParamType.STRING)
     private String riskColor;
+
+    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
+    @JSONField(serialize = false)
+    private transient List<AutoexecScriptVersionParamVo> paramList;
+    @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptVersionParamVo> inputParamList;
+    @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptVersionParamVo> outputParamList;
 
     @JSONField(serialize = false)
     private transient List<Long> typeIdList;
@@ -139,5 +150,27 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
     public void setRiskIdList(List<Long> riskIdList) {
         this.riskIdList = riskIdList;
+    }
+
+    public List<AutoexecScriptVersionParamVo> getParamList() {
+        return paramList;
+    }
+
+    public void setParamList(List<AutoexecScriptVersionParamVo> paramList) {
+        this.paramList = paramList;
+    }
+
+    public List<AutoexecScriptVersionParamVo> getIntputParamList() {
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
+            inputParamList = paramList.stream().filter(o -> "input".equals(o.getType())).collect(Collectors.toList());
+        }
+        return inputParamList;
+    }
+
+    public List<AutoexecScriptVersionParamVo> getOutputParamList() {
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
+            outputParamList = paramList.stream().filter(o -> "output".equals(o.getType())).collect(Collectors.toList());
+        }
+        return outputParamList;
     }
 }
