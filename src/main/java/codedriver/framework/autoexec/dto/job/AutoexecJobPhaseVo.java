@@ -115,14 +115,6 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.execMode = execMode;
     }
 
-    public List<AutoexecJobPhaseOperationVo> getOperationList() {
-        return operationList;
-    }
-
-    public void setOperationList(List<AutoexecJobPhaseOperationVo> operationList) {
-        this.operationList = operationList;
-    }
-
     public String getName() {
         return name;
     }
@@ -149,5 +141,13 @@ public class AutoexecJobPhaseVo extends BasePageVo {
 
     public void addStatusCountVo(AutoexecJobPhaseNodeStatusCountVo statusCountVo){
         this.statusCountVoList.add(statusCountVo);
+    }
+
+    public List<AutoexecJobPhaseOperationVo> getOperationList() {
+        return operationList;
+    }
+
+    public void setOperationList(List<AutoexecJobPhaseOperationVo> operationList) {
+        this.operationList = operationList;
     }
 }
