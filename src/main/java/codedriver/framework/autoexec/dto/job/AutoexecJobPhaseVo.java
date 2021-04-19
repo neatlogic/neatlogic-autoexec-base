@@ -5,9 +5,12 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,8 +45,20 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private String uk;
     @EntityField(name = "状态统计数量", type = ApiParamType.STRING)
     private List<AutoexecJobPhaseNodeStatusCountVo> statusCountVoList = new ArrayList<>();
+    @EntityField(name = "执行顺序", type = ApiParamType.INTEGER)
+    private Integer sort;
 
-    public AutoexecJobPhaseVo() {}
+    public AutoexecJobPhaseVo() {
+    }
+
+    public AutoexecJobPhaseVo(JSONObject phaseJson, Integer index, Long jobId) {
+        this.uk = phaseJson.getString("uk");
+        this.name = phaseJson.getString("name");
+        this.execMode = phaseJson.getString("execMode");
+        this.status = JobStatus.PENDING.getValue();
+        this.jobId = jobId;
+        this.sort = index;
+    }
 
     public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
         this.id = _id;
@@ -52,6 +67,9 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     }
 
     public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
         return id;
     }
 
@@ -139,7 +157,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.statusCountVoList = statusCountVoList;
     }
 
-    public void addStatusCountVo(AutoexecJobPhaseNodeStatusCountVo statusCountVo){
+    public void addStatusCountVo(AutoexecJobPhaseNodeStatusCountVo statusCountVo) {
         this.statusCountVoList.add(statusCountVo);
     }
 
@@ -149,5 +167,13 @@ public class AutoexecJobPhaseVo extends BasePageVo {
 
     public void setOperationList(List<AutoexecJobPhaseOperationVo> operationList) {
         this.operationList = operationList;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

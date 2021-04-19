@@ -41,7 +41,7 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
     private List<AutoexecScriptLineVo> lineList;
 
     @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecScriptVersionParamVo> intputParamList;
+    private List<AutoexecScriptVersionParamVo> inputParamList;
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> outputParamList;
 
@@ -135,10 +135,10 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
     }
 
     public List<AutoexecScriptVersionParamVo> getIntputParamList() {
-        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(intputParamList)) {
-            intputParamList = paramList.stream().filter(o -> "input".equals(o.getType())).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
+            inputParamList = paramList.stream().filter(o -> "input".equals(o.getType())).collect(Collectors.toList());
         }
-        return intputParamList;
+        return inputParamList;
     }
 
     public List<AutoexecScriptVersionParamVo> getOutputParamList() {
