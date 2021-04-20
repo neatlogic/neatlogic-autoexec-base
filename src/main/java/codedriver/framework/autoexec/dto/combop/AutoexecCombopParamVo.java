@@ -27,7 +27,8 @@ public class AutoexecCombopParamVo extends BasePageVo {
     private Integer isRequired;
     @EntityField(name = "参数类型", type = ApiParamType.STRING)
     private String type;
-    private transient Integer sort;
+    @EntityField(name = "顺序", type = ApiParamType.INTEGER)
+    private Integer sort;
 
     public Long getCombopId() {
         return combopId;
