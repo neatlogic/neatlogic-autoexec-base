@@ -32,6 +32,7 @@ public enum ParamType implements IEnum {
             this.put("value", "");
             this.put("defaultValue", "");
             this.put("maxlength", 50);
+            this.put("showPassword", false);
         }
     });
 
