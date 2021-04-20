@@ -91,14 +91,15 @@ public enum ParamType implements IEnum {
         return description;
     }
 
-    public static ParamType getParamType(String _value){
-        for(ParamType e : values()){
-            if(Objects.equals(e.getValue(), _value)){
+    public static ParamType getParamType(String _value) {
+        for (ParamType e : values()) {
+            if (Objects.equals(e.getValue(), _value)) {
                 return e;
             }
         }
         return null;
     }
+
     /**
      * @Description: 不同的枚举类，返回不同的枚举值，可自由组合成List<>或者JSONArray
      * @Author: laiwt
