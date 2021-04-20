@@ -56,7 +56,7 @@ public enum ParamType implements IEnum {
             "日期说明"),
     JSON("json", "json对象", new JSONObject() {
         {
-            this.put("type", "json");
+            this.put("type", "textarea");
             this.put("placeholder", "请输入");
         }
     },
