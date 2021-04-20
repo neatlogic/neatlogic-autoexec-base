@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.combop;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 组合工具全局参数Vo类
@@ -20,7 +21,7 @@ public class AutoexecCombopParamVo extends BasePageVo {
     @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
     @EntityField(name = "参数值", type = ApiParamType.STRING)
-    private String value;
+    private Object value;
     @EntityField(name = "描述", type = ApiParamType.STRING)
     private String description;
     @EntityField(name = "是否必填", type = ApiParamType.INTEGER)
@@ -29,6 +30,10 @@ public class AutoexecCombopParamVo extends BasePageVo {
     private String type;
     @EntityField(name = "顺序", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
+    private JSONObject config;
+
+    private transient String valueStr;
 
     public Long getCombopId() {
         return combopId;
@@ -46,11 +51,11 @@ public class AutoexecCombopParamVo extends BasePageVo {
         this.key = key;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 
@@ -84,5 +89,20 @@ public class AutoexecCombopParamVo extends BasePageVo {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public JSONObject getConfig() {
+        return config;
+    }
+
+    public void setConfig(JSONObject config) {
+        this.config = config;
+    }
+
+    public String getValueStr() {
+        if(value != null){
+            return value.toString();
+        }
+        return null;
     }
 }

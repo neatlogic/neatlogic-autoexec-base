@@ -11,12 +11,12 @@ public class AUTOEXEC_COMBOP_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "操作组维护权限";
+        return "组合工具维护权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "对操作组进行查看、编辑和复制";
+        return "对组合工具进行查看、编辑和复制";
     }
 
     @Override
