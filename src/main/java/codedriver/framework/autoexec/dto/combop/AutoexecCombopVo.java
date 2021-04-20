@@ -10,6 +10,9 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 组合工具Vo类
@@ -48,6 +51,9 @@ public class AutoexecCombopVo extends BaseEditorVo {
     @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
     private Integer executable;
     private transient String configStr;
+    private transient String userUuid;
+    private transient List<String> teamUuidList;
+    private transient List<String> roleUuidList;
 
     public Long getId() {
         if (id == null) {
@@ -169,5 +175,29 @@ public class AutoexecCombopVo extends BaseEditorVo {
             return null;
         }
         return config.toJSONString();
+    }
+
+    public String getUserUuid() {
+        return userUuid;
+    }
+
+    public void setUserUuid(String userUuid) {
+        this.userUuid = userUuid;
+    }
+
+    public List<String> getTeamUuidList() {
+        return teamUuidList;
+    }
+
+    public void setTeamUuidList(List<String> teamUuidList) {
+        this.teamUuidList = teamUuidList;
+    }
+
+    public List<String> getRoleUuidList() {
+        return roleUuidList;
+    }
+
+    public void setRoleUuidList(List<String> roleUuidList) {
+        this.roleUuidList = roleUuidList;
     }
 }
