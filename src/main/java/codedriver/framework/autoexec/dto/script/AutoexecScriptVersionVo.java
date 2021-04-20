@@ -134,7 +134,7 @@ public class AutoexecScriptVersionVo extends BaseEditorVo {
         this.lineList = lineList;
     }
 
-    public List<AutoexecScriptVersionParamVo> getIntputParamList() {
+    public List<AutoexecScriptVersionParamVo> getInputParamList() {
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
             inputParamList = paramList.stream().filter(o -> "input".equals(o.getType())).collect(Collectors.toList());
         }

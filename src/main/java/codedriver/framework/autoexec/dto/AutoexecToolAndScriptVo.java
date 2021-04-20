@@ -160,7 +160,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         this.paramList = paramList;
     }
 
-    public List<AutoexecScriptVersionParamVo> getIntputParamList() {
+    public List<AutoexecScriptVersionParamVo> getInputParamList() {
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
             inputParamList = paramList.stream().filter(o -> "input".equals(o.getType())).collect(Collectors.toList());
         }
