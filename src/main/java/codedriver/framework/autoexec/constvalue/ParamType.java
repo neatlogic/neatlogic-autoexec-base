@@ -49,7 +49,7 @@ public enum ParamType implements IEnum {
     DATE("date", "日期", new JSONObject() {
         {
             this.put("type", "date");
-            this.put("showType", "yyyy-MM-dd");
+            this.put("format", "yyyy-MM-dd");
             this.put("placeholder", "请选择日期");
         }
     },
