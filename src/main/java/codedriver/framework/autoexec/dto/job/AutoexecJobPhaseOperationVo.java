@@ -12,6 +12,7 @@ import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,8 @@ import java.util.List;
 public class AutoexecJobPhaseOperationVo {
     @EntityField(name = "作业剧本操作id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "作业id", type = ApiParamType.LONG)
+    private Long jobId;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
     @EntityField(name = "作业剧本操作唯一标识", type = ApiParamType.STRING)
@@ -82,11 +85,22 @@ public class AutoexecJobPhaseOperationVo {
     }
 
     public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
     }
 
     public Long getJobPhaseId() {
