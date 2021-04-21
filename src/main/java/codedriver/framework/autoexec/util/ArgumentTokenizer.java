@@ -98,7 +98,7 @@ public class ArgumentTokenizer {
                                 state = NORMAL_TOKEN_STATE;
                                 break;
                             case '\'':
-                                map = getMap(currArg);
+                                map = getIdentifiedMap(currArg);
                                 if (map != null) {
                                     argList.add(map);
                                 }
@@ -107,7 +107,7 @@ public class ArgumentTokenizer {
                                 state = SINGLE_QUOTE_STATE;
                                 break;
                             case '"':
-                                map = getMap(currArg);
+                                map = getIdentifiedMap(currArg);
                                 if (map != null) {
                                     argList.add(map);
                                 }
@@ -121,7 +121,7 @@ public class ArgumentTokenizer {
                                     state = NORMAL_TOKEN_STATE;
                                 } else if (state == NORMAL_TOKEN_STATE) {
                                     // Whitespace ends the token; start a new one
-                                    map = getMap(currArg);
+                                    map = getIdentifiedMap(currArg);
                                     if (map != null) {
                                         argList.add(map);
                                     }
@@ -141,7 +141,7 @@ public class ArgumentTokenizer {
             if (escaped) {
                 currArg.append('\\');
             }
-            map = getMap(currArg);
+            map = getIdentifiedMap(currArg);
             if (map != null) {
                 argList.add(map);
             }
@@ -162,7 +162,7 @@ public class ArgumentTokenizer {
         return argList;
     }
 
-    private static Map<String, String> getMap(StringBuilder currArg) {
+    private static Map<String, String> getIdentifiedMap(StringBuilder currArg) {
         if (StringUtils.isNotBlank(currArg)) {
             Map<String, String> map = new HashMap<>();
             String result = currArg.toString();

@@ -25,7 +25,14 @@ public class AutoexecScriptLineVo {
     @EntityField(name = "脚本内容", type = ApiParamType.STRING)
     private String content;
 
+    private Integer isAnnotation; // 是否是注释行
+
     public AutoexecScriptLineVo() {
+    }
+
+    public AutoexecScriptLineVo(String content, Integer lineNumber) {
+        this.content = content;
+        this.lineNumber = lineNumber;
     }
 
     public Long getId() {
@@ -77,5 +84,13 @@ public class AutoexecScriptLineVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getIsAnnotation() {
+        return isAnnotation;
+    }
+
+    public void setIsAnnotation(Integer isAnnotation) {
+        this.isAnnotation = isAnnotation;
     }
 }
