@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ToolType;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -13,6 +14,7 @@ import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -162,14 +164,20 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
     public List<AutoexecScriptVersionParamVo> getInputParamList() {
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
-            inputParamList = paramList.stream().filter(o -> "input".equals(o.getType())).collect(Collectors.toList());
+            inputParamList = paramList.stream()
+                    .filter(o -> ParamMode.INPUT.getValue().equals(o.getMode()))
+                    .sorted(Comparator.comparing(AutoexecScriptVersionParamVo::getSort))
+                    .collect(Collectors.toList());
         }
         return inputParamList;
     }
 
     public List<AutoexecScriptVersionParamVo> getOutputParamList() {
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
-            outputParamList = paramList.stream().filter(o -> "output".equals(o.getType())).collect(Collectors.toList());
+            outputParamList = paramList.stream()
+                    .filter(o -> ParamMode.OUTPUT.getValue().equals(o.getMode()))
+                    .sorted(Comparator.comparing(AutoexecScriptVersionParamVo::getSort))
+                    .collect(Collectors.toList());
         }
         return outputParamList;
     }
