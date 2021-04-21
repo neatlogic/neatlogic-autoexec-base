@@ -5,15 +5,17 @@
 
 package codedriver.framework.autoexec.constvalue;
 
-import codedriver.framework.common.constvalue.FormHandlerType;
 import codedriver.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 全局参数类型枚举类
+ *
  * @author: linbq
  * @since: 2021/4/15 14:26
  **/
@@ -21,28 +23,55 @@ public enum ParamType implements IEnum {
     TEXT("text", "文本", new JSONObject() {
         {
             this.put("type", "text");
-            this.put("value", "");
-            this.put("defaultValue", "");
-            this.put("maxlength", 50);
+            this.put("maxlength", 500);
+            this.put("placeholder", "请输入");
         }
-    }),
+    },
+            "文本说明"),
     PASSWORD("password", "密码", new JSONObject() {
         {
             this.put("type", "password");
-            this.put("value", "");
-            this.put("defaultValue", "");
             this.put("maxlength", 50);
+            this.put("showPassword", true);
+            this.put("placeholder", "请输入");
         }
-    });
+    },
+            "密码说明"),
+    FILE("file", "文件", new JSONObject() {
+        {
+            this.put("type", "file");
+            this.put("dataType", "autoexec");
+            this.put("formatList", new ArrayList<>());
+            this.put("placeholder", "请上传");
+        }
+    },
+            "文件说明"),
+    DATE("date", "日期", new JSONObject() {
+        {
+            this.put("type", "date");
+            this.put("format", "yyyy-MM-dd");
+            this.put("placeholder", "请选择日期");
+        }
+    },
+            "日期说明"),
+    JSON("json", "json对象", new JSONObject() {
+        {
+            this.put("type", "textarea");
+            this.put("placeholder", "请输入");
+        }
+    },
+            "json对象说明");
 
     private String value;
     private String text;
     private JSONObject config;
+    private String description;
 
-    private ParamType(String value, String text, JSONObject config) {
+    private ParamType(String value, String text, JSONObject config, String description) {
         this.value = value;
         this.text = text;
         this.config = config;
+        this.description = description;
     }
 
     public String getValue() {
@@ -55,6 +84,19 @@ public enum ParamType implements IEnum {
 
     public JSONObject getConfig() {
         return config;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public static ParamType getParamType(String _value) {
+        for (ParamType e : values()) {
+            if (Objects.equals(e.getValue(), _value)) {
+                return e;
+            }
+        }
+        return null;
     }
 
     /**
@@ -72,6 +114,7 @@ public enum ParamType implements IEnum {
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
             jsonObj.put("config", e.getConfig());
+            jsonObj.put("description", e.getDescription());
             resultList.add(jsonObj);
         }
         return resultList;
