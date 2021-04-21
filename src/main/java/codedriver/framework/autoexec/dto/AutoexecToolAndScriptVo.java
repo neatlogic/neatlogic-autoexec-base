@@ -40,6 +40,8 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     private String riskName;
     @EntityField(name = "操作级别颜色", type = ApiParamType.STRING)
     private String riskColor;
+    @EntityField(name = "操作级别")
+    private AutoexecRiskVo riskVo;
 
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
     @JSONField(serialize = false)
@@ -152,6 +154,14 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
     public void setRiskIdList(List<Long> riskIdList) {
         this.riskIdList = riskIdList;
+    }
+
+    public AutoexecRiskVo getRiskVo() {
+        return riskVo;
+    }
+
+    public void setRiskVo(AutoexecRiskVo riskVo) {
+        this.riskVo = riskVo;
     }
 
     public List<AutoexecScriptVersionParamVo> getParamList() {
