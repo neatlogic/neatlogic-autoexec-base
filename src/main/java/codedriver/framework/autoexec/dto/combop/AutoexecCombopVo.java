@@ -5,12 +5,14 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.constvalue.CombopOperationType;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.ibatis.annotations.Param;
+import com.alibaba.fastjson.TypeReference;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class AutoexecCombopVo extends BaseEditorVo {
     @EntityField(name = "通知策略id", type = ApiParamType.LONG)
     private Long notifyPolicyId;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
-    private JSONObject config;
+    private AutoexecCombopConfigVo config;
     @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
     private int referenceCount;
     @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
@@ -54,6 +56,16 @@ public class AutoexecCombopVo extends BaseEditorVo {
     private transient String userUuid;
     private transient List<String> teamUuidList;
     private transient List<String> roleUuidList;
+
+    public AutoexecCombopVo() {
+    }
+
+    public AutoexecCombopVo(AutoexecScriptVo autoexecScriptVo) {
+        this.uk = autoexecScriptVo.getUk();
+        this.name = autoexecScriptVo.getName();
+        this.typeId = autoexecScriptVo.getTypeId();
+        this.operationType = CombopOperationType.SCRIPT.getValue();
+    }
 
     public Long getId() {
         if (id == null) {
@@ -130,12 +142,13 @@ public class AutoexecCombopVo extends BaseEditorVo {
         this.notifyPolicyId = notifyPolicyId;
     }
 
-    public JSONObject getConfig() {
+    public AutoexecCombopConfigVo getConfig() {
         return config;
     }
 
     public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config);
+        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopConfigVo>() {
+        });
     }
 
     public int getReferenceCount() {
@@ -174,7 +187,7 @@ public class AutoexecCombopVo extends BaseEditorVo {
         if (this.config == null) {
             return null;
         }
-        return config.toJSONString();
+        return JSONObject.toJSONString(config);
     }
 
     public String getUserUuid() {
