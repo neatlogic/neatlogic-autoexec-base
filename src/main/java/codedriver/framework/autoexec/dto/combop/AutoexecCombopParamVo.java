@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -12,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 组合工具全局参数Vo类
+ *
  * @author: linbq
  * @since: 2021/4/13 10:04
  **/
@@ -21,7 +23,7 @@ public class AutoexecCombopParamVo extends BasePageVo {
     @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
     @EntityField(name = "参数值", type = ApiParamType.STRING)
-    private Object value;
+    private Object defaultValue;
     @EntityField(name = "描述", type = ApiParamType.STRING)
     private String description;
     @EntityField(name = "是否必填", type = ApiParamType.INTEGER)
@@ -33,7 +35,19 @@ public class AutoexecCombopParamVo extends BasePageVo {
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
 
-    private transient String valueStr;
+    private transient String defaultValueStr;
+
+    public AutoexecCombopParamVo() {
+    }
+
+    public AutoexecCombopParamVo(AutoexecScriptVersionParamVo autoexecScriptVersionParamVo) {
+        this.key = autoexecScriptVersionParamVo.getKey();
+        this.defaultValue = autoexecScriptVersionParamVo.getDefaultValue();
+        this.description = autoexecScriptVersionParamVo.getDescription();
+        this.isRequired = autoexecScriptVersionParamVo.getIsRequired();
+        this.type = autoexecScriptVersionParamVo.getType();
+//        this.config = autoexecScriptVersionParamVo.getConfig();
+    }
 
     public Long getCombopId() {
         return combopId;
@@ -51,12 +65,12 @@ public class AutoexecCombopParamVo extends BasePageVo {
         this.key = key;
     }
 
-    public Object getValue() {
-        return value;
+    public Object getDefaultValue() {
+        return defaultValue;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public void setDefaultValue(Object defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     public String getDescription() {
@@ -99,9 +113,9 @@ public class AutoexecCombopParamVo extends BasePageVo {
         this.config = config;
     }
 
-    public String getValueStr() {
-        if(value != null){
-            return value.toString();
+    public String getDefaultValueStr() {
+        if (defaultValue != null) {
+            return defaultValue.toString();
         }
         return null;
     }

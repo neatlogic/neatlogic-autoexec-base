@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -55,6 +56,15 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.uk = phaseJson.getString("uk");
         this.name = phaseJson.getString("name");
         this.execMode = phaseJson.getString("execMode");
+        this.status = JobStatus.PENDING.getValue();
+        this.jobId = jobId;
+        this.sort = index;
+    }
+
+    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Integer index, Long jobId) {
+        this.uk = autoexecCombopPhaseVo.getUk();
+        this.name = autoexecCombopPhaseVo.getName();
+        this.execMode = autoexecCombopPhaseVo.getExecMode();
         this.status = JobStatus.PENDING.getValue();
         this.jobId = jobId;
         this.sort = index;

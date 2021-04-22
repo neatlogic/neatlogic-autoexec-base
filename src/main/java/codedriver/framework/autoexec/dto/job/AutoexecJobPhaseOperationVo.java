@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
@@ -73,6 +74,28 @@ public class AutoexecJobPhaseOperationVo {
         this.parser = scriptVersionVo.getParser();
         //拼接操作脚本到config
         JSONObject operationConfigJson = operationJson.getJSONObject("config");
+        StringBuilder scriptSb = new StringBuilder();
+        for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
+            scriptSb.append(lineVo.getContent());
+        }
+        String script = scriptSb.toString();
+        operationConfigJson.put("script", script);
+        this.script = script;
+        this.paramStr = operationConfigJson.toString();
+
+    }
+
+    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, List<AutoexecScriptLineVo> scriptLineVoList) {
+        this.execMode = phaseVo.getExecMode();
+        this.uk = scriptVo.getUk();
+        this.name = scriptVo.getName();
+        this.jobPhaseId = phaseVo.getId();
+        this.type = CombopOperationType.SCRIPT.getValue();
+        this.execMode = scriptVo.getExecMode();
+        this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
+        this.parser = scriptVersionVo.getParser();
+        //拼接操作脚本到config
+        JSONObject operationConfigJson = (JSONObject)JSONObject.toJSON(autoexecCombopPhaseOperationVo.getConfig());
         StringBuilder scriptSb = new StringBuilder();
         for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
             scriptSb.append(lineVo.getContent());
