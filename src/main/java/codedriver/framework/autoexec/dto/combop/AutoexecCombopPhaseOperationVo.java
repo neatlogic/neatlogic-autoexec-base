@@ -33,6 +33,9 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo {
     }
 
     public Long getOperationId() {
+        if (operationId == null) {
+            operationId = super.getId();
+        }
         return operationId;
     }
 
