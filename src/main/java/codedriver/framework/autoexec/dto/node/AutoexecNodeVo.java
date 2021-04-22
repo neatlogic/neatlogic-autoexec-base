@@ -5,15 +5,23 @@
 
 package codedriver.framework.autoexec.dto.node;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
+
 /**
  * @author: linbq
  * @since: 2021/4/22 14:58
  **/
 public class AutoexecNodeVo {
+    @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "名称", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "ip地址", type = ApiParamType.STRING)
     private String host;
+    @EntityField(name = "端口号", type = ApiParamType.INTEGER)
     private Integer port;
+    @EntityField(name = "类型", type = ApiParamType.STRING)
     private String type;
 
     public AutoexecNodeVo() {
