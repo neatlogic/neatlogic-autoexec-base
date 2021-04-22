@@ -14,7 +14,6 @@ import java.util.List;
 public class AutoexecCombopConfigVo {
 
     private List<AutoexecCombopPhaseVo> combopPhaseList;
-    private List combopNodeList;
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;
@@ -22,13 +21,5 @@ public class AutoexecCombopConfigVo {
 
     public void setCombopPhaseList(List<AutoexecCombopPhaseVo> combopPhaseList) {
         this.combopPhaseList = combopPhaseList;
-    }
-
-    public List getCombopNodeList() {
-        return combopNodeList;
-    }
-
-    public void setCombopNodeList(List combopNodeList) {
-        this.combopNodeList = combopNodeList;
     }
 }

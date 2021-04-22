@@ -13,7 +13,6 @@ import java.util.List;
  **/
 public class AutoexecCombopPhaseConfigVo {
     private List<AutoexecCombopPhaseOperationVo> phaseOperationList;
-    private List phaseNodeList;
 
     public List<AutoexecCombopPhaseOperationVo> getPhaseOperationList() {
         return phaseOperationList;
@@ -21,13 +20,5 @@ public class AutoexecCombopPhaseConfigVo {
 
     public void setPhaseOperationList(List<AutoexecCombopPhaseOperationVo> phaseOperationList) {
         this.phaseOperationList = phaseOperationList;
-    }
-
-    public List getPhaseNodeList() {
-        return phaseNodeList;
-    }
-
-    public void setPhaseNodeList(List phaseNodeList) {
-        this.phaseNodeList = phaseNodeList;
     }
 }
