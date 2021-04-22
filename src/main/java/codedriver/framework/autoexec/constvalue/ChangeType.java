@@ -8,7 +8,8 @@ package codedriver.framework.autoexec.constvalue;
 public enum ChangeType {
     INSERT("insert", "插入"),
     DELETE("delete", "删除"),
-    UPDATE("update", "更新");
+    UPDATE("update", "更新"),
+    FILLBLANK("fillblank", "置空");
     private String value;
     private String text;
 
