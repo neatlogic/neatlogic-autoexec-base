@@ -42,6 +42,8 @@ public class AutoexecCombopVo extends BaseEditorVo {
     private String operationType;
     @EntityField(name = "通知策略id", type = ApiParamType.LONG)
     private Long notifyPolicyId;
+    @EntityField(name = "维护人", type = ApiParamType.STRING)
+    private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
     @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
@@ -52,6 +54,11 @@ public class AutoexecCombopVo extends BaseEditorVo {
     private Integer deletable;
     @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
     private Integer executable;
+    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
+    private Integer ownerEditable;
+    @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
+    private List<AutoexecCombopParamVo> runtimeParamList;
+
     private transient String configStr;
     private transient String userUuid;
     private transient List<String> teamUuidList;
@@ -142,6 +149,14 @@ public class AutoexecCombopVo extends BaseEditorVo {
         this.notifyPolicyId = notifyPolicyId;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public AutoexecCombopConfigVo getConfig() {
         return config;
     }
@@ -181,6 +196,22 @@ public class AutoexecCombopVo extends BaseEditorVo {
 
     public void setExecutable(Integer executable) {
         this.executable = executable;
+    }
+
+    public Integer getOwnerEditable() {
+        return ownerEditable;
+    }
+
+    public void setOwnerEditable(Integer ownerEditable) {
+        this.ownerEditable = ownerEditable;
+    }
+
+    public List<AutoexecCombopParamVo> getRuntimeParamList() {
+        return runtimeParamList;
+    }
+
+    public void setRuntimeParamList(List<AutoexecCombopParamVo> runtimeParamList) {
+        this.runtimeParamList = runtimeParamList;
     }
 
     public String getConfigStr() {

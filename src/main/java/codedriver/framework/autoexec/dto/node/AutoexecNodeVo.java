@@ -23,6 +23,8 @@ public class AutoexecNodeVo {
     private Integer port;
     @EntityField(name = "类型", type = ApiParamType.STRING)
     private String type;
+    @EntityField(name = "状态信息", type = ApiParamType.JSONOBJECT)
+    private AutoexecNodeStatusVo statusVo;
 
     public AutoexecNodeVo() {
 
@@ -74,5 +76,13 @@ public class AutoexecNodeVo {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public AutoexecNodeStatusVo getStatusVo() {
+        return statusVo;
+    }
+
+    public void setStatusVo(AutoexecNodeStatusVo statusVo) {
+        this.statusVo = statusVo;
     }
 }
