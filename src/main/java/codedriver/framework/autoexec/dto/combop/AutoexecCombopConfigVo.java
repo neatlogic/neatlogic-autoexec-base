@@ -21,7 +21,7 @@ public class AutoexecCombopConfigVo {
 
     private String whenToSpecify;
 
-    private JSONObject executeNodeConfig;
+    private AutoexecCombopExecuteNodeConfigVo executeNodeConfig;
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;
@@ -47,11 +47,11 @@ public class AutoexecCombopConfigVo {
         this.whenToSpecify = whenToSpecify;
     }
 
-    public JSONObject getExecuteNodeConfig() {
+    public AutoexecCombopExecuteNodeConfigVo getExecuteNodeConfig() {
         return executeNodeConfig;
     }
 
-    public void setExecuteNodeConfig(JSONObject executeNodeConfig) {
+    public void setExecuteNodeConfig(AutoexecCombopExecuteNodeConfigVo executeNodeConfig) {
         this.executeNodeConfig = executeNodeConfig;
     }
 }
