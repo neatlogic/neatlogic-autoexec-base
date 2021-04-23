@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.List;
 
 /**
@@ -15,11 +17,41 @@ public class AutoexecCombopConfigVo {
 
     private List<AutoexecCombopPhaseVo> combopPhaseList;
 
+    private String executeUser;
+
+    private String whenToSpecify;
+
+    private JSONObject executeNodeConfig;
+
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;
     }
 
     public void setCombopPhaseList(List<AutoexecCombopPhaseVo> combopPhaseList) {
         this.combopPhaseList = combopPhaseList;
+    }
+
+    public String getExecuteUser() {
+        return executeUser;
+    }
+
+    public void setExecuteUser(String executeUser) {
+        this.executeUser = executeUser;
+    }
+
+    public String getWhenToSpecify() {
+        return whenToSpecify;
+    }
+
+    public void setWhenToSpecify(String whenToSpecify) {
+        this.whenToSpecify = whenToSpecify;
+    }
+
+    public JSONObject getExecuteNodeConfig() {
+        return executeNodeConfig;
+    }
+
+    public void setExecuteNodeConfig(JSONObject executeNodeConfig) {
+        this.executeNodeConfig = executeNodeConfig;
     }
 }
