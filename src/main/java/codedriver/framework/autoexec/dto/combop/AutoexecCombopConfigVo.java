@@ -17,11 +17,7 @@ public class AutoexecCombopConfigVo {
 
     private List<AutoexecCombopPhaseVo> combopPhaseList;
 
-    private String executeUser;
-
-    private String whenToSpecify;
-
-    private AutoexecCombopExecuteNodeConfigVo executeNodeConfig;
+    private AutoexecCombopExecuteConfigVo executeConfig;
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;
@@ -31,27 +27,11 @@ public class AutoexecCombopConfigVo {
         this.combopPhaseList = combopPhaseList;
     }
 
-    public String getExecuteUser() {
-        return executeUser;
+    public AutoexecCombopExecuteConfigVo getExecuteConfig() {
+        return executeConfig;
     }
 
-    public void setExecuteUser(String executeUser) {
-        this.executeUser = executeUser;
-    }
-
-    public String getWhenToSpecify() {
-        return whenToSpecify;
-    }
-
-    public void setWhenToSpecify(String whenToSpecify) {
-        this.whenToSpecify = whenToSpecify;
-    }
-
-    public AutoexecCombopExecuteNodeConfigVo getExecuteNodeConfig() {
-        return executeNodeConfig;
-    }
-
-    public void setExecuteNodeConfig(AutoexecCombopExecuteNodeConfigVo executeNodeConfig) {
-        this.executeNodeConfig = executeNodeConfig;
+    public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
+        this.executeConfig = executeConfig;
     }
 }
