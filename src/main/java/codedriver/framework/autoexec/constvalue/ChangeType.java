@@ -6,23 +6,18 @@
 package codedriver.framework.autoexec.constvalue;
 
 public enum ChangeType {
-    INSERT("insert", "插入"),
-    DELETE("delete", "删除"),
-    UPDATE("update", "更新"),
-    FILLBLANK("fillblank", "置空");
-    private String value;
-    private String text;
+    INSERT("insert"),
+    DELETE("delete"),
+    UPDATE("update"),
+    FILLBLANK("fillblank");
+    private final String value;
 
-    private ChangeType(String value, String text) {
+    private ChangeType(String value) {
         this.value = value;
-        this.text = text;
     }
 
     public String getValue() {
         return value;
     }
 
-    public String getText() {
-        return text;
-    }
 }
