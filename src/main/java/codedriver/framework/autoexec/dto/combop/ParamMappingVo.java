@@ -14,6 +14,15 @@ public class ParamMappingVo {
     private String mappingMode;
     private String value;
 
+    public ParamMappingVo() {
+    }
+
+    public ParamMappingVo(String key, String mappingMode, String value) {
+        this.key = key;
+        this.mappingMode = mappingMode;
+        this.value = value;
+    }
+
     public String getKey() {
         return key;
     }
