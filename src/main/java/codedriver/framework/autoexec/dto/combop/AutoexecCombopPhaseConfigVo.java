@@ -16,9 +16,7 @@ import java.util.List;
 public class AutoexecCombopPhaseConfigVo {
     private List<AutoexecCombopPhaseOperationVo> phaseOperationList;
 
-    private String executeUser;
-
-    private JSONObject executeNodeConfig;
+    private AutoexecCombopExecuteConfigVo executeConfig;
 
     public List<AutoexecCombopPhaseOperationVo> getPhaseOperationList() {
         return phaseOperationList;
@@ -28,19 +26,11 @@ public class AutoexecCombopPhaseConfigVo {
         this.phaseOperationList = phaseOperationList;
     }
 
-    public String getExecuteUser() {
-        return executeUser;
+    public AutoexecCombopExecuteConfigVo getExecuteConfig() {
+        return executeConfig;
     }
 
-    public void setExecuteUser(String executeUser) {
-        this.executeUser = executeUser;
-    }
-
-    public JSONObject getExecuteNodeConfig() {
-        return executeNodeConfig;
-    }
-
-    public void setExecuteNodeConfig(JSONObject executeNodeConfig) {
-        this.executeNodeConfig = executeNodeConfig;
+    public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
+        this.executeConfig = executeConfig;
     }
 }
