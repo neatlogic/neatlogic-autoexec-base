@@ -60,7 +60,13 @@ public enum ParamType implements IEnum {
             this.put("placeholder", "请输入");
         }
     },
-            "json对象说明");
+            "json对象说明"),
+    NODE("node", "节点信息", new JSONObject() {
+        {
+            this.put("type", "node");
+            this.put("placeholder", "请选择");
+        }
+    }, "节点信息说明");
 
     private String value;
     private String text;

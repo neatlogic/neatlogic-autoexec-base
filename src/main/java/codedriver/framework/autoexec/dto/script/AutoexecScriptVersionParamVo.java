@@ -16,7 +16,7 @@ public class AutoexecScriptVersionParamVo {
     @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
     @EntityField(name = "参数默认值", type = ApiParamType.STRING)
-    private String defaultValue;
+    private Object defaultValue;
     @EntityField(name = "参数类型(出参、入参)", type = ApiParamType.STRING)
     private String mode;
     @EntityField(name = "表单类型", type = ApiParamType.STRING)
@@ -50,11 +50,11 @@ public class AutoexecScriptVersionParamVo {
         this.key = key;
     }
 
-    public String getDefaultValue() {
+    public Object getDefaultValue() {
         return defaultValue;
     }
 
-    public void setDefaultValue(String defaultValue) {
+    public void setDefaultValue(Object defaultValue) {
         this.defaultValue = defaultValue;
     }
 
