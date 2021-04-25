@@ -19,49 +19,17 @@ import java.util.List;
  * @since: 2021/4/14 17:47
  **/
 public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量", new JSONObject() {
-        {
-            this.put("type", "text");
-            this.put("value", "");
-            this.put("defaultValue", "");
-            this.put("maxlength", 50);
-        }
-    }),
-    RUNTIME_PARAM("runtimeparam", "运行参数", new JSONObject() {
-        {
-            this.put("type", FormHandlerType.SELECT.toString());
-            this.put("search", true);
-            this.put("dynamicUrl", "api/rest/autoexec/combop/param/list");
-            this.put("rootName", "list");
-            this.put("valueName", "key");
-            this.put("textName", "key");
-            this.put("multiple", true);
-            this.put("value", "");
-            this.put("defaultValue", "");
-        }
-    }),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数", new JSONObject() {
-        {
-            this.put("type", FormHandlerType.SELECT.toString());
-            this.put("search", true);
-            this.put("dynamicUrl", "api/rest/autoexec/script/outputparam/list");
-//            this.put("rootName", "list");
-            this.put("valueName", "key");
-            this.put("textName", "key");
-            this.put("multiple", true);
-            this.put("value", "");
-            this.put("defaultValue", "");
-        }
-    });
+    CONSTANT("constant", "常量"),
+    RUNTIME_PARAM("runtimeparam", "运行参数"),
+    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数"),
+    IS_EMPTY("isempty", "为空");
 
     private String value;
     private String text;
-    private JSONObject config;
 
-    private ParamMappingMode(String value, String text, JSONObject config) {
+    private ParamMappingMode(String value, String text) {
         this.value = value;
         this.text = text;
-        this.config = config;
     }
 
     public String getValue() {
@@ -70,10 +38,6 @@ public enum ParamMappingMode implements IEnum {
 
     public String getText() {
         return text;
-    }
-
-    public JSONObject getConfig() {
-        return config;
     }
 
     /**
@@ -90,7 +54,6 @@ public enum ParamMappingMode implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
-            jsonObj.put("config", e.getConfig());
             resultList.add(jsonObj);
         }
         return resultList;
