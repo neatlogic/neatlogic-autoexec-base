@@ -12,7 +12,7 @@ import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 组合工具全局参数Vo类
+ * 组合工具运行参数Vo类
  *
  * @author: linbq
  * @since: 2021/4/13 10:04
@@ -22,6 +22,8 @@ public class AutoexecCombopParamVo extends BasePageVo {
     private Long combopId;
     @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
+    @EntityField(name = "中文名", type = ApiParamType.STRING)
+    private String name;
     @EntityField(name = "参数值", type = ApiParamType.STRING)
     private Object defaultValue;
     @EntityField(name = "描述", type = ApiParamType.STRING)
@@ -63,6 +65,14 @@ public class AutoexecCombopParamVo extends BasePageVo {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Object getDefaultValue() {
