@@ -5,11 +5,15 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.JobStatus;
-import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.common.constvalue.GroupSearch;
 import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.dto.RoleVo;
+import codedriver.framework.dto.TeamVo;
+import codedriver.framework.dto.UserVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
@@ -39,11 +43,11 @@ public class AutoexecJobVo extends BasePageVo {
     private String status;
     @EntityField(name = "作业错误信息", type = ApiParamType.STRING)
     private String error;
-    @EntityField(name = "作业计划开始时间", type = ApiParamType.STRING)
+    @EntityField(name = "作业计划开始时间", type = ApiParamType.LONG)
     private Date planStartTime;
-    @EntityField(name = "开始时间", type = ApiParamType.STRING)
+    @EntityField(name = "开始时间", type = ApiParamType.LONG)
     private Date startTime;
-    @EntityField(name = "结束时间", type = ApiParamType.STRING)
+    @EntityField(name = "结束时间", type = ApiParamType.LONG)
     private Date endTime;
     @EntityField(name = "操作ID", type = ApiParamType.LONG)
     private Long operationId;
@@ -51,6 +55,10 @@ public class AutoexecJobVo extends BasePageVo {
     private String operationType;
     @EntityField(name = "执行用户", type = ApiParamType.STRING)
     private String execUser;
+    @EntityField(name = "执行用户类型", type = ApiParamType.STRING)
+    private String execUserType;
+    @EntityField(name = "执行用户对象", type = ApiParamType.JSONOBJECT)
+    private UserVo execUserVo;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
@@ -94,16 +102,24 @@ public class AutoexecJobVo extends BasePageVo {
     public AutoexecJobVo() {
     }
 
-    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONObject jobParam){
+    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONObject paramJson) {
         this.operationId = combopVo.getId();
         this.operationType = operationType;
         this.name = combopVo.getName();
         this.status = JobStatus.PENDING.getValue();
         this.source = source;
         this.threadCount = threadCount;
-        AutoexecCombopConfigVo combopConfig= combopVo.getConfig();
-        //combopConfig.executeConfig();
-        this.paramStr = JSONObject.toJSONString(combopConfig);
+        JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(combopVo.getRuntimeParamList()));
+        JSONArray combopParamsResult = new JSONArray();
+        for (Object combopParam : combopParams) {
+            JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
+            String value = paramJson.getString(combopParamJson.getString("key"));
+            combopParamJson.put("value", value);
+            combopParamsResult.add(combopParamJson);
+        }
+        this.execUser = UserContext.get().getUserUuid();
+        this.execUserType = GroupSearch.USER.getValue();
+        this.paramStr = combopParamsResult.toJSONString();
     }
 
 
@@ -206,6 +222,14 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setExecUser(String execUser) {
         this.execUser = execUser;
+    }
+
+    public String getExecUserType() {
+        return execUserType;
+    }
+
+    public void setExecUserType(String execUserType) {
+        this.execUserType = execUserType;
     }
 
     public Integer getThreadCount() {
@@ -352,17 +376,34 @@ public class AutoexecJobVo extends BasePageVo {
     }
 
     public JSONArray getParam() {
-        if(StringUtils.isNotBlank(paramStr)){
+        if (StringUtils.isNotBlank(paramStr)) {
             return JSONObject.parseArray(paramStr);
         }
         return null;
     }
 
     public String getParamHash() {
-        if(StringUtils.isNotBlank(paramStr)){
+        if (StringUtils.isNotBlank(paramStr)) {
             paramHash = DigestUtils.md5DigestAsHex(paramStr.getBytes(StandardCharsets.UTF_8));
         }
         return paramHash;
     }
 
+    public Object getExecUserVo() {
+        if (execUserVo == null && StringUtils.isNotBlank(this.execUser)) {
+            if (GroupSearch.USER.getValue().equalsIgnoreCase(execUserType)) {
+                return new UserVo(execUser);
+            } else if (GroupSearch.TEAM.getValue().equalsIgnoreCase(execUserType)) {
+                return new TeamVo(execUser);
+            } else if (GroupSearch.ROLE.getValue().equalsIgnoreCase(execUserType)) {
+                return new RoleVo(execUser);
+            }
+
+        }
+        return execUserVo;
+    }
+
+    public void setExecUserVo(UserVo execUserVo) {
+        this.execUserVo = execUserVo;
+    }
 }
