@@ -26,7 +26,6 @@ import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -97,7 +96,7 @@ public class AutoexecJobVo extends BasePageVo {
     @JSONField(serialize = false)
     private List<String> execUserList;
     @JSONField(serialize = false)
-    private List<String> combopOperationTypeList;
+    private List<String> typeIdList;
 
     public AutoexecJobVo() {
     }
@@ -124,18 +123,18 @@ public class AutoexecJobVo extends BasePageVo {
 
 
     public AutoexecJobVo(JSONObject jsonObj) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         JSONObject startTimeJson = jsonObj.getJSONObject("startTime");
         jsonObj.remove("startTime");
         AutoexecJobVo jobVo = JSONObject.toJavaObject(jsonObj, AutoexecJobVo.class);
         this.setCombopName(jobVo.getCombopName());
-        this.setCombopOperationTypeList(jobVo.getCombopOperationTypeList());
+        this.setTypeIdList(jobVo.getTypeIdList());
         this.setSourceList(jobVo.getSourceList());
         this.setStatusList(jobVo.getStatusList());
+        this.setExecUserList(jobVo.getExecUserList());
         if (MapUtils.isNotEmpty(startTimeJson)) {
             JSONObject timeJson = TimeUtil.getStartTimeAndEndTimeByDateJson(startTimeJson);
-            this.setStartTime(TimeUtil.convertStringToDate(timeJson.getString("startTime"), TimeUtil.YYYY_MM_DD_HH_MM_SS));
-            this.setEndTime(TimeUtil.convertStringToDate(timeJson.getString("endTime"), TimeUtil.YYYY_MM_DD_HH_MM_SS));
+            this.setStartTime(timeJson.getDate("startTime"));
+            this.setEndTime(timeJson.getDate("endTime"));
         }
         this.setCurrentPage(jobVo.getCurrentPage());
         this.setPageSize(jobVo.getPageSize());
@@ -280,12 +279,12 @@ public class AutoexecJobVo extends BasePageVo {
         this.execUserList = execUserList;
     }
 
-    public List<String> getCombopOperationTypeList() {
-        return combopOperationTypeList;
+    public List<String> getTypeIdList() {
+        return typeIdList;
     }
 
-    public void setCombopOperationTypeList(List<String> combopOperationTypeList) {
-        this.combopOperationTypeList = combopOperationTypeList;
+    public void setTypeIdList(List<String> typeIdList) {
+        this.typeIdList = typeIdList;
     }
 
     public String getCombopName() {
