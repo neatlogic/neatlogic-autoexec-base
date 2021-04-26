@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
@@ -93,14 +94,16 @@ public class AutoexecJobVo extends BasePageVo {
     public AutoexecJobVo() {
     }
 
-    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONArray jobParam){
+    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONObject jobParam){
         this.operationId = combopVo.getId();
         this.operationType = operationType;
         this.name = combopVo.getName();
         this.status = JobStatus.PENDING.getValue();
         this.source = source;
         this.threadCount = threadCount;
-        this.paramStr = jobParam.toJSONString();
+        AutoexecCombopConfigVo combopConfig= combopVo.getConfig();
+        //combopConfig.executeConfig();
+        this.paramStr = JSONObject.toJSONString(combopConfig);
     }
 
 

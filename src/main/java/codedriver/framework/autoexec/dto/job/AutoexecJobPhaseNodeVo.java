@@ -5,13 +5,14 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
+import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,16 +23,20 @@ import java.util.List;
 public class AutoexecJobPhaseNodeVo extends BasePageVo {
     @EntityField(name = "作业剧本节点id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "作业id", type = ApiParamType.LONG)
+    private Long jobId;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
     @EntityField(name = "作业剧本主机", type = ApiParamType.STRING)
     private String host;
     @EntityField(name = "作业剧本主机端口", type = ApiParamType.INTEGER)
     private Integer port;
+    @EntityField(name = "执行目标账号", type = ApiParamType.INTEGER)
+    private String userName;
     @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String Status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.INTEGER)
-    private Integer proxyId;
+    private Long proxyId;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
     private Date startTime;
     @EntityField(name = "结束时间", type = ApiParamType.STRING)
@@ -49,12 +54,29 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     public AutoexecJobPhaseNodeVo() {
     }
 
+    public AutoexecJobPhaseNodeVo(AutoexecNodeVo nodeVo) {
+        this.host = nodeVo.getHost();
+        this.port = nodeVo.getPort();
+    }
+
+    public AutoexecJobPhaseNodeVo(AutoexecCombopParamVo paramVo) {
+
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
     }
 
     public Long getJobPhaseId() {
@@ -81,6 +103,14 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
         this.port = port;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getStatus() {
         return Status;
     }
@@ -89,11 +119,11 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
         Status = status;
     }
 
-    public Integer getProxyId() {
+    public Long getProxyId() {
         return proxyId;
     }
 
-    public void setProxyId(Integer proxyId) {
+    public void setProxyId(Long proxyId) {
         this.proxyId = proxyId;
     }
 
@@ -148,4 +178,19 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
         this.proxyUrl = proxyUrl;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AutoexecJobPhaseNodeVo vo = (AutoexecJobPhaseNodeVo) o;
+        return vo.getHost().equals(host)&&vo.getPort().intValue() == port;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
 }
