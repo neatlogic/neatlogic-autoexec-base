@@ -8,11 +8,13 @@ package codedriver.framework.autoexec.dto.node;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
+import java.io.Serializable;
+
 /**
  * @author: linbq
  * @since: 2021/4/22 14:58
  **/
-public class AutoexecNodeVo {
+public class AutoexecNodeVo implements Serializable {
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "名称", type = ApiParamType.STRING)

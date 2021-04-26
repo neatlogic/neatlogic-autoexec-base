@@ -5,11 +5,13 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import java.io.Serializable;
+
 /**
  * @author: linbq
  * @since: 2021/4/21 18:42
  **/
-public class ParamMappingVo {
+public class ParamMappingVo implements Serializable {
     private String key;
     private String mappingMode;
     private String value;
