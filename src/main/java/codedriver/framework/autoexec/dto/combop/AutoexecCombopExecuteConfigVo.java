@@ -5,11 +5,13 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import java.io.Serializable;
+
 /**
  * @author: linbq
  * @since: 2021/4/25 11:49
  **/
-public class AutoexecCombopExecuteConfigVo {
+public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     private String executeUser;
 

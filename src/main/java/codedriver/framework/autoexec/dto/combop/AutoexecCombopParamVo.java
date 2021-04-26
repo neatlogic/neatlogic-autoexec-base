@@ -11,13 +11,15 @@ import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * 组合工具运行参数Vo类
  *
  * @author: linbq
  * @since: 2021/4/13 10:04
  **/
-public class AutoexecCombopParamVo extends BasePageVo {
+public class AutoexecCombopParamVo extends BasePageVo implements Serializable {
     @EntityField(name = "组合工具id", type = ApiParamType.LONG)
     private Long combopId;
     @EntityField(name = "参数名", type = ApiParamType.STRING)

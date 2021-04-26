@@ -7,13 +7,14 @@ package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author: linbq
  * @since: 2021/4/23 11:57
  **/
-public class AutoexecCombopExecuteNodeConfigVo {
+public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
     private List<String> tagList;
     private List<String> paramList;
     private List<AutoexecNodeVo> selectNodeList;

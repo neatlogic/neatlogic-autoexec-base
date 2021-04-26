@@ -9,13 +9,15 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
+import java.io.Serializable;
+
 /**
  * 组合工具阶段Vo类
  *
  * @author: linbq
  * @since: 2021/4/13 10:05
  **/
-public class AutoexecCombopPhaseVo {
+public class AutoexecCombopPhaseVo implements Serializable {
     private Long id;
     private Long combopId;
     private String uk;

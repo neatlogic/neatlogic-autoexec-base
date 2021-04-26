@@ -7,11 +7,13 @@ package codedriver.framework.autoexec.dto.node;
 
 import codedriver.framework.autoexec.constvalue.NodeStatus;
 
+import java.io.Serializable;
+
 /**
  * @author: linbq
  * @since: 2021/4/23 14:41
  **/
-public class AutoexecNodeStatusVo {
+public class AutoexecNodeStatusVo implements Serializable {
     private String status;
     private String name;
     private String color;

@@ -14,6 +14,7 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ import java.util.List;
  * @author: linbq
  * @since: 2021/4/13 9:54
  **/
-public class AutoexecCombopVo extends BaseEditorVo {
+public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;

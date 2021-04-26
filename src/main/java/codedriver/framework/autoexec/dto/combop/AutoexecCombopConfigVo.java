@@ -5,15 +5,14 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
-import com.alibaba.fastjson.JSONObject;
-
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author: linbq
  * @since: 2021/4/21 18:06
  **/
-public class AutoexecCombopConfigVo {
+public class AutoexecCombopConfigVo implements Serializable {
 
     private List<AutoexecCombopPhaseVo> combopPhaseList;
 
