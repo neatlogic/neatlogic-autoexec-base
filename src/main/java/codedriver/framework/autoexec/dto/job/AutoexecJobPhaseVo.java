@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -59,6 +60,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.status = JobStatus.PENDING.getValue();
         this.jobId = jobId;
         this.sort = index;
+        this.execUser = UserContext.get().getUserUuid(true);
     }
 
     public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Integer index, Long jobId) {
@@ -68,6 +70,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.status = JobStatus.PENDING.getValue();
         this.jobId = jobId;
         this.sort = index;
+        this.execUser = UserContext.get().getUserUuid(true);
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
