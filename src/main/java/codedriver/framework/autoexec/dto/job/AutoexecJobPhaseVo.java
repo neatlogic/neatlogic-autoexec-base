@@ -27,7 +27,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private Long id;
     @EntityField(name = "作业id", type = ApiParamType.LONG)
     private Long jobId;
-    @EntityField(name = "作业状态", type = ApiParamType.STRING)
+    @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "失败原因", type = ApiParamType.STRING)
     private String errorMsg;

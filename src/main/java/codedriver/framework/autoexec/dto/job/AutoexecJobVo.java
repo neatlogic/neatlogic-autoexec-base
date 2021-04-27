@@ -40,6 +40,8 @@ public class AutoexecJobVo extends BasePageVo {
     private String name;
     @EntityField(name = "作业状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "作业状态名", type = ApiParamType.STRING)
+    private String statusName;
     @EntityField(name = "作业错误信息", type = ApiParamType.STRING)
     private String error;
     @EntityField(name = "作业计划开始时间", type = ApiParamType.LONG)
@@ -73,6 +75,8 @@ public class AutoexecJobVo extends BasePageVo {
     @EntityField(name = "运行参数JSON", type = ApiParamType.JSONOBJECT)
     private JSONArray param;
     private String paramHash;
+    @EntityField(name = "是否允许执行作业", type = ApiParamType.INTEGER)
+    private Integer isCanJobExec;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
     private Integer isCanJobPause;
     @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
@@ -124,6 +128,7 @@ public class AutoexecJobVo extends BasePageVo {
 
     public AutoexecJobVo(JSONObject jsonObj) throws ParseException {
         JSONObject startTimeJson = jsonObj.getJSONObject("startTime");
+        Long operationId = jsonObj.getLong("combopId");
         jsonObj.remove("startTime");
         AutoexecJobVo jobVo = JSONObject.toJavaObject(jsonObj, AutoexecJobVo.class);
         this.setCombopName(jobVo.getCombopName());
@@ -138,6 +143,7 @@ public class AutoexecJobVo extends BasePageVo {
         }
         this.setCurrentPage(jobVo.getCurrentPage());
         this.setPageSize(jobVo.getPageSize());
+        this.setOperationId(operationId);
     }
 
     public Long getId() {
@@ -165,6 +171,13 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        if(StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
+            return JobStatus.getText(status);
+        }
+        return statusName;
     }
 
     public String getError() {
@@ -316,6 +329,14 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setCostTime(String costTime) {
         this.costTime = costTime;
+    }
+
+    public Integer getIsCanJobExec() {
+        return isCanJobExec;
+    }
+
+    public void setIsCanJobExec(Integer isCanJobExec) {
+        this.isCanJobExec = isCanJobExec;
     }
 
     public Integer getIsCanJobPause() {
