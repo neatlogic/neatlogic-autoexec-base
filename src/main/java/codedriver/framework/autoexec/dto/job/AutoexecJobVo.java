@@ -40,8 +40,8 @@ public class AutoexecJobVo extends BasePageVo {
     private String name;
     @EntityField(name = "作业状态", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "作业状态名", type = ApiParamType.STRING)
-    private String statusName;
+    @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobStatusVo statusVo;
     @EntityField(name = "作业错误信息", type = ApiParamType.STRING)
     private String error;
     @EntityField(name = "作业计划开始时间", type = ApiParamType.LONG)
@@ -173,11 +173,11 @@ public class AutoexecJobVo extends BasePageVo {
         this.status = status;
     }
 
-    public String getStatusName() {
-        if(StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
-            return JobStatus.getText(status);
+    public AutoexecJobStatusVo getStatusVo() {
+        if(statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status,JobStatus.getText(status),JobStatus.getColor(status));
         }
-        return statusName;
+        return statusVo;
     }
 
     public String getError() {
