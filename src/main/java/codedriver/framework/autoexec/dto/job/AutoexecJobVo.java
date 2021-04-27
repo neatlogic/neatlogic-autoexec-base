@@ -43,7 +43,7 @@ public class AutoexecJobVo extends BasePageVo {
     @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobStatusVo statusVo;
     @EntityField(name = "作业错误信息", type = ApiParamType.STRING)
-    private String error;
+    private String errorMsg;
     @EntityField(name = "作业计划开始时间", type = ApiParamType.LONG)
     private Date planStartTime;
     @EntityField(name = "开始时间", type = ApiParamType.LONG)
@@ -180,12 +180,12 @@ public class AutoexecJobVo extends BasePageVo {
         return statusVo;
     }
 
-    public String getError() {
-        return error;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 
     public Date getPlanStartTime() {
