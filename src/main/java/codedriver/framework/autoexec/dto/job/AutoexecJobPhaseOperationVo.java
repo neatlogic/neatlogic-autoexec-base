@@ -86,6 +86,7 @@ public class AutoexecJobPhaseOperationVo {
     }
 
     public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, List<AutoexecScriptLineVo> scriptLineVoList) {
+        this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
         this.uk = scriptVo.getUk();
         this.name = scriptVo.getName();

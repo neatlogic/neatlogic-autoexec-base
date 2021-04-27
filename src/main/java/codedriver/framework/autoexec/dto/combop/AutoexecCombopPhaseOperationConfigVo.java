@@ -5,13 +5,14 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author: linbq
  * @since: 2021/4/21 18:41
  **/
-public class AutoexecCombopPhaseOperationConfigVo {
+public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
     private List<ParamMappingVo> paramMappingList;
 
     public List<ParamMappingVo> getParamMappingList() {

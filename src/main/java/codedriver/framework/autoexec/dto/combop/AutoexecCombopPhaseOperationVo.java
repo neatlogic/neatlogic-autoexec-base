@@ -9,13 +9,15 @@ import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
+import java.io.Serializable;
+
 /**
  * 组合工具阶段操作Vo类
  *
  * @author: linbq
  * @since: 2021/4/13 10:08
  **/
-public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo {
+public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo implements Serializable {
     private Long combopPhaseId;
     private Long operationId;
     private String operationType;
