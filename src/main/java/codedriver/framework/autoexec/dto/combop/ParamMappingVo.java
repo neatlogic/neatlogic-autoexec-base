@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class ParamMappingVo implements Serializable {
     private String key;
     private String mappingMode;
-    private String value;
+    private Object value;
 
     public ParamMappingVo() {
     }
@@ -41,11 +41,11 @@ public class ParamMappingVo implements Serializable {
         this.mappingMode = mappingMode;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 }
