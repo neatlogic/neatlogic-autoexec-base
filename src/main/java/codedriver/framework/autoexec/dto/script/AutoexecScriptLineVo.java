@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.script;
 
+import codedriver.framework.autoexec.constvalue.ChangeType;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
@@ -24,6 +25,9 @@ public class AutoexecScriptLineVo {
 
     @EntityField(name = "脚本内容", type = ApiParamType.STRING)
     private String content;
+
+    @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
+    private String changeType;
 
     public AutoexecScriptLineVo() {
     }
@@ -77,5 +81,13 @@ public class AutoexecScriptLineVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getChangeType() {
+        return changeType;
+    }
+
+    public void setChangeType(String changeType) {
+        this.changeType = changeType;
     }
 }
