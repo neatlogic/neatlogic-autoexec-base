@@ -5,10 +5,15 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.common.constvalue.GroupSearch;
 import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.dto.RoleVo;
+import codedriver.framework.dto.TeamVo;
+import codedriver.framework.dto.UserVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
@@ -21,7 +26,6 @@ import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -36,13 +40,15 @@ public class AutoexecJobVo extends BasePageVo {
     private String name;
     @EntityField(name = "作业状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobStatusVo statusVo;
     @EntityField(name = "作业错误信息", type = ApiParamType.STRING)
-    private String error;
-    @EntityField(name = "作业计划开始时间", type = ApiParamType.STRING)
+    private String errorMsg;
+    @EntityField(name = "作业计划开始时间", type = ApiParamType.LONG)
     private Date planStartTime;
-    @EntityField(name = "开始时间", type = ApiParamType.STRING)
+    @EntityField(name = "开始时间", type = ApiParamType.LONG)
     private Date startTime;
-    @EntityField(name = "结束时间", type = ApiParamType.STRING)
+    @EntityField(name = "结束时间", type = ApiParamType.LONG)
     private Date endTime;
     @EntityField(name = "操作ID", type = ApiParamType.LONG)
     private Long operationId;
@@ -50,6 +56,10 @@ public class AutoexecJobVo extends BasePageVo {
     private String operationType;
     @EntityField(name = "执行用户", type = ApiParamType.STRING)
     private String execUser;
+    @EntityField(name = "执行用户类型", type = ApiParamType.STRING)
+    private String execUserType;
+    @EntityField(name = "执行用户对象", type = ApiParamType.JSONOBJECT)
+    private UserVo execUserVo;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
@@ -65,6 +75,8 @@ public class AutoexecJobVo extends BasePageVo {
     @EntityField(name = "运行参数JSON", type = ApiParamType.JSONOBJECT)
     private JSONArray param;
     private String paramHash;
+    @EntityField(name = "是否允许执行作业", type = ApiParamType.INTEGER)
+    private Integer isCanJobExec;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
     private Integer isCanJobPause;
     @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
@@ -88,38 +100,50 @@ public class AutoexecJobVo extends BasePageVo {
     @JSONField(serialize = false)
     private List<String> execUserList;
     @JSONField(serialize = false)
-    private List<String> combopOperationTypeList;
+    private List<String> typeIdList;
 
     public AutoexecJobVo() {
     }
 
-    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONArray jobParam){
+    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONObject paramJson) {
         this.operationId = combopVo.getId();
         this.operationType = operationType;
         this.name = combopVo.getName();
         this.status = JobStatus.PENDING.getValue();
         this.source = source;
         this.threadCount = threadCount;
-        this.paramStr = jobParam.toJSONString();
+        JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(combopVo.getRuntimeParamList()));
+        JSONArray combopParamsResult = new JSONArray();
+        for (Object combopParam : combopParams) {
+            JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
+            String value = paramJson.getString(combopParamJson.getString("key"));
+            combopParamJson.put("value", value);
+            combopParamsResult.add(combopParamJson);
+        }
+        this.execUser = UserContext.get().getUserUuid();
+        this.execUserType = GroupSearch.USER.getValue();
+        this.paramStr = combopParamsResult.toJSONString();
     }
 
 
     public AutoexecJobVo(JSONObject jsonObj) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         JSONObject startTimeJson = jsonObj.getJSONObject("startTime");
+        Long operationId = jsonObj.getLong("combopId");
         jsonObj.remove("startTime");
         AutoexecJobVo jobVo = JSONObject.toJavaObject(jsonObj, AutoexecJobVo.class);
         this.setCombopName(jobVo.getCombopName());
-        this.setCombopOperationTypeList(jobVo.getCombopOperationTypeList());
+        this.setTypeIdList(jobVo.getTypeIdList());
         this.setSourceList(jobVo.getSourceList());
         this.setStatusList(jobVo.getStatusList());
+        this.setExecUserList(jobVo.getExecUserList());
         if (MapUtils.isNotEmpty(startTimeJson)) {
             JSONObject timeJson = TimeUtil.getStartTimeAndEndTimeByDateJson(startTimeJson);
-            this.setStartTime(TimeUtil.convertStringToDate(timeJson.getString("startTime"), TimeUtil.YYYY_MM_DD_HH_MM_SS));
-            this.setEndTime(TimeUtil.convertStringToDate(timeJson.getString("endTime"), TimeUtil.YYYY_MM_DD_HH_MM_SS));
+            this.setStartTime(timeJson.getDate("startTime"));
+            this.setEndTime(timeJson.getDate("endTime"));
         }
         this.setCurrentPage(jobVo.getCurrentPage());
         this.setPageSize(jobVo.getPageSize());
+        this.setOperationId(operationId);
     }
 
     public Long getId() {
@@ -149,12 +173,19 @@ public class AutoexecJobVo extends BasePageVo {
         this.status = status;
     }
 
-    public String getError() {
-        return error;
+    public AutoexecJobStatusVo getStatusVo() {
+        if(statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status,JobStatus.getText(status),JobStatus.getColor(status));
+        }
+        return statusVo;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 
     public Date getPlanStartTime() {
@@ -205,6 +236,14 @@ public class AutoexecJobVo extends BasePageVo {
         this.execUser = execUser;
     }
 
+    public String getExecUserType() {
+        return execUserType;
+    }
+
+    public void setExecUserType(String execUserType) {
+        this.execUserType = execUserType;
+    }
+
     public Integer getThreadCount() {
         return threadCount;
     }
@@ -253,12 +292,12 @@ public class AutoexecJobVo extends BasePageVo {
         this.execUserList = execUserList;
     }
 
-    public List<String> getCombopOperationTypeList() {
-        return combopOperationTypeList;
+    public List<String> getTypeIdList() {
+        return typeIdList;
     }
 
-    public void setCombopOperationTypeList(List<String> combopOperationTypeList) {
-        this.combopOperationTypeList = combopOperationTypeList;
+    public void setTypeIdList(List<String> typeIdList) {
+        this.typeIdList = typeIdList;
     }
 
     public String getCombopName() {
@@ -290,6 +329,14 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setCostTime(String costTime) {
         this.costTime = costTime;
+    }
+
+    public Integer getIsCanJobExec() {
+        return isCanJobExec;
+    }
+
+    public void setIsCanJobExec(Integer isCanJobExec) {
+        this.isCanJobExec = isCanJobExec;
     }
 
     public Integer getIsCanJobPause() {
@@ -349,17 +396,34 @@ public class AutoexecJobVo extends BasePageVo {
     }
 
     public JSONArray getParam() {
-        if(StringUtils.isNotBlank(paramStr)){
+        if (StringUtils.isNotBlank(paramStr)) {
             return JSONObject.parseArray(paramStr);
         }
         return null;
     }
 
     public String getParamHash() {
-        if(StringUtils.isNotBlank(paramStr)){
+        if (StringUtils.isNotBlank(paramStr)) {
             paramHash = DigestUtils.md5DigestAsHex(paramStr.getBytes(StandardCharsets.UTF_8));
         }
         return paramHash;
     }
 
+    public Object getExecUserVo() {
+        if (execUserVo == null && StringUtils.isNotBlank(this.execUser)) {
+            if (GroupSearch.USER.getValue().equalsIgnoreCase(execUserType)) {
+                return new UserVo(execUser);
+            } else if (GroupSearch.TEAM.getValue().equalsIgnoreCase(execUserType)) {
+                return new TeamVo(execUser);
+            } else if (GroupSearch.ROLE.getValue().equalsIgnoreCase(execUserType)) {
+                return new RoleVo(execUser);
+            }
+
+        }
+        return execUserVo;
+    }
+
+    public void setExecUserVo(UserVo execUserVo) {
+        this.execUserVo = execUserVo;
+    }
 }

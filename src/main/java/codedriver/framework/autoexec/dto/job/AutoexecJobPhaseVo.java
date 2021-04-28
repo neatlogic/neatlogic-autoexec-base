@@ -5,7 +5,9 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -25,7 +27,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private Long id;
     @EntityField(name = "作业id", type = ApiParamType.LONG)
     private Long jobId;
-    @EntityField(name = "作业状态", type = ApiParamType.STRING)
+    @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "失败原因", type = ApiParamType.STRING)
     private String errorMsg;
@@ -58,6 +60,17 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.status = JobStatus.PENDING.getValue();
         this.jobId = jobId;
         this.sort = index;
+        this.execUser = UserContext.get().getUserUuid(true);
+    }
+
+    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Integer index, Long jobId) {
+        this.uk = autoexecCombopPhaseVo.getUk();
+        this.name = autoexecCombopPhaseVo.getName();
+        this.execMode = autoexecCombopPhaseVo.getExecMode();
+        this.status = JobStatus.PENDING.getValue();
+        this.jobId = jobId;
+        this.sort = index;
+        this.execUser = UserContext.get().getUserUuid(true);
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {

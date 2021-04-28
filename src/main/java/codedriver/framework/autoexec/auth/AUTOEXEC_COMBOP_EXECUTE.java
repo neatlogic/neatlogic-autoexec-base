@@ -7,16 +7,16 @@ package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
 
-public class AUTOEXEC_COMBOP_MODIFY extends AuthBase {
+public class AUTOEXEC_COMBOP_EXECUTE extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "组合工具维护权限";
+        return "组合工具执行权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "对组合工具进行新增、复制、导入/导出、编辑、查看、删除、授权、执行记录、启用/禁用";
+        return "对组合工具进行查看、执行记录、添加定时任务、执行";
     }
 
     @Override

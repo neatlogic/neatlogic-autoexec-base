@@ -5,7 +5,6 @@
 
 package codedriver.framework.autoexec.constvalue;
 
-import codedriver.framework.common.constvalue.FormHandlerType;
 import codedriver.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -13,21 +12,15 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 /**
- * 参数映射模式枚举类
- *
  * @author: linbq
- * @since: 2021/4/14 17:47
+ * @since: 2021/4/22 18:41
  **/
-public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量"),
-    RUNTIME_PARAM("runtimeparam", "运行参数"),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数"),
-    IS_EMPTY("isempty", "为空");
-
+public enum CombopNodeSpecify implements IEnum {
+    NOW("now", "现在指定执行目标"), RUNTIME("runtime", "运行时再指定执行目标");
     private String value;
     private String text;
 
-    private ParamMappingMode(String value, String text) {
+    private CombopNodeSpecify(String value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -50,7 +43,7 @@ public enum ParamMappingMode implements IEnum {
     @Override
     public List getValueTextList() {
         JSONArray resultList = new JSONArray();
-        for (ParamMappingMode e : values()) {
+        for (CombopNodeSpecify e : values()) {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());

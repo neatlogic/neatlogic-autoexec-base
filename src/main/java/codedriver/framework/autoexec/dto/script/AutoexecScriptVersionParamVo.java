@@ -15,15 +15,17 @@ public class AutoexecScriptVersionParamVo {
     @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
     @EntityField(name = "参数默认值", type = ApiParamType.STRING)
-    private String defaultValue;
+    private Object defaultValue;
     @EntityField(name = "参数类型(出参、入参)", type = ApiParamType.STRING)
-    private String type;
+    private String mode;
     @EntityField(name = "表单类型", type = ApiParamType.STRING)
-    private String handler;
+    private String type;
     @EntityField(name = "是否必填(1:是;0:否)", type = ApiParamType.INTEGER)
     private Integer isRequired;
     @EntityField(name = "说明", type = ApiParamType.STRING)
     private String description;
+    @EntityField(name = "排序", type = ApiParamType.INTEGER)
+    private Integer sort;
 
     public AutoexecScriptVersionParamVo() {
     }
@@ -44,11 +46,11 @@ public class AutoexecScriptVersionParamVo {
         this.key = key;
     }
 
-    public String getDefaultValue() {
+    public Object getDefaultValue() {
         return defaultValue;
     }
 
-    public void setDefaultValue(String defaultValue) {
+    public void setDefaultValue(Object defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -60,12 +62,12 @@ public class AutoexecScriptVersionParamVo {
         this.type = type;
     }
 
-    public String getHandler() {
-        return handler;
+    public String getMode() {
+        return mode;
     }
 
-    public void setHandler(String handler) {
-        this.handler = handler;
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
     public Integer getIsRequired() {
@@ -82,5 +84,13 @@ public class AutoexecScriptVersionParamVo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

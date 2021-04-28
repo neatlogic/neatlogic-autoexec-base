@@ -7,11 +7,13 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +29,8 @@ import java.util.List;
 public class AutoexecJobPhaseOperationVo {
     @EntityField(name = "作业剧本操作id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "作业id", type = ApiParamType.LONG)
+    private Long jobId;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
     @EntityField(name = "作业剧本操作唯一标识", type = ApiParamType.STRING)
@@ -81,12 +85,46 @@ public class AutoexecJobPhaseOperationVo {
 
     }
 
+    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, List<AutoexecScriptLineVo> scriptLineVoList) {
+        this.jobId = phaseVo.getJobId();
+        this.execMode = phaseVo.getExecMode();
+        this.uk = scriptVo.getUk();
+        this.name = scriptVo.getName();
+        this.jobPhaseId = phaseVo.getId();
+        this.type = CombopOperationType.SCRIPT.getValue();
+        this.execMode = scriptVo.getExecMode();
+        this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
+        this.parser = scriptVersionVo.getParser();
+        //拼接操作脚本到config
+        JSONObject operationConfigJson = (JSONObject)JSONObject.toJSON(autoexecCombopPhaseOperationVo.getConfig());
+        StringBuilder scriptSb = new StringBuilder();
+        for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
+            scriptSb.append(lineVo.getContent());
+        }
+        String script = scriptSb.toString();
+        operationConfigJson.put("script", script);
+        this.script = script;
+        this.paramStr = operationConfigJson.toString();
+
+    }
+
     public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
     }
 
     public Long getJobPhaseId() {

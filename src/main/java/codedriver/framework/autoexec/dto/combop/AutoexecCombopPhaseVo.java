@@ -7,6 +7,9 @@ package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+
+import java.io.Serializable;
 
 /**
  * 组合工具阶段Vo类
@@ -14,13 +17,13 @@ import com.alibaba.fastjson.JSONObject;
  * @author: linbq
  * @since: 2021/4/13 10:05
  **/
-public class AutoexecCombopPhaseVo {
+public class AutoexecCombopPhaseVo implements Serializable {
     private Long id;
     private Long combopId;
     private String uk;
     private String name;
     private String execMode;
-    private JSONObject config;
+    private AutoexecCombopPhaseConfigVo config;
     private Integer sort;
     private transient String configStr;
 
@@ -67,12 +70,13 @@ public class AutoexecCombopPhaseVo {
         this.execMode = execMode;
     }
 
-    public JSONObject getConfig() {
+    public AutoexecCombopPhaseConfigVo getConfig() {
         return config;
     }
 
     public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config);
+        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopPhaseConfigVo>() {
+        });
     }
 
     public Integer getSort() {
@@ -87,6 +91,6 @@ public class AutoexecCombopPhaseVo {
         if (this.config == null) {
             return null;
         }
-        return config.toJSONString();
+        return JSONObject.toJSONString(config);
     }
 }

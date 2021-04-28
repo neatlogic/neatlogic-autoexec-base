@@ -27,7 +27,7 @@ public enum ParamType implements IEnum {
             this.put("placeholder", "请输入");
         }
     },
-            "文本说明"),
+            "文本参数，可输入字符串、数字"),
     PASSWORD("password", "密码", new JSONObject() {
         {
             this.put("type", "password");
@@ -36,7 +36,7 @@ public enum ParamType implements IEnum {
             this.put("placeholder", "请输入");
         }
     },
-            "密码说明"),
+            "可输入数字或字符串，页面显示为密文"),
     FILE("file", "文件", new JSONObject() {
         {
             this.put("type", "file");
@@ -45,7 +45,7 @@ public enum ParamType implements IEnum {
             this.put("placeholder", "请上传");
         }
     },
-            "文件说明"),
+            "支持多个文件同时上传，执行时，自动上传文件到目标主机特定目录下，保留原文件名"),
     DATE("date", "日期", new JSONObject() {
         {
             this.put("type", "date");
@@ -53,14 +53,20 @@ public enum ParamType implements IEnum {
             this.put("placeholder", "请选择日期");
         }
     },
-            "日期说明"),
+            "日期选择器"),
     JSON("json", "json对象", new JSONObject() {
         {
             this.put("type", "textarea");
             this.put("placeholder", "请输入");
         }
     },
-            "json对象说明");
+            "支持json对象和json数组，输入内容需是合法Json格式"),
+    NODE("node", "节点信息", new JSONObject() {
+        {
+            this.put("type", "node");
+            this.put("placeholder", "请选择");
+        }
+    }, "将节点的相关信息生成脚本变量，但不会分派到该节点执行");
 
     private String value;
     private String text;

@@ -8,21 +8,21 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
-import java.util.List;
-
 /**
  * @author lvzk
  * @since 2021/4/12 14:54
  **/
-public class AutoexecProxyGroupVo {
+public class AutoexecProxyGroupNetworkVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "代理分组名", type = ApiParamType.STRING)
     private String name;
-
-    private List<AutoexecProxyGroupNetworkVo> networkList;
-
-    private List<AutoexecProxyVo> proxyList;
+    @EntityField(name = "代理分组网段", type = ApiParamType.STRING)
+    private String networkIp;
+    @EntityField(name = "代理分组掩码", type = ApiParamType.INTEGER)
+    private Integer mask;
+    @EntityField(name = "代理组id", type = ApiParamType.INTEGER)
+    private Long proxyGroupId;
 
     public Long getId() {
         return id;
@@ -40,19 +40,27 @@ public class AutoexecProxyGroupVo {
         this.name = name;
     }
 
-    public List<AutoexecProxyGroupNetworkVo> getNetworkList() {
-        return networkList;
+    public String getNetworkIp() {
+        return networkIp;
     }
 
-    public void setNetworkList(List<AutoexecProxyGroupNetworkVo> networkList) {
-        this.networkList = networkList;
+    public void setNetworkIp(String networkIp) {
+        this.networkIp = networkIp;
     }
 
-    public List<AutoexecProxyVo> getProxyList() {
-        return proxyList;
+    public Integer getMask() {
+        return mask;
     }
 
-    public void setProxyList(List<AutoexecProxyVo> proxyList) {
-        this.proxyList = proxyList;
+    public void setMask(Integer mask) {
+        this.mask = mask;
+    }
+
+    public Long getProxyGroupId() {
+        return proxyGroupId;
+    }
+
+    public void setProxyGroupId(Long proxyGroupId) {
+        this.proxyGroupId = proxyGroupId;
     }
 }

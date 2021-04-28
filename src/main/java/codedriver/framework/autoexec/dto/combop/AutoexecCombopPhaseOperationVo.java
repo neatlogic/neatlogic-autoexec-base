@@ -5,19 +5,24 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+
+import java.io.Serializable;
 
 /**
  * 组合工具阶段操作Vo类
+ *
  * @author: linbq
  * @since: 2021/4/13 10:08
  **/
-public class AutoexecCombopPhaseOperationVo {
+public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo implements Serializable {
     private Long combopPhaseId;
     private Long operationId;
     private String operationType;
     private String failPolicy;
-    private JSONObject config;
+    private AutoexecCombopPhaseOperationConfigVo config;
     private Integer sort;
     private transient String configStr;
 
@@ -30,6 +35,9 @@ public class AutoexecCombopPhaseOperationVo {
     }
 
     public Long getOperationId() {
+        if (operationId == null) {
+            operationId = super.getId();
+        }
         return operationId;
     }
 
@@ -53,12 +61,13 @@ public class AutoexecCombopPhaseOperationVo {
         this.failPolicy = failPolicy;
     }
 
-    public JSONObject getConfig() {
+    public AutoexecCombopPhaseOperationConfigVo getConfig() {
         return config;
     }
 
     public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config);
+        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopPhaseOperationConfigVo>() {
+        });
     }
 
     public Integer getSort() {
@@ -73,6 +82,6 @@ public class AutoexecCombopPhaseOperationVo {
         if (this.config == null) {
             return null;
         }
-        return config.toJSONString();
+        return JSONObject.toJSONString(config);
     }
 }
