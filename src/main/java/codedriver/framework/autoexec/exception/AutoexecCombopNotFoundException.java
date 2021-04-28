@@ -18,4 +18,8 @@ public class AutoexecCombopNotFoundException extends ApiRuntimeException {
     public AutoexecCombopNotFoundException(Long id){
         super("组合工具：'" + id + "'不存在");
     }
+
+    public AutoexecCombopNotFoundException(String id){
+        super("组合工具：'" + id + "'不存在");
+    }
 }
