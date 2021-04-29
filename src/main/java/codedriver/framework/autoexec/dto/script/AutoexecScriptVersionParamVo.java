@@ -6,10 +6,11 @@
 package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.autoexec.constvalue.ChangeType;
+import codedriver.framework.autoexec.dto.IParam;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
-public class AutoexecScriptVersionParamVo {
+public class AutoexecScriptVersionParamVo implements IParam {
 
     @EntityField(name = "脚本版本ID", type = ApiParamType.LONG)
     private Long scriptVersionId;
