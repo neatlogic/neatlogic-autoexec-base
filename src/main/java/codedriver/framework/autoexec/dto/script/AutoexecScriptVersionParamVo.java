@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.script;
 
+import codedriver.framework.autoexec.constvalue.ChangeType;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
@@ -26,6 +27,9 @@ public class AutoexecScriptVersionParamVo {
     private String description;
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
+
+    @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
+    private String changeType;
 
     public AutoexecScriptVersionParamVo() {
     }
@@ -92,5 +96,13 @@ public class AutoexecScriptVersionParamVo {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getChangeType() {
+        return changeType;
+    }
+
+    public void setChangeType(String changeType) {
+        this.changeType = changeType;
     }
 }

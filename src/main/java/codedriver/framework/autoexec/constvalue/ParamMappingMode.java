@@ -5,7 +5,6 @@
 
 package codedriver.framework.autoexec.constvalue;
 
-import codedriver.framework.common.constvalue.FormHandlerType;
 import codedriver.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -19,17 +18,19 @@ import java.util.List;
  * @since: 2021/4/14 17:47
  **/
 public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量"),
-    RUNTIME_PARAM("runtimeparam", "运行参数"),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数"),
-    IS_EMPTY("isempty", "为空");
+    CONSTANT("constant", "常量", 1),
+    RUNTIME_PARAM("runtimeparam", "运行参数", 0),
+    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数", 0),
+    IS_EMPTY("isempty", "为空", 0);
 
-    private String value;
-    private String text;
+    private final String value;
+    private final String text;
+    private final int isSelect;
 
-    private ParamMappingMode(String value, String text) {
+    private ParamMappingMode(String value, String text, int isSelect) {
         this.value = value;
         this.text = text;
+        this.isSelect = isSelect;
     }
 
     public String getValue() {
@@ -38,6 +39,10 @@ public enum ParamMappingMode implements IEnum {
 
     public String getText() {
         return text;
+    }
+
+    public int getIsSelect() {
+        return isSelect;
     }
 
     /**
@@ -54,6 +59,7 @@ public enum ParamMappingMode implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
+            jsonObj.put("isSelect", e.getIsSelect());
             resultList.add(jsonObj);
         }
         return resultList;
