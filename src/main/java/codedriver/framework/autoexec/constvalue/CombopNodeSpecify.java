@@ -19,12 +19,12 @@ public enum CombopNodeSpecify implements IEnum {
     NOW("now", "现在指定执行目标", 0), RUNTIME("runtime", "运行时再指定执行目标", 1);
     private final String value;
     private final String text;
-    private final int defaultValue;
+    private final int isSelect;
 
-    private CombopNodeSpecify(String value, String text, int defaultValue) {
+    private CombopNodeSpecify(String value, String text, int isSelect) {
         this.value = value;
         this.text = text;
-        this.defaultValue = defaultValue;
+        this.isSelect = isSelect;
     }
 
     public String getValue() {
@@ -35,8 +35,8 @@ public enum CombopNodeSpecify implements IEnum {
         return text;
     }
 
-    public int getDefaultValue() {
-        return defaultValue;
+    public int getIsSelect() {
+        return isSelect;
     }
 
     /**
@@ -53,7 +53,7 @@ public enum CombopNodeSpecify implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
-            jsonObj.put("defaultValue", e.getDefaultValue());
+            jsonObj.put("isSelect", e.getIsSelect());
             resultList.add(jsonObj);
         }
         return resultList;

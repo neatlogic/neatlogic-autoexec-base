@@ -70,14 +70,14 @@ public enum ParamType implements IEnum {
 
     private final String value;
     private final String text;
-    private final int defaultValue;
+    private final int isSelect;
     private final JSONObject config;
     private final String description;
 
-    private ParamType(String value, String text, int defaultValue, JSONObject config, String description) {
+    private ParamType(String value, String text, int isSelect, JSONObject config, String description) {
         this.value = value;
         this.text = text;
-        this.defaultValue = defaultValue;
+        this.isSelect = isSelect;
         this.config = config;
         this.description = description;
     }
@@ -90,8 +90,8 @@ public enum ParamType implements IEnum {
         return text;
     }
 
-    public int getDefaultValue() {
-        return defaultValue;
+    public int getIsSelect() {
+        return isSelect;
     }
 
     public JSONObject getConfig() {
@@ -125,7 +125,7 @@ public enum ParamType implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
-            jsonObj.put("defaultValue", e.getDefaultValue());
+            jsonObj.put("isSelect", e.getIsSelect());
             jsonObj.put("config", e.getConfig());
             jsonObj.put("description", e.getDescription());
             resultList.add(jsonObj);
