@@ -6,18 +6,26 @@
 package codedriver.framework.autoexec.scriptcheck;
 
 import codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
-/**
- * @author: laiwt
- * @since: 2021/4/21 14:50
- **/
 public abstract class ScriptCheckHandlerBase implements IScriptCheckHandler {
+
     @Override
     public void check(List<AutoexecScriptLineVo> lineList) {
-        myCheck(lineList);
+        if (CollectionUtils.isNotEmpty(lineList)) {
+            markAnnotationLines(lineList);
+            myCheck(lineList);
+        }
     }
+
+    /**
+     * 标记注释行
+     *
+     * @param lineList
+     */
+    protected abstract void markAnnotationLines(List<AutoexecScriptLineVo> lineList);
 
     protected abstract void myCheck(List<AutoexecScriptLineVo> lineList);
 }

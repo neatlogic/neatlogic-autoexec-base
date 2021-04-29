@@ -11,15 +11,35 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @author: laiwt
- * @since: 2021/4/21 14:54
- **/
 @Component
 public class ShellScriptCheckHandler extends ScriptCheckHandlerBase {
 
     @Override
     protected void myCheck(List<AutoexecScriptLineVo> lineList) {
+    }
+
+    /**
+     * 标记注释行
+     * todo shell不止一种注释方式
+     *
+     * @param lineList
+     */
+    @Override
+    protected void markAnnotationLines(List<AutoexecScriptLineVo> lineList) {
+        for (int i = 0; i < lineList.size(); i++) {
+            if (lineList.get(i).getContent().startsWith("#")) {
+                lineList.get(i).setIsAnnotation(1);
+            } else if (lineList.get(i).getContent().startsWith(":<<!")) {
+                while (lineList.get(i).getContent().startsWith(":<<!")
+                        || !lineList.get(i).getContent().endsWith("!")) {
+                    lineList.get(i).setIsAnnotation(1);
+                    i++;
+                    if (lineList.get(i).getContent().endsWith("!")) {
+                        lineList.get(i).setIsAnnotation(1);
+                    }
+                }
+            }
+        }
     }
 
     @Override

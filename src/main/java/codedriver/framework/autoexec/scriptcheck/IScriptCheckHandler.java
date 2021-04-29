@@ -10,17 +10,23 @@ import org.springframework.util.ClassUtils;
 
 import java.util.List;
 
-/**
- * @author: laiwt
- * @since: 2021/4/21 14:45
- **/
 public interface IScriptCheckHandler {
 
-    public void check(List<AutoexecScriptLineVo> lineList);
+    /**
+     * 校验脚本内容
+     *
+     * @param lineList
+     */
+    void check(List<AutoexecScriptLineVo> lineList);
 
-    public String getType();
+    /**
+     * 脚本类型
+     *
+     * @return
+     */
+    String getType();
 
-    public default String getClassName() {
+    default String getClassName() {
         return ClassUtils.getUserClass(this.getClass()).getName();
     }
 }
