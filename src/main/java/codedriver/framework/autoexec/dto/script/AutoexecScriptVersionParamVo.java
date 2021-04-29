@@ -9,6 +9,7 @@ import codedriver.framework.autoexec.constvalue.ChangeType;
 import codedriver.framework.autoexec.dto.IParam;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import com.alibaba.fastjson.JSONObject;
 
 public class AutoexecScriptVersionParamVo implements IParam {
 
@@ -52,6 +53,26 @@ public class AutoexecScriptVersionParamVo implements IParam {
     }
 
     public Object getDefaultValue() {
+        if (defaultValue != null) {
+            switch (type) {
+                case "file":
+                    defaultValue = JSONObject.parseObject((String) defaultValue);
+                    break;
+                case "node":
+                    defaultValue = JSONObject.parseArray((String) defaultValue);
+                    break;
+                case "json":
+                    String valueStr = (String) defaultValue;
+                    if (valueStr.startsWith("[") && valueStr.endsWith("]")) {
+                        defaultValue = JSONObject.parseArray(valueStr);
+                    } else if (valueStr.startsWith("{") && valueStr.endsWith("}")) {
+                        defaultValue = JSONObject.parseObject(valueStr);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         return defaultValue;
     }
 

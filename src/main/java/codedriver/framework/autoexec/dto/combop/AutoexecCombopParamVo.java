@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
@@ -78,6 +79,26 @@ public class AutoexecCombopParamVo extends BasePageVo implements Serializable {
     }
 
     public Object getDefaultValue() {
+        if (defaultValue != null) {
+            switch (type) {
+                case "file":
+                    defaultValue = JSONObject.parseObject((String) defaultValue);
+                    break;
+                case "node":
+                    defaultValue = JSONObject.parseArray((String) defaultValue);
+                    break;
+                case "json":
+                    String valueStr = (String) defaultValue;
+                    if (valueStr.startsWith("[") && valueStr.endsWith("]")) {
+                        defaultValue = JSONObject.parseArray(valueStr);
+                    } else if (valueStr.startsWith("{") && valueStr.endsWith("}")) {
+                        defaultValue = JSONObject.parseObject(valueStr);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         return defaultValue;
     }
 
