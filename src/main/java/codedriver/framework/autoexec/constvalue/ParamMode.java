@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.constvalue;
 
+import java.util.Objects;
+
 public enum ParamMode {
     INPUT("input", "入参"),
     OUTPUT("output", "出参");
@@ -22,5 +24,14 @@ public enum ParamMode {
 
     public String getText() {
         return text;
+    }
+
+    public static ParamMode getParamMode(String _value) {
+        for (ParamMode e : values()) {
+            if (Objects.equals(e.getValue(), _value)) {
+                return e;
+            }
+        }
+        return null;
     }
 }
