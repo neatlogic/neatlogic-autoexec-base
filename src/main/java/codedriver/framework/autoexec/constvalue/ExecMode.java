@@ -17,13 +17,13 @@ public enum ExecMode implements IEnum {
     RUNNER_TARGET("runner_target", "runner->target执行", 0, "需指定执行目标，工具在runner上执行，适用于网络设备、存储设备、软件系统等的信息采集或命令下发");
     private final String value;
     private final String text;
-    private final int defaultValue;
+    private final int isSelect;
     private final String description;
 
-    private ExecMode(String value, String text, int defaultValue, String description) {
+    private ExecMode(String value, String text, int isSelect, String description) {
         this.value = value;
         this.text = text;
-        this.defaultValue = defaultValue;
+        this.isSelect = isSelect;
         this.description = description;
     }
 
@@ -35,8 +35,8 @@ public enum ExecMode implements IEnum {
         return text;
     }
 
-    public int getDefaultValue() {
-        return defaultValue;
+    public int getIsSelect() {
+        return isSelect;
     }
 
     public String getDescription() {
@@ -57,7 +57,7 @@ public enum ExecMode implements IEnum {
             JSONObject obj = new JSONObject();
             obj.put("value", e.getValue());
             obj.put("text", e.getText());
-            obj.put("defaultValue", e.getDefaultValue());
+            obj.put("isSelect", e.getIsSelect());
             obj.put("description", e.getDescription());
             resultList.add(obj);
         }

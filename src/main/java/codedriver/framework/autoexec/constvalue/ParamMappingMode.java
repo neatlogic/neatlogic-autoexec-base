@@ -25,12 +25,12 @@ public enum ParamMappingMode implements IEnum {
 
     private final String value;
     private final String text;
-    private final int defaultValue;
+    private final int isSelect;
 
-    private ParamMappingMode(String value, String text, int defaultValue) {
+    private ParamMappingMode(String value, String text, int isSelect) {
         this.value = value;
         this.text = text;
-        this.defaultValue = defaultValue;
+        this.isSelect = isSelect;
     }
 
     public String getValue() {
@@ -41,8 +41,8 @@ public enum ParamMappingMode implements IEnum {
         return text;
     }
 
-    public int getDefaultValue() {
-        return defaultValue;
+    public int getIsSelect() {
+        return isSelect;
     }
 
     /**
@@ -59,7 +59,7 @@ public enum ParamMappingMode implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
-            jsonObj.put("defaultValue", e.getDefaultValue());
+            jsonObj.put("isSelect", e.getIsSelect());
             resultList.add(jsonObj);
         }
         return resultList;
