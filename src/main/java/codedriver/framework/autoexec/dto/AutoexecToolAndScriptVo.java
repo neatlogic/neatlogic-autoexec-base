@@ -14,7 +14,6 @@ import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +43,9 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     @EntityField(name = "操作级别")
     private AutoexecRiskVo riskVo;
 
+    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
+    @JSONField(serialize = false)
+    private transient List<AutoexecScriptVersionParamVo> paramList;
     @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> inputParamList;
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
@@ -162,19 +164,31 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         this.riskVo = riskVo;
     }
 
+    public List<AutoexecScriptVersionParamVo> getParamList() {
+        return paramList;
+    }
+
+    public void setParamList(List<AutoexecScriptVersionParamVo> paramList) {
+        this.paramList = paramList;
+    }
+
     public List<AutoexecScriptVersionParamVo> getInputParamList() {
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
+            inputParamList = paramList.stream()
+                    .filter(o -> ParamMode.INPUT.getValue().equals(o.getMode()))
+                    .sorted(Comparator.comparing(AutoexecScriptVersionParamVo::getSort))
+                    .collect(Collectors.toList());
+        }
         return inputParamList;
     }
 
-    public void setInputParamList(List<AutoexecScriptVersionParamVo> inputParamList) {
-        this.inputParamList = inputParamList;
-    }
-
     public List<AutoexecScriptVersionParamVo> getOutputParamList() {
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
+            outputParamList = paramList.stream()
+                    .filter(o -> ParamMode.OUTPUT.getValue().equals(o.getMode()))
+                    .sorted(Comparator.comparing(AutoexecScriptVersionParamVo::getSort))
+                    .collect(Collectors.toList());
+        }
         return outputParamList;
-    }
-
-    public void setOutputParamList(List<AutoexecScriptVersionParamVo> outputParamList) {
-        this.outputParamList = outputParamList;
     }
 }
