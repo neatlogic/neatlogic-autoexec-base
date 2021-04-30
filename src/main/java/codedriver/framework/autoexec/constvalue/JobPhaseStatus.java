@@ -6,8 +6,9 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
-public enum JobStatus implements IEnum {
+public enum JobPhaseStatus implements IEnum {
     PENDING("pending", "未开始", "#8E949F"),
+    WAITING("waiting", "排队中", "#8E949F"),
     RUNNING("running", "进行中", "#2d84fb"),
     PAUSING("pausing", "暂停中", "#2d84fb"),
     PAUSED("paused", "已暂停", "#8E949F"),
@@ -19,7 +20,7 @@ public enum JobStatus implements IEnum {
     private final String text;
     private final String color;
 
-    private JobStatus(String _status, String _text, String _color) {
+    private JobPhaseStatus(String _status, String _text, String _color) {
         this.status = _status;
         this.text = _text;
         this.color = _color;
@@ -38,7 +39,7 @@ public enum JobStatus implements IEnum {
     }
 
     public static String getText(String _status) {
-        for (JobStatus s : JobStatus.values()) {
+        for (JobPhaseStatus s : JobPhaseStatus.values()) {
             if (s.getValue().equals(_status)) {
                 return s.getText();
             }
@@ -47,7 +48,7 @@ public enum JobStatus implements IEnum {
     }
 
     public static String getColor(String _status) {
-        for (JobStatus s : JobStatus.values()) {
+        for (JobPhaseStatus s : JobPhaseStatus.values()) {
             if (s.getValue().equals(_status)) {
                 return s.getColor();
             }
@@ -58,7 +59,7 @@ public enum JobStatus implements IEnum {
     @Override
     public List getValueTextList() {
         JSONArray array = new JSONArray();
-        for (JobStatus status : JobStatus.values()) {
+        for (JobPhaseStatus status : JobPhaseStatus.values()) {
             array.add(new JSONObject() {
                 private static final long serialVersionUID = 1670544546905960015L;
                 {
@@ -69,5 +70,4 @@ public enum JobStatus implements IEnum {
         }
         return array;
     }
-
 }
