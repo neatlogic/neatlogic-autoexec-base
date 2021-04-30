@@ -18,8 +18,8 @@ import java.util.List;
  * @since: 2021/4/14 17:47
  **/
 public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量", 1),
-    RUNTIME_PARAM("runtimeparam", "运行参数", 0),
+    CONSTANT("constant", "常量", 0),
+    RUNTIME_PARAM("runtimeparam", "运行参数", 1),
     PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数", 0),
     IS_EMPTY("isempty", "为空", 0);
 
