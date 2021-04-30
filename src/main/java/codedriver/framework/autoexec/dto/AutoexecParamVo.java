@@ -14,6 +14,8 @@ import java.io.Serializable;
 public class AutoexecParamVo implements Serializable {
     @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
+    @EntityField(name = "中文名", type = ApiParamType.STRING)
+    private String name;
     @EntityField(name = "参数默认值", type = ApiParamType.STRING)
     private Object defaultValue;
     @EntityField(name = "参数类型(出参、入参)", type = ApiParamType.STRING)
@@ -49,6 +51,14 @@ public class AutoexecParamVo implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Object getDefaultValue() {
