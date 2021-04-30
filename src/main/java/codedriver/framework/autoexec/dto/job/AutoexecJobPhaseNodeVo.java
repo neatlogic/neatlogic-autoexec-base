@@ -15,6 +15,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lvzk
@@ -183,7 +184,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AutoexecJobPhaseNodeVo vo = (AutoexecJobPhaseNodeVo) o;
-        return vo.getHost().equals(host)&&vo.getPort().intValue() == port;
+        return Objects.equals(vo.getHost(), host) && Objects.equals(vo.getPort(), port);
     }
 
     @Override
