@@ -25,6 +25,7 @@ public class AutoexecCombopPhaseVo implements Serializable {
     private String execMode;
     private AutoexecCombopPhaseConfigVo config;
     private Integer sort;
+    private String uuid;
     private transient String configStr;
 
     public Long getId() {
@@ -85,6 +86,17 @@ public class AutoexecCombopPhaseVo implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getUuid() {
+        if(uuid == null){
+            return "";
+        }
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getConfigStr() {
