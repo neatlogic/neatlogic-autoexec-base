@@ -182,6 +182,10 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         return inputParamList;
     }
 
+    public void setInputParamList(List<AutoexecScriptVersionParamVo> inputParamList) {
+        this.inputParamList = inputParamList;
+    }
+
     public List<AutoexecScriptVersionParamVo> getOutputParamList() {
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
             outputParamList = paramList.stream()
@@ -190,5 +194,9 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
                     .collect(Collectors.toList());
         }
         return outputParamList;
+    }
+
+    public void setOutputParamList(List<AutoexecScriptVersionParamVo> outputParamList) {
+        this.outputParamList = outputParamList;
     }
 }
