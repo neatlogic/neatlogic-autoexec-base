@@ -133,7 +133,11 @@ public class AutoexecParamVo implements Serializable {
 
     public String getDefaultValueStr() {
         if (defaultValue != null) {
-            return JSONObject.toJSONString(defaultValue);
+            if(defaultValue instanceof String){
+                return (String) defaultValue;
+            }else {
+                return JSONObject.toJSONString(defaultValue);
+            }
         }
         return null;
     }
