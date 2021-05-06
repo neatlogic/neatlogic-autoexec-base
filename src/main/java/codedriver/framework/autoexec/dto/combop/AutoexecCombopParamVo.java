@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.constvalue.ParamType;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
@@ -19,38 +21,18 @@ import java.io.Serializable;
  * @author: linbq
  * @since: 2021/4/13 10:04
  **/
-public class AutoexecCombopParamVo extends BasePageVo implements Serializable {
+public class AutoexecCombopParamVo extends AutoexecParamVo {
     @EntityField(name = "组合工具id", type = ApiParamType.LONG)
     private Long combopId;
-    @EntityField(name = "参数名", type = ApiParamType.STRING)
-    private String key;
-    @EntityField(name = "中文名", type = ApiParamType.STRING)
-    private String name;
-    @EntityField(name = "参数值", type = ApiParamType.STRING)
-    private Object defaultValue;
-    @EntityField(name = "描述", type = ApiParamType.STRING)
-    private String description;
-    @EntityField(name = "是否必填", type = ApiParamType.INTEGER)
-    private Integer isRequired;
-    @EntityField(name = "参数类型", type = ApiParamType.STRING)
-    private String type;
-    @EntityField(name = "顺序", type = ApiParamType.INTEGER)
-    private Integer sort;
+
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
-
-    private transient String defaultValueStr;
 
     public AutoexecCombopParamVo() {
     }
 
-    public AutoexecCombopParamVo(AutoexecScriptVersionParamVo autoexecScriptVersionParamVo) {
-        this.key = autoexecScriptVersionParamVo.getKey();
-        this.defaultValue = autoexecScriptVersionParamVo.getDefaultValue();
-        this.description = autoexecScriptVersionParamVo.getDescription();
-        this.isRequired = autoexecScriptVersionParamVo.getIsRequired();
-        this.type = autoexecScriptVersionParamVo.getType();
-//        this.config = autoexecScriptVersionParamVo.getConfig();
+    public AutoexecCombopParamVo(AutoexecParamVo autoexecParamVo) {
+        super(autoexecParamVo);
     }
 
     public Long getCombopId() {
@@ -61,74 +43,11 @@ public class AutoexecCombopParamVo extends BasePageVo implements Serializable {
         this.combopId = combopId;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Object getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(Object defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getIsRequired() {
-        return isRequired;
-    }
-
-    public void setIsRequired(Integer isRequired) {
-        this.isRequired = isRequired;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
     public JSONObject getConfig() {
         return config;
     }
 
     public void setConfig(JSONObject config) {
         this.config = config;
-    }
-
-    public String getDefaultValueStr() {
-        if (defaultValue != null) {
-            return defaultValue.toString();
-        }
-        return null;
     }
 }
