@@ -23,4 +23,9 @@ public class AUTOEXEC_COMBOP_EXECUTE extends AuthBase {
     public String getAuthGroup() {
         return "autoexec";
     }
+
+    @Override
+    public Integer sort() {
+        return 2;
+    }
 }
