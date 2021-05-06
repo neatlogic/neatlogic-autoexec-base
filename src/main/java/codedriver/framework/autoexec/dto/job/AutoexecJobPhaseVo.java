@@ -49,6 +49,8 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private List<AutoexecJobPhaseNodeStatusCountVo> statusCountVoList = new ArrayList<>();
     @EntityField(name = "执行顺序", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "完成率", type = ApiParamType.INTEGER)
+    private Integer completionRate;
 
     public AutoexecJobPhaseVo() {
     }
@@ -188,5 +190,13 @@ public class AutoexecJobPhaseVo extends BasePageVo {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Integer getCompletionRate() {
+        return completionRate;
+    }
+
+    public void setCompletionRate(Integer completionRate) {
+        this.completionRate = completionRate;
     }
 }

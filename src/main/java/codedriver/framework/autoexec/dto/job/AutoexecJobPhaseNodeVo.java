@@ -48,6 +48,8 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     private String nodeName;
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
     private String proxyUrl;
+    @EntityField(name = "完成率", type = ApiParamType.INTEGER)
+    private Integer completionRate;
     @JSONField(serialize = false)
     private List<String> statusList;
 
@@ -193,5 +195,13 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
+    }
+
+    public Integer getCompletionRate() {
+        return completionRate;
+    }
+
+    public void setCompletionRate(Integer completionRate) {
+        this.completionRate = completionRate;
     }
 }
