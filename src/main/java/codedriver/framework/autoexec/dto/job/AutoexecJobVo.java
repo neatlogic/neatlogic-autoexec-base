@@ -89,6 +89,8 @@ public class AutoexecJobVo extends BasePageVo {
     private Integer isCanJobNodeReset;
     @EntityField(name = "是否允许忽略节点", type = ApiParamType.INTEGER)
     private Integer isCanJobNodeIgnore;
+    @EntityField(name = "完成率", type = ApiParamType.INTEGER)
+    private Integer completionRate;
 
     //param
     @JSONField(serialize = false)
@@ -425,5 +427,13 @@ public class AutoexecJobVo extends BasePageVo {
 
     public void setExecUserVo(UserVo execUserVo) {
         this.execUserVo = execUserVo;
+    }
+
+    public Integer getCompletionRate() {
+        return completionRate;
+    }
+
+    public void setCompletionRate(Integer completionRate) {
+        this.completionRate = completionRate;
     }
 }

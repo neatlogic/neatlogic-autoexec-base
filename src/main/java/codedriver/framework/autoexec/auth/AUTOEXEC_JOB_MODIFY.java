@@ -7,16 +7,16 @@ package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
 
-public class AUTOEXEC_SCRIPT_MODIFY extends AuthBase {
+public class AUTOEXEC_JOB_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "脚本维护权限";
+        return "作业维护权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "对脚本进行查看、编辑和复制";
+        return "对作业进行新增、编辑、查看、删除、启用/禁用";
     }
 
     @Override
@@ -26,6 +26,6 @@ public class AUTOEXEC_SCRIPT_MODIFY extends AuthBase {
 
     @Override
     public Integer sort() {
-        return 4;
+        return 7;
     }
 }

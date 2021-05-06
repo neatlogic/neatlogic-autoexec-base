@@ -23,4 +23,9 @@ public class AUTOEXEC_SCRIPT_USE extends AuthBase {
     public String getAuthGroup() {
         return "autoexec";
     }
+
+    @Override
+    public Integer sort() {
+        return 6;
+    }
 }
