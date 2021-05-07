@@ -50,7 +50,7 @@ public class ArgumentTokenizer {
 
         LinkedList<Map<String, String>> argList = new LinkedList<>();
         StringBuilder currArg = new StringBuilder();
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map;
         boolean escaped = false;
         int state = NO_TOKEN_STATE; // start in the NO_TOKEN_STATE
         int len = arguments.length();
