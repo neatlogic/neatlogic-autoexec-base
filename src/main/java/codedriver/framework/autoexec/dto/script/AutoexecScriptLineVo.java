@@ -31,9 +31,6 @@ public class AutoexecScriptLineVo {
 
     private Integer isAnnotation; // 是否是注释行
 
-    @EntityField(name = "是否含有危险代码", type = ApiParamType.INTEGER)
-    private Integer hasContainsRiskCode = 0;
-
     @EntityField(name = "含有的危险代码等级", type = ApiParamType.STRING)
     private String riskCodeLevel;
 
@@ -110,14 +107,6 @@ public class AutoexecScriptLineVo {
 
     public void setIsAnnotation(Integer isAnnotation) {
         this.isAnnotation = isAnnotation;
-    }
-
-    public Integer getHasContainsRiskCode() {
-        return hasContainsRiskCode;
-    }
-
-    public void setHasContainsRiskCode(Integer hasContainsRiskCode) {
-        this.hasContainsRiskCode = hasContainsRiskCode;
     }
 
     public String getRiskCodeLevel() {

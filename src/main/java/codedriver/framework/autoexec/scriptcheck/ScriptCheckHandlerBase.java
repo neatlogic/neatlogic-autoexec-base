@@ -15,7 +15,7 @@ public abstract class ScriptCheckHandlerBase implements IScriptCheckHandler {
     @Override
     public void check(List<AutoexecScriptLineVo> lineList) {
         if (CollectionUtils.isNotEmpty(lineList)) {
-            markAnnotationLines(lineList);
+//            markAnnotationLines(lineList);
             myCheck(lineList);
         }
     }
