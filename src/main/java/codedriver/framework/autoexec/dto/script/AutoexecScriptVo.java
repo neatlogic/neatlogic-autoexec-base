@@ -50,15 +50,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
     @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
     private String config;
     @EntityField(name = "脚本内容行", type = ApiParamType.JSONARRAY)
-    private List<AutoexecScriptLineVo> lineVoList;
+    private List<AutoexecScriptLineVo> lineList;
 
     @EntityField(name = "版本号", type = ApiParamType.INTEGER)
     private Integer version;
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> paramList;
-
-    @EntityField(name = "脚本内容行", type = ApiParamType.JSONARRAY)
-    private List<String> lineList;
 
     @EntityField(name = "版本")
     private AutoexecScriptVersionVo versionVo;
@@ -199,12 +196,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.config = config;
     }
 
-    public List<AutoexecScriptLineVo> getLineVoList() {
-        return lineVoList;
+    public List<AutoexecScriptLineVo> getLineList() {
+        return lineList;
     }
 
-    public void setLineVoList(List<AutoexecScriptLineVo> lineVoList) {
-        this.lineVoList = lineVoList;
+    public void setLineList(List<AutoexecScriptLineVo> lineList) {
+        this.lineList = lineList;
     }
 
     public Integer getVersion() {
@@ -221,14 +218,6 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setParamList(List<AutoexecScriptVersionParamVo> paramList) {
         this.paramList = paramList;
-    }
-
-    public List<String> getLineList() {
-        return lineList;
-    }
-
-    public void setLineList(List<String> lineList) {
-        this.lineList = lineList;
     }
 
     public AutoexecScriptVersionVo getVersionVo() {
