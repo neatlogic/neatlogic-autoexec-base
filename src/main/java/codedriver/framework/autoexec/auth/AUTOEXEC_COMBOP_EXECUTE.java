@@ -25,7 +25,7 @@ public class AUTOEXEC_COMBOP_EXECUTE extends AuthBase {
     }
 
     @Override
-    public Integer sort() {
+    public Integer getSort() {
         return 2;
     }
 }
