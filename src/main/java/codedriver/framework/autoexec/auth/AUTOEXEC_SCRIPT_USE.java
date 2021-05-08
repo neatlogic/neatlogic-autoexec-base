@@ -25,7 +25,7 @@ public class AUTOEXEC_SCRIPT_USE extends AuthBase {
     }
 
     @Override
-    public Integer sort() {
+    public Integer getSort() {
         return 6;
     }
 }

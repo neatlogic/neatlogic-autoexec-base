@@ -76,21 +76,21 @@ public class AutoexecJobVo extends BasePageVo {
     private JSONArray param;
     private String paramHash;
     @EntityField(name = "是否允许执行作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobExec;
+    private Integer isCanJobExec = 0;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobPause;
+    private Integer isCanJobPause = 0;
     @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobStop;
+    private Integer isCanJobStop = 0;
     @EntityField(name = "是否允许继续作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobGoon;
+    private Integer isCanJobGoon = 0;
     @EntityField(name = "是否允许重跑作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobRedo;
+    private Integer isCanJobRedo = 0;
     @EntityField(name = "是否允许重置节点", type = ApiParamType.INTEGER)
-    private Integer isCanJobNodeReset;
+    private Integer isCanJobNodeReset = 0;
     @EntityField(name = "是否允许忽略节点", type = ApiParamType.INTEGER)
-    private Integer isCanJobNodeIgnore;
+    private Integer isCanJobNodeIgnore = 0;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
-    private Integer completionRate;
+    private Integer completionRate = 0;
 
     //param
     @JSONField(serialize = false)
