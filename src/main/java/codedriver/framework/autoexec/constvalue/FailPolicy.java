@@ -14,16 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum FailPolicy implements IEnum {
-    STOP("stop", "失败停止", 1),
-    GOON("goon", "失败继续", 0);
+    STOP("stop", "失败停止"),
+    GOON("goon", "失败继续");
     private final String value;
     private final String text;
-    private final int isSelect;
 
-    private FailPolicy(String value, String text, int isSelect) {
+    private FailPolicy(String value, String text) {
         this.value = value;
         this.text = text;
-        this.isSelect = isSelect;
     }
 
     public String getValue() {
@@ -32,10 +30,6 @@ public enum FailPolicy implements IEnum {
 
     public String getText() {
         return text;
-    }
-
-    public int getIsSelect() {
-        return isSelect;
     }
 
     /**
@@ -52,7 +46,6 @@ public enum FailPolicy implements IEnum {
             JSONObject obj = new JSONObject();
             obj.put("value", e.getValue());
             obj.put("text", e.getText());
-            obj.put("isSelect", e.getIsSelect());
             resultList.add(obj);
         }
         return resultList;
