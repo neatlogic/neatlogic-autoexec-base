@@ -16,15 +16,13 @@ import java.util.List;
  * @since: 2021/4/22 18:41
  **/
 public enum CombopNodeSpecify implements IEnum {
-    NOW("now", "现在指定执行目标", 0), RUNTIME("runtime", "运行时再指定执行目标", 1);
+    NOW("now", "现在指定执行目标"), RUNTIME("runtime", "运行时再指定执行目标");
     private final String value;
     private final String text;
-    private final int isSelect;
 
-    private CombopNodeSpecify(String value, String text, int isSelect) {
+    private CombopNodeSpecify(String value, String text) {
         this.value = value;
         this.text = text;
-        this.isSelect = isSelect;
     }
 
     public String getValue() {
@@ -33,10 +31,6 @@ public enum CombopNodeSpecify implements IEnum {
 
     public String getText() {
         return text;
-    }
-
-    public int getIsSelect() {
-        return isSelect;
     }
 
     /**
@@ -53,7 +47,6 @@ public enum CombopNodeSpecify implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
-            jsonObj.put("isSelect", e.getIsSelect());
             resultList.add(jsonObj);
         }
         return resultList;

@@ -18,19 +18,17 @@ import java.util.List;
  * @since: 2021/4/14 17:47
  **/
 public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量", 0),
-    RUNTIME_PARAM("runtimeparam", "运行参数", 1),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数", 0),
-    IS_EMPTY("isempty", "为空", 0);
+    CONSTANT("constant", "常量"),
+    RUNTIME_PARAM("runtimeparam", "运行参数"),
+    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数"),
+    IS_EMPTY("isempty", "为空");
 
     private final String value;
     private final String text;
-    private final int isSelect;
 
-    private ParamMappingMode(String value, String text, int isSelect) {
+    private ParamMappingMode(String value, String text) {
         this.value = value;
         this.text = text;
-        this.isSelect = isSelect;
     }
 
     public String getValue() {
@@ -39,10 +37,6 @@ public enum ParamMappingMode implements IEnum {
 
     public String getText() {
         return text;
-    }
-
-    public int getIsSelect() {
-        return isSelect;
     }
 
     /**
@@ -59,7 +53,6 @@ public enum ParamMappingMode implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
-            jsonObj.put("isSelect", e.getIsSelect());
             resultList.add(jsonObj);
         }
         return resultList;

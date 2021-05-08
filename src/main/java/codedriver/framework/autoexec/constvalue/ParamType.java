@@ -20,7 +20,7 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum ParamType implements IEnum {
-    TEXT("text", "文本", 1, new JSONObject() {
+    TEXT("text", "文本", new JSONObject() {
         {
             this.put("type", "text");
             this.put("maxlength", 500);
@@ -28,7 +28,7 @@ public enum ParamType implements IEnum {
         }
     },
             "文本参数，可输入字符串、数字"),
-    PASSWORD("password", "密码", 0, new JSONObject() {
+    PASSWORD("password", "密码", new JSONObject() {
         {
             this.put("type", "password");
             this.put("maxlength", 50);
@@ -37,7 +37,7 @@ public enum ParamType implements IEnum {
         }
     },
             "可输入数字或字符串，页面显示为密文"),
-    FILE("file", "文件", 0, new JSONObject() {
+    FILE("file", "文件", new JSONObject() {
         {
             this.put("type", "file");
             this.put("dataType", "autoexec");
@@ -46,7 +46,7 @@ public enum ParamType implements IEnum {
         }
     },
             "支持多个文件同时上传，执行时，自动上传文件到目标主机特定目录下，保留原文件名"),
-    DATE("date", "日期", 0, new JSONObject() {
+    DATE("date", "日期", new JSONObject() {
         {
             this.put("type", "date");
             this.put("format", "yyyy-MM-dd");
@@ -54,14 +54,14 @@ public enum ParamType implements IEnum {
         }
     },
             "日期选择器"),
-    JSON("json", "json对象", 0, new JSONObject() {
+    JSON("json", "json对象", new JSONObject() {
         {
             this.put("type", "textarea");
             this.put("placeholder", "请输入");
         }
     },
             "支持json对象和json数组，输入内容需是合法Json格式"),
-    NODE("node", "节点信息", 0, new JSONObject() {
+    NODE("node", "节点信息", new JSONObject() {
         {
             this.put("type", "node");
             this.put("placeholder", "请选择");
@@ -70,14 +70,12 @@ public enum ParamType implements IEnum {
 
     private final String value;
     private final String text;
-    private final int isSelect;
     private final JSONObject config;
     private final String description;
 
-    private ParamType(String value, String text, int isSelect, JSONObject config, String description) {
+    private ParamType(String value, String text, JSONObject config, String description) {
         this.value = value;
         this.text = text;
-        this.isSelect = isSelect;
         this.config = config;
         this.description = description;
     }
@@ -88,10 +86,6 @@ public enum ParamType implements IEnum {
 
     public String getText() {
         return text;
-    }
-
-    public int getIsSelect() {
-        return isSelect;
     }
 
     public JSONObject getConfig() {
@@ -125,7 +119,6 @@ public enum ParamType implements IEnum {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
-            jsonObj.put("isSelect", e.getIsSelect());
             jsonObj.put("config", e.getConfig());
             jsonObj.put("description", e.getDescription());
             resultList.add(jsonObj);
