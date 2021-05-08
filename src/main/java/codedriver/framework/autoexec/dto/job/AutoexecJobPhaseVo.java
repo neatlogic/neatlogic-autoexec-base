@@ -50,7 +50,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     @EntityField(name = "执行顺序", type = ApiParamType.INTEGER)
     private Integer sort;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
-    private Integer completionRate;
+    private Integer completionRate = 0;
 
     public AutoexecJobPhaseVo() {
     }

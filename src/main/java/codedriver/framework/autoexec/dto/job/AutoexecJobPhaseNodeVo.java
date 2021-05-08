@@ -49,7 +49,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
     private String proxyUrl;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
-    private Integer completionRate;
+    private Integer completionRate = 0;
     @JSONField(serialize = false)
     private List<String> statusList;
 
