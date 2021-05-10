@@ -20,6 +20,7 @@ import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
@@ -287,6 +288,12 @@ public class AutoexecJobVo extends BasePageVo {
     }
 
     public List<String> getExecUserList() {
+        if(CollectionUtils.isNotEmpty(execUserList)){
+            for (int i = 0; i < execUserList.size(); i++) {
+                String tmpUser = execUserList.get(i).replaceAll(GroupSearch.USER.getValuePlugin(), StringUtils.EMPTY);
+                execUserList.set(i, tmpUser);
+            }
+        }
         return execUserList;
     }
 
