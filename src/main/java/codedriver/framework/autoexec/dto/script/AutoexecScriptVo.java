@@ -12,9 +12,10 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AutoexecScriptVo extends BaseEditorVo {
+public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;

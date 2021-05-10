@@ -13,11 +13,12 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AutoexecScriptVersionVo extends BaseEditorVo {
+public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;

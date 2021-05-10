@@ -10,7 +10,9 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 
-public class AutoexecScriptLineVo {
+import java.io.Serializable;
+
+public class AutoexecScriptLineVo implements Serializable {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
