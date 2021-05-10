@@ -69,6 +69,8 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "关联的组合工具数", type = ApiParamType.INTEGER)
     private Integer referenceCount;
 
+    private List<AutoexecScriptVersionVo> versionList;
+
 
     public AutoexecScriptVo() {
     }
@@ -250,5 +252,13 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     public void setReferenceCount(Integer referenceCount) {
         this.referenceCount = referenceCount;
+    }
+
+    public List<AutoexecScriptVersionVo> getVersionList() {
+        return versionList;
+    }
+
+    public void setVersionList(List<AutoexecScriptVersionVo> versionList) {
+        this.versionList = versionList;
     }
 }
