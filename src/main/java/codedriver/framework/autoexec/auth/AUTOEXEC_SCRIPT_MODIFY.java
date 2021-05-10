@@ -34,6 +34,6 @@ public class AUTOEXEC_SCRIPT_MODIFY extends AuthBase {
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths(){
-        return Collections.singletonList(AUTOEXEC_BASE.class);
+        return Collections.singletonList(AUTOEXEC_SCRIPT_USE.class);
     }
 }
