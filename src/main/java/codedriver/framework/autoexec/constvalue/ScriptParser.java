@@ -5,7 +5,13 @@
 
 package codedriver.framework.autoexec.constvalue;
 
-public enum ScriptParser {
+import codedriver.framework.common.constvalue.IEnum;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
+
+public enum ScriptParser implements IEnum {
     PYTHON("python"),
     VBS("vbs"),
     SHELL("shell"),
@@ -23,4 +29,16 @@ public enum ScriptParser {
         return value;
     }
 
+
+    @Override
+    public List getValueTextList() {
+        JSONArray resultList = new JSONArray();
+        for (ScriptParser e : values()) {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("value", e.getValue());
+            jsonObj.put("text", e.getValue());
+            resultList.add(jsonObj);
+        }
+        return resultList;
+    }
 }

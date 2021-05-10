@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.script;
 
+import codedriver.framework.autoexec.dto.AutoexecRiskVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -30,10 +31,8 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     @EntityField(name = "分类名称", type = ApiParamType.STRING)
     private String type;
-    @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
-    private String risk;
-    @EntityField(name = "操作级别颜色", type = ApiParamType.STRING)
-    private String riskColor;
+    @EntityField(name = "操作级别")
+    private AutoexecRiskVo riskVo;
     @EntityField(name = "当前激活版本号", type = ApiParamType.INTEGER)
     private Integer currentVersion;
     @EntityField(name = "版本总数", type = ApiParamType.INTEGER)
@@ -132,12 +131,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.type = type;
     }
 
-    public String getRisk() {
-        return risk;
+    public AutoexecRiskVo getRiskVo() {
+        return riskVo;
     }
 
-    public void setRisk(String risk) {
-        this.risk = risk;
+    public void setRiskVo(AutoexecRiskVo riskVo) {
+        this.riskVo = riskVo;
     }
 
     public Integer getCurrentVersion() {
@@ -234,14 +233,6 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setIsReviewing(Integer isReviewing) {
         this.isReviewing = isReviewing;
-    }
-
-    public String getRiskColor() {
-        return riskColor;
-    }
-
-    public void setRiskColor(String riskColor) {
-        this.riskColor = riskColor;
     }
 
     public List<AutoexecCombopVo> getCombopList() {
