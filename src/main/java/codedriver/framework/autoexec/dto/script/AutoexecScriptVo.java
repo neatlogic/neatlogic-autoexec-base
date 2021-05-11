@@ -11,6 +11,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 import java.util.List;
@@ -68,6 +69,12 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "关联的组合工具数", type = ApiParamType.INTEGER)
     private Integer referenceCount;
+
+    @JSONField(serialize = false)
+    private transient List<Long> typeIdList;
+
+    @JSONField(serialize = false)
+    private transient List<Long> riskIdList;
 
     private List<AutoexecScriptVersionVo> versionList;
 
@@ -252,6 +259,22 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     public void setReferenceCount(Integer referenceCount) {
         this.referenceCount = referenceCount;
+    }
+
+    public List<Long> getTypeIdList() {
+        return typeIdList;
+    }
+
+    public void setTypeIdList(List<Long> typeIdList) {
+        this.typeIdList = typeIdList;
+    }
+
+    public List<Long> getRiskIdList() {
+        return riskIdList;
+    }
+
+    public void setRiskIdList(List<Long> riskIdList) {
+        this.riskIdList = riskIdList;
     }
 
     public List<AutoexecScriptVersionVo> getVersionList() {
