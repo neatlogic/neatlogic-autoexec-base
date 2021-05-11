@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -12,6 +13,7 @@ import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -35,7 +37,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     @EntityField(name = "执行目标账号", type = ApiParamType.INTEGER)
     private String userName;
     @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
-    private String Status;
+    private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.INTEGER)
     private Long proxyId;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
@@ -49,9 +51,11 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
     private String proxyUrl;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
-    private Integer completionRate;
+    private Integer completionRate = 0;
     @JSONField(serialize = false)
     private List<String> statusList;
+    @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobStatusVo statusVo;
 
 
     public AutoexecJobPhaseNodeVo() {
@@ -115,11 +119,11 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public Long getProxyId() {
@@ -203,5 +207,12 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
 
     public void setCompletionRate(Integer completionRate) {
         this.completionRate = completionRate;
+    }
+
+    public AutoexecJobStatusVo getStatusVo() {
+        if (statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status), JobPhaseStatus.getColor(status));
+        }
+        return statusVo;
     }
 }

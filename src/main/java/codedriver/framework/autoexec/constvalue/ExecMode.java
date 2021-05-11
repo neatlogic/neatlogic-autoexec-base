@@ -12,18 +12,16 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 public enum ExecMode implements IEnum {
-    RUNNER("runner", "runner执行", 1, "无需指定执行目标，工具在runner执行，适用于数据汇总处理等"),
-    TARGET("target", "target执行", 0, "需指定执行目标，工具在指定的远程主机上执行，只适用于主机信息采集或命令下发"),
-    RUNNER_TARGET("runner_target", "runner->target执行", 0, "需指定执行目标，工具在runner上执行，适用于网络设备、存储设备、软件系统等的信息采集或命令下发");
+    RUNNER("runner", "runner执行", "无需指定执行目标，工具在runner执行，适用于数据汇总处理等"),
+    TARGET("target", "target执行", "需指定执行目标，工具在指定的远程主机上执行，只适用于主机信息采集或命令下发"),
+    RUNNER_TARGET("runner_target", "runner->target执行", "需指定执行目标，工具在runner上执行，适用于网络设备、存储设备、软件系统等的信息采集或命令下发");
     private final String value;
     private final String text;
-    private final int isSelect;
     private final String description;
 
-    private ExecMode(String value, String text, int isSelect, String description) {
+    private ExecMode(String value, String text, String description) {
         this.value = value;
         this.text = text;
-        this.isSelect = isSelect;
         this.description = description;
     }
 
@@ -33,10 +31,6 @@ public enum ExecMode implements IEnum {
 
     public String getText() {
         return text;
-    }
-
-    public int getIsSelect() {
-        return isSelect;
     }
 
     public String getDescription() {
@@ -57,7 +51,6 @@ public enum ExecMode implements IEnum {
             JSONObject obj = new JSONObject();
             obj.put("value", e.getValue());
             obj.put("text", e.getText());
-            obj.put("isSelect", e.getIsSelect());
             obj.put("description", e.getDescription());
             resultList.add(obj);
         }

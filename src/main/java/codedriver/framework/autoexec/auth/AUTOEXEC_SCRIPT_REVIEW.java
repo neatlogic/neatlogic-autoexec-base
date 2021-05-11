@@ -7,6 +7,9 @@ package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AUTOEXEC_SCRIPT_REVIEW extends AuthBase {
 
     @Override
@@ -27,5 +30,10 @@ public class AUTOEXEC_SCRIPT_REVIEW extends AuthBase {
     @Override
     public Integer getSort() {
         return 5;
+    }
+
+    @Override
+    public List<Class<? extends AuthBase>> getIncludeAuths(){
+        return Collections.singletonList(AUTOEXEC_SCRIPT_MODIFY.class);
     }
 }

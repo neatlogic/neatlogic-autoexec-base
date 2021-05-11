@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
+import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -13,6 +14,7 @@ import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +31,8 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private Long jobId;
     @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobStatusVo statusVo;
     @EntityField(name = "失败原因", type = ApiParamType.STRING)
     private String errorMsg;
     @EntityField(name = "作业剧本开始时间", type = ApiParamType.STRING)
@@ -45,12 +49,12 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private String name;
     @EntityField(name = "作业剧本唯一标识", type = ApiParamType.STRING)
     private String uk;
-    @EntityField(name = "状态统计数量", type = ApiParamType.STRING)
+    @EntityField(name = "状态统计数量", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseNodeStatusCountVo> statusCountVoList = new ArrayList<>();
     @EntityField(name = "执行顺序", type = ApiParamType.INTEGER)
     private Integer sort;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
-    private Integer completionRate;
+    private Integer completionRate = 0;
 
     public AutoexecJobPhaseVo() {
     }
@@ -198,5 +202,12 @@ public class AutoexecJobPhaseVo extends BasePageVo {
 
     public void setCompletionRate(Integer completionRate) {
         this.completionRate = completionRate;
+    }
+
+    public AutoexecJobStatusVo getStatusVo() {
+        if(statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status),JobPhaseStatus.getColor(status));
+        }
+        return statusVo;
     }
 }

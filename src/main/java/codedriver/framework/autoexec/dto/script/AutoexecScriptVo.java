@@ -5,11 +5,13 @@
 
 package codedriver.framework.autoexec.dto.script;
 
+import codedriver.framework.autoexec.dto.AutoexecRiskVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.List;
 
@@ -30,10 +32,8 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     @EntityField(name = "分类名称", type = ApiParamType.STRING)
     private String type;
-    @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
-    private String risk;
-    @EntityField(name = "操作级别颜色", type = ApiParamType.STRING)
-    private String riskColor;
+    @EntityField(name = "操作级别")
+    private AutoexecRiskVo riskVo;
     @EntityField(name = "当前激活版本号", type = ApiParamType.INTEGER)
     private Integer currentVersion;
     @EntityField(name = "版本总数", type = ApiParamType.INTEGER)
@@ -50,15 +50,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
     @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
     private String config;
     @EntityField(name = "脚本内容行", type = ApiParamType.JSONARRAY)
-    private List<AutoexecScriptLineVo> lineVoList;
+    private List<AutoexecScriptLineVo> lineList;
 
     @EntityField(name = "版本号", type = ApiParamType.INTEGER)
     private Integer version;
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> paramList;
-
-    @EntityField(name = "脚本内容行", type = ApiParamType.JSONARRAY)
-    private List<String> lineList;
 
     @EntityField(name = "版本")
     private AutoexecScriptVersionVo versionVo;
@@ -71,6 +68,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     @EntityField(name = "关联的组合工具数", type = ApiParamType.INTEGER)
     private Integer referenceCount;
+
+    @JSONField(serialize = false)
+    private transient List<Long> typeIdList;
+
+    @JSONField(serialize = false)
+    private transient List<Long> riskIdList;
 
 
     public AutoexecScriptVo() {
@@ -135,12 +138,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.type = type;
     }
 
-    public String getRisk() {
-        return risk;
+    public AutoexecRiskVo getRiskVo() {
+        return riskVo;
     }
 
-    public void setRisk(String risk) {
-        this.risk = risk;
+    public void setRiskVo(AutoexecRiskVo riskVo) {
+        this.riskVo = riskVo;
     }
 
     public Integer getCurrentVersion() {
@@ -199,12 +202,12 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.config = config;
     }
 
-    public List<AutoexecScriptLineVo> getLineVoList() {
-        return lineVoList;
+    public List<AutoexecScriptLineVo> getLineList() {
+        return lineList;
     }
 
-    public void setLineVoList(List<AutoexecScriptLineVo> lineVoList) {
-        this.lineVoList = lineVoList;
+    public void setLineList(List<AutoexecScriptLineVo> lineList) {
+        this.lineList = lineList;
     }
 
     public Integer getVersion() {
@@ -223,14 +226,6 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.paramList = paramList;
     }
 
-    public List<String> getLineList() {
-        return lineList;
-    }
-
-    public void setLineList(List<String> lineList) {
-        this.lineList = lineList;
-    }
-
     public AutoexecScriptVersionVo getVersionVo() {
         return versionVo;
     }
@@ -247,14 +242,6 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.isReviewing = isReviewing;
     }
 
-    public String getRiskColor() {
-        return riskColor;
-    }
-
-    public void setRiskColor(String riskColor) {
-        this.riskColor = riskColor;
-    }
-
     public List<AutoexecCombopVo> getCombopList() {
         return combopList;
     }
@@ -269,5 +256,21 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setReferenceCount(Integer referenceCount) {
         this.referenceCount = referenceCount;
+    }
+
+    public List<Long> getTypeIdList() {
+        return typeIdList;
+    }
+
+    public void setTypeIdList(List<Long> typeIdList) {
+        this.typeIdList = typeIdList;
+    }
+
+    public List<Long> getRiskIdList() {
+        return riskIdList;
+    }
+
+    public void setRiskIdList(List<Long> riskIdList) {
+        this.riskIdList = riskIdList;
     }
 }
