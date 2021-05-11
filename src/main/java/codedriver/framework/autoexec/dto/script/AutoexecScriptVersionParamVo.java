@@ -62,27 +62,13 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
     @Override
     public int hashCode() {
         String _key = "";
-        if (getKey() != null) {
-            _key += getKey() + "_";
-        }
-        if (getName() != null) {
-            _key += getName() + "_";
-        }
-        if (getDefaultValueStr() != null) {
-            _key += getDefaultValueStr() + "_";
-        }
-        if (getType() != null) {
-            _key += getType() + "_";
-        }
-        if (getMode() != null) {
-            _key += getMode() + "_";
-        }
-        if (getIsRequired() != null) {
-            _key += getIsRequired() + "_";
-        }
-        if (getDescription() != null) {
-            _key += getDescription() + "_";
-        }
+        _key += (getKey() != null ? getKey() : "undefined") + "_";
+        _key += (getName() != null ? getName() : "undefined") + "_";
+        _key += (getDefaultValueStr() != null ? getDefaultValueStr() : "undefined") + "_";
+        _key += (getType() != null ? getType() : "undefined") + "_";
+        _key += (getMode() != null ? getMode() : "undefined") + "_";
+        _key += (getIsRequired() != null ? getIsRequired() : "undefined") + "_";
+        _key += (getDescription() != null ? getDescription() : "undefined") + "_";
         return _key.hashCode();
     }
 }
