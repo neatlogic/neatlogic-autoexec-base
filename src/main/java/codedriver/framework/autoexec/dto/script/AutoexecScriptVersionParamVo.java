@@ -10,6 +10,8 @@ import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
+import java.util.Objects;
+
 public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
 
     @EntityField(name = "脚本版本ID", type = ApiParamType.LONG)
@@ -34,5 +36,26 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
 
     public void setChangeType(String changeType) {
         this.changeType = changeType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (!(o instanceof AutoexecScriptVersionParamVo)) {
+            return false;
+        }
+        final AutoexecScriptVersionParamVo other = (AutoexecScriptVersionParamVo) o;
+        return Objects.equals(this.getKey(), other.getKey())
+                && Objects.equals(this.getName(), other.getName())
+                && Objects.equals(this.getDefaultValue(), other.getDefaultValue())
+                && Objects.equals(this.getType(), other.getType())
+                && Objects.equals(this.getMode(), other.getMode())
+                && Objects.equals(this.getIsRequired(), other.getIsRequired())
+                && Objects.equals(this.getDescription(), other.getDescription());
     }
 }
