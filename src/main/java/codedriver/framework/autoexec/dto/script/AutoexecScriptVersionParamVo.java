@@ -61,7 +61,7 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
 
     @Override
     public int hashCode() {
-        String _key = scriptVersionId + "_" +  getKey();
+        String _key = scriptVersionId + "_" + getKey();
         return _key.hashCode();
     }
 }
