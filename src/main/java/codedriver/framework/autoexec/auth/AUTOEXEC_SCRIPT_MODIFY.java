@@ -14,12 +14,12 @@ public class AUTOEXEC_SCRIPT_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "脚本维护权限";
+        return "工具、自定义工具维护权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "对脚本进行查看、编辑和复制";
+        return "对工具和自定义工具进行查看、编辑、复制和测试";
     }
 
     @Override
@@ -34,6 +34,6 @@ public class AUTOEXEC_SCRIPT_MODIFY extends AuthBase {
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths(){
-        return Collections.singletonList(AUTOEXEC_SCRIPT_USE.class);
+        return Collections.singletonList(AUTOEXEC_BASE.class);
     }
 }
