@@ -53,7 +53,7 @@ public enum JobNodeStatus  implements IEnum {
         }
         return "";
     }
-    
+
     @Override
     public List getValueTextList() {
         JSONArray array = new JSONArray();
