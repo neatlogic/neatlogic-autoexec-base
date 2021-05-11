@@ -58,4 +58,10 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
                 && Objects.equals(this.getIsRequired(), other.getIsRequired())
                 && Objects.equals(this.getDescription(), other.getDescription());
     }
+
+    @Override
+    public int hashCode() {
+        String _key = scriptVersionId + "_" +  getKey();
+        return _key.hashCode();
+    }
 }
