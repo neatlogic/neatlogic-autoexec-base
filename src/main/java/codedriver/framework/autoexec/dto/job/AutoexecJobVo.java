@@ -406,9 +406,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.paramStr = paramStr;
     }
 
-    public JSONObject getParam() {
+    public JSONArray getParam() {
         if (StringUtils.isNotBlank(paramStr)) {
-            return JSONObject.parseObject(paramStr);
+            return JSONObject.parseArray(paramStr);
         }
         return null;
     }

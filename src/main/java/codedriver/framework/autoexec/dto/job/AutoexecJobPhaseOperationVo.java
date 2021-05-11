@@ -104,6 +104,16 @@ public class AutoexecJobPhaseOperationVo {
         List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
 
         List<AutoexecScriptVersionParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
+        for(ParamMappingVo paramMappingVo : paramMappingVos){
+            for (AutoexecScriptVersionParamVo input : inputParamList){
+                if(paramMappingVo.getKey().equals(input.getKey())){
+                    paramMappingVo.setType(input.getType());
+                    paramMappingVo.setName(input.getName());
+                    paramMappingVo.setDescription(input.getDescription());
+                }
+            }
+        }
+
 
         StringBuilder scriptSb = new StringBuilder();
         for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
@@ -113,6 +123,7 @@ public class AutoexecJobPhaseOperationVo {
         paramObj.put("script", script);
         this.script = script;
         paramObj.put("outputParamList",autoexecCombopPhaseOperationVo.getOutputParamList());
+        paramObj.put("inputParamList",paramMappingVos);
         this.paramStr = paramObj.toString();
 
     }
