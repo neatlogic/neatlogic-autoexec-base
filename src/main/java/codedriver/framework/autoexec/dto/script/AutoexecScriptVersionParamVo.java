@@ -52,7 +52,7 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
         final AutoexecScriptVersionParamVo other = (AutoexecScriptVersionParamVo) o;
         return Objects.equals(this.getKey(), other.getKey())
                 && Objects.equals(this.getName(), other.getName())
-                && Objects.equals(this.getDefaultValue(), other.getDefaultValue())
+                && Objects.equals(this.getDefaultValueStr(), other.getDefaultValueStr())
                 && Objects.equals(this.getType(), other.getType())
                 && Objects.equals(this.getMode(), other.getMode())
                 && Objects.equals(this.getIsRequired(), other.getIsRequired())
@@ -61,7 +61,28 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
 
     @Override
     public int hashCode() {
-        String _key = scriptVersionId + "_" + getKey();
+        String _key = "";
+        if (getKey() != null) {
+            _key += getKey() + "_";
+        }
+        if (getName() != null) {
+            _key += getName() + "_";
+        }
+        if (getDefaultValueStr() != null) {
+            _key += getDefaultValueStr() + "_";
+        }
+        if (getType() != null) {
+            _key += getType() + "_";
+        }
+        if (getMode() != null) {
+            _key += getMode() + "_";
+        }
+        if (getIsRequired() != null) {
+            _key += getIsRequired() + "_";
+        }
+        if (getDescription() != null) {
+            _key += getDescription() + "_";
+        }
         return _key.hashCode();
     }
 }
