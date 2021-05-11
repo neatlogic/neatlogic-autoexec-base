@@ -9,6 +9,9 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.annotation.JSONField;
+
+import java.util.List;
 
 public class AutoexecToolVo extends BaseEditorVo {
 
@@ -22,12 +25,22 @@ public class AutoexecToolVo extends BaseEditorVo {
     private String execMode;
     @EntityField(name = "分类ID", type = ApiParamType.LONG)
     private Long typeId;
+    @EntityField(name = "分类名称", type = ApiParamType.STRING)
+    private String typeName;
     @EntityField(name = "操作级别ID", type = ApiParamType.LONG)
     private Long riskId;
+    @EntityField(name = "操作级别")
+    private AutoexecRiskVo riskVo;
     @EntityField(name = "描述说明", type = ApiParamType.STRING)
     private String description;
     @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
     private Integer isActive;
+
+    @JSONField(serialize = false)
+    private transient List<Long> typeIdList;
+
+    @JSONField(serialize = false)
+    private transient List<Long> riskIdList;
 
     public AutoexecToolVo() {
     }
@@ -97,5 +110,37 @@ public class AutoexecToolVo extends BaseEditorVo {
 
     public void setIsActive(Integer isActive) {
         this.isActive = isActive;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public AutoexecRiskVo getRiskVo() {
+        return riskVo;
+    }
+
+    public void setRiskVo(AutoexecRiskVo riskVo) {
+        this.riskVo = riskVo;
+    }
+
+    public List<Long> getTypeIdList() {
+        return typeIdList;
+    }
+
+    public void setTypeIdList(List<Long> typeIdList) {
+        this.typeIdList = typeIdList;
+    }
+
+    public List<Long> getRiskIdList() {
+        return riskIdList;
+    }
+
+    public void setRiskIdList(List<Long> riskIdList) {
+        this.riskIdList = riskIdList;
     }
 }
