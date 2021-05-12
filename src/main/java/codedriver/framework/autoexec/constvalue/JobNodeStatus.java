@@ -1,6 +1,12 @@
 package codedriver.framework.autoexec.constvalue;
 
-public enum JobNodeStatus {
+import codedriver.framework.common.constvalue.IEnum;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
+
+public enum JobNodeStatus  implements IEnum {
     PENDING("pending", "未开始", "#8E949F"),
     RUNNING("running", "进行中", "#2d84fb"),
     STOPPING("stopping", "停止中", "#2d84fb"),
@@ -48,4 +54,18 @@ public enum JobNodeStatus {
         return "";
     }
 
+    @Override
+    public List getValueTextList() {
+        JSONArray array = new JSONArray();
+        for (JobNodeStatus status : JobNodeStatus.values()) {
+            array.add(new JSONObject() {
+                private static final long serialVersionUID = 1670544546905960015L;
+                {
+                    this.put("value", status.getValue());
+                    this.put("text", status.getText());
+                }
+            });
+        }
+        return array;
+    }
 }
