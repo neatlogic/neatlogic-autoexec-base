@@ -34,6 +34,15 @@ public enum ExecMode implements IEnum {
         return text;
     }
 
+    public static ExecMode getExecMode(String _value) {
+        for (ExecMode e : ExecMode.values()) {
+            if (e.getValue().equals(_value)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     public String getDescription() {
         return description;
     }
