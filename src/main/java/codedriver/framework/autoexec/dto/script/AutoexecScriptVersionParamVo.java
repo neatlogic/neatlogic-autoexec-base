@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
 
+    private static final long serialVersionUID = 8243453082594614181L;
     @EntityField(name = "脚本版本ID", type = ApiParamType.LONG)
     private Long scriptVersionId;
     @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
