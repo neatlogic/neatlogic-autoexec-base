@@ -14,7 +14,7 @@ public enum JobPhaseStatus implements IEnum {
     PAUSED("paused", "已暂停", "#8E949F"),
     STOPPING("stopping", "停止中", "#2d84fb"),
     STOPPED("stopped", "已停止", "#8E949F"),
-    SUCCEED("succeed", "已成功", "#25b865"),
+    COMPLETED("completed", "已完成", "#25b865"),
     FAILED("failed", "已失败", "#f71010");
     private final String status;
     private final String text;
