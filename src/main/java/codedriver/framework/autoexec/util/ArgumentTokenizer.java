@@ -162,6 +162,12 @@ public class ArgumentTokenizer {
         return argList;
     }
 
+    /**
+     * 将拆分出来的词语分类
+     *
+     * @param currArg
+     * @return
+     */
     private static Map<String, String> getIdentifiedMap(StringBuilder currArg) {
         if (StringUtils.isNotBlank(currArg)) {
             Map<String, String> map = new HashMap<>();
