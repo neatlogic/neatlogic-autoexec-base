@@ -25,10 +25,14 @@ public class AutoexecScriptVo extends BaseEditorVo {
     private String name;
     @EntityField(name = "执行方式", type = ApiParamType.STRING)
     private String execMode;
+    @EntityField(name = "执行方式显示名", type = ApiParamType.STRING)
+    private String execModeText;
     @EntityField(name = "分类ID", type = ApiParamType.LONG)
     private Long typeId;
     @EntityField(name = "操作级别ID", type = ApiParamType.LONG)
     private Long riskId;
+    @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
+    private String riskName;
 
     @EntityField(name = "分类名称", type = ApiParamType.STRING)
     private String type;
@@ -114,6 +118,14 @@ public class AutoexecScriptVo extends BaseEditorVo {
         this.execMode = execMode;
     }
 
+    public String getExecModeText() {
+        return execModeText;
+    }
+
+    public void setExecModeText(String execModeText) {
+        this.execModeText = execModeText;
+    }
+
     public Long getTypeId() {
         return typeId;
     }
@@ -128,6 +140,14 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setRiskId(Long riskId) {
         this.riskId = riskId;
+    }
+
+    public String getRiskName() {
+        return riskName;
+    }
+
+    public void setRiskName(String riskName) {
+        this.riskName = riskName;
     }
 
     public String getType() {
