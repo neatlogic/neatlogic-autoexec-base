@@ -11,6 +11,7 @@ import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
@@ -38,8 +39,10 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     private String host;
     @EntityField(name = "作业剧本主机端口", type = ApiParamType.INTEGER)
     private Integer port;
-    @EntityField(name = "执行目标账号", type = ApiParamType.INTEGER)
+    @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
     private String userName;
+    @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
+    private String password;
     @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.INTEGER)
@@ -84,6 +87,9 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     }
 
     public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
         return id;
     }
 
@@ -137,6 +143,14 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStatus() {
