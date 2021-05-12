@@ -7,11 +7,12 @@ package codedriver.framework.autoexec.constvalue;
 
 /**
  * 组合工具授权类型
+ *
  * @author: linbq
  * @since: 2021/4/14 7:38
  **/
 public enum CombopAuthorityAction {
-    EDIT("edit", "编辑"), EXECUTE("execute", "执行");
+    EDIT("edit", "编辑"), EXECUTE("execute", "执行"), VIEW("view", "查看");
     private String value;
     private String text;
 
