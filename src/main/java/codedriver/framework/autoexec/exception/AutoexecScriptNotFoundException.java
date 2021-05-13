@@ -15,5 +15,9 @@ public class AutoexecScriptNotFoundException extends ApiRuntimeException {
         super("脚本：'" + id + "'不存在");
     }
 
+    public AutoexecScriptNotFoundException(String id) {
+        super("脚本：'" + id + "'不存在");
+    }
+
 
 }
