@@ -25,6 +25,7 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Date;
@@ -34,7 +35,8 @@ import java.util.List;
  * @author lvzk
  * @since 2021/4/12 11:48
  **/
-public class AutoexecJobVo extends BasePageVo {
+public class AutoexecJobVo extends BasePageVo implements Serializable {
+    private static final long serialVersionUID = -1382188874082154509L;
     @EntityField(name = "作业id(如果是人工发起则id正常生成，其它情况存放来源id)", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "作业名称（唯一标识）", type = ApiParamType.STRING)
@@ -74,7 +76,7 @@ public class AutoexecJobVo extends BasePageVo {
     @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
     private String paramStr;
     @EntityField(name = "运行参数JSON", type = ApiParamType.JSONOBJECT)
-    private JSONArray param;
+    private JSONObject param;
     private String paramHash;
     @EntityField(name = "是否允许执行作业", type = ApiParamType.INTEGER)
     private Integer isCanJobExec = 0;

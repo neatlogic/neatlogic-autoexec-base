@@ -13,8 +13,11 @@ import java.io.Serializable;
  **/
 public class ParamMappingVo implements Serializable {
     private String key;
+    private String name;
     private String mappingMode;
     private Object value;
+    private String type;
+    private String description;
 
     public ParamMappingVo() {
     }
@@ -47,5 +50,29 @@ public class ParamMappingVo implements Serializable {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

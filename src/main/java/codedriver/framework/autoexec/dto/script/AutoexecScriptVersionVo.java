@@ -6,10 +6,12 @@
 package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.autoexec.constvalue.ParamMode;
+import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -28,6 +30,8 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private Integer version;
     @EntityField(name = "状态(draft:编辑中、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "状态", type = ApiParamType.JSONOBJECT)
+    private JSONObject statusVo;
     @EntityField(name = "审批人", type = ApiParamType.STRING)
     private String reviewer;
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
@@ -87,6 +91,16 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public JSONObject getStatusVo() {
+        if (status != null) {
+            statusVo = new JSONObject();
+            statusVo.put("value", status);
+            statusVo.put("text", ScriptVersionStatus.getText(status));
+            statusVo.put("color", ScriptVersionStatus.getColor(status));
+        }
+        return statusVo;
     }
 
     public String getReviewer() {

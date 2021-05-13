@@ -79,7 +79,12 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.execUser = UserContext.get().getUserUuid(true);
     }
 
-    public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
+    public AutoexecJobPhaseVo(Long _id, String _status) {
+        this.id = _id;
+        this.status = _status;
+    }
+
+    public AutoexecJobPhaseVo(Long _id, String _status,String _errorMsg) {
         this.id = _id;
         this.status = _status;
         this.errorMsg = _errorMsg;

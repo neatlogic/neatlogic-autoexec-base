@@ -7,8 +7,11 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationConfigVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
+import codedriver.framework.autoexec.dto.combop.ParamMappingVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -96,15 +99,32 @@ public class AutoexecJobPhaseOperationVo {
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
         this.parser = scriptVersionVo.getParser();
         //拼接操作脚本到config
-        JSONObject operationConfigJson = (JSONObject)JSONObject.toJSON(autoexecCombopPhaseOperationVo.getConfig());
+        JSONObject paramObj = new JSONObject();
+        AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
+        List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
+
+        List<AutoexecScriptVersionParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
+        for(ParamMappingVo paramMappingVo : paramMappingVos){
+            for (AutoexecScriptVersionParamVo input : inputParamList){
+                if(paramMappingVo.getKey().equals(input.getKey())){
+                    paramMappingVo.setType(input.getType());
+                    paramMappingVo.setName(input.getName());
+                    paramMappingVo.setDescription(input.getDescription());
+                }
+            }
+        }
+
+
         StringBuilder scriptSb = new StringBuilder();
         for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
             scriptSb.append(lineVo.getContent());
         }
         String script = scriptSb.toString();
-        operationConfigJson.put("script", script);
+        paramObj.put("script", script);
         this.script = script;
-        this.paramStr = operationConfigJson.toString();
+        paramObj.put("outputParamList",autoexecCombopPhaseOperationVo.getOutputParamList());
+        paramObj.put("inputParamList",paramMappingVos);
+        this.paramStr = paramObj.toString();
 
     }
 

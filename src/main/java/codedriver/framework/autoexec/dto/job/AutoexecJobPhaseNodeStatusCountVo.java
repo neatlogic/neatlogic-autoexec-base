@@ -5,7 +5,9 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.common.dto.BasePageVo;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author lvzk
@@ -13,7 +15,8 @@ import codedriver.framework.common.dto.BasePageVo;
  **/
 public class AutoexecJobPhaseNodeStatusCountVo extends BasePageVo {
     private Long jobPhaseId;
-    private String Status;
+    private String status;
+    private AutoexecJobStatusVo statusVo;
     private Integer count;
     public Long getJobPhaseId() {
         return jobPhaseId;
@@ -24,11 +27,11 @@ public class AutoexecJobPhaseNodeStatusCountVo extends BasePageVo {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public Integer getCount() {
@@ -37,5 +40,12 @@ public class AutoexecJobPhaseNodeStatusCountVo extends BasePageVo {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public AutoexecJobStatusVo getStatusVo() {
+        if (statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
+        }
+        return statusVo;
     }
 }

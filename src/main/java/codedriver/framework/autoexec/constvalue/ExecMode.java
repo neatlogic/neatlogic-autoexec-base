@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
+import java.util.Objects;
 
 public enum ExecMode implements IEnum {
     RUNNER("runner", "runner执行", "无需指定执行目标，工具在runner执行，适用于数据汇总处理等"),
@@ -33,10 +34,27 @@ public enum ExecMode implements IEnum {
         return text;
     }
 
+    public static ExecMode getExecMode(String _value) {
+        for (ExecMode e : ExecMode.values()) {
+            if (e.getValue().equals(_value)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     public String getDescription() {
         return description;
     }
 
+    public static String getText(String _value) {
+        for (ExecMode e : values()) {
+            if (Objects.equals(e.getValue(), _value)) {
+                return e.getText();
+            }
+        }
+        return "";
+    }
     /**
      * @Description: 不同的枚举类，返回不同的枚举值，可自由组合成List<>或者JSONArray
      * @Author: laiwt

@@ -31,7 +31,17 @@ public class AutoexecScriptLineVo implements Serializable {
     @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
     private String changeType;
 
+    private Integer isAnnotation; // 是否是注释行
+
+    @EntityField(name = "含有的危险代码等级", type = ApiParamType.STRING)
+    private String riskCodeLevel;
+
     public AutoexecScriptLineVo() {
+    }
+
+    public AutoexecScriptLineVo(String content, Integer lineNumber) {
+        this.content = content;
+        this.lineNumber = lineNumber;
     }
 
     public Long getId() {
@@ -91,5 +101,21 @@ public class AutoexecScriptLineVo implements Serializable {
 
     public void setChangeType(String changeType) {
         this.changeType = changeType;
+    }
+
+    public Integer getIsAnnotation() {
+        return isAnnotation;
+    }
+
+    public void setIsAnnotation(Integer isAnnotation) {
+        this.isAnnotation = isAnnotation;
+    }
+
+    public String getRiskCodeLevel() {
+        return riskCodeLevel;
+    }
+
+    public void setRiskCodeLevel(String riskCodeLevel) {
+        this.riskCodeLevel = riskCodeLevel;
     }
 }

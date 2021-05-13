@@ -7,11 +7,13 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecParamIrregularException extends ApiRuntimeException {
+public class AutoexecScriptCheckHandlerNotFoundException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 7181234466877341137L;
+    private static final long serialVersionUID = 8704155163065816926L;
 
-    public AutoexecParamIrregularException(int position, String key) {
-        super("第 [" + position + "] 行参数，'" + key + "'不符合格式要求");
+    public AutoexecScriptCheckHandlerNotFoundException(String parser) {
+        super("脚本校验器：'" + parser + "'不存在");
     }
+
+
 }

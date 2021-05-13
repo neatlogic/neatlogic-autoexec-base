@@ -23,6 +23,7 @@ public class AutoexecCombopPhaseVo implements Serializable {
     private String uk;
     private String name;
     private String execMode;
+    private String execModeName;
     private AutoexecCombopPhaseConfigVo config;
     private Integer sort;
     private String uuid;
@@ -69,6 +70,14 @@ public class AutoexecCombopPhaseVo implements Serializable {
 
     public void setExecMode(String execMode) {
         this.execMode = execMode;
+    }
+
+    public String getExecModeName() {
+        return execModeName;
+    }
+
+    public void setExecModeName(String execModeName) {
+        this.execModeName = execModeName;
     }
 
     public AutoexecCombopPhaseConfigVo getConfig() {

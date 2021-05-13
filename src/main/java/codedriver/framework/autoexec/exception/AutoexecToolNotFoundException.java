@@ -7,12 +7,13 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecParamFieldNotFoundException extends ApiRuntimeException {
+public class AutoexecToolNotFoundException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = -7683561524145727491L;
+    private static final long serialVersionUID = 1615596881289051556L;
 
-    public AutoexecParamFieldNotFoundException(int position, String key) {
-        super("第 [" + position + "] 行参数，'" + key + "'不能为空");
+    public AutoexecToolNotFoundException(Long id) {
+        super("工具：'" + id + "'不存在");
     }
+
 
 }

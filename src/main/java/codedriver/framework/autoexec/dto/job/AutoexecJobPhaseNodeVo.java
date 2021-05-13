@@ -11,10 +11,12 @@ import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -23,19 +25,24 @@ import java.util.Objects;
  * @author lvzk
  * @since 2021/4/12 16:12
  **/
-public class AutoexecJobPhaseNodeVo extends BasePageVo {
+public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
+    private static final long serialVersionUID = -3975625036282871623L;
     @EntityField(name = "作业剧本节点id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "作业id", type = ApiParamType.LONG)
     private Long jobId;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
+    @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
+    private String jobPhaseName;
     @EntityField(name = "作业剧本主机", type = ApiParamType.STRING)
     private String host;
     @EntityField(name = "作业剧本主机端口", type = ApiParamType.INTEGER)
     private Integer port;
-    @EntityField(name = "执行目标账号", type = ApiParamType.INTEGER)
+    @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
     private String userName;
+    @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
+    private String password;
     @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.INTEGER)
@@ -46,8 +53,12 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     private Date endTime;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
+    @EntityField(name = "节点Id", type = ApiParamType.LONG)
+    private Long nodeId;
     @EntityField(name = "节点名称", type = ApiParamType.STRING)
     private String nodeName;
+    @EntityField(name = "节点连接类型", type = ApiParamType.STRING)
+    private String nodeType;
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
     private String proxyUrl;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
@@ -61,6 +72,11 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     public AutoexecJobPhaseNodeVo() {
     }
 
+    public AutoexecJobPhaseNodeVo(Long jobId ,String jobPhaseName) {
+        this.jobId = jobId;
+        this.jobPhaseName = jobPhaseName;
+    }
+
     public AutoexecJobPhaseNodeVo(AutoexecNodeVo nodeVo) {
         this.host = nodeVo.getHost();
         this.port = nodeVo.getPort();
@@ -71,6 +87,9 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
     }
 
     public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
         return id;
     }
 
@@ -88,6 +107,14 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
 
     public Long getJobPhaseId() {
         return jobPhaseId;
+    }
+
+    public String getJobPhaseName() {
+        return jobPhaseName;
+    }
+
+    public void setJobPhaseName(String jobPhaseName) {
+        this.jobPhaseName = jobPhaseName;
     }
 
     public void setJobPhaseId(Long jobPhaseId) {
@@ -116,6 +143,14 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStatus() {
@@ -169,12 +204,28 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo {
         return costTime;
     }
 
+    public Long getNodeId() {
+        return nodeId;
+    }
+
+    public void setNodeId(Long nodeId) {
+        this.nodeId = nodeId;
+    }
+
     public String getNodeName() {
         return nodeName;
     }
 
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
+    }
+
+    public String getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
     }
 
     public String getProxyUrl() {

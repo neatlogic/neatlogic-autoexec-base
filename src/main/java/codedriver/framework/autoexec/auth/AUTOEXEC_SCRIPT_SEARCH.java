@@ -10,16 +10,16 @@ import codedriver.framework.auth.core.AuthBase;
 import java.util.Collections;
 import java.util.List;
 
-public class AUTOEXEC_SCRIPT_USE extends AuthBase {
+public class AUTOEXEC_SCRIPT_SEARCH extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "脚本使用权限";
+        return "工具、自定义工具查看权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "可查看和引用脚本";
+        return "查看工具、自定义工具";
     }
 
     @Override
