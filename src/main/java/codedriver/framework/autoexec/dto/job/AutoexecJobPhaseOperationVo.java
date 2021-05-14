@@ -61,6 +61,7 @@ public class AutoexecJobPhaseOperationVo {
     private String paramHash;
 
     private String script;
+    private Long scriptId;
     private String scriptHash;
 
     public AutoexecJobPhaseOperationVo() {
@@ -85,10 +86,11 @@ public class AutoexecJobPhaseOperationVo {
         operationConfigJson.put("script", script);
         this.script = script;
         this.paramStr = operationConfigJson.toString();
+        this.scriptId = scriptVo.getId();
 
     }
 
-    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, List<AutoexecScriptLineVo> scriptLineVoList) {
+    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo,String script) {
         this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
         this.uk = scriptVo.getUk();
@@ -113,19 +115,11 @@ public class AutoexecJobPhaseOperationVo {
                 }
             }
         }
-
-
-        StringBuilder scriptSb = new StringBuilder();
-        for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
-            scriptSb.append(lineVo.getContent());
-        }
-        String script = scriptSb.toString();
-        paramObj.put("script", script);
         this.script = script;
         paramObj.put("outputParamList",autoexecCombopPhaseOperationVo.getOutputParamList());
         paramObj.put("inputParamList",paramMappingVos);
         this.paramStr = paramObj.toString();
-
+        this.scriptId = scriptVo.getId();
     }
 
     public Long getId() {
@@ -257,5 +251,13 @@ public class AutoexecJobPhaseOperationVo {
             paramHash = DigestUtils.md5DigestAsHex(paramStr.getBytes(StandardCharsets.UTF_8));
         }
         return paramHash;
+    }
+
+    public Long getScriptId() {
+        return scriptId;
+    }
+
+    public void setScriptId(Long scriptId) {
+        this.scriptId = scriptId;
     }
 }
