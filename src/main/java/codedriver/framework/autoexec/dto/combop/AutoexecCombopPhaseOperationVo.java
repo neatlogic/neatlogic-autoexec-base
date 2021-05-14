@@ -25,6 +25,7 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo impl
     private AutoexecCombopPhaseOperationConfigVo config;
     private Integer sort;
     private transient String configStr;
+    private String uuid;
 
     public Long getCombopPhaseId() {
         return combopPhaseId;
@@ -83,5 +84,13 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo impl
             return null;
         }
         return JSONObject.toJSONString(config);
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }
