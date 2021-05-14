@@ -16,6 +16,7 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,8 @@ import java.util.List;
  * @author lvzk
  * @since 2021/4/12 11:48
  **/
-public class AutoexecJobPhaseVo extends BasePageVo {
+public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
+    private static final long serialVersionUID = 7462993286745015121L;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "作业id", type = ApiParamType.LONG)
@@ -55,6 +57,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
     private Integer sort;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
+    private String uuid;
 
     public AutoexecJobPhaseVo() {
     }
@@ -77,6 +80,7 @@ public class AutoexecJobPhaseVo extends BasePageVo {
         this.jobId = jobId;
         this.sort = index;
         this.execUser = UserContext.get().getUserUuid(true);
+        this.uuid = autoexecCombopPhaseVo.getUuid();
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status) {
@@ -214,5 +218,13 @@ public class AutoexecJobPhaseVo extends BasePageVo {
             return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status),JobPhaseStatus.getColor(status));
         }
         return statusVo;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }
