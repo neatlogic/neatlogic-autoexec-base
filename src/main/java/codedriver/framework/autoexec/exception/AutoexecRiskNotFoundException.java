@@ -15,5 +15,9 @@ public class AutoexecRiskNotFoundException extends ApiRuntimeException {
         super("操作级别：'" + id + "'不存在");
     }
 
+    public AutoexecRiskNotFoundException(String name) {
+        super("操作级别：'" + name + "'不存在");
+    }
+
 
 }
