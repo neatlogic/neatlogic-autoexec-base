@@ -5,11 +5,13 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.autoexec.constvalue.ExecMode;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -85,11 +87,10 @@ public class AutoexecToolVo extends BaseEditorVo {
     }
 
     public String getExecModeText() {
+        if (StringUtils.isNotBlank(execMode)) {
+            execModeText = ExecMode.getExecMode(execMode).getText();
+        }
         return execModeText;
-    }
-
-    public void setExecModeText(String execModeText) {
-        this.execModeText = execModeText;
     }
 
     public String getInterpreter() {
