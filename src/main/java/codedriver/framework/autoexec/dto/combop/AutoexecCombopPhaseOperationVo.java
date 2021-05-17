@@ -26,6 +26,7 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo impl
     private Integer sort;
     private transient String configStr;
     private String uuid;
+    private String letter;
 
     public Long getCombopPhaseId() {
         return combopPhaseId;
@@ -92,5 +93,13 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo impl
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
 }
