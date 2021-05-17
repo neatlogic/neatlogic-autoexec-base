@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -29,7 +30,8 @@ import java.util.List;
  * @author lvzk
  * @since 2021/4/12 16:22
  **/
-public class AutoexecJobPhaseOperationVo {
+public class AutoexecJobPhaseOperationVo implements Serializable {
+    private static final long serialVersionUID = 5504642984478163497L;
     @EntityField(name = "作业剧本操作id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "作业id", type = ApiParamType.LONG)
@@ -59,6 +61,7 @@ public class AutoexecJobPhaseOperationVo {
     @EntityField(name = "出参", type = ApiParamType.JSONARRAY)
     private JSONArray outputParamList;
     private String paramHash;
+    private String uuid;
 
     private String script;
     private Long scriptId;
@@ -120,6 +123,7 @@ public class AutoexecJobPhaseOperationVo {
         paramObj.put("inputParamList",paramMappingVos);
         this.paramStr = paramObj.toString();
         this.scriptId = scriptVo.getId();
+        this.uuid = autoexecCombopPhaseOperationVo.getUuid();
     }
 
     public Long getId() {
@@ -259,5 +263,13 @@ public class AutoexecJobPhaseOperationVo {
 
     public void setScriptId(Long scriptId) {
         this.scriptId = scriptId;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }
