@@ -5,9 +5,11 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 
@@ -22,6 +24,8 @@ public class AutoexecParamVo implements Serializable {
     private String mode;
     @EntityField(name = "表单类型", type = ApiParamType.STRING)
     private String type;
+    @EntityField(name = "表单类型名称", type = ApiParamType.STRING)
+    private String typeText;
     @EntityField(name = "是否必填(1:是;0:否)", type = ApiParamType.INTEGER)
     private Integer isRequired;
     @EntityField(name = "说明", type = ApiParamType.STRING)
@@ -99,6 +103,13 @@ public class AutoexecParamVo implements Serializable {
         this.type = type;
     }
 
+    public String getTypeText() {
+        if (StringUtils.isNotBlank(type)) {
+            typeText = ParamType.getParamType(type).getText();
+        }
+        return typeText;
+    }
+
     public String getMode() {
         return mode;
     }
@@ -133,9 +144,9 @@ public class AutoexecParamVo implements Serializable {
 
     public String getDefaultValueStr() {
         if (defaultValue != null) {
-            if(defaultValue instanceof String){
+            if (defaultValue instanceof String) {
                 return (String) defaultValue;
-            }else {
+            } else {
                 return JSONObject.toJSONString(defaultValue);
             }
         }
