@@ -12,11 +12,11 @@ import codedriver.framework.exception.core.ApiRuntimeException;
  * @author: linbq
  * @since: 2021/4/25 15:04
  **/
-public class AutoexecCombopExecuteUserCannotBeEmptyException extends ApiRuntimeException {
+public class AutoexecCombopExecuteNodeCannotBeEmptyException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = -977868376722876383L;
+    private static final long serialVersionUID = -971868378722876383L;
 
-    public AutoexecCombopExecuteUserCannotBeEmptyException(){
-        super("选择现在指定执行目标时，执行用户不能为空");
+    public AutoexecCombopExecuteNodeCannotBeEmptyException(){
+        super("选择现在指定执行目标时，执行目标不能为空");
     }
 }
