@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializable {
 
+    private static final long serialVersionUID = 541000255046247832L;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "脚本ID", type = ApiParamType.LONG)

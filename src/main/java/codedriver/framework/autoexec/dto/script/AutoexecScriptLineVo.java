@@ -14,6 +14,7 @@ import java.io.Serializable;
 
 public class AutoexecScriptLineVo implements Serializable {
 
+    private static final long serialVersionUID = 8790853531134615524L;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "脚本ID", type = ApiParamType.LONG)
