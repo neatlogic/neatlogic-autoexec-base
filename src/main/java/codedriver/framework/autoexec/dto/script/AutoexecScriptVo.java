@@ -15,9 +15,10 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AutoexecScriptVo extends BaseEditorVo {
+public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
@@ -80,6 +81,8 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     @JSONField(serialize = false)
     private transient List<Long> riskIdList;
+
+    private List<AutoexecScriptVersionVo> versionList;
 
 
     public AutoexecScriptVo() {
@@ -293,5 +296,13 @@ public class AutoexecScriptVo extends BaseEditorVo {
 
     public void setRiskIdList(List<Long> riskIdList) {
         this.riskIdList = riskIdList;
+    }
+
+    public List<AutoexecScriptVersionVo> getVersionList() {
+        return versionList;
+    }
+
+    public void setVersionList(List<AutoexecScriptVersionVo> versionList) {
+        this.versionList = versionList;
     }
 }
