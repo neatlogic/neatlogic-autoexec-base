@@ -78,7 +78,7 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     private Integer referenceCount;
 
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
-    private Integer hasBeenGeneratedToCombop;
+    private Integer hasBeenGeneratedToCombop = 0;
 
     @JSONField(serialize = false)
     private transient List<Long> typeIdList;
