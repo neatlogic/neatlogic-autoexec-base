@@ -6,10 +6,10 @@
 package codedriver.framework.autoexec.constvalue;
 
 public enum ScriptVersionStatus {
-    DRAFT("draft", "编辑中", ""),
-    SUBMITTED("submitted", "待审批", "#F59A23"),
-    PASSED("passed", "已通过", "#00BCD4"),
-    REJECTED("rejected", "已驳回", "#D9001B");
+    DRAFT("draft", "编辑中", "#1670F0"),
+    SUBMITTED("submitted", "待审核", "#FFBA5A"),
+    PASSED("passed", "已通过", "#25B864"),
+    REJECTED("rejected", "已驳回", "#F33B3B");
     private String value;
     private String text;
     private String color;
