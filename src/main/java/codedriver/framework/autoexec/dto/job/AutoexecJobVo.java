@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.job;
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
 import codedriver.framework.common.dto.BasePageVo;
@@ -277,7 +278,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getSource() {
-        return source;
+        return AutoexecJobSourceFactory.getSourceValueMap().get(this.source);
     }
 
     public void setSource(String source) {
