@@ -15,6 +15,7 @@ import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.exception.type.ParamIrregularException;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONArray;
@@ -25,6 +26,8 @@ import org.springframework.util.DigestUtils;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author lvzk
@@ -93,7 +96,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     }
 
-    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo,String script) {
+    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, String script, List<AutoexecJobPhaseVo> jobPhaseVoList) {
         this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
         this.uk = scriptVo.getUk();
@@ -109,18 +112,41 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
 
         List<AutoexecScriptVersionParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
-        for(ParamMappingVo paramMappingVo : paramMappingVos){
-            for (AutoexecScriptVersionParamVo input : inputParamList){
-                if(paramMappingVo.getKey().equals(input.getKey())){
+        for (ParamMappingVo paramMappingVo : paramMappingVos) {
+            for (AutoexecScriptVersionParamVo input : inputParamList) {
+                if (paramMappingVo.getKey().equals(input.getKey())) {
                     paramMappingVo.setType(input.getType());
                     paramMappingVo.setName(input.getName());
                     paramMappingVo.setDescription(input.getDescription());
+                    Object value = paramMappingVo.getValue();
+                    if (value instanceof String && value.toString().contains("&&")) {
+                        String[] values = value.toString().split("&&");
+                        if (values.length == 4) {
+                            String phaseUuid = values[0];
+                            String opName = values[1];
+                            String opUuid = values[2];
+                            value = values[3];
+                            List<AutoexecJobPhaseVo> tmpPhaseList = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).collect(Collectors.toList());
+                            if( tmpPhaseList.size() == 1){
+                                List<AutoexecJobPhaseOperationVo> tmpOperationList = tmpPhaseList.get(0).getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).collect(Collectors.toList());
+                                if(tmpOperationList.size() == 1 ){
+                                    paramMappingVo.setValue(String.format("${%s.%s_%d.%s}",tmpPhaseList.get(0).getName(),opName,tmpOperationList.get(0).getId(),value));
+                                }else {
+                                    throw new ParamIrregularException(phaseVo.getName() + ":" + scriptVo.getName() + ":" + input.getName() + " phaseUuid");
+                                }
+                            }else{
+                                throw new ParamIrregularException(phaseVo.getName() + ":" + scriptVo.getName() + ":" + input.getName() +" operationUuid");
+                            }
+                        } else {
+                            throw new ParamIrregularException(phaseVo.getName() + ":" + scriptVo.getName() + ":" + input.getName());
+                        }
+                    }
                 }
             }
         }
         this.script = script;
-        paramObj.put("outputParamList",autoexecCombopPhaseOperationVo.getOutputParamList());
-        paramObj.put("inputParamList",paramMappingVos);
+        paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
+        paramObj.put("inputParamList", paramMappingVos);
         this.paramStr = paramObj.toString();
         this.scriptId = scriptVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
@@ -244,14 +270,14 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     }
 
     public String getScriptHash() {
-        if(StringUtils.isNotBlank(script)){
+        if (StringUtils.isNotBlank(script)) {
             scriptHash = DigestUtils.md5DigestAsHex(script.getBytes(StandardCharsets.UTF_8));
         }
         return scriptHash;
     }
 
     public String getParamHash() {
-        if(StringUtils.isNotBlank(paramStr)){
+        if (StringUtils.isNotBlank(paramStr)) {
             paramHash = DigestUtils.md5DigestAsHex(paramStr.getBytes(StandardCharsets.UTF_8));
         }
         return paramHash;

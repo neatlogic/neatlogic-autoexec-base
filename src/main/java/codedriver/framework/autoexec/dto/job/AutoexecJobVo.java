@@ -67,8 +67,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private String source;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
     private Integer threadCount;
-    @EntityField(name = "作业其它配置", type = ApiParamType.LONG)
-    private String config;
+    @EntityField(name = "作业其它配置", type = ApiParamType.STRING)
+    private String configStr;
+    @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
+    private JSONObject config;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
@@ -129,6 +131,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.execUser = UserContext.get().getUserUuid();
         this.execUserType = GroupSearch.USER.getValue();
         this.paramStr = combopParamsResult.toJSONString();
+        this.configStr = combopVo.getConfigStr();
     }
 
 
@@ -180,8 +183,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public AutoexecJobStatusVo getStatusVo() {
-        if(statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status,JobStatus.getText(status),JobStatus.getColor(status));
+        if (statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobStatus.getText(status), JobStatus.getColor(status));
         }
         return statusVo;
     }
@@ -258,12 +261,19 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.threadCount = threadCount;
     }
 
-    public String getConfig() {
-        return config;
+    public String getConfigStr() {
+        return configStr;
     }
 
-    public void setConfig(String config) {
-        this.config = config;
+    public void setConfigStr(String configStr) {
+        this.configStr = configStr;
+    }
+
+    public JSONObject getConfig() {
+        if (StringUtils.isNotBlank(configStr)) {
+            return JSONObject.parseObject(configStr);
+        }
+        return null;
     }
 
     public String getSource() {
@@ -291,7 +301,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public List<String> getExecUserList() {
-        if(CollectionUtils.isNotEmpty(execUserList)){
+        if (CollectionUtils.isNotEmpty(execUserList)) {
             for (int i = 0; i < execUserList.size(); i++) {
                 String tmpUser = execUserList.get(i).replaceAll(GroupSearch.USER.getValuePlugin(), StringUtils.EMPTY);
                 execUserList.set(i, tmpUser);
