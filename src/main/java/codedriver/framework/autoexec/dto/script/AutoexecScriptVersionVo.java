@@ -16,6 +16,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -137,6 +138,15 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     }
 
     public List<AutoexecScriptVersionParamVo> getParamList() {
+        if (CollectionUtils.isNotEmpty(inputParamList) || CollectionUtils.isNotEmpty(outputParamList)) {
+            paramList = new ArrayList<>();
+            if (inputParamList != null) {
+                paramList.addAll(inputParamList);
+            }
+            if (outputParamList != null) {
+                paramList.addAll(outputParamList);
+            }
+        }
         return paramList;
     }
 
