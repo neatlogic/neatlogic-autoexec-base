@@ -9,11 +9,13 @@ import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
+import codedriver.framework.dto.UserVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
+import org.docx4j.wml.U;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -35,6 +37,8 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private JSONObject statusVo;
     @EntityField(name = "审批人", type = ApiParamType.STRING)
     private String reviewer;
+    @EntityField(name = "审批用户")
+    private UserVo reviewerVo;
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
     private String parser;
     @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
@@ -178,5 +182,13 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setRejectReason(String rejectReason) {
         this.rejectReason = rejectReason;
+    }
+
+    public UserVo getReviewerVo() {
+        return reviewerVo;
+    }
+
+    public void setReviewerVo(UserVo reviewerVo) {
+        this.reviewerVo = reviewerVo;
     }
 }
