@@ -181,8 +181,12 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         if (CollectionUtils.isNotEmpty(paramList)) {
             paramArray = paramList;
         } else if (StringUtils.isNotBlank(configStr)) {
-            paramArray = JSONArray.parseArray(configStr).toJavaList(AutoexecParamVo.class);
+            JSONArray array = JSONArray.parseArray(configStr);
+            if (CollectionUtils.isNotEmpty(array)) {
+                paramArray = array.toJavaList(AutoexecParamVo.class);
+            }
         }
+        // 以上解析configStr的逻辑本该放在getParamList()，但经测试，无法由此拆分出入参和出参，原因不明
         if (CollectionUtils.isNotEmpty(paramArray) && CollectionUtils.isEmpty(inputParamList)) {
             inputParamList = paramArray.stream()
                     .filter(o -> ParamMode.INPUT.getValue().equals(o.getMode()))
@@ -201,7 +205,10 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
             outputParamList = paramList;
         } else if (StringUtils.isNotBlank(configStr) && CollectionUtils.isEmpty(outputParamList)) {
-            paramArray = JSONArray.parseArray(configStr).toJavaList(AutoexecParamVo.class);
+            JSONArray array = JSONArray.parseArray(configStr);
+            if (CollectionUtils.isNotEmpty(array)) {
+                paramArray = array.toJavaList(AutoexecParamVo.class);
+            }
         }
         if (CollectionUtils.isNotEmpty(paramArray) && CollectionUtils.isEmpty(outputParamList)) {
             outputParamList = paramArray.stream()
