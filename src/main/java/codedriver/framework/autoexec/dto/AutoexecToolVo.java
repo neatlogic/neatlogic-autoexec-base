@@ -43,10 +43,11 @@ public class AutoexecToolVo extends BaseEditorVo {
     @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
     private Integer isActive;
 
-    @EntityField(name = "参数配置", type = ApiParamType.JSONOBJECT)
-    private JSONArray config;
+    @JSONField(serialize = false)
+    private transient JSONArray config;// 参数配置
 
-    private String configStr;
+    @JSONField(serialize = false)
+    private transient String configStr;
 
     @JSONField(serialize = false)
     private transient List<Long> typeIdList;

@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationConfigVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
 import codedriver.framework.autoexec.dto.combop.ParamMappingVo;
@@ -111,9 +112,9 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
         List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
 
-        List<AutoexecScriptVersionParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
+        List<AutoexecParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
         for (ParamMappingVo paramMappingVo : paramMappingVos) {
-            for (AutoexecScriptVersionParamVo input : inputParamList) {
+            for (AutoexecParamVo input : inputParamList) {
                 if (paramMappingVo.getKey().equals(input.getKey())) {
                     paramMappingVo.setType(input.getType());
                     paramMappingVo.setName(input.getName());
