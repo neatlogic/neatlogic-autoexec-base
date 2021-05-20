@@ -10,6 +10,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,6 +42,12 @@ public class AutoexecToolVo extends BaseEditorVo {
     private String description;
     @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
     private Integer isActive;
+
+    @JSONField(serialize = false)
+    private transient JSONArray config;// 参数配置
+
+    @JSONField(serialize = false)
+    private transient String configStr;
 
     @JSONField(serialize = false)
     private transient List<Long> typeIdList;
@@ -163,5 +170,24 @@ public class AutoexecToolVo extends BaseEditorVo {
 
     public void setRiskIdList(List<Long> riskIdList) {
         this.riskIdList = riskIdList;
+    }
+
+    public JSONArray getConfig() {
+        if (StringUtils.isNotBlank(configStr)) {
+            config = JSONArray.parseArray(configStr);
+        }
+        return config;
+    }
+
+    public void setConfig(JSONArray config) {
+        this.config = config;
+    }
+
+    public String getConfigStr() {
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        this.configStr = configStr;
     }
 }

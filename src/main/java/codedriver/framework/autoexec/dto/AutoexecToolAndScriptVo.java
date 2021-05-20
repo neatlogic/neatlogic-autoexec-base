@@ -7,12 +7,13 @@ package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ToolType;
-import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -45,11 +46,14 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
     @JSONField(serialize = false)
-    private transient List<AutoexecScriptVersionParamVo> paramList;
+    private transient List<AutoexecParamVo> paramList;
     @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecScriptVersionParamVo> inputParamList;
+    private List<AutoexecParamVo> inputParamList;
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecScriptVersionParamVo> outputParamList;
+    private List<AutoexecParamVo> outputParamList;
+
+    @JSONField(serialize = false)
+    private transient String configStr;//工具的参数配置
 
     @JSONField(serialize = false)
     private transient List<Long> typeIdList;
@@ -164,39 +168,53 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         this.riskVo = riskVo;
     }
 
-    public List<AutoexecScriptVersionParamVo> getParamList() {
+    public List<AutoexecParamVo> getParamList() {
+        if (CollectionUtils.isEmpty(paramList) && StringUtils.isNotBlank(configStr)) {
+            paramList = JSONArray.parseArray(configStr).toJavaList(AutoexecParamVo.class);
+        }
         return paramList;
     }
 
-    public void setParamList(List<AutoexecScriptVersionParamVo> paramList) {
+    public void setParamList(List<AutoexecParamVo> paramList) {
         this.paramList = paramList;
     }
 
-    public List<AutoexecScriptVersionParamVo> getInputParamList() {
+    public List<AutoexecParamVo> getInputParamList() {
+        // 主动调用getParamList()，确保paramList优先赋值
+        getParamList();
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
             inputParamList = paramList.stream()
                     .filter(o -> ParamMode.INPUT.getValue().equals(o.getMode()))
-                    .sorted(Comparator.comparing(AutoexecScriptVersionParamVo::getSort))
+                    .sorted(Comparator.comparing(AutoexecParamVo::getSort))
                     .collect(Collectors.toList());
         }
         return inputParamList;
     }
 
-    public void setInputParamList(List<AutoexecScriptVersionParamVo> inputParamList) {
+    public void setInputParamList(List<AutoexecParamVo> inputParamList) {
         this.inputParamList = inputParamList;
     }
 
-    public List<AutoexecScriptVersionParamVo> getOutputParamList() {
+    public List<AutoexecParamVo> getOutputParamList() {
+        getParamList();
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
             outputParamList = paramList.stream()
                     .filter(o -> ParamMode.OUTPUT.getValue().equals(o.getMode()))
-                    .sorted(Comparator.comparing(AutoexecScriptVersionParamVo::getSort))
+                    .sorted(Comparator.comparing(AutoexecParamVo::getSort))
                     .collect(Collectors.toList());
         }
         return outputParamList;
     }
 
-    public void setOutputParamList(List<AutoexecScriptVersionParamVo> outputParamList) {
+    public void setOutputParamList(List<AutoexecParamVo> outputParamList) {
         this.outputParamList = outputParamList;
+    }
+
+    public String getConfigStr() {
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        this.configStr = configStr;
     }
 }
