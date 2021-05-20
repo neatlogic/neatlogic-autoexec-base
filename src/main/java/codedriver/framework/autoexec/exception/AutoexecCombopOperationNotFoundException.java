@@ -12,7 +12,7 @@ public class AutoexecCombopOperationNotFoundException extends ApiRuntimeExceptio
     private static final long serialVersionUID = 8558127374403255939L;
 
     public AutoexecCombopOperationNotFoundException(String uk) {
-        super("组合类型：'" + uk + "'不存在");
+        super("组合工具：'" + uk + "'不存在");
     }
 
 
