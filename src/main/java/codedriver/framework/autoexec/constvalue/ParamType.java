@@ -54,6 +54,22 @@ public enum ParamType implements IEnum {
         }
     },
             "日期选择器"),
+    DATETIME("datetime", "日期时间", new JSONObject() {
+        {
+            this.put("type", "datetime");
+            this.put("format", "yyyy-MM-dd HH:mm:ss");
+            this.put("placeholder", "请选择日期时间");
+        }
+    },
+            "日期时间选择器"),
+    TIME("time", "时间", new JSONObject() {
+        {
+            this.put("type", "time");
+            this.put("format", "HH:mm:ss");
+            this.put("placeholder", "请选择时间");
+        }
+    },
+            "时间选择器"),
     JSON("json", "json对象", new JSONObject() {
         {
             this.put("type", "textarea");
@@ -61,6 +77,20 @@ public enum ParamType implements IEnum {
         }
     },
             "支持json对象和json数组，输入内容需是合法Json格式"),
+    SELECT("select", "单选下拉", new JSONObject() {
+        {
+            this.put("type", "select");
+            this.put("multiple", false);
+            this.put("placeholder", "请输入");
+        }
+    }, "单选下拉选择器"),
+    MULTISELECT("multiselect", "多选下拉", new JSONObject() {
+        {
+            this.put("type", "select");
+            this.put("multiple", true);
+            this.put("placeholder", "请输入");
+        }
+    }, "多选下拉选择器"),
     NODE("node", "节点信息", new JSONObject() {
         {
             this.put("type", "node");
