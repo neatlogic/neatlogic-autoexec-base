@@ -169,6 +169,9 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     }
 
     public List<AutoexecParamVo> getParamList() {
+        if (CollectionUtils.isEmpty(paramList) && StringUtils.isNotBlank(configStr)) {
+            paramList = JSONArray.parseArray(configStr).toJavaList(AutoexecParamVo.class);
+        }
         return paramList;
     }
 
@@ -177,18 +180,10 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     }
 
     public List<AutoexecParamVo> getInputParamList() {
-        List<AutoexecParamVo> paramArray = null;
-        if (CollectionUtils.isNotEmpty(paramList)) {
-            paramArray = paramList;
-        } else if (StringUtils.isNotBlank(configStr)) {
-            JSONArray array = JSONArray.parseArray(configStr);
-            if (CollectionUtils.isNotEmpty(array)) {
-                paramArray = array.toJavaList(AutoexecParamVo.class);
-            }
-        }
-        // 以上解析configStr的逻辑本该放在getParamList()，但经测试，无法由此拆分出入参和出参，原因不明
-        if (CollectionUtils.isNotEmpty(paramArray) && CollectionUtils.isEmpty(inputParamList)) {
-            inputParamList = paramArray.stream()
+        // 主动调用getParamList()，确保paramList优先赋值
+        getParamList();
+        if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(inputParamList)) {
+            inputParamList = paramList.stream()
                     .filter(o -> ParamMode.INPUT.getValue().equals(o.getMode()))
                     .sorted(Comparator.comparing(AutoexecParamVo::getSort))
                     .collect(Collectors.toList());
@@ -201,17 +196,9 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     }
 
     public List<AutoexecParamVo> getOutputParamList() {
-        List<AutoexecParamVo> paramArray = null;
+        getParamList();
         if (CollectionUtils.isNotEmpty(paramList) && CollectionUtils.isEmpty(outputParamList)) {
-            outputParamList = paramList;
-        } else if (StringUtils.isNotBlank(configStr) && CollectionUtils.isEmpty(outputParamList)) {
-            JSONArray array = JSONArray.parseArray(configStr);
-            if (CollectionUtils.isNotEmpty(array)) {
-                paramArray = array.toJavaList(AutoexecParamVo.class);
-            }
-        }
-        if (CollectionUtils.isNotEmpty(paramArray) && CollectionUtils.isEmpty(outputParamList)) {
-            outputParamList = paramArray.stream()
+            outputParamList = paramList.stream()
                     .filter(o -> ParamMode.OUTPUT.getValue().equals(o.getMode()))
                     .sorted(Comparator.comparing(AutoexecParamVo::getSort))
                     .collect(Collectors.toList());
