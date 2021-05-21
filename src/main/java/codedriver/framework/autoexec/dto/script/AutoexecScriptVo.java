@@ -129,7 +129,10 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     public String getExecModeText() {
         if (StringUtils.isNotBlank(execMode)) {
-            execModeText = ExecMode.getExecMode(execMode).getText();
+            ExecMode mode = ExecMode.getExecMode(this.execMode);
+            if (mode != null) {
+                execModeText = mode.getText();
+            }
         }
         return execModeText;
     }
