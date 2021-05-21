@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecCombopOperationNotFoundException extends ApiRuntimeException {
+public class AutoexecScriptVersionCannotDeleteException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 8558127374403255939L;
+    private static final long serialVersionUID = -1077319266146492200L;
 
-    public AutoexecCombopOperationNotFoundException(String uk) {
-        super("组合工具：'" + uk + "'不存在");
+    public AutoexecScriptVersionCannotDeleteException() {
+        super("仅剩一个版本时不可删除，请直接删除脚本");
     }
 
 

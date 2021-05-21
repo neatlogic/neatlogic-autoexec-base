@@ -13,6 +13,7 @@ import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
@@ -43,7 +44,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     private String userName;
     @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
     private String password;
-    @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
+    @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.INTEGER)
     private Long proxyId;
@@ -65,7 +66,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     private Integer completionRate = 0;
     @JSONField(serialize = false)
     private List<String> statusList;
-    @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "作业节点状态Vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobStatusVo statusVo;
 
 
@@ -75,6 +76,15 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     public AutoexecJobPhaseNodeVo(Long jobId ,String jobPhaseName) {
         this.jobId = jobId;
         this.jobPhaseName = jobPhaseName;
+    }
+
+    public AutoexecJobPhaseNodeVo(JSONObject jsonObj) {
+        this.jobId = jsonObj.getLong("jobId");
+        this.jobPhaseName = jsonObj.getString("phase");
+        JSONObject node = jsonObj.getJSONObject("node");
+        this.host = node.getString("ip");
+        this.port = node.getInteger("port");
+        this.status = jsonObj.getString("status");
     }
 
     public AutoexecJobPhaseNodeVo(AutoexecNodeVo nodeVo) {
