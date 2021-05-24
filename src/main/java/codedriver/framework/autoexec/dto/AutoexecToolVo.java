@@ -10,7 +10,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,7 +44,7 @@ public class AutoexecToolVo extends BaseEditorVo {
     private Integer isActive;
 
     @JSONField(serialize = false)
-    private transient JSONArray config;// 参数配置
+    private transient JSONObject config;// 参数配置
 
     @JSONField(serialize = false)
     private transient String configStr;
@@ -172,14 +172,14 @@ public class AutoexecToolVo extends BaseEditorVo {
         this.riskIdList = riskIdList;
     }
 
-    public JSONArray getConfig() {
+    public JSONObject getConfig() {
         if (StringUtils.isNotBlank(configStr)) {
-            config = JSONArray.parseArray(configStr);
+            config = JSONObject.parseObject(configStr);
         }
         return config;
     }
 
-    public void setConfig(JSONArray config) {
+    public void setConfig(JSONObject config) {
         this.config = config;
     }
 
