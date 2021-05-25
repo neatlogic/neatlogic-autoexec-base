@@ -72,20 +72,6 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     public AutoexecCombopVo() {
     }
 
-//    public AutoexecCombopVo(AutoexecScriptVo autoexecScriptVo) {
-//        this.uk = autoexecScriptVo.getUk();
-//        this.name = autoexecScriptVo.getName();
-//        this.typeId = autoexecScriptVo.getTypeId();
-//        this.operationType = CombopOperationType.SCRIPT.getValue();
-//    }
-//
-//    public AutoexecCombopVo(AutoexecToolVo autoexecToolVo) {
-//        this.uk = autoexecToolVo.getUk();
-//        this.name = autoexecToolVo.getName();
-//        this.typeId = autoexecToolVo.getTypeId();
-//        this.operationType = CombopOperationType.TOOL.getValue();
-//    }
-
     public AutoexecCombopVo(AutoexecToolAndScriptVo autoexecToolAndScriptVo) {
         this.uk = autoexecToolAndScriptVo.getUk();
         this.name = autoexecToolAndScriptVo.getName();
