@@ -5,8 +5,10 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ToolType;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -63,6 +65,28 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     private transient List<Long> riskIdList;
 
     public AutoexecToolAndScriptVo() {
+    }
+
+    public AutoexecToolAndScriptVo(AutoexecToolVo autoexecToolVo) {
+        this.id = autoexecToolVo.getId();
+        this.uk = autoexecToolVo.getUk();
+        this.name = autoexecToolVo.getName();
+        this.type = CombopOperationType.SCRIPT.getValue();
+        this.execMode = autoexecToolVo.getExecMode();
+        this.typeId = autoexecToolVo.getTypeId();
+        this.typeName = autoexecToolVo.getType();
+        this.riskId = autoexecToolVo.getRiskId();
+    }
+
+    public AutoexecToolAndScriptVo(AutoexecScriptVo autoexecScriptVo) {
+        this.id = autoexecScriptVo.getId();
+        this.uk = autoexecScriptVo.getUk();
+        this.name = autoexecScriptVo.getName();
+        this.type = CombopOperationType.TOOL.getValue();
+        this.execMode = autoexecScriptVo.getExecMode();
+        this.typeId = autoexecScriptVo.getTypeId();
+        this.typeName = autoexecScriptVo.getType();
+        this.riskId = autoexecScriptVo.getRiskId();
     }
 
     public Long getId() {
