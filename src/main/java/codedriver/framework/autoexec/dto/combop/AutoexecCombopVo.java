@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
+import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -75,6 +76,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.name = autoexecScriptVo.getName();
         this.typeId = autoexecScriptVo.getTypeId();
         this.operationType = CombopOperationType.SCRIPT.getValue();
+    }
+
+    public AutoexecCombopVo(AutoexecToolVo autoexecToolVo) {
+        this.uk = autoexecToolVo.getUk();
+        this.name = autoexecToolVo.getName();
+        this.typeId = autoexecToolVo.getTypeId();
+        this.operationType = CombopOperationType.TOOL.getValue();
     }
 
     public Long getId() {
