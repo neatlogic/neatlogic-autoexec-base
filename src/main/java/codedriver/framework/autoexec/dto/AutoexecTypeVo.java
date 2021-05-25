@@ -16,6 +16,14 @@ public class AutoexecTypeVo extends BaseEditorVo {
     private Long id;
     @EntityField(name = "分类名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "描述", type = ApiParamType.STRING)
+    private String description;
+
+    @EntityField(name = "关联的工具数",type = ApiParamType.INTEGER)
+    private String referenceCountForTool;
+
+    @EntityField(name = "关联的自定义工具数",type = ApiParamType.INTEGER)
+    private String referenceCountForScript;
 
     public AutoexecTypeVo() {
     }
@@ -39,4 +47,27 @@ public class AutoexecTypeVo extends BaseEditorVo {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getReferenceCountForTool() {
+        return referenceCountForTool;
+    }
+
+    public void setReferenceCountForTool(String referenceCountForTool) {
+        this.referenceCountForTool = referenceCountForTool;
+    }
+
+    public String getReferenceCountForScript() {
+        return referenceCountForScript;
+    }
+
+    public void setReferenceCountForScript(String referenceCountForScript) {
+        this.referenceCountForScript = referenceCountForScript;
+    }
 }
