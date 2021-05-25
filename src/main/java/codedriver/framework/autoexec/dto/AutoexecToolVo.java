@@ -29,11 +29,11 @@ public class AutoexecToolVo extends BaseEditorVo {
     @EntityField(name = "执行方式显示文本", type = ApiParamType.STRING)
     private String execModeText;
     @EntityField(name = "解析器", type = ApiParamType.STRING)
-    private String interpreter;
+    private String parser;
     @EntityField(name = "分类ID", type = ApiParamType.LONG)
     private Long typeId;
     @EntityField(name = "分类名称", type = ApiParamType.STRING)
-    private String typeName;
+    private String type;
     @EntityField(name = "操作级别ID", type = ApiParamType.LONG)
     private Long riskId;
     @EntityField(name = "操作级别")
@@ -100,12 +100,12 @@ public class AutoexecToolVo extends BaseEditorVo {
         return execModeText;
     }
 
-    public String getInterpreter() {
-        return interpreter;
+    public String getParser() {
+        return parser;
     }
 
-    public void setInterpreter(String interpreter) {
-        this.interpreter = interpreter;
+    public void setParser(String parser) {
+        this.parser = parser;
     }
 
     public Long getTypeId() {
@@ -140,12 +140,12 @@ public class AutoexecToolVo extends BaseEditorVo {
         this.isActive = isActive;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getType() {
+        return type;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public AutoexecRiskVo getRiskVo() {
