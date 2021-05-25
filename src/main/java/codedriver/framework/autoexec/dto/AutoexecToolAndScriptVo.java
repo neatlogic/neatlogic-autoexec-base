@@ -11,6 +11,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -170,7 +171,11 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
     public List<AutoexecParamVo> getParamList() {
         if (CollectionUtils.isEmpty(paramList) && StringUtils.isNotBlank(configStr)) {
-            paramList = JSONArray.parseArray(configStr).toJavaList(AutoexecParamVo.class);
+            JSONObject toolConfig = JSONObject.parseObject(configStr);
+            JSONArray params = toolConfig.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(params)) {
+                this.paramList = params.toJavaList(AutoexecParamVo.class);
+            }
         }
         return paramList;
     }
