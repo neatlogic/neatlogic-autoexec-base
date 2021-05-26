@@ -12,7 +12,7 @@ public class AutoexecScriptNameOrUkRepeatException extends ApiRuntimeException {
     private static final long serialVersionUID = -2206138186638390045L;
 
     public AutoexecScriptNameOrUkRepeatException(String name) {
-        super("脚本：'" + name + "'已存在");
+        super("自定义工具：'" + name + "'已存在");
     }
 
 
