@@ -21,6 +21,10 @@ public class AutoexecProxyVo {
     private String name;
     @EntityField(name = "代理url", type = ApiParamType.STRING)
     private String url;
+    @EntityField(name = "ip", type = ApiParamType.STRING)
+    private String host;
+    @EntityField(name = "端口", type = ApiParamType.STRING)
+    private Integer port;
     @EntityField(name = "代理授权key", type = ApiParamType.STRING)
     private String accessKey;
     @EntityField(name = "代理授权密码", type = ApiParamType.STRING)
@@ -56,6 +60,22 @@ public class AutoexecProxyVo {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
     }
 
     public String getAccessKey() {
