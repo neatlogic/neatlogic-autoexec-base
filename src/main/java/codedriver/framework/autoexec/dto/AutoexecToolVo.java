@@ -44,6 +44,8 @@ public class AutoexecToolVo extends BaseEditorVo {
     private Integer isActive;
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
+    @EntityField(name = "是否可以发布为组合工具", type = ApiParamType.INTEGER)
+    private Integer canGeneratedToCombop = 0;
 
     @JSONField(serialize = false)
     private transient JSONObject config;// 参数配置
@@ -199,5 +201,12 @@ public class AutoexecToolVo extends BaseEditorVo {
 
     public void setHasBeenGeneratedToCombop(Integer hasBeenGeneratedToCombop) {
         this.hasBeenGeneratedToCombop = hasBeenGeneratedToCombop;
+    }
+
+    public Integer getCanGeneratedToCombop() {
+        if (isActive != null && isActive == 1 && hasBeenGeneratedToCombop == 0) {
+            canGeneratedToCombop = 1;
+        }
+        return canGeneratedToCombop;
     }
 }
