@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.operate.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -46,6 +47,9 @@ public class AutoexecToolVo extends BaseEditorVo {
     private Integer hasBeenGeneratedToCombop = 0;
     @EntityField(name = "是否可以发布为组合工具", type = ApiParamType.INTEGER)
     private Integer canGeneratedToCombop = 0;
+
+    @EntityField(name = "操作列表")
+    private List<OperateVo> operateList;
 
     @JSONField(serialize = false)
     private transient JSONObject config;// 参数配置
@@ -208,5 +212,15 @@ public class AutoexecToolVo extends BaseEditorVo {
             canGeneratedToCombop = 1;
         }
         return canGeneratedToCombop;
+    }
+
+    public void setOperateList(List<OperateVo> operateList) {
+        this.operateList = operateList;
+    }
+
+    public List<OperateVo> getOperateList() {
+        //ToolOperateBuilder builder = new ToolOperateBuilder(UserContext.get().getUserUuid(), getIsActive(), getHasBeenGeneratedToCombop());
+        //this.operateList = builder.setAll().build();
+        return operateList;
     }
 }

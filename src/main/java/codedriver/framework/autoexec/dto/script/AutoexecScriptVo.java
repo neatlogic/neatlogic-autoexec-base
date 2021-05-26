@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.script;
 import codedriver.framework.autoexec.constvalue.ExecMode;
 import codedriver.framework.autoexec.dto.AutoexecRiskVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import codedriver.framework.autoexec.operate.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -85,6 +86,9 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "是否可以发布为组合工具", type = ApiParamType.INTEGER)
     private Integer canGeneratedToCombop = 0;
+
+    @EntityField(name = "按钮列表")
+    private List<OperateVo> operateList;
 
     @JSONField(serialize = false)
     private transient List<Long> typeIdList;
@@ -343,5 +347,15 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     public void setVersionList(List<AutoexecScriptVersionVo> versionList) {
         this.versionList = versionList;
+    }
+
+    public void setOperateList(List<OperateVo> operateList) {
+        this.operateList = operateList;
+    }
+
+    public List<OperateVo> getOperateList() {
+        //ScriptOperateBuilder builder = new ScriptOperateBuilder(UserContext.get().getUserUuid(), getCurrentVersion(), getHasBeenGeneratedToCombop(), getReferenceCount());
+        //this.operateList = builder.setGenerateToCombop().setCopy().setExport().setDelete().build();
+        return operateList;
     }
 }
