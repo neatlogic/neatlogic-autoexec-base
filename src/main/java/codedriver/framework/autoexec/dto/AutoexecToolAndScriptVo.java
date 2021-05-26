@@ -71,7 +71,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         this.id = autoexecToolVo.getId();
         this.uk = autoexecToolVo.getUk();
         this.name = autoexecToolVo.getName();
-        this.type = CombopOperationType.SCRIPT.getValue();
+        this.type = CombopOperationType.TOOL.getValue();
         this.execMode = autoexecToolVo.getExecMode();
         this.typeId = autoexecToolVo.getTypeId();
         this.typeName = autoexecToolVo.getType();
@@ -82,7 +82,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         this.id = autoexecScriptVo.getId();
         this.uk = autoexecScriptVo.getUk();
         this.name = autoexecScriptVo.getName();
-        this.type = CombopOperationType.TOOL.getValue();
+        this.type = CombopOperationType.SCRIPT.getValue();
         this.execMode = autoexecScriptVo.getExecMode();
         this.typeId = autoexecScriptVo.getTypeId();
         this.typeName = autoexecScriptVo.getType();
