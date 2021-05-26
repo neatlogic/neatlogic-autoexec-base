@@ -73,9 +73,19 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     public AutoexecJobPhaseNodeVo() {
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId ,String jobPhaseName) {
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName) {
         this.jobId = jobId;
         this.jobPhaseName = jobPhaseName;
+    }
+
+    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, Long proxyId, String host, Integer port, String status, String userName) {
+        this.jobId = jobId;
+        this.jobPhaseId = jobPhaseId;
+        this.status = status;
+        this.proxyId = proxyId;
+        this.userName = userName;
+        this.host = host;
+        this.port = port;
     }
 
     public AutoexecJobPhaseNodeVo(JSONObject jsonObj) {

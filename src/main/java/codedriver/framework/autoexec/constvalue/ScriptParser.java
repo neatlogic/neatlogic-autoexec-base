@@ -13,13 +13,19 @@ import java.util.List;
 
 public enum ScriptParser implements IEnum {
     PYTHON("python"),
-    VBS("vbs"),
+    RUBY("ruby"),
+    VBS("vbscript"),
     SHELL("shell"),
     PERL("perl"),
     POWERSHELL("powershell"),
-    BAT("bat"),
+    CMD("cmd"),
+    BASH("bash"),
+    KSH("ksh"),
+    CSH("csh"),
+    SH("sh"),
+    JAVASCRIPT("javascript"),
     XML("xml");
-    private String value;
+    private final String value;
 
     private ScriptParser(String value) {
         this.value = value;

@@ -22,7 +22,7 @@ public class AutoexecProxyGroupNetworkVo {
     @EntityField(name = "代理分组掩码", type = ApiParamType.INTEGER)
     private Integer mask;
     @EntityField(name = "代理组id", type = ApiParamType.INTEGER)
-    private Long proxyGroupId;
+    private Long groupId;
 
     public Long getId() {
         return id;
@@ -56,11 +56,11 @@ public class AutoexecProxyGroupNetworkVo {
         this.mask = mask;
     }
 
-    public Long getProxyGroupId() {
-        return proxyGroupId;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setProxyGroupId(Long proxyGroupId) {
-        this.proxyGroupId = proxyGroupId;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 }
