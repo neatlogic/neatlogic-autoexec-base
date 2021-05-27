@@ -20,7 +20,7 @@ public enum ScriptAndToolOperate {
     SUBMIT("submit", "提交审核"),
     PASS("pass", "通过"),
     REJECT("reject", "驳回"),
-    GENERATETOCOMBOP("generateToCombop", "提交审核"),
+    GENERATETOCOMBOP("generateToCombop", "发布为组合工具"),
     EXPORT("export", "导出"),
     ACTIVE("active", "启用/禁用");
     private final String value;
