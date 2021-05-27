@@ -7,7 +7,7 @@ package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
-import codedriver.framework.autoexec.operate.OperateVo;
+import codedriver.framework.autoexec.dto.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.UserVo;
@@ -220,8 +220,6 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     }
 
     public List<OperateVo> getOperateList() {
-        //ScriptOperateBuilder builder = new ScriptOperateBuilder(UserContext.get().getUserUuid(), getStatus(), getIsActive(), getVersionCount());
-        //this.operateList = builder.setVersionOperate().build();
         return operateList;
     }
 }

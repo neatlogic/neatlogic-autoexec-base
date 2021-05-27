@@ -6,7 +6,6 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
-import codedriver.framework.autoexec.operate.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -219,8 +218,6 @@ public class AutoexecToolVo extends BaseEditorVo {
     }
 
     public List<OperateVo> getOperateList() {
-        //ToolOperateBuilder builder = new ToolOperateBuilder(UserContext.get().getUserUuid(), getIsActive(), getHasBeenGeneratedToCombop());
-        //this.operateList = builder.setAll().build();
         return operateList;
     }
 }
