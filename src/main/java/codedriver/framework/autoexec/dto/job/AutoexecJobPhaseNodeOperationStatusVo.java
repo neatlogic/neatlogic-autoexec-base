@@ -28,6 +28,7 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     private String status;
     @EntityField(name = "执行状态名", type = ApiParamType.STRING)
     private String statusName;
+    private final Integer sort;
 
     public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson) {
         this.id = operationVo.getId();
@@ -35,6 +36,7 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         this.type = operationVo.getType();
         this.parser = operationVo.getParser();
         this.status = statusJson.getString(this.name+"_"+this.id);
+        this.sort = operationVo.getSort();
     }
 
     public Long getId() {
@@ -82,5 +84,9 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
             statusName = JobNodeStatus.getText(status);
         }
         return statusName;
+    }
+
+    public Integer getSort() {
+        return sort;
     }
 }

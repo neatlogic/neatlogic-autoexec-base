@@ -12,7 +12,6 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationConf
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
 import codedriver.framework.autoexec.dto.combop.ParamMappingVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo;
-import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -64,6 +63,9 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private JSONArray inputParamList;
     @EntityField(name = "出参", type = ApiParamType.JSONARRAY)
     private JSONArray outputParamList;
+    @EntityField(name = "顺序", type = ApiParamType.INTEGER)
+    private Integer sort;
+    private Long versionId;
     private String paramHash;
     private String uuid;
 
@@ -107,6 +109,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.execMode = scriptVo.getExecMode();
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
         this.parser = scriptVersionVo.getParser();
+        this.sort = autoexecCombopPhaseOperationVo.getSort();
+        this.versionId = scriptVersionVo.getId();
         //拼接操作脚本到config
         JSONObject paramObj = new JSONObject();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
@@ -298,5 +302,21 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Long getVersionId() {
+        return versionId;
+    }
+
+    public void setVersionId(Long versionId) {
+        this.versionId = versionId;
     }
 }
