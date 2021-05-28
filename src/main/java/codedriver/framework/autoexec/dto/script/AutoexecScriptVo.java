@@ -81,12 +81,6 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
 
-    @EntityField(name = "是否可以删除", type = ApiParamType.INTEGER)
-    private Integer canDelete = 1; // 被组合工具引用则不可删除
-
-    @EntityField(name = "是否可以发布为组合工具", type = ApiParamType.INTEGER)
-    private Integer canGeneratedToCombop = 0;
-
     @EntityField(name = "按钮列表")
     private List<OperateVo> operateList;
 
@@ -301,24 +295,6 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     public void setHasBeenGeneratedToCombop(Integer hasBeenGeneratedToCombop) {
         this.hasBeenGeneratedToCombop = hasBeenGeneratedToCombop;
-    }
-
-    public Integer getCanDelete() {
-        if (referenceCount != null && referenceCount > 0) {
-            canDelete = 0;
-        }
-        return canDelete;
-    }
-
-    public void setCanDelete(Integer canDelete) {
-        this.canDelete = canDelete;
-    }
-
-    public Integer getCanGeneratedToCombop() {
-        if (hasBeenGeneratedToCombop == 0 && currentVersion != null) {
-            canGeneratedToCombop = 1;
-        }
-        return canGeneratedToCombop;
     }
 
     public void setReferenceCount(Integer referenceCount) {
