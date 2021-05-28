@@ -14,6 +14,4 @@ public class AutoexecToolHasReferenceException extends ApiRuntimeException {
     public AutoexecToolHasReferenceException(String combopName) {
         super("当前工具已经被组合工具：'" + combopName + "'引用，不可禁用");
     }
-
-
 }
