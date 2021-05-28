@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
+import codedriver.framework.autoexec.dto.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.UserVo;
@@ -59,6 +60,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     @EntityField(name = "驳回原因", type = ApiParamType.STRING)
     private String rejectReason;
+
+    private Integer versionCount; // 版本数
+
+    @EntityField(name = "操作列表")
+    private List<OperateVo> operateList;
 
     public AutoexecScriptVersionVo() {
     }
@@ -199,5 +205,21 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setReviewerVo(UserVo reviewerVo) {
         this.reviewerVo = reviewerVo;
+    }
+
+    public Integer getVersionCount() {
+        return versionCount;
+    }
+
+    public void setVersionCount(Integer versionCount) {
+        this.versionCount = versionCount;
+    }
+
+    public void setOperateList(List<OperateVo> operateList) {
+        this.operateList = operateList;
+    }
+
+    public List<OperateVo> getOperateList() {
+        return operateList;
     }
 }
