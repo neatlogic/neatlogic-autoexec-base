@@ -5,9 +5,11 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author lvzk
@@ -24,6 +26,8 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     private String parser;
     @EntityField(name = "执行状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "执行状态名", type = ApiParamType.STRING)
+    private String statusName;
 
     public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson) {
         this.id = operationVo.getId();
@@ -71,5 +75,12 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        if(StringUtils.isBlank(statusName)&&StringUtils.isNotBlank(status)){
+            statusName = JobNodeStatus.getText(status);
+        }
+        return statusName;
     }
 }

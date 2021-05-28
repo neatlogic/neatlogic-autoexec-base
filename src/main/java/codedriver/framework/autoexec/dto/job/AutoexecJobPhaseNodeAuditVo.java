@@ -6,9 +6,12 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
+import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.dto.UserVo;
+import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -18,12 +21,21 @@ import java.util.Date;
  * @since 2021/5/28 14:58
  **/
 public class AutoexecJobPhaseNodeAuditVo {
+    @EntityField(name = "执行开始时间", type = ApiParamType.LONG)
     private Date startTime;
+    @EntityField(name = "执行结束时间", type = ApiParamType.LONG)
     private Date endTime;
+    @EntityField(name = "执行用户Uuid", type = ApiParamType.STRING)
     private String execUser;
+    @EntityField(name = "执行用户对象", type = ApiParamType.JSONOBJECT)
     private UserVo execUserVo;
+    @EntityField(name = "执行状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "执行状态名", type = ApiParamType.STRING)
+    private String statusName;
+    @EntityField(name = "记录下载链接", type = ApiParamType.STRING)
     private String downloadPath;
+    @EntityField(name = "执行状态名", type = ApiParamType.LONG)
     private Long costTime;
 
     public AutoexecJobPhaseNodeAuditVo(JSONObject audit) throws ParseException {
@@ -90,5 +102,12 @@ public class AutoexecJobPhaseNodeAuditVo {
 
     public Long getCostTime() {
         return costTime;
+    }
+
+    public String getStatusName() {
+        if(StringUtils.isBlank(statusName)&&StringUtils.isNotBlank(status)){
+            statusName = JobNodeStatus.getText(status);
+        }
+        return statusName;
     }
 }
