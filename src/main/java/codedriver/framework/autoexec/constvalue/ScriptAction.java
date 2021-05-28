@@ -5,7 +5,7 @@
 
 package codedriver.framework.autoexec.constvalue;
 
-public enum ScriptOperate {
+public enum ScriptAction {
     ACTIVE("active", "激活", "激活了版本${DATA.version}", true),
     DISABLE("disable", "禁用", "禁用了版本${DATA.version}", true),
     DELETE("delete", "删除版本", "删除了版本${DATA.version}", true),
@@ -17,7 +17,7 @@ public enum ScriptOperate {
     private String title;
     private boolean needReplaceParam;
 
-    private ScriptOperate(String value, String text, String title, boolean needReplaceParam) {
+    private ScriptAction(String value, String text, String title, boolean needReplaceParam) {
         this.value = value;
         this.text = text;
         this.title = title;
@@ -37,7 +37,7 @@ public enum ScriptOperate {
     }
 
     public static boolean isNeedReplaceParam(String _value) {
-        for (ScriptOperate operate : values()) {
+        for (ScriptAction operate : values()) {
             if (operate.value.equals(_value)) {
                 return operate.needReplaceParam;
             }
@@ -46,7 +46,7 @@ public enum ScriptOperate {
     }
 
     public static String getTitle(String _value) {
-        for (ScriptOperate operate : values()) {
+        for (ScriptAction operate : values()) {
             if (operate.value.equals(_value)) {
                 return operate.title;
             }

@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.script;
 import codedriver.framework.autoexec.constvalue.ExecMode;
 import codedriver.framework.autoexec.dto.AutoexecRiskVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import codedriver.framework.autoexec.dto.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -80,11 +81,8 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
 
-    @EntityField(name = "是否可以删除", type = ApiParamType.INTEGER)
-    private Integer canDelete = 1; // 被组合工具引用则不可删除
-
-    @EntityField(name = "是否可以发布为组合工具", type = ApiParamType.INTEGER)
-    private Integer canGeneratedToCombop = 0;
+    @EntityField(name = "按钮列表")
+    private List<OperateVo> operateList;
 
     @JSONField(serialize = false)
     private transient List<Long> typeIdList;
@@ -299,24 +297,6 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
         this.hasBeenGeneratedToCombop = hasBeenGeneratedToCombop;
     }
 
-    public Integer getCanDelete() {
-        if (referenceCount != null && referenceCount > 0) {
-            canDelete = 0;
-        }
-        return canDelete;
-    }
-
-    public void setCanDelete(Integer canDelete) {
-        this.canDelete = canDelete;
-    }
-
-    public Integer getCanGeneratedToCombop() {
-        if (hasBeenGeneratedToCombop == 0 && currentVersion != null) {
-            canGeneratedToCombop = 1;
-        }
-        return canGeneratedToCombop;
-    }
-
     public void setReferenceCount(Integer referenceCount) {
         this.referenceCount = referenceCount;
     }
@@ -343,5 +323,13 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     public void setVersionList(List<AutoexecScriptVersionVo> versionList) {
         this.versionList = versionList;
+    }
+
+    public void setOperateList(List<OperateVo> operateList) {
+        this.operateList = operateList;
+    }
+
+    public List<OperateVo> getOperateList() {
+        return operateList;
     }
 }
