@@ -156,6 +156,11 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.setOperationId(operationId);
     }
 
+    public AutoexecJobVo(Long jobId, String status) {
+        this.id = jobId;
+        this.status = status;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();
