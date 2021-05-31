@@ -60,6 +60,9 @@ public class AutoexecToolVo extends BaseEditorVo {
     @JSONField(serialize = false)
     private transient List<Long> riskIdList;
 
+    @JSONField(serialize = false)
+    private transient Integer referenceCount; // 被组合工具引用次数
+
     public AutoexecToolVo() {
     }
 
@@ -210,5 +213,13 @@ public class AutoexecToolVo extends BaseEditorVo {
 
     public List<OperateVo> getOperateList() {
         return operateList;
+    }
+
+    public Integer getReferenceCount() {
+        return referenceCount;
+    }
+
+    public void setReferenceCount(Integer referenceCount) {
+        this.referenceCount = referenceCount;
     }
 }
