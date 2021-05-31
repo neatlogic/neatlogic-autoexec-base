@@ -8,21 +8,21 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
+import java.util.List;
+
 /**
  * @author lvzk
  * @since 2021/4/12 14:54
  **/
-public class AutoexecProxyGroupNetworkVo {
+public class AutoexecRunnerGroupVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "代理分组名", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "代理分组网段", type = ApiParamType.STRING)
-    private String networkIp;
-    @EntityField(name = "代理分组掩码", type = ApiParamType.INTEGER)
-    private Integer mask;
-    @EntityField(name = "代理组id", type = ApiParamType.INTEGER)
-    private Long groupId;
+
+    private List<AutoexecRunnerGroupNetworkVo> networkList;
+
+    private List<AutoexecRunnerVo> runnerList;
 
     public Long getId() {
         return id;
@@ -40,27 +40,19 @@ public class AutoexecProxyGroupNetworkVo {
         this.name = name;
     }
 
-    public String getNetworkIp() {
-        return networkIp;
+    public List<AutoexecRunnerGroupNetworkVo> getNetworkList() {
+        return networkList;
     }
 
-    public void setNetworkIp(String networkIp) {
-        this.networkIp = networkIp;
+    public void setNetworkList(List<AutoexecRunnerGroupNetworkVo> networkList) {
+        this.networkList = networkList;
     }
 
-    public Integer getMask() {
-        return mask;
+    public List<AutoexecRunnerVo> getRunnerList() {
+        return runnerList;
     }
 
-    public void setMask(Integer mask) {
-        this.mask = mask;
-    }
-
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setRunnerList(List<AutoexecRunnerVo> runnerList) {
+        this.runnerList = runnerList;
     }
 }

@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lvzk
@@ -206,6 +207,9 @@ public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
     }
 
     public Integer getCompletionRate() {
+        if (StringUtils.isNotBlank(status) && Objects.equals(JobStatus.COMPLETED.getValue(), status)) {
+            return 100;
+        }
         return completionRate;
     }
 

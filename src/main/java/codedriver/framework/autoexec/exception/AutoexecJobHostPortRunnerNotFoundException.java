@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobProxyNotFoundException extends ApiRuntimeException {
+public class AutoexecJobHostPortRunnerNotFoundException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 3593220313941443951L;
 
-    public AutoexecJobProxyNotFoundException(String msg) {
-        super("Runner :" + msg + "不存在");
+    public AutoexecJobHostPortRunnerNotFoundException(String msg) {
+        super(msg+" 没有分配 Runner ");
     }
 
 

@@ -35,8 +35,8 @@ public class AutoexecJobPhaseNodeAuditVo {
     private String statusName;
     @EntityField(name = "记录下载链接", type = ApiParamType.STRING)
     private String downloadPath;
-    @EntityField(name = "执行状态名", type = ApiParamType.LONG)
-    private Long costTime;
+    @EntityField(name = "耗时", type = ApiParamType.STRING)
+    private String costTime;
 
     public AutoexecJobPhaseNodeAuditVo(JSONObject audit) throws ParseException {
         String fileName = audit.getString("fileName");
@@ -44,11 +44,10 @@ public class AutoexecJobPhaseNodeAuditVo {
         String startTimeStr = String.format("%s-%s-%s %s:%s:%s",fileNames[0].substring(0,4),fileNames[0].substring(4,6),fileNames[0].substring(6,8),fileNames[0].substring(9,11),fileNames[0].substring(11,13),fileNames[0].substring(13,15));
         this.endTime = TimeUtil.convertStringToDate(audit.getString("lastModified"),TimeUtil.YYYY_MM_DD_HH_MM_SS);
         this.startTime = TimeUtil.convertStringToDate(startTimeStr,TimeUtil.YYYY_MM_DD_HH_MM_SS);
-        this.execUser = fileNames[1];
-        //TODO status
-        this.status = JobNodeStatus.SUCCEED.getValue();
+        this.status = fileNames[1];
+        this.execUser = fileNames[2];
         if(this.endTime != null && this.startTime != null) {
-            this.costTime = this.endTime.getTime() - this.startTime.getTime();
+            this.costTime = TimeUtil.millisecondsTransferMaxTimeUnit(this.endTime.getTime() - this.startTime.getTime());
         }
     }
 
@@ -100,7 +99,7 @@ public class AutoexecJobPhaseNodeAuditVo {
         this.downloadPath = downloadPath;
     }
 
-    public Long getCostTime() {
+    public String getCostTime() {
         return costTime;
     }
 

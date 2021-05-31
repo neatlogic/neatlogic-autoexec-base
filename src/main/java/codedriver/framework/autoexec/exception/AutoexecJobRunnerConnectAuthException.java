@@ -7,13 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobProxyConnectRefusedException extends ApiRuntimeException {
+public class AutoexecJobRunnerConnectAuthException extends ApiRuntimeException {
 
+    private static final long serialVersionUID = 4590305514313505323L;
 
-    private static final long serialVersionUID = 1799177301356468646L;
-
-    public AutoexecJobProxyConnectRefusedException(String uk) {
-        super("作业代理 url：'" + uk + "'拒绝连接");
+    public AutoexecJobRunnerConnectAuthException(String msg) {
+        super(msg);
     }
 
 

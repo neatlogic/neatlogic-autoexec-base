@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobProxyConnectAuthException extends ApiRuntimeException {
+public class AutoexecJobRunnerNotFoundException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 4590305514313505323L;
+    private static final long serialVersionUID = 3593220313941443951L;
 
-    public AutoexecJobProxyConnectAuthException(String msg) {
-        super(msg);
+    public AutoexecJobRunnerNotFoundException(String msg) {
+        super("Runner :" + msg + "不存在");
     }
 
 

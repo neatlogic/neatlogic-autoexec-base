@@ -14,7 +14,7 @@ import java.util.List;
  * @author lvzk
  * @since 2021/4/12 14:29
  **/
-public class AutoexecProxyVo {
+public class AutoexecRunnerVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "代理名", type = ApiParamType.STRING)
@@ -36,7 +36,7 @@ public class AutoexecProxyVo {
     @EntityField(name = "ssh私钥", type = ApiParamType.STRING)
     private String privateKey;
     @EntityField(name = "代理分组", type = ApiParamType.STRING)
-    private List<AutoexecProxyGroupVo> proxyGroupVoList;
+    private List<AutoexecRunnerGroupVo> proxyGroupVoList;
 
     public Long getId() {
         return id;
@@ -118,11 +118,11 @@ public class AutoexecProxyVo {
         this.privateKey = privateKey;
     }
 
-    public List<AutoexecProxyGroupVo> getProxyGroupVoList() {
+    public List<AutoexecRunnerGroupVo> getProxyGroupVoList() {
         return proxyGroupVoList;
     }
 
-    public void setProxyGroupVoList(List<AutoexecProxyGroupVo> proxyGroupVoList) {
+    public void setProxyGroupVoList(List<AutoexecRunnerGroupVo> proxyGroupVoList) {
         this.proxyGroupVoList = proxyGroupVoList;
     }
 }

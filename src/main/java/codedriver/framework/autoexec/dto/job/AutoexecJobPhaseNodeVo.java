@@ -48,7 +48,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.INTEGER)
-    private Long proxyId;
+    private Long runnerId;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
     private Date startTime;
     @EntityField(name = "结束时间", type = ApiParamType.STRING)
@@ -62,7 +62,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     @EntityField(name = "节点连接类型", type = ApiParamType.STRING)
     private String nodeType;
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
-    private String proxyUrl;
+    private String runnerUrl;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
     @JSONField(serialize = false)
@@ -79,11 +79,10 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
         this.jobPhaseName = jobPhaseName;
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, Long proxyId, String host, Integer port, String status, String userName) {
+    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, String host, Integer port, String status, String userName) {
         this.jobId = jobId;
         this.jobPhaseId = jobPhaseId;
         this.status = status;
-        this.proxyId = proxyId;
         this.userName = userName;
         this.host = host;
         this.port = port;
@@ -182,12 +181,12 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
         this.status = status;
     }
 
-    public Long getProxyId() {
-        return proxyId;
+    public Long getRunnerId() {
+        return runnerId;
     }
 
-    public void setProxyId(Long proxyId) {
-        this.proxyId = proxyId;
+    public void setRunnerId(Long runnerId) {
+        this.runnerId = runnerId;
     }
 
     public List<String> getStatusList() {
@@ -249,12 +248,12 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
         this.nodeType = nodeType;
     }
 
-    public String getProxyUrl() {
-        return proxyUrl;
+    public String getRunnerUrl() {
+        return runnerUrl;
     }
 
-    public void setProxyUrl(String proxyUrl) {
-        this.proxyUrl = proxyUrl;
+    public void setRunnerUrl(String runnerUrl) {
+        this.runnerUrl = runnerUrl;
     }
 
     @Override
