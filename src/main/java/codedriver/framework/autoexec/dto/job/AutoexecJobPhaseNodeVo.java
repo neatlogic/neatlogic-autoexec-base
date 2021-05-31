@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
@@ -273,6 +274,9 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     }
 
     public Integer getCompletionRate() {
+        if (StringUtils.isNotBlank(status) && Objects.equals(JobNodeStatus.SUCCEED.getValue(), status)) {
+            return 100;
+        }
         return completionRate;
     }
 

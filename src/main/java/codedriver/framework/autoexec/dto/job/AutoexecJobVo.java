@@ -31,6 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lvzk
@@ -456,6 +457,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Integer getCompletionRate() {
+        if (StringUtils.isNotBlank(status) && Objects.equals(JobStatus.COMPLETED.getValue(), status)) {
+            return 100;
+        }
         return completionRate;
     }
 
