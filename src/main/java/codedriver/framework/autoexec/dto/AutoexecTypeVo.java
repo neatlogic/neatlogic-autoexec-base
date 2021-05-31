@@ -25,6 +25,9 @@ public class AutoexecTypeVo extends BaseEditorVo {
     @EntityField(name = "关联的自定义工具数",type = ApiParamType.INTEGER)
     private Integer referenceCountForScript = 0;
 
+    @EntityField(name = "关联的组合工具数",type = ApiParamType.INTEGER)
+    private Integer referenceCountForCombop = 0;
+
     public AutoexecTypeVo() {
     }
 
@@ -69,5 +72,13 @@ public class AutoexecTypeVo extends BaseEditorVo {
 
     public void setReferenceCountForScript(Integer referenceCountForScript) {
         this.referenceCountForScript = referenceCountForScript;
+    }
+
+    public Integer getReferenceCountForCombop() {
+        return referenceCountForCombop;
+    }
+
+    public void setReferenceCountForCombop(Integer referenceCountForCombop) {
+        this.referenceCountForCombop = referenceCountForCombop;
     }
 }
