@@ -11,8 +11,8 @@ public enum JobStatus implements IEnum {
     RUNNING("running", "进行中", "#2d84fb"),
     PAUSING("pausing", "暂停中", "#2d84fb"),
     PAUSED("paused", "已暂停", "#8E949F"),
-    STOPPING("stopping", "中止中", "#2d84fb"),
-    STOPPED("stopped", "已中止", "#8E949F"),
+    ABORTING("aborting", "中止中", "#2d84fb"),
+    ABORTED("aborted", "已中止", "#8E949F"),
     COMPLETED("completed", "已完成", "#25b865"),
     FAILED("failed", "已失败", "#f71010");
     private final String status;
