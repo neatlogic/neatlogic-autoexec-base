@@ -34,6 +34,6 @@ public class AUTOEXEC_COMBOP_MODIFY extends AuthBase {
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths(){
-        return Collections.singletonList(AUTOEXEC_BASE.class);
+        return Collections.singletonList(AUTOEXEC_COMBOP_EXECUTE.class);
     }
 }
