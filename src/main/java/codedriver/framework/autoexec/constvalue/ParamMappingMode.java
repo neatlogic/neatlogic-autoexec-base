@@ -20,7 +20,8 @@ import java.util.List;
 public enum ParamMappingMode implements IEnum {
     CONSTANT("constant", "常量"),
     RUNTIME_PARAM("runtimeparam", "运行参数"),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数"),
+    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数值"),
+    PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "上游节点输出参数名"),
     IS_EMPTY("isempty", "为空");
 
     private final String value;
