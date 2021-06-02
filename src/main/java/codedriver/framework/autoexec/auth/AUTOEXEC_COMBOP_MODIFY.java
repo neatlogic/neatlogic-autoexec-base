@@ -19,7 +19,7 @@ public class AUTOEXEC_COMBOP_MODIFY extends AuthBase {
 
     @Override
     public String getAuthIntroduction() {
-        return "对组合工具进行新增、复制、导入/导出、编辑、查看、删除、授权、执行记录、启用/禁用";
+        return "对组合工具进行查看、执行、查看执行记录、添加定时任务、新增、复制、编辑、删除、导入/导出、授权、启用/禁用";
     }
 
     @Override

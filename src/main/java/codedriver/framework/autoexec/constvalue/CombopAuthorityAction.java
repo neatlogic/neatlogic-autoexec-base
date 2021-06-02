@@ -12,7 +12,7 @@ package codedriver.framework.autoexec.constvalue;
  * @since: 2021/4/14 7:38
  **/
 public enum CombopAuthorityAction {
-    EDIT("edit", "编辑"), EXECUTE("execute", "执行"), VIEW("view", "查看");
+    EDIT("edit", "编辑"), EXECUTE("execute", "执行");
     private String value;
     private String text;
 
