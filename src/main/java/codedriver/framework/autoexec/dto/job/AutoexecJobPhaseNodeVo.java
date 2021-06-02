@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
+import codedriver.framework.autoexec.dto.AutoexecRunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -47,8 +48,10 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     private String password;
     @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "作业剧本代理id", type = ApiParamType.INTEGER)
+    @EntityField(name = "作业剧本代理id", type = ApiParamType.LONG)
     private Long runnerId;
+    @EntityField(name = "作业剧本代理", type = ApiParamType.JSONOBJECT)
+    private AutoexecRunnerVo autoexecRunnerVo;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
     private Date startTime;
     @EntityField(name = "结束时间", type = ApiParamType.STRING)
@@ -254,6 +257,14 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
 
     public void setRunnerUrl(String runnerUrl) {
         this.runnerUrl = runnerUrl;
+    }
+
+    public AutoexecRunnerVo getAutoexecRunnerVo() {
+        return autoexecRunnerVo;
+    }
+
+    public void setAutoexecRunnerVo(AutoexecRunnerVo autoexecRunnerVo) {
+        this.autoexecRunnerVo = autoexecRunnerVo;
     }
 
     @Override
