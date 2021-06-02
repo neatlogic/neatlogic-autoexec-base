@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.constvalue;
 import codedriver.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.javers.common.collections.Arrays;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,13 @@ public enum ParamType implements IEnum {
             this.put("type", "select");
             this.put("multiple", false);
             this.put("placeholder", "请输入");
+            this.put("dynamicUrl", "/api/rest/matrix/search");
+            this.put("rootName", "tbodyList");
+            this.put("textName", "name");
+            this.put("valueName", "uuid");
+            List<String> validateList = new ArrayList<>();
+            validateList.add("required");
+            this.put("validateList", validateList);
         }
     }, "单选下拉选择器"),
     MULTISELECT("multiselect", "多选下拉", new JSONObject() {
@@ -89,8 +97,41 @@ public enum ParamType implements IEnum {
             this.put("type", "select");
             this.put("multiple", true);
             this.put("placeholder", "请输入");
+            this.put("dynamicUrl", "/api/rest/matrix/search");
+            this.put("rootName", "tbodyList");
+            this.put("textName", "name");
+            this.put("valueName", "uuid");
+            List<String> validateList = new ArrayList<>();
+            validateList.add("required");
+            this.put("validateList", validateList);
         }
     }, "多选下拉选择器"),
+    radio("radio", "单选", new JSONObject() {
+        {
+            this.put("type", "radio");
+            this.put("placeholder", "请输入");
+            this.put("dynamicUrl", "/api/rest/matrix/search");
+            this.put("rootName", "tbodyList");
+            this.put("textName", "name");
+            this.put("valueName", "uuid");
+            List<String> validateList = new ArrayList<>();
+            validateList.add("required");
+            this.put("validateList", validateList);
+        }
+    }, "单选选择器"),
+    checkbox("checkbox", "复选", new JSONObject() {
+        {
+            this.put("type", "checkbox");
+            this.put("placeholder", "请输入");
+            this.put("dynamicUrl", "/api/rest/matrix/search");
+            this.put("rootName", "tbodyList");
+            this.put("textName", "name");
+            this.put("valueName", "uuid");
+            List<String> validateList = new ArrayList<>();
+            validateList.add("required");
+            this.put("validateList", validateList);
+        }
+    }, "复选选择器"),
     NODE("node", "节点信息", new JSONObject() {
         {
             this.put("type", "node");
