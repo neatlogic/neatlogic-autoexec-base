@@ -48,8 +48,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private AutoexecCombopConfigVo config;
     @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
     private int referenceCount;
-    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
-    private Integer viewable;
+//    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
+//    private Integer viewable;
     @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
     private Integer editable;
     @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
@@ -176,13 +176,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.referenceCount = referenceCount;
     }
 
-    public Integer getViewable() {
-        return viewable;
-    }
-
-    public void setViewable(Integer viewable) {
-        this.viewable = viewable;
-    }
+//    public Integer getViewable() {
+//        return viewable;
+//    }
+//
+//    public void setViewable(Integer viewable) {
+//        this.viewable = viewable;
+//    }
 
     public Integer getEditable() {
         return editable;
