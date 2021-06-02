@@ -87,13 +87,13 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.parser = scriptVersionVo.getParser();
         //拼接操作脚本到config
         JSONObject operationConfigJson = operationJson.getJSONObject("config");
-        StringBuilder scriptSb = new StringBuilder();
+        /*StringBuilder scriptSb = new StringBuilder();
         for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
             scriptSb.append(lineVo.getContent());
         }
         String script = scriptSb.toString();
         operationConfigJson.put("script", script);
-        this.script = script;
+        this.script = script;*/
         this.paramStr = operationConfigJson.toString();
         this.scriptId = scriptVo.getId();
 
