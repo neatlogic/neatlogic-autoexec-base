@@ -83,15 +83,15 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private JSONObject param;
     private String paramHash;
     @EntityField(name = "是否允许执行作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobExec = 0;
+    private Integer isCanJobFire = 0;
     @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
     private Integer isCanJobPause = 0;
     @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobStop = 0;
+    private Integer isCanJobAbort = 0;
     @EntityField(name = "是否允许继续作业", type = ApiParamType.INTEGER)
     private Integer isCanJobGoon = 0;
     @EntityField(name = "是否允许重跑作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobRedo = 0;
+    private Integer isCanJobReFire = 0;
     @EntityField(name = "是否允许重置节点", type = ApiParamType.INTEGER)
     private Integer isCanJobNodeReset = 0;
     @EntityField(name = "是否允许忽略节点", type = ApiParamType.INTEGER)
@@ -160,6 +160,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public AutoexecJobVo(Long jobId, String status) {
         this.id = jobId;
         this.status = status;
+    }
+
+    public AutoexecJobVo(Long jobId) {
+        this.id = jobId;
     }
 
     public Long getId() {
@@ -360,12 +364,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.costTime = costTime;
     }
 
-    public Integer getIsCanJobExec() {
-        return isCanJobExec;
+    public Integer getIsCanJobFire() {
+        return isCanJobFire;
     }
 
-    public void setIsCanJobExec(Integer isCanJobExec) {
-        this.isCanJobExec = isCanJobExec;
+    public void setIsCanJobFire(Integer isCanJobFire) {
+        this.isCanJobFire = isCanJobFire;
     }
 
     public Integer getIsCanJobPause() {
@@ -376,12 +380,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.isCanJobPause = isCanJobPause;
     }
 
-    public Integer getIsCanJobStop() {
-        return isCanJobStop;
+    public Integer getIsCanJobAbort() {
+        return isCanJobAbort;
     }
 
-    public void setIsCanJobStop(Integer isCanJobStop) {
-        this.isCanJobStop = isCanJobStop;
+    public void setIsCanJobAbort(Integer isCanJobAbort) {
+        this.isCanJobAbort = isCanJobAbort;
     }
 
     public Integer getIsCanJobGoon() {
@@ -392,12 +396,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.isCanJobGoon = isCanJobGoon;
     }
 
-    public Integer getIsCanJobRedo() {
-        return isCanJobRedo;
+    public Integer getIsCanJobReFire() {
+        return isCanJobReFire;
     }
 
-    public void setIsCanJobRedo(Integer isCanJobRedo) {
-        this.isCanJobRedo = isCanJobRedo;
+    public void setIsCanJobReFire(Integer isCanJobReFire) {
+        this.isCanJobReFire = isCanJobReFire;
     }
 
     public Integer getIsCanJobNodeReset() {
