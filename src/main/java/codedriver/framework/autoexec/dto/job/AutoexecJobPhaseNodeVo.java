@@ -6,7 +6,6 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
-import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.dto.AutoexecRunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
@@ -296,7 +295,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
 
     public AutoexecJobStatusVo getStatusVo() {
         if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status), JobPhaseStatus.getColor(status));
+            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
         }
         return statusVo;
     }
