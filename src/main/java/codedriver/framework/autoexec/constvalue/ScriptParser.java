@@ -35,6 +35,15 @@ public enum ScriptParser implements IEnum {
         return value;
     }
 
+    public static ScriptParser getScriptParser(String value) {
+        for (ScriptParser parser : ScriptParser.values()) {
+            if (parser.getValue().equals(value)) {
+                return parser;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public List getValueTextList() {
