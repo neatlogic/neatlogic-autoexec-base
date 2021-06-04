@@ -28,7 +28,7 @@ public class AutoexecNodeVo implements Serializable {
 
     }
 
-    public AutoexecNodeVo(Long id, String name, String host, Integer port) {
+    public AutoexecNodeVo(Long id, String name, String ip, Integer port) {
         this.id = id;
         this.name = name;
         this.ip = ip;
