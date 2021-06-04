@@ -15,16 +15,16 @@ import java.util.List;
  * @since: 2021/4/23 11:57
  **/
 public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
-    private List<String> tagList;
+    private List<Long> tagList;
     private List<String> paramList;
     private List<AutoexecNodeVo> selectNodeList;
     private List<AutoexecNodeVo> inputNodeList;
 
-    public List<String> getTagList() {
+    public List<Long> getTagList() {
         return tagList;
     }
 
-    public void setTagList(List<String> tagList) {
+    public void setTagList(List<Long> tagList) {
         this.tagList = tagList;
     }
 
