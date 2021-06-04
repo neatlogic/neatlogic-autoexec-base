@@ -24,17 +24,6 @@ public class AutoexecNodeVo implements Serializable {
     @EntityField(name = "端口号", type = ApiParamType.INTEGER)
     private Integer port;
 
-    public AutoexecNodeVo() {
-
-    }
-
-    public AutoexecNodeVo(Long id, String name, String ip, Integer port) {
-        this.id = id;
-        this.name = name;
-        this.ip = ip;
-        this.port = port;
-    }
-
     public Long getId() {
         return id;
     }
