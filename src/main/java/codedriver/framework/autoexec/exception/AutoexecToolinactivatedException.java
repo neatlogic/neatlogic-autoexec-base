@@ -15,5 +15,4 @@ public class AutoexecToolinactivatedException extends ApiRuntimeException {
         super("工具：'" + name + "'未激活");
     }
 
-
 }
