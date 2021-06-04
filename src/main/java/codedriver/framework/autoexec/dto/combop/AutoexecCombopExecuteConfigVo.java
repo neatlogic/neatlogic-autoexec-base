@@ -13,11 +13,21 @@ import java.io.Serializable;
  **/
 public class AutoexecCombopExecuteConfigVo implements Serializable {
 
+    private String protocol;
+
     private String executeUser;
 
     private String whenToSpecify;
 
     private AutoexecCombopExecuteNodeConfigVo executeNodeConfig;
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
     public String getExecuteUser() {
         return executeUser;

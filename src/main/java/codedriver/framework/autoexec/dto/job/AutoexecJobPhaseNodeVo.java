@@ -100,7 +100,7 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     }
 
     public AutoexecJobPhaseNodeVo(AutoexecNodeVo nodeVo) {
-        this.host = nodeVo.getHost();
+        this.host = nodeVo.getIp();
         this.port = nodeVo.getPort();
     }
 

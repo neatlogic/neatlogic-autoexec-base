@@ -20,25 +20,9 @@ public class AutoexecNodeVo implements Serializable {
     @EntityField(name = "名称", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "ip地址", type = ApiParamType.STRING)
-    private String host;
+    private String ip;
     @EntityField(name = "端口号", type = ApiParamType.INTEGER)
     private Integer port;
-    @EntityField(name = "类型", type = ApiParamType.STRING)
-    private String type;
-    @EntityField(name = "状态信息", type = ApiParamType.JSONOBJECT)
-    private AutoexecNodeStatusVo statusVo;
-
-    public AutoexecNodeVo() {
-
-    }
-
-    public AutoexecNodeVo(Long id, String name, String host, Integer port, String type) {
-        this.id = id;
-        this.name = name;
-        this.host = host;
-        this.port = port;
-        this.type = type;
-    }
 
     public Long getId() {
         return id;
@@ -56,12 +40,12 @@ public class AutoexecNodeVo implements Serializable {
         this.name = name;
     }
 
-    public String getHost() {
-        return host;
+    public String getIp() {
+        return ip;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public Integer getPort() {
@@ -72,19 +56,4 @@ public class AutoexecNodeVo implements Serializable {
         this.port = port;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public AutoexecNodeStatusVo getStatusVo() {
-        return statusVo;
-    }
-
-    public void setStatusVo(AutoexecNodeStatusVo statusVo) {
-        this.statusVo = statusVo;
-    }
 }
