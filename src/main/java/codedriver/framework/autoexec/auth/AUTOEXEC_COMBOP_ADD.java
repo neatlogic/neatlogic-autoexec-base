@@ -29,7 +29,7 @@ public class AUTOEXEC_COMBOP_ADD extends AuthBase {
 
     @Override
     public Integer getSort() {
-        return 3;
+        return 2;
     }
 
     @Override
