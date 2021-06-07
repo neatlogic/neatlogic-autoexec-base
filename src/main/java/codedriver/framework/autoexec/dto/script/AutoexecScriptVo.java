@@ -40,7 +40,7 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     private String riskName;
 
     @EntityField(name = "分类名称", type = ApiParamType.STRING)
-    private String type;
+    private String typeName;
     @EntityField(name = "操作级别")
     private AutoexecRiskVo riskVo;
     @EntityField(name = "当前激活版本号", type = ApiParamType.INTEGER)
@@ -165,12 +165,12 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
         this.riskName = riskName;
     }
 
-    public String getType() {
-        return type;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public AutoexecRiskVo getRiskVo() {

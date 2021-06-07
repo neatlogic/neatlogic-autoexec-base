@@ -85,7 +85,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
         this.type = CombopOperationType.SCRIPT.getValue();
         this.execMode = autoexecScriptVo.getExecMode();
         this.typeId = autoexecScriptVo.getTypeId();
-        this.typeName = autoexecScriptVo.getType();
+        this.typeName = autoexecScriptVo.getTypeName();
         this.riskId = autoexecScriptVo.getRiskId();
     }
 
