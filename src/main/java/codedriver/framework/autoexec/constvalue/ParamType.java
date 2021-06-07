@@ -81,7 +81,6 @@ public enum ParamType implements IEnum {
     SELECT("select", "单选下拉", new JSONObject() {
         {
             this.put("type", "select");
-            this.put("multiple", false);
             this.put("placeholder", "请输入");
             this.put("dynamicUrl", "/api/rest/matrix/search");
             this.put("rootName", "tbodyList");
@@ -95,7 +94,6 @@ public enum ParamType implements IEnum {
     MULTISELECT("multiselect", "多选下拉", new JSONObject() {
         {
             this.put("type", "select");
-            this.put("multiple", true);
             this.put("placeholder", "请输入");
             this.put("dynamicUrl", "/api/rest/matrix/search");
             this.put("rootName", "tbodyList");
