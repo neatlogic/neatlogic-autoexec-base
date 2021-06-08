@@ -6,15 +6,23 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.ParamMode;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class AutoexecToolVo extends BaseEditorVo {
 
@@ -33,9 +41,11 @@ public class AutoexecToolVo extends BaseEditorVo {
     @EntityField(name = "分类ID", type = ApiParamType.LONG)
     private Long typeId;
     @EntityField(name = "分类名称", type = ApiParamType.STRING)
-    private String type;
+    private String typeName;
     @EntityField(name = "操作级别ID", type = ApiParamType.LONG)
     private Long riskId;
+    @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
+    private String riskName;
     @EntityField(name = "操作级别")
     private AutoexecRiskVo riskVo;
     @EntityField(name = "描述说明", type = ApiParamType.STRING)
@@ -44,6 +54,15 @@ public class AutoexecToolVo extends BaseEditorVo {
     private Integer isActive;
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
+
+    @EntityField(name = "输入参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> inputParamList;
+
+    @EntityField(name = "输出参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> outputParamList;
+
+    @EntityField(name = "关联的组合工具", type = ApiParamType.JSONARRAY)
+    private List<AutoexecCombopVo> combopList;
 
     @EntityField(name = "操作列表")
     private List<OperateVo> operateList;
@@ -132,6 +151,14 @@ public class AutoexecToolVo extends BaseEditorVo {
         this.riskId = riskId;
     }
 
+    public String getRiskName() {
+        return riskName;
+    }
+
+    public void setRiskName(String riskName) {
+        this.riskName = riskName;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -148,12 +175,12 @@ public class AutoexecToolVo extends BaseEditorVo {
         this.isActive = isActive;
     }
 
-    public String getType() {
-        return type;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public AutoexecRiskVo getRiskVo() {
@@ -199,12 +226,50 @@ public class AutoexecToolVo extends BaseEditorVo {
         this.configStr = configStr;
     }
 
+    public List<AutoexecParamVo> getInputParamList() {
+        getConfig();
+        if (MapUtils.isNotEmpty(config)) {
+            JSONArray paramList = config.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(paramList)) {
+                inputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                        .stream()
+                        .filter(o -> Objects.equals(o.getMode(), ParamMode.INPUT.getValue()))
+                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                        .collect(Collectors.toList());
+            }
+        }
+        return inputParamList;
+    }
+
+    public List<AutoexecParamVo> getOutputParamList() {
+        getConfig();
+        if (MapUtils.isNotEmpty(config)) {
+            JSONArray paramList = config.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(paramList)) {
+                outputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                        .stream()
+                        .filter(o -> Objects.equals(o.getMode(), ParamMode.OUTPUT.getValue()))
+                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                        .collect(Collectors.toList());
+            }
+        }
+        return outputParamList;
+    }
+
     public Integer getHasBeenGeneratedToCombop() {
         return hasBeenGeneratedToCombop;
     }
 
     public void setHasBeenGeneratedToCombop(Integer hasBeenGeneratedToCombop) {
         this.hasBeenGeneratedToCombop = hasBeenGeneratedToCombop;
+    }
+
+    public List<AutoexecCombopVo> getCombopList() {
+        return combopList;
+    }
+
+    public void setCombopList(List<AutoexecCombopVo> combopList) {
+        this.combopList = combopList;
     }
 
     public void setOperateList(List<OperateVo> operateList) {
