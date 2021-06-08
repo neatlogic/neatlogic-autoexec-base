@@ -96,7 +96,7 @@ public enum ParamType implements IEnum {
         {
             this.put("type", "select");
             this.put("placeholder", "请选择");
-            this.put("url", "/api/rest/matrix/column/data/search/forselect/new");
+            this.put("dynamicUrl", "/api/rest/matrix/column/data/search/forselect/new");
             this.put("rootName", "columnDataList");
             this.put("multiple", true);
 //            this.put("textName", "name");
@@ -123,7 +123,7 @@ public enum ParamType implements IEnum {
         {
             this.put("type", "checkbox");
             this.put("placeholder", "请选择");
-            this.put("dynamicUrl", "/api/rest/matrix/column/data/search/forselect/new");
+            this.put("url", "/api/rest/matrix/column/data/search/forselect/new");
             this.put("rootName", "columnDataList");
 //            this.put("textName", "name");
 //            this.put("valueName", "uuid");
