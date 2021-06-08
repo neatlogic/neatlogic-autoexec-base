@@ -99,6 +99,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
 
+    private Integer currentPhaseSort;
+
     //param
     @JSONField(serialize = false)
     private String combopName;
@@ -469,5 +471,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setCompletionRate(Integer completionRate) {
         this.completionRate = completionRate;
+    }
+
+    public Integer getCurrentPhaseSort() {
+        return currentPhaseSort;
+    }
+
+    public void setCurrentPhaseSort(Integer currentPhaseSort) {
+        this.currentPhaseSort = currentPhaseSort;
     }
 }
