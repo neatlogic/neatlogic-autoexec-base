@@ -81,53 +81,55 @@ public enum ParamType implements IEnum {
     SELECT("select", "单选下拉", true, new JSONObject() {
         {
             this.put("type", "select");
-            this.put("placeholder", "请输入");
-            this.put("dynamicUrl", "/api/rest/matrix/search");
-            this.put("rootName", "tbodyList");
-            this.put("textName", "name");
-            this.put("valueName", "uuid");
-            List<String> validateList = new ArrayList<>();
-            validateList.add("required");
-            this.put("validateList", validateList);
+            this.put("placeholder", "请选择");
+            this.put("dynamicUrl", "/api/rest/matrix/column/data/search/forselect/new");
+            this.put("rootName", "columnDataList");
+            this.put("multiple", false);
+//            this.put("textName", "name");
+//            this.put("valueName", "uuid");
+//            List<String> validateList = new ArrayList<>();
+//            validateList.add("required");
+//            this.put("validateList", validateList);
         }
     }, "单选下拉选择器"),
     MULTISELECT("multiselect", "多选下拉", true, new JSONObject() {
         {
             this.put("type", "select");
-            this.put("placeholder", "请输入");
-            this.put("dynamicUrl", "/api/rest/matrix/search");
-            this.put("rootName", "tbodyList");
-            this.put("textName", "name");
-            this.put("valueName", "uuid");
-            List<String> validateList = new ArrayList<>();
-            validateList.add("required");
-            this.put("validateList", validateList);
+            this.put("placeholder", "请选择");
+            this.put("url", "/api/rest/matrix/column/data/search/forselect/new");
+            this.put("rootName", "columnDataList");
+            this.put("multiple", true);
+//            this.put("textName", "name");
+//            this.put("valueName", "uuid");
+//            List<String> validateList = new ArrayList<>();
+//            validateList.add("required");
+//            this.put("validateList", validateList);
         }
     }, "多选下拉选择器"),
     radio("radio", "单选", true, new JSONObject() {
         {
             this.put("type", "radio");
-            this.put("placeholder", "请输入");
-            this.put("dynamicUrl", "/api/rest/matrix/search");
-            this.put("rootName", "tbodyList");
-            this.put("textName", "name");
-            this.put("valueName", "uuid");
-            List<String> validateList = new ArrayList<>();
-            validateList.add("required");
-            this.put("validateList", validateList);
+            this.put("placeholder", "请选择");
+            this.put("url", "/api/rest/matrix/column/data/search/forselect/new");
+            this.put("rootName", "columnDataList");
+//            this.put("textName", "name");
+//            this.put("valueName", "uuid");
+//            List<String> validateList = new ArrayList<>();
+//            validateList.add("required");
+//            this.put("validateList", validateList);
         }
     }, "单选选择器"),
     checkbox("checkbox", "复选", true, new JSONObject() {
         {
             this.put("type", "checkbox");
-            this.put("placeholder", "请输入");
-            this.put("dynamicUrl", "/api/rest/matrix/search");
-            this.put("rootName", "tbodyList");
-            this.put("textName", "name");
-            this.put("valueName", "uuid");
-            List<String> validateList = new ArrayList<>();
-            validateList.add("required");
-            this.put("validateList", validateList);
+            this.put("placeholder", "请选择");
+            this.put("dynamicUrl", "/api/rest/matrix/column/data/search/forselect/new");
+            this.put("rootName", "columnDataList");
+//            this.put("textName", "name");
+//            this.put("valueName", "uuid");
+//            List<String> validateList = new ArrayList<>();
+//            validateList.add("required");
+//            this.put("validateList", validateList);
         }
     }, "复选选择器"),
     NODE("node", "节点信息", true, new JSONObject() {
