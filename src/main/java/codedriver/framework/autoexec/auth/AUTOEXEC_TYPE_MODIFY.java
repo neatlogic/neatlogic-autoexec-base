@@ -10,16 +10,16 @@ import codedriver.framework.auth.core.AuthBase;
 import java.util.Collections;
 import java.util.List;
 
-public class AUTOEXEC_COMBOP_MODIFY extends AuthBase {
+public class AUTOEXEC_TYPE_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "组合工具维护权限";
+        return "工具分类维护权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "对组合工具进行查看、执行、查看执行记录、添加定时任务、新增、复制、编辑、删除、导入/导出、授权、启用/禁用";
+        return "查看、编辑、新增、删除工具分类";
     }
 
     @Override
@@ -29,11 +29,11 @@ public class AUTOEXEC_COMBOP_MODIFY extends AuthBase {
 
     @Override
     public Integer getSort() {
-        return 3;
+        return 7;
     }
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths(){
-        return Collections.singletonList(AUTOEXEC_COMBOP_EXECUTE.class);
+        return Collections.singletonList(AUTOEXEC_BASE.class);
     }
 }

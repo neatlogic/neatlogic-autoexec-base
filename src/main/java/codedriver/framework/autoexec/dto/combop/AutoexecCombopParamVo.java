@@ -25,9 +25,6 @@ public class AutoexecCombopParamVo extends AutoexecParamVo {
     @EntityField(name = "组合工具id", type = ApiParamType.LONG)
     private Long combopId;
 
-    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
-    private JSONObject config;
-
     public AutoexecCombopParamVo() {
     }
 
@@ -41,13 +38,5 @@ public class AutoexecCombopParamVo extends AutoexecParamVo {
 
     public void setCombopId(Long combopId) {
         this.combopId = combopId;
-    }
-
-    public JSONObject getConfig() {
-        return config;
-    }
-
-    public void setConfig(JSONObject config) {
-        this.config = config;
     }
 }
