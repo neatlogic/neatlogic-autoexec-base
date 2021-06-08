@@ -33,7 +33,12 @@ public class AutoexecParamVo implements Serializable {
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
 
+    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
+    private JSONObject config;
+
     private transient String defaultValueStr;
+
+    private transient String configStr;
 
     public AutoexecParamVo() {
 
@@ -48,6 +53,7 @@ public class AutoexecParamVo implements Serializable {
         this.isRequired = autoexecParamVo.isRequired;
         this.description = autoexecParamVo.description;
         this.sort = autoexecParamVo.sort;
+        this.config = autoexecParamVo.config;
     }
 
     public String getKey() {
@@ -147,6 +153,16 @@ public class AutoexecParamVo implements Serializable {
         this.sort = sort;
     }
 
+    public JSONObject getConfig() {
+        return config;
+    }
+
+    public void setConfig(String configStr) {
+        if(StringUtils.isNotBlank(configStr)){
+            this.config = JSONObject.parseObject(configStr);
+        }
+    }
+
     public String getDefaultValueStr() {
         if (defaultValue != null) {
             if (defaultValue instanceof String) {
@@ -154,6 +170,13 @@ public class AutoexecParamVo implements Serializable {
             } else {
                 return JSONObject.toJSONString(defaultValue);
             }
+        }
+        return null;
+    }
+
+    public String getConfigStr(){
+        if(config != null){
+            return config.toJSONString();
         }
         return null;
     }
