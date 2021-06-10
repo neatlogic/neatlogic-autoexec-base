@@ -59,6 +59,7 @@ public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
     private String uuid;
+    private Long combopId;
 
     public AutoexecJobPhaseVo() {
     }
@@ -230,5 +231,13 @@ public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public Long getCombopId() {
+        return combopId;
+    }
+
+    public void setCombopId(Long combopId) {
+        this.combopId = combopId;
     }
 }

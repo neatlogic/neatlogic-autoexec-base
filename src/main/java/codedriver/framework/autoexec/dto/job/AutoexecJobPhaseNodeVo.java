@@ -8,9 +8,7 @@ package codedriver.framework.autoexec.dto.job;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.autoexec.dto.AutoexecRunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
-import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
@@ -27,24 +25,14 @@ import java.util.Objects;
  * @author lvzk
  * @since 2021/4/12 16:12
  **/
-public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
+public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Serializable {
     private static final long serialVersionUID = -3975625036282871623L;
     @EntityField(name = "作业剧本节点id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "作业id", type = ApiParamType.LONG)
-    private Long jobId;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
     @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
     private String jobPhaseName;
-    @EntityField(name = "作业剧本主机", type = ApiParamType.STRING)
-    private String host;
-    @EntityField(name = "作业剧本主机端口", type = ApiParamType.INTEGER)
-    private Integer port;
-    @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
-    private String userName;
-    @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
-    private String password;
     @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.LONG)
@@ -77,31 +65,34 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
     }
 
     public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName) {
-        this.jobId = jobId;
+        super.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, String host, Integer port, String status, String userName) {
-        this.jobId = jobId;
+    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, String host, String status, String userName) {
+        super.setJobId(jobId);
         this.jobPhaseId = jobPhaseId;
         this.status = status;
-        this.userName = userName;
-        this.host = host;
-        this.port = port;
+        super.setUserName(userName);
+        super.setHost(host);
     }
 
     public AutoexecJobPhaseNodeVo(JSONObject jsonObj) {
-        this.jobId = jsonObj.getLong("jobId");
+        super.setJobId(jsonObj.getLong("jobId"));
         this.jobPhaseName = jsonObj.getString("phase");
         this.id = jsonObj.getLong("nodeId");
-        this.host = jsonObj.getString("host");
-        this.port = jsonObj.getInteger("port");
+        super.setHost(jsonObj.getString("host"));
+        super.setPort(jsonObj.getInteger("port"));
         this.status = jsonObj.getString("status");
     }
 
-    public AutoexecJobPhaseNodeVo(AutoexecNodeVo nodeVo) {
-        this.host = nodeVo.getIp();
-        this.port = nodeVo.getPort();
+    public AutoexecJobPhaseNodeVo(String ip,Long jobId,Long jobPhaseId,String status,String userName,String protocol) {
+        super.setHost(ip);
+        super.setJobId(jobId);
+        this.jobPhaseId = jobPhaseId;
+        super.setProtocol(protocol);
+        this.status = status;
+        super.setUserName(userName);
     }
 
     public AutoexecJobPhaseNodeVo(AutoexecCombopParamVo paramVo) {
@@ -119,14 +110,6 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
         this.id = id;
     }
 
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
     public Long getJobPhaseId() {
         return jobPhaseId;
     }
@@ -141,38 +124,6 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
 
     public void setJobPhaseId(Long jobPhaseId) {
         this.jobPhaseId = jobPhaseId;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public Integer getPort() {
-        return port;
-    }
-
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getStatus() {
@@ -264,22 +215,6 @@ public class AutoexecJobPhaseNodeVo extends BasePageVo implements Serializable {
 
     public void setAutoexecRunnerVo(AutoexecRunnerVo autoexecRunnerVo) {
         this.autoexecRunnerVo = autoexecRunnerVo;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AutoexecJobPhaseNodeVo vo = (AutoexecJobPhaseNodeVo) o;
-        return Objects.equals(vo.getHost(), host) && Objects.equals(vo.getPort(), port);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
     }
 
     public Integer getCompletionRate() {
