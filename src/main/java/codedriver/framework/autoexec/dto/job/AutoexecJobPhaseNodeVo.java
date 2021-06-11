@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.job;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.autoexec.dto.AutoexecRunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
+import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
@@ -47,8 +48,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private String costTime;
     @EntityField(name = "节点Id", type = ApiParamType.LONG)
     private Long nodeId;
-    @EntityField(name = "节点名称", type = ApiParamType.STRING)
-    private String nodeName;
     @EntityField(name = "节点连接类型", type = ApiParamType.STRING)
     private String nodeType;
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
@@ -86,8 +85,10 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.status = jsonObj.getString("status");
     }
 
-    public AutoexecJobPhaseNodeVo(String ip,Long jobId,Long jobPhaseId,String status,String userName,String protocol) {
-        super.setHost(ip);
+    public AutoexecJobPhaseNodeVo(AutoexecNodeVo nodeVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol) {
+        super.setHost(nodeVo.getIp());
+        super.setNodeName(nodeVo.getName());
+        super.setPort(nodeVo.getPort());
         super.setJobId(jobId);
         this.jobPhaseId = jobPhaseId;
         super.setProtocol(protocol);
@@ -183,14 +184,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setNodeId(Long nodeId) {
         this.nodeId = nodeId;
-    }
-
-    public String getNodeName() {
-        return nodeName;
-    }
-
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName;
     }
 
     public String getNodeType() {
