@@ -8,13 +8,15 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author lvzk
  * @since 2021/4/12 14:29
  **/
-public class AutoexecRunnerVo {
+public class AutoexecRunnerVo implements Serializable {
+    private static final long serialVersionUID = -5118893385455680746L;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "代理名", type = ApiParamType.STRING)
