@@ -38,7 +38,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.LONG)
-    private Long runnerId;
+    private Integer runnerId;
     @EntityField(name = "作业剧本代理", type = ApiParamType.JSONOBJECT)
     private AutoexecRunnerVo autoexecRunnerVo;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
@@ -65,7 +65,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     public AutoexecJobPhaseNodeVo() {
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName,Long runnerId) {
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName,Integer runnerId) {
         super.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
         this.runnerId = runnerId;
@@ -138,11 +138,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.status = status;
     }
 
-    public Long getRunnerId() {
+    public Integer getRunnerId() {
         return runnerId;
     }
 
-    public void setRunnerId(Long runnerId) {
+    public void setRunnerId(Integer runnerId) {
         this.runnerId = runnerId;
     }
 
