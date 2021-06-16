@@ -7,8 +7,12 @@ package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
+import codedriver.framework.dto.OperateVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoexecRiskVo extends BaseEditorVo {
 
@@ -24,6 +28,13 @@ public class AutoexecRiskVo extends BaseEditorVo {
     private String description;
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
+
+    @EntityField(name = "操作列表")
+    private List<OperateVo> operateList = new ArrayList<>();
+
+    private Integer referenceCountForTool = 0; // 关联的工具数
+
+    private Integer referenceCountForScript = 0; // 关联的脚本数
 
     public AutoexecRiskVo() {
     }
@@ -77,5 +88,29 @@ public class AutoexecRiskVo extends BaseEditorVo {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public List<OperateVo> getOperateList() {
+        return operateList;
+    }
+
+    public void setOperateList(List<OperateVo> operateList) {
+        this.operateList = operateList;
+    }
+
+    public Integer getReferenceCountForTool() {
+        return referenceCountForTool;
+    }
+
+    public void setReferenceCountForTool(Integer referenceCountForTool) {
+        this.referenceCountForTool = referenceCountForTool;
+    }
+
+    public Integer getReferenceCountForScript() {
+        return referenceCountForScript;
+    }
+
+    public void setReferenceCountForScript(Integer referenceCountForScript) {
+        this.referenceCountForScript = referenceCountForScript;
     }
 }
