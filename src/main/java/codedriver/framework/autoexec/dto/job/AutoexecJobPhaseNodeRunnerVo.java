@@ -11,7 +11,7 @@ package codedriver.framework.autoexec.dto.job;
  **/
 public class AutoexecJobPhaseNodeRunnerVo {
     private Long nodeId;
-    private Long runnerId;
+    private Integer runnerId;
 
     public Long getNodeId() {
         return nodeId;
@@ -21,11 +21,11 @@ public class AutoexecJobPhaseNodeRunnerVo {
         this.nodeId = nodeId;
     }
 
-    public Long getRunnerId() {
+    public Integer getRunnerId() {
         return runnerId;
     }
 
-    public void setRunnerId(Long runnerId) {
+    public void setRunnerId(Integer runnerId) {
         this.runnerId = runnerId;
     }
 }

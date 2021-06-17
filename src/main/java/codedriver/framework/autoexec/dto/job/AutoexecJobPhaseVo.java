@@ -60,6 +60,7 @@ public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
     private Integer completionRate = 0;
     private String uuid;
     private Long combopId;
+    private Integer count;
 
     public AutoexecJobPhaseVo() {
     }
@@ -239,5 +240,13 @@ public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
 
     public void setCombopId(Long combopId) {
         this.combopId = combopId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

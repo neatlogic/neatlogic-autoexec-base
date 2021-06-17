@@ -8,15 +8,17 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author lvzk
  * @since 2021/4/12 14:29
  **/
-public class AutoexecRunnerVo {
+public class AutoexecRunnerVo implements Serializable {
+    private static final long serialVersionUID = -5118893385455680746L;
     @EntityField(name = "id", type = ApiParamType.LONG)
-    private Long id;
+    private Integer id;
     @EntityField(name = "代理名", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "代理url", type = ApiParamType.STRING)
@@ -38,11 +40,11 @@ public class AutoexecRunnerVo {
     @EntityField(name = "代理分组", type = ApiParamType.STRING)
     private List<AutoexecRunnerGroupVo> proxyGroupVoList;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

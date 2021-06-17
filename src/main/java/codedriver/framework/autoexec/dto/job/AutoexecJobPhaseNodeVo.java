@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.autoexec.dto.AutoexecRunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
@@ -37,7 +38,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业剧本代理id", type = ApiParamType.LONG)
-    private Long runnerId;
+    private Integer runnerId;
     @EntityField(name = "作业剧本代理", type = ApiParamType.JSONOBJECT)
     private AutoexecRunnerVo autoexecRunnerVo;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
@@ -59,13 +60,15 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "作业节点状态Vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobStatusVo statusVo;
 
+    private String schemaName;
 
     public AutoexecJobPhaseNodeVo() {
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName) {
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName,Integer runnerId) {
         super.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
+        this.runnerId = runnerId;
     }
 
     public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, String host, String status, String userName) {
@@ -135,11 +138,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.status = status;
     }
 
-    public Long getRunnerId() {
+    public Integer getRunnerId() {
         return runnerId;
     }
 
-    public void setRunnerId(Long runnerId) {
+    public void setRunnerId(Integer runnerId) {
         this.runnerId = runnerId;
     }
 
@@ -226,5 +229,9 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
             return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
         }
         return statusVo;
+    }
+
+    public String getSchemaName() {
+        return TenantContext.get().getDataDbName();
     }
 }
