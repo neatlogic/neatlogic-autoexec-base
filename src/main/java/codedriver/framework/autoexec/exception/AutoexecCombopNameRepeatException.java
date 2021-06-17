@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author: linbq
@@ -15,7 +16,13 @@ public class AutoexecCombopNameRepeatException extends ApiRuntimeException {
 
     private static final long serialVersionUID = -977867274722886183L;
 
-    public AutoexecCombopNameRepeatException(String name){
-        super("显示名：'" + name + "'已存在");
+    private static final String key = "common.errorMessage.reuse.name";
+
+    public AutoexecCombopNameRepeatException(String name) {
+        super(key, new JSONObject() {
+            {
+                this.put("name", name);
+            }
+        });
     }
 }
