@@ -70,6 +70,9 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "版本")
     private AutoexecScriptVersionVo versionVo;
 
+    @EntityField(name = "当前版本")
+    private AutoexecScriptVersionVo currentVersionVo;
+
     @EntityField(name = "版本状态", type = ApiParamType.ENUM, member = ScriptVersionStatus.class)
     private String versionStatus;
 
@@ -252,6 +255,14 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public AutoexecScriptVersionVo getCurrentVersionVo() {
+        return currentVersionVo;
+    }
+
+    public void setCurrentVersionVo(AutoexecScriptVersionVo currentVersionVo) {
+        this.currentVersionVo = currentVersionVo;
     }
 
     public List<AutoexecScriptVersionParamVo> getParamList() {
