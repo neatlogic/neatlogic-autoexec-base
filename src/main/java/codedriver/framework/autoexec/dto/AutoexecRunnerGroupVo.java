@@ -22,7 +22,7 @@ public class AutoexecRunnerGroupVo {
 
     private List<AutoexecRunnerGroupNetworkVo> networkList;
 
-    private List<AutoexecRunnerVo> runnerList;
+    private List<AutoexecRunnerMapVo> runnerMapList;
 
     public Long getId() {
         return id;
@@ -48,11 +48,11 @@ public class AutoexecRunnerGroupVo {
         this.networkList = networkList;
     }
 
-    public List<AutoexecRunnerVo> getRunnerList() {
-        return runnerList;
+    public List<AutoexecRunnerMapVo> getRunnerMapList() {
+        return runnerMapList;
     }
 
-    public void setRunnerList(List<AutoexecRunnerVo> runnerList) {
-        this.runnerList = runnerList;
+    public void setRunnerMapList(List<AutoexecRunnerMapVo> runnerMapList) {
+        this.runnerMapList = runnerMapList;
     }
 }
