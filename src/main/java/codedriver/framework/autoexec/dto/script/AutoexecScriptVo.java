@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
 import codedriver.framework.autoexec.dto.AutoexecRiskVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.dto.OperateVo;
@@ -69,8 +70,8 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "版本")
     private AutoexecScriptVersionVo versionVo;
 
-    @EntityField(name = "是否待审批", type = ApiParamType.INTEGER)
-    private Integer isReviewing;
+    @EntityField(name = "版本状态", type = ApiParamType.ENUM, member = ScriptVersionStatus.class)
+    private String versionStatus;
 
     @EntityField(name = "关联的组合工具", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopVo> combopList;
@@ -269,12 +270,12 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
         this.versionVo = versionVo;
     }
 
-    public Integer getIsReviewing() {
-        return isReviewing;
+    public String getVersionStatus() {
+        return versionStatus;
     }
 
-    public void setIsReviewing(Integer isReviewing) {
-        this.isReviewing = isReviewing;
+    public void setVersionStatus(String versionStatus) {
+        this.versionStatus = versionStatus;
     }
 
     public List<AutoexecCombopVo> getCombopList() {
