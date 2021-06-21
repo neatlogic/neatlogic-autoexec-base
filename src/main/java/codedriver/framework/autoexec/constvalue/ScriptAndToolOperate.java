@@ -11,7 +11,7 @@ package codedriver.framework.autoexec.constvalue;
  **/
 public enum ScriptAndToolOperate {
     DELETE("delete", "删除"),
-    VERSIONDELETE("delete", "删除"),
+    VERSION_DELETE("delete", "删除"),
     COPY("copy", "复制"),
     TEST("test", "测试"),
     COMPARE("compare", "对比"),
@@ -22,7 +22,8 @@ public enum ScriptAndToolOperate {
     REJECT("reject", "驳回"),
     GENERATETOCOMBOP("generateToCombop", "发布为组合工具"),
     EXPORT("export", "导出"),
-    ACTIVE("active", "启用/禁用");
+    ACTIVE("active", "启用/禁用"),
+    SWITCH_VERSION("switchversion","回退");
     private final String value;
     private final String text;
 

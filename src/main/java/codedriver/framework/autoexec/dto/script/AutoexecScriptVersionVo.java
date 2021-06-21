@@ -11,6 +11,7 @@ import codedriver.framework.dto.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.UserVo;
+import codedriver.framework.dto.WorkAssignmentUnitVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -30,9 +31,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private Long id;
     @EntityField(name = "脚本ID", type = ApiParamType.LONG)
     private Long scriptId;
+    @EntityField(name = "标题", type = ApiParamType.STRING)
+    private String title;
     @EntityField(name = "版本号", type = ApiParamType.INTEGER)
     private Integer version;
-    @EntityField(name = "状态(draft:编辑中、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
+    @EntityField(name = "状态(draft:草稿、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "状态", type = ApiParamType.JSONOBJECT)
     private JSONObject statusVo;
@@ -66,6 +69,9 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     @EntityField(name = "操作列表")
     private List<OperateVo> operateList;
 
+    @EntityField(name = "审核人列表", type = ApiParamType.JSONARRAY)
+    private List<WorkAssignmentUnitVo> reviewerVoList;
+
     public AutoexecScriptVersionVo() {
     }
 
@@ -86,6 +92,14 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setScriptId(Long scriptId) {
         this.scriptId = scriptId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getVersion() {
@@ -221,5 +235,13 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public List<OperateVo> getOperateList() {
         return operateList;
+    }
+
+    public List<WorkAssignmentUnitVo> getReviewerVoList() {
+        return reviewerVoList;
+    }
+
+    public void setReviewerVoList(List<WorkAssignmentUnitVo> reviewerVoList) {
+        this.reviewerVoList = reviewerVoList;
     }
 }
