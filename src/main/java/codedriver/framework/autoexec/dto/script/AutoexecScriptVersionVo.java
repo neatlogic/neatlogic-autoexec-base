@@ -30,9 +30,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private Long id;
     @EntityField(name = "脚本ID", type = ApiParamType.LONG)
     private Long scriptId;
+    @EntityField(name = "标题", type = ApiParamType.STRING)
+    private String title;
     @EntityField(name = "版本号", type = ApiParamType.INTEGER)
     private Integer version;
-    @EntityField(name = "状态(draft:编辑中、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
+    @EntityField(name = "状态(draft:草稿、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "状态", type = ApiParamType.JSONOBJECT)
     private JSONObject statusVo;
@@ -86,6 +88,14 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setScriptId(Long scriptId) {
         this.scriptId = scriptId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getVersion() {
