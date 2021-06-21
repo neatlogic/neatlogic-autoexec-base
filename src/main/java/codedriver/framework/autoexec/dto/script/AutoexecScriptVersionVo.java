@@ -32,7 +32,7 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private Long scriptId;
     @EntityField(name = "版本号", type = ApiParamType.INTEGER)
     private Integer version;
-    @EntityField(name = "状态(draft:编辑中、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
+    @EntityField(name = "状态(draft:草稿、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "状态", type = ApiParamType.JSONOBJECT)
     private JSONObject statusVo;
