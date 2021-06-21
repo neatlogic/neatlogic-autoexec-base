@@ -16,5 +16,9 @@ public class AutoexecScriptVersionHasNoActivedException extends ApiRuntimeExcept
         super("自定义工具'" + name + "'未设置激活版本");
     }
 
+    public AutoexecScriptVersionHasNoActivedException() {
+        super("当前自定义工具没有激活版本");
+    }
+
 
 }

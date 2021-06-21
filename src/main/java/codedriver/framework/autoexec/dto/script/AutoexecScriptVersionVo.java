@@ -11,6 +11,7 @@ import codedriver.framework.dto.OperateVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.UserVo;
+import codedriver.framework.dto.WorkAssignmentUnitVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -67,6 +68,9 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     @EntityField(name = "操作列表")
     private List<OperateVo> operateList;
+
+    @EntityField(name = "审核人列表", type = ApiParamType.JSONARRAY)
+    private List<WorkAssignmentUnitVo> reviewerVoList;
 
     public AutoexecScriptVersionVo() {
     }
@@ -231,5 +235,13 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public List<OperateVo> getOperateList() {
         return operateList;
+    }
+
+    public List<WorkAssignmentUnitVo> getReviewerVoList() {
+        return reviewerVoList;
+    }
+
+    public void setReviewerVoList(List<WorkAssignmentUnitVo> reviewerVoList) {
+        this.reviewerVoList = reviewerVoList;
     }
 }
