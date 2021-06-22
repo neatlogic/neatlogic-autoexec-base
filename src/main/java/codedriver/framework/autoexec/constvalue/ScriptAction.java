@@ -6,7 +6,7 @@
 package codedriver.framework.autoexec.constvalue;
 
 public enum ScriptAction {
-    ACTIVE("active", "激活", "激活了版本${DATA.version}", true),
+    SWITCH_VERSION("switchversion", "切换版本", "从版本${DATA.oldVersion}切换到版本${DATA.newVersion}", true),
     DISABLE("disable", "禁用", "禁用了版本${DATA.version}", true),
     DELETE("delete", "删除版本", "删除了版本${DATA.version}", true),
     SUBMIT("submit", "提交", "提交了版本${DATA.version}", true),
