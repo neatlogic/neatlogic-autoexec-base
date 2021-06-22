@@ -106,7 +106,7 @@ public enum ParamType implements IEnum {
 //            this.put("validateList", validateList);
         }
     }, "多选下拉选择器"),
-    radio("radio", "单选", true, new JSONObject() {
+    RADIO("radio", "单选", true, new JSONObject() {
         {
             this.put("type", "radio");
             this.put("placeholder", "请选择");
@@ -119,7 +119,7 @@ public enum ParamType implements IEnum {
 //            this.put("validateList", validateList);
         }
     }, "单选选择器"),
-    checkbox("checkbox", "复选", true, new JSONObject() {
+    CHECKBOX("checkbox", "复选", true, new JSONObject() {
         {
             this.put("type", "checkbox");
             this.put("placeholder", "请选择");
