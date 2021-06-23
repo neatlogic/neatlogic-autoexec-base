@@ -10,20 +10,22 @@ package codedriver.framework.autoexec.constvalue;
  * @since: 2021/5/27 11:15
  **/
 public enum ScriptAndToolOperate {
+    EDIT("edit", "编辑"),
     DELETE("delete", "删除"),
     VERSION_DELETE("delete", "删除"),
     COPY("copy", "复制"),
     TEST("test", "测试"),
     COMPARE("compare", "对比"),
     VALIDATE("validate", "校验"),
-    SAVE("save", "保存"),
+    SAVE("save", "存为草稿"),
     SUBMIT("submit", "提交审核"),
     PASS("pass", "通过"),
     REJECT("reject", "驳回"),
     GENERATETOCOMBOP("generateToCombop", "发布为组合工具"),
     EXPORT("export", "导出"),
     ACTIVE("active", "启用/禁用"),
-    SWITCH_VERSION("switchversion","回退");
+    SWITCH_VERSION("switchversion", "回退"),
+    REVOKE("revoke", "撤回");
     private final String value;
     private final String text;
 
