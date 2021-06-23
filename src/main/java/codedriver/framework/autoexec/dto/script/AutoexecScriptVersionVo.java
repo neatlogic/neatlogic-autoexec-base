@@ -17,11 +17,13 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializable {
@@ -75,6 +77,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     public AutoexecScriptVersionVo() {
     }
 
+    public AutoexecScriptVersionVo(Long scriptId, String status) {
+        this.scriptId = scriptId;
+        this.status = status;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();
@@ -95,6 +102,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     }
 
     public String getTitle() {
+        if (StringUtils.isNotBlank(status)) {
+            if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
+                title = "版本" + version;
+            }
+        }
         return title;
     }
 
