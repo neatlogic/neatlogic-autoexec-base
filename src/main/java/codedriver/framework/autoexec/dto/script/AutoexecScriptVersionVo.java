@@ -74,6 +74,9 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     @EntityField(name = "审核人列表", type = ApiParamType.JSONARRAY)
     private List<WorkAssignmentUnitVo> reviewerVoList;
 
+    @JSONField(serialize = false)
+    private transient List<Long> excludeList;
+
     public AutoexecScriptVersionVo() {
     }
 
@@ -133,9 +136,18 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     public JSONObject getStatusVo() {
         if (status != null) {
             statusVo = new JSONObject();
-            statusVo.put("value", status);
-            statusVo.put("text", ScriptVersionStatus.getText(status));
-            statusVo.put("color", ScriptVersionStatus.getColor(status));
+            if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
+                if (Objects.equals(getIsActive(), 1)) {
+                    statusVo.put("value", ScriptVersionStatus.CURRENT.getValue());
+                    statusVo.put("text", ScriptVersionStatus.CURRENT.getText());
+                } else {
+                    statusVo.put("value", ScriptVersionStatus.HISTORY.getValue());
+                    statusVo.put("text", ScriptVersionStatus.HISTORY.getText());
+                }
+            } else {
+                statusVo.put("value", status);
+                statusVo.put("text", ScriptVersionStatus.getText(status));
+            }
         }
         return statusVo;
     }
@@ -255,5 +267,13 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setReviewerVoList(List<WorkAssignmentUnitVo> reviewerVoList) {
         this.reviewerVoList = reviewerVoList;
+    }
+
+    public List<Long> getExcludeList() {
+        return excludeList;
+    }
+
+    public void setExcludeList(List<Long> excludeList) {
+        this.excludeList = excludeList;
     }
 }
