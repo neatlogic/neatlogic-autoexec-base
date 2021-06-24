@@ -48,8 +48,8 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
     private Integer currentVersion;
     @EntityField(name = "版本总数", type = ApiParamType.INTEGER)
     private Integer versionCount;
-    @EntityField(name = "待审批版本数", type = ApiParamType.INTEGER)
-    private Integer submittedVersionCount;
+    @EntityField(name = "待审批版本ID", type = ApiParamType.LONG)
+    private Long submittedVersionId;
     @EntityField(name = "已通过版本数", type = ApiParamType.INTEGER)
     private Integer passedVersionCount;
 
@@ -201,12 +201,12 @@ public class AutoexecScriptVo extends BaseEditorVo implements Serializable {
         this.versionCount = versionCount;
     }
 
-    public Integer getSubmittedVersionCount() {
-        return submittedVersionCount;
+    public Long getSubmittedVersionId() {
+        return submittedVersionId;
     }
 
-    public void setSubmittedVersionCount(Integer submittedVersionCount) {
-        this.submittedVersionCount = submittedVersionCount;
+    public void setSubmittedVersionId(Long submittedVersionId) {
+        this.submittedVersionId = submittedVersionId;
     }
 
     public Integer getPassedVersionCount() {

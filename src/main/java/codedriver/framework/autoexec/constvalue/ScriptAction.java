@@ -11,7 +11,8 @@ public enum ScriptAction {
     DELETE("delete", "删除版本", "删除了版本${DATA.version}", true),
     SUBMIT("submit", "提交", "提交了版本${DATA.version}", true),
     PASS("pass", "通过", "通过了版本${DATA.version}", true),
-    REJECT("reject", "驳回", "驳回了版本${DATA.version}", true);
+    REJECT("reject", "驳回", "驳回了版本${DATA.version}", true),
+    REVOKE("revoke", "撤回", "撤回了提交版本${DATA.version}", true);
     private String value;
     private String text;
     private String title;

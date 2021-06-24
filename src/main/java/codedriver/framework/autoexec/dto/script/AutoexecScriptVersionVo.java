@@ -17,11 +17,13 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializable {
@@ -72,7 +74,15 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     @EntityField(name = "审核人列表", type = ApiParamType.JSONARRAY)
     private List<WorkAssignmentUnitVo> reviewerVoList;
 
+    @JSONField(serialize = false)
+    private transient List<Long> excludeList;
+
     public AutoexecScriptVersionVo() {
+    }
+
+    public AutoexecScriptVersionVo(Long scriptId, String status) {
+        this.scriptId = scriptId;
+        this.status = status;
     }
 
     public Long getId() {
@@ -95,6 +105,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     }
 
     public String getTitle() {
+        if (StringUtils.isNotBlank(status)) {
+            if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
+                title = "版本" + version;
+            }
+        }
         return title;
     }
 
@@ -121,9 +136,18 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     public JSONObject getStatusVo() {
         if (status != null) {
             statusVo = new JSONObject();
-            statusVo.put("value", status);
-            statusVo.put("text", ScriptVersionStatus.getText(status));
-            statusVo.put("color", ScriptVersionStatus.getColor(status));
+            if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
+                if (Objects.equals(getIsActive(), 1)) {
+                    statusVo.put("value", ScriptVersionStatus.CURRENT.getValue());
+                    statusVo.put("text", ScriptVersionStatus.CURRENT.getText());
+                } else {
+                    statusVo.put("value", ScriptVersionStatus.HISTORY.getValue());
+                    statusVo.put("text", ScriptVersionStatus.HISTORY.getText());
+                }
+            } else {
+                statusVo.put("value", status);
+                statusVo.put("text", ScriptVersionStatus.getText(status));
+            }
         }
         return statusVo;
     }
@@ -243,5 +267,13 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setReviewerVoList(List<WorkAssignmentUnitVo> reviewerVoList) {
         this.reviewerVoList = reviewerVoList;
+    }
+
+    public List<Long> getExcludeList() {
+        return excludeList;
+    }
+
+    public void setExcludeList(List<Long> excludeList) {
+        this.excludeList = excludeList;
     }
 }

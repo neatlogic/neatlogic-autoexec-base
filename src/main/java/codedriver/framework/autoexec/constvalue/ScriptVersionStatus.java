@@ -6,18 +6,18 @@
 package codedriver.framework.autoexec.constvalue;
 
 public enum ScriptVersionStatus {
-    DRAFT("draft", "草稿", "#1670F0"),
-    SUBMITTED("submitted", "待审核", "#FFBA5A"),
-    PASSED("passed", "已通过", "#25B864"),
-    REJECTED("rejected", "已驳回", "#F33B3B");
+    DRAFT("draft", "草稿"),
+    SUBMITTED("submitted", "待审核"),
+    PASSED("passed", "已通过"),
+    REJECTED("rejected", "已驳回"),
+    CURRENT("current", "激活"),
+    HISTORY("history", "历史");
     private String value;
     private String text;
-    private String color;
 
-    private ScriptVersionStatus(String value, String text, String color) {
+    ScriptVersionStatus(String value, String text) {
         this.value = value;
         this.text = text;
-        this.color = color;
     }
 
     public String getValue() {
@@ -28,23 +28,10 @@ public enum ScriptVersionStatus {
         return text;
     }
 
-    public String getColor() {
-        return color;
-    }
-
     public static String getText(String _value) {
         for (ScriptVersionStatus status : values()) {
             if (status.value.equals(_value)) {
                 return status.text;
-            }
-        }
-        return "";
-    }
-
-    public static String getColor(String _value) {
-        for (ScriptVersionStatus status : values()) {
-            if (status.value.equals(_value)) {
-                return status.color;
             }
         }
         return "";
