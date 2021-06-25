@@ -24,7 +24,8 @@ public enum ScriptParser implements IEnum {
     CSH("csh"),
     SH("sh"),
     JAVASCRIPT("javascript"),
-    XML("xml");
+    XML("xml"),
+    SQL("sql");
     private final String value;
 
     private ScriptParser(String value) {
