@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
@@ -81,8 +82,12 @@ public class AutoexecParamVo implements Serializable {
                     case "radio":
                     case "checkbox":
                     case "file":
-                        defaultValue = JSONObject.parseObject((String) defaultValue);
-                        break;
+                        try {
+                            defaultValue = JSONObject.parseObject((String) defaultValue);
+                            break;
+                        } catch (JSONException ex) {
+                            break;
+                        }
                     case "node":
                         defaultValue = JSONObject.parseArray((String) defaultValue);
                         break;
@@ -158,7 +163,7 @@ public class AutoexecParamVo implements Serializable {
     }
 
     public void setConfig(String configStr) {
-        if(StringUtils.isNotBlank(configStr)){
+        if (StringUtils.isNotBlank(configStr)) {
             this.config = JSONObject.parseObject(configStr);
         }
     }
@@ -174,8 +179,8 @@ public class AutoexecParamVo implements Serializable {
         return null;
     }
 
-    public String getConfigStr(){
-        if(config != null){
+    public String getConfigStr() {
+        if (config != null) {
             return config.toJSONString();
         }
         return null;
