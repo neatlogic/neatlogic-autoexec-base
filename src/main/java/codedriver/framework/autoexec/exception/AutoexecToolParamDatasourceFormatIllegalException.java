@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecToolParamMatrixConfigFormatIllegalException extends ApiRuntimeException {
+public class AutoexecToolParamDatasourceFormatIllegalException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 5729263379225117113L;
 
-    public AutoexecToolParamMatrixConfigFormatIllegalException(String param) {
-        super("参数：'" + param + "'矩阵数据源配置非JSON格式");
+    public AutoexecToolParamDatasourceFormatIllegalException(String param) {
+        super("参数：'" + param + "'的数据源配置非JSONArray格式");
     }
 
 
