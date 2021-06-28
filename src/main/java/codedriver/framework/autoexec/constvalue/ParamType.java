@@ -141,14 +141,14 @@ public enum ParamType implements IEnum {
 
     private final String value;
     private final String text;
-    private final Boolean needDatasource;//是否需要配置数据源
+    private final Boolean needDataSource;//是否需要配置数据源
     private final JSONObject config;
     private final String description;
 
-    private ParamType(String value, String text, Boolean needDatasource, JSONObject config, String description) {
+    private ParamType(String value, String text, Boolean needDataSource, JSONObject config, String description) {
         this.value = value;
         this.text = text;
-        this.needDatasource = needDatasource;
+        this.needDataSource = needDataSource;
         this.config = config;
         this.description = description;
     }
@@ -161,8 +161,8 @@ public enum ParamType implements IEnum {
         return text;
     }
 
-    public Boolean getNeedDatasource() {
-        return needDatasource;
+    public Boolean getNeedDataSource() {
+        return needDataSource;
     }
 
     public JSONObject getConfig() {
