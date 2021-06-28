@@ -132,7 +132,7 @@ public enum ParamType implements IEnum {
 //            this.put("validateList", validateList);
         }
     }, "复选选择器"),
-    NODE("node", "节点信息", true, new JSONObject() {
+    NODE("node", "节点信息", false, new JSONObject() {
         {
             this.put("type", "node");
             this.put("placeholder", "请选择");
@@ -141,14 +141,14 @@ public enum ParamType implements IEnum {
 
     private final String value;
     private final String text;
-    private final Boolean isDynamic;//是否是动态数据源
+    private final Boolean needDataSource;//是否需要配置数据源
     private final JSONObject config;
     private final String description;
 
-    private ParamType(String value, String text, Boolean isDynamic, JSONObject config, String description) {
+    private ParamType(String value, String text, Boolean needDataSource, JSONObject config, String description) {
         this.value = value;
         this.text = text;
-        this.isDynamic = isDynamic;
+        this.needDataSource = needDataSource;
         this.config = config;
         this.description = description;
     }
@@ -161,8 +161,8 @@ public enum ParamType implements IEnum {
         return text;
     }
 
-    public Boolean getIsDynamic() {
-        return isDynamic;
+    public Boolean getNeedDataSource() {
+        return needDataSource;
     }
 
     public JSONObject getConfig() {

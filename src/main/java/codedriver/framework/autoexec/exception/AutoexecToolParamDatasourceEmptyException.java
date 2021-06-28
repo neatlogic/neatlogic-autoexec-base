@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecToolParamMatrixConfigEmptyException extends ApiRuntimeException {
+public class AutoexecToolParamDatasourceEmptyException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 303408573049451956L;
 
-    public AutoexecToolParamMatrixConfigEmptyException(String param) {
-        super("参数：'" + param + "'未配置矩阵数据源");
+    public AutoexecToolParamDatasourceEmptyException(String param) {
+        super("参数：'" + param + "'未配置数据源");
     }
 
 
