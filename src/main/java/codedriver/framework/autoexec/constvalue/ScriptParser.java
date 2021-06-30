@@ -15,7 +15,6 @@ public enum ScriptParser implements IEnum {
     PYTHON("python"),
     RUBY("ruby"),
     VBS("vbscript"),
-    SHELL("shell"),
     PERL("perl"),
     POWERSHELL("powershell"),
     CMD("cmd"),
@@ -23,9 +22,7 @@ public enum ScriptParser implements IEnum {
     KSH("ksh"),
     CSH("csh"),
     SH("sh"),
-    JAVASCRIPT("javascript"),
-    XML("xml"),
-    SQL("sql");
+    JAVASCRIPT("javascript");
     private final String value;
 
     private ScriptParser(String value) {
