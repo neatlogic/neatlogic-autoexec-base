@@ -67,6 +67,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private UserVo execUserVo;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
+    @EntityField(name = "来源名", type = ApiParamType.STRING)
+    private String sourceName;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
     private Integer threadCount;
     @EntityField(name = "作业其它配置", type = ApiParamType.STRING)
@@ -100,6 +102,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer completionRate = 0;
 
     private Integer currentPhaseSort;
+    private String action;//fire|refire|goon
 
     //param
     @JSONField(serialize = false)
@@ -309,6 +312,14 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         return sourceList;
     }
 
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
     public void setSourceList(List<String> sourceList) {
         this.sourceList = sourceList;
     }
@@ -479,5 +490,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setCurrentPhaseSort(Integer currentPhaseSort) {
         this.currentPhaseSort = currentPhaseSort;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }

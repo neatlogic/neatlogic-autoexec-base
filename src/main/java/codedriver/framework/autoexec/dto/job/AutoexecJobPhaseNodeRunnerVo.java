@@ -10,6 +10,7 @@ package codedriver.framework.autoexec.dto.job;
  * @since 2021/5/31 18:10
  **/
 public class AutoexecJobPhaseNodeRunnerVo {
+    private Long jobId;
     private Long nodeId;
     private Integer runnerId;
 
