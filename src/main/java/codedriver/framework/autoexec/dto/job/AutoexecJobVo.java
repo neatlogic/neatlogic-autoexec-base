@@ -32,6 +32,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author lvzk
@@ -77,6 +78,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private JSONObject config;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseVo> phaseList;
+    @EntityField(name = "作业剧本Id集合", type = ApiParamType.JSONARRAY)
+    private List<Long> phaseIdList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
     @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
@@ -84,25 +87,16 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "运行参数JSON", type = ApiParamType.JSONOBJECT)
     private JSONObject param;
     private String paramHash;
-    @EntityField(name = "是否允许执行作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobFire = 0;
-    @EntityField(name = "是否允许暂停作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobPause = 0;
-    @EntityField(name = "是否允许停止作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobAbort = 0;
-    @EntityField(name = "是否允许继续作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobGoon = 0;
-    @EntityField(name = "是否允许重跑作业", type = ApiParamType.INTEGER)
-    private Integer isCanJobReFire = 0;
-    @EntityField(name = "是否允许重置节点", type = ApiParamType.INTEGER)
-    private Integer isCanJobNodeReset = 0;
-    @EntityField(name = "是否允许忽略节点", type = ApiParamType.INTEGER)
-    private Integer isCanJobNodeIgnore = 0;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
+    @EntityField(name = "是否拥有执行权限", type = ApiParamType.INTEGER)
+    private Integer isCanExecute = 0;
+    private Long nodeId;
 
     private Integer currentPhaseSort;
     private String action;//fire|refire|goon
+
+    private List<AutoexecJobPhaseNodeVo> jobPhaseNodeList;
 
     //param
     @JSONField(serialize = false)
@@ -377,62 +371,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.costTime = costTime;
     }
 
-    public Integer getIsCanJobFire() {
-        return isCanJobFire;
-    }
-
-    public void setIsCanJobFire(Integer isCanJobFire) {
-        this.isCanJobFire = isCanJobFire;
-    }
-
-    public Integer getIsCanJobPause() {
-        return isCanJobPause;
-    }
-
-    public void setIsCanJobPause(Integer isCanJobPause) {
-        this.isCanJobPause = isCanJobPause;
-    }
-
-    public Integer getIsCanJobAbort() {
-        return isCanJobAbort;
-    }
-
-    public void setIsCanJobAbort(Integer isCanJobAbort) {
-        this.isCanJobAbort = isCanJobAbort;
-    }
-
-    public Integer getIsCanJobGoon() {
-        return isCanJobGoon;
-    }
-
-    public void setIsCanJobGoon(Integer isCanJobGoon) {
-        this.isCanJobGoon = isCanJobGoon;
-    }
-
-    public Integer getIsCanJobReFire() {
-        return isCanJobReFire;
-    }
-
-    public void setIsCanJobReFire(Integer isCanJobReFire) {
-        this.isCanJobReFire = isCanJobReFire;
-    }
-
-    public Integer getIsCanJobNodeReset() {
-        return isCanJobNodeReset;
-    }
-
-    public void setIsCanJobNodeReset(Integer isCanJobNodeReset) {
-        this.isCanJobNodeReset = isCanJobNodeReset;
-    }
-
-    public Integer getIsCanJobNodeIgnore() {
-        return isCanJobNodeIgnore;
-    }
-
-    public void setIsCanJobNodeIgnore(Integer isCanJobNodeIgnore) {
-        this.isCanJobNodeIgnore = isCanJobNodeIgnore;
-    }
-
     public String getParamStr() {
         return paramStr;
     }
@@ -498,5 +436,40 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public Long getNodeId() {
+        return nodeId;
+    }
+
+    public void setNodeId(Long nodeId) {
+        this.nodeId = nodeId;
+    }
+
+    public Integer getIsCanExecute() {
+        return isCanExecute;
+    }
+
+    public void setIsCanExecute(Integer isCanExecute) {
+        this.isCanExecute = isCanExecute;
+    }
+
+    public List<AutoexecJobPhaseNodeVo> getJobPhaseNodeList() {
+        return jobPhaseNodeList;
+    }
+
+    public void setJobPhaseNodeList(List<AutoexecJobPhaseNodeVo> jobPhaseNodeList) {
+        this.jobPhaseNodeList = jobPhaseNodeList;
+    }
+
+    public List<Long> getPhaseIdList() {
+        if(CollectionUtils.isNotEmpty(phaseList)){
+            phaseIdList = phaseList.stream().map(AutoexecJobPhaseVo::getId).collect(Collectors.toList());
+        }
+        return phaseIdList;
+    }
+
+    public void setPhaseIdList(List<Long> phaseIdList) {
+        this.phaseIdList = phaseIdList;
     }
 }

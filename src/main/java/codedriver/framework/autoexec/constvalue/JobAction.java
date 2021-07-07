@@ -5,7 +5,12 @@ package codedriver.framework.autoexec.constvalue;
  * @since 2021/4/27 15:40
  **/
 public enum JobAction {
-    FIRE("fire", "执行"), PAUSE("pause", "暂停"), ABORT("stop", "中止"),RESET("reset", "重置"),GOON("goon","继续"),REFIRE("refire","重新执行");
+    FIRE("fire", "执行"),
+    PAUSE("pause", "暂停"),
+    ABORT("stop", "中止"),
+    RESET_NODE("reset_node", "重置节点"),
+    GOON("goon","继续"),
+    REFIRE("refire","重新执行");
     private final String value;
     private final String text;
 

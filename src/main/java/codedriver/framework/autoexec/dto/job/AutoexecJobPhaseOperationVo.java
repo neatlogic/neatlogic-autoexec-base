@@ -7,7 +7,9 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
+import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationConfigVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
 import codedriver.framework.autoexec.dto.combop.ParamMappingVo;
@@ -99,18 +101,30 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     }
 
-    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, String script, List<AutoexecJobPhaseVo> jobPhaseVoList) {
+    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecOperationVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, String script, List<AutoexecJobPhaseVo> jobPhaseVoList) {
+        scriptVo.setParser(scriptVersionVo.getParser());
+        scriptVo.setOperationType(CombopOperationType.SCRIPT.getValue());
+        this.versionId = scriptVersionVo.getId();
+        this.scriptId = scriptVo.getId();
+        construct(autoexecCombopPhaseOperationVo,phaseVo,jobPhaseVoList,scriptVo);
+    }
+
+    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecToolVo toolVo, List<AutoexecJobPhaseVo> jobPhaseVoList) {
+        toolVo.setOperationType(CombopOperationType.TOOL.getValue());
+        construct(autoexecCombopPhaseOperationVo,phaseVo,jobPhaseVoList,toolVo);
+    }
+
+    private void construct(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo){
         this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
-        this.uk = scriptVo.getUk();
-        this.name = scriptVo.getName();
+        this.uk = operationVo.getUk();
+        this.name = operationVo.getName();
         this.jobPhaseId = phaseVo.getId();
-        this.type = CombopOperationType.SCRIPT.getValue();
-        this.execMode = scriptVo.getExecMode();
+        this.type = operationVo.getOperationType();
+        this.execMode = operationVo.getExecMode();
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
-        this.parser = scriptVersionVo.getParser();
+        this.parser = operationVo.getParser();
         this.sort = autoexecCombopPhaseOperationVo.getSort();
-        this.versionId = scriptVersionVo.getId();
         //拼接操作脚本到config
         JSONObject paramObj = new JSONObject();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
@@ -137,23 +151,22 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                                 if(tmpOperationList.size() == 1 ){
                                     paramMappingVo.setValue(String.format("${%s.%s_%d.%s}",tmpPhaseList.get(0).getName(),opName,tmpOperationList.get(0).getId(),value));
                                 }else {
-                                    throw new ParamIrregularException(phaseVo.getName() + ":" + scriptVo.getName() + ":" + input.getName() + " phaseUuid");
+                                    throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + input.getName() + " phaseUuid");
                                 }
                             }else{
-                                throw new ParamIrregularException(phaseVo.getName() + ":" + scriptVo.getName() + ":" + input.getName() +" operationUuid");
+                                throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + input.getName() +" operationUuid");
                             }
                         } else {
-                            throw new ParamIrregularException(phaseVo.getName() + ":" + scriptVo.getName() + ":" + input.getName());
+                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + input.getName());
                         }
                     }
                 }
             }
         }
-        this.script = script;
         paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
         paramObj.put("inputParamList", paramMappingVos);
         this.paramStr = paramObj.toString();
-        this.scriptId = scriptVo.getId();
+        this.scriptId = operationVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
     }
 

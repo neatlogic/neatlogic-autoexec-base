@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobCanNotAbortException extends ApiRuntimeException {
+public class AutoexecJobCanNotGoonException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 3401067630822603011L;
+    private static final long serialVersionUID = -1740731878298153021L;
 
-    public AutoexecJobCanNotAbortException(String jobId) {
-        super("无法中止作业："+jobId+"，请确保作业存于'运行中（running）'状态");
+    public AutoexecJobCanNotGoonException(String jobId) {
+        super("无法暂停作业: "+jobId+"，请确保作业存于'运行中（running）'状态");
     }
 
 
