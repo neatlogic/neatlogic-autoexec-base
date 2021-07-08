@@ -19,8 +19,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AutoexecToolVo  extends AutoexecOperationVo{
-    @EntityField(name = "描述说明", type = ApiParamType.STRING)
-    private String description;
     @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
     private Integer isActive;
     @EntityField(name = "输入参数列表", type = ApiParamType.JSONARRAY)
@@ -28,14 +26,6 @@ public class AutoexecToolVo  extends AutoexecOperationVo{
     @EntityField(name = "输出参数列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> outputParamList;
     public AutoexecToolVo() {
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Integer getIsActive() {

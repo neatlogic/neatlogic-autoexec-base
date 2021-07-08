@@ -47,6 +47,8 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private AutoexecRiskVo riskVo;
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
     private String parser;
+    @EntityField(name = "描述说明", type = ApiParamType.STRING)
+    private String description;
     @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
     private JSONObject config;
     @EntityField(name = "关联的组合工具", type = ApiParamType.JSONARRAY)
@@ -150,6 +152,14 @@ public class AutoexecOperationVo extends BaseEditorVo {
 
     public String getParser() {
         return parser;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setParser(String parser) {
