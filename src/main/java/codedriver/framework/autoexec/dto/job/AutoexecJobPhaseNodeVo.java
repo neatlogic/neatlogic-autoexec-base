@@ -9,7 +9,7 @@ import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.autoexec.dto.AutoexecRunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
-import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
+import codedriver.framework.cmdb.dto.resourcecenter.ResourceVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
@@ -62,6 +62,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "作业节点状态Vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobStatusVo statusVo;
 
+    private Long resourceId;
+
     private String schemaName;
 
     public AutoexecJobPhaseNodeVo() {
@@ -90,15 +92,16 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.status = jsonObj.getString("status");
     }
 
-    public AutoexecJobPhaseNodeVo(AutoexecNodeVo nodeVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol) {
-        super.setHost(nodeVo.getIp());
-        super.setNodeName(nodeVo.getName());
-        super.setPort(nodeVo.getPort());
+    public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol) {
+        super.setHost(resourceVo.getIp());
+        super.setNodeName(resourceVo.getName());
+        super.setPort(resourceVo.getPort());
         super.setJobId(jobId);
         this.jobPhaseId = jobPhaseId;
         super.setProtocol(protocol);
         this.status = status;
         super.setUserName(userName);
+        this.resourceId = resourceVo.getId();
     }
 
     public AutoexecJobPhaseNodeVo(AutoexecCombopParamVo paramVo) {
@@ -243,5 +246,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setRunnerId(Integer runnerId) {
         this.runnerId = runnerId;
+    }
+
+    public Long getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
     }
 }
