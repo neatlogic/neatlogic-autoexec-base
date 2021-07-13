@@ -287,7 +287,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getSource() {
-        return AutoexecJobSourceFactory.getSourceValueMap().get(this.source);
+        return this.source;
     }
 
     public void setSource(String source) {
@@ -307,11 +307,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getSourceName() {
+        if(StringUtils.isNotBlank(source)) {
+            return AutoexecJobSourceFactory.getSourceValueMap().get(this.source);
+        }
         return sourceName;
-    }
-
-    public void setSourceName(String sourceName) {
-        this.sourceName = sourceName;
     }
 
     public void setSourceList(List<String> sourceList) {

@@ -75,13 +75,13 @@ public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
         this.execUser = UserContext.get().getUserUuid(true);
     }
 
-    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Integer index, Long jobId) {
+    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId) {
         this.uk = autoexecCombopPhaseVo.getUk();
         this.name = autoexecCombopPhaseVo.getName();
         this.execMode = autoexecCombopPhaseVo.getExecMode();
         this.status = JobStatus.PENDING.getValue();
         this.jobId = jobId;
-        this.sort = index;
+        this.sort = autoexecCombopPhaseVo.getSort();
         this.execUser = UserContext.get().getUserUuid(true);
         this.uuid = autoexecCombopPhaseVo.getUuid();
     }
