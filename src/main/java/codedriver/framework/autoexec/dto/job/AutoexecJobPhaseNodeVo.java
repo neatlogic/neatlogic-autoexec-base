@@ -69,7 +69,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     public AutoexecJobPhaseNodeVo() {
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName,Integer runnerId) {
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Integer runnerId) {
         super.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
         this.runnerMapId = runnerId;
@@ -92,7 +92,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.status = jsonObj.getString("status");
     }
 
-    public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol) {
+    public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol, Integer protocolPort) {
         super.setHost(resourceVo.getIp());
         super.setNodeName(resourceVo.getName());
         super.setPort(resourceVo.getPort());
@@ -102,6 +102,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.status = status;
         super.setUserName(userName);
         this.resourceId = resourceVo.getId();
+        this.setProtocolPort(protocolPort);
     }
 
     public AutoexecJobPhaseNodeVo(AutoexecCombopParamVo paramVo) {

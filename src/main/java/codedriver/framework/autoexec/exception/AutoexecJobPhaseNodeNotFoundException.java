@@ -15,5 +15,12 @@ public class AutoexecJobPhaseNodeNotFoundException extends ApiRuntimeException {
         super("作业剧本：'" + phase + "' 节点'"+node+"'不存在");
     }
 
+    public AutoexecJobPhaseNodeNotFoundException(String phase,Long nodeId) {
+        super("作业阶段：'" + phase + "' 节点'"+nodeId.toString()+"'不存在");
+    }
+
+    public AutoexecJobPhaseNodeNotFoundException(String phase) {
+        super("作业阶段：'" + phase + "' 缺少可执行节点（需绑定账号）");
+    }
 
 }
