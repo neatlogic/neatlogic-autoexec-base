@@ -7,8 +7,8 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 public enum JobStatus implements IEnum {
-    PENDING("pending", "未开始", "#8E949F"),
-    RUNNING("running", "进行中", "#2d84fb"),
+    PENDING("pending", "待运行", "#8E949F"),
+    RUNNING("running", "运行中 ", "#2d84fb"),
     PAUSING("pausing", "暂停中", "#2d84fb"),
     PAUSED("paused", "已暂停", "#8E949F"),
     ABORTING("aborting", "中止中", "#2d84fb"),

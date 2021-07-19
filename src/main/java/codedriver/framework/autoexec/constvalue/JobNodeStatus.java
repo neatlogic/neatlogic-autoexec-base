@@ -7,13 +7,14 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 public enum JobNodeStatus  implements IEnum {
-    PENDING("pending", "未开始", "#8E949F"),
-    RUNNING("running", "进行中", "#2d84fb"),
+    PENDING("pending", "待运行", "#8E949F"),
+    RUNNING("running", "运行中", "#2d84fb"),
     ABORTING("aborting", "中止中", "#2d84fb"),
     ABORTED("aborted", "已中止", "#8E949F"),
     SUCCEED("succeed", "已成功", "#25b865"),
     FAILED("failed", "已失败", "#f71010"),
-    IGNORED("ignored", "已忽略", "#8E949F");
+    IGNORED("ignored", "已忽略", "#8E949F"),
+    WAIT_INPUT("waitInput", "待输入", "#8E949F");
     private final String status;
     private final String text;
     private final String color;

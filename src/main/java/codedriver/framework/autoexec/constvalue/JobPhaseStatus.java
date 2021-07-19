@@ -7,15 +7,16 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 public enum JobPhaseStatus implements IEnum {
-    PENDING("pending", "未开始", "#8E949F"),
+    PENDING("pending", "待运行", "#8E949F"),
     WAITING("waiting", "排队中", "#8E949F"),
-    RUNNING("running", "进行中", "#2d84fb"),
+    RUNNING("running", "运行中", "#2d84fb"),
     PAUSING("pausing", "暂停中", "#2d84fb"),
     PAUSED("paused", "已暂停", "#8E949F"),
     ABORTING("aborting", "中止中", "#2d84fb"),
     ABORTED("aborted", "已中止", "#8E949F"),
     COMPLETED("completed", "已完成", "#25b865"),
-    FAILED("failed", "已失败", "#f71010");
+    FAILED("failed", "已失败", "#f71010"),
+    WAIT_INPUT("waitInput", "待输入", "#8E949F");
     private final String status;
     private final String text;
     private final String color;
