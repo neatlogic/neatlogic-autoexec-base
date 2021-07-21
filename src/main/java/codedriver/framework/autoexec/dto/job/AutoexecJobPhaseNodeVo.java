@@ -52,7 +52,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "节点Id", type = ApiParamType.LONG)
     private Long nodeId;
     @EntityField(name = "节点连接类型", type = ApiParamType.STRING)
-    private String nodeType;
+    private String protocol;
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
     private String runnerUrl;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
@@ -196,11 +196,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     }
 
     public String getNodeType() {
-        return nodeType;
+        return protocol;
     }
 
     public void setNodeType(String nodeType) {
-        this.nodeType = nodeType;
+        this.protocol = nodeType;
     }
 
     public String getRunnerUrl() {
@@ -256,4 +256,5 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     public void setResourceId(Long resourceId) {
         this.resourceId = resourceId;
     }
+
 }

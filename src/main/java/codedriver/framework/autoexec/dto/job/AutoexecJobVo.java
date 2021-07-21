@@ -94,7 +94,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "是否拥有编辑权限", type = ApiParamType.INTEGER)
     private Integer isCanEdit = 0;
     private Long nodeId;
-
+    private List<AutoexecJobPhaseNodeVo> nodeVoList;//场景：工具库测试|重跑节点
     private Integer currentPhaseSort;
     private String action;//fire|refire|goon
 
@@ -480,5 +480,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setIsCanEdit(Integer isCanEdit) {
         this.isCanEdit = isCanEdit;
+    }
+
+    public List<AutoexecJobPhaseNodeVo> getNodeVoList() {
+        return nodeVoList;
+    }
+
+    public void setNodeVoList(List<AutoexecJobPhaseNodeVo> nodeVoList) {
+        this.nodeVoList = nodeVoList;
     }
 }
