@@ -6,8 +6,10 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
+import codedriver.framework.autoexec.constvalue.JobSource;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
@@ -115,9 +117,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public AutoexecJobVo() {
     }
 
-    public AutoexecJobVo(AutoexecCombopVo combopVo, String operationType, String source, Integer threadCount, JSONObject paramJson) {
+    public AutoexecJobVo(AutoexecCombopVo combopVo, String source, Integer threadCount, JSONObject paramJson) {
         this.operationId = combopVo.getId();
-        this.operationType = operationType;
+        this.operationType = combopVo.getOperationType();
         this.name = combopVo.getName();
         this.status = JobStatus.PENDING.getValue();
         this.source = source;
@@ -135,6 +137,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.execUserType = GroupSearch.USER.getValue();
         this.paramStr = combopParamsResult.toJSONString();
         this.configStr = combopVo.getConfigStr();
+        if (combopVo.getIsTest() != null && combopVo.getIsTest()) {
+            this.source = JobSource.TEST.getValue();
+        }
     }
 
 
@@ -165,6 +170,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public AutoexecJobVo(Long jobId) {
         this.id = jobId;
+    }
+
+    public AutoexecJobVo(AutoexecScriptVersionVo scriptVersionVo, String value, String source, JSONObject paramJson) {
     }
 
     public Long getId() {
@@ -309,7 +317,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getSourceName() {
-        if(StringUtils.isNotBlank(source)) {
+        if (StringUtils.isNotBlank(source)) {
             return AutoexecJobSourceFactory.getSourceValueMap().get(this.source);
         }
         return sourceName;
@@ -464,7 +472,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public List<Long> getPhaseIdList() {
-        if(CollectionUtils.isNotEmpty(phaseList)){
+        if (CollectionUtils.isNotEmpty(phaseList)) {
             phaseIdList = phaseList.stream().map(AutoexecJobPhaseVo::getId).collect(Collectors.toList());
         }
         return phaseIdList;

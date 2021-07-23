@@ -65,6 +65,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private transient String userUuid;
     private transient List<String> teamUuidList;
     private transient List<String> roleUuidList;
+    private transient Boolean isTest;//是否测试
 
     public AutoexecCombopVo() {
     }
@@ -253,5 +254,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setRoleUuidList(List<String> roleUuidList) {
         this.roleUuidList = roleUuidList;
+    }
+
+    public Boolean getIsTest() {
+        return isTest;
+    }
+
+    public void setIsTest(Boolean test) {
+        isTest = test;
     }
 }

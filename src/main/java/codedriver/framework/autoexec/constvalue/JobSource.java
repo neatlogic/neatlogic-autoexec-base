@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum JobSource implements IAutoexecJobSource {
-    HUMAN("人工", "human");
+    HUMAN("人工", "human"),TEST("测试","test");
     private final String text;
     private final String value;
 
