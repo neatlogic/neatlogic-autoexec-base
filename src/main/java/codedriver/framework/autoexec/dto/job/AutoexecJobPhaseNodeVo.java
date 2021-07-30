@@ -62,6 +62,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "作业节点状态Vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobStatusVo statusVo;
 
+
     private Long resourceId;
 
     private String schemaName;
@@ -103,6 +104,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         super.setUserName(userName);
         this.resourceId = resourceVo.getId();
         this.setProtocolPort(protocolPort);
+        this.setNodeType(resourceVo.getTypeName());
     }
 
     public AutoexecJobPhaseNodeVo(AutoexecCombopParamVo paramVo) {
@@ -195,14 +197,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.nodeId = nodeId;
     }
 
-    public String getNodeType() {
-        return protocol;
-    }
-
-    public void setNodeType(String nodeType) {
-        this.protocol = nodeType;
-    }
-
     public String getRunnerUrl() {
         return runnerUrl;
     }
@@ -257,4 +251,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.resourceId = resourceId;
     }
 
+    @Override
+    public String getProtocol() {
+        return protocol;
+    }
+
+    @Override
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 }

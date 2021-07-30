@@ -33,6 +33,8 @@ public class AutoexecJobNodeVo  extends BasePageVo {
     private Integer port;
     @EntityField(name = "节点名称", type = ApiParamType.STRING)
     private String nodeName;
+    @EntityField(name = "节点类型", type = ApiParamType.STRING)
+    private String nodeType;
 
     public AutoexecJobNodeVo() {
     }
@@ -117,5 +119,13 @@ public class AutoexecJobNodeVo  extends BasePageVo {
 
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
+    }
+
+    public String getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
     }
 }
