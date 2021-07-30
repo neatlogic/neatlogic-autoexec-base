@@ -17,7 +17,7 @@ import java.util.List;
 public class AutoexecRunnerGroupVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "代理分组名", type = ApiParamType.STRING)
+    @EntityField(name = "runner 分组名", type = ApiParamType.STRING)
     private String name;
 
     private List<AutoexecRunnerGroupNetworkVo> networkList;

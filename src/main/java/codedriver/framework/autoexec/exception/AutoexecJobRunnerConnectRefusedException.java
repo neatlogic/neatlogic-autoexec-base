@@ -13,7 +13,7 @@ public class AutoexecJobRunnerConnectRefusedException extends ApiRuntimeExceptio
     private static final long serialVersionUID = 1799177301356468646L;
 
     public AutoexecJobRunnerConnectRefusedException(String uk) {
-        super("作业代理 url：'" + uk + "'拒绝连接");
+        super("Runner url：'" + uk + "'reject connection");
     }
 
 

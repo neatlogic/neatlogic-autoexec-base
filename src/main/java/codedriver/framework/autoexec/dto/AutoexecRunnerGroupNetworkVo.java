@@ -15,13 +15,13 @@ import codedriver.framework.restful.annotation.EntityField;
 public class AutoexecRunnerGroupNetworkVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "代理分组名", type = ApiParamType.STRING)
+    @EntityField(name = "runner 分组名", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "代理分组网段", type = ApiParamType.STRING)
+    @EntityField(name = "runner 分组网段", type = ApiParamType.STRING)
     private String networkIp;
-    @EntityField(name = "代理分组掩码", type = ApiParamType.INTEGER)
+    @EntityField(name = "runner 分组掩码", type = ApiParamType.INTEGER)
     private Integer mask;
-    @EntityField(name = "代理组id", type = ApiParamType.INTEGER)
+    @EntityField(name = "runner 组id", type = ApiParamType.INTEGER)
     private Long groupId;
 
     public Long getId() {

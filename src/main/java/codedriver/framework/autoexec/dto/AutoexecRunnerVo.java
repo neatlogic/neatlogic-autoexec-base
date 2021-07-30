@@ -19,25 +19,25 @@ public class AutoexecRunnerVo implements Serializable {
     private static final long serialVersionUID = -5118893385455680746L;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Integer id;
-    @EntityField(name = "代理名", type = ApiParamType.STRING)
+    @EntityField(name = "runner 名", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "代理url", type = ApiParamType.STRING)
+    @EntityField(name = "runner url", type = ApiParamType.STRING)
     private String url;
     @EntityField(name = "ip", type = ApiParamType.STRING)
     private String host;
     @EntityField(name = "端口", type = ApiParamType.STRING)
     private Integer port;
-    @EntityField(name = "代理授权key", type = ApiParamType.STRING)
+    @EntityField(name = "runner 授权key", type = ApiParamType.STRING)
     private String accessKey;
-    @EntityField(name = "代理授权密码", type = ApiParamType.STRING)
+    @EntityField(name = "runner 授权密码", type = ApiParamType.STRING)
     private String accessSecret;
-    @EntityField(name = "代理授权类型", type = ApiParamType.STRING)
+    @EntityField(name = "runner 授权类型", type = ApiParamType.STRING)
     private String authType;
     @EntityField(name = "ssh公钥", type = ApiParamType.STRING)
     private String publicKey;
     @EntityField(name = "ssh私钥", type = ApiParamType.STRING)
     private String privateKey;
-    @EntityField(name = "代理分组", type = ApiParamType.STRING)
+    @EntityField(name = "runner 分组", type = ApiParamType.STRING)
     private List<AutoexecRunnerGroupVo> proxyGroupVoList;
 
     public Integer getId() {

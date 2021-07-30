@@ -37,11 +37,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private String jobPhaseName;
     @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "作业剧本代理映射id", type = ApiParamType.LONG)
+    @EntityField(name = "作业剧本runner 映射id", type = ApiParamType.LONG)
     private Integer runnerMapId;
-    @EntityField(name = "作业剧本代理id", type = ApiParamType.LONG)
+    @EntityField(name = "作业剧本runner id", type = ApiParamType.LONG)
     private Integer runnerId;
-    @EntityField(name = "作业剧本代理", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "作业剧本runner ", type = ApiParamType.JSONOBJECT)
     private AutoexecRunnerVo autoexecRunnerVo;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
     private Date startTime;
@@ -51,7 +51,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private String costTime;
     @EntityField(name = "节点Id", type = ApiParamType.LONG)
     private Long nodeId;
-    @EntityField(name = "代理信息", type = ApiParamType.STRING)
+    @EntityField(name = "runner 信息", type = ApiParamType.STRING)
     private String runnerUrl;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
