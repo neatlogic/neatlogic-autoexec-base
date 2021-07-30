@@ -51,8 +51,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private String costTime;
     @EntityField(name = "节点Id", type = ApiParamType.LONG)
     private Long nodeId;
-    @EntityField(name = "节点连接类型", type = ApiParamType.STRING)
-    private String protocol;
     @EntityField(name = "代理信息", type = ApiParamType.STRING)
     private String runnerUrl;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
@@ -250,14 +248,5 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     public void setResourceId(Long resourceId) {
         this.resourceId = resourceId;
     }
-
-    @Override
-    public String getProtocol() {
-        return protocol;
-    }
-
-    @Override
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
+    
 }
