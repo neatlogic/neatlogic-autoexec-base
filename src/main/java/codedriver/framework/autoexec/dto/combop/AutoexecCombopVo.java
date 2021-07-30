@@ -62,9 +62,6 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private List<AutoexecCombopParamVo> runtimeParamList;
 
     private transient String configStr;
-    private transient String userUuid;
-    private transient List<String> teamUuidList;
-    private transient List<String> roleUuidList;
     private transient Boolean isTest;//是否测试
 
     public AutoexecCombopVo() {
@@ -230,30 +227,6 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
             return null;
         }
         return JSONObject.toJSONString(config);
-    }
-
-    public String getUserUuid() {
-        return userUuid;
-    }
-
-    public void setUserUuid(String userUuid) {
-        this.userUuid = userUuid;
-    }
-
-    public List<String> getTeamUuidList() {
-        return teamUuidList;
-    }
-
-    public void setTeamUuidList(List<String> teamUuidList) {
-        this.teamUuidList = teamUuidList;
-    }
-
-    public List<String> getRoleUuidList() {
-        return roleUuidList;
-    }
-
-    public void setRoleUuidList(List<String> roleUuidList) {
-        this.roleUuidList = roleUuidList;
     }
 
     public Boolean getIsTest() {
