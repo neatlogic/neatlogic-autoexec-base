@@ -8,10 +8,12 @@ public enum JobAction {
     FIRE("fire", "执行"),
     PAUSE("pause", "暂停"),
     ABORT("abort", "中止"),
-    RESET_NODE("reset_node", "重置节点"),
-    IGNORE_NODE("reset_node", "重置节点"),
+    RESET_NODE("resetNode", "重置节点"),
+    IGNORE_NODE("ignoreNode", "重置节点"),
     GOON("goon","继续"),
-    REFIRE("refire","重新执行");
+    RESET_REFIRE("refireResetAll","重置并重新执行"),
+    REFIRE_NODE("refireNode","重新执行节点"),
+    REFIRE("refireAll","重新执行");
     private final String value;
     private final String text;
 
