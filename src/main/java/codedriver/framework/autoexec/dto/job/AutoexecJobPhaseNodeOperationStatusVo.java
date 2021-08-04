@@ -9,6 +9,7 @@ import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -37,7 +38,10 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         this.name = operationVo.getName();
         this.type = operationVo.getType();
         this.parser = operationVo.getParser();
-        this.status = statusJson.getString(this.name+"_"+this.id);
+        this.status = JobNodeStatus.PENDING.getValue();
+        if(MapUtils.isNotEmpty(statusJson)) {
+            this.status = statusJson.getString(this.name + "_" + this.id);
+        }
         this.sort = operationVo.getSort();
         this.failIgnore = operationVo.getFailIgnore();
     }

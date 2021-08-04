@@ -53,6 +53,10 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private Long nodeId;
     @EntityField(name = "runner 信息", type = ApiParamType.STRING)
     private String runnerUrl;
+    @EntityField(name = "runner IP", type = ApiParamType.STRING)
+    private String runnerHost;
+    @EntityField(name = "runner PORT", type = ApiParamType.INTEGER)
+    private Integer runnerPort;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
     @JSONField(serialize = false)
@@ -250,4 +254,19 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.resourceId = resourceId;
     }
 
+    public String getRunnerHost() {
+        return runnerHost;
+    }
+
+    public void setRunnerHost(String runnerHost) {
+        this.runnerHost = runnerHost;
+    }
+
+    public Integer getRunnerPort() {
+        return runnerPort;
+    }
+
+    public void setRunnerPort(Integer runnerPort) {
+        this.runnerPort = runnerPort;
+    }
 }
