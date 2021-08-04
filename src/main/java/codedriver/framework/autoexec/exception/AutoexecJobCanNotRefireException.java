@@ -12,7 +12,7 @@ public class AutoexecJobCanNotRefireException extends ApiRuntimeException {
     private static final long serialVersionUID = -7079932723076796784L;
 
     public AutoexecJobCanNotRefireException(String jobId) {
-        super("无法暂停作业: "+jobId+"，请确保作业存于'运行中（running）'状态");
+        super("无法重跑作业: "+jobId+"，请确保作业以及阶段不处于'运行中（running）'状态");
     }
 
 
