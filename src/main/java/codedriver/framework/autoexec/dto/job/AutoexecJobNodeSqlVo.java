@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.Date;
@@ -24,6 +25,10 @@ public class AutoexecJobNodeSqlVo {
     private Date startTime;
     @EntityField(name = "执行结束时间", type = ApiParamType.LONG)
     private Date endTime;
+    @EntityField(name = "作业耗时", type = ApiParamType.STRING)
+    private String costTime;
+    @EntityField(name = "作业执行sql名", type = ApiParamType.STRING)
+    private String sqlName;
     private Integer isModified;
     private String md5;
 
@@ -81,5 +86,24 @@ public class AutoexecJobNodeSqlVo {
 
     public void setMd5(String md5) {
         this.md5 = md5;
+    }
+
+    public String getCostTime() {
+        if (startTime != null) {
+            if (endTime != null) {
+                return TimeUtil.millisecondsTransferMaxTimeUnit(endTime.getTime() - startTime.getTime());
+            } else {
+                return TimeUtil.millisecondsTransferMaxTimeUnit(new Date().getTime() - startTime.getTime());
+            }
+        }
+        return costTime;
+    }
+
+    public String getSqlName() {
+        return sqlName;
+    }
+
+    public void setSqlName(String sqlName) {
+        this.sqlName = sqlName;
     }
 }
