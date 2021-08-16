@@ -63,6 +63,10 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private List<String> statusList;
     @EntityField(name = "作业节点状态Vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobStatusVo statusVo;
+    @EntityField(name = "作业节点工具状态Vo列表", type = ApiParamType.JSONOBJECT)
+    private List<AutoexecJobPhaseNodeOperationStatusVo> operationStatusVoList;
+    @EntityField(name = "作业节点等待输入渲染jsonStr", type = ApiParamType.JSONOBJECT)
+    private String interactStr;
 
 
     private Long resourceId;
@@ -94,6 +98,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         super.setHost(jsonObj.getString("host"));
         super.setPort(jsonObj.getInteger("port"));
         this.status = jsonObj.getString("status");
+        this.interactStr = jsonObj.getString("interact");
     }
 
     public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol, Integer protocolPort) {
@@ -268,5 +273,28 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setRunnerPort(Integer runnerPort) {
         this.runnerPort = runnerPort;
+    }
+
+    public List<AutoexecJobPhaseNodeOperationStatusVo> getOperationStatusVoList() {
+        return operationStatusVoList;
+    }
+
+    public void setOperationStatusVoList(List<AutoexecJobPhaseNodeOperationStatusVo> operationStatusVoList) {
+        this.operationStatusVoList = operationStatusVoList;
+    }
+
+    public String getInteractStr() {
+        return interactStr;
+    }
+
+    public void setInteractStr(String interactStr) {
+        this.interactStr = interactStr;
+    }
+
+    public JSONObject getInteract() {
+        if(StringUtils.isNotBlank(interactStr)) {
+            return JSONObject.parseObject(interactStr);
+        }
+        return null;
     }
 }
