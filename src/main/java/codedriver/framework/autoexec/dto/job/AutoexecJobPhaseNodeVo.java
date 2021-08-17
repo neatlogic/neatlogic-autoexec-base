@@ -16,6 +16,7 @@ import codedriver.framework.util.SnowflakeUtil;
 import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -92,13 +93,15 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     }
 
     public AutoexecJobPhaseNodeVo(JSONObject jsonObj) {
-        super.setJobId(jsonObj.getLong("jobId"));
-        this.jobPhaseName = jsonObj.getString("phase");
-        this.id = jsonObj.getLong("nodeId");
-        super.setHost(jsonObj.getString("host"));
-        super.setPort(jsonObj.getInteger("port"));
-        this.status = jsonObj.getString("status");
-        this.interactStr = jsonObj.getString("interact");
+        if(MapUtils.isNotEmpty(jsonObj)) {
+            super.setJobId(jsonObj.getLong("jobId"));
+            this.jobPhaseName = jsonObj.getString("phase");
+            this.id = jsonObj.getLong("nodeId");
+            super.setHost(jsonObj.getString("host"));
+            super.setPort(jsonObj.getInteger("port"));
+            this.status = jsonObj.getString("status");
+            this.interactStr = jsonObj.getString("interact");
+        }
     }
 
     public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol, Integer protocolPort) {
