@@ -9,7 +9,7 @@ package codedriver.framework.autoexec.dto;
  * @author lvzk
  * @since 2021/6/16 19:00
  **/
-public class AutoexecRunnerMapVo extends AutoexecRunnerVo {
+public class RunnerMapVo extends RunnerVo {
     private static final long serialVersionUID = 6043891449299751917L;
     private Integer runnerMapId;
 

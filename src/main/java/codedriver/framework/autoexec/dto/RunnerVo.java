@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 
 import java.io.Serializable;
@@ -15,10 +16,12 @@ import java.util.List;
  * @author lvzk
  * @since 2021/4/12 14:29
  **/
-public class AutoexecRunnerVo implements Serializable {
+public class RunnerVo extends BasePageVo implements Serializable {
     private static final long serialVersionUID = -5118893385455680746L;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Integer id;
+    @EntityField(name = "代理分组id",type = ApiParamType.LONG)
+    private Long groupId;
     @EntityField(name = "runner 名", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "runner url", type = ApiParamType.STRING)
@@ -38,7 +41,11 @@ public class AutoexecRunnerVo implements Serializable {
     @EntityField(name = "ssh私钥", type = ApiParamType.STRING)
     private String privateKey;
     @EntityField(name = "runner 分组", type = ApiParamType.STRING)
-    private List<AutoexecRunnerGroupVo> proxyGroupVoList;
+    private List<RunnerGroupVo> proxyGroupVoList;
+    @EntityField(name = "NettyIp",type = ApiParamType.STRING)
+    private String nettyIp;
+    @EntityField(name = "Netty端口",type = ApiParamType.INTEGER)
+    private String nettyPort;
 
     public Integer getId() {
         return id;
@@ -120,11 +127,35 @@ public class AutoexecRunnerVo implements Serializable {
         this.privateKey = privateKey;
     }
 
-    public List<AutoexecRunnerGroupVo> getProxyGroupVoList() {
+    public List<RunnerGroupVo> getProxyGroupVoList() {
         return proxyGroupVoList;
     }
 
-    public void setProxyGroupVoList(List<AutoexecRunnerGroupVo> proxyGroupVoList) {
+    public void setProxyGroupVoList(List<RunnerGroupVo> proxyGroupVoList) {
         this.proxyGroupVoList = proxyGroupVoList;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getNettyIp() {
+        return nettyIp;
+    }
+
+    public void setNettyIp(String nettyIp) {
+        this.nettyIp = nettyIp;
+    }
+
+    public String getNettyPort() {
+        return nettyPort;
+    }
+
+    public void setNettyPort(String nettyPort) {
+        this.nettyPort = nettyPort;
     }
 }
