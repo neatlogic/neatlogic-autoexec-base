@@ -7,7 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
-import codedriver.framework.autoexec.dto.RunnerVo;
+import codedriver.framework.dto.runner.RunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.cmdb.dto.resourcecenter.ResourceVo;
 import codedriver.framework.common.constvalue.ApiParamType;
