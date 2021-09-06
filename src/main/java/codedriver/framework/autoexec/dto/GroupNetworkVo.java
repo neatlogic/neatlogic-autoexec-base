@@ -12,20 +12,30 @@ import codedriver.framework.restful.annotation.EntityField;
  * @author lvzk
  * @since 2021/4/12 14:54
  **/
-public class AutoexecRunnerGroupNetworkVo {
+public class GroupNetworkVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "runner id",type = ApiParamType.LONG)
+    private Long runnerId;
     @EntityField(name = "runner 分组名", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "runner 分组网段", type = ApiParamType.STRING)
     private String networkIp;
     @EntityField(name = "runner 分组掩码", type = ApiParamType.INTEGER)
     private Integer mask;
-    @EntityField(name = "runner 组id", type = ApiParamType.INTEGER)
+    @EntityField(name = "runner 组id", type = ApiParamType.LONG)
     private Long groupId;
 
     public Long getId() {
         return id;
+    }
+
+    public Long getRunnerId() {
+        return runnerId;
+    }
+
+    public void setRunnerId(Long runnerId) {
+        this.runnerId = runnerId;
     }
 
     public void setId(Long id) {

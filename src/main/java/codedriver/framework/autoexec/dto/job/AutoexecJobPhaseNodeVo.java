@@ -7,7 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
-import codedriver.framework.autoexec.dto.AutoexecRunnerVo;
+import codedriver.framework.autoexec.dto.RunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.cmdb.dto.resourcecenter.ResourceVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -43,7 +43,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "作业剧本runner id", type = ApiParamType.LONG)
     private Integer runnerId;
     @EntityField(name = "作业剧本runner ", type = ApiParamType.JSONOBJECT)
-    private AutoexecRunnerVo autoexecRunnerVo;
+    private RunnerVo runnerVo;
     @EntityField(name = "开始时间", type = ApiParamType.STRING)
     private Date startTime;
     @EntityField(name = "结束时间", type = ApiParamType.STRING)
@@ -216,12 +216,12 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.runnerUrl = runnerUrl;
     }
 
-    public AutoexecRunnerVo getAutoexecRunnerVo() {
-        return autoexecRunnerVo;
+    public RunnerVo getRunnerVo() {
+        return runnerVo;
     }
 
-    public void setAutoexecRunnerVo(AutoexecRunnerVo autoexecRunnerVo) {
-        this.autoexecRunnerVo = autoexecRunnerVo;
+    public void setRunnerVo(RunnerVo runnerVo) {
+        this.runnerVo = runnerVo;
     }
 
     public Integer getCompletionRate() {
