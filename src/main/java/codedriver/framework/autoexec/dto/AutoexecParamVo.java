@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class AutoexecParamVo implements Serializable {
     @EntityField(name = "参数名", type = ApiParamType.STRING)
@@ -33,6 +34,8 @@ public class AutoexecParamVo implements Serializable {
     private String description;
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "正则校验", type = ApiParamType.STRING)
+    private String validate;
 
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
@@ -55,6 +58,16 @@ public class AutoexecParamVo implements Serializable {
         this.description = autoexecParamVo.description;
         this.sort = autoexecParamVo.sort;
         this.config = autoexecParamVo.config;
+    }
+
+    public AutoexecParamVo(JSONObject argumentJson) {
+        this.name = argumentJson.getString("name");
+        this.defaultValue = argumentJson.getString("defaultValue");
+        this.mode = argumentJson.getString("type");
+        this.type = ParamType.TEXT.getValue();
+        this.isRequired = Objects.equals(argumentJson.getString("required"),"true")?1:0;
+        this.validate = argumentJson.getString("validate");
+        this.description = argumentJson.getString("help");
     }
 
     public String getKey() {
@@ -184,5 +197,13 @@ public class AutoexecParamVo implements Serializable {
             return config.toJSONString();
         }
         return null;
+    }
+
+    public String getValidate() {
+        return validate;
+    }
+
+    public void setValidate(String validate) {
+        this.validate = validate;
     }
 }

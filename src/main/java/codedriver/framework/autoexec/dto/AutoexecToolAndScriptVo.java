@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Comparator;
@@ -56,7 +57,8 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     private List<AutoexecParamVo> inputParamList;
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> outputParamList;
-
+    @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
+    private AutoexecParamVo argument;
     @JSONField(serialize = false)
     private transient String configStr;//工具的参数配置
 
@@ -247,6 +249,21 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
     public void setOutputParamList(List<AutoexecParamVo> outputParamList) {
         this.outputParamList = outputParamList;
+    }
+
+    public AutoexecParamVo getArgument() {
+        if (argument == null && StringUtils.isNotBlank(configStr)) {
+            JSONObject toolConfig = JSONObject.parseObject(configStr);
+            JSONObject argumentJson = toolConfig.getJSONObject("argument");
+            if (MapUtils.isNotEmpty(argumentJson)) {
+                argument = new AutoexecParamVo(argumentJson);
+            }
+        }
+        return argument;
+    }
+
+    public void setArgument(AutoexecParamVo argument) {
+        this.argument = argument;
     }
 
     public String getConfigStr() {
