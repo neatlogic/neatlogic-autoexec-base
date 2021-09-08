@@ -14,6 +14,7 @@ import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -65,6 +66,8 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private transient List<Long> typeIdList;
     @JSONField(serialize = false)
     private transient List<Long> riskIdList;
+    @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
+    private AutoexecParamVo argument;
 
     public Long getId() {
         if (id == null) {
@@ -238,5 +241,20 @@ public class AutoexecOperationVo extends BaseEditorVo {
 
     public void setOperationType(String operationType) {
         this.operationType = operationType;
+    }
+
+    public AutoexecParamVo getArgument() {
+        if (argument == null && StringUtils.isNotBlank(configStr)) {
+            JSONObject toolConfig = JSONObject.parseObject(configStr);
+            JSONObject argumentJson = toolConfig.getJSONObject("argument");
+            if (MapUtils.isNotEmpty(argumentJson)) {
+                argument = new AutoexecParamVo(argumentJson);
+            }
+        }
+        return argument;
+    }
+
+    public void setArgument(AutoexecParamVo argument) {
+        this.argument = argument;
     }
 }
