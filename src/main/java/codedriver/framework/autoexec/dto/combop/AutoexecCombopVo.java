@@ -12,6 +12,7 @@ import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 import java.util.List;
@@ -61,8 +62,10 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
     private List<AutoexecCombopParamVo> runtimeParamList;
 
-    private transient String configStr;
-    private transient Boolean isTest;//是否测试
+    @JSONField(serialize = false)
+    private String configStr;
+    @JSONField(serialize = false)
+    private Boolean isTest;//是否测试
 
     public AutoexecCombopVo() {
     }

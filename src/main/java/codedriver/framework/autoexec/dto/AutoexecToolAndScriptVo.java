@@ -52,7 +52,7 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
 
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
     @JSONField(serialize = false)
-    private transient List<AutoexecParamVo> paramList;
+    private List<AutoexecParamVo> paramList;
     @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> inputParamList;
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
@@ -60,13 +60,13 @@ public class AutoexecToolAndScriptVo extends BaseEditorVo {
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argument;
     @JSONField(serialize = false)
-    private transient String configStr;//工具的参数配置
+    private String configStr;//工具的参数配置
 
     @JSONField(serialize = false)
-    private transient List<Long> typeIdList;
+    private List<Long> typeIdList;
 
     @JSONField(serialize = false)
-    private transient List<Long> riskIdList;
+    private List<Long> riskIdList;
 
     public AutoexecToolAndScriptVo() {
     }

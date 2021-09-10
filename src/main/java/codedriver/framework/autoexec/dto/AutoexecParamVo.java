@@ -10,6 +10,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -40,9 +41,11 @@ public class AutoexecParamVo implements Serializable {
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
 
-    private transient String defaultValueStr;
+    @JSONField(serialize = false)
+    private String defaultValueStr;
 
-    private transient String configStr;
+    @JSONField(serialize = false)
+    private String configStr;
 
     public AutoexecParamVo() {
 

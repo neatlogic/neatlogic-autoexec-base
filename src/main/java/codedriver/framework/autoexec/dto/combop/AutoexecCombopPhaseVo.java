@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.combop;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 
@@ -27,7 +28,8 @@ public class AutoexecCombopPhaseVo implements Serializable {
     private AutoexecCombopPhaseConfigVo config;
     private Integer sort;
     private String uuid;
-    private transient String configStr;
+    @JSONField(serialize = false)
+    private String configStr;
 
     public Long getId() {
         if (id == null) {

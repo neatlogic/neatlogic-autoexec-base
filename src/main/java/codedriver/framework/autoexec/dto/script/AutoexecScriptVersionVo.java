@@ -54,7 +54,7 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
     @JSONField(serialize = false)
-    private transient List<AutoexecScriptVersionParamVo> paramList;
+    private List<AutoexecScriptVersionParamVo> paramList;
     @EntityField(name = "脚本内容行列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptLineVo> lineList;
 
@@ -75,7 +75,7 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private List<WorkAssignmentUnitVo> reviewerVoList;
 
     @JSONField(serialize = false)
-    private transient List<Long> excludeList;
+    private List<Long> excludeList;
 
     public AutoexecScriptVersionVo() {
     }
