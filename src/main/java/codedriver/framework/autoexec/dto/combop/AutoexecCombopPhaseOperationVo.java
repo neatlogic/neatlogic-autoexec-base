@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.combop;
 import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 
@@ -24,7 +25,8 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo impl
     private String failPolicy;
     private AutoexecCombopPhaseOperationConfigVo config;
     private Integer sort;
-    private transient String configStr;
+    @JSONField(serialize = false)
+    private String configStr;
     private String uuid;
     private String letter;
 

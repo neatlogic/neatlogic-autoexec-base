@@ -24,7 +24,7 @@ public class AutoexecScriptAuditVo extends BaseEditorVo {
     private String operate;
     @JSONField(serialize = false)
     @EntityField(name = "内容hash", type = ApiParamType.STRING)
-    private transient String contentHash;
+    private String contentHash;
     @EntityField(name = "内容", type = ApiParamType.STRING)
     private String content;
 

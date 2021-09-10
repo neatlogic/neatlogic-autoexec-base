@@ -61,11 +61,11 @@ public class AutoexecOperationVo extends BaseEditorVo {
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
     @JSONField(serialize = false)
-    private transient String configStr;
+    private String configStr;
     @JSONField(serialize = false)
-    private transient List<Long> typeIdList;
+    private List<Long> typeIdList;
     @JSONField(serialize = false)
-    private transient List<Long> riskIdList;
+    private List<Long> riskIdList;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argument;
 
