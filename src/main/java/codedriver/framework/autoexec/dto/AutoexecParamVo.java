@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
@@ -66,8 +67,8 @@ public class AutoexecParamVo implements Serializable {
     public AutoexecParamVo(JSONObject argumentJson) {
         this.name = argumentJson.getString("name");
         this.defaultValue = argumentJson.getString("defaultValue");
-        this.mode = argumentJson.getString("type");
-        this.type = ParamType.TEXT.getValue();
+        this.mode = ParamMode.INPUT.getValue();
+        this.type = argumentJson.getString("type");
         this.isRequired = Objects.equals(argumentJson.getString("required"),"true")?1:0;
         this.validate = argumentJson.getString("validate");
         this.description = argumentJson.getString("help");

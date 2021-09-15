@@ -22,6 +22,7 @@ import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
@@ -106,15 +107,15 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         scriptVo.setOperationType(CombopOperationType.SCRIPT.getValue());
         this.versionId = scriptVersionVo.getId();
         this.scriptId = scriptVo.getId();
-        construct(autoexecCombopPhaseOperationVo,phaseVo,jobPhaseVoList,scriptVo);
+        construct(autoexecCombopPhaseOperationVo, phaseVo, jobPhaseVoList, scriptVo);
     }
 
     public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecToolVo toolVo, List<AutoexecJobPhaseVo> jobPhaseVoList) {
         toolVo.setOperationType(CombopOperationType.TOOL.getValue());
-        construct(autoexecCombopPhaseOperationVo,phaseVo,jobPhaseVoList,toolVo);
+        construct(autoexecCombopPhaseOperationVo, phaseVo, jobPhaseVoList, toolVo);
     }
 
-    private void construct(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo){
+    private void construct(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo) {
         this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
         this.uk = operationVo.getUk();
@@ -129,45 +130,75 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         JSONObject paramObj = new JSONObject();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
         List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
+        List<ParamMappingVo> argumentMappingVos = operationConfigVo.getArgumentMappingList();
 
         List<AutoexecParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
+        AutoexecParamVo argumentParam = autoexecCombopPhaseOperationVo.getArgument();
+        //替换输入参数（上游参数）
         for (ParamMappingVo paramMappingVo : paramMappingVos) {
             for (AutoexecParamVo input : inputParamList) {
-                if (paramMappingVo.getKey().equals(input.getKey())) {
-                    paramMappingVo.setType(input.getType());
-                    paramMappingVo.setName(input.getName());
-                    paramMappingVo.setDescription(input.getDescription());
-                    Object value = paramMappingVo.getValue();
-                    if (value instanceof String && value.toString().contains("&&")) {
-                        String[] values = value.toString().split("&&");
-                        if (values.length == 4) {
-                            String phaseUuid = values[0];
-                            String opName = values[1];
-                            String opUuid = values[2];
-                            value = values[3];
-                            List<AutoexecJobPhaseVo> tmpPhaseList = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).collect(Collectors.toList());
-                            if( tmpPhaseList.size() == 1){
-                                List<AutoexecJobPhaseOperationVo> tmpOperationList = tmpPhaseList.get(0).getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).collect(Collectors.toList());
-                                if(tmpOperationList.size() == 1 ){
-                                    paramMappingVo.setValue(String.format("${%s.%s_%d.%s}",tmpPhaseList.get(0).getName(),opName,tmpOperationList.get(0).getId(),value));
-                                }else {
-                                    throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + input.getName() + " phaseUuid");
-                                }
-                            }else{
-                                throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + input.getName() +" operationUuid");
-                            }
-                        } else {
-                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + input.getName());
-                        }
-                    }
+                exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
+            }
+        }
+        //替换自由参数（上游参数）
+        if (CollectionUtils.isNotEmpty(argumentMappingVos)) {
+            for (ParamMappingVo argumentMappingVo : argumentMappingVos) {
+                if (argumentParam != null) {
+                    exchangeParam(argumentMappingVo, argumentParam, phaseVo, jobPhaseVoList, operationVo);
                 }
             }
         }
         paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
         paramObj.put("inputParamList", paramMappingVos);
+        if (argumentParam != null) {
+            paramObj.put("argument", new JSONObject() {{
+                put("type", argumentParam.getMode());
+                put("values", argumentMappingVos.stream().map(ParamMappingVo::getValue).collect(Collectors.toList()));
+            }});
+        }
         this.paramStr = paramObj.toString();
         this.scriptId = operationVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
+    }
+
+    /**
+     * 替换参数值（上游参数）
+     *
+     * @param paramMappingVo 输入值
+     * @param param          定义的参数
+     * @param phaseVo        阶段
+     * @param jobPhaseVoList 所有阶段
+     * @param operationVo    工具
+     */
+    private void exchangeParam(ParamMappingVo paramMappingVo, AutoexecParamVo param, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo) {
+        if (Objects.equals(paramMappingVo.getKey(), param.getKey())) {
+            paramMappingVo.setType(param.getType());
+            paramMappingVo.setName(param.getName());
+            paramMappingVo.setDescription(param.getDescription());
+            Object value = paramMappingVo.getValue();
+            if (value instanceof String && value.toString().contains("&&")) {
+                String[] values = value.toString().split("&&");
+                if (values.length == 4) {
+                    String phaseUuid = values[0];
+                    String opName = values[1];
+                    String opUuid = values[2];
+                    value = values[3];
+                    List<AutoexecJobPhaseVo> tmpPhaseList = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).collect(Collectors.toList());
+                    if (tmpPhaseList.size() == 1) {
+                        List<AutoexecJobPhaseOperationVo> tmpOperationList = tmpPhaseList.get(0).getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).collect(Collectors.toList());
+                        if (tmpOperationList.size() == 1) {
+                            paramMappingVo.setValue(String.format("${%s.%s_%d.%s}", tmpPhaseList.get(0).getName(), opName, tmpOperationList.get(0).getId(), value));
+                        } else {
+                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
+                        }
+                    } else {
+                        throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
+                    }
+                } else {
+                    throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
+                }
+            }
+        }
     }
 
     public Long getId() {

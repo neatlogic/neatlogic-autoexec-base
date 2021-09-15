@@ -14,6 +14,7 @@ import java.util.List;
  **/
 public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
     private List<ParamMappingVo> paramMappingList;
+    private List<ParamMappingVo> argumentMappingList;
 
     public List<ParamMappingVo> getParamMappingList() {
         return paramMappingList;
@@ -21,5 +22,13 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
 
     public void setParamMappingList(List<ParamMappingVo> paramMappingList) {
         this.paramMappingList = paramMappingList;
+    }
+
+    public List<ParamMappingVo> getArgumentMappingList() {
+        return argumentMappingList;
+    }
+
+    public void setArgumentMappingList(List<ParamMappingVo> argumentMappingList) {
+        this.argumentMappingList = argumentMappingList;
     }
 }
