@@ -15,6 +15,8 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     private String protocol;
 
+    private Long protocolId;
+
     private String executeUser;
 
     private String whenToSpecify;
@@ -27,6 +29,14 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+    public Long getProtocolId() {
+        return protocolId;
+    }
+
+    public void setProtocolId(Long protocolId) {
+        this.protocolId = protocolId;
     }
 
     public String getExecuteUser() {
