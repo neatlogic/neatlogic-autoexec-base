@@ -13,6 +13,8 @@ import java.io.Serializable;
  **/
 public class AutoexecCombopExecuteConfigVo implements Serializable {
 
+    private String protocol;
+
     private Long protocolId;
 
     private String executeUser;
@@ -20,6 +22,14 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     private String whenToSpecify;
 
     private AutoexecCombopExecuteNodeConfigVo executeNodeConfig;
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
     public Long getProtocolId() {
         return protocolId;
