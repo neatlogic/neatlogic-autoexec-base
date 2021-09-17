@@ -114,6 +114,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @JSONField(serialize = false)
     private List<String> typeIdList;
 
+
+
     public AutoexecJobVo() {
     }
 
@@ -497,4 +499,5 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public void setNodeVoList(List<AutoexecJobPhaseNodeVo> nodeVoList) {
         this.nodeVoList = nodeVoList;
     }
+
 }
