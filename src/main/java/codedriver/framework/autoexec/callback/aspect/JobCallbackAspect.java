@@ -11,12 +11,16 @@ import codedriver.framework.autoexec.annotation.AutoexecJobCallback;
 import codedriver.framework.autoexec.annotation.AutoexecJobCallbackParam;
 import codedriver.framework.autoexec.callback.core.AutoexecJobCallbackFactory;
 import codedriver.framework.autoexec.callback.core.IAutoexecJobCallback;
+import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
+import codedriver.framework.autoexec.dto.job.AutoexecJobInvokeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.common.RootComponent;
+import org.apache.commons.collections4.MapUtils;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.mp4parser.aj.lang.JoinPoint;
-import org.mp4parser.aj.lang.annotation.After;
-import org.mp4parser.aj.lang.reflect.MethodSignature;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -31,8 +35,15 @@ import java.util.Map;
 @Aspect
 @RootComponent
 public class JobCallbackAspect {
+    private static AutoexecJobMapper jobMapper;
+
+    @Autowired
+    public void setAutoexecJobMapper(AutoexecJobMapper _jobMapper) {
+        jobMapper = _jobMapper;
+    }
+
     @After("@annotation(autoexecJobCallback)")
-    public void ActionCheck(JoinPoint point, AutoexecJobCallback jobCallback) {
+    public void ActionCheck(JoinPoint point, AutoexecJobCallback autoexecJobCallback) {
         List<IAutoexecJobCallback> callbackList = new ArrayList<>();
         Object[] params = point.getArgs();
         if (params == null || params.length == 0) {
@@ -53,14 +64,16 @@ public class JobCallbackAspect {
                 if (annotation instanceof AutoexecJobCallbackParam) {
                     AutoexecJobVo autoexecJobVo = (AutoexecJobVo) param;
                     //仅存在回调且满足条件，才执行回调
-                    Map<String, IAutoexecJobCallback> callbackMap =  AutoexecJobCallbackFactory.getHandlerMap();
-                    for(Map.Entry<String,IAutoexecJobCallback> entry : callbackMap.entrySet()){
-                        IAutoexecJobCallback callback = entry.getValue();
-                        if(callback.getIsNeedCallback(autoexecJobVo)){
-                            callbackList.add(callback);
+                    Map<String, IAutoexecJobCallback> callbackMap = AutoexecJobCallbackFactory.getHandlerMap();
+                    if (MapUtils.isNotEmpty(callbackMap)) {
+                        for (Map.Entry<String, IAutoexecJobCallback> entry : callbackMap.entrySet()) {
+                            IAutoexecJobCallback callback = entry.getValue();
+                            if (callback.getIsNeedCallback(autoexecJobVo)) {
+                                callbackList.add(callback);
+                            }
                         }
+                        TransactionSynchronizationPool.execute(new callbackHandler(callbackList, autoexecJobVo));
                     }
-                    TransactionSynchronizationPool.execute(new callbackHandler(callbackList, autoexecJobVo));
                 }
             }
         }
@@ -82,8 +95,9 @@ public class JobCallbackAspect {
         protected void execute() {
             String oldName = Thread.currentThread().getName();
             Thread.currentThread().setName("AUTOEXEC-JOB-CALLBACK-" + jobVo.getId());
-            for(IAutoexecJobCallback callback: callbackList){
-                callback.doService(1l,jobVo);
+            for (IAutoexecJobCallback callback : callbackList) {
+                AutoexecJobInvokeVo invokeVo = jobMapper.getJobInvokeByJobId(jobVo.getId());
+                callback.doService(invokeVo.getInvokeId(), jobVo);
             }
             Thread.currentThread().setName(oldName);
         }
