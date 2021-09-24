@@ -137,10 +137,6 @@ public interface AutoexecJobMapper {
 
     List<RunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
 
-//    AutoexecJobProcessTaskStepVo getAutoexecJobProcessTaskStepByAutoexecJobId(Long jobId);
-
-//    List<Long> getAllAutoexecJobStatusMonitorAutoexecJobId();
-
     //invoke
     AutoexecJobInvokeVo getJobInvokeByJobId(Long id);
 
@@ -149,8 +145,6 @@ public interface AutoexecJobMapper {
     String getAutoexecJobEnvValueByJobIdAndName(AutoexecJobEnvVo autoexecJobEnvVo);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
-
-//    Long getAutoexecJobIdByProcessTaskStepId(Long jobId);
 
     Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Integer runnerMapId);
 
@@ -168,8 +162,6 @@ public interface AutoexecJobMapper {
 
     Integer insertJobParamContent(AutoexecJobParamContentVo contentVo);
 
-//    Integer insertAutoexecJobProcessTaskStep(AutoexecJobProcessTaskStepVo autoexecJobProcessTaskStepVo);
-
     Integer updateJobPhaseStatus(AutoexecJobPhaseVo autoexecJobPhaseVo);
 
     Integer updateJobPhaseFailedNodeStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
@@ -185,8 +177,6 @@ public interface AutoexecJobMapper {
     Integer updateJobPhaseStatusByPhaseIdList(@Param("phaseIdList") List<Long> phaseIdList, @Param("status") String status);
 
     Integer updateJobPhaseNode(AutoexecJobPhaseNodeVo nodeVo);
-
-//    Integer updateAutoexecJobProcessTaskStepNeedMonitorStatusByAutoexecJobId(@Param("autoexecJobId") Long jobId, @Param("needMonitorStatus") int needMonitorStatus);
 
     int replaceIntoJobEnv(AutoexecJobEnvVo jobEnvVo);
 

@@ -854,26 +854,6 @@
 
     </select>
 
-    <!--<select id="getAutoexecJobProcessTaskStepByAutoexecJobId" parameterType="java.lang.Long"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobProcessTaskStepVo">
-        SELECT `processtask_id`      AS processTaskId,
-               `processtask_step_id` AS processTaskStepId,
-               `autoexec_job_id`     AS autoexecJobId
-        FROM `autoexec_job_processtask_step`
-        WHERE `autoexec_job_id` = #{value}
-    </select>-->
-
-    <!--<select id="getAllAutoexecJobStatusMonitorAutoexecJobId" resultType="java.lang.Long">
-        SELECT `autoexec_job_id`
-        FROM `autoexec_job_processtask_step`
-        WHERE `need_monitor_status` = 1
-    </select>-->
-
-    <!--<select id="getAutoexecJobIdByProcessTaskStepId" parameterType="java.lang.Long" resultType="java.lang.Long">
-        SELECT `autoexec_job_id`
-        FROM `autoexec_job_processtask_step`
-        WHERE `processtask_step_id` = #{value}
-    </select>-->
     <select id="getJobInvokeByJobId" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobInvokeVo">
         SELECT `job_id`    as jobId,
                `invoke_id` as invokeId,
@@ -1027,11 +1007,6 @@
         INSERT IGNORE INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`)
         VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId});
     </insert>
-
-    <!--<insert id="insertAutoexecJobProcessTaskStep" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobProcessTaskStepVo">
-        INSERT INTO `autoexec_job_processtask_step` (`processtask_id`, `processtask_step_id`, `autoexec_job_id`)
-        VALUES (#{processTaskId}, #{processTaskStepId}, #{autoexecJobId})
-    </insert>-->
 
     <insert id="replaceIntoJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
         REPLACE INTO `autoexec_job_env` (`job_id`, `name`, `value`)
