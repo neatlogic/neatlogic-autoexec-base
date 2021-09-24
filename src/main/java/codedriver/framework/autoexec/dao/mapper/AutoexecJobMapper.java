@@ -144,6 +144,8 @@ public interface AutoexecJobMapper {
 
     String getAutoexecJobEnvValueByJobIdAndName(AutoexecJobEnvVo autoexecJobEnvVo);
 
+    List<AutoexecJobEnvVo> getAutoexecJobEnvListByJobId(Long jobId);
+
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Integer runnerMapId);

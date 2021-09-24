@@ -870,6 +870,15 @@
         SELECT `value` FROM `autoexec_job_env` WHERE `job_id` = #{jobId} AND `name` = #{name}
     </select>
 
+    <select id="getAutoexecJobEnvListByJobId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
+        SELECT
+            `job_id` AS jobId,
+            `name`,
+            `value`
+        FROM `autoexec_job_env`
+        WHERE `job_id` = #{value}
+    </select>
+
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
         `name`,
