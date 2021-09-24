@@ -15,8 +15,8 @@ public class AutoexecJobProcessTaskStepVo {
     private Long processTaskId;
     private Long processTaskStepId;
     private Long autoexecJobId;
-    private Integer needMonitorStatus;
-    private String failPolicy;
+//    private Integer needMonitorStatus;
+//    private String failPolicy;
 
     public Long getProcessTaskId() {
         return processTaskId;
@@ -42,19 +42,19 @@ public class AutoexecJobProcessTaskStepVo {
         this.autoexecJobId = autoexecJobId;
     }
 
-    public Integer getNeedMonitorStatus() {
-        return needMonitorStatus;
-    }
-
-    public void setNeedMonitorStatus(Integer needMonitorStatus) {
-        this.needMonitorStatus = needMonitorStatus;
-    }
-
-    public String getFailPolicy() {
-        return failPolicy;
-    }
-
-    public void setFailPolicy(String failPolicy) {
-        this.failPolicy = failPolicy;
-    }
+//    public Integer getNeedMonitorStatus() {
+//        return needMonitorStatus;
+//    }
+//
+//    public void setNeedMonitorStatus(Integer needMonitorStatus) {
+//        this.needMonitorStatus = needMonitorStatus;
+//    }
+//
+//    public String getFailPolicy() {
+//        return failPolicy;
+//    }
+//
+//    public void setFailPolicy(String failPolicy) {
+//        this.failPolicy = failPolicy;
+//    }
 }
