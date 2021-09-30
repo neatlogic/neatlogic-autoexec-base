@@ -75,7 +75,7 @@
                 AND `autoexec_combop_id` = #{autoexecCombopId}
             </if>
         </where>
-        ORDER BY `fcd` DESC
+        ORDER BY `lcd` DESC
         LIMIT #{startNum}, #{pageSize}
     </select>
 
@@ -88,7 +88,9 @@
                                          `cron`,
                                          `is_active`,
                                          `fcd`,
-                                         `fcu`)
+                                         `fcu`,
+                                         `lcd`,
+                                         `lcu`)
         VALUES (#{uuid},
                 #{name},
                 #{autoexecCombopId},
@@ -97,7 +99,9 @@
                 #{cron},
                 #{isActive},
                 NOW(3),
-                #{fcu})
+                #{fcu},
+                NOW(3),
+                #{lcu})
     </insert>
 
     <update id="updateAutoexecSchedule" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">

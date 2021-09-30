@@ -90,6 +90,28 @@
         LIMIT #{startNum}, #{pageSize}
     </select>
 
+    <select id="getAutoexecCombopListByIdList" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
+        SELECT
+            `id`,
+            `uk`,
+            `name`,
+            `description`,
+            `type_id` AS typeId,
+            `is_active` AS isActive,
+            `operation_type` AS operationType,
+            `notify_policy_id` AS notifyPolicyId,
+            `owner`,
+            `fcd`,
+            `fcu`,
+            `lcd`,
+            `lcu`
+        FROM `autoexec_combop`
+        WHERE `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <select id="getAutoexecCombopAuthorityListByCombopIdAndAction" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopAuthorityVo">
         SELECT
             `type`,

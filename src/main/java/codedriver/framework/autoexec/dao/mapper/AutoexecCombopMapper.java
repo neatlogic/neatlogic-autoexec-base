@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dao.mapper;
 import codedriver.framework.autoexec.dto.combop.*;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public interface AutoexecCombopMapper {
     int getAutoexecCombopCount(AutoexecCombopVo searchVo);
 
     List<AutoexecCombopVo> getAutoexecCombopList(AutoexecCombopVo searchVo);
+
+    List<AutoexecCombopVo> getAutoexecCombopListByIdList(List<Long> idList);
 
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopIdAndAction(@Param("combopId") Long combopId, @Param("action") String action);
 
