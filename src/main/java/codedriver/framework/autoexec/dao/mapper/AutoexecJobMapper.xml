@@ -173,6 +173,7 @@
         <where>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
+        order by  ajpn.`host`
         limit #{startNum}, #{pageSize}
     </select>
 
@@ -233,6 +234,27 @@
             </foreach>
         </if>
         ORDER BY `sort`, `name` ASC
+    </select>
+
+    <select id="getJobPhaseListByJobIdAndNodeStatusList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        SELECT ajp.`id`,
+               ajp.`job_id` AS jobId,
+               ajp.`status`,
+               ajp.`start_time` AS startTime,
+               ajp.`end_time` AS endTime,
+               ajp.`exec_user` AS execUser,
+               ajp.`exec_mode` AS execMode,
+               ajp.`name` AS NAME,
+               ajp.`sort`,
+               ajp.`uk` AS uk
+        FROM `autoexec_job_phase_node` ajpn
+                 JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        WHERE ajpn.job_id = #{jobId} AND ajpn.`status` in
+        <foreach collection="statusList" open="(" separator="," close=")" item="status">
+            #{status}
+        </foreach>
+        ORDER BY ajp.sort,ajp.`name`
     </select>
 
     <select id="getJobPhaseNodeStatusCount" parameterType="java.lang.Long"

@@ -12,7 +12,7 @@ public class AutoexecJobRunnerNotMatchException extends ApiRuntimeException {
     private static final long serialVersionUID = 3593220313941443951L;
 
     public AutoexecJobRunnerNotMatchException(String ip) {
-        super("ip: " + ip + "找不到匹配的runner");
+        super("ip: " + ip + "找不到匹配的runner，请核对runner组配置");
     }
 
 

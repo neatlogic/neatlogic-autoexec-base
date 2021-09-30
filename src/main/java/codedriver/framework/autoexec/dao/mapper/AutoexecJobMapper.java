@@ -50,6 +50,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndPhaseStatus(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
 
+    List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndNodeStatusList(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
+
     AutoexecJobPhaseVo getJobPhaseLockByPhaseId(Long jobPhaseId);
 
     AutoexecJobPhaseVo getJobPhaseByPhaseId(Long jobPhaseId);
@@ -197,4 +199,5 @@ public interface AutoexecJobMapper {
     void deleteJobPhaseRunnerByJobId(Long jobId);
 
     void deleteJobPhaseNodeRunnerByJobId(Long jobId);
+
 }
