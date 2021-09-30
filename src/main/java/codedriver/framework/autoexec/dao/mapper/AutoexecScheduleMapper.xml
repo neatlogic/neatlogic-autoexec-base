@@ -6,26 +6,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecScheduleMapper">
 
-    <select id="checkAutoexecScheduleNameIsExists" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo" resultType="int">
-        SELECT COUNT(1) FROM `autoexec_schedule` WHERE `name` = #{name} and `uuid` != #{uuid}
+    <select id="checkAutoexecScheduleNameIsExists"
+            parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo" resultType="int">
+        SELECT COUNT(1)
+        FROM `autoexec_schedule`
+        WHERE `name` = #{name}
+          and `uuid` != #{uuid}
     </select>
-    <select id="getAutoexecScheduleByUuid" parameterType="java.lang.String" resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
-        SELECT
-            `uuid`,
-            `name`,
-            `autoexec_combop_id` AS autoexecCombopId,
-            `begin_time` AS beginTime,
-            `end_time` AS endTime,
-            `cron`,
-            `is_active` AS isActive,
-            `fcd`,
-            `fcu`,
-            `lcd`,
-            `lcu`
+
+    <select id="getAutoexecScheduleByUuid" parameterType="java.lang.String"
+            resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
+        SELECT `uuid`,
+               `name`,
+               `autoexec_combop_id` AS autoexecCombopId,
+               `begin_time`         AS beginTime,
+               `end_time`           AS endTime,
+               `cron`,
+               `is_active`          AS isActive,
+               `fcd`,
+               `fcu`,
+               `lcd`,
+               `lcu`
         FROM `autoexec_schedule`
         WHERE `uuid` = #{value}
     </select>
-    <select id="getAutoexecScheduleCount" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo" resultType="int">
+
+    <select id="getAutoexecScheduleCount" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo"
+            resultType="int">
         SELECT
         COUNT(1)
         FROM `autoexec_schedule`
@@ -38,19 +45,21 @@
             </if>
         </where>
     </select>
-    <select id="getAutoexecScheduleList" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo" resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
+
+    <select id="getAutoexecScheduleList" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo"
+            resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
         SELECT
-            `uuid`,
-            `name`,
-            `autoexec_combop_id` AS autoexecCombopId,
-            `begin_time` AS beginTime,
-            `end_time` AS endTime,
-            `cron`,
-            `is_active` AS isActive,
-            `fcd`,
-            `fcu`,
-            `lcd`,
-            `lcu`
+        `uuid`,
+        `name`,
+        `autoexec_combop_id` AS autoexecCombopId,
+        `begin_time` AS beginTime,
+        `end_time` AS endTime,
+        `cron`,
+        `is_active` AS isActive,
+        `fcd`,
+        `fcu`,
+        `lcd`,
+        `lcu`
         FROM `autoexec_schedule`
         <where>
             <if test="keyword != null and keyword != ''">
@@ -65,46 +74,42 @@
     </select>
 
     <insert id="insertAutoexecSchedule" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
-        INSERT INTO `autoexec_schedule` (
-            `uuid`,
-            `name`,
-            `autoexec_combop_id`,
-            `begin_time`,
-            `end_time`,
-            `cron`,
-            `is_active`,
-            `fcd`,
-            `fcu`
-        )
-        VALUES
-        (
-            #{uuid},
-            #{name},
-            #{autoexecCombopId},
-            #{beginTime},
-            #{endTime},
-            #{cron},
-            #{isActive},
-            NOW(3),
-            #{fcu}
-        )
+        INSERT INTO `autoexec_schedule` (`uuid`,
+                                         `name`,
+                                         `autoexec_combop_id`,
+                                         `begin_time`,
+                                         `end_time`,
+                                         `cron`,
+                                         `is_active`,
+                                         `fcd`,
+                                         `fcu`)
+        VALUES (#{uuid},
+                #{name},
+                #{autoexecCombopId},
+                #{beginTime},
+                #{endTime},
+                #{cron},
+                #{isActive},
+                NOW(3),
+                #{fcu})
     </insert>
 
     <update id="updateAutoexecSchedule" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
         UPDATE `autoexec_schedule`
-        SET
-            `name` = #{name},
+        SET `name`               = #{name},
             `autoexec_combop_id` = #{autoexecCombopId},
-            `begin_time` = #{beginTime},
-            `end_time` = #{endTime},
-            `cron` = #{cron},
-            `is_active` = #{isActive}
-            `lcd` = NOW(3),
-            `lcu` = #{lcu}
+            `begin_time`         = #{beginTime},
+            `end_time`           = #{endTime},
+            `cron`               = #{cron},
+            `is_active`          = #{isActive},
+            `lcd`                = NOW(3),
+            `lcu`                = #{lcu}
         WHERE `uuid` = #{uuid}
     </update>
 
     <delete id="deleteAutoexecScheduleByUuid" parameterType="java.lang.String">
-        DELETE FROM `autoexec_schedule` WHERE `uuid` = #{value}
+        DELETE
+        FROM `autoexec_schedule`
+        WHERE `uuid` = #{value}
     </delete>
 </mapper>

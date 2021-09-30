@@ -14,7 +14,7 @@ import codedriver.framework.exception.core.ApiRuntimeException;
 public class AutoexecScheduleNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -977863275722446183L;
 
-    public AutoexecScheduleNotFoundException( String uuid) {
+    public AutoexecScheduleNotFoundException(String uuid) {
         super("定时作业：'" + uuid + "'不存在");
     }
 }
