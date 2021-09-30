@@ -40,6 +40,9 @@
             <if test="keyword != null and keyword != ''">
                 AND `name` LIKE concat('%', #{keyword}, '%')
             </if>
+            <if test="isActive != null">
+                AND `is_active` = #{isActive}
+            </if>
             <if test="autoexecCombopId != null">
                 AND `autoexec_combop_id` = #{autoexecCombopId}
             </if>
@@ -65,11 +68,14 @@
             <if test="keyword != null and keyword != ''">
                 AND `name` LIKE concat('%', #{keyword}, '%')
             </if>
+            <if test="isActive != null">
+                AND `is_active` = #{isActive}
+            </if>
             <if test="autoexecCombopId != null">
                 AND `autoexec_combop_id` = #{autoexecCombopId}
             </if>
         </where>
-        ORDER BY `fcd`
+        ORDER BY `fcd` DESC
         LIMIT #{startNum}, #{pageSize}
     </select>
 
