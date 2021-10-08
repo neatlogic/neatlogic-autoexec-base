@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.schedule;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
@@ -19,6 +20,8 @@ import java.util.UUID;
  **/
 public class AutoexecScheduleVo extends BaseEditorVo {
 
+    @EntityField(name = "定时作业id", type = ApiParamType.STRING)
+    private Long id;
     @EntityField(name = "定时作业uuid", type = ApiParamType.STRING)
     private String uuid;
     @EntityField(name = "定时作业名称", type = ApiParamType.STRING)
@@ -37,6 +40,17 @@ public class AutoexecScheduleVo extends BaseEditorVo {
     private Integer isActive;
     @EntityField(name = "执行次数", type = ApiParamType.INTEGER)
     private Integer execCount;
+
+    public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUuid() {
         if (StringUtils.isBlank(uuid)) {
