@@ -16,6 +16,8 @@ import java.util.List;
 public interface AutoexecScheduleMapper {
     int checkAutoexecScheduleNameIsExists(AutoexecScheduleVo autoexecScheduleVo);
 
+    AutoexecScheduleVo getAutoexecScheduleById(Long id);
+
     AutoexecScheduleVo getAutoexecScheduleByUuid(String uuid);
 
     int getAutoexecScheduleCount(AutoexecScheduleVo autoexecScheduleVo);
@@ -26,5 +28,5 @@ public interface AutoexecScheduleMapper {
 
     int updateAutoexecSchedule(AutoexecScheduleVo autoexecScheduleVo);
 
-    int deleteAutoexecScheduleByUuid(String uuid);
+    int deleteAutoexecScheduleById(Long id);
 }

@@ -17,4 +17,8 @@ public class AutoexecScheduleNotFoundException extends ApiRuntimeException {
     public AutoexecScheduleNotFoundException(String uuid) {
         super("定时作业：'" + uuid + "'不存在");
     }
+
+    public AutoexecScheduleNotFoundException(Long id) {
+        super("定时作业：'" + id + "'不存在");
+    }
 }

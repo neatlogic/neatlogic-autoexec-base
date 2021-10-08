@@ -11,12 +11,31 @@
         SELECT COUNT(1)
         FROM `autoexec_schedule`
         WHERE `name` = #{name}
-          and `uuid` != #{uuid}
+          and `id` != #{id}
+    </select>
+
+    <select id="getAutoexecScheduleById" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
+        SELECT `id`,
+               `uuid`,
+               `name`,
+               `autoexec_combop_id` AS autoexecCombopId,
+               `begin_time`         AS beginTime,
+               `end_time`           AS endTime,
+               `cron`,
+               `is_active`          AS isActive,
+               `fcd`,
+               `fcu`,
+               `lcd`,
+               `lcu`
+        FROM `autoexec_schedule`
+        WHERE `id` = #{value}
     </select>
 
     <select id="getAutoexecScheduleByUuid" parameterType="java.lang.String"
             resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
-        SELECT `uuid`,
+        SELECT `id`,
+               `uuid`,
                `name`,
                `autoexec_combop_id` AS autoexecCombopId,
                `begin_time`         AS beginTime,
@@ -52,6 +71,7 @@
     <select id="getAutoexecScheduleList" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo"
             resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
         SELECT
+        `id`,
         `uuid`,
         `name`,
         `autoexec_combop_id` AS autoexecCombopId,
@@ -80,7 +100,8 @@
     </select>
 
     <insert id="insertAutoexecSchedule" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
-        INSERT INTO `autoexec_schedule` (`uuid`,
+        INSERT INTO `autoexec_schedule` (`id`,
+                                         `uuid`,
                                          `name`,
                                          `autoexec_combop_id`,
                                          `begin_time`,
@@ -91,7 +112,8 @@
                                          `fcu`,
                                          `lcd`,
                                          `lcu`)
-        VALUES (#{uuid},
+        VALUES (#{id},
+                #{uuid},
                 #{name},
                 #{autoexecCombopId},
                 #{beginTime},
@@ -114,12 +136,12 @@
             `is_active`          = #{isActive},
             `lcd`                = NOW(3),
             `lcu`                = #{lcu}
-        WHERE `uuid` = #{uuid}
+        WHERE `id` = #{id}
     </update>
 
-    <delete id="deleteAutoexecScheduleByUuid" parameterType="java.lang.String">
+    <delete id="deleteAutoexecScheduleById" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_schedule`
-        WHERE `uuid` = #{value}
+        WHERE `id` = #{value}
     </delete>
 </mapper>
