@@ -20,6 +20,8 @@ public class AutoexecJobInvokeVo {
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
 
+    private int count;
+
     public AutoexecJobInvokeVo() {
     }
 
@@ -54,5 +56,13 @@ public class AutoexecJobInvokeVo {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

@@ -884,8 +884,20 @@
         where `job_id` = #{value}
     </select>
 
-    <select id="getJobIdByInvokeId" parameterType="java.lang.Long" resultType="java.lang.Long">
-        SELECT `job_id` FROM `autoexec_job_invoke` WHERE `invoke_id` = #{value}
+    <select id="getJobIdByInvokeIdLimitOne" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT `job_id` FROM `autoexec_job_invoke` WHERE `invoke_id` = #{value} LIMIT 1
+    </select>
+
+    <select id="getJobIdCountListByInvokeIdList" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobInvokeVo">
+        SELECT
+               `invoke_id` AS invokeId,
+               COUNT(1) AS count
+        FROM `autoexec_job_invoke`
+        WHERE `invoke_id` in
+        <foreach collection="list" item="invokeId" open="(" separator="," close=")">
+           #{invokeId}
+        </foreach>
+        GROUP BY `invoke_id`
     </select>
 
     <select id="getAutoexecJobEnvValueByJobIdAndName" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo" resultType="java.lang.String">

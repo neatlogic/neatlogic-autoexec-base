@@ -123,7 +123,7 @@
                 NOW(3),
                 #{fcu},
                 NOW(3),
-                #{lcu})
+                #{fcu})
     </insert>
 
     <update id="updateAutoexecSchedule" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
