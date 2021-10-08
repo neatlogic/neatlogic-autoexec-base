@@ -95,7 +95,7 @@
                 AND `autoexec_combop_id` = #{autoexecCombopId}
             </if>
         </where>
-        ORDER BY `id` DESC
+        ORDER BY `lcd` DESC
         LIMIT #{startNum}, #{pageSize}
     </select>
 
