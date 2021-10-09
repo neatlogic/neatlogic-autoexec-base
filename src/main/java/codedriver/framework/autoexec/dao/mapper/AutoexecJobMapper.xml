@@ -679,12 +679,13 @@
         WHERE ajpn.`job_id` = #{value}
     </select>
 
-    <select id="getJobPhaseRunnerByJobIdAndPhaseIdList" resultType="codedriver.framework.dto.runner.RunnerVo">
+    <select id="getJobPhaseRunnerByJobIdAndPhaseIdList" resultType="codedriver.framework.dto.runner.RunnerMapVo">
         SELECT ar.`id`,
         ar.`name`,
         ar.`url`,
         ar.`host`,
-        ar.`port`
+        ar.`port`,
+        arm.id as runnerMapId
         FROM `autoexec_job_phase_runner` ajpr
         LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`

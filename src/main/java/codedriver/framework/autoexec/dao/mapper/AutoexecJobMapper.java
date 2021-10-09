@@ -9,6 +9,7 @@ import codedriver.framework.autoexec.annotation.AutoexecJobCallback;
 import codedriver.framework.autoexec.annotation.AutoexecJobCallbackParam;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.*;
+import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.dto.runner.RunnerVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -137,7 +138,7 @@ public interface AutoexecJobMapper {
 
     RunnerVo getJobRunnerById(Integer runnerId);
 
-    List<RunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
+    List<RunnerMapVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
 
     //invoke
     AutoexecJobInvokeVo getJobInvokeByJobId(Long id);
@@ -152,9 +153,9 @@ public interface AutoexecJobMapper {
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
-    Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Integer runnerMapId);
+    Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Long runnerMapId);
 
-    Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Integer runnerMapId);
+    Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId);
 
     Integer insertJob(AutoexecJobVo jobVo);
 
