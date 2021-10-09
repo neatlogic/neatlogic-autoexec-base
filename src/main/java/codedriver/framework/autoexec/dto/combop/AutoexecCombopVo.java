@@ -39,7 +39,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String typeName;
     @EntityField(name = "状态", type = ApiParamType.INTEGER)
     private Integer isActive;
-    @EntityField(name = "操作类型", type = ApiParamType.INTEGER)
+    @EntityField(name = "操作类型", type = ApiParamType.STRING)
     private String operationType;
     @EntityField(name = "通知策略id", type = ApiParamType.LONG)
     private Long notifyPolicyId;
