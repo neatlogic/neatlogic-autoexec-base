@@ -118,11 +118,8 @@
         <result column="status" property="status"/>
         <result column="reviewer" property="reviewer"/>
         <result column="isActive" property="isActive"/>
+        <result column="lcu" property="lcu"/>
         <result column="lcd" property="lcd"/>
-        <association property="lcuVo" javaType="codedriver.framework.dto.UserVo">
-            <result property="uuid" column="lcu"/>
-            <result property="userName" column="userName"/>
-        </association>
     </resultMap>
 
     <select id="getVersionList" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultMap="scriptVersionMap">
@@ -133,7 +130,6 @@
         `reviewer`,
         `is_active` as isActive,
         `lcu`,
-        (select `user_name` from `user` where `uuid` = `lcu`) as userName,
         `lcd`
         from `autoexec_script_version`
         where `script_id` = #{scriptId}
@@ -199,7 +195,6 @@
         `status`,
         `is_active` as isActive,
         `lcu`,
-        (select `user_name` from `user` where `uuid` = `lcu`) as userName,
         `lcd`
         <include refid="searchVersionForSelect"/>
         order by `lcd` desc
@@ -287,7 +282,6 @@
         `reviewer`,
         `is_active` as isActive,
         `lcu`,
-        (select `user_name` from `user` where `uuid` = `lcu`) as userName,
         `lcd`
         <include refid="searchHistoricalVersion"/>
         <choose>
