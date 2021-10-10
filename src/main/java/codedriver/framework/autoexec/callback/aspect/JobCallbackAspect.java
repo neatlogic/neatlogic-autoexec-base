@@ -1,5 +1,5 @@
 /*
- * Copyright (c)  2021 TechSure Co.,Ltd.  All Rights Reserved.
+ * Copyright(c) 2021 TechSure Co., Ltd. All Rights Reserved.
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
@@ -87,19 +87,17 @@ public class JobCallbackAspect {
         private final List<IAutoexecJobCallback> callbackList;
 
         public callbackHandler(List<IAutoexecJobCallback> _callbackList, AutoexecJobVo _jobVo) {
+            super("AUTOEXEC-JOB-CALLBACK-" + _jobVo.getId());
             callbackList = _callbackList;
             jobVo = _jobVo;
         }
 
         @Override
         protected void execute() {
-            String oldName = Thread.currentThread().getName();
-            Thread.currentThread().setName("AUTOEXEC-JOB-CALLBACK-" + jobVo.getId());
             for (IAutoexecJobCallback callback : callbackList) {
                 AutoexecJobInvokeVo invokeVo = jobMapper.getJobInvokeByJobId(jobVo.getId());
                 callback.doService(invokeVo.getInvokeId(), jobVo);
             }
-            Thread.currentThread().setName(oldName);
         }
 
     }
