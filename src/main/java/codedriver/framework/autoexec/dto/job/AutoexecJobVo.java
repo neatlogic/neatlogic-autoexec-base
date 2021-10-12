@@ -68,6 +68,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private String execUserType;
     @EntityField(name = "执行用户对象", type = ApiParamType.JSONOBJECT)
     private UserVo execUserVo;
+    @EntityField(name = "来源id", type = ApiParamType.STRING)
+    private Long invokeId;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
     @EntityField(name = "来源名", type = ApiParamType.STRING)
@@ -163,6 +165,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.setCurrentPage(jobVo.getCurrentPage());
         this.setPageSize(jobVo.getPageSize());
         this.setOperationId(operationId);
+        this.invokeId = jsonObj.getLong("scheduleId");
     }
 
     public AutoexecJobVo(Long jobId, String status) {
@@ -500,4 +503,11 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.nodeVoList = nodeVoList;
     }
 
+    public Long getInvokeId() {
+        return invokeId;
+    }
+
+    public void setInvokeId(Long invokeId) {
+        this.invokeId = invokeId;
+    }
 }

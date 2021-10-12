@@ -13,6 +13,9 @@
         <if test="typeIdList != null and typeIdList.size() > 0 ">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
+        <if test="invokeId != null">
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND aji.`invoke_id` = #{invokeId}
+        </if>
         <where>
             <include refid="searchJobSql"/>
         </where>
@@ -53,6 +56,9 @@
         `autoexec_job` aj
         <if test="typeIdList != null and typeIdList.size() > 0 ">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
+        </if>
+        <if test="invokeId != null">
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND aji.`invoke_id` = #{invokeId}
         </if>
         <where>
             <include refid="searchJobSql"/>

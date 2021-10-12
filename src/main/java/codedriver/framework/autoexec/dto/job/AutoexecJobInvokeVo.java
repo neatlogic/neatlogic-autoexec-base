@@ -5,8 +5,10 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobSource;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author lvzk
@@ -31,6 +33,9 @@ public class AutoexecJobInvokeVo {
     }
 
     public AutoexecJobInvokeVo(String source) {
+        if(StringUtils.isBlank(source)){
+            this.source = JobSource.HUMAN.getValue();
+        }
         this.source = source;
     }
 
