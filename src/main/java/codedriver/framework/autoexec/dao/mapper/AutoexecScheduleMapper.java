@@ -28,5 +28,7 @@ public interface AutoexecScheduleMapper {
 
     int updateAutoexecSchedule(AutoexecScheduleVo autoexecScheduleVo);
 
+    int updateAutoexecScheduleIsActiveById(Long id);
+
     int deleteAutoexecScheduleById(Long id);
 }

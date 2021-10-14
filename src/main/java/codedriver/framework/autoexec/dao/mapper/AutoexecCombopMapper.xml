@@ -178,6 +178,35 @@
             )
     </select>
 
+    <select id="getExecutableAutoexecCombopIdListByKeywordAndAuthenticationInfo" resultType="java.lang.Long">
+        SELECT
+            a.`id`
+        FROM `autoexec_combop` a
+        LEFT JOIN `autoexec_combop_authority` b ON b.`combop_id` = a.`id`
+        WHERE (a.`owner` = #{authenticationInfoVo.userUuid}
+            OR
+            (type = 'common' AND `uuid` = 'alluser')
+            OR (type = 'user' AND `uuid` = #{authenticationInfoVo.userUuid})
+            <if test="authenticationInfoVo.teamUuidList != null and authenticationInfoVo.teamUuidList.size() > 0">
+                OR (type = 'team' AND `uuid` IN
+                <foreach collection="authenticationInfoVo.teamUuidList" item="teamUuid" open="(" separator="," close=")">
+                    #{teamUuid}
+                </foreach>
+                )
+            </if>
+            <if test="authenticationInfoVo.roleUuidList != null and authenticationInfoVo.roleUuidList.size() > 0">
+                OR (type = 'role' AND `uuid` IN
+                <foreach collection="authenticationInfoVo.roleUuidList" item="roleUuid" open="(" separator="," close=")">
+                    #{roleUuid}
+                </foreach>
+                )
+            </if>
+            )
+        <if test="keyword != null and keyword != ''">
+            AND a.`name` LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </select>
+
     <select id="getCombopPhaseIdListByCombopId" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT `id` FROM `autoexec_combop_phase` WHERE `combop_id` = #{value}
     </select>

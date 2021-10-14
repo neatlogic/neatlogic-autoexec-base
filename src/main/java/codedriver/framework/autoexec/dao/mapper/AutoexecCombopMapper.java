@@ -6,10 +6,11 @@
 package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.combop.*;
+import codedriver.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: linbq
@@ -43,6 +44,11 @@ public interface AutoexecCombopMapper {
             @Param("userUuid") String userUuid,
             @Param("teamUuidList") List<String> teamUuidList,
             @Param("roleUuidList") List<String> roleUuidList
+    );
+
+    Set<Long> getExecutableAutoexecCombopIdListByKeywordAndAuthenticationInfo(
+            @Param("keyword")String keyword,
+            @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 
     List<Long> getCombopPhaseIdListByCombopId(Long combopId);
