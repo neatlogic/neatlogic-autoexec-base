@@ -8,7 +8,6 @@ import java.util.List;
 
 public enum JobSource implements IAutoexecJobSource {
     HUMAN("人工", "human"),
-    ITSM("工单", "itsm"),
     AUTOEXEC_SCHEDULE("定时任务", "autoexecschedule"),
     TEST("测试","test");
     private final String text;
