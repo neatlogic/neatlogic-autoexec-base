@@ -48,6 +48,10 @@ public class AutoexecScheduleVo extends BaseEditorVo {
     private JSONObject config;
     @JSONField(serialize = false)
     private String configStr;
+    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+    private Integer editable;
+    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
+    private Integer deletable;
 
     public Long getId() {
         if (id == null) {
@@ -158,5 +162,21 @@ public class AutoexecScheduleVo extends BaseEditorVo {
 
     public void setConfigStr(String configStr) {
         this.configStr = configStr;
+    }
+
+    public Integer getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Integer editable) {
+        this.editable = editable;
+    }
+
+    public Integer getDeletable() {
+        return deletable;
+    }
+
+    public void setDeletable(Integer deletable) {
+        this.deletable = deletable;
     }
 }

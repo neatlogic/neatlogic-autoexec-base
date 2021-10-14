@@ -145,6 +145,12 @@
         WHERE `id` = #{id}
     </update>
 
+    <update id="updateAutoexecScheduleIsActiveById" parameterType="java.lang.Long">
+        UPDATE `autoexec_schedule`
+        SET `is_active` = 1-`is_active`
+        WHERE `id` = #{id}
+    </update>
+
     <delete id="deleteAutoexecScheduleById" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_schedule`
