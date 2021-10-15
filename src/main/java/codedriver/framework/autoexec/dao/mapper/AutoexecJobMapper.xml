@@ -179,7 +179,7 @@
         <where>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
-        order by  ajpn.`host`
+        order by  ajpn.`host`,ajpn.`port`
         limit #{startNum}, #{pageSize}
     </select>
 
