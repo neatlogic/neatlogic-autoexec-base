@@ -691,7 +691,7 @@
         ar.`url`,
         ar.`host`,
         ar.`port`,
-        arm.id as runnerMapId
+        ajpr.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_runner` ajpr
         LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
