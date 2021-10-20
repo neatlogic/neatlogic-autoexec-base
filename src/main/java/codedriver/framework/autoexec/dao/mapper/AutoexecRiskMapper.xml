@@ -121,6 +121,7 @@
         <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
+        group by `risk_id`
     </select>
 
     <update id="updateRisk" parameterType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
