@@ -15,5 +15,9 @@ public class AutoexecJobRunnerNotMatchException extends ApiRuntimeException {
         super("ip: " + ip + "找不到匹配的runner，请核对runner组配置");
     }
 
+    public AutoexecJobRunnerNotMatchException() {
+        super("找不到匹配的runner，请核对runner组配置 或者 没有配置runner map");
+    }
+
 
 }
