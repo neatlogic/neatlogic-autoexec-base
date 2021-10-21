@@ -240,7 +240,9 @@
             `owner`,
             `config`,
             `fcd`,
-            `fcu`
+            `fcu`,
+            `lcd`,
+            `lcu`
         )
         VALUES
         (
@@ -253,6 +255,8 @@
             #{notifyPolicyId},
             #{owner},
             #{configStr},
+            NOW(3),
+            #{fcu},
             NOW(3),
             #{fcu}
         )
