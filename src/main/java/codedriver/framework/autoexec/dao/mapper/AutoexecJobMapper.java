@@ -151,7 +151,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobEnvVo> getAutoexecJobEnvListByJobId(Long jobId);
 
-    Integer getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext(@Param("jobId") Long jobId, @Param("isFireNext") int isFireNext);
+    Integer getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext(@Param("jobId") Long jobId, @Param("isFireNext") int isFireNext,@Param("sort") int sort);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
