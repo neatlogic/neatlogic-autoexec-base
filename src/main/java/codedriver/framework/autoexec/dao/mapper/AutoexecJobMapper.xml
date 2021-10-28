@@ -14,7 +14,8 @@
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
         <if test="invokeId != null">
-            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND aji.`invoke_id` = #{invokeId}
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND
+            aji.`invoke_id` = #{invokeId}
         </if>
         <where>
             <include refid="searchJobSql"/>
@@ -58,7 +59,8 @@
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
         <if test="invokeId != null">
-            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND aji.`invoke_id` = #{invokeId}
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND
+            aji.`invoke_id` = #{invokeId}
         </if>
         <where>
             <include refid="searchJobSql"/>
@@ -179,7 +181,7 @@
         <where>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
-        order by  ajpn.`host`,ajpn.`port`
+        order by ajpn.`host`,ajpn.`port`
         limit #{startNum}, #{pageSize}
     </select>
 
@@ -245,17 +247,17 @@
     <select id="getJobPhaseListByJobIdAndNodeStatusList"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT ajp.`id`,
-               ajp.`job_id` AS jobId,
-               ajp.`status`,
-               ajp.`start_time` AS startTime,
-               ajp.`end_time` AS endTime,
-               ajp.`exec_user` AS execUser,
-               ajp.`exec_mode` AS execMode,
-               ajp.`name` AS NAME,
-               ajp.`sort`,
-               ajp.`uk` AS uk
+        ajp.`job_id` AS jobId,
+        ajp.`status`,
+        ajp.`start_time` AS startTime,
+        ajp.`end_time` AS endTime,
+        ajp.`exec_user` AS execUser,
+        ajp.`exec_mode` AS execMode,
+        ajp.`name` AS NAME,
+        ajp.`sort`,
+        ajp.`uk` AS uk
         FROM `autoexec_job_phase_node` ajpn
-                 JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
         WHERE ajpn.job_id = #{jobId} AND ajpn.`status` in
         <foreach collection="statusList" open="(" separator="," close=")" item="status">
             #{status}
@@ -533,7 +535,7 @@
         where `id` = #{jobPhaseOperationId}
     </select>
 
-    <select id="checkIsAllActivePhaseIsDone" resultType="java.lang.Integer">
+    <select id="getJobPhaseNotCompletedCountByJobIdAndSort" resultType="java.lang.Integer">
         select count(1)
         from `autoexec_job_phase`
         where `job_id` = #{jobId}
@@ -892,32 +894,48 @@
     </select>
 
     <select id="getJobIdByInvokeIdLimitOne" parameterType="java.lang.Long" resultType="java.lang.Long">
-        SELECT `job_id` FROM `autoexec_job_invoke` WHERE `invoke_id` = #{value} LIMIT 1
+        SELECT `job_id`
+        FROM `autoexec_job_invoke`
+        WHERE `invoke_id` = #{value}
+        LIMIT 1
     </select>
 
-    <select id="getJobIdCountListByInvokeIdList" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobInvokeVo">
+    <select id="getJobIdCountListByInvokeIdList" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobInvokeVo">
         SELECT
-               `invoke_id` AS invokeId,
-               COUNT(1) AS count
+        `invoke_id` AS invokeId,
+        COUNT(1) AS count
         FROM `autoexec_job_invoke`
         WHERE `invoke_id` in
         <foreach collection="list" item="invokeId" open="(" separator="," close=")">
-           #{invokeId}
+            #{invokeId}
         </foreach>
         GROUP BY `invoke_id`
     </select>
 
-    <select id="getAutoexecJobEnvValueByJobIdAndName" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo" resultType="java.lang.String">
-        SELECT `value` FROM `autoexec_job_env` WHERE `job_id` = #{jobId} AND `name` = #{name}
+    <select id="getAutoexecJobEnvValueByJobIdAndName"
+            parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo" resultType="java.lang.String">
+        SELECT `value`
+        FROM `autoexec_job_env`
+        WHERE `job_id` = #{jobId}
+          AND `name` = #{name}
     </select>
 
-    <select id="getAutoexecJobEnvListByJobId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
-        SELECT
-            `job_id` AS jobId,
-            `name`,
-            `value`
+    <select id="getAutoexecJobEnvListByJobId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
+        SELECT `job_id` AS jobId,
+               `name`,
+               `value`
         FROM `autoexec_job_env`
         WHERE `job_id` = #{value}
+    </select>
+    <select id="getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `autoexec_job_phase_runner` ajpr
+                 JOIN autoexec_job_phase ajp ON ajpr.job_id = ajp.job_id AND ajpr.job_phase_id = ajp.id
+        WHERE ajp.sort = #{sort}
+          AND ajpr.job_id = #{jobId}
+          AND (ajpr.status != 'completed' OR ajpr.is_fire_next = #{isFireNext})
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
@@ -1064,8 +1082,7 @@
     </insert>
     <insert id="insertIgnoreIntoJobInvoke">
         INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`)
-        VALUES
-            (#{jobId}, #{invokeId}, #{source}) ;
+        VALUES (#{jobId}, #{invokeId}, #{source});
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1211,6 +1228,12 @@
             #{jobPhaseId}
         </foreach>
         and `status` in ('pausing','aborting')
+    </update>
+    <update id="updateJobPhaseRunnerFireNextByPhaseId">
+        update `autoexec_job_phase_runner`
+        set is_fire_next = #{isFireNext}
+        where job_phase_id = #{phaseId}
+          and runner_map_id = #{runnerMapId}
     </update>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">

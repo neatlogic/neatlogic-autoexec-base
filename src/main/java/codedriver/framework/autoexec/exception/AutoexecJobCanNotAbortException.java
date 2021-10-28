@@ -12,7 +12,7 @@ public class AutoexecJobCanNotAbortException extends ApiRuntimeException {
     private static final long serialVersionUID = 3401067630822603011L;
 
     public AutoexecJobCanNotAbortException(String jobId) {
-        super("无法中止作业："+jobId+"，请确保作业存于'运行中（running）'状态");
+        super("无法中止作业："+jobId);
     }
 
 

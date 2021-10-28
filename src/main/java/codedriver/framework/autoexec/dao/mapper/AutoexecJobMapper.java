@@ -65,7 +65,7 @@ public interface AutoexecJobMapper {
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName);
 
-    Integer checkIsAllActivePhaseIsDone(@Param("jobId") Long jobId, @Param("sort") Integer sort);
+    Integer getJobPhaseNotCompletedCountByJobIdAndSort(@Param("jobId") Long jobId, @Param("sort") Integer sort);
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndSort(@Param("jobId") Long jobId, @Param("sort") Integer sort);
 
@@ -151,6 +151,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobEnvVo> getAutoexecJobEnvListByJobId(Long jobId);
 
+    Integer getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext(@Param("jobId") Long jobId, @Param("isFireNext") int isFireNext);
+
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Long runnerMapId);
@@ -185,6 +187,8 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseNode(AutoexecJobPhaseNodeVo nodeVo);
 
+    Integer updateJobPhaseRunnerFireNextByPhaseId(@Param("phaseId") Long phaseId, @Param("isFireNext") int isFireNext, @Param("runnerMapId") Integer runnerMapId);
+
     int replaceIntoJobEnv(AutoexecJobEnvVo jobEnvVo);
 
     void deleteJobParamContentByHash(String paramHash);
@@ -202,5 +206,4 @@ public interface AutoexecJobMapper {
     void deleteJobPhaseRunnerByJobId(Long jobId);
 
     void deleteJobPhaseNodeRunnerByJobId(Long jobId);
-
 }
