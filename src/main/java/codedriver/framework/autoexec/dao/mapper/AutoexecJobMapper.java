@@ -13,6 +13,7 @@ import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.dto.runner.RunnerVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface AutoexecJobMapper {
@@ -95,7 +96,7 @@ public interface AutoexecJobMapper {
 
     int updateJobPhaseNodeStatus(AutoexecJobPhaseNodeVo nodeVo);
 
-    int updateJobPhaseNodeStatusByJobIdAndJobPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("status") String jobStatus);
+    int updateJobPhaseNodeStatusByJobIdAndJobPhaseIdListAndRunnerId(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("nodeStatusList") List<String> jobNodeStatusList,@Param("runnerId") Integer runnerId);
 
     AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobNodeId(@Param("nodeId") Long nodeId);
 
@@ -153,6 +154,12 @@ public interface AutoexecJobMapper {
 
     Integer getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext(@Param("jobId") Long jobId, @Param("isFireNext") int isFireNext,@Param("sort") int sort);
 
+    List<HashMap<String,String>> getJobPhaseRunnerAbortingCountMapCountByJobId(@Param("jobId") Long jobId);
+
+    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByJobPhaseIdListAndStatusAndRunnerId(@Param("jobPhaseIdList") List<Long> jobPhaseIdList,@Param("status") String status,@Param("runnerId") Integer runnerId);
+
+    Integer getJobPhaseNotStatusCountByJobIdAndStatus(@Param("jobId") Long jobId,@Param("status") String status);
+
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Long runnerMapId);
@@ -175,7 +182,7 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseFailedNodeStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
 
-    Integer updateJobPhaseStatusBatch(@Param("phaseIdList") List<Long> phaseIdList, @Param("status") String phaseStatus, @Param("errorMsg") String errorMsg);
+    Integer updateJobPhaseRunnerStatusBatch(@Param("phaseIdList") List<Long> phaseIdList, @Param("status") String phaseStatus, @Param("runnerId") Integer runnerId);
 
     void updateJobPhaseStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
 
@@ -206,4 +213,5 @@ public interface AutoexecJobMapper {
     void deleteJobPhaseRunnerByJobId(Long jobId);
 
     void deleteJobPhaseNodeRunnerByJobId(Long jobId);
+
 }

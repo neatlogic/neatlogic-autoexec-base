@@ -688,7 +688,7 @@
     </select>
 
     <select id="getJobPhaseRunnerByJobIdAndPhaseIdList" resultType="codedriver.framework.dto.runner.RunnerMapVo">
-        SELECT ar.`id`,
+        SELECT DISTINCT ar.`id`,
         ar.`name`,
         ar.`url`,
         ar.`host`,
@@ -938,6 +938,47 @@
           AND (ajpr.status != 'completed' OR ajpr.is_fire_next = #{isFireNext})
     </select>
 
+    <select id="getJobPhaseRunnerAbortingCountMapCountByJobId" resultType="java.util.HashMap">
+        SELECT ajpr.`job_phase_id`, COUNT(1) as `count`
+        FROM `autoexec_job_phase_runner` ajpr
+                 JOIN autoexec_job_phase ajp ON ajpr.job_id = ajp.job_id AND ajpr.job_phase_id = ajp.id
+        WHERE ajpr.`job_id` = #{jobId}
+          AND ajpr.status = 'aborting'
+        GROUP BY ajpr.`job_phase_id`
+    </select>
+    <select id="getAutoexecJobNodeListByJobPhaseIdListAndStatusAndRunnerId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT
+        ajpn.id,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.port,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`status`,
+        ajp.`name` AS jobPhaseName,
+        ajpn.`name` AS nodeName,
+        ajpn.`user_name` as userName,
+        ajpn.`protocol` AS protocol,
+        ajpn.`protocol_port` AS protocolPort,
+        ajpn.`resource_id` as resourceId
+        FROM `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.`id` = ajpnr.`node_id`
+        WHERE ajpnr.`runner_map_id` = #{runnerId}
+        AND ajpn.`job_phase_id` IN
+        <foreach collection="jobPhaseIdList" separator="," open="(" close=")" item="jobPhaseId">
+            #{jobPhaseId}
+        </foreach>
+        and ajpn.status = #{status}
+    </select>
+    <select id="getJobPhaseNotStatusCountByJobIdAndStatus" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM autoexec_job_phase
+        WHERE job_id = #{jobId}
+          and `status` != #{status}
+    </select>
+
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
         `name`,
@@ -1116,22 +1157,14 @@
         WHERE id = #{id}
     </update>
 
-    <update id="updateJobPhaseStatusBatch">
-        UPDATE `autoexec_job_phase`
+    <update id="updateJobPhaseRunnerStatusBatch">
+        UPDATE `autoexec_job_phase_runner`
         SET `status` = #{status}
-        <if test="status == 'running'">
-            ,`start_time` = NOW(3)
-        </if>
-        <if test="errorMsg != null and errorMsg != ''">
-            ,`error_msg` = #{errorMsg}
-        </if>
-        <if test="status == 'completed' or status == 'failed'">
-            ,`end_time` = NOW(3)
-        </if>
-        WHERE id in
+        WHERE job_phase_id in
         <foreach collection="phaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}
         </foreach>
+        and runner_map_id = #{runnerId}
     </update>
 
     <update id="updateJobPhaseNodeStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
@@ -1211,23 +1244,21 @@
             `end_time`   = #{endTime}
         WHERE `id` = #{id}
     </update>
-    <update id="updateJobPhaseNodeStatusByJobIdAndJobPhaseIdList">
+    <update id="updateJobPhaseNodeStatusByJobIdAndJobPhaseIdListAndRunnerId">
         UPDATE
         `autoexec_job_phase_node`
         SET
-        <if test="status == 'running'">
-            `start_time` = NOW(3),
-        </if>
-        <if test="status == 'succeed' or status == 'failed'">
-            `end_time` = NOW(3),
-        </if>
+        `end_time` = NOW(3),
         `status` = #{status}
         WHERE `job_id` = #{jobId}
         AND `job_phase_id` in
         <foreach collection="jobPhaseIdList" item="jobPhaseId" separator="," open="(" close=")">
             #{jobPhaseId}
         </foreach>
-        and `status` in ('pausing','aborting')
+        and `status` in
+        <foreach collection="nodeStatusList" item="nodeStatus" open="(" separator="," close=")">
+            #{nodeStatus}
+        </foreach>
     </update>
     <update id="updateJobPhaseRunnerFireNextByPhaseId">
         update `autoexec_job_phase_runner`
