@@ -157,7 +157,7 @@
         ajpn.`start_time` AS startTime,
         ajpn.`end_time` AS endTime,
         ajpn.`status`,
-        ajpn.`protocol_id`,
+        ajpn.`protocol_id` as protocolId,
         ajpn.`resource_id` AS resourceId,
         rai.`id` AS nodeId,
         ajpn.name AS nodeName,
@@ -782,7 +782,7 @@
         ajpn.`user_name` as userName,
         ajpn.`name` as nodeName,
         ajpn.`type` as nodeType,
-        ajpn.`protocol_id`,
+        ajpn.`protocol_id` as protocolId,
         ajpn.`status`
         FROM `autoexec_job_phase_node` ajpn
         where ajpn.`id` in
