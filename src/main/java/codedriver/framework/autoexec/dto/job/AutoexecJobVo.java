@@ -98,8 +98,11 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "是否拥有编辑权限", type = ApiParamType.INTEGER)
     private Integer isCanEdit = 0;
     private Long nodeId;
-    private List<AutoexecJobPhaseNodeVo> nodeVoList;//场景：工具库测试|重跑节点
+    private List<AutoexecJobPhaseNodeVo> phaseNodeVoList;//场景：工具库测试|重跑节点
+    private List<Long> phaseNodeIdList;
     private Integer currentPhaseSort;
+    private Integer isNoFireNext = 0;
+    private Integer isFirstFire;
     private String action;//fire|refire|goon
 
     private List<AutoexecJobPhaseNodeVo> jobPhaseNodeList;
@@ -495,12 +498,19 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.isCanEdit = isCanEdit;
     }
 
-    public List<AutoexecJobPhaseNodeVo> getNodeVoList() {
-        return nodeVoList;
+    public List<AutoexecJobPhaseNodeVo> getPhaseNodeVoList() {
+        return phaseNodeVoList;
     }
 
-    public void setNodeVoList(List<AutoexecJobPhaseNodeVo> nodeVoList) {
-        this.nodeVoList = nodeVoList;
+    public void setPhaseNodeVoList(List<AutoexecJobPhaseNodeVo> phaseNodeVoList) {
+        this.phaseNodeVoList = phaseNodeVoList;
+    }
+
+    public List<Long> getPhaseNodeIdList() {
+        if (CollectionUtils.isNotEmpty(phaseNodeVoList)) {
+            phaseNodeIdList = phaseNodeVoList.stream().map(AutoexecJobPhaseNodeVo::getId).collect(Collectors.toList());
+        }
+        return phaseNodeIdList;
     }
 
     public Long getInvokeId() {
@@ -510,4 +520,20 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public void setInvokeId(Long invokeId) {
         this.invokeId = invokeId;
     }
+
+    public Integer getIsNoFireNext() {
+        return isNoFireNext;
+    }
+
+    public void setIsNoFireNext(Integer isNoFireNext) {
+        this.isNoFireNext = isNoFireNext;
+    }
+
+    public Integer getIsFirstFire() {
+        if(currentPhaseSort != null && currentPhaseSort == 0){
+            return 1;
+        }
+        return 0;
+    }
+
 }
