@@ -83,13 +83,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.runnerMapId = runnerId;
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, String host, String status, String userName, String protocol) {
+    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, String host, String status, String userName, Long protocolId) {
         super.setJobId(jobId);
         this.jobPhaseId = jobPhaseId;
         this.status = status;
         super.setUserName(userName);
         super.setHost(host);
-        super.setProtocol(protocol);
+        super.setProtocolId(protocolId);
     }
 
     public AutoexecJobPhaseNodeVo(JSONObject jsonObj) {
@@ -104,13 +104,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         }
     }
 
-    public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, String protocol, Integer protocolPort) {
+    public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, Long protocolId, Integer protocolPort) {
         super.setHost(resourceVo.getIp());
         super.setNodeName(resourceVo.getName());
         super.setPort(resourceVo.getPort());
         super.setJobId(jobId);
         this.jobPhaseId = jobPhaseId;
-        super.setProtocol(protocol);
+        super.setProtocolId(protocolId);
         this.status = status;
         super.setUserName(userName);
         this.resourceId = resourceVo.getId();

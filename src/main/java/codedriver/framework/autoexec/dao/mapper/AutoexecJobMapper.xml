@@ -157,7 +157,7 @@
         ajpn.`start_time` AS startTime,
         ajpn.`end_time` AS endTime,
         ajpn.`status`,
-        ajpn.`protocol`,
+        ajpn.`protocol_id`,
         ajpn.`resource_id` AS resourceId,
         rai.`id` AS nodeId,
         ajpn.name AS nodeName,
@@ -579,7 +579,7 @@
                ajp.`name`           AS jobPhaseName,
                ajpn.`name`          AS nodeName,
                ajpn.`user_name`     as userName,
-               ajpn.`protocol`      AS protocol,
+               ajpn.`protocol_id`      AS protocolId,
                ajpn.`protocol_port` AS protocolPort,
                ajpn.`resource_id`   as resourceId,
                ap.`id`              AS runnerId,
@@ -797,7 +797,7 @@
         ajpn.`user_name` as userName,
         ajpn.`name` as nodeName,
         ajpn.`type` as nodeType,
-        ajpn.`protocol`,
+        ajpn.`protocol_id`,
         ajpn.`status`
         FROM `autoexec_job_phase_node` ajpn
         where ajpn.`id` in
@@ -865,7 +865,7 @@
         ajp.`name` AS jobPhaseName,
         ajpn.`name` AS nodeName,
         ajpn.`user_name` as userName,
-        ajpn.`protocol` AS protocol,
+        ajpn.`protocol_id` AS protocolId,
         ajpn.`protocol_port` AS protocolPort,
         ajpn.`resource_id` as resourceId,
         ap.`id` AS runnerId,
@@ -960,7 +960,7 @@
         ajp.`name` AS jobPhaseName,
         ajpn.`name` AS nodeName,
         ajpn.`user_name` as userName,
-        ajpn.`protocol` AS protocol,
+        ajpn.`protocol_id` AS protocolId,
         ajpn.`protocol_port` AS protocolPort,
         ajpn.`resource_id` as resourceId
         FROM `autoexec_job_phase_node` ajpn
