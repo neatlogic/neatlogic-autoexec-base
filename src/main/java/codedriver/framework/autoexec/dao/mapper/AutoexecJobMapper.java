@@ -42,11 +42,6 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobLockByOperationId(Long operationId);
 
-    //jobNodes
-    int getJobPhaseNodeCountByJobId(AutoexecJobPhaseNodeVo nodeParamVo);
-
-    List<AutoexecJobPhaseNodeVo> searchJobNodeByJobId(AutoexecJobPhaseNodeVo nodeParamVo);
-
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
@@ -169,8 +164,6 @@ public interface AutoexecJobMapper {
     Integer insertJob(AutoexecJobVo jobVo);
 
     Integer insertJobPhase(AutoexecJobPhaseVo jobVo);
-
-    Integer insertJobNode(AutoexecJobNodeVo jobNodeVo);
 
     Integer insertJobPhaseNode(AutoexecJobPhaseNodeVo jobVo);
 

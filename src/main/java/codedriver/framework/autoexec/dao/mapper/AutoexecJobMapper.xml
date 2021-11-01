@@ -465,21 +465,6 @@
         WHERE job_id != #{jobId}
           AND `param_hash` = #{hash}
     </select>
-    <select id="getJobPhaseNodeCountByJobId" resultType="java.lang.Integer">
-        SELECT count(ajn.`id`)
-        FROM `autoexec_job_node` ajn
-        where ajn.job_id = #{jobId}
-    </select>
-
-    <select id="searchJobNodeByJobId" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
-        SELECT ajn.`id`,
-               ajn.`host`,
-               ajn.port,
-               ajn.`protocol`
-        FROM `autoexec_job_node` ajn
-        where ajn.job_id = #{jobId}
-        limit #{startNum}, #{pageSize}
-    </select>
 
     <select id="checkIsJobPhaseNodeExist" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo"
             resultType="java.lang.Integer">
@@ -1034,7 +1019,7 @@
                                                `job_phase_id`,
                                                `host`,
                                                `port`,
-                                               `protocol`,
+                                               `protocol_id`,
                                                `protocol_port`,
                                                `name`,
                                                `type`,
@@ -1046,7 +1031,7 @@
                 #{jobPhaseId},
                 #{host},
                 #{port},
-                #{protocol},
+                #{protocolId},
                 #{protocolPort},
                 #{nodeName},
                 #{nodeType},
@@ -1097,20 +1082,6 @@
             parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeRunnerVo">
         INSERT INTO `autoexec_job_phase_node_runner` (`node_id`, `runner_map_id`)
         VALUES (#{nodeId}, #{runnerMapId});
-    </insert>
-    <insert id="insertJobNode">
-        INSERT INTO `autoexec_job_node` (`id`,
-                                         `job_id`,
-                                         `host`,
-                                         `port`,
-                                         `user_name`,
-                                         `protocol`)
-        VALUES (#{id},
-                #{jobId},
-                #{host},
-                #{port},
-                #{userName},
-                #{protocol});
     </insert>
     <insert id="insertJobPhaseRunner">
         INSERT IGNORE INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`)
