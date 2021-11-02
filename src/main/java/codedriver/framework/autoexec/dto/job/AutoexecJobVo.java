@@ -84,6 +84,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业剧本Id集合", type = ApiParamType.JSONARRAY)
     private List<Long> phaseIdList;
+    @EntityField(name = "作业剧本Name集合", type = ApiParamType.JSONARRAY)
+    private List<String> phaseNameList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
     @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
@@ -484,6 +486,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
             phaseIdList = phaseList.stream().map(AutoexecJobPhaseVo::getId).collect(Collectors.toList());
         }
         return phaseIdList;
+    }
+
+    public List<String> getPhaseNameList() {
+        if (CollectionUtils.isNotEmpty(phaseList)) {
+            phaseNameList = phaseList.stream().map(AutoexecJobPhaseVo::getName).collect(Collectors.toList());
+        }
+        return phaseNameList;
     }
 
     public void setPhaseIdList(List<Long> phaseIdList) {

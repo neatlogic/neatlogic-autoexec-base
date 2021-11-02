@@ -949,6 +949,7 @@
         ajpn.`protocol_port` AS protocolPort,
         ajpn.`resource_id` as resourceId
         FROM `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.`id` = ajpnr.`node_id`
         WHERE ajpnr.`runner_map_id` = #{runnerId}
         AND ajpn.`job_phase_id` IN
