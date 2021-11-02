@@ -163,7 +163,7 @@ public interface AutoexecJobMapper {
 
     Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Long runnerMapId);
 
-    Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId);
+    Integer replaceIntoJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId);
 
     Integer insertJob(AutoexecJobVo jobVo);
 

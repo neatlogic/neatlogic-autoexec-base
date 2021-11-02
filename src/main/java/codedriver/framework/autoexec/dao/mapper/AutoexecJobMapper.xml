@@ -1132,8 +1132,8 @@
         INSERT INTO `autoexec_job_phase_node_runner` (`node_id`, `runner_map_id`)
         VALUES (#{nodeId}, #{runnerMapId});
     </insert>
-    <insert id="insertJobPhaseRunner">
-        INSERT IGNORE INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`)
+    <insert id="replaceIntoJobPhaseRunner">
+        Replace INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`)
         VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId});
     </insert>
 
