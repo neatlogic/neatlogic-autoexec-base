@@ -549,7 +549,9 @@
         select `job_id` as jobId, `name`, `exec_mode` as execMode, `id`, `status`
         from `autoexec_job_phase`
         where `job_id` = #{jobId}
+          <if test="sort != null">
           and `sort` = #{sort}
+          </if>
     </select>
     <select id="getJobPhaseNodeInfoByJobNodeId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
@@ -984,11 +986,11 @@
         </foreach>
         and ajpn.status = #{status}
     </select>
-    <select id="getJobPhaseNotStatusCountByJobIdAndStatus" resultType="java.lang.Integer">
+    <select id="getJobPhaseStatusCountByJobIdAndStatus" resultType="java.lang.Integer">
         SELECT COUNT(1)
         FROM autoexec_job_phase
         WHERE job_id = #{jobId}
-          and `status` != #{status}
+          and `status` = #{status}
     </select>
     <select id="getJobPhaseRunnerByJobIdAndPhaseIdListAndStatus"
             resultType="codedriver.framework.dto.runner.RunnerMapVo">
@@ -1182,7 +1184,9 @@
         <foreach collection="phaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}
         </foreach>
-        and runner_map_id = #{runnerId}
+        <if test="runnerId != null">
+            and runner_map_id = #{runnerId}
+        </if>
     </update>
 
     <update id="updateJobPhaseNodeStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">

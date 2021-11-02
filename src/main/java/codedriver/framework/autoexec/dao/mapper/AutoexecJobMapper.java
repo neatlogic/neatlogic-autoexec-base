@@ -157,7 +157,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByJobPhaseIdListAndStatusAndRunnerId(@Param("jobPhaseIdList") List<Long> jobPhaseIdList,@Param("status") String status,@Param("runnerId") Integer runnerId);
 
-    Integer getJobPhaseNotStatusCountByJobIdAndStatus(@Param("jobId") Long jobId,@Param("status") String status);
+    Integer getJobPhaseStatusCountByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
