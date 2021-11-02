@@ -564,7 +564,7 @@
                ajp.`name`           AS jobPhaseName,
                ajpn.`name`          AS nodeName,
                ajpn.`user_name`     as userName,
-               ajpn.`protocol_id`      AS protocolId,
+               ajpn.`protocol_id`   AS protocolId,
                ajpn.`protocol_port` AS protocolPort,
                ajpn.`resource_id`   as resourceId,
                ap.`id`              AS runnerId,
@@ -790,6 +790,32 @@
             #{nodeId}
         </foreach>
     </select>
+    <select id="getJobPhaseNodeRunnerListByNodeIdList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`resource_id` AS resourceId,
+        ajpn.`user_name` as userName,
+        ajpn.`name` as nodeName,
+        ajpn.`type` as nodeType,
+        ajpn.`protocol_id` as protocolId,
+        ajpn.`status`,
+        ajpnr.runner_map_id as runnerMapId,
+        r.url as runnerUrl
+        FROM `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpnr.`node_id` = ajpn.`id`
+        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner` r on arm.runner_id = r.id
+        where ajpn.`id` in
+        <foreach collection="nodeIdList" item="nodeId" separator="," open="(" close=")">
+            #{nodeId}
+        </foreach>
+    </select>
     <select id="getJobRunnerById" resultType="codedriver.framework.dto.runner.RunnerVo">
         SELECT ar.`id`, ar.`name`, ar.`url`, ar.`host`, ar.`port`
         FROM `runner` ar
@@ -963,6 +989,26 @@
         FROM autoexec_job_phase
         WHERE job_id = #{jobId}
           and `status` != #{status}
+    </select>
+    <select id="getJobPhaseRunnerByJobIdAndPhaseIdListAndStatus"
+            resultType="codedriver.framework.dto.runner.RunnerMapVo">
+        SELECT DISTINCT ar.`id`,
+        ar.`name`,
+        ar.`url`,
+        ar.`host`,
+        ar.`port`,
+        ajpr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_runner` ajpr
+        LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        WHERE ajpr.`job_id` = #{jobId}
+        and ajpr.`status` = #{status}
+        <if test="jobPhaseIdList != null and jobPhaseIdList.size() > 0">
+            and ajpr.`job_phase_id` in
+            <foreach collection="jobPhaseIdList" item="jobPhaseId" close=")" open="(" separator=",">
+                #{jobPhaseId}
+            </foreach>
+        </if>
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">

@@ -7,6 +7,9 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AutoexecJobRunnerNotFoundException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 3593220313941443951L;
@@ -15,5 +18,8 @@ public class AutoexecJobRunnerNotFoundException extends ApiRuntimeException {
         super("Runner :" + msg + "不存在");
     }
 
+    public AutoexecJobRunnerNotFoundException(List<String> phaseNameList) {
+        super("匹配不到可执行runner,执行phaseName :" + phaseNameList.stream().map(Object::toString).collect(Collectors.joining("','")));
+    }
 
 }
