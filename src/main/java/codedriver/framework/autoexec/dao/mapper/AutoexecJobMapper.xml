@@ -141,7 +141,7 @@
             </foreach>
         </if>
         <if test="keyword != null and keyword != ''">
-            and (rai.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
+            and (ri.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
         </if>
         <if test="runnerId != null">
             and arm.runner_id = #{runnerId}
@@ -159,7 +159,7 @@
         ajpn.`status`,
         ajpn.`protocol_id` as protocolId,
         ajpn.`resource_id` AS resourceId,
-        rai.`id` AS nodeId,
+        ri.`id` AS nodeId,
         ajpn.name AS nodeName,
         ajpn.type AS nodeType,
         arm.`runner_id` AS runnerId,
@@ -170,11 +170,7 @@
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN
-        (
-        SELECT ri.id AS id, ri.name ,rii.`ip` FROM ${schemaName}.`resource_ipobject_ip` rii
-        LEFT JOIN ${schemaName}.`resource_ipobject` ri ON rii.`resource_id` = ri.`id`
-        ) rai ON ajpn.resource_id = rai.id
+        LEFT JOIN  ${schemaName}.`resource_ipobject` ri ON ajpn.resource_id = ri.`id`
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
@@ -191,11 +187,7 @@
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN
-        (
-        SELECT ri.id AS id, ri.name ,rii.`ip` FROM ${schemaName}.`resource_ipobject_ip` rii
-        LEFT JOIN ${schemaName}.`resource_ipobject` ri ON rii.`resource_id` = ri.`id`
-        ) rai ON ajpn.resource_id = rai.id
+        LEFT JOIN  ${schemaName}.`resource_ipobject` ri ON ajpn.resource_id = ri.`id`
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         <where>

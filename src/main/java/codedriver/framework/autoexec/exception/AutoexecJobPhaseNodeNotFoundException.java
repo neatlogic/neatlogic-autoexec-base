@@ -20,7 +20,7 @@ public class AutoexecJobPhaseNodeNotFoundException extends ApiRuntimeException {
     }
 
     public AutoexecJobPhaseNodeNotFoundException(String phase) {
-        super("作业阶段：'" + phase + "' 缺少可执行节点（需绑定账号）");
+        super("作业阶段：'" + phase + "' 缺少可执行节点.排查步骤：1、先确认资产清单中以下执行节点的数据是否正确；2、再确认以下执行节点绑定了对应执行用户和协议的账号");
     }
 
 }
