@@ -559,7 +559,6 @@
                ajpn.`name`          AS nodeName,
                ajpn.`user_name`     as userName,
                ajpn.`protocol_id`   AS protocolId,
-               ajpn.`protocol_port` AS protocolPort,
                ajpn.`resource_id`   as resourceId,
                ap.`id`              AS runnerId,
                ap.`url`             AS runnerUrl
@@ -871,7 +870,6 @@
         ajpn.`name` AS nodeName,
         ajpn.`user_name` as userName,
         ajpn.`protocol_id` AS protocolId,
-        ajpn.`protocol_port` AS protocolPort,
         ajpn.`resource_id` as resourceId,
         ap.`id` AS runnerId,
         ap.`url` AS runnerUrl
@@ -966,7 +964,6 @@
         ajpn.`name` AS nodeName,
         ajpn.`user_name` as userName,
         ajpn.`protocol_id` AS protocolId,
-        ajpn.`protocol_port` AS protocolPort,
         ajpn.`resource_id` as resourceId
         FROM `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
@@ -1061,7 +1058,6 @@
                                                `host`,
                                                `port`,
                                                `protocol_id`,
-                                               `protocol_port`,
                                                `name`,
                                                `type`,
                                                `user_name`,
@@ -1073,7 +1069,6 @@
                 #{host},
                 #{port},
                 #{protocolId},
-                #{protocolPort},
                 #{nodeName},
                 #{nodeType},
                 #{userName},

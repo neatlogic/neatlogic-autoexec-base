@@ -23,8 +23,6 @@ public class AutoexecJobNodeVo  extends BasePageVo {
     private String protocol;
     @EntityField(name = "协议id", type = ApiParamType.LONG)
     private Long protocolId;
-    @EntityField(name = "协议端口", type = ApiParamType.INTEGER)
-    private Integer protocolPort;
     @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
     private String userName;
     @EntityField(name = "执行目标账号", type = ApiParamType.STRING)
@@ -81,14 +79,6 @@ public class AutoexecJobNodeVo  extends BasePageVo {
 
     public void setProtocolId(Long protocolId) {
         this.protocolId = protocolId;
-    }
-
-    public Integer getProtocolPort() {
-        return protocolPort;
-    }
-
-    public void setProtocolPort(Integer protocolPort) {
-        this.protocolPort = protocolPort;
     }
 
     public String getUserName() {
