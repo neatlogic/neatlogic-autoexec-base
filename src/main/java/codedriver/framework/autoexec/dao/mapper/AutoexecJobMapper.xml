@@ -143,8 +143,8 @@
         <if test="keyword != null and keyword != ''">
             and (ri.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
         </if>
-        <if test="runnerId != null">
-            and arm.runner_id = #{runnerId}
+        <if test="runnerMapId != null">
+            and arm.runner_id = #{runnerMapId}
         </if>
     </sql>
 
