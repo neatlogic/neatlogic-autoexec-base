@@ -138,9 +138,9 @@ public enum ParamType implements IEnum {
             this.put("placeholder", "请选择");
         }
     }, "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
-    HTTPS("https", "服务信息", false, new JSONObject(){
+    ACCOUNT("account", "服务信息", false, new JSONObject(){
         {
-            this.put("type", "https");
+            this.put("type", "account");
             this.put("placeholder", "请选择");
         }
     }, "为服务的连接协议、帐号，用户连接主机上的数据库，中间件等服务");
