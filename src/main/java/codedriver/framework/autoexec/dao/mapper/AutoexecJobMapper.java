@@ -91,7 +91,7 @@ public interface AutoexecJobMapper {
 
     int updateJobPhaseNodeStatus(AutoexecJobPhaseNodeVo nodeVo);
 
-    int updateJobPhaseNodeStatusByJobIdAndJobPhaseIdListAndRunnerId(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("nodeStatusList") List<String> jobNodeStatusList,@Param("runnerId") Integer runnerId);
+    int updateJobPhaseNodeStatusByJobIdAndJobPhaseIdListAndRunnerId(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("nodeStatusList") List<String> jobNodeStatusList, @Param("runnerId") Integer runnerId);
 
     AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobNodeId(@Param("nodeId") Long nodeId);
 
@@ -106,6 +106,8 @@ public interface AutoexecJobMapper {
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
+
+    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobPhaseIdAndResourceIdList(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceIdList") List<Long> resourceIdList);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeRunnerListByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
@@ -151,11 +153,11 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobEnvVo> getAutoexecJobEnvListByJobId(Long jobId);
 
-    Integer getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext(@Param("jobId") Long jobId, @Param("isFireNext") int isFireNext,@Param("sort") int sort);
+    Integer getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext(@Param("jobId") Long jobId, @Param("isFireNext") int isFireNext, @Param("sort") int sort);
 
-    List<HashMap<String,String>> getJobPhaseRunnerAbortingCountMapCountByJobId(@Param("jobId") Long jobId);
+    List<HashMap<String, String>> getJobPhaseRunnerAbortingCountMapCountByJobId(@Param("jobId") Long jobId);
 
-    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByJobPhaseIdListAndStatusAndRunnerId(@Param("jobPhaseIdList") List<Long> jobPhaseIdList,@Param("status") String status,@Param("runnerId") Integer runnerId);
+    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByJobPhaseIdListAndStatusAndRunnerId(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("status") String status, @Param("runnerId") Integer runnerId);
 
     Integer getJobPhaseStatusCountByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
 

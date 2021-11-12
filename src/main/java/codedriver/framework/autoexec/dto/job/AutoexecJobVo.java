@@ -91,7 +91,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
     private String paramStr;
     @EntityField(name = "运行参数JSON", type = ApiParamType.JSONOBJECT)
-    private JSONObject param;
+    private JSONObject actionParam;
     private String paramHash;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
@@ -103,6 +103,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private List<AutoexecJobPhaseNodeVo> phaseNodeVoList;//场景：工具库测试|重跑节点
     private List<Long> phaseNodeIdList;
     private Integer currentPhaseSort;
+    private Long currentPhaseId;
+    private Long currentNodeResourceId;
+    private AutoexecJobPhaseNodeVo currentNode;
     private Integer isNoFireNext = 0;
     private Integer isFirstFire;
     private String action;//fire|refire|goon
@@ -545,4 +548,35 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         return 0;
     }
 
+    public Long getCurrentPhaseId() {
+        return currentPhaseId;
+    }
+
+    public void setCurrentPhaseId(Long currentPhaseId) {
+        this.currentPhaseId = currentPhaseId;
+    }
+
+    public JSONObject getActionParam() {
+        return actionParam;
+    }
+
+    public void setActionParam(JSONObject actionParam) {
+        this.actionParam = actionParam;
+    }
+
+    public Long getCurrentNodeResourceId() {
+        return currentNodeResourceId;
+    }
+
+    public void setCurrentNodeResourceId(Long currentNodeResourceId) {
+        this.currentNodeResourceId = currentNodeResourceId;
+    }
+
+    public AutoexecJobPhaseNodeVo getCurrentNode() {
+        return currentNode;
+    }
+
+    public void setCurrentNode(AutoexecJobPhaseNodeVo currentNode) {
+        this.currentNode = currentNode;
+    }
 }
