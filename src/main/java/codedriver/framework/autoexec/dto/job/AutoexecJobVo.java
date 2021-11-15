@@ -110,8 +110,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isFirstFire;
     private String action;//fire|refire|goon
 
-    private List<AutoexecJobPhaseNodeVo> jobPhaseNodeList;
-
     //param
     @JSONField(serialize = false)
     private String combopName;
@@ -474,14 +472,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setIsCanExecute(Integer isCanExecute) {
         this.isCanExecute = isCanExecute;
-    }
-
-    public List<AutoexecJobPhaseNodeVo> getJobPhaseNodeList() {
-        return jobPhaseNodeList;
-    }
-
-    public void setJobPhaseNodeList(List<AutoexecJobPhaseNodeVo> jobPhaseNodeList) {
-        this.jobPhaseNodeList = jobPhaseNodeList;
     }
 
     public List<Long> getPhaseIdList() {
