@@ -69,7 +69,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "作业节点等待输入渲染jsonStr", type = ApiParamType.JSONOBJECT)
     private String interactStr;
 
-
     private Long resourceId;
 
     private String schemaName;
@@ -78,43 +77,45 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     }
 
     public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Long runnerId) {
-        super.setJobId(jobId);
+        this.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
         this.runnerMapId = runnerId;
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, Long jobPhaseId, String host, String status, String userName, Long protocolId) {
-        super.setJobId(jobId);
-        this.jobPhaseId = jobPhaseId;
+    public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
+        this.setJobId(jobId);
+        this.jobPhaseId = jobPhaseVo.getId();
         this.status = status;
-        super.setUserName(userName);
-        super.setHost(host);
-        super.setProtocolId(protocolId);
+        this.setUserName(userName);
+        this.setHost(host);
+        this.setProtocolId(protocolId);
+        this.setLcd(jobPhaseVo.getLcd());
     }
 
     public AutoexecJobPhaseNodeVo(JSONObject jsonObj) {
         if(MapUtils.isNotEmpty(jsonObj)) {
-            super.setJobId(jsonObj.getLong("jobId"));
+            this.setJobId(jsonObj.getLong("jobId"));
             this.jobPhaseName = jsonObj.getString("phase");
             this.id = jsonObj.getLong("nodeId");
-            super.setHost(jsonObj.getString("host"));
-            super.setPort(jsonObj.getInteger("port"));
+            this.setHost(jsonObj.getString("host"));
+            this.setPort(jsonObj.getInteger("port"));
             this.status = jsonObj.getString("status");
             this.interactStr = jsonObj.getString("interact");
         }
     }
 
-    public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, Long jobPhaseId, String status, String userName, Long protocolId) {
-        super.setHost(resourceVo.getIp());
-        super.setNodeName(resourceVo.getName());
-        super.setPort(resourceVo.getPort());
-        super.setJobId(jobId);
-        this.jobPhaseId = jobPhaseId;
-        super.setProtocolId(protocolId);
+    public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, AutoexecJobPhaseVo jobPhaseVo, String status, String userName, Long protocolId) {
+        this.setHost(resourceVo.getIp());
+        this.setNodeName(resourceVo.getName());
+        this.setPort(resourceVo.getPort());
+        this.setJobId(jobId);
+        this.jobPhaseId = jobPhaseVo.getId();
+        this.setProtocolId(protocolId);
         this.status = status;
-        super.setUserName(userName);
+        this.setUserName(userName);
         this.resourceId = resourceVo.getId();
         this.setNodeType(resourceVo.getTypeName());
+        this.setLcd(jobPhaseVo.getLcd());
     }
 
     public AutoexecJobPhaseNodeVo(AutoexecCombopParamVo paramVo) {

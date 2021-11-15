@@ -13,6 +13,7 @@ import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.dto.runner.RunnerVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -163,9 +164,9 @@ public interface AutoexecJobMapper {
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
-    Integer insertJobPhaseNodeRunner(@Param("nodeId") Long nodeId, @Param("runnerMapId") Long runnerMapId);
+    Integer insertJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
 
-    Integer replaceIntoJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId);
+    Integer replaceIntoJobPhaseRunner(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     Integer insertJob(AutoexecJobVo jobVo);
 
@@ -191,9 +192,13 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseStatusByPhaseIdList(@Param("phaseIdList") List<Long> phaseIdList, @Param("status") String status);
 
-    Integer updateJobPhaseNode(AutoexecJobPhaseNodeVo nodeVo);
+    Integer updateJobPhaseNodeById(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    Integer updateJobPhaseNodeByJobIdAndPhaseIdAndResourceId(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     Integer updateJobPhaseRunnerFireNextByPhaseId(@Param("phaseId") Long phaseId, @Param("isFireNext") int isFireNext, @Param("runnerMapId") Integer runnerMapId);
+
+    Integer updateJobPhaseLcdById(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
     int replaceIntoJobEnv(AutoexecJobEnvVo jobEnvVo);
 
@@ -212,5 +217,11 @@ public interface AutoexecJobMapper {
     void deleteJobPhaseRunnerByJobId(Long jobId);
 
     void deleteJobPhaseNodeRunnerByJobId(Long jobId);
+
+    void deleteJobPhaseNodeByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
+
+    void deleteJobPhaseRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
+
+    void deleteJobPhaseNodeRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
 }
