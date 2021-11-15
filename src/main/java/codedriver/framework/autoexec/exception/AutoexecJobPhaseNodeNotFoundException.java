@@ -17,7 +17,7 @@ public class AutoexecJobPhaseNodeNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 4522850144891547590L;
 
     public AutoexecJobPhaseNodeNotFoundException(String phase, String node) {
-        super("作业剧本：'" + phase + "' 节点'" + node + "'不存在");
+        super("作业剧本：'" + phase + "' 节点'" + node + "' 资产id不存在");
     }
 
     public AutoexecJobPhaseNodeNotFoundException(String phase, Long nodeId) {

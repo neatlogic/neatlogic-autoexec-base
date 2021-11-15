@@ -1,16 +1,16 @@
 /*
- * Copyright(c) 2021 TechSure Co., Ltd. All Rights Reserved.
+ * Copyright (c)  2021 TechSure Co.,Ltd.  All Rights Reserved.
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
-package codedriver.framework.autoexec.callback.aspect;
+package codedriver.framework.autoexec.job.callback.aspect;
 
 import codedriver.framework.asynchronization.thread.CodeDriverThread;
 import codedriver.framework.asynchronization.threadpool.TransactionSynchronizationPool;
 import codedriver.framework.autoexec.annotation.AutoexecJobCallback;
 import codedriver.framework.autoexec.annotation.AutoexecJobCallbackParam;
-import codedriver.framework.autoexec.callback.core.AutoexecJobCallbackFactory;
-import codedriver.framework.autoexec.callback.core.IAutoexecJobCallback;
+import codedriver.framework.autoexec.job.callback.core.AutoexecJobCallbackFactory;
+import codedriver.framework.autoexec.job.callback.core.IAutoexecJobCallback;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import codedriver.framework.autoexec.dto.job.AutoexecJobInvokeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
