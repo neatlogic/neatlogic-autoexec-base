@@ -10,7 +10,7 @@ import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -26,7 +26,7 @@ import java.util.Objects;
  * @author lvzk
  * @since 2021/4/12 11:48
  **/
-public class AutoexecJobPhaseVo extends BasePageVo implements Serializable {
+public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private static final long serialVersionUID = 7462993286745015121L;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long id;

@@ -6,7 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 
@@ -14,7 +14,7 @@ import codedriver.framework.util.SnowflakeUtil;
  * @author lvzk
  * @since 2021/6/10 14:08
  **/
-public class AutoexecJobNodeVo  extends BasePageVo {
+public class AutoexecJobNodeVo  extends BaseEditorVo {
     @EntityField(name = "作业节点id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "作业id", type = ApiParamType.LONG)
