@@ -149,6 +149,9 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 throw new AutoexecJobRunnerMapNotMatchRunnerException(runner.getRunnerMapId());
             }
             url = runner.getUrl() + "api/rest/health/check";
+            if(StringUtils.isBlank(url)){
+                throw new AutoexecJobRunnerNotFoundException(runner.getRunnerMapId().toString());
+            }
             restVo = new RestVo(url, AuthenticateType.BUILDIN.getValue(), new JSONObject());
             result = RestUtil.sendRequest(restVo);
             if (JSONValidator.from(result).validate()) {
