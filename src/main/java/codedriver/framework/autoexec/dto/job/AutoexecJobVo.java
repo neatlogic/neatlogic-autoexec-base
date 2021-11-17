@@ -131,9 +131,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.operationId = combopVo.getId();
         this.operationType = combopVo.getOperationType();
         this.name = combopVo.getName();
-        if(paramJson.containsKey("name")) {
-            this.name = paramJson.getString("name");
-        }
         this.status = JobStatus.PENDING.getValue();
         this.source = source;
         this.threadCount = threadCount;
