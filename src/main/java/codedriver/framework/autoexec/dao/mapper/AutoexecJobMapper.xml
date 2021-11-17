@@ -1384,13 +1384,13 @@
         DELETE
         FROM `autoexec_job_phase_node`
         where `job_phase_id` = #{jobPhaseId}
-          and (ajpn.`lcd` != #{lcd} OR ajpn.`lcd` IS NULL)
+          and (`lcd` != #{lcd} OR `lcd` IS NULL)
     </delete>
     <delete id="deleteJobPhaseRunnerByJobPhaseIdAndLcd">
         DELETE
         FROM `autoexec_job_phase_runner`
         where `job_phase_id` = #{jobPhaseId}
-          and (ajpn.`lcd` != #{lcd} OR ajpn.`lcd` IS NULL)
+          and (`lcd` != #{lcd} OR `lcd` IS NULL)
     </delete>
     <delete id="deleteJobPhaseNodeRunnerByJobPhaseIdAndLcd">
         DELETE ajpnr
