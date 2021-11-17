@@ -164,7 +164,7 @@ public interface AutoexecJobMapper {
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
-    Integer insertJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
+    Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
 
     Integer replaceIntoJobPhaseRunner(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 

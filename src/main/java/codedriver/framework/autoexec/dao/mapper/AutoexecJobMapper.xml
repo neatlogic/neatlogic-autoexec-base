@@ -1145,9 +1145,9 @@
         VALUES (#{hash}, #{content});
     </insert>
 
-    <insert id="insertJobPhaseNodeRunner"
+    <insert id="insertIgnoreJobPhaseNodeRunner"
             parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeRunnerVo">
-        INSERT INTO `autoexec_job_phase_node_runner` (`job_id`, `job_phase_id`, `node_id`, `runner_map_id`)
+        INSERT ignore INTO `autoexec_job_phase_node_runner` (`job_id`, `job_phase_id`, `node_id`, `runner_map_id`)
         VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId});
     </insert>
     <insert id="replaceIntoJobPhaseRunner">
