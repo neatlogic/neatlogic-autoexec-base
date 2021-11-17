@@ -199,7 +199,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             for (RunnerMapVo runner : runnerVos) {
                 url = runner.getUrl() + "api/rest/job/exec";
                 paramJson.put("passThroughEnv", new JSONObject() {{
-                    put("runnerId", runner.getId());
+                    put("runnerId", runner.getRunnerMapId());
                     put("phaseSort", jobVo.getCurrentPhaseSort());
                 }});
                 restVo = new RestVo(url, AuthenticateType.BUILDIN.getValue(), paramJson);

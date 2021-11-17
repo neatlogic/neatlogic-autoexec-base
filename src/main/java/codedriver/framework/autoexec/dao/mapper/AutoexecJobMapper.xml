@@ -144,7 +144,7 @@
             and (ri.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
         </if>
         <if test="runnerMapId != null">
-            and arm.runner_id = #{runnerMapId}
+            and arm.id = #{runnerMapId}
         </if>
     </sql>
 
