@@ -41,6 +41,9 @@ import java.util.stream.Collectors;
  * @since 2021/4/12 11:48
  **/
 public class AutoexecJobVo extends BasePageVo implements Serializable {
+    //autoexec 的 rc4加密key
+    public static final String AUTOEXEC_RC4_KEY = "E!YO@JyjD^RIwe*OE739#Sdk%";
+
     private static final long serialVersionUID = -1382188874082154509L;
     @EntityField(name = "作业id(如果是人工发起则id正常生成，其它情况存放来源id)", type = ApiParamType.LONG)
     private Long id;
