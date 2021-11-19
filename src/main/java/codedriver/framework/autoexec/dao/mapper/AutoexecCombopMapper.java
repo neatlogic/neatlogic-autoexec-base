@@ -9,6 +9,7 @@ import codedriver.framework.autoexec.dto.combop.*;
 import codedriver.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,8 @@ public interface AutoexecCombopMapper {
     Integer getAutoexecCombopIsActiveByIdForUpdate(Long id);
 
     AutoexecCombopVo getAutoexecCombopById(Long id);
+
+    List<AutoexecCombopVo> getAutoexecCombopByIdList(ArrayList<Long> idList);
 
     int getAutoexecCombopCount(AutoexecCombopVo searchVo);
 
@@ -82,4 +85,5 @@ public interface AutoexecCombopMapper {
     int deleteAutoexecCombopPhaseByCombopId(Long combopId);
 
     int deleteAutoexecCombopPhaseOperationByCombopPhaseIdList(List<Long> combopPhaseIdList);
+
 }

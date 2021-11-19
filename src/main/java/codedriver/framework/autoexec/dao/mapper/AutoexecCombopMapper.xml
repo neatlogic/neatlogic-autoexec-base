@@ -42,6 +42,29 @@
         WHERE `id` = #{value}
     </select>
 
+    <select id="getAutoexecCombopByIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
+        SELECT
+            `id`,
+            `uk`,
+            `name`,
+            `description`,
+            `type_id` AS typeId,
+            `is_active` AS isActive,
+            `operation_type` AS operationType,
+            `notify_policy_id` AS notifyPolicyId,
+            `owner`,
+            `config`,
+            `fcd`,
+            `fcu`,
+            `lcd`,
+            `lcu`
+        FROM `autoexec_combop`
+        WHERE `id` in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <select id="getAutoexecCombopCount" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo" resultType="int">
         SELECT
             COUNT(`id`)

@@ -11,11 +11,14 @@ import codedriver.framework.autoexec.dto.script.*;
 import codedriver.framework.common.dto.ValueTextVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface AutoexecScriptMapper {
 
     AutoexecScriptVo getScriptBaseInfoById(Long id);
+
+    List<AutoexecScriptVo> getAutoexecScriptByIdList(ArrayList<Long> idList);
 
     AutoexecScriptVo getScriptLockById(Long id);
 
@@ -32,6 +35,8 @@ public interface AutoexecScriptMapper {
     AutoexecScriptVersionVo getVersionByVersionIdForUpdate(Long versionId);
 
     AutoexecScriptVersionVo getVersionByVersionId(Long versionId);
+
+    List<AutoexecScriptVersionVo> getVersionByVersionIdList(ArrayList<Long> versionIdList);
 
     Integer getMaxVersionByScriptId(Long id);
 

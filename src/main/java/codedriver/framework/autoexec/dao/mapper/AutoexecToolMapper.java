@@ -36,4 +36,5 @@ public interface AutoexecToolMapper {
     int updateActiveStatus(AutoexecToolVo toolVo);
 
     int replaceTool(AutoexecToolVo toolVo);
+
 }

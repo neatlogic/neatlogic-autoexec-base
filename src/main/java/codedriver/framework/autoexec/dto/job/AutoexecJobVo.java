@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
+import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.JobSource;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
@@ -63,8 +64,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Date endTime;
     @EntityField(name = "操作ID", type = ApiParamType.LONG)
     private Long operationId;
+    @EntityField(name = "操作Name", type = ApiParamType.STRING)
+    private String operationName;
     @EntityField(name = "操作类型", type = ApiParamType.STRING)
     private String operationType;
+    @EntityField(name = "操作类型名", type = ApiParamType.STRING)
+    private String operationTypeName;
     @EntityField(name = "执行用户", type = ApiParamType.STRING)
     private String execUser;
     @EntityField(name = "执行用户类型", type = ApiParamType.STRING)
@@ -572,4 +577,20 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public void setCurrentNode(AutoexecJobPhaseNodeVo currentNode) {
         this.currentNode = currentNode;
     }
+
+    public String getOperationName() {
+        return operationName;
+    }
+
+    public void setOperationName(String operationName) {
+        this.operationName = operationName;
+    }
+
+    public String getOperationTypeName() {
+        if(StringUtils.isNotBlank(operationType)){
+            return CombopOperationType.getText(operationType);
+        }
+        return operationTypeName;
+    }
+
 }
