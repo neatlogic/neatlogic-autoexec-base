@@ -68,9 +68,11 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         if (actionParam != null && actionParam.containsKey("jobId")) {
             Long jobId = actionParam.getLong("jobId");
             if (jobId != null) {
-                if (autoexecJobMapper.getJobInfo(jobId) == null) {
+                AutoexecJobVo jobVoTmp = autoexecJobMapper.getJobInfo(jobId);
+                if (jobVoTmp == null) {
                     throw new AutoexecJobNotFoundException(jobId.toString());
                 }
+                jobVo.setStatus(jobVoTmp.getStatus());
             }
         }
         if (jobVo.getCurrentPhaseId() != null) {
@@ -152,8 +154,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if(StringUtils.isBlank(url)){
                 throw new AutoexecJobRunnerNotFoundException(runner.getRunnerMapId().toString());
             }
-            restVo = new RestVo(url, AuthenticateType.BUILDIN.getValue(), new JSONObject());
-            result = RestUtil.sendRequest(restVo);
+            restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).build();
+            result = RestUtil.sendPostRequest(restVo);
             if (JSONValidator.from(result).validate()) {
                 JSONObject resultJson = JSONObject.parseObject(result);
                 if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
@@ -202,8 +204,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     put("runnerId", runner.getRunnerMapId());
                     put("phaseSort", jobVo.getCurrentPhaseSort());
                 }});
-                restVo = new RestVo(url, AuthenticateType.BUILDIN.getValue(), paramJson);
-                result = RestUtil.sendRequest(restVo);
+                restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
+                result = RestUtil.sendPostRequest(restVo);
                 JSONObject resultJson = JSONObject.parseObject(result);
                 if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
                     throw new AutoexecJobRunnerConnectAuthException(restVo.getUrl() + ":" + resultJson.getString("Message"));
@@ -223,8 +225,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      * @return runner response
      */
     protected String requestRunner(String runnerUrl, JSONObject paramJson) {
-        RestVo restVo = new RestVo(runnerUrl, AuthenticateType.BUILDIN.getValue(), paramJson);
-        String restResult = RestUtil.sendRequest(restVo);
+        RestVo restVo = new RestVo.Builder(runnerUrl, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
+        String restResult = RestUtil.sendPostRequest(restVo);
         JSONObject resultJson = null;
         try {
             resultJson = JSONObject.parseObject(restResult);
