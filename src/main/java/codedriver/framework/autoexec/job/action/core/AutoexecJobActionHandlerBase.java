@@ -9,7 +9,7 @@ import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.auth.core.AuthActionChecker;
 import codedriver.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
 import codedriver.framework.autoexec.constvalue.*;
-import codedriver.framework.autoexec.crossover.AutoexecCombopCrossoverService;
+import codedriver.framework.autoexec.crossover.IAutoexecCombopCrossoverService;
 import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
@@ -131,7 +131,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (combopVo == null) {
                 throw new AutoexecCombopNotFoundException(jobVo.getOperationId());
             }
-            AutoexecCombopCrossoverService accountService = CrossoverServiceFactory.getApi(AutoexecCombopCrossoverService.class);
+            IAutoexecCombopCrossoverService accountService = CrossoverServiceFactory.getApi(IAutoexecCombopCrossoverService.class);
             accountService.setOperableButtonList(combopVo);
             if (combopVo.getExecutable() != 1) {
                 throw new AutoexecCombopCannotExecuteException(combopVo.getName());

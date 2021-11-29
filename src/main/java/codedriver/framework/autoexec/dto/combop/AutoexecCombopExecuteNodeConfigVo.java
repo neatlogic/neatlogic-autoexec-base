@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +20,7 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
     private List<String> paramList;
     private List<AutoexecNodeVo> selectNodeList;
     private List<AutoexecNodeVo> inputNodeList;
+    private JSONObject filter; // 过滤器
 
     public List<Long> getTagList() {
         return tagList;
@@ -50,5 +52,13 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
 
     public void setInputNodeList(List<AutoexecNodeVo> inputNodeList) {
         this.inputNodeList = inputNodeList;
+    }
+
+    public JSONObject getFilter() {
+        return filter;
+    }
+
+    public void setFilter(JSONObject filter) {
+        this.filter = filter;
     }
 }
