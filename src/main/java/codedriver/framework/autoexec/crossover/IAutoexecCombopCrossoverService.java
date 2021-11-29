@@ -12,7 +12,7 @@ import codedriver.framework.crossover.ICrossoverService;
  * @author lvzk
  * @since 2021/11/9 15:03
  **/
-public interface AutoexecCombopCrossoverService extends ICrossoverService {
+public interface IAutoexecCombopCrossoverService extends ICrossoverService {
     /**
      * 设置当前用户可操作按钮权限列表
      *
