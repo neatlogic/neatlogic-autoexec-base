@@ -120,8 +120,8 @@
 		) a
     </select>
 
-    <insert id="insertType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
-        insert into `autoexec_type`(
+    <insert id="replaceType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
+        replace into `autoexec_type`(
         `id`,
         `name`,
         `description`,

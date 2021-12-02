@@ -37,7 +37,7 @@ public interface AutoexecTypeMapper {
 
     List<AutoexecTypeVo> getReferenceCountListForCombop(List<Long> idList);
 
-    int insertType(AutoexecTypeVo vo);
+    int replaceType(AutoexecTypeVo vo);
 
     int updateType(AutoexecTypeVo vo);
 
