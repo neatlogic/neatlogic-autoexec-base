@@ -1163,6 +1163,10 @@
         INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`)
         VALUES (#{jobId}, #{invokeId}, #{source});
     </insert>
+    <insert id="replaceIntoJobResourceInspect">
+        REPLACE INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`)
+        VALUES (#{jobId}, #{resourceId});
+    </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         UPDATE `autoexec_job_phase`
