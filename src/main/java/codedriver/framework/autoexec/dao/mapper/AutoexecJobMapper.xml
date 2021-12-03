@@ -1164,8 +1164,8 @@
         VALUES (#{jobId}, #{invokeId}, #{source});
     </insert>
     <insert id="replaceIntoJobResourceInspect">
-        REPLACE INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`)
-        VALUES (#{jobId}, #{resourceId});
+        REPLACE INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`, `phase_id`, `lcd`)
+        VALUES (#{jobId}, #{resourceId}, #{phaseId}, #{lcd});
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
