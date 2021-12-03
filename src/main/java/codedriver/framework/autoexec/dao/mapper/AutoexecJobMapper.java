@@ -202,7 +202,7 @@ public interface AutoexecJobMapper {
 
     int replaceIntoJobEnv(AutoexecJobEnvVo jobEnvVo);
 
-    int replaceIntoJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId);
+    int replaceIntoJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Long lcd);
 
     void deleteJobParamContentByHash(String paramHash);
 
