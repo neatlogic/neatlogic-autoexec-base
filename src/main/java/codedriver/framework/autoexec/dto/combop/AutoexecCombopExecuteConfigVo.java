@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 
 /**
@@ -32,6 +34,14 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     }
 
     public Long getProtocolId() {
+        //TODO 临时兼容老数据，后续删除
+        if(StringUtils.isNotBlank(protocol)){
+            try {
+                protocolId = Long.valueOf(protocol);
+            }catch (Exception ignored){
+
+            }
+        }
         return protocolId;
     }
 
