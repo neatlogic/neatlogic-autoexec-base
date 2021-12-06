@@ -1029,6 +1029,15 @@
         </if>
     </select>
 
+    <select id="getJobResourceInspectByResourceId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobResourceInspectVo">
+        select resource_id as resourceId,job_id as jobId,phase_id as phaseId,lcd from autoexec_job_resource_inspect
+        where resource_id in
+        <foreach collection="list" item="resourceId" close=")" open="(" separator=",">
+            #{resourceId}
+        </foreach>
+    </select>
+
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
         `name`,
