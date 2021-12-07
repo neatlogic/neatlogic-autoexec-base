@@ -41,12 +41,12 @@ public class AutoexecJobPhaseNodeAuditVo {
     public AutoexecJobPhaseNodeAuditVo(JSONObject audit) throws ParseException {
         String fileName = audit.getString("fileName");
         String[] fileNames = fileName.split("\\.");
-        String startTimeStr = String.format("%s-%s-%s %s:%s:%s",fileNames[0].substring(0,4),fileNames[0].substring(4,6),fileNames[0].substring(6,8),fileNames[0].substring(9,11),fileNames[0].substring(11,13),fileNames[0].substring(13,15));
-        this.endTime = TimeUtil.convertStringToDate(audit.getString("lastModified"),TimeUtil.YYYY_MM_DD_HH_MM_SS);
-        this.startTime = TimeUtil.convertStringToDate(startTimeStr,TimeUtil.YYYY_MM_DD_HH_MM_SS);
+        String startTimeStr = String.format("%s-%s-%s %s:%s:%s", fileNames[0].substring(0, 4), fileNames[0].substring(4, 6), fileNames[0].substring(6, 8), fileNames[0].substring(9, 11), fileNames[0].substring(11, 13), fileNames[0].substring(13, 15));
+        this.endTime = TimeUtil.convertStringToDate(audit.getString("lastModified"), TimeUtil.YYYY_MM_DD_HH_MM_SS);
+        this.startTime = TimeUtil.convertStringToDate(startTimeStr, TimeUtil.YYYY_MM_DD_HH_MM_SS);
         this.status = fileNames[1];
         this.execUser = fileNames[2];
-        if(this.endTime != null && this.startTime != null) {
+        if (this.endTime != null && this.startTime != null) {
             this.costTime = TimeUtil.millisecondsTransferMaxTimeUnit(this.endTime.getTime() - this.startTime.getTime());
         }
     }
@@ -104,7 +104,7 @@ public class AutoexecJobPhaseNodeAuditVo {
     }
 
     public String getStatusName() {
-        if(StringUtils.isBlank(statusName)&&StringUtils.isNotBlank(status)){
+        if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
             statusName = JobNodeStatus.getText(status);
         }
         return statusName;
