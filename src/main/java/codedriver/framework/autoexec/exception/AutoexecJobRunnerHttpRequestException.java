@@ -7,11 +7,11 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobRunnerConnectAuthException extends ApiRuntimeException {
+public class AutoexecJobRunnerHttpRequestException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 4590305514313505323L;
 
-    public AutoexecJobRunnerConnectAuthException(String msg) {
+    public AutoexecJobRunnerHttpRequestException(String msg) {
         super(msg);
     }
 

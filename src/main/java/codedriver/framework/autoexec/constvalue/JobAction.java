@@ -21,6 +21,8 @@ public enum JobAction {
     DOWNLOAD_NODE_AUDIT("downloadNodeAudit","下载节点记录"),
     NODE_AUDIT_LIST("nodeAuditList","获取节点记录"),
     CONSOLE_LOG_TAIL("consoleLogTail","获取控制台日志"),
+    CONSOLE_LOG_AUDIT_LIST("consoleLogAuditList","获取控制台日志记录列表"),
+    DOWNLOAD_CONSOLE_LOG_AUDIT("downloadConsoleLogAuditList","下载控制台日志记录"),
     DOWNLOAD_CONSOLE_LOG("downloadConsoleLog","下载控制台日志"),
     DOWNLOAD_NODE_LOG("downloadNodeLog","下载节点日志"),
     DELETE("delete","删除作业"),

@@ -159,10 +159,10 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (JSONValidator.from(result).validate()) {
                 JSONObject resultJson = JSONObject.parseObject(result);
                 if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-                    throw new AutoexecJobRunnerConnectAuthException(restVo.getUrl() + ":" + resultJson.getString("Message"));
+                    throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
                 }
             } else {
-                throw new AutoexecJobRunnerConnectAuthException(restVo.getUrl() + ":" + result);
+                throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + result);
             }
         }
     }
@@ -208,7 +208,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 result = RestUtil.sendPostRequest(restVo);
                 JSONObject resultJson = JSONObject.parseObject(result);
                 if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-                    throw new AutoexecJobRunnerConnectAuthException(restVo.getUrl() + ":" + resultJson.getString("Message"));
+                    throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
                 }
             }
         } catch (Exception ex) {
@@ -235,7 +235,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             throw new AutoexecJobRunnerConnectRefusedException(restVo.getUrl() + " " + restResult);
         }
         if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-            throw new AutoexecJobRunnerConnectAuthException(resultJson.getString("Message"));
+            throw new AutoexecJobRunnerHttpRequestException(resultJson.getString("Message"));
         }
         return resultJson.getString("Return");
     }
