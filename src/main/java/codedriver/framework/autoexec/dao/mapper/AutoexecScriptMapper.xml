@@ -455,6 +455,12 @@
             <if test="versionStatus != null and versionStatus != ''">
                 and exists (select 1 from `autoexec_script_version` b where b.`script_id` = a.`id` and b.`status` = #{versionStatus})
             </if>
+            <if test="defaultValue != null and defaultValue.size() > 0">
+                and a.`id` in
+                <foreach collection="defaultValue" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
         </where>
     </sql>
 
