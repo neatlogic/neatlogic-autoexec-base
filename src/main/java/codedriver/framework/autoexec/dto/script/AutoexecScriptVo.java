@@ -48,9 +48,6 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     private List<AutoexecScriptVersionVo> versionList;
 
-    @EntityField(name = "url序列", type = ApiParamType.STRING)
-    private String urlSequence;
-
 
     public AutoexecScriptVo() {
     }
@@ -151,11 +148,4 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
         this.versionList = versionList;
     }
 
-    public String getUrlSequence() {
-        return urlSequence;
-    }
-
-    public void setUrlSequence(String urlSequence) {
-        this.urlSequence = urlSequence;
-    }
 }
