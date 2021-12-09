@@ -1227,7 +1227,7 @@
         <if test="status == 'running'">
             `start_time` = NOW(3),
         </if>
-        <if test="status == 'succeed' or status == 'failed'">
+        <if test="status == 'succeed' or status == 'failed' or status == 'ignored'">
             `end_time` = NOW(3),
         </if>
         `status` = #{status}
