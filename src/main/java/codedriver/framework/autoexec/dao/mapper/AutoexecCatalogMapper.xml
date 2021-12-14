@@ -2,5 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecCatalogMapper">
 
+    <select id="getAutoexecCatalogById" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            `id`,
+            `name`,
+            `parent_id` AS parentId,
+            `lft`,
+            `rht`
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `id` = #{value}
+    </select>
+
+    <select id="checkAutoexecCatalogIsExists" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `id` = #{value}
+    </select>
+
+    <select id="checkAutoexecCatalogNameIsRepeat" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `name` = #{name} AND `id` != #{id}
+    </select>
+
+    <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        UPDATE `autoexec_catalog`
+        SET `name` = #{name}
+        WHERE `id` = #{id}
+    </update>
+
+    <insert id="insertAutoexecCatalog">
+        insert into `autoexec_catalog`(
+            `id`,
+            `name`,
+            `parent_id`,
+            `lft`,
+            `rht`
+        ) values (
+            #{id},
+            #{name},
+            #{parentId},
+            #{lft},
+            #{rht}
+        )
+    </insert>
 </mapper>
 
