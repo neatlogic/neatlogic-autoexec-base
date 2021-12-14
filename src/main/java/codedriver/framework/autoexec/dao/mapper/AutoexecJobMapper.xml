@@ -1449,7 +1449,7 @@
     <delete id="deleteJobProcessTaskStepByJobId">
         DELETE
         FROM `autoexec_job_processtask_step`
-        WHERE `job_id` = #{value};
+        WHERE `autoexec_job_id` = #{value};
     </delete>
     <delete id="deleteJobResourceInspectByJobId">
         DELETE
