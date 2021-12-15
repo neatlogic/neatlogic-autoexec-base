@@ -71,6 +71,20 @@
         </if>
     </select>
 
+    <select id="getAutoexecCatalogByParentIdAndStartNum"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            `id`,
+            `name`,
+            `parent_id` AS parentId,
+            `lft`,
+            `rht`
+        FROM `autoexec_catalog`
+        WHERE `parent_id` = #{parentId}
+        ORDER BY `lft` ASC
+        limit #{startNum}, 1
+    </select>
+
     <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         UPDATE `autoexec_catalog`
         SET `name` = #{name}

@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public interface AutoexecCatalogMapper {
     int searchAutoexecCatalogCount(AutoexecCatalogVo vo);
 
     List<AutoexecCatalogVo> searchAutoexecCatalog(AutoexecCatalogVo vo);
+
+    AutoexecCatalogVo getAutoexecCatalogByParentIdAndStartNum(@Param("parentId") Long parentId, @Param("startNum") Integer startNum);
 
     int updateAutoexecCatalogNameById(AutoexecCatalogVo vo);
 
