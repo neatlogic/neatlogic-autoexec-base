@@ -28,6 +28,10 @@ public interface AutoexecCatalogMapper {
 
     List<Long> getChildrenIdListByLeftRightCode(@Param("lft") Integer lft, @Param("rht") Integer rht);
 
+    List<AutoexecCatalogVo> getAutoexecCatalogChildCountListByIdList(List<Long> idList);
+
+    List<AutoexecCatalogVo> getReferenceCountForScriptListByIdList(List<Long> idList);
+
     int updateAutoexecCatalogNameById(AutoexecCatalogVo vo);
 
     int insertAutoexecCatalog(AutoexecCatalogVo vo);

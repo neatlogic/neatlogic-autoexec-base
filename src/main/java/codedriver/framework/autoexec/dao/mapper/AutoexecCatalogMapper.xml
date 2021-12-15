@@ -107,6 +107,35 @@
         WHERE `lft` &gt; #{lft} and `rht` &lt; #{rht}
     </select>
 
+    <select id="getAutoexecCatalogChildCountListByIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        a.`id`,
+        COUNT(DISTINCT b.`id`) AS childCount
+        FROM `autoexec_catalog` a
+        LEFT JOIN `autoexec_catalog` b ON b.`parent_id` = a.`id`
+        WHERE a.`id` IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        GROUP BY a.`id`
+    </select>
+
+    <select id="getReferenceCountForScriptListByIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        `catalog_id` AS id,
+        count(1) AS referenceCountForScript
+        FROM
+        `autoexec_script`
+        WHERE
+        `catalog_id` IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        GROUP BY
+        `catalog_id`
+    </select>
+
     <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         UPDATE `autoexec_catalog`
         SET `name` = #{name}
