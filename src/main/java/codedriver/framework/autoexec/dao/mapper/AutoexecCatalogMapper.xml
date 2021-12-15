@@ -71,6 +71,10 @@
         </if>
     </select>
 
+    <select id="getReferenceCountByAutoexecCatalogId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `autoexec_script` WHERE `catalog_id` = #{value}
+    </select>
+
     <select id="getAutoexecCatalogByParentIdAndStartNum"
             resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         SELECT

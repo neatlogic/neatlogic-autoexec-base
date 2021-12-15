@@ -22,6 +22,8 @@ public interface AutoexecCatalogMapper {
 
     List<AutoexecCatalogVo> searchAutoexecCatalog(AutoexecCatalogVo vo);
 
+    int getReferenceCountByAutoexecCatalogId(Long id);
+
     AutoexecCatalogVo getAutoexecCatalogByParentIdAndStartNum(@Param("parentId") Long parentId, @Param("startNum") Integer startNum);
 
     List<Long> getChildrenIdListByLeftRightCode(@Param("lft") Integer lft, @Param("rht") Integer rht);
