@@ -23,6 +23,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobVo> searchJob(List<Long> jobIdList);
 
+    List<AutoexecJobVo> getJobByExpiredDays(int expiredDays);
+
     AutoexecJobVo getJobInfo(Long jobId);
 
     AutoexecJobVo getJobDetailByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
@@ -137,6 +139,8 @@ public interface AutoexecJobMapper {
     //runner
     List<RunnerVo> getJobRunnerListByJobId(Long jobId);
 
+    List<Long> getJobPhaseRunnerMapIdListByJobIdList(List<Long> jobIds);
+
     RunnerVo getJobRunnerById(Long runnerId);
 
     List<RunnerMapVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
@@ -228,5 +232,11 @@ public interface AutoexecJobMapper {
     void deleteJobPhaseRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
     void deleteJobPhaseNodeRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
+
+    void deleteJobEvnByJobId(Long jobId);
+
+    void deleteJobInvokeByJobId(Long jobId);
+
+    void deleteJobResourceInspectByJobId(Long jobId);
 
 }

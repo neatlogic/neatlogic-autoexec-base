@@ -14,7 +14,7 @@
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
         <if test="invokeId != null">
-            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
             aji.`invoke_id` = #{invokeId}
         </if>
         <where>
@@ -59,7 +59,7 @@
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
         <if test="invokeId != null">
-            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
             aji.`invoke_id` = #{invokeId}
         </if>
         <where>
@@ -1037,6 +1037,30 @@
             #{resourceId}
         </foreach>
     </select>
+    <select id="getJobByExpiredDays" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT aj.`id`,
+               aj.`name`,
+               aj.`status`,
+               aj.`error_msg`       as errorMsg,
+               aj.`plan_start_time` as planStartTime,
+               aj.`start_time`      as startTime,
+               aj.`end_time`        as endTime,
+               aj.`operation_id`    as operationId,
+               aj.`operation_type`  as operationType,
+               aj.`exec_user`       as execUser,
+               aj.`exec_user_type`  as execUserType,
+               aj.`source`,
+               aj.`thread_count`    as threadCount
+        FROM `autoexec_job` aj
+        WHERE aj.`start_time` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY)
+    </select>
+
+    <select id="getJobPhaseRunnerMapIdListByJobIdList" resultType="java.lang.Long">
+        select distinct runner_map_id from autoexec_job_phase_runner where job_id in
+        <foreach collection="list" item="jobId" separator="," open="(" close=")">
+            #{jobId}
+        </foreach>
+    </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
@@ -1411,6 +1435,21 @@
                  LEFT JOIN `autoexec_job_phase_node` ajpn ON ajpnr.`node_id` = ajpn.`id`
         WHERE ajpn.`job_phase_id` = #{jobPhaseId}
           and (ajpn.`lcd` != #{lcd} OR ajpn.`lcd` IS NULL)
+    </delete>
+    <delete id="deleteJobEvnByJobId">
+        DELETE
+        FROM `autoexec_job_env`
+        WHERE `job_id` = #{value};
+    </delete>
+    <delete id="deleteJobInvokeByJobId">
+        DELETE
+        FROM `autoexec_job_invoke`
+        WHERE `job_id` = #{value};
+    </delete>
+    <delete id="deleteJobResourceInspectByJobId">
+        DELETE
+        FROM `autoexec_job_resource_inspect`
+        WHERE `job_id` = #{value};
     </delete>
 </mapper>
 
