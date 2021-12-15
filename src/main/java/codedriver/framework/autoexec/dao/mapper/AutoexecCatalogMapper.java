@@ -5,6 +5,13 @@
 
 package codedriver.framework.autoexec.dao.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface AutoexecCatalogMapper {
 
+    int checkCatalogIsExistsById(Long id);
+
+    void replaceScriptCatalog(@Param("scriptId") Long scriptId, @Param("catalogId") Long catalogId);
+
+    void deleteScriptCatalogByScriptId(Long id);
 }

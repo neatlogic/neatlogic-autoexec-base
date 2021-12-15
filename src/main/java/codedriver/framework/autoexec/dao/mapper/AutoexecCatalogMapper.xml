@@ -2,5 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecCatalogMapper">
 
+    <select id="checkCatalogIsExistsById" parameterType="java.lang.Long" resultType="int">
+        select count(1)
+        from `autoexec_catalog`
+        where `id` = #{value}
+    </select>
+
+    <insert id="replaceScriptCatalog">
+        replace into `autoexec_script_catalog`(`script_id`, `catalog_id`)
+        values (#{scriptId}, #{catalogId})
+    </insert>
+
+    <delete id="deleteScriptCatalogByScriptId" parameterType="long">
+        delete
+        from `autoexec_script_catalog`
+        where script_id = #{value}
+    </delete>
+
+
 </mapper>
 
