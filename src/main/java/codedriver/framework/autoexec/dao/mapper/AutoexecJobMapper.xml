@@ -14,7 +14,7 @@
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
         <if test="invokeId != null">
-            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
             aji.`invoke_id` = #{invokeId}
         </if>
         <where>
@@ -59,7 +59,7 @@
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
         <if test="invokeId != null">
-            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND aji.`source` = 'autoexecSchedule' AND
+            JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
             aji.`invoke_id` = #{invokeId}
         </if>
         <where>
