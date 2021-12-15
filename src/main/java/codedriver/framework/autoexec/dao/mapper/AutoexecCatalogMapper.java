@@ -7,6 +7,8 @@ package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
 
+import java.util.List;
+
 public interface AutoexecCatalogMapper {
 
     AutoexecCatalogVo getAutoexecCatalogById(Long id);
@@ -14,6 +16,10 @@ public interface AutoexecCatalogMapper {
     int checkAutoexecCatalogIsExists(Long id);
 
     int checkAutoexecCatalogNameIsRepeat(AutoexecCatalogVo vo);
+
+    int searchAutoexecCatalogCount(AutoexecCatalogVo vo);
+
+    List<AutoexecCatalogVo> searchAutoexecCatalog(AutoexecCatalogVo vo);
 
     int updateAutoexecCatalogNameById(AutoexecCatalogVo vo);
 

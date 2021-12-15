@@ -16,7 +16,7 @@
             `id` = #{value}
     </select>
 
-    <select id="checkAutoexecCatalogIsExists" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    <select id="checkAutoexecCatalogIsExists" parameterType="java.lang.Long" resultType="int">
         SELECT
             count(1)
         FROM
@@ -25,13 +25,50 @@
             `id` = #{value}
     </select>
 
-    <select id="checkAutoexecCatalogNameIsRepeat" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="java.lang.Integer">
+    <select id="checkAutoexecCatalogNameIsRepeat" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="int">
         SELECT
             count(1)
         FROM
             `autoexec_catalog`
         WHERE
             `name` = #{name} AND `id` != #{id}
+    </select>
+
+    <select id="searchAutoexecCatalogCount" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        `autoexec_catalog`
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and `name` LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="parentId != null">
+                and `parent_id` = #{parentId}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchAutoexecCatalog" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        `id`,
+        `name`,
+        `lft`,
+        `rht`,
+        `parent_id` AS `parentId`
+        FROM `autoexec_catalog`
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and `name` LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="parentId != null">
+                and `parent_id` = #{parentId}
+            </if>
+        </where>
+        ORDER BY `lft`
+        <if test="needPage == true">
+            LIMIT #{startNum}, #{pageSize}
+        </if>
     </select>
 
     <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
