@@ -32,6 +32,8 @@ public interface AutoexecCatalogMapper {
 
     List<AutoexecCatalogVo> getReferenceCountForScriptListByIdList(List<Long> idList);
 
+    List<AutoexecCatalogVo> getAncestorsAndSelfByLR(@Param("lft") Integer lft, @Param("rht") Integer rht);
+
     int updateAutoexecCatalogNameById(AutoexecCatalogVo vo);
 
     int insertAutoexecCatalog(AutoexecCatalogVo vo);

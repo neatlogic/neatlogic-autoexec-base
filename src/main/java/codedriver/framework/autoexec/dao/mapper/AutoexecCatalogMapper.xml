@@ -136,6 +136,19 @@
         `catalog_id`
     </select>
 
+    <select id="getAncestorsAndSelfByLR" parameterType="java.lang.Integer"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        `id`,
+        `name`,
+        `parent_id` AS parentId,
+        `lft`,
+        `rht`
+        FROM `autoexec_catalog`
+        WHERE `lft` &lt;= #{lft} AND `rht` &gt;= #{rht}
+        ORDER BY `lft` ASC
+    </select>
+
     <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         UPDATE `autoexec_catalog`
         SET `name` = #{name}
