@@ -85,6 +85,11 @@
         limit #{startNum}, 1
     </select>
 
+    <select id="getChildrenIdListByLeftRightCode" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT `id` FROM `autoexec_catalog`
+        WHERE `lft` &gt; #{lft} and `rht` &lt; #{rht}
+    </select>
+
     <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         UPDATE `autoexec_catalog`
         SET `name` = #{name}
@@ -106,5 +111,12 @@
             #{rht}
         )
     </insert>
+
+    <delete id="deleteAutoexecCatalogByIdList">
+        DELETE FROM `autoexec_catalog` WHERE `id` IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
 

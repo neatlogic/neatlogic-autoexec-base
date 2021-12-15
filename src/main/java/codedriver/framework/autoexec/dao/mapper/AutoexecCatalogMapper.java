@@ -24,8 +24,12 @@ public interface AutoexecCatalogMapper {
 
     AutoexecCatalogVo getAutoexecCatalogByParentIdAndStartNum(@Param("parentId") Long parentId, @Param("startNum") Integer startNum);
 
+    List<Long> getChildrenIdListByLeftRightCode(@Param("lft") Integer lft, @Param("rht") Integer rht);
+
     int updateAutoexecCatalogNameById(AutoexecCatalogVo vo);
 
     int insertAutoexecCatalog(AutoexecCatalogVo vo);
+
+    int deleteAutoexecCatalogByIdList(List<Long> idList);
 
 }
