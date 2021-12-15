@@ -1446,11 +1446,6 @@
         FROM `autoexec_job_invoke`
         WHERE `job_id` = #{value};
     </delete>
-    <delete id="deleteJobProcessTaskStepByJobId">
-        DELETE
-        FROM `autoexec_job_processtask_step`
-        WHERE `autoexec_job_id` = #{value};
-    </delete>
     <delete id="deleteJobResourceInspectByJobId">
         DELETE
         FROM `autoexec_job_resource_inspect`
