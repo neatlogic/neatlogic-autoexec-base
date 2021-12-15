@@ -22,7 +22,7 @@ public interface AutoexecCatalogMapper {
 
     List<AutoexecCatalogVo> searchAutoexecCatalog(AutoexecCatalogVo vo);
 
-    int getReferenceCountByAutoexecCatalogId(Long id);
+    int getReferenceCountByLR(@Param("lft") Integer lft, @Param("rht") Integer rht);
 
     AutoexecCatalogVo getAutoexecCatalogByParentIdAndStartNum(@Param("parentId") Long parentId, @Param("startNum") Integer startNum);
 

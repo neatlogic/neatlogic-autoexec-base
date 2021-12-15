@@ -7,6 +7,6 @@ public class AutoexecCatalogHasBeenReferredException extends ApiRuntimeException
     private static final long serialVersionUID = -928973151311839786L;
 
     public AutoexecCatalogHasBeenReferredException(String name){
-        super("目录：'" + name + "'中还有工具，不可删除");
+        super("目录：'" + name + "'或其子目录中还有工具，不可删除");
     }
 }

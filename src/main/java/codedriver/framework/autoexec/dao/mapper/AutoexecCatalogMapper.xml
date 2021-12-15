@@ -71,8 +71,21 @@
         </if>
     </select>
 
-    <select id="getReferenceCountByAutoexecCatalogId" parameterType="java.lang.Long" resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM `autoexec_script` WHERE `catalog_id` = #{value}
+    <select id="getReferenceCountByLR" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        `autoexec_script`
+        WHERE
+        `catalog_id` IN (
+        SELECT
+        `id`
+        FROM
+        `autoexec_catalog`
+        WHERE
+        `lft` &gt;= #{lft}
+        AND `rht` &lt;= #{rht}
+        )
     </select>
 
     <select id="getAutoexecCatalogByParentIdAndStartNum"
