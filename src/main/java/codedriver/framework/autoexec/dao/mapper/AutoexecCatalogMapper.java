@@ -5,13 +5,19 @@
 
 package codedriver.framework.autoexec.dao.mapper;
 
+import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AutoexecCatalogMapper {
 
     int checkCatalogIsExistsById(Long id);
 
-    void replaceScriptCatalog(@Param("scriptId") Long scriptId, @Param("catalogId") Long catalogId);
+    List<AutoexecCatalogVo> getCatalogListByIdList(@Param("idList") List<Long> idList);
 
-    void deleteScriptCatalogByScriptId(Long id);
+    List<AutoexecCatalogVo> getChildrenByLftRht(AutoexecCatalogVo catalogVo);
+
+    AutoexecCatalogVo getCatalogById(Long id);
+
 }

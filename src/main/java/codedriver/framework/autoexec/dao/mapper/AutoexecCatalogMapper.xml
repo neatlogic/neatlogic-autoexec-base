@@ -8,16 +8,37 @@
         where `id` = #{value}
     </select>
 
-    <insert id="replaceScriptCatalog">
-        replace into `autoexec_script_catalog`(`script_id`, `catalog_id`)
-        values (#{scriptId}, #{catalogId})
-    </insert>
+    <select id="getCatalogListByIdList" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        select `id`, `name`, `parent_id` as parentId, `lft`, `rht`
+        from `autoexec_catalog`
+        where `id`
+        in
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 
-    <delete id="deleteScriptCatalogByScriptId" parameterType="long">
-        delete
-        from `autoexec_script_catalog`
-        where script_id = #{value}
-    </delete>
+    <select id="getChildrenByLftRht" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT `id`,
+               `name`,
+               `parent_id` as parentId,
+               `lft`,
+               `rht`
+        FROM `autoexec_catalog`
+        WHERE `lft` >= #{lft}
+          AND `rht` &lt;= #{rht}
+
+    </select>
+    <select id="getCatalogById" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT `id`,
+               `name`,
+               `parent_id` as parentId,
+               `lft`,
+               `rht`
+        FROM `autoexec_catalog`
+        WHERE `id` = #{value}
+    </select>
+
 
 
 </mapper>

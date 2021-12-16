@@ -859,11 +859,27 @@
         select `id` from `autoexec_script_version`
     </select>
 
+    <select id="getScriptVersionListByScriptId" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select
+            `id`,
+            `script_id` as scriptId,
+            `version`,
+            `parser`,
+            `status`,
+            `reviewer`,
+            `is_active` as isActive,
+            `lcu`,
+            `lcd`
+        from `autoexec_script_version`
+        where `script_id` = #{vaule}
+    </select>
+
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script` set
         `name` = #{name},
         `exec_mode` = #{execMode},
         `type_id` = #{typeId},
+        `catalog_id` = #{catalogId},
         `risk_id` = #{riskId},
         `description` = #{description}
         where `id` = #{id}
@@ -899,6 +915,7 @@
         `id`,
         `name`,
         `type_id`,
+        `catalog_id`,
         `risk_id`,
         `exec_mode`,
         `description`,
@@ -908,6 +925,7 @@
         #{id},
         #{name},
         #{typeId},
+        #{catalogId},
         #{riskId},
         #{execMode},
         #{description},
