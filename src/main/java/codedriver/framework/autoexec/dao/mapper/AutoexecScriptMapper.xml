@@ -45,7 +45,7 @@
     <select id="getScriptLockById" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select a.`id`,
                a.`name`,
-               a.`exec_mode` as execMode,
+               a.`exec_mode`  as execMode,
                a.`type_id`    AS typeId,
                a.`risk_id`    AS riskId,
                c.`name`       AS typeName,
@@ -55,10 +55,10 @@
                a.`fcu`,
                a.`fcd`
         from `autoexec_script` a
-                 JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
-                 JOIN `autoexec_type` c ON a.`type_id` = c.`id`
-                 JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
-        where `id` = #{value}
+                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
+                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
+                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+        where a.`id` = #{value}
             for update
     </select>
 
