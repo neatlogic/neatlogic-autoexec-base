@@ -2,5 +2,180 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecCatalogMapper">
 
+    <select id="getAutoexecCatalogById" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            `id`,
+            `name`,
+            `parent_id` AS parentId,
+            `lft`,
+            `rht`
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `id` = #{value}
+    </select>
+
+    <select id="checkAutoexecCatalogIsExists" parameterType="java.lang.Long" resultType="int">
+        SELECT
+            count(1)
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `id` = #{value}
+    </select>
+
+    <select id="checkAutoexecCatalogNameIsRepeat" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="int">
+        SELECT
+            count(1)
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `name` = #{name} AND `id` != #{id}
+    </select>
+
+    <select id="searchAutoexecCatalogCount" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        `autoexec_catalog`
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and `name` LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="parentId != null">
+                and `parent_id` = #{parentId}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchAutoexecCatalog" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        `id`,
+        `name`,
+        `lft`,
+        `rht`,
+        `parent_id` AS `parentId`
+        FROM `autoexec_catalog`
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and `name` LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="parentId != null">
+                and `parent_id` = #{parentId}
+            </if>
+        </where>
+        ORDER BY `lft`
+        <if test="needPage == true">
+            LIMIT #{startNum}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getReferenceCountByLR" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        `autoexec_script`
+        WHERE
+        `catalog_id` IN (
+        SELECT
+        `id`
+        FROM
+        `autoexec_catalog`
+        WHERE
+        `lft` &gt;= #{lft}
+        AND `rht` &lt;= #{rht}
+        )
+    </select>
+
+    <select id="getAutoexecCatalogByParentIdAndStartNum"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            `id`,
+            `name`,
+            `parent_id` AS parentId,
+            `lft`,
+            `rht`
+        FROM `autoexec_catalog`
+        WHERE `parent_id` = #{parentId}
+        ORDER BY `lft` ASC
+        limit #{startNum}, 1
+    </select>
+
+    <select id="getChildrenIdListByLeftRightCode" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT `id` FROM `autoexec_catalog`
+        WHERE `lft` &gt; #{lft} and `rht` &lt; #{rht}
+    </select>
+
+    <select id="getAutoexecCatalogChildCountListByIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        a.`id`,
+        COUNT(DISTINCT b.`id`) AS childCount
+        FROM `autoexec_catalog` a
+        LEFT JOIN `autoexec_catalog` b ON b.`parent_id` = a.`id`
+        WHERE a.`id` IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        GROUP BY a.`id`
+    </select>
+
+    <select id="getReferenceCountForScriptListByIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        `catalog_id` AS id,
+        count(1) AS referenceCountForScript
+        FROM
+        `autoexec_script`
+        WHERE
+        `catalog_id` IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        GROUP BY
+        `catalog_id`
+    </select>
+
+    <select id="getAncestorsAndSelfByLR" parameterType="java.lang.Integer"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+        `id`,
+        `name`,
+        `parent_id` AS parentId,
+        `lft`,
+        `rht`
+        FROM `autoexec_catalog`
+        WHERE `lft` &lt;= #{lft} AND `rht` &gt;= #{rht}
+        ORDER BY `lft` ASC
+    </select>
+
+    <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        UPDATE `autoexec_catalog`
+        SET `name` = #{name}
+        WHERE `id` = #{id}
+    </update>
+
+    <insert id="insertAutoexecCatalog">
+        insert into `autoexec_catalog`(
+            `id`,
+            `name`,
+            `parent_id`,
+            `lft`,
+            `rht`
+        ) values (
+            #{id},
+            #{name},
+            #{parentId},
+            #{lft},
+            #{rht}
+        )
+    </insert>
+
+    <delete id="deleteAutoexecCatalogByIdList">
+        DELETE FROM `autoexec_catalog` WHERE `id` IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
 
