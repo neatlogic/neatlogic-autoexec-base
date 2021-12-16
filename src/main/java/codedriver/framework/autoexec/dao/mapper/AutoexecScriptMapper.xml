@@ -17,9 +17,9 @@
                a.`fcu`,
                a.`fcd`
         FROM `autoexec_script` a
-                 JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
-                 JOIN `autoexec_type` c ON a.`type_id` = c.`id`
-                 JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
+                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
+                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
         WHERE a.`id` = #{value}
     </select>
 
