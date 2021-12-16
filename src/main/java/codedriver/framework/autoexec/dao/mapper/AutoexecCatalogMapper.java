@@ -44,6 +44,5 @@ public interface AutoexecCatalogMapper {
 
     List<AutoexecCatalogVo> getChildrenByLftRht(AutoexecCatalogVo catalogVo);
 
-    AutoexecCatalogVo getCatalogById(Long id);
 
 }
