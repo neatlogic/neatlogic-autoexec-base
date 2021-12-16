@@ -69,6 +69,8 @@ public class AutoexecOperationVo extends BaseEditorVo {
     @JSONField(serialize = false)
     private List<Long> typeIdList;
     @JSONField(serialize = false)
+    private List<Long> catalogIdList;
+    @JSONField(serialize = false)
     private List<Long> riskIdList;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argument;
@@ -237,6 +239,14 @@ public class AutoexecOperationVo extends BaseEditorVo {
 
     public void setTypeIdList(List<Long> typeIdList) {
         this.typeIdList = typeIdList;
+    }
+
+    public List<Long> getCatalogIdList() {
+        return catalogIdList;
+    }
+
+    public void setCatalogIdList(List<Long> catalogIdList) {
+        this.catalogIdList = catalogIdList;
     }
 
     public List<Long> getRiskIdList() {

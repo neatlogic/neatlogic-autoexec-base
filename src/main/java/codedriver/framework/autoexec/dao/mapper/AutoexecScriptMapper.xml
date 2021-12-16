@@ -43,22 +43,16 @@
     </select>
 
     <select id="getScriptLockById" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
-        select a.`id`,
-               a.`name`,
-               a.`exec_mode`  as execMode,
-               a.`type_id`    AS typeId,
-               a.`risk_id`    AS riskId,
-               c.`name`       AS typeName,
-               a.`catalog_id` AS catalogId,
-               b.`name`       AS catalogName,
-               d.`name`       AS riskName,
-               a.`fcu`,
-               a.`fcd`
+        select
+            `id`,
+            `name`,
+            `exec_mode` as execMode,
+            `type_id` as typeId,
+            `risk_id` as riskId,
+            `fcu`,
+            `fcd`
         from `autoexec_script` a
-                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
-                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
-                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
-        where a.`id` = #{value}
+        where `id` = #{value}
             for update
     </select>
 
@@ -454,6 +448,12 @@
             <if test="typeIdList != null and typeIdList.size() != 0">
                 and `type_id` in
                 <foreach collection="typeIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="catalogIdList != null and catalogIdList.size() != 0">
+                and `catalog_id` in
+                <foreach collection="catalogIdList" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
