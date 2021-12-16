@@ -237,8 +237,6 @@ public interface AutoexecJobMapper {
 
     void deleteJobInvokeByJobId(Long jobId);
 
-    void deleteJobProcessTaskStepByJobId(Long jobId);
-
     void deleteJobResourceInspectByJobId(Long jobId);
 
 }
