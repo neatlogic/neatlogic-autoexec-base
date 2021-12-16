@@ -146,10 +146,14 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         JSONArray combopParamsResult = new JSONArray();
         for (Object combopParam : combopParams) {
             JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
-
-            Object value = paramJson.get(combopParamJson.getString("key"));
-            combopParamJson.put("value", value);
-            combopParamsResult.add(combopParamJson);
+            if(MapUtils.isNotEmpty(combopParamJson)) {
+                String key = combopParamJson.getString("key");
+                if(StringUtils.isNotBlank(key)){
+                    Object value = paramJson.get(key);
+                    combopParamJson.put("value", value);
+                    combopParamsResult.add(combopParamJson);
+                }
+            }
         }
         this.execUser = UserContext.get().getUserUuid();
         this.execUserType = GroupSearch.USER.getValue();
