@@ -68,6 +68,8 @@ public interface AutoexecScriptMapper {
 
     List<AutoexecScriptVersionVo> searchHistoricalVersionListByScriptIdAndStatus(AutoexecScriptVersionVo versionVo);
 
+    List<AutoexecScriptVersionVo> getScriptVersionListByScriptId(Long scriptId);
+
     List<AutoexecScriptVersionParamVo> getParamListByVersionId(Long versionId);
 
     List<AutoexecScriptVersionParamVo> getParamListByVersionIdAndMode(@Param("versionId") Long versionId, @Param("mode") String mode);

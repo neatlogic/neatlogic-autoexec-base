@@ -36,6 +36,10 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private String execModeText;
     @EntityField(name = "分类ID", type = ApiParamType.LONG)
     private Long typeId;
+    @EntityField(name = "工具目录ID", type = ApiParamType.LONG)
+    private Long catalogId;
+    @EntityField(name = "工具目录名称", type = ApiParamType.STRING)
+    private String catalogName;
     @EntityField(name = "操作级别ID", type = ApiParamType.LONG)
     private Long riskId;
     @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
@@ -64,6 +68,8 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private String configStr;
     @JSONField(serialize = false)
     private List<Long> typeIdList;
+    @JSONField(serialize = false)
+    private List<Long> catalogIdList;
     @JSONField(serialize = false)
     private List<Long> riskIdList;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
@@ -119,6 +125,22 @@ public class AutoexecOperationVo extends BaseEditorVo {
 
     public void setTypeId(Long typeId) {
         this.typeId = typeId;
+    }
+
+    public Long getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(Long catalogId) {
+        this.catalogId = catalogId;
+    }
+
+    public String getCatalogName() {
+        return catalogName;
+    }
+
+    public void setCatalogName(String catalogName) {
+        this.catalogName = catalogName;
     }
 
     public Long getRiskId() {
@@ -217,6 +239,14 @@ public class AutoexecOperationVo extends BaseEditorVo {
 
     public void setTypeIdList(List<Long> typeIdList) {
         this.typeIdList = typeIdList;
+    }
+
+    public List<Long> getCatalogIdList() {
+        return catalogIdList;
+    }
+
+    public void setCatalogIdList(List<Long> catalogIdList) {
+        this.catalogIdList = catalogIdList;
     }
 
     public List<Long> getRiskIdList() {

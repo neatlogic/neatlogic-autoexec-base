@@ -2,20 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecScriptMapper">
 
-    <select id="getScriptBaseInfoById" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
-        select
-        `id`,
-        `name`,
-        `exec_mode` as execMode,
-        `type_id` as typeId,
-        `risk_id` as riskId,
-        (select `name` from `autoexec_type` where a.`type_id` = `id`) as typeName,
-        (select `name` from `autoexec_risk` where a.`risk_id` = `id`) as riskName,
-        `description`,
-        `fcu`,
-        `fcd`
-        from `autoexec_script` a
-        where `id` = #{value}
+    <select id="getScriptBaseInfoById" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+        SELECT a.`id`,
+               a.`name`,
+               a.`exec_mode`  AS execMode,
+               a.`type_id`    AS typeId,
+               a.`risk_id`    AS riskId,
+               c.`name`       AS typeName,
+               a.`catalog_id` AS catalogId,
+               b.`name`       AS catalogName,
+               d.`name`       AS riskName,
+               a.`description`,
+               a.`fcu`,
+               a.`fcd`
+        FROM `autoexec_script` a
+                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
+                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
+                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+        WHERE a.`id` = #{value}
     </select>
 
     <select id="getAutoexecScriptByIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
@@ -39,16 +44,16 @@
 
     <select id="getScriptLockById" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select
-        `id`,
-        `name`,
-        `exec_mode` as execMode,
-        `type_id` as typeId,
-        `risk_id` as riskId,
-        `fcu`,
-        `fcd`
+            `id`,
+            `name`,
+            `exec_mode` as execMode,
+            `type_id` as typeId,
+            `risk_id` as riskId,
+            `fcu`,
+            `fcd`
         from `autoexec_script` a
         where `id` = #{value}
-        for update
+            for update
     </select>
 
     <select id="checkScriptIsExistsById" parameterType="java.lang.Long" resultType="int">
@@ -446,6 +451,12 @@
                     #{item}
                 </foreach>
             </if>
+            <if test="catalogIdList != null and catalogIdList.size() != 0">
+                and `catalog_id` in
+                <foreach collection="catalogIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
             <if test="riskIdList != null and riskIdList.size() != 0">
                 and `risk_id` in
                 <foreach collection="riskIdList" item="item" open="(" separator="," close=")">
@@ -566,6 +577,12 @@
         <if test="typeIdList != null and typeIdList.size() != 0">
             and a.`type_id` in
             <foreach collection="typeIdList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="catalogIdList != null and catalogIdList.size() != 0">
+            and a.`catalog_id` in
+            <foreach collection="catalogIdList" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
@@ -842,11 +859,27 @@
         select `id` from `autoexec_script_version`
     </select>
 
+    <select id="getScriptVersionListByScriptId" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select
+            `id`,
+            `script_id` as scriptId,
+            `version`,
+            `parser`,
+            `status`,
+            `reviewer`,
+            `is_active` as isActive,
+            `lcu`,
+            `lcd`
+        from `autoexec_script_version`
+        where `script_id` = #{vaule}
+    </select>
+
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script` set
         `name` = #{name},
         `exec_mode` = #{execMode},
         `type_id` = #{typeId},
+        `catalog_id` = #{catalogId},
         `risk_id` = #{riskId},
         `description` = #{description}
         where `id` = #{id}
@@ -882,6 +915,7 @@
         `id`,
         `name`,
         `type_id`,
+        `catalog_id`,
         `risk_id`,
         `exec_mode`,
         `description`,
@@ -891,6 +925,7 @@
         #{id},
         #{name},
         #{typeId},
+        #{catalogId},
         #{riskId},
         #{execMode},
         #{description},

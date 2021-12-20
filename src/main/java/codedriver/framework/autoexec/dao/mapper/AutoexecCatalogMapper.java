@@ -42,4 +42,9 @@ public interface AutoexecCatalogMapper {
 
     int deleteAutoexecCatalogByIdList(List<Long> idList);
 
+    List<AutoexecCatalogVo> getCatalogListByIdList(@Param("idList") List<Long> idList);
+
+    List<AutoexecCatalogVo> getChildrenByLftRht(AutoexecCatalogVo catalogVo);
+
+
 }
