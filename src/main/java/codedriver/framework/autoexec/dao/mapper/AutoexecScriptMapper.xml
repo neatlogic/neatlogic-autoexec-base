@@ -874,6 +874,12 @@
         where `script_id` = #{vaule}
     </select>
 
+    <select id="getAutoexecCatalogIdByScriptId" resultType="java.lang.Long">
+        select `catalog_id`
+        from `autoexec_script`
+        where `id` = #{value}
+    </select>
+
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script` set
         `name` = #{name},
