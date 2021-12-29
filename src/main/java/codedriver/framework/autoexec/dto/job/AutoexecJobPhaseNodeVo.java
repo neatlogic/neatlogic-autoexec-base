@@ -68,7 +68,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private List<AutoexecJobPhaseNodeOperationStatusVo> operationStatusVoList;
     @EntityField(name = "作业节点等待输入渲染jsonStr", type = ApiParamType.JSONOBJECT)
     private String interactStr;
-
+    @EntityField(name = "是否已删除", type = ApiParamType.INTEGER)
+    private Integer isDelete;
     private Long resourceId;
 
     private String schemaName;
@@ -76,10 +77,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     public AutoexecJobPhaseNodeVo() {
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Long runnerId) {
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Long runnerId, Integer isDelete) {
         this.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
         this.runnerMapId = runnerId;
+        this.isDelete = isDelete;
     }
 
     public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
@@ -93,7 +95,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     }
 
     public AutoexecJobPhaseNodeVo(JSONObject jsonObj) {
-        if(MapUtils.isNotEmpty(jsonObj)) {
+        if (MapUtils.isNotEmpty(jsonObj)) {
             this.setJobId(jsonObj.getLong("jobId"));
             this.jobPhaseName = jsonObj.getString("phase");
             this.id = jsonObj.getLong("nodeId");
@@ -295,9 +297,17 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     }
 
     public JSONObject getInteract() {
-        if(StringUtils.isNotBlank(interactStr)) {
+        if (StringUtils.isNotBlank(interactStr)) {
             return JSONObject.parseObject(interactStr);
         }
         return null;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

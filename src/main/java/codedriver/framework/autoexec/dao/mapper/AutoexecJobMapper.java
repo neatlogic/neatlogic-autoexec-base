@@ -173,7 +173,7 @@ public interface AutoexecJobMapper {
 
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
 
-    Integer replaceIntoJobPhaseRunner(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+    Integer insertDuplicateJobPhaseRunner(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     Integer insertJob(AutoexecJobVo jobVo);
 
@@ -183,15 +183,15 @@ public interface AutoexecJobMapper {
 
     Integer insertJobPhaseOperation(AutoexecJobPhaseOperationVo operationVo);
 
-    Integer insertJobParamContent(AutoexecJobParamContentVo contentVo);
+    Integer insertIgnoreJobParamContent(AutoexecJobParamContentVo contentVo);
 
     Integer updateJobPhaseStatus(AutoexecJobPhaseVo autoexecJobPhaseVo);
 
-    Integer updateJobPhaseFailedNodeStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
+    Integer updateJobPhaseNodeStatusByJobIdAndIsDelete(@Param("jobId") Long id, @Param("status") String status, @Param("isDelete") Integer isDelete);
 
     Integer updateJobPhaseRunnerStatusBatch(@Param("phaseIdList") List<Long> phaseIdList, @Param("status") String phaseStatus, @Param("runnerId") Long runnerId);
 
-    void updateJobPhaseStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
+    Integer updateJobPhaseStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
 
     Integer updateJobPhaseRunnerStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status);
 
@@ -207,9 +207,13 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseLcdById(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
-    int replaceIntoJobEnv(AutoexecJobEnvVo jobEnvVo);
+    Integer updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
-    int replaceIntoJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
+    Integer updateJobParamHashById(@Param("jobId") Long jobId, @Param("paramHash") String paramHash);
+
+    int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
+
+    int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
 
     void deleteJobParamContentByHash(String paramHash);
 
@@ -229,9 +233,11 @@ public interface AutoexecJobMapper {
 
     void deleteJobPhaseNodeByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
+    void deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
+
     void deleteJobPhaseRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
-    void deleteJobPhaseNodeRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
+    void deleteJobPhaseNodeRunnerByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
 
     void deleteJobEvnByJobId(Long jobId);
 
