@@ -24,6 +24,10 @@ public interface AutoexecCatalogMapper {
 
     List<AutoexecCatalogVo> searchAutoexecCatalog(AutoexecCatalogVo vo);
 
+    Integer getMaxRhtCode();
+
+    List<AutoexecCatalogVo> getCatalogForTree(@Param("lft") Integer lft, @Param("rht") Integer rht);
+
     int getReferenceCountByLR(@Param("lft") Integer lft, @Param("rht") Integer rht);
 
     AutoexecCatalogVo getAutoexecCatalogByParentIdAndStartNum(@Param("parentId") Long parentId, @Param("startNum") Integer startNum);

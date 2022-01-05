@@ -85,6 +85,23 @@
         </if>
     </select>
 
+    <select id="getMaxRhtCode" resultType="java.lang.Integer">
+        SELECT MAX(`rht`) FROM `autoexec_catalog`
+    </select>
+
+    <select id="getCatalogForTree" resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            a.`id`,
+            a.`name`,
+            a.`parent_id` AS parentId,
+            a.`lft`,
+            a.`rht`,
+            (SELECT COUNT(1) FROM `autoexec_catalog` WHERE `parent_id` = a.`id`) as `childCount`
+        FROM `autoexec_catalog` a
+        WHERE a.`lft` &gt;= #{lft} AND a.`rht` &lt;= #{rht}
+        ORDER BY a.`lft`
+    </select>
+
     <select id="getReferenceCountByLR" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT
         count(1)
