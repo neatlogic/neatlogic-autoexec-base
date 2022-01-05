@@ -16,6 +16,20 @@
             `id` = #{value}
     </select>
 
+    <select id="getAutoexecCatalogByName" parameterType="java.lang.String"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            `id`,
+            `name`,
+            `parent_id` AS parentId,
+            `lft`,
+            `rht`
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `name` = #{value}
+    </select>
+
     <select id="checkAutoexecCatalogIsExists" parameterType="java.lang.Long" resultType="int">
         SELECT
             count(1)
@@ -208,7 +222,6 @@
           AND `rht` &lt;= #{rht}
 
     </select>
-
 
 
 </mapper>
