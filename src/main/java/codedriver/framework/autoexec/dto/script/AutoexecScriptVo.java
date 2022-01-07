@@ -48,6 +48,8 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     private List<AutoexecScriptVersionVo> versionList;
 
+    private String catalogPath;// 所属工具目录完整路径
+
 
     public AutoexecScriptVo() {
     }
@@ -148,4 +150,11 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
         this.versionList = versionList;
     }
 
+    public String getCatalogPath() {
+        return catalogPath;
+    }
+
+    public void setCatalogPath(String catalogPath) {
+        this.catalogPath = catalogPath;
+    }
 }

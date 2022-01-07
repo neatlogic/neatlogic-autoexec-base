@@ -23,6 +23,27 @@
         WHERE a.`id` = #{value}
     </select>
 
+    <select id="getScriptBaseInfoByName" parameterType="java.lang.String"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+        SELECT a.`id`,
+               a.`name`,
+               a.`exec_mode`  AS execMode,
+               a.`type_id`    AS typeId,
+               a.`risk_id`    AS riskId,
+               c.`name`       AS typeName,
+               a.`catalog_id` AS catalogId,
+               b.`name`       AS catalogName,
+               d.`name`       AS riskName,
+               a.`description`,
+               a.`fcu`,
+               a.`fcd`
+        FROM `autoexec_script` a
+                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
+                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
+                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+        WHERE a.`name` = #{value}
+    </select>
+
     <select id="getAutoexecScriptByIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select
         `id`,
@@ -878,6 +899,15 @@
         select `catalog_id`
         from `autoexec_script`
         where `id` = #{value}
+    </select>
+
+    <select id="getAutoexecScriptIdListWhichHasActiveVersionByCatalogId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select `id`
+        from `autoexec_script` a
+        where exists (select 1 from `autoexec_script_version` where `script_id` = a.`id` and `is_active` = 1)
+        <if test="catalogId != null">
+            and `catalog_id` = #{catalogId}
+        </if>
     </select>
 
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
