@@ -23,6 +23,27 @@
         WHERE a.`id` = #{value}
     </select>
 
+    <select id="getScriptBaseInfoByName" parameterType="java.lang.String"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+        SELECT a.`id`,
+               a.`name`,
+               a.`exec_mode`  AS execMode,
+               a.`type_id`    AS typeId,
+               a.`risk_id`    AS riskId,
+               c.`name`       AS typeName,
+               a.`catalog_id` AS catalogId,
+               b.`name`       AS catalogName,
+               d.`name`       AS riskName,
+               a.`description`,
+               a.`fcu`,
+               a.`fcd`
+        FROM `autoexec_script` a
+                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
+                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
+                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+        WHERE a.`name` = #{value}
+    </select>
+
     <select id="getAutoexecScriptByIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select
         `id`,

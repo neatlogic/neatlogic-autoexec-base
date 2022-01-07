@@ -18,6 +18,8 @@ public interface AutoexecScriptMapper {
 
     AutoexecScriptVo getScriptBaseInfoById(Long id);
 
+    AutoexecScriptVo getScriptBaseInfoByName(String name);
+
     List<AutoexecScriptVo> getAutoexecScriptByIdList(ArrayList<Long> idList);
 
     AutoexecScriptVo getScriptLockById(Long id);
