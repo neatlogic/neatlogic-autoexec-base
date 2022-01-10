@@ -901,12 +901,15 @@
         where `id` = #{value}
     </select>
 
-    <select id="getAutoexecScriptIdListWhichHasActiveVersionByCatalogId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="getAutoexecScriptIdListWhichHasActiveVersionByCatalogIdList" parameterType="java.util.List" resultType="java.lang.Long">
         select `id`
         from `autoexec_script` a
         where exists (select 1 from `autoexec_script_version` where `script_id` = a.`id` and `is_active` = 1)
-        <if test="catalogId != null">
-            and `catalog_id` = #{catalogId}
+        <if test="catalogIdList != null and catalogIdList.size() != 0">
+            and `catalog_id` in
+            <foreach collection="catalogIdList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
         </if>
     </select>
 

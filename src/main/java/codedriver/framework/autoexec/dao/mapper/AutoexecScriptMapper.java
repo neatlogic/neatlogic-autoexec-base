@@ -121,10 +121,10 @@ public interface AutoexecScriptMapper {
     /**
      * 根据工具目录id查询有激活版本的脚本id
      *
-     * @param catalogId 工具目录id
+     * @param catalogIdList 工具目录id列表
      * @return
      */
-    List<Long> getAutoexecScriptIdListWhichHasActiveVersionByCatalogId(@Param("catalogId") Long catalogId);
+    List<Long> getAutoexecScriptIdListWhichHasActiveVersionByCatalogIdList(@Param("catalogIdList") List<Long> catalogIdList);
 
     int updateScriptBaseInfo(AutoexecScriptVo scriptVo);
 
