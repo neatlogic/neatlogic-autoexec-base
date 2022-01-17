@@ -25,6 +25,17 @@ public interface IScriptParamType {
     String getTypeName();
 
     /**
+     * 获取参数描述
+     * @return
+     */
+    String getDescription();
+
+    /**
+     * 排序
+     * @return
+     */
+    int getSort();
+    /**
      * 是否需要配置数据源
      * @return true|false
      */
