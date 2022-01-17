@@ -6,15 +6,21 @@
 package codedriver.framework.autoexec.script.paramtype;
 
 import codedriver.framework.applicationlistener.core.ModuleInitializedListenerBase;
+import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.bootstrap.CodedriverWebApplicationContext;
 import codedriver.framework.common.RootComponent;
+import codedriver.framework.common.constvalue.IEnum;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 @RootComponent
-public class ScriptParamTypeFactory extends ModuleInitializedListenerBase {
+public class ScriptParamTypeFactory extends ModuleInitializedListenerBase implements IEnum {
 
     private static final Map<String, IScriptParamType> scriptParamTypeMap = new HashMap<>();
 
@@ -35,4 +41,25 @@ public class ScriptParamTypeFactory extends ModuleInitializedListenerBase {
 
     }
 
+    @Override
+    public List getValueTextList() {
+        int size = scriptParamTypeMap.size();
+        List<JSONObject> resultList = new ArrayList(size);
+        for (int i = 0; i < size; i++) {
+            resultList.add(new JSONObject());
+        }
+        for (Map.Entry<String, IScriptParamType> entry : scriptParamTypeMap.entrySet()) {
+            IScriptParamType paramType = entry.getValue();
+            int sort = paramType.getSort();
+            if (sort < size) {
+                JSONObject jsonObj = resultList.get(sort);
+                jsonObj.put("value", paramType.getType());
+                jsonObj.put("text", paramType.getTypeName());
+                jsonObj.put("config", paramType.getConfig());
+                jsonObj.put("description", paramType.getDescription());
+                jsonObj.put("sort", sort);
+            }
+        }
+        return resultList;
+    }
 }
