@@ -22,7 +22,7 @@ public class AutoexecParamVo implements Serializable {
     private String key;
     @EntityField(name = "中文名", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "参数默认值", type = ApiParamType.STRING)
+    @EntityField(name = "参数默认值", type = ApiParamType.NOAUTH)
     private Object defaultValue;
     @EntityField(name = "参数类型(出参、入参)", type = ApiParamType.STRING)
     private String mode;
@@ -94,10 +94,12 @@ public class AutoexecParamVo implements Serializable {
         if (defaultValue != null) {
             if (defaultValue instanceof String) {
                 switch (type) {
-                    case "select":
                     case "multiselect":
-                    case "radio":
+                        defaultValue = JSONObject.parseArray((String) defaultValue);
+                        break;
                     case "checkbox":
+                        defaultValue = JSONObject.parseArray((String) defaultValue);
+                        break;
                     case "file":
                         try {
                             defaultValue = JSONObject.parseObject((String) defaultValue);
