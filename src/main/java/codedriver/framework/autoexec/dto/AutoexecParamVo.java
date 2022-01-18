@@ -94,12 +94,8 @@ public class AutoexecParamVo implements Serializable {
         if (defaultValue != null) {
             if (defaultValue instanceof String) {
                 switch (type) {
-                    case "select":
-                        break;
                     case "multiselect":
                         defaultValue = JSONObject.parseArray((String) defaultValue);
-                        break;
-                    case "radio":
                         break;
                     case "checkbox":
                         defaultValue = JSONObject.parseArray((String) defaultValue);
