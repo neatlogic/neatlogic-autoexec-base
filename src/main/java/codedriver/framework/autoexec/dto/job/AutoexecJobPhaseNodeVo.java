@@ -62,6 +62,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private Integer completionRate = 0;
     @JSONField(serialize = false)
     private List<String> statusList;
+    @JSONField(serialize = false)
+    private List<String> statusBlackList;
     @EntityField(name = "作业节点状态Vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobStatusVo statusVo;
     @EntityField(name = "作业节点工具状态Vo列表", type = ApiParamType.JSONOBJECT)
@@ -309,5 +311,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public List<String> getStatusBlackList() {
+        return statusBlackList;
+    }
+
+    public void setStatusBlackList(List<String> statusBlackList) {
+        this.statusBlackList = statusBlackList;
     }
 }
