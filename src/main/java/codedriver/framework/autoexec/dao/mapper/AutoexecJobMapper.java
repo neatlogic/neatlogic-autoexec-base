@@ -241,7 +241,7 @@ public interface AutoexecJobMapper {
 
     void deleteJobPhaseNodeByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
-    void deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
+    Integer deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
 
     void deleteJobPhaseRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 

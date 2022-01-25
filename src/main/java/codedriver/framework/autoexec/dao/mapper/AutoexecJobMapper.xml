@@ -344,6 +344,7 @@
             <id column="phaseId" property="id"/>
             <result column="phaseName" property="name"/>
             <result column="lncd" property="lncd"/>
+            <result column="lcd" property="lcd"/>
             <result column="phaseUk" property="uk"/>
             <collection property="operationList"
                         ofType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
@@ -367,6 +368,7 @@
                ajp.`name`         AS phaseName,
                ajp.`uk`           AS phaseUk,
                ajp.`lncd`,
+               ajp.`lcd`,
                ajpo.`id`          AS operationId,
                ajpo.`uk`          AS operationUk,
                ajpo.`name`        AS operationName,
@@ -1427,7 +1429,7 @@
             `autoexec_job_phase_node`
         set `is_delete` = 1
         where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL) and `is_delete` = 1
+          and (`lcd` != #{lcd} OR `lcd` IS NULL) and `is_delete` != 1
     </delete>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
