@@ -821,6 +821,29 @@
         </foreach>
     </select>
 
+    <select id="getJobPhaseNodeListByJobPhaseIdAndResourceIdListAndIsDelete"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`resource_id` AS resourceId,
+        ajpn.`user_name` as userName,
+        ajpn.`name` as nodeName,
+        ajpn.`type` as nodeType,
+        ajpn.`protocol_id` as protocolId,
+        ajpn.`status`
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_phase_id` = #{jobPhaseId} and ajpn.`resource_id` in
+        <foreach collection="resourceIdList" item="resourceId" separator="," open="(" close=")">
+            #{resourceId}
+        </foreach>
+        and ajpn.is_delete = 1
+    </select>
+
     <select id="getJobPhaseNodeRunnerListByNodeIdList"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT ajpn.`id`,
