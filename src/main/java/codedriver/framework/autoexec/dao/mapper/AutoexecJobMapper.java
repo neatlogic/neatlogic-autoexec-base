@@ -112,6 +112,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobPhaseIdAndResourceIdList(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceIdList") List<Long> resourceIdList);
 
+    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobPhaseIdAndResourceIdListAndIsDelete(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceIdList") List<Long> resourceIdList);
+
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeRunnerListByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndNodeStatusList(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
