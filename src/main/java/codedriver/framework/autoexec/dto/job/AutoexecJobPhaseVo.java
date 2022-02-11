@@ -58,6 +58,9 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer sort;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
+    @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
+    private Date lncd;
+
     private String uuid;
     private Long combopId;
     private Integer count;
@@ -248,5 +251,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Date getLncd() {
+        return lncd;
+    }
+
+    public void setLncd(Date lncd) {
+        this.lncd = lncd;
     }
 }

@@ -112,6 +112,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobPhaseIdAndResourceIdList(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceIdList") List<Long> resourceIdList);
 
+    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobPhaseIdAndResourceIdListAndIsDelete(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceIdList") List<Long> resourceIdList);
+
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeRunnerListByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndNodeStatusList(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
@@ -169,6 +171,8 @@ public interface AutoexecJobMapper {
     //inspect
     List<AutoexecJobResourceInspectVo> getJobResourceInspectByResourceId(List<Long> resourceIdList);
 
+    List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndNodeFromJob(Long jobId);
+
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
@@ -207,9 +211,15 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseLcdById(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
+    Integer updateJobPhaseLncdById(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
+
     Integer updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
     Integer updateJobParamHashById(@Param("jobId") Long jobId, @Param("paramHash") String paramHash);
+
+    Integer updateJobPhaseNodeFrom(@Param("jobPhaseId") Long id, @Param("nodeFrom") String nodeFrom);
+
+    Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList")List<Long> nodeIdList);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
@@ -233,7 +243,7 @@ public interface AutoexecJobMapper {
 
     void deleteJobPhaseNodeByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
-    void deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
+    Integer deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
 
     void deleteJobPhaseRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 

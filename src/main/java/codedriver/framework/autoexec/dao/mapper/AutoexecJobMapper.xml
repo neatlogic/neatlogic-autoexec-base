@@ -140,6 +140,12 @@
                 #{status}
             </foreach>
         </if>
+        <if test="statusBlackList != null and statusBlackList.size() > 0 ">
+            and ajpn.`status` not in
+            <foreach collection="statusBlackList" item="statusBlack" open="(" close=")" separator=",">
+                #{statusBlack}
+            </foreach>
+        </if>
         <if test="keyword != null and keyword != ''">
             and (ri.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
         </if>
@@ -337,6 +343,8 @@
         <collection property="phaseList" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
             <id column="phaseId" property="id"/>
             <result column="phaseName" property="name"/>
+            <result column="lncd" property="lncd"/>
+            <result column="lcd" property="lcd"/>
             <result column="phaseUk" property="uk"/>
             <collection property="operationList"
                         ofType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
@@ -359,6 +367,8 @@
                ajp.`id`           AS phaseId,
                ajp.`name`         AS phaseName,
                ajp.`uk`           AS phaseUk,
+               ajp.`lncd`,
+               ajp.`lcd`,
                ajpo.`id`          AS operationId,
                ajpo.`uk`          AS operationUk,
                ajpo.`name`        AS operationName,
@@ -811,6 +821,29 @@
         </foreach>
     </select>
 
+    <select id="getJobPhaseNodeListByJobPhaseIdAndResourceIdListAndIsDelete"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`resource_id` AS resourceId,
+        ajpn.`user_name` as userName,
+        ajpn.`name` as nodeName,
+        ajpn.`type` as nodeType,
+        ajpn.`protocol_id` as protocolId,
+        ajpn.`status`
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_phase_id` = #{jobPhaseId} and ajpn.`resource_id` in
+        <foreach collection="resourceIdList" item="resourceId" separator="," open="(" close=")">
+            #{resourceId}
+        </foreach>
+        and ajpn.is_delete = 1
+    </select>
+
     <select id="getJobPhaseNodeRunnerListByNodeIdList"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT ajpn.`id`,
@@ -1064,6 +1097,17 @@
         <foreach collection="list" item="jobId" separator="," open="(" close=")">
             #{jobId}
         </foreach>
+    </select>
+    <select id="getJobPhaseListByJobIdAndNodeFromJob"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        SELECT id,
+               job_id      as jobId,
+               `name`,
+               `exec_mode` as execMode,
+               `sort`,
+               `lncd`,
+               `status`
+        FROM `autoexec_job_phase` where `node_from` = 'job'
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
@@ -1384,12 +1428,31 @@
         where `id` = #{jobId}
     </update>
 
+    <update id="updateJobPhaseNodeFrom">
+        update `autoexec_job_phase`
+        set `node_from` = #{nodeFrom}
+        where id = #{jobPhaseId}
+    </update>
+    <update id="updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList">
+        update `autoexec_job_phase_node`
+        set `start_time` = null , `end_time` = null
+        where id in
+        <foreach collection="nodeIdList" item="nodeId" open="(" separator="," close=")">
+            #{nodeId}
+        </foreach>
+    </update>
+    <update id="updateJobPhaseLncdById">
+        update `autoexec_job_phase`
+        set `lncd` = #{lcd}
+        where id = #{jobPhaseId}
+    </update>
+
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
         update
             `autoexec_job_phase_node`
         set `is_delete` = 1
         where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL)
+          and (`lcd` != #{lcd} OR `lcd` IS NULL) and `is_delete` != 1
     </delete>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
