@@ -8,8 +8,11 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,8 +51,12 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
         this.operationName = scriptVo.getName() + "_test";
         this.operationType = CombopOperationType.SCRIPT.getValue();
         this.parser = scriptVersionVo.getParser();
-        this.inputParamList = scriptVersionVo.getInputParamList().stream().map(o->(AutoexecParamVo)o).collect(Collectors.toList());
-        this.outputParamList = scriptVersionVo.getOutputParamList().stream().map(o->(AutoexecParamVo)o).collect(Collectors.toList());
+        if(CollectionUtils.isNotEmpty(scriptVersionVo.getInputParamList())) {
+            this.inputParamList = scriptVersionVo.getInputParamList().stream().map(o -> (AutoexecParamVo) o).collect(Collectors.toList());
+        }
+        if(CollectionUtils.isNotEmpty(scriptVersionVo.getOutputParamList())) {
+            this.outputParamList = scriptVersionVo.getOutputParamList().stream().map(o -> (AutoexecParamVo) o).collect(Collectors.toList());
+        }
         this.execMode = scriptVo.getExecMode();
     }
 
@@ -115,5 +122,10 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
 
     public void setExecMode(String execMode) {
         this.execMode = execMode;
+    }
+
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        sdf.parse("2020/10/01");
     }
 }
