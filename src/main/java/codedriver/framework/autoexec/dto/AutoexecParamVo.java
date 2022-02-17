@@ -95,9 +95,8 @@ public class AutoexecParamVo implements Serializable {
             if (defaultValue instanceof String) {
                 switch (type) {
                     case "multiselect":
-                        defaultValue = JSONObject.parseArray((String) defaultValue);
-                        break;
                     case "checkbox":
+                    case "node":
                         defaultValue = JSONObject.parseArray((String) defaultValue);
                         break;
                     case "file":
@@ -107,9 +106,6 @@ public class AutoexecParamVo implements Serializable {
                         } catch (JSONException ex) {
                             break;
                         }
-                    case "node":
-                        defaultValue = JSONObject.parseArray((String) defaultValue);
-                        break;
                     case "json":
                         String valueStr = (String) defaultValue;
                         if (valueStr.startsWith("[") && valueStr.endsWith("]")) {
