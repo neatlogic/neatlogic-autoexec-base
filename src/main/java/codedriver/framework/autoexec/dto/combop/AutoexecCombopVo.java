@@ -61,6 +61,12 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private Integer ownerEditable;
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
     private List<AutoexecCombopParamVo> runtimeParamList;
+    @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
+    private boolean needExecuteUser = false;
+    @EntityField(name = "执行页面是否需要设置连接协议", type = ApiParamType.BOOLEAN)
+    private boolean needProtocol = false;
+    @EntityField(name = "执行页面是否需要设置执行目标", type = ApiParamType.BOOLEAN)
+    private boolean needExecuteNode = false;
 
     @JSONField(serialize = false)
     private String configStr;
@@ -223,6 +229,30 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setRuntimeParamList(List<AutoexecCombopParamVo> runtimeParamList) {
         this.runtimeParamList = runtimeParamList;
+    }
+
+    public boolean isNeedExecuteUser() {
+        return needExecuteUser;
+    }
+
+    public void setNeedExecuteUser(boolean needExecuteUser) {
+        this.needExecuteUser = needExecuteUser;
+    }
+
+    public boolean isNeedProtocol() {
+        return needProtocol;
+    }
+
+    public void setNeedProtocol(boolean needProtocol) {
+        this.needProtocol = needProtocol;
+    }
+
+    public boolean isNeedExecuteNode() {
+        return needExecuteNode;
+    }
+
+    public void setNeedExecuteNode(boolean needExecuteNode) {
+        this.needExecuteNode = needExecuteNode;
     }
 
     public String getConfigStr() {
