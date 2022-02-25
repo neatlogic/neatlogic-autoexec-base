@@ -231,7 +231,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.runtimeParamList = runtimeParamList;
     }
 
-    public boolean isNeedExecuteUser() {
+    public boolean getNeedExecuteUser() {
         return needExecuteUser;
     }
 
@@ -239,7 +239,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.needExecuteUser = needExecuteUser;
     }
 
-    public boolean isNeedProtocol() {
+    public boolean getNeedProtocol() {
         return needProtocol;
     }
 
@@ -247,7 +247,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.needProtocol = needProtocol;
     }
 
-    public boolean isNeedExecuteNode() {
+    public boolean getNeedExecuteNode() {
         return needExecuteNode;
     }
 
