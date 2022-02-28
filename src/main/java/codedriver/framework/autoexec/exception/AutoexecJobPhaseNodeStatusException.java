@@ -12,7 +12,7 @@ public class AutoexecJobPhaseNodeStatusException extends ApiRuntimeException {
     private static final long serialVersionUID = 4522850144891547590L;
 
     public AutoexecJobPhaseNodeStatusException(String phase, String status, String nodeIds) {
-        super("作业剧本：'" + phase + "',即将跟新状态为：'" + status + "' 节点'" + nodeIds + "'状态异常，请重跑");
+        super("作业阶段：'" + phase + "',即将跟新状态为：'" + status + "'，但存在不是'已忽略、已失败、已成功'状态的'节点'（" + nodeIds + "），请重跑");
     }
 
 
