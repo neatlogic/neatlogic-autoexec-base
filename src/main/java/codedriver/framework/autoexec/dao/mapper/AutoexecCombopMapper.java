@@ -28,6 +28,8 @@ public interface AutoexecCombopMapper {
 
     AutoexecCombopVo getAutoexecCombopById(Long id);
 
+    AutoexecCombopVo getAutoexecCombopByName(String name);
+
     List<AutoexecCombopVo> getAutoexecCombopByIdList(ArrayList<Long> idList);
 
     int getAutoexecCombopCount(AutoexecCombopVo searchVo);
