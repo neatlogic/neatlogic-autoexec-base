@@ -53,14 +53,14 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
     private int referenceCount;
 //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
 //    private Integer viewable;
-    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
-    private Integer editable = 1;
-    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
-    private Integer deletable = 1;
-    @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
-    private Integer executable = 1;
-    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
-    private Integer ownerEditable = 1;
+//    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+//    private Integer editable = 1;
+//    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
+//    private Integer deletable = 1;
+//    @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
+//    private Integer executable = 1;
+//    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
+//    private Integer ownerEditable = 1;
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
     private List<AutoexecCombopTemplateParamVo> runtimeParamList;
 //    @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
@@ -193,37 +193,37 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
 //        this.viewable = viewable;
 //    }
 
-    public Integer getEditable() {
-        return editable;
-    }
-
-    public void setEditable(Integer editable) {
-        this.editable = editable;
-    }
-
-    public Integer getDeletable() {
-        return deletable;
-    }
-
-    public void setDeletable(Integer deletable) {
-        this.deletable = deletable;
-    }
-
-    public Integer getExecutable() {
-        return executable;
-    }
-
-    public void setExecutable(Integer executable) {
-        this.executable = executable;
-    }
-
-    public Integer getOwnerEditable() {
-        return ownerEditable;
-    }
-
-    public void setOwnerEditable(Integer ownerEditable) {
-        this.ownerEditable = ownerEditable;
-    }
+//    public Integer getEditable() {
+//        return editable;
+//    }
+//
+//    public void setEditable(Integer editable) {
+//        this.editable = editable;
+//    }
+//
+//    public Integer getDeletable() {
+//        return deletable;
+//    }
+//
+//    public void setDeletable(Integer deletable) {
+//        this.deletable = deletable;
+//    }
+//
+//    public Integer getExecutable() {
+//        return executable;
+//    }
+//
+//    public void setExecutable(Integer executable) {
+//        this.executable = executable;
+//    }
+//
+//    public Integer getOwnerEditable() {
+//        return ownerEditable;
+//    }
+//
+//    public void setOwnerEditable(Integer ownerEditable) {
+//        this.ownerEditable = ownerEditable;
+//    }
 
     public List<AutoexecCombopTemplateParamVo> getRuntimeParamList() {
         return runtimeParamList;
