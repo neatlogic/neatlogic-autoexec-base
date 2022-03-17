@@ -7,6 +7,9 @@ package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author linbq
  * @since 2022/3/17 15:06
@@ -30,5 +33,10 @@ public class AUTOEXEC_COMBOP_TEMPLATE_MANAGE extends AuthBase {
     @Override
     public Integer getSort() {
         return 10;
+    }
+
+    @Override
+    public List<Class<? extends AuthBase>> getIncludeAuths(){
+        return Collections.singletonList(AUTOEXEC_BASE.class);
     }
 }
