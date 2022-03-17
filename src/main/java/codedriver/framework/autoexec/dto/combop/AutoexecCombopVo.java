@@ -43,6 +43,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String operationType;
     @EntityField(name = "通知策略id", type = ApiParamType.LONG)
     private Long notifyPolicyId;
+    @EntityField(name = "组合工具模板id", type = ApiParamType.LONG)
+    private Long combopTemplateId;
     @EntityField(name = "维护人", type = ApiParamType.STRING)
     private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
@@ -156,6 +158,14 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setNotifyPolicyId(Long notifyPolicyId) {
         this.notifyPolicyId = notifyPolicyId;
+    }
+
+    public Long getCombopTemplateId() {
+        return combopTemplateId;
+    }
+
+    public void setCombopTemplateId(Long combopTemplateId) {
+        this.combopTemplateId = combopTemplateId;
     }
 
     public String getOwner() {
