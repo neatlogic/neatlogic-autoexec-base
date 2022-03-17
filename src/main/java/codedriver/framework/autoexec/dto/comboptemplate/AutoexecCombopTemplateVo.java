@@ -3,9 +3,11 @@
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
-package codedriver.framework.autoexec.dto.combop;
+package codedriver.framework.autoexec.dto.comboptemplate;
 
 import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -23,7 +25,7 @@ import java.util.List;
  * @author: linbq
  * @since: 2021/4/13 9:54
  **/
-public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
+public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
@@ -43,42 +45,40 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String operationType;
     @EntityField(name = "通知策略id", type = ApiParamType.LONG)
     private Long notifyPolicyId;
-    @EntityField(name = "组合工具模板id", type = ApiParamType.LONG)
-    private Long combopTemplateId;
-    @EntityField(name = "维护人", type = ApiParamType.STRING)
-    private String owner;
+//    @EntityField(name = "维护人", type = ApiParamType.STRING)
+//    private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
     @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
     private int referenceCount;
 //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
 //    private Integer viewable;
-    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
-    private Integer editable;
-    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
-    private Integer deletable;
-    @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
-    private Integer executable;
-    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
-    private Integer ownerEditable;
+//    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+//    private Integer editable = 1;
+//    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
+//    private Integer deletable = 1;
+//    @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
+//    private Integer executable = 1;
+//    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
+//    private Integer ownerEditable = 1;
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
-    private List<AutoexecCombopParamVo> runtimeParamList;
-    @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
-    private boolean needExecuteUser = false;
-    @EntityField(name = "执行页面是否需要设置连接协议", type = ApiParamType.BOOLEAN)
-    private boolean needProtocol = false;
-    @EntityField(name = "执行页面是否需要设置执行目标", type = ApiParamType.BOOLEAN)
-    private boolean needExecuteNode = false;
+    private List<AutoexecCombopTemplateParamVo> runtimeParamList;
+//    @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
+//    private boolean needExecuteUser = false;
+//    @EntityField(name = "执行页面是否需要设置连接协议", type = ApiParamType.BOOLEAN)
+//    private boolean needProtocol = false;
+//    @EntityField(name = "执行页面是否需要设置执行目标", type = ApiParamType.BOOLEAN)
+//    private boolean needExecuteNode = false;
 
-    @JSONField(serialize = false)
-    private String configStr;
-    @JSONField(serialize = false)
-    private Boolean isTest;//是否测试
+//    @JSONField(serialize = false)
+//    private String configStr;
+//    @JSONField(serialize = false)
+//    private Boolean isTest;//是否测试
 
-    public AutoexecCombopVo() {
+    public AutoexecCombopTemplateVo() {
     }
 
-    public AutoexecCombopVo(AutoexecToolAndScriptVo autoexecToolAndScriptVo) {
+    public AutoexecCombopTemplateVo(AutoexecToolAndScriptVo autoexecToolAndScriptVo) {
         this.uk = autoexecToolAndScriptVo.getUk();
         this.name = autoexecToolAndScriptVo.getName();
         this.typeId = autoexecToolAndScriptVo.getTypeId();
@@ -160,21 +160,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.notifyPolicyId = notifyPolicyId;
     }
 
-    public Long getCombopTemplateId() {
-        return combopTemplateId;
-    }
-
-    public void setCombopTemplateId(Long combopTemplateId) {
-        this.combopTemplateId = combopTemplateId;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
+//    public String getOwner() {
+//        return owner;
+//    }
+//
+//    public void setOwner(String owner) {
+//        this.owner = owner;
+//    }
 
     public AutoexecCombopConfigVo getConfig() {
         return config;
@@ -201,69 +193,69 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 //        this.viewable = viewable;
 //    }
 
-    public Integer getEditable() {
-        return editable;
-    }
+//    public Integer getEditable() {
+//        return editable;
+//    }
+//
+//    public void setEditable(Integer editable) {
+//        this.editable = editable;
+//    }
+//
+//    public Integer getDeletable() {
+//        return deletable;
+//    }
+//
+//    public void setDeletable(Integer deletable) {
+//        this.deletable = deletable;
+//    }
+//
+//    public Integer getExecutable() {
+//        return executable;
+//    }
+//
+//    public void setExecutable(Integer executable) {
+//        this.executable = executable;
+//    }
+//
+//    public Integer getOwnerEditable() {
+//        return ownerEditable;
+//    }
+//
+//    public void setOwnerEditable(Integer ownerEditable) {
+//        this.ownerEditable = ownerEditable;
+//    }
 
-    public void setEditable(Integer editable) {
-        this.editable = editable;
-    }
-
-    public Integer getDeletable() {
-        return deletable;
-    }
-
-    public void setDeletable(Integer deletable) {
-        this.deletable = deletable;
-    }
-
-    public Integer getExecutable() {
-        return executable;
-    }
-
-    public void setExecutable(Integer executable) {
-        this.executable = executable;
-    }
-
-    public Integer getOwnerEditable() {
-        return ownerEditable;
-    }
-
-    public void setOwnerEditable(Integer ownerEditable) {
-        this.ownerEditable = ownerEditable;
-    }
-
-    public List<AutoexecCombopParamVo> getRuntimeParamList() {
+    public List<AutoexecCombopTemplateParamVo> getRuntimeParamList() {
         return runtimeParamList;
     }
 
-    public void setRuntimeParamList(List<AutoexecCombopParamVo> runtimeParamList) {
+    public void setRuntimeParamList(List<AutoexecCombopTemplateParamVo> runtimeParamList) {
         this.runtimeParamList = runtimeParamList;
     }
 
-    public boolean getNeedExecuteUser() {
-        return needExecuteUser;
-    }
-
-    public void setNeedExecuteUser(boolean needExecuteUser) {
-        this.needExecuteUser = needExecuteUser;
-    }
-
-    public boolean getNeedProtocol() {
-        return needProtocol;
-    }
-
-    public void setNeedProtocol(boolean needProtocol) {
-        this.needProtocol = needProtocol;
-    }
-
-    public boolean getNeedExecuteNode() {
-        return needExecuteNode;
-    }
-
-    public void setNeedExecuteNode(boolean needExecuteNode) {
-        this.needExecuteNode = needExecuteNode;
-    }
+//    public boolean getNeedExecuteUser() {
+//        return needExecuteUser;
+//    }
+//
+//    public void setNeedExecuteUser(boolean needExecuteUser) {
+//        this.needExecuteUser = needExecuteUser;
+//    }
+//
+//    public boolean getNeedProtocol() {
+//        return needProtocol;
+//    }
+//
+//    public void setNeedProtocol(boolean needProtocol) {
+//        this.needProtocol = needProtocol;
+//    }
+//
+//    public boolean getNeedExecuteNode() {
+//        return needExecuteNode;
+//    }
+//
+//    public void setNeedExecuteNode(boolean needExecuteNode) {
+//        this.needExecuteNode = needExecuteNode;
+//    }
 
     public String getConfigStr() {
         if (this.config == null) {
@@ -272,11 +264,11 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         return JSONObject.toJSONString(config);
     }
 
-    public Boolean getIsTest() {
-        return isTest;
-    }
-
-    public void setIsTest(Boolean test) {
-        isTest = test;
-    }
+//    public Boolean getIsTest() {
+//        return isTest;
+//    }
+//
+//    public void setIsTest(Boolean test) {
+//        isTest = test;
+//    }
 }
