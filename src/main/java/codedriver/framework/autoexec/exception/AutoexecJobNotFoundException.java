@@ -16,5 +16,9 @@ public class AutoexecJobNotFoundException extends ApiRuntimeException {
         super("作业：'" + uk + "'不存在");
     }
 
+    public AutoexecJobNotFoundException(Long id) {
+        super("作业：'" + id + "'不存在");
+    }
+
 
 }
