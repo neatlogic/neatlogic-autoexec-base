@@ -45,8 +45,8 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
     private String operationType;
     @EntityField(name = "通知策略id", type = ApiParamType.LONG)
     private Long notifyPolicyId;
-    @EntityField(name = "维护人", type = ApiParamType.STRING)
-    private String owner;
+//    @EntityField(name = "维护人", type = ApiParamType.STRING)
+//    private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
     @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
@@ -160,13 +160,13 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
         this.notifyPolicyId = notifyPolicyId;
     }
 
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
+//    public String getOwner() {
+//        return owner;
+//    }
+//
+//    public void setOwner(String owner) {
+//        this.owner = owner;
+//    }
 
     public AutoexecCombopConfigVo getConfig() {
         return config;
