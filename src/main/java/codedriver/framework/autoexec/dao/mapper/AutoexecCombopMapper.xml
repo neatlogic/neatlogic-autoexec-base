@@ -393,6 +393,18 @@
         )
     </insert>
 
+    <insert id="insertAutoexecCombopCombopTemplate">
+        INSERT INTO `autoexec_combop_comboptemplate` (
+            `combop_id`,
+            `comboptemplate_id`
+        )
+        VALUES
+        (
+            #{combopId},
+            #{combopTemplateId}
+        )
+    </insert>
+
     <update id="updateAutoexecCombopById" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         UPDATE `autoexec_combop`
         SET
