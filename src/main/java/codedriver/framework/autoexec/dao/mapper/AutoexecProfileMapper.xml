@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecProfileMapper">
 
+
     <select id="searchAutoexecProfileCount" parameterType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo"
             resultType="int">
         SELECT
@@ -28,5 +29,29 @@
 
     </select>
 
+    <select id="checkProfileIsExists" resultType="int">
+        SELECT count(1)
+        FROM `autoexec_profile`
+        WHERE `id` = #{value}
+    </select>
+
+    <select id="getProfileVoById" resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo">
+        SELECT id,
+               name,
+               description,
+               config,
+               fcd,
+               fcu,
+               lcd,
+               lcu
+        FROM autoexec_profile
+        WHERE id = #{value}
+    </select>
+
+    <delete id="deleteProfileById">
+        DELETE
+        FROM autoexec_profile
+        WHERE id = #{value}
+    </delete>
 </mapper>
 

@@ -11,5 +11,11 @@ import java.util.List;
 public interface AutoexecProfileMapper {
     int searchAutoexecProfileCount(AutoexecProfileVo profileVo);
 
+    int checkProfileIsExists(Long id);
+
     List<AutoexecProfileVo> searchAutoexecCatalog(AutoexecProfileVo profileVo);
+
+    AutoexecProfileVo getProfileVoById();
+
+    void deleteProfileById(Long id);
 }
