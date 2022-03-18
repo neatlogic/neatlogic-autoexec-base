@@ -7,17 +7,14 @@ package codedriver.framework.autoexec.dto.comboptemplate;
 
 import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
-import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 组合工具Vo类
@@ -29,8 +26,8 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
 
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
-    private String uk;
+//    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
+//    private String uk;
     @EntityField(name = "显示名", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "描述", type = ApiParamType.STRING)
@@ -40,11 +37,11 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
     @EntityField(name = "类型名称", type = ApiParamType.STRING)
     private String typeName;
     @EntityField(name = "状态", type = ApiParamType.INTEGER)
-    private Integer isActive;
+    private Integer isActive = 1;
     @EntityField(name = "操作类型", type = ApiParamType.STRING)
     private String operationType;
-    @EntityField(name = "通知策略id", type = ApiParamType.LONG)
-    private Long notifyPolicyId;
+//    @EntityField(name = "通知策略id", type = ApiParamType.LONG)
+//    private Long notifyPolicyId;
 //    @EntityField(name = "维护人", type = ApiParamType.STRING)
 //    private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
@@ -61,8 +58,8 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
 //    private Integer executable = 1;
 //    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
 //    private Integer ownerEditable = 1;
-    @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
-    private List<AutoexecCombopTemplateParamVo> runtimeParamList;
+//    @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
+//    private List<AutoexecCombopTemplateParamVo> runtimeParamList;
 //    @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
 //    private boolean needExecuteUser = false;
 //    @EntityField(name = "执行页面是否需要设置连接协议", type = ApiParamType.BOOLEAN)
@@ -79,7 +76,7 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
     }
 
     public AutoexecCombopTemplateVo(AutoexecToolAndScriptVo autoexecToolAndScriptVo) {
-        this.uk = autoexecToolAndScriptVo.getUk();
+//        this.uk = autoexecToolAndScriptVo.getUk();
         this.name = autoexecToolAndScriptVo.getName();
         this.typeId = autoexecToolAndScriptVo.getTypeId();
         this.operationType = autoexecToolAndScriptVo.getType();
@@ -96,13 +93,13 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
         this.id = id;
     }
 
-    public String getUk() {
-        return uk;
-    }
-
-    public void setUk(String uk) {
-        this.uk = uk;
-    }
+//    public String getUk() {
+//        return uk;
+//    }
+//
+//    public void setUk(String uk) {
+//        this.uk = uk;
+//    }
 
     public String getName() {
         return name;
@@ -152,13 +149,13 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
         this.operationType = operationType;
     }
 
-    public Long getNotifyPolicyId() {
-        return notifyPolicyId;
-    }
-
-    public void setNotifyPolicyId(Long notifyPolicyId) {
-        this.notifyPolicyId = notifyPolicyId;
-    }
+//    public Long getNotifyPolicyId() {
+//        return notifyPolicyId;
+//    }
+//
+//    public void setNotifyPolicyId(Long notifyPolicyId) {
+//        this.notifyPolicyId = notifyPolicyId;
+//    }
 
 //    public String getOwner() {
 //        return owner;
@@ -225,13 +222,13 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
 //        this.ownerEditable = ownerEditable;
 //    }
 
-    public List<AutoexecCombopTemplateParamVo> getRuntimeParamList() {
-        return runtimeParamList;
-    }
-
-    public void setRuntimeParamList(List<AutoexecCombopTemplateParamVo> runtimeParamList) {
-        this.runtimeParamList = runtimeParamList;
-    }
+//    public List<AutoexecCombopTemplateParamVo> getRuntimeParamList() {
+//        return runtimeParamList;
+//    }
+//
+//    public void setRuntimeParamList(List<AutoexecCombopTemplateParamVo> runtimeParamList) {
+//        this.runtimeParamList = runtimeParamList;
+//    }
 
 //    public boolean getNeedExecuteUser() {
 //        return needExecuteUser;
