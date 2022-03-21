@@ -6,13 +6,13 @@ import codedriver.framework.dependency.core.IFromType;
  * @author longrf
  * @date 2021/12/16 4:16 下午
  */
-public enum FromType implements IFromType {
+public enum AutoexecFromType implements IFromType {
     AUTOEXEC_CATALOG("autoexeccatalog","自动化工具目录");
 
     private String value;
     private String text;
 
-    private FromType(String value, String text) {
+    private AutoexecFromType(String value, String text) {
         this.value = value;
         this.text = text;
     }
