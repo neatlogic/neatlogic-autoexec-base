@@ -2,31 +2,81 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecProfileMapper">
 
+    <insert id="insertAutoexecProfileTooLByProfileIdAndTooLIdList">
+        INSERT INTO autoexec_profile_tool ( profile_id, tool_id )
+        VALUES
+        <foreach collection="toolIdList" item="toolId" separator=",">
+            (#{profileId},#{toolId})
+        </foreach>
+    </insert>
+
+    <insert id="insertAutoexecProfileScriptByProfileIdAndScriptIdList">
+        INSERT INTO autoexec_profile_script ( profile_id, script_id )
+        VALUES
+        <foreach collection="scriptIdList" item="scriptId" separator=",">
+            (#{profileId},#{scriptId})
+        </foreach>
+    </insert>
+
+    <insert id="insertProfile" parameterType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo">
+        INSERT INTO autoexec_profile
+        (id,
+         name,
+         description,
+         fcd,
+         fcu,
+         lcd,
+         lcu)
+        VALUES (#{id},
+                #{name},
+                #{description},
+                NOW(3),
+                #{fcu},
+                NOW(3),
+                #{fcu})
+    </insert>
 
     <select id="searchAutoexecProfileCount" parameterType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo"
             resultType="int">
         SELECT
         COUNT( 1 )
+        <include refid="searchProfile"></include>
+    </select>
+
+    <sql id="searchProfile">
         FROM
         `autoexec_profile` a
         LEFT JOIN autoexec_profile_tool apt ON apt.profile_id = a.id
         LEFT JOIN autoexec_profile_script aps ON aps.profile_id = a.id
         <where>
             <if test="keyword != null and keyword != ''">
-                and a.`name` LIKE CONCAT('%', #{keyword}, '%')
+                AND (a.`name` LIKE CONCAT('%',#{keyword}, '%') OR a.`description` LIKE CONCAT('%',#{keyword}, '%'))
             </if>
             <if test="scriptId != null">
-                and `script_id` = #{scriptId}
+                and aps.`script_id` = #{scriptId}
             </if>
             <if test="toolId != null">
-                and apt`tool_id` = #{toolId}
+                and apt.`tool_id` = #{toolId}
             </if>
         </where>
-    </select>
+    </sql>
 
-    <select id="searchAutoexecCatalog"
+    <select id="searchAutoexecProfile"
             resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo">
-
+        SELECT
+        a.id,
+        a.name,
+        a.description,
+        a.config,
+        a.fcd,
+        a.fcu,
+        a.lcd,
+        a.lcu
+        <include refid="searchProfile"></include>
+        ORDER BY a.id DESC
+        <if test="needPage == true">
+            LIMIT #{startNum}, #{pageSize}
+        </if>
     </select>
 
     <select id="checkProfileIsExists" resultType="int">
@@ -46,6 +96,65 @@
                lcu
         FROM autoexec_profile
         WHERE id = #{value}
+    </select>
+
+    <select id="getProfileToolListByProfileId"
+            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileToolVo">
+        select profile_id, tool_id
+        from autoexec_profile_tool
+    </select>
+
+    <select id="getProfileScriptListByProfileId"
+            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileToolVo">
+        select profile_id, script_id
+        from autoexec_profile_script
+    </select>
+
+    <select id="getAutoexecProfileIdList" resultType="java.lang.Long">
+        SELECT id
+        <include refid="searchProfile"></include>
+        ORDER BY a.id DESC
+        <if test="needPage == true">
+            LIMIT #{startNum}, #{pageSize}
+        </if>
+
+    </select>
+
+    <select id="searchAutoexecProfileListByIdList"
+            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo">
+        SELECT id,
+        name,
+        description,
+        config,
+        fcd,
+        fcu,
+        lcd,
+        lcu
+        FROM autoexec_profile
+        WHERE id in
+        <foreach collection="idList" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getProfileToolListByProfileIdList"
+            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileToolVo">
+        select profile_id,tool_id
+        from autoexec_profile_tool
+        where profile_id in
+        <foreach collection="profileIdList" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getProfileScriptListByProfileIdList"
+            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileScriptVo">
+        select profile_id,script_id
+        from autoexec_profile_script
+        where profile_id in
+        <foreach collection="profileIdList" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
     </select>
 
     <delete id="deleteProfileById">

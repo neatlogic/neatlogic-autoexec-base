@@ -8,7 +8,7 @@ import codedriver.framework.exception.core.ApiRuntimeException;
  */
 public class AutoexecProfileHasBeenReferredException extends ApiRuntimeException {
     public AutoexecProfileHasBeenReferredException(String name) {
-        super("当前profile“" + name + "”工具已经引用，不可删除");
+        super("当前profile“" + name + "”已被引用，无法删除");
 
     }
 }

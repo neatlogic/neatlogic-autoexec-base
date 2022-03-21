@@ -1,6 +1,9 @@
 package codedriver.framework.autoexec.dao.mapper;
 
+import codedriver.framework.autoexec.dto.profile.AutoexecProfileScriptVo;
+import codedriver.framework.autoexec.dto.profile.AutoexecProfileToolVo;
 import codedriver.framework.autoexec.dto.profile.AutoexecProfileVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,9 +16,27 @@ public interface AutoexecProfileMapper {
 
     int checkProfileIsExists(Long id);
 
-    List<AutoexecProfileVo> searchAutoexecCatalog(AutoexecProfileVo profileVo);
+    List<AutoexecProfileVo> searchAutoexecProfile(AutoexecProfileVo profileVo);
 
-    AutoexecProfileVo getProfileVoById();
+    AutoexecProfileVo getProfileVoById(Long id);
 
     void deleteProfileById(Long id);
+
+    void insertAutoexecProfileTooLByProfileIdAndTooLIdList(@Param("id") Long id, @Param("toolIdList") List<Long> toolIdList);
+
+    void insertAutoexecProfileScriptByProfileIdAndScriptIdList(@Param("id") Long id, @Param("toolIdList") List<Long> toolIdList);
+
+    List<AutoexecProfileToolVo> getProfileToolListByProfileId(Long id);
+
+    List<AutoexecProfileToolVo> getProfileScriptListByProfileId(Long id);
+
+    void insertProfile(AutoexecProfileVo profileVo);
+
+    List<Long> getAutoexecProfileIdList(AutoexecProfileVo profileVo);
+
+    List<AutoexecProfileVo> searchAutoexecProfileListByIdList(@Param("idList") List<Long> idList);
+
+    List<AutoexecProfileToolVo> getProfileToolListByProfileIdList(@Param("profileIdList") List<Long> profileIdList);
+
+    List<AutoexecProfileScriptVo> getProfileScriptListByProfileIdList(@Param("profileIdList") List<Long> profileIdList);
 }

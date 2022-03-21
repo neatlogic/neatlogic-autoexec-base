@@ -1,12 +1,16 @@
 package codedriver.framework.autoexec.dto.profile;
 
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
+import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,6 +35,10 @@ public class AutoexecProfileVo extends BasePageVo {
     private Long toolId;
     @EntityField(name = "工具库工具id/脚本工具id", type = ApiParamType.LONG)
     private Long operateId;
+    @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.LONG)
+    private List<AutoexecToolAndScriptVo> autoexecToolAndScriptVoList;
+    @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> inputParamList;
 
     public Long getId() {
         if (id == null) {
@@ -60,6 +68,9 @@ public class AutoexecProfileVo extends BasePageVo {
     }
 
     public JSONObject getConfig() {
+        if (CollectionUtils.isNotEmpty(inputParamList)) {
+            return (JSONObject) inputParamList;
+        }
         return config;
     }
 
@@ -103,5 +114,21 @@ public class AutoexecProfileVo extends BasePageVo {
 
     public void setOperateId(Long operateId) {
         this.operateId = operateId;
+    }
+
+    public List<AutoexecToolAndScriptVo> getAutoexecToolAndScriptVoList() {
+        return autoexecToolAndScriptVoList;
+    }
+
+    public void setAutoexecToolAndScriptVoList(List<AutoexecToolAndScriptVo> autoexecToolAndScriptVoList) {
+        this.autoexecToolAndScriptVoList = autoexecToolAndScriptVoList;
+    }
+
+    public List<AutoexecParamVo> getInputParamList() {
+        return inputParamList;
+    }
+
+    public void setInputParamList(List<AutoexecParamVo> inputParamList) {
+        this.inputParamList = inputParamList;
     }
 }
