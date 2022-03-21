@@ -87,5 +87,4 @@ public interface AutoexecCombopMapper {
     int deleteAutoexecCombopPhaseByCombopId(Long combopId);
 
     int deleteAutoexecCombopPhaseOperationByCombopPhaseIdList(List<Long> combopPhaseIdList);
-
 }

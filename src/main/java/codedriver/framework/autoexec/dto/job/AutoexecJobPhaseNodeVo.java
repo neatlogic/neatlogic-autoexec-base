@@ -86,6 +86,12 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.isDelete = isDelete;
     }
 
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Integer isDelete) {
+        this.setJobId(jobId);
+        this.jobPhaseName = jobPhaseName;
+        this.isDelete = isDelete;
+    }
+
     public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
         this.setJobId(jobId);
         this.jobPhaseId = jobPhaseVo.getId();
