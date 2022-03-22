@@ -1,7 +1,6 @@
 package codedriver.framework.autoexec.dao.mapper;
 
-import codedriver.framework.autoexec.dto.profile.AutoexecProfileScriptVo;
-import codedriver.framework.autoexec.dto.profile.AutoexecProfileToolVo;
+import codedriver.framework.autoexec.dto.profile.AutoexecProfileOptionVo;
 import codedriver.framework.autoexec.dto.profile.AutoexecProfileVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,25 +22,20 @@ public interface AutoexecProfileMapper {
 
     List<AutoexecProfileVo> searchProfileListByIdList(@Param("idList") List<Long> idList);
 
-    List<AutoexecProfileToolVo> getProfileToolListByProfileIdList(@Param("profileIdList") List<Long> profileIdList);
-
-    List<AutoexecProfileScriptVo> getProfileScriptListByProfileIdList(@Param("profileIdList") List<Long> profileIdList);
-
-    List<AutoexecProfileToolVo> getProfileToolListByProfileId(Long id);
-
-    List<AutoexecProfileToolVo> getProfileScriptListByProfileId(Long id);
+    List<AutoexecProfileOptionVo> getProfileToolListByProfileId(Long id);
 
     AutoexecProfileVo getProfileVoById(Long id);
 
-    void insertAutoexecProfileTooLByProfileIdAndTooLIdList(@Param("id") Long id, @Param("toolIdList") List<Long> toolIdList);
+    AutoexecProfileOptionVo getProfileVoByOptionId(Long optionId);//////
 
-    void insertAutoexecProfileScriptByProfileIdAndScriptIdList(@Param("id") Long id, @Param("toolIdList") List<Long> toolIdList);
+    void insertAutoexecProfileTooLByProfileIdAndOptionIdListAndType(@Param("id") Long id, @Param("toolIdList") List<Long> toolIdList, @Param("type") String type);
 
     void insertProfile(AutoexecProfileVo profileVo);
 
+    void updateProfile(AutoexecProfileVo profileVo);
+
     void deleteProfileById(Long id);
 
-    void deleteProfileToolByProfileId(Long id);
+    void deleteProfileOptionByProfileId(Long id);
 
-    void deleteProfileScriptByProfileId(Long id);
 }

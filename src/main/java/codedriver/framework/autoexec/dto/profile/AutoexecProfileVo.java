@@ -7,7 +7,8 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.collections4.CollectionUtils;
+import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class AutoexecProfileVo extends BaseEditorVo {
     private String description;
     @EntityField(name = "工具参数", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
+    @JSONField(serialize = false)
+    private String configStr;
     @EntityField(name = "工具类型", type = ApiParamType.STRING)
     private String type;
     @EntityField(name = "脚本工具id", type = ApiParamType.LONG)
@@ -70,14 +73,25 @@ public class AutoexecProfileVo extends BaseEditorVo {
     }
 
     public JSONObject getConfig() {
-        if (CollectionUtils.isNotEmpty(inputParamList)) {
-            return (JSONObject) inputParamList;
+        if (MapUtils.isEmpty(config) && StringUtils.isNotBlank(configStr)) {
+            config = JSONObject.parseObject(configStr);
         }
         return config;
     }
 
     public void setConfig(JSONObject config) {
         this.config = config;
+    }
+
+    public String getConfigStr() {
+        if (StringUtils.isEmpty(configStr) && MapUtils.isNotEmpty(config)) {
+            configStr = config.toJSONString();
+        }
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        this.configStr = configStr;
     }
 
     public String getType() {
