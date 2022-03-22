@@ -46,8 +46,12 @@
     <sql id="searchProfile">
         FROM
         `autoexec_profile` a
-        LEFT JOIN autoexec_profile_tool apt ON apt.profile_id = a.id
-        LEFT JOIN autoexec_profile_script aps ON aps.profile_id = a.id
+        <if test="toolId != null">
+            LEFT JOIN autoexec_profile_tool apt ON apt.profile_id = a.id
+        </if>
+        <if test="scriptId != null">
+            LEFT JOIN autoexec_profile_script aps ON aps.profile_id = a.id
+        </if>
         <where>
             <if test="keyword != null and keyword != ''">
                 AND (a.`name` LIKE CONCAT('%',#{keyword}, '%') OR a.`description` LIKE CONCAT('%',#{keyword}, '%'))

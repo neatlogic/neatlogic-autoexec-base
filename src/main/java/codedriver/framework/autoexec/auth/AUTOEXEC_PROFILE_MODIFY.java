@@ -10,6 +10,7 @@ import java.util.List;
  * @date 2022/3/16 11:24 上午
  */
 public class AUTOEXEC_PROFILE_MODIFY extends AuthBase {
+
     @Override
     public String getAuthDisplayName() {
         return "Profile管理权限";
@@ -22,7 +23,7 @@ public class AUTOEXEC_PROFILE_MODIFY extends AuthBase {
 
     @Override
     public String getAuthGroup() {
-        return  "autoexec";
+        return "autoexec";
     }
 
     @Override
@@ -31,7 +32,7 @@ public class AUTOEXEC_PROFILE_MODIFY extends AuthBase {
     }
 
     @Override
-    public List<Class<? extends AuthBase>> getIncludeAuths(){
+    public List<Class<? extends AuthBase>> getIncludeAuths() {
         return Collections.singletonList(AUTOEXEC_BASE.class);
     }
 }
