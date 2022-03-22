@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecProfileMapper">
 
-    <insert id="insertAutoexecProfileTooLByProfileIdAndOptionIdListAndType">
-        INSERT INTO autoexec_profile_option ( profile_id, option_id ,type)
+    <insert id="insertAutoexecProfileTooLByProfileIdAndOperateIdListAndType">
+        INSERT INTO autoexec_profile_operate ( profile_id, operate_id ,type)
         VALUES
-        <foreach collection="optionIdList" item="optionId" separator=",">
-            (#{profileId},#{optionId},#{type})
+        <foreach collection="operateIdList" item="operateId" separator=",">
+            (#{profileId},#{operateId},#{type})
         </foreach>
     </insert>
 
@@ -49,15 +49,15 @@
     <sql id="searchProfile">
         FROM
         `autoexec_profile` a
-        <if test="toolId != null">
-            LEFT JOIN autoexec_profile_option apo ON apo.profile_id = a.id
+        <if test="operateId != null">
+            LEFT JOIN autoexec_profile_operate apo ON apo.profile_id = a.id
         </if>
         <where>
             <if test="keyword != null and keyword != ''">
                 AND (a.`name` LIKE CONCAT('%',#{keyword}, '%') OR a.`description` LIKE CONCAT('%',#{keyword}, '%'))
             </if>
-            <if test="scriptId != null">
-                and apo.`profile_id` = #{optionId}
+            <if test="operateId != null">
+                and apo.`operate_id` = #{operateId}
             </if>
         </where>
     </sql>
@@ -99,20 +99,20 @@
         WHERE id = #{value}
     </select>
 
-    <select id="getProfileVoByOptionId"
-            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileOptionVo">
+    <select id="getProfileVoByOperateId"
+            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileOperationVo">
         SELECT profile_id,
-               option_id,
+               operate_id,
                type
-        FROM autoexec_profile_option
-        WHERE option_id = #{value}
+        FROM autoexec_profile_operate
+        WHERE operate_id = #{value}
     </select>
 
 
     <select id="getProfileToolListByProfileId"
-            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileOptionVo">
-        select profile_id, option_id, type
-        from autoexec_profile_option
+            resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileOperationVo">
+        select profile_id, operate_id, type
+        from autoexec_profile_operate
     </select>
 
     <select id="getAutoexecProfileIdList" resultType="java.lang.Long">
@@ -148,9 +148,9 @@
         WHERE id = #{value}
     </delete>
 
-    <delete id="deleteProfileOptionByProfileId">
+    <delete id="deleteProfileOperateByProfileId">
         DELETE
-        FROM autoexec_profile_option
+        FROM autoexec_profile_operate
         WHERE profile_id = #{value}
     </delete>
 </mapper>

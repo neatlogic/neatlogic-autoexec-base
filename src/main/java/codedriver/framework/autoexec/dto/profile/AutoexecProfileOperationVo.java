@@ -8,12 +8,12 @@ import codedriver.framework.restful.annotation.EntityField;
  * @author longrf
  * @date 2022/3/21 3:59 下午
  */
-public class AutoexecProfileOptionVo extends BasePageVo {
+public class AutoexecProfileOperationVo extends BasePageVo {
 
     @EntityField(name = "profileId", type = ApiParamType.LONG)
     private Long profileId;
-    @EntityField(name = "optionId", type = ApiParamType.LONG)
-    private Long optionId;
+    @EntityField(name = "operateId", type = ApiParamType.LONG)
+    private Long operateId;
     @EntityField(name = "type", type = ApiParamType.STRING)
     private String type;
 
@@ -25,12 +25,12 @@ public class AutoexecProfileOptionVo extends BasePageVo {
         this.profileId = profileId;
     }
 
-    public Long getOptionId() {
-        return optionId;
+    public Long getOperateId() {
+        return operateId;
     }
 
-    public void setOptionId(Long optionId) {
-        this.optionId = optionId;
+    public void setOperateId(Long operateId) {
+        this.operateId = operateId;
     }
 
     public String getType() {

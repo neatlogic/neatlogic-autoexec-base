@@ -1,6 +1,6 @@
 package codedriver.framework.autoexec.dao.mapper;
 
-import codedriver.framework.autoexec.dto.profile.AutoexecProfileOptionVo;
+import codedriver.framework.autoexec.dto.profile.AutoexecProfileOperationVo;
 import codedriver.framework.autoexec.dto.profile.AutoexecProfileVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,13 +22,13 @@ public interface AutoexecProfileMapper {
 
     List<AutoexecProfileVo> searchProfileListByIdList(@Param("idList") List<Long> idList);
 
-    List<AutoexecProfileOptionVo> getProfileToolListByProfileId(Long id);
+    List<AutoexecProfileOperationVo> getProfileToolListByProfileId(Long id);
 
     AutoexecProfileVo getProfileVoById(Long id);
 
-    AutoexecProfileOptionVo getProfileVoByOptionId(Long optionId);//////
+    AutoexecProfileOperationVo getProfileVoByOperateId(Long optionId);//////
 
-    void insertAutoexecProfileTooLByProfileIdAndOptionIdListAndType(@Param("id") Long id, @Param("toolIdList") List<Long> toolIdList, @Param("type") String type);
+    void insertAutoexecProfileTooLByProfileIdAndOperateIdListAndType(@Param("id") Long id, @Param("toolIdList") List<Long> toolIdList, @Param("type") String type);
 
     void insertProfile(AutoexecProfileVo profileVo);
 
@@ -36,6 +36,6 @@ public interface AutoexecProfileMapper {
 
     void deleteProfileById(Long id);
 
-    void deleteProfileOptionByProfileId(Long id);
+    void deleteProfileOperateByProfileId(Long id);
 
 }
