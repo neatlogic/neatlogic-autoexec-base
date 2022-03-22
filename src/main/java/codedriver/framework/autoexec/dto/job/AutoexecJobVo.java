@@ -110,7 +110,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Long nodeId;
     private List<AutoexecJobPhaseNodeVo> phaseNodeVoList;//场景：工具库测试|重跑节点
     private List<Long> phaseNodeIdList;
-    private Integer currentPhaseSort;
+    private Integer currentGroupSort;
     private Long currentPhaseId;
     private Long currentNodeResourceId;
     private AutoexecJobPhaseNodeVo currentNode;
@@ -456,12 +456,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.completionRate = completionRate;
     }
 
-    public Integer getCurrentPhaseSort() {
-        return currentPhaseSort;
+    public Integer getCurrentGroupSort() {
+        return currentGroupSort;
     }
 
-    public void setCurrentPhaseSort(Integer currentPhaseSort) {
-        this.currentPhaseSort = currentPhaseSort;
+    public void setCurrentGroupSort(Integer currentGroupSort) {
+        this.currentGroupSort = currentGroupSort;
     }
 
     public String getAction() {
@@ -546,7 +546,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Integer getIsFirstFire() {
-        if(currentPhaseSort != null && currentPhaseSort == 0){
+        if(currentGroupSort != null && currentGroupSort == 0){
             return 1;
         }
         return 0;
