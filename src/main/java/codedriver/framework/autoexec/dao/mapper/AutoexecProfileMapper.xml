@@ -39,7 +39,7 @@
     <select id="searchAutoexecProfileCount" parameterType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo"
             resultType="int">
         SELECT
-        COUNT( 1 )
+        COUNT(1)
         <include refid="searchProfile"></include>
     </select>
 
@@ -161,6 +161,18 @@
         DELETE
         FROM autoexec_profile
         WHERE id = #{value}
+    </delete>
+
+    <delete id="deleteProfileToolByProfileId">
+        DELETE
+        FROM autoexec_profile_tool
+        WHERE tool_id = #{value}
+    </delete>
+
+    <delete id="deleteProfileScriptByProfileId">
+        DELETE
+        FROM autoexec_profile_script
+        WHERE script_id = #{value}
     </delete>
 </mapper>
 

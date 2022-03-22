@@ -3,7 +3,7 @@ package codedriver.framework.autoexec.dto.profile;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -17,7 +17,7 @@ import java.util.Objects;
  * @author longrf
  * @date 2022/3/16 11:34 上午
  */
-public class AutoexecProfileVo extends BasePageVo {
+public class AutoexecProfileVo extends BaseEditorVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
@@ -35,8 +35,10 @@ public class AutoexecProfileVo extends BasePageVo {
     private Long toolId;
     @EntityField(name = "工具库工具id/脚本工具id", type = ApiParamType.LONG)
     private Long operateId;
-    @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.LONG)
+    @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecToolAndScriptVo> autoexecToolAndScriptVoList;
+    @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.INTEGER)
+    private Integer autoexecToolAndScriptCount = 0;
     @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> inputParamList;
 
@@ -130,5 +132,13 @@ public class AutoexecProfileVo extends BasePageVo {
 
     public void setInputParamList(List<AutoexecParamVo> inputParamList) {
         this.inputParamList = inputParamList;
+    }
+
+    public Integer getAutoexecToolAndScriptCount() {
+        return autoexecToolAndScriptCount;
+    }
+
+    public void setAutoexecToolAndScriptCount(Integer autoexecToolAndScriptCount) {
+        this.autoexecToolAndScriptCount = autoexecToolAndScriptCount;
     }
 }
