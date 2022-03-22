@@ -124,7 +124,7 @@
 
     </select>
 
-    <select id="searchAutoexecProfileListByIdList"
+    <select id="searchProfileListByIdList"
             resultType="codedriver.framework.autoexec.dto.profile.AutoexecProfileVo">
         SELECT id,
         name,

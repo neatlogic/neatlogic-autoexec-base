@@ -21,7 +21,7 @@ public interface AutoexecProfileMapper {
 
     List<AutoexecProfileVo> searchAutoexecProfile(AutoexecProfileVo profileVo);
 
-    List<AutoexecProfileVo> searchAutoexecProfileListByIdList(@Param("idList") List<Long> idList);
+    List<AutoexecProfileVo> searchProfileListByIdList(@Param("idList") List<Long> idList);
 
     List<AutoexecProfileToolVo> getProfileToolListByProfileIdList(@Param("profileIdList") List<Long> profileIdList);
 

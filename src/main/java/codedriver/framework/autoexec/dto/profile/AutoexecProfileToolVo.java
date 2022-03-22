@@ -9,6 +9,7 @@ import codedriver.framework.restful.annotation.EntityField;
  * @date 2022/3/21 3:59 下午
  */
 public class AutoexecProfileToolVo extends BasePageVo {
+
     @EntityField(name = "profileId", type = ApiParamType.LONG)
     private Long profileId;
     @EntityField(name = "toolId", type = ApiParamType.LONG)
