@@ -60,7 +60,10 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer completionRate = 0;
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
-
+    @EntityField(name = "组id", type = ApiParamType.LONG)
+    private Long groupId;
+    @EntityField(name = "组vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobGroupVo jobGroupVo;
     private String uuid;
     private Long combopId;
     private Integer count;
@@ -87,6 +90,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.sort = autoexecCombopPhaseVo.getSort();
         this.execUser = UserContext.get().getUserUuid(true);
         this.uuid = autoexecCombopPhaseVo.getUuid();
+        this.jobGroupVo = new AutoexecJobGroupVo(autoexecCombopPhaseVo.getGroupVo());
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status) {
@@ -259,5 +263,21 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setLncd(Date lncd) {
         this.lncd = lncd;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public AutoexecJobGroupVo getJobGroupVo() {
+        return jobGroupVo;
+    }
+
+    public void setJobGroupVo(AutoexecJobGroupVo jobGroupVo) {
+        this.jobGroupVo = jobGroupVo;
     }
 }
