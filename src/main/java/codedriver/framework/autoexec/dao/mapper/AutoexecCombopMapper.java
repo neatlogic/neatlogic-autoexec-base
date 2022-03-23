@@ -36,6 +36,8 @@ public interface AutoexecCombopMapper {
 
     List<AutoexecCombopVo> getAutoexecCombopList(AutoexecCombopVo searchVo);
 
+    List<Long> getAutoexecCombopIdList(AutoexecCombopVo searchVo);
+
     List<AutoexecCombopVo> getAutoexecCombopListByIdList(List<Long> idList);
 
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopIdAndAction(@Param("combopId") Long combopId, @Param("action") String action);

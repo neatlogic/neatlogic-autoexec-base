@@ -133,6 +133,25 @@
         LIMIT #{startNum}, #{pageSize}
     </select>
 
+    <select id="getAutoexecCombopIdList" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo" resultType="java.lang.Long">
+        SELECT
+            `id`
+        FROM `autoexec_combop`
+        <where>
+        <if test="keyword != null and keyword != ''">
+            AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%'))
+        </if>
+        <if test="typeId != null">
+            AND `type_id` = #{typeId}
+        </if>
+        <if test="isActive != null">
+            AND `is_active` = #{isActive}
+        </if>
+        </where>
+        ORDER BY `id` DESC
+        LIMIT #{startNum}, #{pageSize}
+    </select>
+
     <select id="getAutoexecCombopListByIdList" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT
             `id`,
