@@ -16,6 +16,8 @@ public class AutoexecCombopConfigVo implements Serializable {
 
     private List<AutoexecCombopPhaseVo> combopPhaseList;
 
+    private List<AutoexecCombopGroupVo> combopGroupList;
+
     private AutoexecCombopExecuteConfigVo executeConfig;
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
@@ -24,6 +26,14 @@ public class AutoexecCombopConfigVo implements Serializable {
 
     public void setCombopPhaseList(List<AutoexecCombopPhaseVo> combopPhaseList) {
         this.combopPhaseList = combopPhaseList;
+    }
+
+    public List<AutoexecCombopGroupVo> getCombopGroupList() {
+        return combopGroupList;
+    }
+
+    public void setCombopGroupList(List<AutoexecCombopGroupVo> combopGroupList) {
+        this.combopGroupList = combopGroupList;
     }
 
     public AutoexecCombopExecuteConfigVo getExecuteConfig() {

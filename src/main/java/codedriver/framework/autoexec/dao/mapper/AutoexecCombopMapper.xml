@@ -359,7 +359,8 @@
             `name`,
             `exec_mode`,
             `config`,
-            `sort`
+            `sort`,
+            `group_id`
         )
         VALUES
         (
@@ -369,7 +370,8 @@
             #{name},
             #{execMode},
             #{configStr},
-            #{sort}
+            #{sort},
+            #{groupId}
         )
     </insert>
 
@@ -390,6 +392,24 @@
             #{failPolicy},
             #{configStr},
             #{sort}
+        )
+    </insert>
+
+    <insert id="insertAutoexecCombopGroup" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupVo">
+        INSERT INTO `autoexec_combop_group` (
+            `id`,
+            `combop_id`,
+            `sort`,
+            `policy`,
+            `config`
+        )
+        VALUES
+        (
+            #{id},
+            #{combopId},
+            #{sort},
+            #{policy},
+            #{configStr}
         )
     </insert>
 
@@ -440,6 +460,10 @@
 
     <delete id="deleteAutoexecCombopPhaseByCombopId" parameterType="java.lang.Long">
         DELETE FROM `autoexec_combop_phase` WHERE `combop_id` = #{value}
+    </delete>
+
+    <delete id="deleteAutoexecCombopGroupByCombopId" parameterType="java.lang.Long">
+        DELETE FROM `autoexec_combop_group` WHERE `combop_id` = #{value}
     </delete>
 
     <delete id="deleteAutoexecCombopPhaseOperationByCombopPhaseIdList" parameterType="java.lang.Long">

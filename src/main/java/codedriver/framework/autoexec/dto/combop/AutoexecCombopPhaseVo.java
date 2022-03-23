@@ -26,10 +26,11 @@ public class AutoexecCombopPhaseVo implements Serializable {
     private String execMode;
     private String execModeName;
     private AutoexecCombopPhaseConfigVo config;
-    private Long groupId;
     private AutoexecCombopGroupVo groupVo;
     private Integer sort;
     private String uuid;
+    private Long groupId;
+    private String groupUuid;
     @JSONField(serialize = false)
     private String configStr;
 
@@ -110,6 +111,14 @@ public class AutoexecCombopPhaseVo implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getGroupUuid() {
+        return groupUuid;
+    }
+
+    public void setGroupUuid(String groupUuid) {
+        this.groupUuid = groupUuid;
     }
 
     public String getConfigStr() {
