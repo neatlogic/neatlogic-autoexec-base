@@ -8,13 +8,18 @@ package codedriver.framework.autoexec.job.action.core;
 import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.auth.core.AuthActionChecker;
 import codedriver.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
-import codedriver.framework.autoexec.constvalue.*;
+import codedriver.framework.autoexec.constvalue.CombopOperationType;
+import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.JobSource;
+import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.crossover.IAutoexecCombopCrossoverService;
 import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.exception.*;
+import codedriver.framework.autoexec.job.group.policy.core.AutoexecJobGroupPolicyHandlerFactory;
+import codedriver.framework.autoexec.job.group.policy.core.IAutoexecJobGroupPolicyHandler;
 import codedriver.framework.crossover.CrossoverServiceFactory;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
@@ -22,7 +27,6 @@ import codedriver.framework.integration.authentication.enums.AuthenticateType;
 import codedriver.framework.util.RestUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONValidator;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -31,9 +35,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
 
 /**
  * @author lvzk
@@ -151,7 +152,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 throw new AutoexecJobRunnerMapNotMatchRunnerException(runner.getRunnerMapId());
             }
             url = runner.getUrl() + "api/rest/health/check";
-            if(StringUtils.isBlank(url)){
+            if (StringUtils.isBlank(url)) {
                 throw new AutoexecJobRunnerNotFoundException(runner.getRunnerMapId().toString());
             }
             restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).build();
@@ -168,41 +169,45 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     }
 
     /**
-     * 执行作业阶段
+     * 第一次执行作业阶段
      *
      * @param jobVo 作业
      */
-    protected void execute(AutoexecJobVo jobVo) {
+    protected void firstExecute(AutoexecJobVo jobVo) {
         jobVo.setStatus(JobStatus.RUNNING.getValue());
         autoexecJobMapper.updateJobStatus(jobVo);
-        for (AutoexecJobPhaseVo jobPhase : jobVo.getPhaseList()) {
-            jobPhase.setStatus(JobPhaseStatus.WAITING.getValue());
-            autoexecJobMapper.updateJobPhaseStatus(jobPhase);
-        }
+        IAutoexecJobGroupPolicyHandler groupPolicyHandler = AutoexecJobGroupPolicyHandlerFactory.getGroupPolicy(jobVo.getExecuteJobGroupVo().getPolicy());
+        groupPolicyHandler.getExecutePhaseList(jobVo);
+        groupPolicyHandler.updateExecutePhaseListStatus(jobVo);
+        List<RunnerMapVo> runnerVos = groupPolicyHandler.getExecuteRunnerList(jobVo);
+        executeRunnerRest(jobVo, runnerVos);
+    }
 
+    /**
+     * 发起执行命令
+     *
+     * @param jobVo     作业
+     * @param runnerVos runner列表
+     */
+    private void executeRunnerRest(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
         JSONObject paramJson = new JSONObject();
         paramJson.put("jobId", jobVo.getId());
         paramJson.put("tenant", TenantContext.get().getTenantUuid());
         paramJson.put("isNoFireNext", jobVo.getIsNoFireNext());
         paramJson.put("isFirstFire", jobVo.getIsFirstFire());
-        paramJson.put("jobPhaseNameList", jobVo.getPhaseNameList());
+        paramJson.put("jobPhaseNameList", jobVo.getExecuteJobPhaseList().stream().map(AutoexecJobPhaseVo::getName).collect(Collectors.toList()));
         paramJson.put("jobPhaseNodeIdList", jobVo.getPhaseNodeIdList());
-
         RestVo restVo = null;
         String result = StringUtils.EMPTY;
         String url = StringUtils.EMPTY;
-        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobPhaseRunnerByJobIdAndPhaseIdList(jobVo.getId(), jobVo.getPhaseIdList());
-        if (CollectionUtils.isEmpty(runnerVos)) {
-            throw new AutoexecJobRunnerNotFoundException(jobVo.getPhaseNameList());
-        }
         checkRunnerHealth(runnerVos);
-        runnerVos = runnerVos.stream().filter(o->StringUtils.isNotBlank(o.getUrl())).collect(collectingAndThen(toCollection(() -> new TreeSet<>( Comparator.comparing(RunnerMapVo::getUrl))), ArrayList::new));
         try {
             for (RunnerMapVo runner : runnerVos) {
                 url = runner.getUrl() + "api/rest/job/exec";
                 paramJson.put("passThroughEnv", new JSONObject() {{
                     put("runnerId", runner.getRunnerMapId());
-                    put("phaseSort", jobVo.getCurrentGroupSort());
+                    put("groupSort", jobVo.getExecuteJobGroupVo().getSort());
+                    put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
                 }});
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);

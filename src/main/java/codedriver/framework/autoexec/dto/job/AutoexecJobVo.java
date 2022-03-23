@@ -110,13 +110,18 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Long nodeId;
     private List<AutoexecJobPhaseNodeVo> phaseNodeVoList;//场景：工具库测试|重跑节点
     private List<Long> phaseNodeIdList;
-    private Integer currentGroupSort;
     private Long currentPhaseId;
     private Long currentNodeResourceId;
     private AutoexecJobPhaseNodeVo currentNode;
     private Integer isNoFireNext = 0;
     private Integer isFirstFire;
     private String action;//fire|refire|goon
+
+    @JSONField(serialize = false)
+    private AutoexecJobGroupVo executeJobGroupVo;
+    @JSONField(serialize = false)
+    private List<AutoexecJobPhaseVo> executeJobPhaseList;
+
 
     //param
     @JSONField(serialize = false)
@@ -456,14 +461,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.completionRate = completionRate;
     }
 
-    public Integer getCurrentGroupSort() {
-        return currentGroupSort;
-    }
-
-    public void setCurrentGroupSort(Integer currentGroupSort) {
-        this.currentGroupSort = currentGroupSort;
-    }
-
     public String getAction() {
         return action;
     }
@@ -546,10 +543,11 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Integer getIsFirstFire() {
-        if(currentGroupSort != null && currentGroupSort == 0){
-            return 1;
-        }
-        return 0;
+        return isFirstFire;
+    }
+
+    public void setIsFirstFire(Integer isFirstFire) {
+        this.isFirstFire = isFirstFire;
     }
 
     public Long getCurrentPhaseId() {
@@ -599,4 +597,19 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         return operationTypeName;
     }
 
+    public AutoexecJobGroupVo getExecuteJobGroupVo() {
+        return executeJobGroupVo;
+    }
+
+    public void setExecuteJobGroupVo(AutoexecJobGroupVo executeJobGroupVo) {
+        this.executeJobGroupVo = executeJobGroupVo;
+    }
+
+    public List<AutoexecJobPhaseVo> getExecuteJobPhaseList() {
+        return executeJobPhaseList;
+    }
+
+    public void setExecuteJobPhaseList(List<AutoexecJobPhaseVo> executeJobPhaseList) {
+        this.executeJobPhaseList = executeJobPhaseList;
+    }
 }

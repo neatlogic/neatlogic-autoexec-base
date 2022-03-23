@@ -45,6 +45,9 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobLockByOperationId(Long operationId);
 
+    //jobGroup
+    AutoexecJobGroupVo getJobGroupByJobIdAndSort(@Param("jobId") Long id,@Param("sort") int sort);
+
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
@@ -66,7 +69,7 @@ public interface AutoexecJobMapper {
 
     Integer getJobPhaseNotCompletedCountByJobIdAndSort(@Param("jobId") Long jobId, @Param("sort") Integer sort);
 
-    List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndSort(@Param("jobId") Long jobId, @Param("sort") Integer sort);
+    List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndGroupSort(@Param("jobId") Long jobId, @Param("sort") Integer sort);
 
     Integer checkIsHasActivePhaseFailed(Long jobId);
 

@@ -5,7 +5,6 @@
 
 package codedriver.framework.autoexec.job.group.policy.core;
 
-import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 
@@ -26,9 +25,8 @@ public interface IAutoexecJobGroupPolicyHandler {
     /**
      * 获取第一次执行阶段列表
      * @param jobVo 作业
-     * @return 节点列表
      */
-    List<AutoexecJobPhaseVo> getFirstExecutePhaseList(AutoexecJobVo jobVo);
+    void getExecutePhaseList(AutoexecJobVo jobVo);
 
     /**
      * 获取执行的runner列表
@@ -36,4 +34,10 @@ public interface IAutoexecJobGroupPolicyHandler {
      * @return runner列表
      */
     List<RunnerMapVo> getExecuteRunnerList(AutoexecJobVo jobVo);
+
+    /**
+     * 更新执行Phase状态
+     * @param jobVo 作业
+     */
+    void updateExecutePhaseListStatus(AutoexecJobVo jobVo);
 }

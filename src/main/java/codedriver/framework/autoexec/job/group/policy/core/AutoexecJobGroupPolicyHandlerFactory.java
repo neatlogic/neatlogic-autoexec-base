@@ -20,8 +20,8 @@ public class AutoexecJobGroupPolicyHandlerFactory extends ModuleInitializedListe
 
     private static final Map<String, IAutoexecJobGroupPolicyHandler> groupPolicyMap = new HashMap<>();
 
-    public static IAutoexecJobGroupPolicyHandler getGroupPolicy(String action) {
-        return groupPolicyMap.get(action);
+    public static IAutoexecJobGroupPolicyHandler getGroupPolicy(String groupPolicy) {
+        return groupPolicyMap.get(groupPolicy);
     }
 
     public static Map<String, IAutoexecJobGroupPolicyHandler> getGroupPolicyMap(){

@@ -223,19 +223,40 @@
         ORDER BY `sort`, `name` ASC
     </select>
 
-    <select id="getJobPhaseListByJobIdAndPhaseStatus"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        SELECT `id`,
-        `job_id` as jobId,
-        `status`,
-        `start_time` as startTime,
-        `end_time` as endTime,
-        `exec_user` as execUser,
-        `exec_mode` as execMode,
-        `name` as name,
-        `sort`,
-        `uk` as uk
-        FROM `autoexec_job_phase`
+    <resultMap id="AutoexecJobPhaseMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        <id column="id" property="id"/>
+        <result column="jobId" property="jobId"/>
+        <result column="status" property="status"/>
+        <result column="startTime" property="startTime"/>
+        <result column="endTime" property="endTime"/>
+        <result column="execUser" property="execUser"/>
+        <result column="execMode" property="execMode"/>
+        <result column="name" property="name"/>
+        <result column="sort" property="sort"/>
+        <result column="uk" property="uk"/>
+        <collection property="jobGroupVo" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
+            <result column="groupId" property="id"/>
+            <result column="groupSort" property="sort"/>
+            <result column="groupPolicy" property="policy"/>
+        </collection>
+    </resultMap>
+
+    <select id="getJobPhaseListByJobIdAndPhaseStatus" resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+        ajp.`job_id` as jobId,
+        ajp.`status`,
+        ajp.`start_time` as startTime,
+        ajp.`end_time` as endTime,
+        ajp.`exec_user` as execUser,
+        ajp.`exec_mode` as execMode,
+        ajp.`name` as name,
+        ajp.`sort`,
+        ajp.`uk` as uk,
+        ajg.id as groupId,
+        ajg.sort as groupSort,
+        ajg.policy as groupPolicy
+        FROM `autoexec_job_phase` ajp
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where `job_id` = #{jobId}
         <if test="statusList != null and statusList.size() >0">
             and `status` in
@@ -243,11 +264,10 @@
                 #{status}
             </foreach>
         </if>
-        ORDER BY `sort`, `name` ASC
+        ORDER BY ajg.`sort`,ajp.`sort`, ajp.`name` ASC
     </select>
 
-    <select id="getJobPhaseListByJobIdAndNodeStatusList"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+    <select id="getJobPhaseListByJobIdAndNodeStatusList" resultMap="AutoexecJobPhaseMap">
         SELECT ajp.`id`,
         ajp.`job_id` AS jobId,
         ajp.`status`,
@@ -257,14 +277,18 @@
         ajp.`exec_mode` AS execMode,
         ajp.`name` AS NAME,
         ajp.`sort`,
-        ajp.`uk` AS uk
+        ajp.`uk` AS uk,
+        ajg.id as groupId,
+        ajg.sort as groupSort,
+        ajg.policy as groupPolicy
         FROM `autoexec_job_phase_node` ajpn
         JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         WHERE ajpn.job_id = #{jobId} AND ajpn.`status` in
         <foreach collection="statusList" open="(" separator="," close=")" item="status">
             #{status}
         </foreach>
-        ORDER BY ajp.sort,ajp.`name`
+        ORDER BY ajg.`sort`,ajp.sort,ajp.`name`
     </select>
 
     <select id="getJobPhaseNodeStatusCount" parameterType="java.lang.Long"
@@ -550,13 +574,14 @@
         where `job_id` = #{value}
           AND `status` = 'failed'
     </select>
-    <select id="getJobPhaseListByJobIdAndSort"
+    <select id="getJobPhaseListByJobIdAndGroupSort"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        select `job_id` as jobId, `name`, `exec_mode` as execMode, `id`, `status`
-        from `autoexec_job_phase`
-        where `job_id` = #{jobId}
+        select ajp.`job_id` as jobId, ajp.`name`, ajp.`exec_mode` as execMode, ajp.`id`, ajp.`status`
+        from `autoexec_job_phase` ajp left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id =
+        ajg.id
+        where ajp.`job_id` = #{jobId}
         <if test="sort != null">
-            and `sort` = #{sort}
+            and ajg.`sort` = #{sort}
         </if>
     </select>
     <select id="getJobPhaseNodeInfoByJobNodeId"
@@ -1107,7 +1132,15 @@
                `sort`,
                `lncd`,
                `status`
-        FROM `autoexec_job_phase` where `node_from` = 'job'
+        FROM `autoexec_job_phase`
+        where `node_from` = 'job'
+    </select>
+    <select id="getJobGroupByJobIdAndSort"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
+        select id, policy, job_id, sort
+        from autoexec_job_group
+        where job_id = #{jobId}
+          and `sort` = #{sort}
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
@@ -1235,14 +1268,19 @@
         INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`, `lcd`)
         VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
         ON DUPLICATE KEY
-        UPDATE `job_id` = #{jobId},`job_phase_id` = #{jobPhaseId}, `runner_map_id` = #{runnerMapId}, `lcd` = #{lcd};
+            UPDATE `job_id`        = #{jobId},
+                   `job_phase_id`  = #{jobPhaseId},
+                   `runner_map_id` = #{runnerMapId},
+                   `lcd`           = #{lcd};
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
         INSERT INTO `autoexec_job_env` (`job_id`, `name`, `value`)
         VALUES (#{jobId}, #{name}, #{value})
         ON DUPLICATE KEY
-            UPDATE `job_id` = #{jobId} , `name` = #{name} , `value` = #{value};
+            UPDATE `job_id` = #{jobId},
+                   `name`   = #{name},
+                   `value`  = #{value};
     </insert>
     <insert id="insertIgnoreIntoJobInvoke">
         INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`)
@@ -1252,7 +1290,10 @@
         INSERT INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`, `phase_id`, `lcd`)
         VALUES (#{jobId}, #{resourceId}, #{phaseId}, #{lcd})
         ON DUPLICATE KEY
-            UPDATE `job_id` = #{jobId} , `resource_id` = #{resourceId},`phase_id` = #{phaseId} ,`lcd` = #{lcd};
+            UPDATE `job_id`      = #{jobId},
+                   `resource_id` = #{resourceId},
+                   `phase_id`    = #{phaseId},
+                   `lcd`         = #{lcd};
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1452,7 +1493,8 @@
             `autoexec_job_phase_node`
         set `is_delete` = 1
         where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL) and `is_delete` != 1
+          and (`lcd` != #{lcd} OR `lcd` IS NULL)
+          and `is_delete` != 1
     </delete>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
