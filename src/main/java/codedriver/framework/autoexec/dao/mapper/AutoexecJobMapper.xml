@@ -1114,7 +1114,7 @@
         INSERT INTO `autoexec_job` (`id`,
         `name`,
         `status`,
-        <if test="planStartTime != null and planStartTime !='' ">
+        <if test="planStartTime != null">
             `plan_start_time`,
         </if>
         `operation_id`,
@@ -1124,11 +1124,15 @@
         `exec_user`,
         `exec_user_type`,
         `config`,
-        `source`)
+        <if test="triggerType != null and triggerType !='' ">
+            `trigger_type`,
+        </if>
+        `source`
+        )
         VALUES (#{id},
         #{name},
         #{status},
-        <if test="planStartTime != null and planStartTime !='' ">
+        <if test="planStartTime != null">
             #{planStartTime},
         </if>
         #{operationId},
@@ -1138,7 +1142,11 @@
         #{execUser},
         #{execUserType},
         #{configStr},
-        #{source});
+        <if test="triggerType != null and triggerType !='' ">
+            #{triggerType},
+        </if>
+        #{source}
+        );
     </insert>
 
     <insert id="insertJobPhase" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">

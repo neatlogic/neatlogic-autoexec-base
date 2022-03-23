@@ -14,7 +14,9 @@ public enum JobStatus implements IEnum {
     ABORTING("aborting", "中止中", "#2d84fb"),
     ABORTED("aborted", "已中止", "#8E949F"),
     COMPLETED("completed", "已完成", "#25b865"),
-    FAILED("failed", "已失败", "#f71010");
+    FAILED("failed", "已失败", "#f71010"),
+    READY("ready", "已就绪", "#f71010"),
+    REVOKED("revoked", "已撤销", "#f71010");
     private final String status;
     private final String text;
     private final String color;
@@ -61,6 +63,7 @@ public enum JobStatus implements IEnum {
         for (JobStatus status : JobStatus.values()) {
             array.add(new JSONObject() {
                 private static final long serialVersionUID = 1670544546905960015L;
+
                 {
                     this.put("value", status.getValue());
                     this.put("text", status.getText());
