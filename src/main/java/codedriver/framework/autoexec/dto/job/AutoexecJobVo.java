@@ -9,12 +9,14 @@ import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.JobSource;
 import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.constvalue.JobTriggerType;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
 import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.common.dto.ValueTextVo;
 import codedriver.framework.dto.RoleVo;
 import codedriver.framework.dto.TeamVo;
 import codedriver.framework.dto.UserVo;
@@ -88,6 +90,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
+    @EntityField(name = "触发方式", type = ApiParamType.STRING)
+    private String triggerType = JobTriggerType.AUTO.getValue();
+    @EntityField(name = "触发方式Vo", type = ApiParamType.JSONOBJECT)
+    private ValueTextVo triggerTypeVo;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业剧本Id集合", type = ApiParamType.JSONARRAY)
@@ -131,7 +137,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private List<String> typeIdList;
 
 
-
     public AutoexecJobVo() {
     }
 
@@ -143,7 +148,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.source = source;
         this.threadCount = threadCount;
         JSONArray combopParamsResult = new JSONArray();
-        if(MapUtils.isNotEmpty(paramJson)) {
+        if (MapUtils.isNotEmpty(paramJson)) {
             JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(combopVo.getRuntimeParamList()));
             for (Object combopParam : combopParams) {
                 JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
@@ -163,6 +168,17 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.configStr = combopVo.getConfigStr();
         if (combopVo.getIsTest() != null && combopVo.getIsTest()) {
             this.source = JobSource.TEST.getValue();
+        }
+    }
+
+    public AutoexecJobVo(AutoexecCombopVo combopVo, String source, Integer threadCount, JSONObject paramJson, Date planStartTime, String triggerType) {
+        this(combopVo, source, threadCount, paramJson);
+        this.planStartTime = planStartTime;
+        if (StringUtils.isNotBlank(triggerType)) {
+            this.triggerType = triggerType;
+        }
+        if (planStartTime != null && StringUtils.isNotBlank(triggerType)) {
+            this.status = JobStatus.READY.getValue();
         }
     }
 
@@ -243,6 +259,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Date getPlanStartTime() {
+        if (planStartTime == null) {
+            planStartTime = new Date();
+        }
         return planStartTime;
     }
 
@@ -546,7 +565,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Integer getIsFirstFire() {
-        if(currentPhaseSort != null && currentPhaseSort == 0){
+        if (currentPhaseSort != null && currentPhaseSort == 0) {
             return 1;
         }
         return 0;
@@ -593,10 +612,21 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getOperationTypeName() {
-        if(StringUtils.isNotBlank(operationType)){
+        if (StringUtils.isNotBlank(operationType)) {
             return CombopOperationType.getText(operationType);
         }
         return operationTypeName;
     }
 
+    public String getTriggerType() {
+        return triggerType;
+    }
+
+    public void setTriggerType(String triggerType) {
+        this.triggerType = triggerType;
+    }
+
+    public ValueTextVo getTriggerTypeVo() {
+        return new ValueTextVo(getTriggerType(), JobTriggerType.getText(getTriggerType()));
+    }
 }
