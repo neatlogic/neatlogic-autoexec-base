@@ -36,6 +36,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
+
 /**
  * @author lvzk
  * @since 2021/11/9 11:31
@@ -173,6 +176,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      *
      * @param jobVo 作业
      */
+    @Deprecated
     protected void firstExecute(AutoexecJobVo jobVo) {
         jobVo.setStatus(JobStatus.RUNNING.getValue());
         autoexecJobMapper.updateJobStatus(jobVo);
@@ -180,7 +184,17 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         groupPolicyHandler.getExecutePhaseList(jobVo);
         groupPolicyHandler.updateExecutePhaseListStatus(jobVo);
         List<RunnerMapVo> runnerVos = groupPolicyHandler.getExecuteRunnerList(jobVo);
-        executeRunnerRest(jobVo, runnerVos);
+        execute(jobVo, runnerVos);
+    }
+
+    /**
+     * 执行组
+     *
+     * @param jobVo 作业
+     */
+    protected void executeGroup(AutoexecJobVo jobVo) {
+        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobRunnerListByJobIdAndGroupId(jobVo.getId(), jobVo.getExecuteJobGroupVo().getId());
+        execute(jobVo, runnerVos);
     }
 
     /**
@@ -189,17 +203,19 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      * @param jobVo     作业
      * @param runnerVos runner列表
      */
-    private void executeRunnerRest(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
+    private void execute(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
         JSONObject paramJson = new JSONObject();
         paramJson.put("jobId", jobVo.getId());
         paramJson.put("tenant", TenantContext.get().getTenantUuid());
         paramJson.put("isNoFireNext", jobVo.getIsNoFireNext());
         paramJson.put("isFirstFire", jobVo.getIsFirstFire());
         paramJson.put("jobPhaseNameList", jobVo.getExecuteJobPhaseList().stream().map(AutoexecJobPhaseVo::getName).collect(Collectors.toList()));
-        paramJson.put("jobPhaseNodeIdList", jobVo.getPhaseNodeIdList());
+        paramJson.put("jobGroupId",jobVo.getExecuteJobGroupVo().getSort());
+        paramJson.put("jobPhaseNodeIdList", jobVo.getExecuteJobNodeIdList());
         RestVo restVo = null;
         String result = StringUtils.EMPTY;
         String url = StringUtils.EMPTY;
+        runnerVos = runnerVos.stream().filter(o -> StringUtils.isNotBlank(o.getUrl())).collect(collectingAndThen(toCollection(() -> new TreeSet<>(Comparator.comparing(RunnerMapVo::getUrl))), ArrayList::new));
         checkRunnerHealth(runnerVos);
         try {
             for (RunnerMapVo runner : runnerVos) {

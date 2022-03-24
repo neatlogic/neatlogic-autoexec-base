@@ -46,7 +46,7 @@ public interface AutoexecJobMapper {
     AutoexecJobVo getJobLockByOperationId(Long operationId);
 
     //jobGroup
-    AutoexecJobGroupVo getJobGroupByJobIdAndSort(@Param("jobId") Long id,@Param("sort") int sort);
+    AutoexecJobGroupVo getJobGroupByJobIdAndSort(@Param("jobId") Long id, @Param("sort") int sort);
 
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
@@ -152,6 +152,8 @@ public interface AutoexecJobMapper {
 
     List<RunnerMapVo> getJobPhaseRunnerByJobIdAndPhaseIdListAndStatus(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId, @Param("status") String status);
 
+    List<RunnerMapVo> getJobRunnerListByJobIdAndGroupId(@Param("jobId") Long jobId, @Param("groupId") Long groupId);
+
     //invoke
     AutoexecJobInvokeVo getJobInvokeByJobId(Long id);
 
@@ -222,7 +224,7 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseNodeFrom(@Param("jobPhaseId") Long id, @Param("nodeFrom") String nodeFrom);
 
-    Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList")List<Long> nodeIdList);
+    Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 

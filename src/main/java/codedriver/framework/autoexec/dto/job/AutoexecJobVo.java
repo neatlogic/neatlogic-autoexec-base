@@ -108,7 +108,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "是否拥有编辑权限", type = ApiParamType.INTEGER)
     private Integer isCanEdit = 0;
     private Long nodeId;
-    private List<AutoexecJobPhaseNodeVo> phaseNodeVoList;//场景：工具库测试|重跑节点
     private List<Long> phaseNodeIdList;
     private Long currentPhaseId;
     private Long currentNodeResourceId;
@@ -117,6 +116,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isFirstFire;
     private String action;//fire|refire|goon
 
+    @JSONField(serialize = false)
+    private List<AutoexecJobPhaseNodeVo> executeJobNodeVoList;//场景：工具库测试|重跑节点
     @JSONField(serialize = false)
     private AutoexecJobGroupVo executeJobGroupVo;
     @JSONField(serialize = false)
@@ -511,17 +512,17 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.isCanEdit = isCanEdit;
     }
 
-    public List<AutoexecJobPhaseNodeVo> getPhaseNodeVoList() {
-        return phaseNodeVoList;
+    public List<AutoexecJobPhaseNodeVo> getExecuteJobNodeVoList() {
+        return executeJobNodeVoList;
     }
 
-    public void setPhaseNodeVoList(List<AutoexecJobPhaseNodeVo> phaseNodeVoList) {
-        this.phaseNodeVoList = phaseNodeVoList;
+    public void setExecuteJobNodeVoList(List<AutoexecJobPhaseNodeVo> executeJobNodeVoList) {
+        this.executeJobNodeVoList = executeJobNodeVoList;
     }
 
-    public List<Long> getPhaseNodeIdList() {
-        if (CollectionUtils.isNotEmpty(phaseNodeVoList)) {
-            phaseNodeIdList = phaseNodeVoList.stream().map(AutoexecJobPhaseNodeVo::getId).collect(Collectors.toList());
+    public List<Long> getExecuteJobNodeIdList() {
+        if (CollectionUtils.isNotEmpty(executeJobNodeVoList)) {
+            phaseNodeIdList = executeJobNodeVoList.stream().map(AutoexecJobPhaseNodeVo::getId).collect(Collectors.toList());
         }
         return phaseNodeIdList;
     }
