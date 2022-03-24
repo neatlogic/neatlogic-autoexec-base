@@ -92,7 +92,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private JSONObject config;
     @EntityField(name = "触发方式", type = ApiParamType.STRING)
     private String triggerType = JobTriggerType.AUTO.getValue();
-    @EntityField(name = "触发方式", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "触发方式Vo", type = ApiParamType.JSONOBJECT)
     private ValueTextVo triggerTypeVo;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseVo> phaseList;
@@ -176,9 +176,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.planStartTime = planStartTime;
         if (StringUtils.isNotBlank(triggerType)) {
             this.triggerType = triggerType;
-            if (JobTriggerType.MANUAL.getValue().equals(triggerType)) {
-                this.status = JobStatus.READY.getValue();
-            }
+        }
+        if (planStartTime != null && StringUtils.isNotBlank(triggerType)) {
+            this.status = JobStatus.READY.getValue();
         }
     }
 
