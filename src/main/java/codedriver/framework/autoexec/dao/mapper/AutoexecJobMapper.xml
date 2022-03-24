@@ -39,7 +39,8 @@
         aj.`exec_user` as execUser,
         aj.`exec_user_type` as execUserType,
         aj.`source`,
-        aj.`thread_count` as threadCount
+        aj.`thread_count` as threadCount,
+        aj.`trigger_type` as triggerType
         FROM
         `autoexec_job` aj
         WHERE aj.`id` in

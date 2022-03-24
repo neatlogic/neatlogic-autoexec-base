@@ -16,6 +16,7 @@ import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
 import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.common.dto.ValueTextVo;
 import codedriver.framework.dto.RoleVo;
 import codedriver.framework.dto.TeamVo;
 import codedriver.framework.dto.UserVo;
@@ -91,6 +92,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private JSONObject config;
     @EntityField(name = "触发方式", type = ApiParamType.STRING)
     private String triggerType = JobTriggerType.AUTO.getValue();
+    @EntityField(name = "触发方式", type = ApiParamType.JSONOBJECT)
+    private ValueTextVo triggerTypeVo;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业剧本Id集合", type = ApiParamType.JSONARRAY)
@@ -621,5 +624,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setTriggerType(String triggerType) {
         this.triggerType = triggerType;
+    }
+
+    public ValueTextVo getTriggerTypeVo() {
+        return new ValueTextVo(getTriggerType(), JobTriggerType.getText(getTriggerType()));
     }
 }
