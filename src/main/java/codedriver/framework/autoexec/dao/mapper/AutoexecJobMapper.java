@@ -45,6 +45,8 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobLockByOperationId(Long operationId);
 
+    List<Long> getJobIdListByStatus(String status);
+
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 

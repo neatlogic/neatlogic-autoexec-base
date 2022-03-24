@@ -288,6 +288,7 @@
                aj.`operation_id`    as operationId,
                aj.`operation_type`  as operationType,
                aj.`exec_user`       as execUser,
+               aj.`exec_user_type`  as execUserType,
                aj.`source`,
                aj.`thread_count`    as threadCount,
                aj.`param_hash`      as paramHash,
@@ -406,6 +407,12 @@
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value} for
         update
+    </select>
+
+    <select id="getJobIdListByStatus" parameterType="java.lang.String" resultType="java.lang.Long">
+        SELECT aj.`id`
+        FROM `autoexec_job` aj
+        WHERE aj.`status` = #{status}
     </select>
 
     <select id="getJobParamContentLock"
