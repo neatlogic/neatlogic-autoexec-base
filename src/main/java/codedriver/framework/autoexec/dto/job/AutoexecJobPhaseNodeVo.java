@@ -32,6 +32,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private static final long serialVersionUID = -3975625036282871623L;
     @EntityField(name = "作业剧本节点id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "作业组id", type = ApiParamType.LONG)
+    private Long jobGroupId;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
     @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
@@ -95,6 +97,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
         this.setJobId(jobId);
         this.jobPhaseId = jobPhaseVo.getId();
+        this.jobGroupId = jobPhaseVo.getJobGroupVo().getId();
         this.status = status;
         this.setUserName(userName);
         this.setHost(host);
@@ -120,6 +123,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.setPort(resourceVo.getPort());
         this.setJobId(jobId);
         this.jobPhaseId = jobPhaseVo.getId();
+        this.jobGroupId = jobPhaseVo.getJobGroupVo().getId();
         this.setProtocolId(protocolId);
         this.status = status;
         this.setUserName(userName);
@@ -145,6 +149,10 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public Long getJobPhaseId() {
         return jobPhaseId;
+    }
+
+    public Long getJobGroupId() {
+        return jobGroupId;
     }
 
     public String getJobPhaseName() {

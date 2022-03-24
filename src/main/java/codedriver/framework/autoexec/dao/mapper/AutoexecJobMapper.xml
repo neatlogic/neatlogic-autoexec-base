@@ -192,6 +192,31 @@
         limit #{startNum}, #{pageSize}
     </select>
 
+    <select id="getJobPhaseNodeByNodeVoAndStartNumCount" resultType="java.lang.Integer">
+        SELECT
+            count(ajpn.id)
+        FROM
+        `autoexec_job_phase_node` ajpn
+        JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        <if test="nodeVo.jobId != null">
+            ajp.`job_id` = #{nodeVo.jobId}
+        </if>
+        <if test="nodeVo.jobPhaseName != null and jobPhaseName != ''">
+            and ajp.`name` = #{nodeVo.jobPhaseName}
+        </if>
+        <if test="nodeVo.isDelete != null">
+            and ajpn.`is_delete` = #{nodeVo.isDelete}
+        </if>
+        <if test="nodeVo.statusBlackList != null and nodeVo.statusBlackList.size() > 0 ">
+            and ajpn.`status` not in
+            <foreach collection="nodeVo.statusBlackList" item="statusBlack" open="(" close=")" separator=",">
+                #{statusBlack}
+            </foreach>
+        </if>
+        order by ajpn.`host`,ajpn.`port`
+        limit #{startNum}, #{nodeVo.pageSize}
+    </select>
+
     <select id="searchJobPhaseNodeCount" resultType="java.lang.Integer">
         SELECT
         count(ajpn.`id`)
@@ -337,19 +362,6 @@
                `status`
         FROM `autoexec_job_phase`
         WHERE id = #{value} FOR
-        UPDATE
-    </select>
-
-    <select id="getJobPhaseLockByJobIdAndPhaseName"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        SELECT id,
-               job_id    as jobId,
-               exec_mode as execMode,
-               `sort`,
-               `status`
-        FROM `autoexec_job_phase`
-        WHERE `job_id` = #{jobId}
-          and `name` = #{jobPhaseName} FOR
         UPDATE
     </select>
 
@@ -510,7 +522,9 @@
     <select id="getJobPhaseByJobIdAndPhaseName"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT id,
-               job_id as jobId,
+               job_id    as jobId,
+               exec_mode as execMode,
+               `sort`,
                `status`
         FROM `autoexec_job_phase`
         WHERE `job_id` = #{jobId}
@@ -551,11 +565,12 @@
         where `id` = #{jobPhaseOperationId}
     </select>
 
-    <select id="getJobPhaseNotCompletedCountByJobIdAndSort" resultType="java.lang.Integer">
+    <select id="getJobPhaseNotCompletedCountByJobIdAndGroupSort" resultType="java.lang.Integer">
         select count(1)
-        from `autoexec_job_phase`
-        where `job_id` = #{jobId}
-          and `sort` = #{sort}
+        from `autoexec_job_phase` ajp
+                 left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        where ajp.`job_id` = #{jobId}
+          and ajg.`sort` = #{groupSort}
           and `status` != 'completed'
     </select>
 
@@ -1022,11 +1037,12 @@
         FROM `autoexec_job_env`
         WHERE `job_id` = #{value}
     </select>
-    <select id="getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNext" resultType="java.lang.Integer">
+    <select id="getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNextAndGroupSort" resultType="java.lang.Integer">
         SELECT COUNT(1)
         FROM `autoexec_job_phase_runner` ajpr
                  JOIN autoexec_job_phase ajp ON ajpr.job_id = ajp.job_id AND ajpr.job_phase_id = ajp.id
-        WHERE ajp.sort = #{sort}
+                 JOIN autoexec_job_group ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        WHERE ajg.sort = #{groupSort}
           AND ajpr.job_id = #{jobId}
           AND (ajpr.status != 'completed' OR ajpr.is_fire_next = #{isFireNext})
     </select>
@@ -1145,18 +1161,18 @@
     </select>
     <select id="getJobRunnerListByJobIdAndGroupId" resultType="codedriver.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
-        ar.`name`,
-        ar.`url`,
-        ar.`host`,
-        ar.`port`,
-        ajpr.runner_map_id as runnerMapId
+                        ar.`name`,
+                        ar.`url`,
+                        ar.`host`,
+                        ar.`port`,
+                        ajpr.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_runner` ajpr
-        left join `autoexec_job_phase` ajp on ajpr.job_phase_id = ajp.id
-        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
-        LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
-        LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+                 left join `autoexec_job_phase` ajp on ajpr.job_phase_id = ajp.id
+                 left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+                 LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpr.`job_id` = #{jobId}
-        and ajp.group_id = #{groupId}
+          and ajp.group_id = #{groupId}
 
     </select>
 
@@ -1290,10 +1306,11 @@
         VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId});
     </insert>
     <insert id="insertDuplicateJobPhaseRunner">
-        INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`, `lcd`)
-        VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
+        INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_group_id`, `job_phase_id`, `runner_map_id`, `lcd`)
+        VALUES (#{jobId}, #{jobGroupId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
         ON DUPLICATE KEY
             UPDATE `job_id`        = #{jobId},
+                   `job_group_id`  = #{jobGroupId},
                    `job_phase_id`  = #{jobPhaseId},
                    `runner_map_id` = #{runnerMapId},
                    `lcd`           = #{lcd};
@@ -1477,11 +1494,19 @@
             #{nodeStatus}
         </foreach>
     </update>
-    <update id="updateJobPhaseRunnerFireNextByPhaseId">
+    <update id="updateJobPhaseRunnerFireNextByPhaseIdAndRunnerId">
         update `autoexec_job_phase_runner`
         set is_fire_next = #{isFireNext}
         where job_phase_id = #{phaseId}
           and runner_map_id = #{runnerMapId}
+    </update>
+    <update id="updateJobPhaseRunnerFireNextByJobIdAndGroupSortAndRunnerId">
+        update autoexec_job_phase_runner ajpr
+            join autoexec_job_group ajg on ajpr.job_id = ajg.job_id and ajpr.job_group_id = ajg.id
+        set ajpr.is_fire_next = #{isFireNext}
+        where ajpr.job_id = #{jobId}
+          and ajg.sort = #{groupSort}
+          and ajpr.runnerMapId = #{runnerMapId}
     </update>
     <update id="updateJobPhaseLcdById">
         update `autoexec_job_phase`
