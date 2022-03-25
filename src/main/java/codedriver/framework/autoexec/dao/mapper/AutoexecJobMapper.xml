@@ -409,10 +409,10 @@
         update
     </select>
 
-    <select id="getJobIdListByStatus" parameterType="java.lang.String" resultType="java.lang.Long">
+    <select id="getJobIdListByStatusAndTriggerType" parameterType="java.lang.String" resultType="java.lang.Long">
         SELECT aj.`id`
         FROM `autoexec_job` aj
-        WHERE aj.`status` = #{status}
+        WHERE aj.`status` = #{status} AND aj.`trigger_type` = #{triggerType}
     </select>
 
     <select id="getJobParamContentLock"
