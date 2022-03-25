@@ -1199,6 +1199,23 @@
           and ajp.group_id = #{groupId}
 
     </select>
+    <select id="getJobRunnerListByJobIdAndJobNodeIdList" resultType="codedriver.framework.dto.runner.RunnerMapVo">
+        SELECT DISTINCT ar.`id`,
+                        ar.`name`,
+                        ar.`url`,
+                        ar.`host`,
+                        ar.`port`,
+                        ajpr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node_runner` ajpr
+                 LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        WHERE ajpr.`job_id` = #{jobId}
+          and ajpr.node_id in
+        <foreach collection="nodeIdList" item="nodeId" close=")" separator="," open="(">
+            #{nodeId}
+        </foreach>
+
+    </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,

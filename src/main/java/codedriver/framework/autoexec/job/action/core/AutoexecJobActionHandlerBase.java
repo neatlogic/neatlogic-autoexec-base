@@ -199,13 +199,23 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     }
 
     /**
+     * 执行组
+     *
+     * @param jobVo 作业
+     */
+    protected void executeNode(AutoexecJobVo jobVo) {
+        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobRunnerListByJobIdAndJobNodeIdList(jobVo.getId(), jobVo.getExecuteJobNodeIdList());
+        execute(jobVo, runnerVos);
+    }
+
+    /**
      * 发起执行命令
      *
      * @param jobVo     作业
      * @param runnerVos runner列表
      */
     private void execute(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
-        if(CollectionUtils.isEmpty(runnerVos)){
+        if (CollectionUtils.isEmpty(runnerVos)) {
             throw new AutoexecJobRunnerNotMatchException();
         }
         JSONObject paramJson = new JSONObject();
@@ -216,7 +226,9 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
             paramJson.put("jobPhaseNameList", jobVo.getExecuteJobPhaseList().stream().map(AutoexecJobPhaseVo::getName).collect(Collectors.toList()));
         }
-        paramJson.put("jobGroupIdList", Collections.singletonList(jobVo.getExecuteJobGroupVo().getSort()));
+        if (jobVo.getExecuteJobGroupVo() != null) {
+            paramJson.put("jobGroupIdList", Collections.singletonList(jobVo.getExecuteJobGroupVo().getSort()));
+        }
         paramJson.put("jobPhaseNodeIdList", jobVo.getExecuteJobNodeIdList());
         RestVo restVo = null;
         String result = StringUtils.EMPTY;
@@ -228,7 +240,9 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 url = runner.getUrl() + "api/rest/job/exec";
                 paramJson.put("passThroughEnv", new JSONObject() {{
                     put("runnerId", runner.getRunnerMapId());
-                    put("groupSort", jobVo.getExecuteJobGroupVo().getSort());
+                    if (jobVo.getExecuteJobGroupVo() != null) {
+                        put("groupSort", jobVo.getExecuteJobGroupVo().getSort());
+                    }
                     if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
                         put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
                     }

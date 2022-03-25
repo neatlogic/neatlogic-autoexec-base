@@ -158,6 +158,8 @@ public interface AutoexecJobMapper {
 
     List<RunnerMapVo> getJobRunnerListByJobIdAndGroupId(@Param("jobId") Long jobId, @Param("groupId") Long groupId);
 
+    List<RunnerMapVo> getJobRunnerListByJobIdAndJobNodeIdList(@Param("jobId") Long jobId, @Param("nodeIdList") List<Long> nodeIdList);
+
 
 
     //invoke
