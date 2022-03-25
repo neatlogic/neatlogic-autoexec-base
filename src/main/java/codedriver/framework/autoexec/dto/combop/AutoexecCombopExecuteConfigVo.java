@@ -5,9 +5,11 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author: linbq
@@ -24,6 +26,10 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     private String whenToSpecify;
 
     private AutoexecCombopExecuteNodeConfigVo executeNodeConfig;
+
+    private List<AutoexecNodeVo> whitelist;
+
+    private List<AutoexecNodeVo> blacklist;
 
     public String getProtocol() {
         return protocol;
@@ -71,5 +77,21 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setExecuteNodeConfig(AutoexecCombopExecuteNodeConfigVo executeNodeConfig) {
         this.executeNodeConfig = executeNodeConfig;
+    }
+
+    public List<AutoexecNodeVo> getWhitelist() {
+        return whitelist;
+    }
+
+    public void setWhitelist(List<AutoexecNodeVo> whitelist) {
+        this.whitelist = whitelist;
+    }
+
+    public List<AutoexecNodeVo> getBlacklist() {
+        return blacklist;
+    }
+
+    public void setBlacklist(List<AutoexecNodeVo> blacklist) {
+        this.blacklist = blacklist;
     }
 }

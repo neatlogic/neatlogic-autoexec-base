@@ -17,6 +17,8 @@ public class AutoexecCombopPhaseConfigVo implements Serializable {
 
     private AutoexecCombopExecuteConfigVo executeConfig;
 
+    private Integer isPresetExecuteConfig;
+
     public List<AutoexecCombopPhaseOperationVo> getPhaseOperationList() {
         return phaseOperationList;
     }
@@ -31,5 +33,13 @@ public class AutoexecCombopPhaseConfigVo implements Serializable {
 
     public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
         this.executeConfig = executeConfig;
+    }
+
+    public Integer getIsPresetExecuteConfig() {
+        return isPresetExecuteConfig;
+    }
+
+    public void setIsPresetExecuteConfig(Integer isPresetExecuteConfig) {
+        this.isPresetExecuteConfig = isPresetExecuteConfig;
     }
 }
