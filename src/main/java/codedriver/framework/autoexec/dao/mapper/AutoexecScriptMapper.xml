@@ -710,7 +710,7 @@
             <result property="type" column="paramType"/>
             <result property="mode" column="mode"/>
             <result property="isRequired" column="isRequired"/>
-            <result property="description" column="description"/>
+            <result property="description" column="paramDescription"/>
             <result property="sort" column="sort"/>
             <result property="config" column="config"/>
         </collection>
@@ -734,7 +734,7 @@
         c.`type` as paramType,
         c.`mode`,
         c.`is_required` as isRequired,
-        c.`description`,
+        c.`description` as paramDescription,
         c.`sort`,
         c.`config`
         from
