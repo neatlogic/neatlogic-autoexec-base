@@ -379,7 +379,8 @@
             `exec_mode`,
             `config`,
             `sort`,
-            `group_id`
+            `group_id`,
+            `policy`
         )
         VALUES
         (
@@ -390,7 +391,8 @@
             #{execMode},
             #{configStr},
             #{sort},
-            #{groupId}
+            #{groupId},
+            #{policy}
         )
     </insert>
 
