@@ -123,7 +123,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.setPort(resourceVo.getPort());
         this.setJobId(jobId);
         this.jobPhaseId = jobPhaseVo.getId();
-        this.jobGroupId = jobPhaseVo.getJobGroupVo().getId();
+        this.jobGroupId = jobPhaseVo.getGroupId();
         this.setProtocolId(protocolId);
         this.status = status;
         this.setUserName(userName);
