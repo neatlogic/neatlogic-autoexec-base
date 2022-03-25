@@ -48,6 +48,8 @@ public interface AutoexecJobMapper {
     //jobGroup
     AutoexecJobGroupVo getJobGroupByJobIdAndSort(@Param("jobId") Long id, @Param("sort") int sort);
 
+    List<AutoexecJobGroupVo> getJobGroupByJobId(@Param("jobId") Long id);
+
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
@@ -146,6 +148,8 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobPhaseRunnerMapIdListByJobIdList(List<Long> jobIds);
 
+    List<Long> getJobPhaseNodeRunnerMapIdListByNodeVo(AutoexecJobPhaseNodeVo nodeVo);
+
     RunnerVo getJobRunnerById(Long runnerId);
 
     List<RunnerMapVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
@@ -153,6 +157,8 @@ public interface AutoexecJobMapper {
     List<RunnerMapVo> getJobPhaseRunnerByJobIdAndPhaseIdListAndStatus(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId, @Param("status") String status);
 
     List<RunnerMapVo> getJobRunnerListByJobIdAndGroupId(@Param("jobId") Long jobId, @Param("groupId") Long groupId);
+
+
 
     //invoke
     AutoexecJobInvokeVo getJobInvokeByJobId(Long id);
@@ -185,6 +191,8 @@ public interface AutoexecJobMapper {
     Integer insertDuplicateJobPhaseRunner(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     Integer insertJob(AutoexecJobVo jobVo);
+
+    Integer insertJobGroup(AutoexecJobGroupVo autoexecJobGroupVo);
 
     Integer insertJobPhase(AutoexecJobPhaseVo jobVo);
 

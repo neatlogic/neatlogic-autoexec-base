@@ -97,7 +97,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
         this.setJobId(jobId);
         this.jobPhaseId = jobPhaseVo.getId();
-        this.jobGroupId = jobPhaseVo.getJobGroupVo().getId();
+        this.jobGroupId = jobPhaseVo.getGroupId();
         this.status = status;
         this.setUserName(userName);
         this.setHost(host);

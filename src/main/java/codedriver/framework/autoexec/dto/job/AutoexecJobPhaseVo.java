@@ -8,7 +8,9 @@ package codedriver.framework.autoexec.dto.job;
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
+import codedriver.framework.autoexec.exception.AutoexecCombopGroupNotFoundException;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -17,10 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author lvzk
@@ -81,7 +80,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.execUser = UserContext.get().getUserUuid(true);
     }
 
-    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId) {
+    public AutoexecJobPhaseVo(List<AutoexecCombopGroupVo> combopGroupVos, AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId, Map<Long, Long> combopGroupJobMap) {
         this.uk = autoexecCombopPhaseVo.getUk();
         this.name = autoexecCombopPhaseVo.getName();
         this.execMode = autoexecCombopPhaseVo.getExecMode();
@@ -90,7 +89,12 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.sort = autoexecCombopPhaseVo.getSort();
         this.execUser = UserContext.get().getUserUuid(true);
         this.uuid = autoexecCombopPhaseVo.getUuid();
-        this.jobGroupVo = new AutoexecJobGroupVo(autoexecCombopPhaseVo.getGroupVo());
+        Optional<AutoexecCombopGroupVo> combopGroupOptional = combopGroupVos.stream().filter(o -> Objects.equals(o.getId(), autoexecCombopPhaseVo.getGroupId())).findFirst();
+        if (!combopGroupOptional.isPresent()) {
+            throw new AutoexecCombopGroupNotFoundException(autoexecCombopPhaseVo.getGroupId());
+        }
+        this.jobGroupVo = new AutoexecJobGroupVo(combopGroupOptional.get());
+        this.groupId = combopGroupJobMap.get(combopGroupOptional.get().getId());
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status) {
@@ -98,7 +102,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.status = _status;
     }
 
-    public AutoexecJobPhaseVo(Long _id, String _status,String _errorMsg) {
+    public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
         this.id = _id;
         this.status = _status;
         this.errorMsg = _errorMsg;
@@ -227,8 +231,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     }
 
     public AutoexecJobStatusVo getStatusVo() {
-        if(statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status),JobPhaseStatus.getColor(status));
+        if (statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status), JobPhaseStatus.getColor(status));
         }
         return statusVo;
     }

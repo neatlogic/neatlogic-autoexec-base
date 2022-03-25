@@ -27,6 +27,7 @@ import codedriver.framework.integration.authentication.enums.AuthenticateType;
 import codedriver.framework.util.RestUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONValidator;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -204,13 +205,18 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      * @param runnerVos runner列表
      */
     private void execute(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
+        if(CollectionUtils.isEmpty(runnerVos)){
+            throw new AutoexecJobRunnerNotMatchException();
+        }
         JSONObject paramJson = new JSONObject();
         paramJson.put("jobId", jobVo.getId());
         paramJson.put("tenant", TenantContext.get().getTenantUuid());
         paramJson.put("isNoFireNext", jobVo.getIsNoFireNext());
         paramJson.put("isFirstFire", jobVo.getIsFirstFire());
-        paramJson.put("jobPhaseNameList", jobVo.getExecuteJobPhaseList().stream().map(AutoexecJobPhaseVo::getName).collect(Collectors.toList()));
-        paramJson.put("jobGroupId",jobVo.getExecuteJobGroupVo().getSort());
+        if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
+            paramJson.put("jobPhaseNameList", jobVo.getExecuteJobPhaseList().stream().map(AutoexecJobPhaseVo::getName).collect(Collectors.toList()));
+        }
+        paramJson.put("jobGroupIdList", Collections.singletonList(jobVo.getExecuteJobGroupVo().getSort()));
         paramJson.put("jobPhaseNodeIdList", jobVo.getExecuteJobNodeIdList());
         RestVo restVo = null;
         String result = StringUtils.EMPTY;
@@ -223,7 +229,9 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 paramJson.put("passThroughEnv", new JSONObject() {{
                     put("runnerId", runner.getRunnerMapId());
                     put("groupSort", jobVo.getExecuteJobGroupVo().getSort());
-                    put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
+                    if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
+                        put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
+                    }
                 }});
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);
@@ -233,7 +241,6 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 }
             }
         } catch (Exception ex) {
-            assert restVo != null;
             throw new AutoexecJobRunnerConnectRefusedException(url + " " + result);
         }
     }

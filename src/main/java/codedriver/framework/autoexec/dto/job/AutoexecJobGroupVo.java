@@ -41,7 +41,6 @@ public class AutoexecJobGroupVo implements Serializable {
     }
 
     public AutoexecJobGroupVo(AutoexecCombopGroupVo combopGroupVo) {
-        this.id = combopGroupVo.getId();
         this.sort = combopGroupVo.getSort();
         this.policy = combopGroupVo.getPolicy();
     }
