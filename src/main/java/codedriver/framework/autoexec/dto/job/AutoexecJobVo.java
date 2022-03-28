@@ -265,7 +265,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Date getPlanStartTime() {
-        if (planStartTime == null) {
+        if (planStartTime == null && startTime == null) {
             planStartTime = new Date();
         }
         return planStartTime;
