@@ -74,6 +74,10 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private List<Long> riskIdList;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argument;
+    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> paramVoList;
+    @EntityField(name = "类型", type = ApiParamType.STRING)
+    private String type;
 
     public Long getId() {
         if (id == null) {
@@ -286,5 +290,21 @@ public class AutoexecOperationVo extends BaseEditorVo {
 
     public void setArgument(AutoexecParamVo argument) {
         this.argument = argument;
+    }
+
+    public List<AutoexecParamVo> getParamVoList() {
+        return paramVoList;
+    }
+
+    public void setParamVoList(List<AutoexecParamVo> paramVoList) {
+        this.paramVoList = paramVoList;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
