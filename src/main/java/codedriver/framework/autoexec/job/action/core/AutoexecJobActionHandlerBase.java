@@ -246,6 +246,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
                         put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
                     }
+                    put("isFirstFire", jobVo.getIsFirstFire());
                 }});
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);
