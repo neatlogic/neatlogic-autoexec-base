@@ -8,9 +8,7 @@ package codedriver.framework.autoexec.dto.job;
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
-import codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
-import codedriver.framework.autoexec.exception.AutoexecCombopGroupNotFoundException;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -83,7 +81,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.execUser = UserContext.get().getUserUuid(true);
     }
 
-    public AutoexecJobPhaseVo(List<AutoexecCombopGroupVo> combopGroupVos, AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId, Map<Long, Long> combopGroupJobMap) {
+    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId, Map<Long, AutoexecJobGroupVo> combopGroupJobMap) {
         this.uk = autoexecCombopPhaseVo.getUk();
         this.name = autoexecCombopPhaseVo.getName();
         this.execMode = autoexecCombopPhaseVo.getExecMode();
@@ -92,12 +90,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.sort = autoexecCombopPhaseVo.getSort();
         this.execUser = UserContext.get().getUserUuid(true);
         this.uuid = autoexecCombopPhaseVo.getUuid();
-        Optional<AutoexecCombopGroupVo> combopGroupOptional = combopGroupVos.stream().filter(o -> Objects.equals(o.getId(), autoexecCombopPhaseVo.getGroupId())).findFirst();
-        if (!combopGroupOptional.isPresent()) {
-            throw new AutoexecCombopGroupNotFoundException(autoexecCombopPhaseVo.getGroupId());
-        }
-        this.jobGroupVo = new AutoexecJobGroupVo(combopGroupOptional.get());
-        this.groupId = combopGroupJobMap.get(combopGroupOptional.get().getId());
+        this.jobGroupVo = combopGroupJobMap.get(autoexecCombopPhaseVo.getGroupId());
+        this.groupId = jobGroupVo.getId();
         this.executePolicy = autoexecCombopPhaseVo.getPolicy();
     }
 

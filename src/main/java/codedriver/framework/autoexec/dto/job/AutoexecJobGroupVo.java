@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupConfigVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
@@ -27,6 +28,8 @@ public class AutoexecJobGroupVo implements Serializable {
     private Integer sort;
     @EntityField(name = "策略", type = ApiParamType.STRING)
     private String policy;
+    @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
+    private AutoexecCombopGroupConfigVo config;
     @JSONField(serialize = false)
     private String configStr;
 
@@ -43,6 +46,7 @@ public class AutoexecJobGroupVo implements Serializable {
     public AutoexecJobGroupVo(AutoexecCombopGroupVo combopGroupVo) {
         this.sort = combopGroupVo.getSort();
         this.policy = combopGroupVo.getPolicy();
+        this.config = combopGroupVo.getConfig();
     }
 
     public void setId(Long id) {
@@ -79,5 +83,9 @@ public class AutoexecJobGroupVo implements Serializable {
 
     public void setJobId(Long jobId) {
         this.jobId = jobId;
+    }
+
+    public AutoexecCombopGroupConfigVo getConfig() {
+        return config;
     }
 }
