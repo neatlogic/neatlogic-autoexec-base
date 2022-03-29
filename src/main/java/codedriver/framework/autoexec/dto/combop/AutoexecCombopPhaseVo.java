@@ -31,6 +31,7 @@ public class AutoexecCombopPhaseVo implements Serializable {
     private String uuid;
     private Long groupId;
     private String groupUuid;
+    private Integer groupSort;
     private String policy;
     @JSONField(serialize = false)
     private String configStr;
@@ -151,5 +152,13 @@ public class AutoexecCombopPhaseVo implements Serializable {
 
     public void setPolicy(String policy) {
         this.policy = policy;
+    }
+
+    public Integer getGroupSort() {
+        return groupSort;
+    }
+
+    public void setGroupSort(Integer groupSort) {
+        this.groupSort = groupSort;
     }
 }
