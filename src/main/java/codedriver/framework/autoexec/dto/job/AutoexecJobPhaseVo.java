@@ -63,6 +63,9 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Long groupId;
     @EntityField(name = "组vo", type = ApiParamType.JSONOBJECT)
     private AutoexecJobGroupVo jobGroupVo;
+    @EntityField(name = "执行策略", type = ApiParamType.STRING)
+    private String executePolicy;
+
     private String uuid;
     private Long combopId;
     private Integer count;
@@ -95,6 +98,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         }
         this.jobGroupVo = new AutoexecJobGroupVo(combopGroupOptional.get());
         this.groupId = combopGroupJobMap.get(combopGroupOptional.get().getId());
+        this.executePolicy = autoexecCombopPhaseVo.getPolicy();
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status) {
@@ -283,5 +287,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setJobGroupVo(AutoexecJobGroupVo jobGroupVo) {
         this.jobGroupVo = jobGroupVo;
+    }
+
+    public String getExecutePolicy() {
+        return executePolicy;
+    }
+
+    public void setExecutePolicy(String executePolicy) {
+        this.executePolicy = executePolicy;
     }
 }
