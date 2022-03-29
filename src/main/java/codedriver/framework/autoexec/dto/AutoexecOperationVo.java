@@ -12,8 +12,10 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.OperateVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -123,6 +125,7 @@ public class AutoexecOperationVo extends BaseEditorVo {
         }
         return execModeText;
     }
+
     public Long getTypeId() {
         return typeId;
     }
@@ -194,6 +197,7 @@ public class AutoexecOperationVo extends BaseEditorVo {
     public void setParser(String parser) {
         this.parser = parser;
     }
+
     public JSONObject getConfig() {
         if (StringUtils.isNotBlank(configStr)) {
             config = JSONObject.parseObject(configStr);
@@ -293,6 +297,13 @@ public class AutoexecOperationVo extends BaseEditorVo {
     }
 
     public List<AutoexecParamVo> getParamVoList() {
+        if (CollectionUtils.isEmpty(paramVoList) && StringUtils.isNotBlank(configStr)) {
+            JSONObject toolConfig = JSONObject.parseObject(configStr);
+            JSONArray params = toolConfig.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(params)) {
+                this.paramVoList = params.toJavaList(AutoexecParamVo.class);
+            }
+        }
         return paramVoList;
     }
 
