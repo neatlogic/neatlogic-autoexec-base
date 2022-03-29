@@ -5,13 +5,7 @@
 
 package codedriver.framework.autoexec.dao.mapper;
 
-import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
-
-import java.util.List;
-
 public interface AutoexecMapper {
-
-    List<AutoexecToolAndScriptVo> getAutoexecToolAndScriptVoListByProfileId(List<AutoexecToolAndScriptVo> toolAndScriptVoList);
 
 
 }
