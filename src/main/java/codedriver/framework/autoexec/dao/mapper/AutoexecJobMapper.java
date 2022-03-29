@@ -85,10 +85,12 @@ public interface AutoexecJobMapper {
 
     AutoexecJobPhaseVo getJobCurrentPhase(Long jobId);
 
+    AutoexecJobPhaseVo getJobPhaseByJobIdAndGroupSortAndSort(@Param("jobId") Long jobId, @Param("groupSort")  Integer groupSort, @Param("sort")  int sort);
+
     //jobPhaseNode
     List<AutoexecJobPhaseNodeVo> searchJobPhaseNode(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
-    int getJobPhaseNodeByNodeVoAndStartNumCount(@Param("nodeVo") AutoexecJobPhaseNodeVo jobPhaseNodeVo, @Param("startNum") Integer startNum);
+    List<Long> getJobPhaseNodeByNodeVoAndStartNumCount(@Param("nodeVo") AutoexecJobPhaseNodeVo jobPhaseNodeVo, @Param("startNum") Integer startNum);
 
     int searchJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
