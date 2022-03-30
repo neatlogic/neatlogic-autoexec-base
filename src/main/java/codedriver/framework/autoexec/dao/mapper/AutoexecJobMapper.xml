@@ -254,23 +254,27 @@
     </select>
 
     <select id="getJobPhaseListByJobId" parameterType="java.lang.Long"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        SELECT `id`,
-               `job_id`     as jobId,
-               `status`,
-               `start_time` as startTime,
-               `end_time`   as endTime,
-               `exec_user`  as execUser,
-               `exec_mode`  as execMode,
-               `name`       as name,
-               `error_msg`  as errorMsg,
-               `group_id`   as groupId,
-               `execute_policy`   as executePolicy,
-               `sort`,
-               `uk`         as uk
-        FROM `autoexec_job_phase`
-        where `job_id` = #{value}
-        ORDER BY `sort`, `name` ASC
+            resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+               ajp.`job_id`         as jobId,
+               ajp.`status`,
+               ajp.`start_time`     as startTime,
+               ajp.`end_time`       as endTime,
+               ajp.`exec_user`      as execUser,
+               ajp.`exec_mode`      as execMode,
+               ajp.`name`           as name,
+               ajp.`error_msg`      as errorMsg,
+               ajp.`group_id`       as groupId,
+               ajp.`execute_policy` as executePolicy,
+               ajp.`sort`,
+               ajp.`uk`             as uk,
+               ajg.id               as groupId,
+               ajg.sort             as groupSort,
+               ajg.policy           as groupPolicy
+        FROM `autoexec_job_phase` ajp
+                 left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        where ajp.`job_id` = #{value}
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name` ASC
     </select>
 
     <resultMap id="AutoexecJobPhaseMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -282,6 +286,7 @@
         <result column="execUser" property="execUser"/>
         <result column="execMode" property="execMode"/>
         <result column="name" property="name"/>
+        <result column="groupId" property="groupId"/>
         <result column="sort" property="sort"/>
         <result column="uk" property="uk"/>
         <collection property="jobGroupVo" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
@@ -307,9 +312,9 @@
         ajg.policy as groupPolicy
         FROM `autoexec_job_phase` ajp
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
-        where `job_id` = #{jobId}
+        where ajp.`job_id` = #{jobId}
         <if test="statusList != null and statusList.size() >0">
-            and `status` in
+            and ajp.`status` in
             <foreach collection="statusList" item="status" separator="," open="(" close=")">
                 #{status}
             </foreach>
@@ -472,7 +477,8 @@
     <select id="getJobIdListByStatusAndTriggerType" parameterType="java.lang.String" resultType="java.lang.Long">
         SELECT aj.`id`
         FROM `autoexec_job` aj
-        WHERE aj.`status` = #{status} AND aj.`trigger_type` = #{triggerType}
+        WHERE aj.`status` = #{status}
+          AND aj.`trigger_type` = #{triggerType}
     </select>
 
     <select id="getJobParamContentLock"
@@ -622,10 +628,17 @@
           AND `status` = 'failed'
     </select>
     <select id="getJobPhaseListByJobIdAndGroupSort"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        select ajp.`job_id` as jobId, ajp.`name`, ajp.`exec_mode` as execMode, ajp.`id`, ajp.`status`
-        from `autoexec_job_phase` ajp left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id =
-        ajg.id
+            resultMap="AutoexecJobPhaseMap">
+        select
+        ajp.`job_id` as jobId,
+        ajp.`name`,
+        ajp.`exec_mode` as execMode,
+        ajp.`id`, ajp.`status`,
+        ajg.id as groupId,
+        ajg.sort as groupSort,
+        ajg.policy as groupPolicy
+        from `autoexec_job_phase` ajp
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where ajp.`job_id` = #{jobId}
         <if test="sort != null">
             and ajg.`sort` = #{sort}
@@ -1215,16 +1228,16 @@
     </select>
     <select id="getJobRunnerListByJobIdAndJobNodeIdList" resultType="codedriver.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
-                        ar.`name`,
-                        ar.`url`,
-                        ar.`host`,
-                        ar.`port`,
-                        ajpr.runner_map_id as runnerMapId
+        ar.`name`,
+        ar.`url`,
+        ar.`host`,
+        ar.`port`,
+        ajpr.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_node_runner` ajpr
-                 LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
-                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpr.`job_id` = #{jobId}
-          and ajpr.node_id in
+        and ajpr.node_id in
         <foreach collection="nodeIdList" item="nodeId" close=")" separator="," open="(">
             #{nodeId}
         </foreach>
@@ -1244,10 +1257,10 @@
                ajp.`sort`,
                ajp.`uk`         as uk
         FROM `autoexec_job_phase` ajp
-        join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+                 join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where ajp.`job_id` = #{jobId}
-        and ajg.`sort` = #{groupSort}
-        and ajp.`sort` = #{sort}
+          and ajg.`sort` = #{groupSort}
+          and ajp.`sort` = #{sort}
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">

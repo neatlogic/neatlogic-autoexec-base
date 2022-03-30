@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
+import codedriver.framework.autoexec.constvalue.AutoexecJobPhaseExecutePolicy;
 import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author lvzk
@@ -92,7 +94,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.uuid = autoexecCombopPhaseVo.getUuid();
         this.jobGroupVo = combopGroupJobMap.get(autoexecCombopPhaseVo.getGroupId());
         this.groupId = jobGroupVo.getId();
-        this.executePolicy = autoexecCombopPhaseVo.getPolicy();
+        this.executePolicy = Arrays.stream(AutoexecJobPhaseExecutePolicy.values()).map(AutoexecJobPhaseExecutePolicy::getValue).collect(Collectors.toList()).contains( autoexecCombopPhaseVo.getPolicy())?autoexecCombopPhaseVo.getPolicy():null;
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status) {
