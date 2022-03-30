@@ -7,5 +7,4 @@ package codedriver.framework.autoexec.dao.mapper;
 
 public interface AutoexecMapper {
 
-
 }
