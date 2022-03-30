@@ -23,6 +23,6 @@ public interface IAutoexecServiceCrossoverService extends ICrossoverService {
      * @param oldOperationParamList
      * @return
      */
-    List<AutoexecParamVo> getProfileConfig(List<AutoexecOperationVo> paramAutoexecOperationVoList, List<AutoexecParamVo> oldOperationParamList);
+    List<AutoexecParamVo> getAutoexecOperationParamVoList(List<AutoexecOperationVo> paramAutoexecOperationVoList, List<AutoexecParamVo> oldOperationParamList);
 
 }
