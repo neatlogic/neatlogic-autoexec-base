@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -22,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -148,6 +150,9 @@ public class AutoexecOperationVo extends BaseEditorVo {
     }
 
     public String getCatalogName() {
+        if (Objects.equals(catalogId, AutoexecCatalogVo.ROOT_ID)) {
+            catalogName = AutoexecCatalogVo.ROOT_NAME;
+        }
         return catalogName;
     }
 
