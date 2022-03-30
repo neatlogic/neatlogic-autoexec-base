@@ -91,7 +91,26 @@ public interface AutoexecScriptMapper {
 
     List<AutoexecToolAndScriptVo> getScriptListByIdList(List<Long> idList);
 
+    /**
+     * 根据idList查找AutoexecOperationVoList（不含参数）
+     * @param idList
+     * @return
+     */
     List<AutoexecOperationVo> getAutoexecOperationListByIdList(List<Long> idList);
+
+    /**
+     * 根据idList查找AutoexecOperationVoList（仅含OperationId和对应的输入参数）
+     * @param idList
+     * @return
+     */
+    List<AutoexecOperationVo> getAutoexecOperationInputParamListByIdList(List<Long> idList);
+
+    /**
+     * 根据idList查找AutoexecOperationVoList（仅含OperationId和对应的输入参数）
+     * @param idList
+     * @return
+     */
+    List<AutoexecOperationVo> getAutoexecOperationOutputParamListByIdList(List<Long> idList);
 
     int getReferenceCountByScriptId(Long scriptId);
 

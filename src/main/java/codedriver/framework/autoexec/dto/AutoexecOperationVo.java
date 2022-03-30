@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -19,7 +20,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author lvzk
@@ -76,9 +80,10 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private List<Long> riskIdList;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argument;
-    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecParamVo> paramVoList;
-    @EntityField(name = "类型", type = ApiParamType.STRING)
+    @EntityField(name = "输入参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> inputParamList;
+    @EntityField(name = "输出参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> outputParamList;
     private String type;
 
     public Long getId() {
@@ -296,19 +301,42 @@ public class AutoexecOperationVo extends BaseEditorVo {
         this.argument = argument;
     }
 
-    public List<AutoexecParamVo> getParamVoList() {
-        if (CollectionUtils.isEmpty(paramVoList) && StringUtils.isNotBlank(configStr)) {
-            JSONObject toolConfig = JSONObject.parseObject(configStr);
-            JSONArray params = toolConfig.getJSONArray("paramList");
-            if (CollectionUtils.isNotEmpty(params)) {
-                this.paramVoList = params.toJavaList(AutoexecParamVo.class);
+    public List<AutoexecParamVo> getInputParamList() {
+        JSONObject config = getConfig();
+        if (MapUtils.isNotEmpty(config)) {
+            JSONArray paramList = config.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(paramList)) {
+                inputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                        .stream()
+                        .filter(o -> Objects.equals(o.getMode(), ParamMode.INPUT.getValue()))
+                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                        .collect(Collectors.toList());
             }
         }
-        return paramVoList;
+        return inputParamList;
     }
 
-    public void setParamVoList(List<AutoexecParamVo> paramVoList) {
-        this.paramVoList = paramVoList;
+    public void setInputParamList(List<AutoexecParamVo> inputParamList) {
+        this.inputParamList = inputParamList;
+    }
+
+    public List<AutoexecParamVo> getOutputParamList() {
+        JSONObject config = getConfig();
+        if (MapUtils.isNotEmpty(config)) {
+            JSONArray paramList = config.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(paramList)) {
+                outputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                        .stream()
+                        .filter(o -> Objects.equals(o.getMode(), ParamMode.OUTPUT.getValue()))
+                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                        .collect(Collectors.toList());
+            }
+        }
+        return outputParamList;
+    }
+
+    public void setOutputParamList(List<AutoexecParamVo> outputParamList) {
+        this.outputParamList = outputParamList;
     }
 
     public String getType() {

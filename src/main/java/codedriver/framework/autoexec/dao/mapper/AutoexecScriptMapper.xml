@@ -730,7 +730,26 @@
             <result column="riskName" property="name"/>
             <result column="riskColor" property="color"/>
         </association>
-        <collection property="paramVoList" ofType="codedriver.framework.autoexec.dto.AutoexecParamVo">
+    </resultMap>
+
+    <resultMap id="autoexecOperationInputParamListMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
+        <id column="id" property="id"/>
+        <collection property="inputParamList" ofType="codedriver.framework.autoexec.dto.AutoexecParamVo">
+            <result property="key" column="key"/>
+            <result property="name" column="paramName"/>
+            <result property="defaultValue" column="defaultValue"/>
+            <result property="type" column="paramType"/>
+            <result property="mode" column="mode"/>
+            <result property="isRequired" column="isRequired"/>
+            <result property="description" column="paramDescription"/>
+            <result property="sort" column="sort"/>
+            <result property="config" column="config"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="autoexecOperationOutputParamListMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
+        <id column="id" property="id"/>
+        <collection property="outputParamList" ofType="codedriver.framework.autoexec.dto.AutoexecParamVo">
             <result property="key" column="key"/>
             <result property="name" column="paramName"/>
             <result property="defaultValue" column="defaultValue"/>
@@ -782,7 +801,79 @@
     </sql>
 
     <select id="getAutoexecOperationListByIdList" parameterType="java.util.List" resultMap="autoexecOperationMap">
-        <include refid="getScriptListByIdList"></include>
+        SELECT
+        a.`id`,
+        a.`name`,
+        'script' AS `type`,
+        a.`exec_mode` AS execMode,
+        a.`type_id` AS typeId,
+        ate.`name` AS typeName,
+        a.`risk_id` AS riskId,
+        ar.`name` AS riskName,
+        ar.`color` AS riskColor,
+        a.`description`
+        FROM
+        `autoexec_script` a
+        JOIN `autoexec_script_version` b ON a.`id` = b.`script_id`
+        LEFT JOIN autoexec_type ate ON a.`type_id` = ate.`id`
+        LEFT JOIN autoexec_risk ar ON a.`risk_id` = ar.`id`
+        WHERE b.`is_active` = 1
+        and a.`id` in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getAutoexecOperationInputParamListByIdList" parameterType="java.util.List" resultMap="autoexecOperationInputParamListMap">
+        SELECT
+        a.`id`,
+        c.`key`,
+        c.`name` AS paramName,
+        c.`default_value` AS defaultValue,
+        c.`type` AS paramType,
+        c.`mode`,
+        c.`is_required` AS isRequired,
+        c.`description` AS paramDescription,
+        c.`sort`,
+        c.`config`
+        FROM
+        `autoexec_script` a
+        JOIN `autoexec_script_version` b ON a.`id` = b.`script_id`
+        LEFT JOIN `autoexec_script_version_param` c ON b.`id` = c.`script_version_id` and c.mode='input'
+        LEFT JOIN autoexec_type ate ON a.`type_id` = ate.`id`
+        LEFT JOIN autoexec_risk ar ON a.`risk_id` = ar.`id`
+        WHERE b.`is_active` = 1
+        and a.`id` in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getAutoexecOperationOutputParamListByIdList" parameterType="java.util.List" resultMap="autoexecOperationOutputParamListMap">
+        SELECT
+        a.`id`,
+        c.`key`,
+        c.`name` AS paramName,
+        c.`default_value` AS defaultValue,
+        c.`type` AS paramType,
+        c.`mode`,
+        c.`is_required` AS isRequired,
+        c.`description` AS paramDescription,
+        c.`sort`,
+        c.`config`
+        FROM
+        `autoexec_script` a
+        JOIN `autoexec_script_version` b ON a.`id` = b.`script_id`
+        LEFT JOIN `autoexec_script_version_param` c ON b.`id` = c.`script_version_id`
+        AND c.MODE = 'output'
+        LEFT JOIN autoexec_type ate ON a.`type_id` = ate.`id`
+        LEFT JOIN autoexec_risk ar ON a.`risk_id` = ar.`id`
+        WHERE
+        b.`is_active` = 1
+        and a.`id` in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </select>
 
     <sql id="getScriptReference">
