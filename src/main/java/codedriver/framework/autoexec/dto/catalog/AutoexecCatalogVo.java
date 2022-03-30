@@ -18,6 +18,7 @@ public class AutoexecCatalogVo extends BasePageVo {
 
     public static final Long ROOT_PARENTID = -1L;
     public static final Long ROOT_ID = 0L;
+    public static final String ROOT_NAME = "所有";
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;

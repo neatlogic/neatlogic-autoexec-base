@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -18,6 +19,7 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lvzk
@@ -119,6 +121,7 @@ public class AutoexecOperationVo extends BaseEditorVo {
         }
         return execModeText;
     }
+
     public Long getTypeId() {
         return typeId;
     }
@@ -136,6 +139,9 @@ public class AutoexecOperationVo extends BaseEditorVo {
     }
 
     public String getCatalogName() {
+        if (Objects.equals(catalogId, AutoexecCatalogVo.ROOT_ID)) {
+            catalogName = AutoexecCatalogVo.ROOT_NAME;
+        }
         return catalogName;
     }
 
@@ -190,6 +196,7 @@ public class AutoexecOperationVo extends BaseEditorVo {
     public void setParser(String parser) {
         this.parser = parser;
     }
+
     public JSONObject getConfig() {
         if (StringUtils.isNotBlank(configStr)) {
             config = JSONObject.parseObject(configStr);
