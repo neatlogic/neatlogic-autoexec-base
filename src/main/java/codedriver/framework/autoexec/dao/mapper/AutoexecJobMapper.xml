@@ -1470,6 +1470,12 @@
         WHERE `id` = #{id}
     </update>
 
+    <update id="updateJobExecUser" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        UPDATE `autoexec_job`
+        SET `exec_user` = #{execUser}
+        WHERE `id` = #{id}
+    </update>
+
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
         update
             `autoexec_job_phase_node`
