@@ -216,6 +216,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public AutoexecJobVo(AutoexecScriptVersionVo scriptVersionVo, String value, String source, JSONObject paramJson) {
     }
 
+    public AutoexecJobVo(Long id, Date planStartTime, String triggerType) {
+        this.id = id;
+        this.planStartTime = planStartTime;
+        this.triggerType = triggerType;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();

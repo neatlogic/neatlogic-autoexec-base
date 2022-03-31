@@ -1463,6 +1463,12 @@
         where id = #{jobPhaseId}
     </update>
 
+    <update id="updateJobPlanStartTimeAndTriggerTypeById" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        UPDATE `autoexec_job`
+        SET `plan_start_time` = #{planStartTime}, `trigger_type` = #{triggerType}
+        WHERE `id` = #{id}
+    </update>
+
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
         update
             `autoexec_job_phase_node`
