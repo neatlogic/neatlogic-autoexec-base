@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dao.mapper;
 
+import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.script.*;
@@ -89,6 +90,27 @@ public interface AutoexecScriptMapper {
     List<AutoexecToolAndScriptVo> searchScriptAndTool(AutoexecToolAndScriptVo searchVo);
 
     List<AutoexecToolAndScriptVo> getScriptListByIdList(List<Long> idList);
+
+    /**
+     * 根据idList查找AutoexecOperationVoList（不含参数）
+     * @param idList
+     * @return
+     */
+    List<AutoexecOperationVo> getAutoexecOperationListByIdList(List<Long> idList);
+
+    /**
+     * 根据idList查找AutoexecOperationVoList（仅含OperationId和对应的输入参数）
+     * @param idList
+     * @return
+     */
+    List<AutoexecOperationVo> getAutoexecOperationInputParamListByIdList(List<Long> idList);
+
+    /**
+     * 根据idList查找AutoexecOperationVoList（仅含OperationId和对应的输入参数）
+     * @param idList
+     * @return
+     */
+    List<AutoexecOperationVo> getAutoexecOperationOutputParamListByIdList(List<Long> idList);
 
     int getReferenceCountByScriptId(Long scriptId);
 

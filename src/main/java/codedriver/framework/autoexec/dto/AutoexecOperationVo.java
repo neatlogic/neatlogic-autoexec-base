@@ -6,18 +6,26 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
+import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.OperateVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author lvzk
@@ -74,6 +82,11 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private List<Long> riskIdList;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argument;
+    @EntityField(name = "输入参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> inputParamList;
+    @EntityField(name = "输出参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> outputParamList;
+    private String type;
 
     public Long getId() {
         if (id == null) {
@@ -119,6 +132,7 @@ public class AutoexecOperationVo extends BaseEditorVo {
         }
         return execModeText;
     }
+
     public Long getTypeId() {
         return typeId;
     }
@@ -136,6 +150,9 @@ public class AutoexecOperationVo extends BaseEditorVo {
     }
 
     public String getCatalogName() {
+        if (Objects.equals(catalogId, AutoexecCatalogVo.ROOT_ID)) {
+            catalogName = AutoexecCatalogVo.ROOT_NAME;
+        }
         return catalogName;
     }
 
@@ -190,6 +207,7 @@ public class AutoexecOperationVo extends BaseEditorVo {
     public void setParser(String parser) {
         this.parser = parser;
     }
+
     public JSONObject getConfig() {
         if (StringUtils.isNotBlank(configStr)) {
             config = JSONObject.parseObject(configStr);
@@ -286,5 +304,51 @@ public class AutoexecOperationVo extends BaseEditorVo {
 
     public void setArgument(AutoexecParamVo argument) {
         this.argument = argument;
+    }
+
+    public List<AutoexecParamVo> getInputParamList() {
+        JSONObject config = getConfig();
+        if (MapUtils.isNotEmpty(config)) {
+            JSONArray paramList = config.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(paramList)) {
+                inputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                        .stream()
+                        .filter(o -> Objects.equals(o.getMode(), ParamMode.INPUT.getValue()))
+                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                        .collect(Collectors.toList());
+            }
+        }
+        return inputParamList;
+    }
+
+    public void setInputParamList(List<AutoexecParamVo> inputParamList) {
+        this.inputParamList = inputParamList;
+    }
+
+    public List<AutoexecParamVo> getOutputParamList() {
+        JSONObject config = getConfig();
+        if (MapUtils.isNotEmpty(config)) {
+            JSONArray paramList = config.getJSONArray("paramList");
+            if (CollectionUtils.isNotEmpty(paramList)) {
+                outputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                        .stream()
+                        .filter(o -> Objects.equals(o.getMode(), ParamMode.OUTPUT.getValue()))
+                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                        .collect(Collectors.toList());
+            }
+        }
+        return outputParamList;
+    }
+
+    public void setOutputParamList(List<AutoexecParamVo> outputParamList) {
+        this.outputParamList = outputParamList;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
