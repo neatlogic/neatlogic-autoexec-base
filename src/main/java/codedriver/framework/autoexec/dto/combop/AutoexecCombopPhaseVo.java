@@ -5,6 +5,8 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -19,19 +21,33 @@ import java.io.Serializable;
  * @since: 2021/4/13 10:05
  **/
 public class AutoexecCombopPhaseVo implements Serializable {
+    @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "组合工具id", type = ApiParamType.LONG)
     private Long combopId;
+    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
     private String uk;
+    @EntityField(name = "显示名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "执行方式", type = ApiParamType.STRING)
     private String execMode;
+    @EntityField(name = "执行方式名称", type = ApiParamType.STRING)
     private String execModeName;
+    @EntityField(name = "配置信息", type = ApiParamType.STRING)
     private AutoexecCombopPhaseConfigVo config;
+    @EntityField(name = "阶段组", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopGroupVo groupVo;
+    @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "uuid", type = ApiParamType.STRING)
     private String uuid;
+    @EntityField(name = "组id", type = ApiParamType.LONG)
     private Long groupId;
+    @EntityField(name = "组uuid", type = ApiParamType.STRING)
     private String groupUuid;
+    @EntityField(name = "组排序", type = ApiParamType.INTEGER)
     private Integer groupSort;
+    @EntityField(name = "执行策略", type = ApiParamType.STRING)
     private String policy;
     @JSONField(serialize = false)
     private String configStr;
