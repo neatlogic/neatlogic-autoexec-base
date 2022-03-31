@@ -208,24 +208,23 @@
         </where>
     </select>
 
-    <select id="getJobPhaseNodeByNodeVoAndStartNumCount" resultType="java.lang.Long">
+    <select id="getJobPhaseNodeIdListByNodeVoAndStartNum" resultType="java.lang.Long">
         SELECT
-        count(ajpn.id)
+        ajpn.id
         FROM
         `autoexec_job_phase_node` ajpn
         JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        <if test="nodeVo.jobId != null">
-            ajp.`job_id` = #{nodeVo.jobId}
-        </if>
-        <if test="nodeVo.jobPhaseName != null and jobPhaseName != ''">
+        where
+        ajp.`job_id` = #{nodeVo.jobId}
+        <if test="nodeVo.jobPhaseName != null and nodeVo.jobPhaseName != ''">
             and ajp.`name` = #{nodeVo.jobPhaseName}
         </if>
         <if test="nodeVo.isDelete != null">
             and ajpn.`is_delete` = #{nodeVo.isDelete}
         </if>
-        <if test="statusList != null and statusList.size() > 0 ">
+        <if test="nodeVo.statusList != null and nodeVo.statusList.size() > 0 ">
             and ajpn.`status` in
-            <foreach collection="statusList" item="status" open="(" close=")" separator=",">
+            <foreach collection="nodeVo.statusList" item="status" open="(" close=")" separator=",">
                 #{status}
             </foreach>
         </if>
@@ -559,6 +558,7 @@
     <select id="getJobPhaseByJobIdAndPhaseName"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT id,
+               `name`,
                job_id    as jobId,
                exec_mode as execMode,
                `sort`,

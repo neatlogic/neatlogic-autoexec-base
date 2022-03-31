@@ -14,8 +14,8 @@ public class AutoexecJobPhaseNodeNotCompletedException extends ApiRuntimeExcepti
 
     private static final long serialVersionUID = 7399677354381263348L;
 
-    public AutoexecJobPhaseNodeNotCompletedException(List<Long> nodeIdList) {
-        super("无法inform下一个Round，因为存在未完成的Round node节点:"+ Strings.join("、",nodeIdList.toArray()));
+    public AutoexecJobPhaseNodeNotCompletedException(String phaseName, int roundNo, List<Long> nodeIdList) {
+        super("无法inform下一个phase Round，因为该phase("+phaseName+")存在未完成的Round("+roundNo+")node节:"+ Strings.join("、",nodeIdList.toArray()));
     }
 
 
