@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobCanNotTakeOverException extends ApiRuntimeException {
+public class AutoexecJobTakeOverPermissionDeniedException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 3175429889181207833L;
 
-    public AutoexecJobCanNotTakeOverException(Long jobId) {
-        super("无法接管作业: " + jobId + "，请确保作业来源于组合工具，同时确保您拥有作业所属组合工具的执行权限");
+    public AutoexecJobTakeOverPermissionDeniedException(Long jobId) {
+        super("您没有权限接管作业: " + jobId);
     }
 
 
