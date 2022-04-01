@@ -12,7 +12,7 @@ public class AutoexecJobCanNotTakeOverException extends ApiRuntimeException {
     private static final long serialVersionUID = 3175429889181207833L;
 
     public AutoexecJobCanNotTakeOverException(Long jobId) {
-        super("无法接管作业: " + jobId + "，请确保作业处于'已就绪'状态且作业来源于组合工具，同时确保您拥有作业所属组合工具的执行权限");
+        super("无法接管作业: " + jobId + "，请确保作业来源于组合工具，同时确保您拥有作业所属组合工具的执行权限");
     }
 
 
