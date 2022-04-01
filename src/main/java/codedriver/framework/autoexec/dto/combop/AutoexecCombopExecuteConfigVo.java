@@ -6,6 +6,8 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -17,18 +19,19 @@ import java.util.List;
  **/
 public class AutoexecCombopExecuteConfigVo implements Serializable {
 
+    @EntityField(name = "协议", type = ApiParamType.STRING)
     private String protocol;
-
+    @EntityField(name = "协议id", type = ApiParamType.LONG)
     private Long protocolId;
-
+    @EntityField(name = "执行用户", type = ApiParamType.STRING)
     private String executeUser;
-
+    @EntityField(name = "如何指定执行目标，（现在指定执行目标、运行时再指定执行目标、运行参数作为执行目标）", type = ApiParamType.STRING)
     private String whenToSpecify;
-
+    @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteNodeConfigVo executeNodeConfig;
-
+    @EntityField(name = "白名单", type = ApiParamType.JSONARRAY)
     private List<AutoexecNodeVo> whitelist;
-
+    @EntityField(name = "黑名单", type = ApiParamType.JSONARRAY)
     private List<AutoexecNodeVo> blacklist;
 
     public String getProtocol() {
@@ -41,10 +44,10 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public Long getProtocolId() {
         //TODO 临时兼容老数据，后续删除
-        if(StringUtils.isNotBlank(protocol)){
+        if (StringUtils.isNotBlank(protocol)) {
             try {
                 protocolId = Long.valueOf(protocol);
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
 
             }
         }

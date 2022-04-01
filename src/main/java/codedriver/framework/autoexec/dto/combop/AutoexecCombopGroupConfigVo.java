@@ -5,6 +5,9 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +16,7 @@ import java.io.Serializable;
  **/
 public class AutoexecCombopGroupConfigVo implements Serializable {
 
+    @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
     public AutoexecCombopExecuteConfigVo getExecuteConfig() {

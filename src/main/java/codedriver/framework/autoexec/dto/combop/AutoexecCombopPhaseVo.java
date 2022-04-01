@@ -121,7 +121,7 @@ public class AutoexecCombopPhaseVo implements Serializable {
     }
 
     public String getUuid() {
-        if(uuid == null){
+        if (uuid == null) {
             return "";
         }
         return uuid;
