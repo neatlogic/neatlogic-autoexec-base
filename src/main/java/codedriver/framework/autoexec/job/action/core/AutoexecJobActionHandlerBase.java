@@ -6,16 +6,17 @@
 package codedriver.framework.autoexec.job.action.core;
 
 import codedriver.framework.asynchronization.threadlocal.TenantContext;
+import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.auth.core.AuthActionChecker;
 import codedriver.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
-import codedriver.framework.autoexec.constvalue.*;
-import codedriver.framework.autoexec.crossover.IAutoexecCombopCrossoverService;
+import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
+import codedriver.framework.autoexec.constvalue.JobSource;
+import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
-import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.exception.*;
-import codedriver.framework.crossover.CrossoverServiceFactory;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.integration.authentication.enums.AuthenticateType;
@@ -126,16 +127,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      * @param jobVo
      */
     public void executeAuthCheck(AutoexecJobVo jobVo) {
-        if (Objects.equals(jobVo.getOperationType(), CombopOperationType.COMBOP.getValue())) {
-            AutoexecCombopVo combopVo = autoexecCombopMapper.getAutoexecCombopById(jobVo.getOperationId());
-            if (combopVo == null) {
-                throw new AutoexecCombopNotFoundException(jobVo.getOperationId());
-            }
-            IAutoexecCombopCrossoverService accountService = CrossoverServiceFactory.getApi(IAutoexecCombopCrossoverService.class);
-            accountService.setOperableButtonList(combopVo);
-            if (combopVo.getExecutable() != 1) {
-                throw new AutoexecCombopCannotExecuteException(combopVo.getName());
-            }
+        if (!UserContext.get().getUserUuid().equals(jobVo.getExecUser())) {
+            throw new AutoexecJobExecutePermissionDeinedExcpetion(jobVo.getId());
         }
     }
 
@@ -151,7 +144,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 throw new AutoexecJobRunnerMapNotMatchRunnerException(runner.getRunnerMapId());
             }
             url = runner.getUrl() + "api/rest/health/check";
-            if(StringUtils.isBlank(url)){
+            if (StringUtils.isBlank(url)) {
                 throw new AutoexecJobRunnerNotFoundException(runner.getRunnerMapId().toString());
             }
             restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).build();
@@ -196,7 +189,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             throw new AutoexecJobRunnerNotFoundException(jobVo.getPhaseNameList());
         }
         checkRunnerHealth(runnerVos);
-        runnerVos = runnerVos.stream().filter(o->StringUtils.isNotBlank(o.getUrl())).collect(collectingAndThen(toCollection(() -> new TreeSet<>( Comparator.comparing(RunnerMapVo::getUrl))), ArrayList::new));
+        runnerVos = runnerVos.stream().filter(o -> StringUtils.isNotBlank(o.getUrl())).collect(collectingAndThen(toCollection(() -> new TreeSet<>(Comparator.comparing(RunnerMapVo::getUrl))), ArrayList::new));
         try {
             for (RunnerMapVo runner : runnerVos) {
                 url = runner.getUrl() + "api/rest/job/exec";
