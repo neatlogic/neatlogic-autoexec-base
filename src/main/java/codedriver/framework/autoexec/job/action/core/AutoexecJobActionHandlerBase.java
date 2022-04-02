@@ -9,10 +9,7 @@ import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.auth.core.AuthActionChecker;
 import codedriver.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
-import codedriver.framework.autoexec.constvalue.ExecMode;
-import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
-import codedriver.framework.autoexec.constvalue.JobSource;
-import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.constvalue.*;
 import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import codedriver.framework.autoexec.dto.job.*;
@@ -100,7 +97,12 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     throw new AutoexecOperationHasNoModifyAuthException();
                 }
             } else {
-                executeAuthCheck(jobVo);
+                if (JobAction.FIRE.getValue().equals(jobVo.getAction()) || JobAction.ABORT.getValue().equals(jobVo.getAction())
+                        || JobAction.DELETE.getValue().equals(jobVo.getAction()) || JobAction.REFIRE.getValue().equals(jobVo.getAction())
+                        || JobAction.RESET_NODE.getValue().equals(jobVo.getAction()) || JobAction.REFIRE_NODE.getValue().equals(jobVo.getAction())
+                        || JobAction.IGNORE_NODE.getValue().equals(jobVo.getAction()) || JobAction.SUBMIT_NODE_WAIT_INPUT.getValue().equals(jobVo.getAction())) {
+                    executeAuthCheck(jobVo);
+                }
             }
         }
         return myValidate(jobVo);
