@@ -76,6 +76,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private Integer isDelete;
     private Long resourceId;
 
+    private String nodeFrom;//执行目标配置来源
+
     private String schemaName;
 
     public AutoexecJobPhaseNodeVo() {
@@ -333,5 +335,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setStatusBlackList(List<String> statusBlackList) {
         this.statusBlackList = statusBlackList;
+    }
+
+    public String getNodeFrom() {
+        return nodeFrom;
+    }
+
+    public void setNodeFrom(String nodeFrom) {
+        this.nodeFrom = nodeFrom;
     }
 }

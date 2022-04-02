@@ -156,6 +156,9 @@
         <if test="isDelete != null">
             and ajpn.`is_delete` = #{isDelete}
         </if>
+        <if test="nodeFrom != null and nodeFrom != ''">
+            and ajpn.`node_from` = #{nodeFrom}
+        </if>
     </sql>
 
     <select id="searchJobPhaseNode" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
@@ -240,7 +243,7 @@
 
     <select id="searchJobPhaseNodeCount" resultType="java.lang.Integer">
         SELECT
-        count(ajpn.`id`)
+        count(distinct ajpn.`id`)
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
@@ -1641,6 +1644,18 @@
           and (`lcd` != #{lcd} OR `lcd` IS NULL)
           and `is_delete` != 1
     </delete>
+
+    <update id="updateJobLncdById">
+        update `autoexec_job`
+        set `lncd` = #{lcd}
+        where id = #{jobId}
+    </update>
+
+    <update id="updateJobGroupLncdById">
+        update `autoexec_job_group`
+        set `lncd` = #{lcd}
+        where id = #{jobGroupId}
+    </update>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
         DELETE

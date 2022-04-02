@@ -208,6 +208,10 @@ public interface AutoexecJobMapper {
 
     Integer insertIgnoreJobParamContent(AutoexecJobParamContentVo contentVo);
 
+    Integer updateJobLncdById(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
+
+    Integer updateJobGroupLncdById(@Param("jobGroupId") Long jobGroupId, @Param("lcd") Date lcd);
+
     Integer updateJobPhaseStatus(AutoexecJobPhaseVo autoexecJobPhaseVo);
 
     Integer updateJobPhaseNodeStatusByJobIdAndIsDelete(@Param("jobId") Long id, @Param("status") String status, @Param("isDelete") Integer isDelete);

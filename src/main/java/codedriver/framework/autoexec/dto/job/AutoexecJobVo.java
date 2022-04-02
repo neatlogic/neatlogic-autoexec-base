@@ -121,6 +121,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isNoFireNext = 0;
     private Integer isFirstFire;
     private String action;//fire|refire|goon
+    private String nodeFrom;//job|group|phase
 
     @JSONField(serialize = false)
     private List<AutoexecJobPhaseNodeVo> executeJobNodeVoList;//场景：工具库测试|重跑节点
@@ -642,5 +643,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setExecuteJobPhaseList(List<AutoexecJobPhaseVo> executeJobPhaseList) {
         this.executeJobPhaseList = executeJobPhaseList;
+    }
+
+    public String getNodeFrom() {
+        return nodeFrom;
+    }
+
+    public void setNodeFrom(String nodeFrom) {
+        this.nodeFrom = nodeFrom;
     }
 }
