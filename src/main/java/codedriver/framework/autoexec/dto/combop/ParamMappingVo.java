@@ -5,6 +5,9 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
+
 import java.io.Serializable;
 
 /**
@@ -12,11 +15,17 @@ import java.io.Serializable;
  * @since: 2021/4/21 18:42
  **/
 public class ParamMappingVo implements Serializable {
+    @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
+    @EntityField(name = "参数中文名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "映射方式", type = ApiParamType.STRING)
     private String mappingMode;
+    @EntityField(name = "值", type = ApiParamType.NOAUTH)
     private Object value;
+    @EntityField(name = "参数表单类型", type = ApiParamType.STRING)
     private String type;
+    @EntityField(name = "参数描述", type = ApiParamType.STRING)
     private String description;
 
     public ParamMappingVo() {
