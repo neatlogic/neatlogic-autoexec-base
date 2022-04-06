@@ -113,6 +113,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isCanExecute = 0;
     @EntityField(name = "是否拥有编辑权限", type = ApiParamType.INTEGER)
     private Integer isCanEdit = 0;
+    @EntityField(name = "是否拥有接管权限", type = ApiParamType.INTEGER)
+    private Integer isCanTakeOver = 0;
     private Long nodeId;
     private List<AutoexecJobPhaseNodeVo> phaseNodeVoList;//场景：工具库测试|重跑节点
     private List<Long> phaseNodeIdList;
@@ -216,6 +218,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public AutoexecJobVo(AutoexecScriptVersionVo scriptVersionVo, String value, String source, JSONObject paramJson) {
     }
 
+    public AutoexecJobVo(Long id, Date planStartTime, String triggerType) {
+        this.id = id;
+        this.planStartTime = planStartTime;
+        this.triggerType = triggerType;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();
@@ -259,7 +267,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Date getPlanStartTime() {
-        if (planStartTime == null) {
+        if (planStartTime == null && startTime == null) {
             planStartTime = new Date();
         }
         return planStartTime;
@@ -628,5 +636,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public ValueTextVo getTriggerTypeVo() {
         return new ValueTextVo(getTriggerType(), JobTriggerType.getText(getTriggerType()));
+    }
+
+    public Integer getIsCanTakeOver() {
+        return isCanTakeOver;
+    }
+
+    public void setIsCanTakeOver(Integer isCanTakeOver) {
+        this.isCanTakeOver = isCanTakeOver;
     }
 }

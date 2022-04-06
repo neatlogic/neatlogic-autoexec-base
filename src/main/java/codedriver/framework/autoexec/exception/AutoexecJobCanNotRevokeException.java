@@ -12,7 +12,7 @@ public class AutoexecJobCanNotRevokeException extends ApiRuntimeException {
     private static final long serialVersionUID = -6343241416891736903L;
 
     public AutoexecJobCanNotRevokeException(Long jobId) {
-        super("无法撤销作业: " + jobId + "，请确保作业处于'已就绪（ready）'状态");
+        super("无法撤销作业: " + jobId + "，执行用户才有权限撤销，且作业需要处于'已就绪'状态");
     }
 
 

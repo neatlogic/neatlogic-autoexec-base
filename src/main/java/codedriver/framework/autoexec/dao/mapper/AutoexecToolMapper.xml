@@ -24,25 +24,51 @@
         </association>
     </resultMap>
 
+    <resultMap id="autoexecOperationMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="execMode" property="execMode"/>
+        <result column="typeId" property="typeId"/>
+        <result column="typeName" property="typeName"/>
+        <result column="description" property="description"/>
+        <result column="configStr" property="configStr"/>
+        <association property="riskVo" javaType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
+            <result column="riskId" property="id"/>
+            <result column="riskName" property="name"/>
+            <result column="riskColor" property="color"/>
+        </association>
+    </resultMap>
+
     <select id="getToolListByIdList" parameterType="java.lang.Long" resultMap="autoexecToolAndScriptMap">
+        <include refid="getToolListByIdList"></include>
+    </select>
+
+    <sql id="getToolListByIdList">
         select
-        `id`,
-        `name`,
+        a.`id`,
+        a.`name`,
         'tool' as `type`,
-        `exec_mode` as execMode,
-        `type_id` as typeId,
-        (select `name` from `autoexec_type` where `type_id` = `id`) as typeName,
-        `risk_id` as riskId,
-        (select `name` from `autoexec_risk` where `risk_id` = `id`) as riskName,
-        (select `color` from `autoexec_risk` where `risk_id` = `id`) as riskColor,
-        `description`,
-        `config` as configStr
-        from `autoexec_tool`
-        where `is_active` = 1
-        and `id` in
+        a.`exec_mode` as execMode,
+        a.`type_id` as typeId,
+        ate.`name` as typeName,
+        a.`risk_id` as riskId,
+        ar.`name` as riskName,
+        ar.`color` as riskColor,
+        a.`description`,
+        a.`config` as configStr
+        from `autoexec_tool` a
+        LEFT JOIN autoexec_type ate ON a.`type_id` = ate.`id`
+        LEFT JOIN autoexec_risk ar ON a.`risk_id` = ar.`id`
+        where a.`is_active` = 1
+        and a.`id` in
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </sql>
+
+    <select id="getAutoexecOperationListByIdList" parameterType="java.lang.Long" resultMap="autoexecOperationMap">
+        <include refid="getToolListByIdList"></include>
     </select>
 
     <sql id="searchToolCondition">
@@ -92,7 +118,8 @@
         </association>
     </resultMap>
 
-    <select id="searchTool" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo" resultMap="AutoexecToolMap">
+    <select id="searchTool" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo"
+            resultMap="AutoexecToolMap">
         select
         `id`,
         `name`,

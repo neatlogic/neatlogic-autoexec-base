@@ -7,7 +7,8 @@ import codedriver.framework.dependency.core.IFromType;
  * @date 2021/12/16 4:16 下午
  */
 public enum AutoexecFromType implements IFromType {
-    AUTOEXEC_CATALOG("autoexeccatalog","自动化工具目录");
+    AUTOEXEC_CATALOG("autoexeccatalog","自动化工具目录"),
+    AUTOEXEC_OPERATION_PROFILE("autoexecoperationprofile","自动化工具profile");
 
     private String value;
     private String text;
