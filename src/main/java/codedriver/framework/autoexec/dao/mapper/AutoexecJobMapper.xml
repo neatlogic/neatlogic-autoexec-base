@@ -292,7 +292,8 @@
                aj.`source`,
                aj.`thread_count`    as threadCount,
                aj.`param_hash`      as paramHash,
-               aj.`config`          as configStr
+               aj.`config`          as configStr,
+               aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value}
     </select>
@@ -1461,6 +1462,18 @@
         update `autoexec_job_phase`
         set `lncd` = #{lcd}
         where id = #{jobPhaseId}
+    </update>
+
+    <update id="updateJobPlanStartTimeAndTriggerTypeById" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        UPDATE `autoexec_job`
+        SET `plan_start_time` = #{planStartTime}, `trigger_type` = #{triggerType}
+        WHERE `id` = #{id}
+    </update>
+
+    <update id="updateJobExecUser" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        UPDATE `autoexec_job`
+        SET `exec_user` = #{execUser}
+        WHERE `id` = #{id}
     </update>
 
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
