@@ -115,6 +115,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isCanEdit = 0;
     @EntityField(name = "是否拥有接管权限", type = ApiParamType.INTEGER)
     private Integer isCanTakeOver = 0;
+    @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
+    private Date lncd;
     private Long nodeId;
     private List<Long> phaseNodeIdList;
     private Long currentPhaseId;
@@ -667,5 +669,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setIsCanTakeOver(Integer isCanTakeOver) {
         this.isCanTakeOver = isCanTakeOver;
+    }
+
+    public Date getLncd() {
+        return lncd;
+    }
+
+    public void setLncd(Date lncd) {
+        this.lncd = lncd;
     }
 }

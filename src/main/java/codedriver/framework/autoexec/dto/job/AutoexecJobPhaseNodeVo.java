@@ -75,10 +75,12 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "是否已删除", type = ApiParamType.INTEGER)
     private Integer isDelete;
     private Long resourceId;
-
-    private String nodeFrom;//执行目标配置来源
-
+    @EntityField(name = "执行目标配置来源", type = ApiParamType.STRING)
+    private String nodeFrom;
+    @JSONField(serialize = false)
     private String schemaName;
+    @JSONField(serialize = false)
+    private Integer groupSort;//组排序用于节点过滤
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -94,6 +96,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
         this.isDelete = isDelete;
+    }
+
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Integer isDelete,String nodeFrom) {
+        this.setJobId(jobId);
+        this.jobPhaseName = jobPhaseName;
+        this.isDelete = isDelete;
+        this.setNodeFrom(nodeFrom);
     }
 
     public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
@@ -343,5 +352,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setNodeFrom(String nodeFrom) {
         this.nodeFrom = nodeFrom;
+    }
+
+    public Integer getGroupSort() {
+        return groupSort;
+    }
+
+    public void setGroupSort(Integer groupSort) {
+        this.groupSort = groupSort;
     }
 }

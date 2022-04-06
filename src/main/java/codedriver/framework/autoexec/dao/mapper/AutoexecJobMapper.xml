@@ -157,11 +157,15 @@
             and ajpn.`is_delete` = #{isDelete}
         </if>
         <if test="nodeFrom != null and nodeFrom != ''">
-            and ajpn.`node_from` = #{nodeFrom}
+            and ajp.`node_from` = #{nodeFrom}
+        </if>
+        <if test="groupSort != null">
+            and ajg.`sort` = #{groupSort}
         </if>
     </sql>
 
-    <select id="searchJobPhaseNode" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+     <select id="searchJobPhaseNodeWithResource"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT
         ajpn.`id`,
         ajpn.`job_phase_id` AS jobPhaseId,
@@ -196,6 +200,33 @@
         limit #{startNum}, #{pageSize}
     </select>
 
+    <select id="searchJobPhaseNode" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT
+        distinct
+        ajpn.`id`,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`status`,
+        ajpn.`protocol_id` as protocolId,
+        ajpn.`resource_id` AS resourceId,
+        ajpn.name AS nodeName,
+        ajpn.type AS nodeType,
+        ajpn.is_delete as isDelete,
+        ajpn.`user_name` AS userName
+        FROM
+        `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        <where>
+            <include refid="searchJobPhaseNodeSql"/>
+        </where>
+        order by ajpn.`host`,ajpn.`port`
+        limit #{startNum}, #{pageSize}
+    </select>
+
     <select id="getJobPhaseNodeRunnerMapIdListByNodeVo" resultType="java.lang.Long">
         SELECT
         distinct
@@ -203,6 +234,7 @@
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
@@ -241,15 +273,27 @@
         limit #{startNum}, #{nodeVo.pageSize}
     </select>
 
-    <select id="searchJobPhaseNodeCount" resultType="java.lang.Integer">
+    <select id="searchJobPhaseNodeCountWithResource" resultType="java.lang.Integer">
         SELECT
-        count(distinct ajpn.`id`)
+        count(ajpn.`id`)
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
         LEFT JOIN ${schemaName}.`resource_ipobject` ri ON ajpn.resource_id = ri.`id`
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        <where>
+            <include refid="searchJobPhaseNodeSql"/>
+        </where>
+    </select>
+
+    <select id="searchJobPhaseNodeCount" resultType="java.lang.Integer">
+        SELECT
+        count(distinct ajpn.`id`)
+        FROM
+        `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         <where>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
@@ -373,6 +417,7 @@
                aj.`thread_count`    as threadCount,
                aj.`param_hash`      as paramHash,
                aj.`config`          as configStr,
+               aj.`lncd`,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value}
@@ -1202,7 +1247,7 @@
     </select>
     <select id="getJobGroupByJobIdAndSort"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
-        select id, policy, job_id, sort
+        select id, policy, job_id, sort, lncd
         from autoexec_job_group
         where job_id = #{jobId}
           and `sort` = #{sort}
@@ -1637,9 +1682,11 @@
         where id = #{jobPhaseId}
     </update>
 
-    <update id="updateJobPlanStartTimeAndTriggerTypeById" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+    <update id="updateJobPlanStartTimeAndTriggerTypeById"
+            parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         UPDATE `autoexec_job`
-        SET `plan_start_time` = #{planStartTime}, `trigger_type` = #{triggerType}
+        SET `plan_start_time` = #{planStartTime},
+            `trigger_type`    = #{triggerType}
         WHERE `id` = #{id}
     </update>
 

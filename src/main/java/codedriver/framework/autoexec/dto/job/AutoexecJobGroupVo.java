@@ -13,6 +13,7 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 组合工具组Vo类
@@ -30,6 +31,8 @@ public class AutoexecJobGroupVo implements Serializable {
     private String policy;
     @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopGroupConfigVo config;
+    @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
+    private Date lncd;
     @JSONField(serialize = false)
     private String configStr;
 
@@ -87,5 +90,13 @@ public class AutoexecJobGroupVo implements Serializable {
 
     public AutoexecCombopGroupConfigVo getConfig() {
         return config;
+    }
+
+    public Date getLncd() {
+        return lncd;
+    }
+
+    public void setLncd(Date lncd) {
+        this.lncd = lncd;
     }
 }
