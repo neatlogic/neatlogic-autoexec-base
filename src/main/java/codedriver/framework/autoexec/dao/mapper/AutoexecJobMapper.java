@@ -246,6 +246,10 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
+    int updateJobPlanStartTimeAndTriggerTypeById(AutoexecJobVo vo);
+
+    int updateJobExecUser(AutoexecJobVo vo);
+
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
