@@ -16,8 +16,8 @@ import java.util.List;
  * @since 2022/3/23 14:40
  **/
 public enum AutoexecJobGroupPolicy implements IEnum {
-    ONESHOT("oneshot"),
-    GRAYSCALE("grayscale");
+    ONESHOT("oneShot"),
+    GRAYSCALE("grayScale");
     private final String name;
 
     AutoexecJobGroupPolicy(String name) {

@@ -164,7 +164,7 @@
         </if>
     </sql>
 
-     <select id="searchJobPhaseNodeWithResource"
+    <select id="searchJobPhaseNodeWithResource"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT
         ajpn.`id`,
@@ -189,6 +189,7 @@
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         LEFT JOIN ${schemaName}.`resource_ipobject` ri ON ajpn.resource_id = ri.`id`
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
@@ -339,6 +340,7 @@
             <result column="groupId" property="id"/>
             <result column="groupSort" property="sort"/>
             <result column="groupPolicy" property="policy"/>
+            <result column="config" property="configStr"/>
         </collection>
     </resultMap>
 
@@ -355,6 +357,7 @@
         ajp.`uk` as uk,
         ajg.id as groupId,
         ajg.sort as groupSort,
+        ajg.config,
         ajg.policy as groupPolicy
         FROM `autoexec_job_phase` ajp
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
@@ -685,6 +688,7 @@
         ajp.`id`, ajp.`status`,
         ajg.id as groupId,
         ajg.sort as groupSort,
+        ajg.config,
         ajg.policy as groupPolicy
         from `autoexec_job_phase` ajp
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
@@ -1478,8 +1482,8 @@
                    `lcd`         = #{lcd};
     </insert>
     <insert id="insertJobGroup">
-        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`)
-        values (#{id}, #{jobId}, #{sort}, #{policy})
+        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`)
+        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr})
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">

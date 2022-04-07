@@ -10,14 +10,15 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 组合工具组Vo类
- *
  **/
 public class AutoexecJobGroupVo implements Serializable {
     private static final long serialVersionUID = 485296946031942137L;
@@ -73,6 +74,9 @@ public class AutoexecJobGroupVo implements Serializable {
     }
 
     public String getConfigStr() {
+        if (config != null) {
+            configStr = JSON.toJSONString(config);
+        }
         return configStr;
     }
 
@@ -89,6 +93,9 @@ public class AutoexecJobGroupVo implements Serializable {
     }
 
     public AutoexecCombopGroupConfigVo getConfig() {
+        if (StringUtils.isNotBlank(configStr)) {
+            config = JSON.parseObject(configStr, AutoexecCombopGroupConfigVo.class);
+        }
         return config;
     }
 
