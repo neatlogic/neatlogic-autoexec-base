@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.script.*;
 import codedriver.framework.common.dto.ValueTextVo;
@@ -73,6 +74,8 @@ public interface AutoexecScriptMapper {
     List<AutoexecScriptVersionVo> getScriptVersionListByScriptId(Long scriptId);
 
     List<AutoexecScriptVersionParamVo> getParamListByVersionId(Long versionId);
+
+    List<AutoexecParamVo> getAutoexecParamVoListByVersionId(Long versionId);
 
     List<AutoexecScriptVersionParamVo> getParamListByVersionIdAndMode(@Param("versionId") Long versionId, @Param("mode") String mode);
 

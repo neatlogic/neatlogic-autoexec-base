@@ -114,33 +114,35 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
         return super.getArgument();
     }
 
-
-    public List<AutoexecParamVo> getInputParamList() {
+    public List<AutoexecParamVo> getParamList() {
         JSONObject config = getConfig();
         if (MapUtils.isNotEmpty(config)) {
             JSONArray paramList = config.getJSONArray("paramList");
             if (CollectionUtils.isNotEmpty(paramList)) {
-                super.setInputParamList(paramList.toJavaList(AutoexecParamVo.class)
-                        .stream()
-                        .filter(o -> Objects.equals(o.getMode(), ParamMode.INPUT.getValue()))
-                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
-                        .collect(Collectors.toList()));
+                super.setParamList(paramList.toJavaList(AutoexecParamVo.class));
             }
+        }
+        return super.getParamList();
+    }
+
+    public List<AutoexecParamVo> getInputParamList() {
+        if (CollectionUtils.isNotEmpty(getParamList())) {
+            super.setInputParamList(getParamList()
+                    .stream()
+                    .filter(o -> Objects.equals(o.getMode(), ParamMode.INPUT.getValue()))
+                    .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                    .collect(Collectors.toList()));
         }
         return super.getInputParamList();
     }
 
     public List<AutoexecParamVo> getOutputParamList() {
-        JSONObject config = getConfig();
-        if (MapUtils.isNotEmpty(config)) {
-            JSONArray paramList = config.getJSONArray("paramList");
-            if (CollectionUtils.isNotEmpty(paramList)) {
-                super.setOutputParamList(paramList.toJavaList(AutoexecParamVo.class)
-                        .stream()
-                        .filter(o -> Objects.equals(o.getMode(), ParamMode.OUTPUT.getValue()))
-                        .sorted(Comparator.comparing(AutoexecParamVo::getSort))
-                        .collect(Collectors.toList()));
-            }
+        if (CollectionUtils.isNotEmpty(getParamList())) {
+            super.setOutputParamList(getParamList()
+                    .stream()
+                    .filter(o -> Objects.equals(o.getMode(), ParamMode.OUTPUT.getValue()))
+                    .sorted(Comparator.comparing(AutoexecParamVo::getSort))
+                    .collect(Collectors.toList()));
         }
         return super.getOutputParamList();
     }

@@ -55,6 +55,8 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private String description;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argument;
+    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecParamVo> paramList;
     @EntityField(name = "输入参数列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> inputParamList;
     @EntityField(name = "输出参数列表", type = ApiParamType.JSONARRAY)
@@ -223,6 +225,14 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public void setArgument(AutoexecParamVo argument) {
         this.argument = argument;
+    }
+
+    public List<AutoexecParamVo> getParamList() {
+        return paramList;
+    }
+
+    public void setParamList(List<AutoexecParamVo> paramList) {
+        this.paramList = paramList;
     }
 
     public List<AutoexecParamVo> getInputParamList() {

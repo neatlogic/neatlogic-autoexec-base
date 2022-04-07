@@ -397,6 +397,22 @@
         order by `sort`
     </select>
 
+    <select id="getAutoexecParamVoListByVersionId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.AutoexecParamVo">
+        select
+            `key`,
+            `name`,
+            `default_value` as defaultValue,
+            `type`,
+            `mode`,
+            `is_required` as isRequired,
+            `description`,
+            `sort`,
+            `config`
+        from `autoexec_script_version_param`
+        where `script_version_id` = #{value}
+        order by `sort`
+    </select>
+
     <select id="getParamListByVersionIdAndMode" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
         select
         `script_version_id` as scriptVersionId,
@@ -703,6 +719,17 @@
             <result column="riskName" property="name"/>
             <result column="riskColor" property="color"/>
         </association>
+        <collection property="paramList" ofType="codedriver.framework.autoexec.dto.AutoexecParamVo">
+            <result property="key" column="key"/>
+            <result property="name" column="paramName"/>
+            <result property="defaultValue" column="defaultValue"/>
+            <result property="type" column="paramType"/>
+            <result property="mode" column="mode"/>
+            <result property="isRequired" column="isRequired"/>
+            <result property="description" column="paramDescription"/>
+            <result property="sort" column="sort"/>
+            <result property="config" column="config"/>
+        </collection>
     </resultMap>
 
     <resultMap id="autoexecOperationMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
