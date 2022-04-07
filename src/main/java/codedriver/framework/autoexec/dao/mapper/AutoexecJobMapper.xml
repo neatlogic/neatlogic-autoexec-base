@@ -332,6 +332,7 @@
         <result column="endTime" property="endTime"/>
         <result column="execUser" property="execUser"/>
         <result column="execMode" property="execMode"/>
+        <result column="executePolicy" property="executePolicy"/>
         <result column="name" property="name"/>
         <result column="groupId" property="groupId"/>
         <result column="sort" property="sort"/>
@@ -686,6 +687,8 @@
         ajp.`name`,
         ajp.`exec_mode` as execMode,
         ajp.`id`, ajp.`status`,
+        ajp.`execute_policy` as executePolicy,
+        ajp.`status`,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.config,
