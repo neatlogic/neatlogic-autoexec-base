@@ -5,18 +5,14 @@
 
 package codedriver.framework.autoexec.dto;
 
-import codedriver.framework.autoexec.constvalue.ExecMode;
-import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.OperateVo;
 import codedriver.framework.restful.annotation.EntityField;
-import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,44 +20,15 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
  * @author lvzk
  * @since 2021/7/7 11:59
  **/
-public class AutoexecOperationVo extends BaseEditorVo {
-    @EntityField(name = "id", type = ApiParamType.LONG)
-    private Long id;
-    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
-    private String uk;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
-    private String name;
-    @EntityField(name = "执行方式", type = ApiParamType.STRING)
-    private String execMode;
-    @EntityField(name = "执行方式显示文本", type = ApiParamType.STRING)
-    private String execModeText;
-    @EntityField(name = "分类ID", type = ApiParamType.LONG)
-    private Long typeId;
-    @EntityField(name = "工具目录ID", type = ApiParamType.LONG)
-    private Long catalogId;
-    @EntityField(name = "工具目录名称", type = ApiParamType.STRING)
-    private String catalogName;
-    @EntityField(name = "操作级别ID", type = ApiParamType.LONG)
-    private Long riskId;
-    @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
-    private String riskName;
-    @EntityField(name = "分类名称", type = ApiParamType.STRING)
-    private String typeName;
+public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     @EntityField(name = "操作类型", type = ApiParamType.STRING)
     private String operationType;
-    @EntityField(name = "操作级别")
-    private AutoexecRiskVo riskVo;
-    @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
-    private String parser;
-    @EntityField(name = "描述说明", type = ApiParamType.STRING)
-    private String description;
     @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
     private JSONObject config;
     @EntityField(name = "关联的组合工具", type = ApiParamType.JSONARRAY)
@@ -72,159 +39,36 @@ public class AutoexecOperationVo extends BaseEditorVo {
     private List<OperateVo> operateList;
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
-    @JSONField(serialize = false)
-    private String configStr;
-    @JSONField(serialize = false)
-    private List<Long> typeIdList;
-    @JSONField(serialize = false)
-    private List<Long> catalogIdList;
-    @JSONField(serialize = false)
-    private List<Long> riskIdList;
-    @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
-    private AutoexecParamVo argument;
-    @EntityField(name = "输入参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecParamVo> inputParamList;
-    @EntityField(name = "输出参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecParamVo> outputParamList;
-    private String type;
 
-    public Long getId() {
-        if (id == null) {
-            id = SnowflakeUtil.uniqueLong();
-        }
-        return id;
+    public AutoexecOperationVo() {
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public AutoexecOperationVo(AutoexecToolVo autoexecToolVo) {
+        super(autoexecToolVo);
     }
 
-    public String getUk() {
-        return uk;
+    public AutoexecOperationVo(AutoexecScriptVo autoexecScriptVo) {
+        super(autoexecScriptVo);
     }
 
-    public void setUk(String uk) {
-        this.uk = uk;
+    public String getOperationType() {
+        return operationType;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getExecMode() {
-        return execMode;
-    }
-
-    public void setExecMode(String execMode) {
-        this.execMode = execMode;
-    }
-
-    public String getExecModeText() {
-        if (StringUtils.isNotBlank(execMode)) {
-            ExecMode mode = ExecMode.getExecMode(this.execMode);
-            if (mode != null) {
-                execModeText = mode.getText();
-            }
-        }
-        return execModeText;
-    }
-
-    public Long getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Long typeId) {
-        this.typeId = typeId;
-    }
-
-    public Long getCatalogId() {
-        return catalogId;
-    }
-
-    public void setCatalogId(Long catalogId) {
-        this.catalogId = catalogId;
-    }
-
-    public String getCatalogName() {
-        if (Objects.equals(catalogId, AutoexecCatalogVo.ROOT_ID)) {
-            catalogName = AutoexecCatalogVo.ROOT_NAME;
-        }
-        return catalogName;
-    }
-
-    public void setCatalogName(String catalogName) {
-        this.catalogName = catalogName;
-    }
-
-    public Long getRiskId() {
-        return riskId;
-    }
-
-    public void setRiskId(Long riskId) {
-        this.riskId = riskId;
-    }
-
-    public String getRiskName() {
-        return riskName;
-    }
-
-    public void setRiskName(String riskName) {
-        this.riskName = riskName;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public AutoexecRiskVo getRiskVo() {
-        return riskVo;
-    }
-
-    public void setRiskVo(AutoexecRiskVo riskVo) {
-        this.riskVo = riskVo;
-    }
-
-    public String getParser() {
-        return parser;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setParser(String parser) {
-        this.parser = parser;
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
     }
 
     public JSONObject getConfig() {
-        if (StringUtils.isNotBlank(configStr)) {
-            config = JSONObject.parseObject(configStr);
+        if (StringUtils.isNotBlank(super.getConfigStr())) {
+            config = JSONObject.parseObject(super.getConfigStr());
         }
         return config;
     }
 
     public void setConfig(JSONObject config) {
         this.config = config;
-    }
-
-    public String getConfigStr() {
-        return configStr;
-    }
-
-    public void setConfigStr(String configStr) {
-        this.configStr = configStr;
     }
 
     public void setOperateList(List<OperateVo> operateList) {
@@ -251,30 +95,6 @@ public class AutoexecOperationVo extends BaseEditorVo {
         this.referenceCount = referenceCount;
     }
 
-    public List<Long> getTypeIdList() {
-        return typeIdList;
-    }
-
-    public void setTypeIdList(List<Long> typeIdList) {
-        this.typeIdList = typeIdList;
-    }
-
-    public List<Long> getCatalogIdList() {
-        return catalogIdList;
-    }
-
-    public void setCatalogIdList(List<Long> catalogIdList) {
-        this.catalogIdList = catalogIdList;
-    }
-
-    public List<Long> getRiskIdList() {
-        return riskIdList;
-    }
-
-    public void setRiskIdList(List<Long> riskIdList) {
-        this.riskIdList = riskIdList;
-    }
-
     public Integer getHasBeenGeneratedToCombop() {
         return hasBeenGeneratedToCombop;
     }
@@ -283,46 +103,31 @@ public class AutoexecOperationVo extends BaseEditorVo {
         this.hasBeenGeneratedToCombop = hasBeenGeneratedToCombop;
     }
 
-    public String getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(String operationType) {
-        this.operationType = operationType;
-    }
-
     public AutoexecParamVo getArgument() {
-        if (argument == null && StringUtils.isNotBlank(configStr)) {
-            JSONObject toolConfig = JSONObject.parseObject(configStr);
+        if (super.getArgument() == null && StringUtils.isNotBlank(super.getConfigStr())) {
+            JSONObject toolConfig = JSONObject.parseObject(super.getConfigStr());
             JSONObject argumentJson = toolConfig.getJSONObject("argument");
             if (MapUtils.isNotEmpty(argumentJson)) {
-                argument = new AutoexecParamVo(argumentJson);
+                super.setArgument(new AutoexecParamVo(argumentJson));
             }
         }
-        return argument;
+        return super.getArgument();
     }
 
-    public void setArgument(AutoexecParamVo argument) {
-        this.argument = argument;
-    }
 
     public List<AutoexecParamVo> getInputParamList() {
         JSONObject config = getConfig();
         if (MapUtils.isNotEmpty(config)) {
             JSONArray paramList = config.getJSONArray("paramList");
             if (CollectionUtils.isNotEmpty(paramList)) {
-                inputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                super.setInputParamList(paramList.toJavaList(AutoexecParamVo.class)
                         .stream()
                         .filter(o -> Objects.equals(o.getMode(), ParamMode.INPUT.getValue()))
                         .sorted(Comparator.comparing(AutoexecParamVo::getSort))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList()));
             }
         }
-        return inputParamList;
-    }
-
-    public void setInputParamList(List<AutoexecParamVo> inputParamList) {
-        this.inputParamList = inputParamList;
+        return super.getInputParamList();
     }
 
     public List<AutoexecParamVo> getOutputParamList() {
@@ -330,25 +135,14 @@ public class AutoexecOperationVo extends BaseEditorVo {
         if (MapUtils.isNotEmpty(config)) {
             JSONArray paramList = config.getJSONArray("paramList");
             if (CollectionUtils.isNotEmpty(paramList)) {
-                outputParamList = paramList.toJavaList(AutoexecParamVo.class)
+                super.setOutputParamList(paramList.toJavaList(AutoexecParamVo.class)
                         .stream()
                         .filter(o -> Objects.equals(o.getMode(), ParamMode.OUTPUT.getValue()))
                         .sorted(Comparator.comparing(AutoexecParamVo::getSort))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList()));
             }
         }
-        return outputParamList;
+        return super.getOutputParamList();
     }
 
-    public void setOutputParamList(List<AutoexecParamVo> outputParamList) {
-        this.outputParamList = outputParamList;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

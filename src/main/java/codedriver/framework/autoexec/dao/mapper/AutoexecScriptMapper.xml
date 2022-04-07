@@ -616,7 +616,7 @@
         group by a.`id`
     </sql>
 
-    <select id="searchScriptAndToolCount" parameterType="codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo" resultType="int">
+    <select id="searchScriptAndToolCount" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo" resultType="int">
         select
         count(1)
         from
@@ -637,7 +637,7 @@
         ) a
     </select>
 
-    <select id="searchScriptAndTool" parameterType="codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo" resultMap="autoexecToolAndScriptMap">
+    <select id="searchScriptAndTool" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo" resultMap="autoexecToolAndScriptMap">
         select
         a.`id`,
         a.`name`,
@@ -689,7 +689,7 @@
         </if>
     </select>
 
-    <resultMap id="autoexecToolAndScriptMap" type="codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo">
+    <resultMap id="autoexecToolAndScriptMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="type" property="type"/>
@@ -703,17 +703,6 @@
             <result column="riskName" property="name"/>
             <result column="riskColor" property="color"/>
         </association>
-        <collection property="paramList" ofType="codedriver.framework.autoexec.dto.AutoexecParamVo">
-            <result property="key" column="key"/>
-            <result property="name" column="paramName"/>
-            <result property="defaultValue" column="defaultValue"/>
-            <result property="type" column="paramType"/>
-            <result property="mode" column="mode"/>
-            <result property="isRequired" column="isRequired"/>
-            <result property="description" column="paramDescription"/>
-            <result property="sort" column="sort"/>
-            <result property="config" column="config"/>
-        </collection>
     </resultMap>
 
     <resultMap id="autoexecOperationMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
