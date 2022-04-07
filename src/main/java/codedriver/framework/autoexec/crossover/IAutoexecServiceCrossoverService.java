@@ -2,6 +2,7 @@ package codedriver.framework.autoexec.crossover;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.crossover.ICrossoverService;
 
@@ -24,5 +25,7 @@ public interface IAutoexecServiceCrossoverService extends ICrossoverService {
      * @return
      */
     List<AutoexecParamVo> getAutoexecOperationParamVoList(List<AutoexecOperationVo> paramAutoexecOperationVoList, List<AutoexecParamVo> oldOperationParamList);
+
+    void updateAutoexecCombopConfig(AutoexecCombopConfigVo config);
 
 }
