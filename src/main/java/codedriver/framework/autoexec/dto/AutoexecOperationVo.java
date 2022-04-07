@@ -126,8 +126,9 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     }
 
     public List<AutoexecParamVo> getInputParamList() {
-        if (CollectionUtils.isNotEmpty(getParamList())) {
-            super.setInputParamList(getParamList()
+        List<AutoexecParamVo> paramList = getParamList();
+        if (CollectionUtils.isNotEmpty(paramList)) {
+            super.setInputParamList(paramList
                     .stream()
                     .filter(o -> Objects.equals(o.getMode(), ParamMode.INPUT.getValue()))
                     .sorted(Comparator.comparing(AutoexecParamVo::getSort))
@@ -137,8 +138,9 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     }
 
     public List<AutoexecParamVo> getOutputParamList() {
-        if (CollectionUtils.isNotEmpty(getParamList())) {
-            super.setOutputParamList(getParamList()
+        List<AutoexecParamVo> paramList = getParamList();
+        if (CollectionUtils.isNotEmpty(paramList)) {
+            super.setOutputParamList(paramList
                     .stream()
                     .filter(o -> Objects.equals(o.getMode(), ParamMode.OUTPUT.getValue()))
                     .sorted(Comparator.comparing(AutoexecParamVo::getSort))
