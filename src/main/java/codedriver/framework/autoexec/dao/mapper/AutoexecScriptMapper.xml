@@ -397,6 +397,22 @@
         order by `sort`
     </select>
 
+    <select id="getAutoexecParamVoListByVersionId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.AutoexecParamVo">
+        select
+            `key`,
+            `name`,
+            `default_value` as defaultValue,
+            `type`,
+            `mode`,
+            `is_required` as isRequired,
+            `description`,
+            `sort`,
+            `config`
+        from `autoexec_script_version_param`
+        where `script_version_id` = #{value}
+        order by `sort`
+    </select>
+
     <select id="getParamListByVersionIdAndMode" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
         select
         `script_version_id` as scriptVersionId,
@@ -616,7 +632,7 @@
         group by a.`id`
     </sql>
 
-    <select id="searchScriptAndToolCount" parameterType="codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo" resultType="int">
+    <select id="searchScriptAndToolCount" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo" resultType="int">
         select
         count(1)
         from
@@ -637,7 +653,7 @@
         ) a
     </select>
 
-    <select id="searchScriptAndTool" parameterType="codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo" resultMap="autoexecToolAndScriptMap">
+    <select id="searchScriptAndTool" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo" resultMap="autoexecToolAndScriptMap">
         select
         a.`id`,
         a.`name`,
@@ -689,7 +705,7 @@
         </if>
     </select>
 
-    <resultMap id="autoexecToolAndScriptMap" type="codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo">
+    <resultMap id="autoexecToolAndScriptMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="type" property="type"/>

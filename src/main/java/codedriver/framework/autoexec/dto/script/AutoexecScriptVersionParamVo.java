@@ -23,6 +23,10 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
     public AutoexecScriptVersionParamVo() {
     }
 
+    public AutoexecScriptVersionParamVo(AutoexecParamVo autoexecParamVo) {
+        super(autoexecParamVo);
+    }
+
     public Long getScriptVersionId() {
         return scriptVersionId;
     }

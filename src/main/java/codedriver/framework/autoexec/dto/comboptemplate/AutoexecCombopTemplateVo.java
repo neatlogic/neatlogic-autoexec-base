@@ -5,7 +5,7 @@
 
 package codedriver.framework.autoexec.dto.comboptemplate;
 
-import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
+import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -26,7 +26,7 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
 
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
-//    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
+    //    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
 //    private String uk;
     @EntityField(name = "显示名", type = ApiParamType.STRING)
     private String name;
@@ -40,7 +40,7 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
     private Integer isActive = 1;
     @EntityField(name = "操作类型", type = ApiParamType.STRING)
     private String operationType;
-//    @EntityField(name = "通知策略id", type = ApiParamType.LONG)
+    //    @EntityField(name = "通知策略id", type = ApiParamType.LONG)
 //    private Long notifyPolicyId;
 //    @EntityField(name = "维护人", type = ApiParamType.STRING)
 //    private String owner;
@@ -75,7 +75,7 @@ public class AutoexecCombopTemplateVo extends BaseEditorVo implements Serializab
     public AutoexecCombopTemplateVo() {
     }
 
-    public AutoexecCombopTemplateVo(AutoexecToolAndScriptVo autoexecToolAndScriptVo) {
+    public AutoexecCombopTemplateVo(AutoexecOperationVo autoexecToolAndScriptVo) {
 //        this.uk = autoexecToolAndScriptVo.getUk();
         this.name = autoexecToolAndScriptVo.getName();
         this.typeId = autoexecToolAndScriptVo.getTypeId();

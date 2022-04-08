@@ -5,7 +5,7 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
-import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
+import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -18,7 +18,7 @@ import java.io.Serializable;
  * @author: linbq
  * @since: 2021/4/13 10:08
  **/
-public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo implements Serializable {
+public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo implements Serializable {
     private Long combopPhaseId;
     private Long operationId;
     private String operationType;
@@ -26,7 +26,7 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo impl
     private AutoexecCombopPhaseOperationConfigVo config;
     private Integer sort;
     @JSONField(serialize = false)
-    private String configStr;
+    private String combopPhaseOperationConfigStr;
     private String uuid;
     private String letter;
 
@@ -82,7 +82,7 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecToolAndScriptVo impl
         this.sort = sort;
     }
 
-    public String getConfigStr() {
+    public String getCombopPhaseOperationConfigStr() {
         if (this.config == null) {
             return null;
         }

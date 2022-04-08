@@ -5,7 +5,7 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
-import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
+import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -51,7 +51,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private AutoexecCombopConfigVo config;
     @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
     private int referenceCount;
-//    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
+    //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
 //    private Integer viewable;
     @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
     private Integer editable;
@@ -78,7 +78,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     public AutoexecCombopVo() {
     }
 
-    public AutoexecCombopVo(AutoexecToolAndScriptVo autoexecToolAndScriptVo) {
+    public AutoexecCombopVo(AutoexecOperationVo autoexecToolAndScriptVo) {
         this.uk = autoexecToolAndScriptVo.getUk();
         this.name = autoexecToolAndScriptVo.getName();
         this.typeId = autoexecToolAndScriptVo.getTypeId();
