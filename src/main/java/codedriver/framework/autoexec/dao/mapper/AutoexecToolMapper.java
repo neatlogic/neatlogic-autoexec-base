@@ -6,7 +6,6 @@
 package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
-import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
 import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 
@@ -16,7 +15,7 @@ public interface AutoexecToolMapper {
 
     int checkToolExistsById(Long id);
 
-    List<AutoexecToolAndScriptVo> getToolListByIdList(List<Long> idList);
+    List<AutoexecOperationVo> getToolListByIdList(List<Long> idList);
 
     List<AutoexecOperationVo> getAutoexecOperationListByIdList(List<Long> idList);
 

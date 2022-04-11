@@ -411,7 +411,7 @@
             #{operationId},
             #{operationType},
             #{failPolicy},
-            #{configStr},
+            #{combopPhaseOperationConfigStr},
             #{sort}
         )
     </insert>

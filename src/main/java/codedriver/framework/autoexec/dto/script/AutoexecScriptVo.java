@@ -7,10 +7,14 @@ package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AutoexecScriptVo extends AutoexecOperationVo implements Serializable {
@@ -34,8 +38,9 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     @EntityField(name = "版本号", type = ApiParamType.INTEGER)
     private Integer version;
-    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecScriptVersionParamVo> paramList;
+
+    @JSONField(serialize = false)
+    private List<AutoexecScriptVersionParamVo> versionParamList;
 
     @EntityField(name = "版本")
     private AutoexecScriptVersionVo versionVo;
@@ -118,12 +123,19 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
         this.currentVersionVo = currentVersionVo;
     }
 
-    public List<AutoexecScriptVersionParamVo> getParamList() {
-        return paramList;
+    public List<AutoexecParamVo> getParamList() {
+        return super.getParamList();
     }
 
-    public void setParamList(List<AutoexecScriptVersionParamVo> paramList) {
-        this.paramList = paramList;
+    public List<AutoexecScriptVersionParamVo> getVersionParamList() {
+        List<AutoexecParamVo> paramList = getParamList();
+        if (CollectionUtils.isNotEmpty(paramList)) {
+            versionParamList = new ArrayList<>(paramList.size());
+            for (AutoexecParamVo paramVo : paramList) {
+                versionParamList.add(new AutoexecScriptVersionParamVo(paramVo));
+            }
+        }
+        return versionParamList;
     }
 
     public AutoexecScriptVersionVo getVersionVo() {

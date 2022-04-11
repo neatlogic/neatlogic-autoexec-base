@@ -520,7 +520,8 @@
                aj.`source`,
                aj.`thread_count`    as threadCount,
                aj.`param_hash`      as paramHash,
-               aj.`config`
+               aj.`config`          as configStr,
+               aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value} for
         update
