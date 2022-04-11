@@ -5,9 +5,6 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
-import codedriver.framework.autoexec.dto.AutoexecToolAndScriptVo;
-import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
