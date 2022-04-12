@@ -244,9 +244,10 @@
         </where>
     </select>
 
-    <select id="getJobPhaseNodeIdListByNodeVoAndStartNum" resultType="java.lang.Long">
+    <select id="getJobPhaseNodeIdListByNodeVoAndStartNum" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT
-        ajpn.id
+        ajpn.`id`,
+        ajpn.`status`
         FROM
         `autoexec_job_phase_node` ajpn
         JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
