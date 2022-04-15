@@ -7,11 +7,14 @@ package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.AutoexecTypeVo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface AutoexecTypeMapper {
 
     AutoexecTypeVo getTypeById(Long id);
+
+    List<AutoexecTypeVo> getTypeListByIdList(List<Long> idList);
 
     int checkTypeNameIsExists(AutoexecTypeVo vo);
 

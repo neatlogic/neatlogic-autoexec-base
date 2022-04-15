@@ -12,6 +12,18 @@
         where `id` = #{value}
     </select>
 
+    <select id="getTypeListByIdList" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
+        select
+        `id`,
+        `name`
+        from
+        `autoexec_type`
+        where `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <select id="checkTypeNameIsExists" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo" resultType="int">
         select
         count(1)
