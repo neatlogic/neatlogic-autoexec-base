@@ -20,10 +20,10 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum ParamType implements IEnum {
-    TEXT("text", "文本", "文本参数，可输入字符串、数字"),
+    TEXT("text", "文本", "可输出字符串、数字"),
     PASSWORD("password", "密码",  "可输入数字或字符串，页面显示为密文"),
     FILE("file", "文件",  "支持多个文件同时上传，执行时，自动上传文件到目标主机特定目录下，保留原文件名"),
-    FILEPATH("filepath", "文件路径",  "输入文件路径"),
+    FILEPATH("filepath", "文件路径",  "可输出文件路径参数"),
     DATE("date", "日期",  "日期选择器"),
     DATETIME("datetime", "日期时间", "日期时间选择器"),
     TIME("time", "时间", "时间选择器"),
