@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.autoexec.constvalue.OutputParamType;
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -69,7 +70,7 @@ public class AutoexecParamVo implements Serializable {
         this.defaultValue = argumentJson.getString("defaultValue");
         this.mode = ParamMode.INPUT.getValue();
         this.type = argumentJson.getString("type");
-        this.isRequired = Objects.equals(argumentJson.getString("required"),"true")?1:0;
+        this.isRequired = Objects.equals(argumentJson.getString("required"), "true") ? 1 : 0;
         this.validate = argumentJson.getString("validate");
         this.description = argumentJson.getString("help");
     }
@@ -136,7 +137,11 @@ public class AutoexecParamVo implements Serializable {
 
     public String getTypeText() {
         if (StringUtils.isNotBlank(type)) {
-            typeText = ParamType.getParamType(type).getText();
+            if (Objects.equals(ParamMode.INPUT.getValue(), mode)) {
+                typeText = ParamType.getParamType(type).getText();
+            } else {
+                typeText = OutputParamType.getParamType(type).getText();
+            }
         }
         return typeText;
     }
