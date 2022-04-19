@@ -414,7 +414,8 @@
     <select id="getJobIdListByStatusAndTriggerType" parameterType="java.lang.String" resultType="java.lang.Long">
         SELECT aj.`id`
         FROM `autoexec_job` aj
-        WHERE aj.`status` = #{status} AND aj.`trigger_type` = #{triggerType}
+        WHERE aj.`status` = #{status}
+          AND aj.`trigger_type` = #{triggerType}
     </select>
 
     <select id="getJobParamContentLock"
@@ -1117,7 +1118,21 @@
                `sort`,
                `lncd`,
                `status`
-        FROM `autoexec_job_phase` where `node_from` = 'job'
+        FROM `autoexec_job_phase`
+        where `node_from` = 'job'
+    </select>
+    <select id="getJobPhaseNodeRunnerListByJobPhaseId"
+            resultType="codedriver.framework.dto.runner.RunnerMapVo">
+        SELECT DISTINCT ar.`id`,
+                        ar.`name`,
+                        ar.`url`,
+                        ar.`host`,
+                        ar.`port`,
+                        ajpnr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node_runner` ajpnr
+                 LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        WHERE ajpnr.`job_phase_id` = #{value}
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
@@ -1253,14 +1268,24 @@
         INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`, `lcd`)
         VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
         ON DUPLICATE KEY
-        UPDATE `job_id` = #{jobId},`job_phase_id` = #{jobPhaseId}, `runner_map_id` = #{runnerMapId}, `lcd` = #{lcd};
+            UPDATE `job_id`        = #{jobId},
+                   `job_phase_id`  = #{jobPhaseId},
+                   `runner_map_id` = #{runnerMapId},
+                   `lcd`           = #{lcd};
+    </insert>
+
+    <insert id="insertJobPhaseRunner">
+        INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`, `lcd`)
+        VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
         INSERT INTO `autoexec_job_env` (`job_id`, `name`, `value`)
         VALUES (#{jobId}, #{name}, #{value})
         ON DUPLICATE KEY
-            UPDATE `job_id` = #{jobId} , `name` = #{name} , `value` = #{value};
+            UPDATE `job_id` = #{jobId},
+                   `name`   = #{name},
+                   `value`  = #{value};
     </insert>
     <insert id="insertIgnoreIntoJobInvoke">
         INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`)
@@ -1270,7 +1295,10 @@
         INSERT INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`, `phase_id`, `lcd`)
         VALUES (#{jobId}, #{resourceId}, #{phaseId}, #{lcd})
         ON DUPLICATE KEY
-            UPDATE `job_id` = #{jobId} , `resource_id` = #{resourceId},`phase_id` = #{phaseId} ,`lcd` = #{lcd};
+            UPDATE `job_id`      = #{jobId},
+                   `resource_id` = #{resourceId},
+                   `phase_id`    = #{phaseId},
+                   `lcd`         = #{lcd};
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1465,9 +1493,11 @@
         where id = #{jobPhaseId}
     </update>
 
-    <update id="updateJobPlanStartTimeAndTriggerTypeById" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+    <update id="updateJobPlanStartTimeAndTriggerTypeById"
+            parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         UPDATE `autoexec_job`
-        SET `plan_start_time` = #{planStartTime}, `trigger_type` = #{triggerType}
+        SET `plan_start_time` = #{planStartTime},
+            `trigger_type`    = #{triggerType}
         WHERE `id` = #{id}
     </update>
 
@@ -1482,7 +1512,8 @@
             `autoexec_job_phase_node`
         set `is_delete` = 1
         where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL) and `is_delete` != 1
+          and (`lcd` != #{lcd} OR `lcd` IS NULL)
+          and `is_delete` != 1
     </delete>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
@@ -1540,12 +1571,6 @@
         where `job_phase_id` = #{jobPhaseId}
           and (`lcd` != #{lcd} OR `lcd` IS NULL)
     </delete>
-    <delete id="deleteJobPhaseRunnerByJobPhaseIdAndLcd">
-        DELETE
-        FROM `autoexec_job_phase_runner`
-        where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL)
-    </delete>
     <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus">
         DELETE
         FROM `autoexec_job_phase_node`
@@ -1575,6 +1600,12 @@
         DELETE
         FROM `autoexec_job_resource_inspect`
         WHERE `job_id` = #{value};
+    </delete>
+    <delete id="deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId">
+        DELETE
+        FROM `autoexec_job_phase_runner`
+        where `job_phase_id` = #{jobPhaseId}
+        and `runner_map_id` = #{runnerMapId}
     </delete>
 </mapper>
 
