@@ -137,8 +137,13 @@ public class AutoexecParamVo implements Serializable {
 
     public String getTypeText() {
         if (StringUtils.isNotBlank(type)) {
-            typeText = Objects.equals(ParamMode.INPUT.getValue(), mode) ? ParamType.getParamType(type).getText()
-                    : OutputParamType.getParamType(type).getText();
+            if (Objects.equals(ParamMode.INPUT.getValue(), mode)) {
+                ParamType paramType = ParamType.getParamType(type);
+                typeText = paramType != null ? paramType.getText() : null;
+            } else {
+                OutputParamType paramType = OutputParamType.getParamType(type);
+                typeText = paramType != null ? paramType.getText() : null;
+            }
         }
         return typeText;
     }
