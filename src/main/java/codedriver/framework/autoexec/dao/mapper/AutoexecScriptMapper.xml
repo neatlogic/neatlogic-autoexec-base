@@ -1055,6 +1055,19 @@
         </if>
     </select>
 
+    <select id="getArgumentByVersionId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptArgumentVo">
+        select
+        `script_version_id` as scriptVersionId,
+        `name`,
+        `default_value` as defaultValue,
+        `argument_count` as argumentCount,
+        `description`,
+        `is_required` as isRequired
+        from `autoexec_script_version_argument`
+        where `script_version_id` = #{value}
+    </select>
+
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script` set
         `name` = #{name},
@@ -1254,6 +1267,24 @@
         </foreach>
     </insert>
 
+    <insert id="insertScriptVersionArgument" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptArgumentVo">
+        insert into `autoexec_script_version_argument` (
+            `script_version_id`,
+            `name`,
+            `default_value`,
+            `argument_count`,
+            `description`,
+            `is_required`
+        ) values (
+            #{scriptVersionId},
+            #{name},
+            #{defaultValueStr},
+            #{argumentCount},
+            #{description},
+            #{isRequired}
+        )
+    </insert>
+
     <delete id="deleteParamByVersionId" parameterType="java.lang.Long">
         delete
         from `autoexec_script_version_param`
@@ -1303,6 +1334,12 @@
         delete
         from `autoexec_script_audit`
         where `script_id` = #{value}
+    </delete>
+
+    <delete id="deleteArgumentByVersionId" parameterType="java.lang.Long">
+        delete
+        from `autoexec_script_version_argument`
+        where `script_version_id` = #{value}
     </delete>
 
 </mapper>

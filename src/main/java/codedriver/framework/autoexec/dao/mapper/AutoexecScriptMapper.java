@@ -153,6 +153,8 @@ public interface AutoexecScriptMapper {
      */
     List<Long> getAutoexecScriptIdListWhichHasActiveVersionByCatalogIdList(@Param("catalogIdList") List<Long> catalogIdList);
 
+    AutoexecScriptArgumentVo getArgumentByVersionId(Long versionId);
+
     int updateScriptBaseInfo(AutoexecScriptVo scriptVo);
 
     int updateScriptVersion(AutoexecScriptVersionVo versionVo);
@@ -173,6 +175,8 @@ public interface AutoexecScriptMapper {
 
     int batchInsertScriptVersion(List<AutoexecScriptVersionVo> versionList);
 
+    int insertScriptVersionArgument(AutoexecScriptArgumentVo argumentVo);
+
     int deleteParamByVersionId(Long versionId);
 
     int deleteScriptLineByVersionId(Long versionId);
@@ -188,5 +192,7 @@ public interface AutoexecScriptMapper {
     int deleteVersionByVersionId(Long versionId);
 
     int deleteScriptById(Long id);
+
+    int deleteArgumentByVersionId(Long versionId);
 
 }
