@@ -177,6 +177,8 @@ public interface AutoexecScriptMapper {
 
     int insertScriptVersionArgument(AutoexecScriptArgumentVo argumentVo);
 
+    int batchInsertVersionArgument(List<AutoexecScriptArgumentVo> argumentVoList);
+
     int deleteParamByVersionId(Long versionId);
 
     int deleteScriptLineByVersionId(Long versionId);
@@ -194,5 +196,7 @@ public interface AutoexecScriptMapper {
     int deleteScriptById(Long id);
 
     int deleteArgumentByVersionId(Long versionId);
+
+    int deleteArgumentByVersionIdList(List<Long> versionIdList);
 
 }

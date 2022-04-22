@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.script;
 
+import codedriver.framework.autoexec.constvalue.ChangeType;
 import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -15,6 +16,8 @@ import java.util.Objects;
 public class AutoexecScriptArgumentVo extends AutoexecParamVo {
     @EntityField(name = "脚本版本ID", type = ApiParamType.LONG)
     private Long scriptVersionId;
+    @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
+    private String changeType;
 
     public AutoexecScriptArgumentVo() {
 
@@ -34,6 +37,14 @@ public class AutoexecScriptArgumentVo extends AutoexecParamVo {
 
     public void setScriptVersionId(Long scriptVersionId) {
         this.scriptVersionId = scriptVersionId;
+    }
+
+    public String getChangeType() {
+        return changeType;
+    }
+
+    public void setChangeType(String changeType) {
+        this.changeType = changeType;
     }
 
     public String getType() {

@@ -1285,6 +1285,27 @@
         )
     </insert>
 
+    <insert id="batchInsertVersionArgument">
+        insert into `autoexec_script_version_argument` (
+            `script_version_id`,
+            `name`,
+            `default_value`,
+            `argument_count`,
+            `description`,
+            `is_required`
+        ) values
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.scriptVersionId},
+                #{item.name},
+                #{item.defaultValueStr},
+                #{item.argumentCount},
+                #{item.description},
+                #{item.isRequired}
+            )
+        </foreach>
+    </insert>
+
     <delete id="deleteParamByVersionId" parameterType="java.lang.Long">
         delete
         from `autoexec_script_version_param`
@@ -1340,6 +1361,15 @@
         delete
         from `autoexec_script_version_argument`
         where `script_version_id` = #{value}
+    </delete>
+
+    <delete id="deleteArgumentByVersionIdList" parameterType="java.util.List">
+        delete
+        from `autoexec_script_version_argument`
+        where `script_version_id` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
 </mapper>
