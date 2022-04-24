@@ -153,6 +153,16 @@ public interface AutoexecScriptMapper {
      */
     List<Long> getAutoexecScriptIdListWhichHasActiveVersionByCatalogIdList(@Param("catalogIdList") List<Long> catalogIdList);
 
+    AutoexecScriptArgumentVo getArgumentByVersionId(Long versionId);
+
+    /**
+     * 根据脚本id集合批量获取当前激活版本的自由参数
+     *
+     * @param scriptIdList
+     * @return
+     */
+    List<AutoexecOperationVo> getArgumentListByScriptIdList(List<Long> scriptIdList);
+
     int updateScriptBaseInfo(AutoexecScriptVo scriptVo);
 
     int updateScriptVersion(AutoexecScriptVersionVo versionVo);
@@ -173,6 +183,10 @@ public interface AutoexecScriptMapper {
 
     int batchInsertScriptVersion(List<AutoexecScriptVersionVo> versionList);
 
+    int insertScriptVersionArgument(AutoexecScriptArgumentVo argumentVo);
+
+    int batchInsertVersionArgument(List<AutoexecScriptArgumentVo> argumentVoList);
+
     int deleteParamByVersionId(Long versionId);
 
     int deleteScriptLineByVersionId(Long versionId);
@@ -188,5 +202,9 @@ public interface AutoexecScriptMapper {
     int deleteVersionByVersionId(Long versionId);
 
     int deleteScriptById(Long id);
+
+    int deleteArgumentByVersionId(Long versionId);
+
+    int deleteArgumentByVersionIdList(List<Long> versionIdList);
 
 }

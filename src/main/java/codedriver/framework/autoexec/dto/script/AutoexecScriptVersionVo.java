@@ -63,6 +63,9 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> outputParamList;
 
+    @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
+    private AutoexecScriptArgumentVo argument;
+
     @EntityField(name = "驳回原因", type = ApiParamType.STRING)
     private String rejectReason;
 
@@ -227,6 +230,14 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
                     .collect(Collectors.toList());
         }
         return outputParamList;
+    }
+
+    public AutoexecScriptArgumentVo getArgument() {
+        return argument;
+    }
+
+    public void setArgument(AutoexecScriptArgumentVo argument) {
+        this.argument = argument;
     }
 
     public String getRejectReason() {

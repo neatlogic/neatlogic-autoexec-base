@@ -43,6 +43,9 @@ public class AutoexecParamVo implements Serializable {
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
 
+    @EntityField(name = "自由参数数量", type = ApiParamType.INTEGER)
+    private Integer argumentCount = 0;
+
     @JSONField(serialize = false)
     private String defaultValueStr;
 
@@ -92,7 +95,7 @@ public class AutoexecParamVo implements Serializable {
     }
 
     public Object getDefaultValue() {
-        if (defaultValue != null) {
+        if (defaultValue != null && type != null) {
             if (defaultValue instanceof String) {
                 switch (type) {
                     case "multiselect":
@@ -206,6 +209,14 @@ public class AutoexecParamVo implements Serializable {
             return config.toJSONString();
         }
         return null;
+    }
+
+    public Integer getArgumentCount() {
+        return argumentCount;
+    }
+
+    public void setArgumentCount(Integer argumentCount) {
+        this.argumentCount = argumentCount;
     }
 
     public String getValidate() {
