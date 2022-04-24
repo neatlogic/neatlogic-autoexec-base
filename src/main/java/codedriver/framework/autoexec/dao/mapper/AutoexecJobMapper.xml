@@ -1320,8 +1320,7 @@
                  join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where ajp.`job_id` = #{jobId}
           and ajg.`sort` = #{groupSort}
-          and ajp.`sort` = #{sort}
-        FROM `autoexec_job_phase`
+          and ajp.`sort` = #{sort} FROM `autoexec_job_phase`
         where `node_from` = 'job'
     </select>
     <select id="getJobPhaseNodeRunnerListByJobPhaseId"
@@ -1471,7 +1470,8 @@
         INSERT ignore INTO `autoexec_job_phase_node_runner` (`job_id`, `job_phase_id`, `node_id`, `runner_map_id`)
         VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId});
     </insert>
-    <insert id="insertDuplicateJobPhaseRunner">
+
+    <insert id="insertJobPhaseRunner">
         INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_group_id`, `job_phase_id`, `runner_map_id`, `lcd`)
         VALUES (#{jobId}, #{jobGroupId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
         ON DUPLICATE KEY
@@ -1480,15 +1480,6 @@
                    `job_phase_id`  = #{jobPhaseId},
                    `runner_map_id` = #{runnerMapId},
                    `lcd`           = #{lcd};
-            UPDATE `job_id`        = #{jobId},
-                   `job_phase_id`  = #{jobPhaseId},
-                   `runner_map_id` = #{runnerMapId},
-                   `lcd`           = #{lcd};
-    </insert>
-
-    <insert id="insertJobPhaseRunner">
-        INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`, `lcd`)
-        VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
@@ -1841,7 +1832,7 @@
         DELETE
         FROM `autoexec_job_phase_runner`
         where `job_phase_id` = #{jobPhaseId}
-        and `runner_map_id` = #{runnerMapId}
+          and `runner_map_id` = #{runnerMapId}
     </delete>
 </mapper>
 

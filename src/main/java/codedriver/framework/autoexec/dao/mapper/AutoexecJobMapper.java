@@ -200,9 +200,9 @@ public interface AutoexecJobMapper {
 
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
 
-    Integer insertDuplicateJobPhaseRunner(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+    Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobGroupId") Long jobGroupId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
 
-    Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
+
 
     Integer insertJob(AutoexecJobVo jobVo);
 
