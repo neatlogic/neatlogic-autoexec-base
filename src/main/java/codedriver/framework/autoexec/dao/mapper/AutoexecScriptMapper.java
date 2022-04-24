@@ -155,6 +155,14 @@ public interface AutoexecScriptMapper {
 
     AutoexecScriptArgumentVo getArgumentByVersionId(Long versionId);
 
+    /**
+     * 根据脚本id集合批量获取当前激活版本的自由参数
+     *
+     * @param scriptIdList
+     * @return
+     */
+    List<AutoexecOperationVo> getArgumentListByScriptIdList(List<Long> scriptIdList);
+
     int updateScriptBaseInfo(AutoexecScriptVo scriptVo);
 
     int updateScriptVersion(AutoexecScriptVersionVo versionVo);
