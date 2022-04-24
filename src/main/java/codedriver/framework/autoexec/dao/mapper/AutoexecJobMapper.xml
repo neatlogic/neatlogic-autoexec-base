@@ -371,7 +371,7 @@
                 #{status}
             </foreach>
         </if>
-        ORDER BY ajg.`sort`,ajp.`sort`, ajp.`name` ASC
+        ORDER BY `sort`, `name` ASC
     </select>
 
     <select id="getJobPhaseListByJobIdAndNodeStatusList" resultMap="AutoexecJobPhaseMap">
@@ -1321,6 +1321,21 @@
         where ajp.`job_id` = #{jobId}
           and ajg.`sort` = #{groupSort}
           and ajp.`sort` = #{sort}
+        FROM `autoexec_job_phase`
+        where `node_from` = 'job'
+    </select>
+    <select id="getJobPhaseNodeRunnerListByJobPhaseId"
+            resultType="codedriver.framework.dto.runner.RunnerMapVo">
+        SELECT DISTINCT ar.`id`,
+                        ar.`name`,
+                        ar.`url`,
+                        ar.`host`,
+                        ar.`port`,
+                        ajpnr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node_runner` ajpnr
+                 LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        WHERE ajpnr.`job_phase_id` = #{value}
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
@@ -1465,6 +1480,15 @@
                    `job_phase_id`  = #{jobPhaseId},
                    `runner_map_id` = #{runnerMapId},
                    `lcd`           = #{lcd};
+            UPDATE `job_id`        = #{jobId},
+                   `job_phase_id`  = #{jobPhaseId},
+                   `runner_map_id` = #{runnerMapId},
+                   `lcd`           = #{lcd};
+    </insert>
+
+    <insert id="insertJobPhaseRunner">
+        INSERT INTO `autoexec_job_phase_runner` (`job_id`, `job_phase_id`, `runner_map_id`, `lcd`)
+        VALUES (#{jobId}, #{jobPhaseId}, #{runnerMapId}, #{lcd})
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
@@ -1783,12 +1807,6 @@
         where `job_phase_id` = #{jobPhaseId}
           and (`lcd` != #{lcd} OR `lcd` IS NULL)
     </delete>
-    <delete id="deleteJobPhaseRunnerByJobPhaseIdAndLcd">
-        DELETE
-        FROM `autoexec_job_phase_runner`
-        where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL)
-    </delete>
     <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus">
         DELETE
         FROM `autoexec_job_phase_node`
@@ -1818,6 +1836,12 @@
         DELETE
         FROM `autoexec_job_resource_inspect`
         WHERE `job_id` = #{value};
+    </delete>
+    <delete id="deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId">
+        DELETE
+        FROM `autoexec_job_phase_runner`
+        where `job_phase_id` = #{jobPhaseId}
+        and `runner_map_id` = #{runnerMapId}
     </delete>
 </mapper>
 

@@ -26,9 +26,9 @@ import codedriver.framework.crossover.CrossoverServiceFactory;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.integration.authentication.enums.AuthenticateType;
+import codedriver.framework.util.HttpRequestUtil;
 import codedriver.framework.util.RestUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONValidator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -154,20 +154,19 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (runner.getRunnerMapId() == null) {
                 throw new AutoexecJobRunnerMapNotMatchRunnerException(runner.getRunnerMapId());
             }
-            url = runner.getUrl() + "api/rest/health/check";
-            if (StringUtils.isBlank(url)) {
+            if (StringUtils.isBlank(runner.getUrl())) {
                 throw new AutoexecJobRunnerNotFoundException(runner.getRunnerMapId().toString());
             }
-            restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).build();
-            result = RestUtil.sendPostRequest(restVo);
-            if (JSONValidator.from(result).validate()) {
-                JSONObject resultJson = JSONObject.parseObject(result);
-                if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-                    throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
-                }
-            } else {
-                throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + result);
+            url = runner.getUrl() + "api/rest/health/check";
+            HttpRequestUtil requestUtil = HttpRequestUtil.post(url).setPayload(new JSONObject().toJSONString()).setAuthType(AuthenticateType.BUILDIN).sendRequest();
+            if (StringUtils.isNotBlank(requestUtil.getError())) {
+                throw new AutoexecJobRunnerConnectRefusedException(url);
             }
+            JSONObject resultJson = requestUtil.getResultJson();
+            if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
+                throw new AutoexecJobRunnerHttpRequestException(url + ":" + requestUtil.getError());
+            }
+
         }
     }
 

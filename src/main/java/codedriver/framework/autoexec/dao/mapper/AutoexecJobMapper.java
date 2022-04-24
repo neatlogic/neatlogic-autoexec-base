@@ -170,6 +170,8 @@ public interface AutoexecJobMapper {
 
 
 
+    List<RunnerMapVo> getJobPhaseNodeRunnerListByJobPhaseId(Long jobPhaseId);
+
     //invoke
     AutoexecJobInvokeVo getJobInvokeByJobId(Long id);
 
@@ -199,6 +201,8 @@ public interface AutoexecJobMapper {
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
 
     Integer insertDuplicateJobPhaseRunner(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
 
     Integer insertJob(AutoexecJobVo jobVo);
 
@@ -278,8 +282,6 @@ public interface AutoexecJobMapper {
 
     Integer deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
 
-    void deleteJobPhaseRunnerByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
-
     void deleteJobPhaseNodeRunnerByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
 
     void deleteJobEvnByJobId(Long jobId);
@@ -288,4 +290,5 @@ public interface AutoexecJobMapper {
 
     void deleteJobResourceInspectByJobId(Long jobId);
 
+    void deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId(@Param("jobPhaseId") Long id,@Param("runnerMapId") Long runnerMapId);
 }
