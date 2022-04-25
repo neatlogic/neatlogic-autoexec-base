@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.script;
 
 import codedriver.framework.autoexec.constvalue.ParamMode;
+import codedriver.framework.autoexec.constvalue.ScriptEncoding;
 import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -45,6 +46,8 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private String reviewer;
     @EntityField(name = "审批用户")
     private UserVo reviewerVo;
+    @EntityField(name = "脚本编码", type = ApiParamType.STRING)
+    private String encoding = ScriptEncoding.UTF8.getValue();
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
     private String parser;
     @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
@@ -161,6 +164,14 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setReviewer(String reviewer) {
         this.reviewer = reviewer;
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
     }
 
     public String getParser() {

@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.ScriptEncoding;
 import codedriver.framework.autoexec.constvalue.ToolType;
 import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
@@ -49,6 +50,8 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private String typeName;
     @EntityField(name = "操作级别")
     private AutoexecRiskVo riskVo;
+    @EntityField(name = "脚本编码", type = ApiParamType.STRING)
+    private String encoding = ScriptEncoding.UTF8.getValue();
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
     private String parser;
     @EntityField(name = "描述说明", type = ApiParamType.STRING)
@@ -201,6 +204,14 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public void setRiskVo(AutoexecRiskVo riskVo) {
         this.riskVo = riskVo;
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
     }
 
     public String getParser() {
