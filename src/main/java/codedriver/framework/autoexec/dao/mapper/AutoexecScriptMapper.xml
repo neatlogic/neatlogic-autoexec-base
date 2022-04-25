@@ -113,6 +113,7 @@
         `script_id` as scriptId,
         `title`,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -130,6 +131,7 @@
         `script_id` as scriptId,
         `title`,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -149,6 +151,7 @@
         `id`,
         `script_id` as scriptId,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -209,6 +212,7 @@
         `id`,
         `script_id` as scriptId,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -273,6 +277,7 @@
         `id`,
         `script_id` as scriptId,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -289,6 +294,7 @@
         `id`,
         `script_id` as scriptId,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -306,6 +312,7 @@
         `id`,
         `script_id` as scriptId,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -368,6 +375,7 @@
         `script_id` as scriptId,
         `title`,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `reviewer`,
@@ -1027,6 +1035,7 @@
             `id`,
             `script_id` as scriptId,
             `version`,
+            `encoding`,
             `parser`,
             `status`,
             `reviewer`,
@@ -1055,6 +1064,47 @@
         </if>
     </select>
 
+    <select id="getArgumentByVersionId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptArgumentVo">
+        select
+        `script_version_id` as scriptVersionId,
+        `name`,
+        `default_value` as defaultValue,
+        `argument_count` as argumentCount,
+        `description`,
+        `is_required` as isRequired
+        from `autoexec_script_version_argument`
+        where `script_version_id` = #{value}
+    </select>
+
+    <resultMap id="autoexecOperationArgumentMap" type="codedriver.framework.autoexec.dto.AutoexecOperationVo">
+        <result column="id" property="id"/>
+        <association property="argument" javaType="codedriver.framework.autoexec.dto.AutoexecParamVo">
+            <result property="name" column="argumentName"/>
+            <result property="defaultValue" column="argumentDefaultValue"/>
+            <result property="argumentCount" column="argumentCount"/>
+            <result property="description" column="argumentDescription"/>
+            <result property="isRequired" column="argumentIsRequired"/>
+        </association>
+    </resultMap>
+
+    <select id="getArgumentListByScriptIdList" parameterType="java.util.List" resultMap="autoexecOperationArgumentMap">
+        select
+        c.`id`,
+        a.`name` as argumentName,
+        a.`default_value` as argumentDefaultValue,
+        a.`argument_count` as argumentCount,
+        a.`description` as argumentDescription,
+        a.`is_required` as argumentIsRequired
+        from `autoexec_script_version_argument` a
+        join `autoexec_script_version` b on a.`script_version_id` = b.`id`
+        join `autoexec_script` c on b.`script_id` = c.`id`
+        where b.`is_active` = 1 and c.`id` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script` set
         `name` = #{name},
@@ -1070,6 +1120,9 @@
         update `autoexec_script_version` set
         <if test="title != null">
             `title` = #{title},
+        </if>
+        <if test="encoding != null">
+            `encoding` = #{encoding},
         </if>
         <if test="parser != null">
             `parser` = #{parser},
@@ -1121,6 +1174,7 @@
         `script_id`,
         `title`,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `is_active`,
@@ -1131,6 +1185,7 @@
         #{scriptId},
         #{title},
         #{version},
+        #{encoding},
         #{parser},
         #{status},
         #{isActive},
@@ -1232,6 +1287,7 @@
         `id`,
         `script_id`,
         `version`,
+        `encoding`,
         `parser`,
         `status`,
         `is_active`,
@@ -1244,12 +1300,52 @@
             #{item.id},
             #{item.scriptId},
             #{item.version},
+            #{item.encoding},
             #{item.parser},
             #{item.status},
             #{item.isActive},
             #{item.reviewer},
             #{item.lcu},
             #{item.lcd}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertScriptVersionArgument" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptArgumentVo">
+        insert into `autoexec_script_version_argument` (
+            `script_version_id`,
+            `name`,
+            `default_value`,
+            `argument_count`,
+            `description`,
+            `is_required`
+        ) values (
+            #{scriptVersionId},
+            #{name},
+            #{defaultValueStr},
+            #{argumentCount},
+            #{description},
+            #{isRequired}
+        )
+    </insert>
+
+    <insert id="batchInsertVersionArgument">
+        insert into `autoexec_script_version_argument` (
+            `script_version_id`,
+            `name`,
+            `default_value`,
+            `argument_count`,
+            `description`,
+            `is_required`
+        ) values
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.scriptVersionId},
+                #{item.name},
+                #{item.defaultValueStr},
+                #{item.argumentCount},
+                #{item.description},
+                #{item.isRequired}
             )
         </foreach>
     </insert>
@@ -1303,6 +1399,21 @@
         delete
         from `autoexec_script_audit`
         where `script_id` = #{value}
+    </delete>
+
+    <delete id="deleteArgumentByVersionId" parameterType="java.lang.Long">
+        delete
+        from `autoexec_script_version_argument`
+        where `script_version_id` = #{value}
+    </delete>
+
+    <delete id="deleteArgumentByVersionIdList" parameterType="java.util.List">
+        delete
+        from `autoexec_script_version_argument`
+        where `script_version_id` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
 </mapper>

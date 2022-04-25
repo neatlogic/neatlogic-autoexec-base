@@ -45,6 +45,8 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private String reviewer;
     @EntityField(name = "审批用户")
     private UserVo reviewerVo;
+    @EntityField(name = "脚本编码", type = ApiParamType.STRING)
+    private String encoding;
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
     private String parser;
     @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
@@ -62,6 +64,9 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private List<AutoexecScriptVersionParamVo> inputParamList;
     @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> outputParamList;
+
+    @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
+    private AutoexecScriptArgumentVo argument;
 
     @EntityField(name = "驳回原因", type = ApiParamType.STRING)
     private String rejectReason;
@@ -160,6 +165,14 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
         this.reviewer = reviewer;
     }
 
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
     public String getParser() {
         return parser;
     }
@@ -227,6 +240,14 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
                     .collect(Collectors.toList());
         }
         return outputParamList;
+    }
+
+    public AutoexecScriptArgumentVo getArgument() {
+        return argument;
+    }
+
+    public void setArgument(AutoexecScriptArgumentVo argument) {
+        this.argument = argument;
     }
 
     public String getRejectReason() {

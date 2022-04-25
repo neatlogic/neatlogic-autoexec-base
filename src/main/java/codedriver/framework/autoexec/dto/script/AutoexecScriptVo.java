@@ -42,6 +42,9 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
     @JSONField(serialize = false)
     private List<AutoexecScriptVersionParamVo> versionParamList;
 
+    @JSONField(serialize = false)
+    private AutoexecScriptArgumentVo versionArgument;
+
     @EntityField(name = "版本")
     private AutoexecScriptVersionVo versionVo;
 
@@ -136,6 +139,18 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
             }
         }
         return versionParamList;
+    }
+
+    public AutoexecScriptArgumentVo getVersionArgument() {
+        AutoexecParamVo argument = super.getArgument();
+        if (argument != null) {
+            versionArgument = new AutoexecScriptArgumentVo(argument);
+        }
+        return versionArgument;
+    }
+
+    public void setVersionArgument(AutoexecScriptArgumentVo versionArgument) {
+        this.versionArgument = versionArgument;
     }
 
     public AutoexecScriptVersionVo getVersionVo() {

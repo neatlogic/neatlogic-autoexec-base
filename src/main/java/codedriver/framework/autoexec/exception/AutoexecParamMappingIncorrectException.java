@@ -15,8 +15,8 @@ public class AutoexecParamMappingIncorrectException extends ApiRuntimeException{
 
     private static final long serialVersionUID = -977868375722886383L;
 
-    public AutoexecParamMappingIncorrectException(String key){
-        super("参数：'" + key + "'映射不正确");
+    public AutoexecParamMappingIncorrectException(String operationName, String key){
+        super(operationName + "的参数：'" + key + "'映射不正确");
     }
 
 }
