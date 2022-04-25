@@ -11,12 +11,12 @@ import codedriver.framework.exception.core.ApiRuntimeException;
  * @author: linbq
  * @since: 2021/4/19 11:23
  **/
-public class AutoexecParamNotFoundException extends ApiRuntimeException {
+public class AutoexecParamCannotBeEmptyException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = -977868375722886183L;
+    private static final long serialVersionUID = -977868375722886186L;
 
-    public AutoexecParamNotFoundException(String operationName, String key) {
-        super(operationName + "的参数：'" + key + "'不存在");
+    public AutoexecParamCannotBeEmptyException(String operationName, String key) {
+        super(operationName + "的参数：'" + key + "'不能为空");
     }
 
 }
