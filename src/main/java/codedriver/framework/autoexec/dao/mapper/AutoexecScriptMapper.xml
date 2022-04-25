@@ -1121,6 +1121,9 @@
         <if test="title != null">
             `title` = #{title},
         </if>
+        <if test="encoding != null">
+            `encoding` = #{encoding},
+        </if>
         <if test="parser != null">
             `parser` = #{parser},
         </if>
@@ -1136,7 +1139,6 @@
         <if test="isActive != null">
             `is_active` = #{isActive},
         </if>
-        `encoding` = #{encoding},
         `lcu` = #{lcu},
         `lcd` = now(3)
         where `id` = #{id}
@@ -1298,6 +1300,7 @@
             #{item.id},
             #{item.scriptId},
             #{item.version},
+            #{item.encoding},
             #{item.parser},
             #{item.status},
             #{item.isActive},
