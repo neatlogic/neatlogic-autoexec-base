@@ -165,6 +165,12 @@ public interface AutoexecScriptMapper {
 
     int updateScriptBaseInfo(AutoexecScriptVo scriptVo);
 
+    /**
+     * 若不需要更新encoding，使用前需versionVo.setEncoding(null)
+     *
+     * @param versionVo
+     * @return
+     */
     int updateScriptVersion(AutoexecScriptVersionVo versionVo);
 
     int insertScript(AutoexecScriptVo vo);
