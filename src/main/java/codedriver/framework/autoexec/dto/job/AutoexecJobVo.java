@@ -204,6 +204,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.setPageSize(jobVo.getPageSize());
         this.setOperationId(operationId);
         this.invokeId = jsonObj.getLong("scheduleId");
+        this.setKeyword(jobVo.getKeyword());
     }
 
     public AutoexecJobVo(Long jobId, String status) {
