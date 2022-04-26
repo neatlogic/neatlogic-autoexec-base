@@ -195,6 +195,10 @@ public interface AutoexecJobMapper {
 
     Integer insertIgnoreJobParamContent(AutoexecJobParamContentVo contentVo);
 
+    void insertJobPhaseNodeSql(@Param("phaseNodeSqlVoList") List<AutoexecJobPhaseNodeSqlVo> phaseNodeSqlVoList);
+
+    void updateJobPhaseNodeSql(AutoexecJobPhaseNodeSqlVo phaseNodeSqlVo);
+
     Integer updateJobPhaseStatus(AutoexecJobPhaseVo autoexecJobPhaseVo);
 
     Integer updateJobPhaseNodeStatusByJobIdAndIsDelete(@Param("jobId") Long id, @Param("status") String status, @Param("isDelete") Integer isDelete);
@@ -263,5 +267,5 @@ public interface AutoexecJobMapper {
 
     void deleteJobResourceInspectByJobId(Long jobId);
 
-    void deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId(@Param("jobPhaseId") Long id,@Param("runnerMapId") Long runnerMapId);
+    void deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId(@Param("jobPhaseId") Long id, @Param("runnerMapId") Long runnerMapId);
 }

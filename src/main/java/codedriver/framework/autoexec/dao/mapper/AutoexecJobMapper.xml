@@ -1301,6 +1301,35 @@
                    `lcd`         = #{lcd};
     </insert>
 
+    <insert id="insertJobPhaseNodeSql" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeSqlVo">
+        INSERT INTO autoexec_job_phase_node_sql (
+        <foreach collection="phaseNodeSqlVoList" item="vo">
+            `id`,
+            `job_id`,
+            `node_id`,
+            `node_name`,
+            `host`,
+            `port`,
+            `status`,
+            `access_end_point`,
+            `resource_id`,
+            `sql_file`,
+            `md5`)
+            VALUES
+            (#{vo.id},
+            #{vo.jobId},
+            #{vo.nodeId},
+            #{vo.nodeName},
+            #{vo.host},
+            #{vo.port},
+            #{vo.status},
+            #{vo.accessEndpoint},
+            #{vo.resourceId},
+            #{vo.sqlFile},
+            #{vo.md5})
+        </foreach>
+    </insert>
+
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         UPDATE `autoexec_job_phase`
         SET `status` = #{status}
@@ -1505,6 +1534,20 @@
         UPDATE `autoexec_job`
         SET `exec_user` = #{execUser}
         WHERE `id` = #{id}
+    </update>
+
+    <update id="updateJobPhaseNodeSql" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeSqlVo">
+        UPDATE autoexec_job_phase_node_sql
+        SET `node_name`       = #{nodeName},
+            `host`= #{host},
+            `port`= #{port},
+            `status`          = #{status},
+            `access_end_point`= #{accessEndpoint},
+            `resource_id`= #{resourceId},
+            `md5`             = #{md5}
+        WHERE `job_id` = #{jobId}
+          AND `node_id` = #{nodeId}
+          AND `sql_file` = #{sqlFile}
     </update>
 
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
