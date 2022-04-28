@@ -1135,6 +1135,53 @@
         WHERE ajpnr.`job_phase_id` = #{value}
     </select>
 
+    <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo"
+            parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+        SELECT ajsd.`id`,
+        ajsd.`md5`,
+        ajsd.`status`,
+        ajsd.`sql_file` as sqlFile,
+        ajsd.`node_id` as nodeId
+        FROM autoexec_job_sql ajs
+        JOIN autoexec_job_sql_detail ajsd ON ajsd.id = ajs.sql_id
+        WHERE
+        <foreach collection="sqlFileDetailVoList" item="vo" separator="or">
+         ( ajs.job_id = #{vo.jobId}
+            AND ajsd.node_id = #{vo.nodeId}
+            AND ajsd.sql_file = #{vo.sqlFile}
+            AND ajsd.is_delete = #{vo.isDelete})
+        </foreach>
+    </select>
+
+    <select id="getJobSqlDetailByJobIdAndNodeIdAndSqlFile"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+        SELECT ajsd.`id`,
+               ajsd.`md5`,
+               ajsd.`status`,
+               ajsd.`sql_file` as sqlFile,
+               ajsd.`node_id`,
+               ajsd.is_delete  as isDelete
+        FROM autoexec_job_sql ajs
+                 JOIN autoexec_job_sql_detail ajsd ON ajsd.id = ajs.sql_id
+        WHERE ajs.job_id = #{jobId}
+          AND ajsd.node_id = #{nodeId}
+          AND ajsd.sql_file = #{sqlFile}
+    </select>
+
+    <select id="getJobAllSqlDetail" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+        SELECT ajsd.`id`,
+               ajsd.`md5`,
+               ajsd.`status`,
+               ajsd.`sql_file` as sqlFile,
+               ajsd.`node_id` as nodeId,
+               ajsd.`is_delete` as isDelete
+        FROM autoexec_job_sql ajs
+                 JOIN autoexec_job_sql_detail ajsd ON ajsd.id = ajs.sql_id
+        WHERE
+            ajs.job_id = #{jobId}
+    </select>
+
+
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
         `name`,
@@ -1301,33 +1348,23 @@
                    `lcd`         = #{lcd};
     </insert>
 
-    <insert id="insertJobPhaseNodeSql" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeSqlVo">
-        INSERT INTO autoexec_job_phase_node_sql (
-        <foreach collection="phaseNodeSqlVoList" item="vo">
-            `id`,
-            `job_id`,
-            `node_id`,
-            `node_name`,
-            `host`,
-            `port`,
-            `status`,
-            `access_end_point`,
-            `resource_id`,
-            `sql_file`,
-            `md5`)
-            VALUES
-            (#{vo.id},
-            #{vo.jobId},
-            #{vo.nodeId},
-            #{vo.nodeName},
-            #{vo.host},
-            #{vo.port},
-            #{vo.status},
-            #{vo.accessEndpoint},
-            #{vo.resourceId},
-            #{vo.sqlFile},
-            #{vo.md5})
-        </foreach>
+    <insert id="insertAutoexecJobSql" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlVo">
+        insert into autoexec_job_sql(`id`, `job_id`, `sql_id`)
+        values (#{id},
+                #{jobId},
+                #{sqlId})
+    </insert>
+
+    <insert id="insertJobSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+        insert into autoexec_job_sql_detail(`id`, `status`, `sql_file`, `md5`, node_id, `lcd`, `fcd`, `is_delete`)
+        values (#{id},
+                #{status},
+                #{sqlFile},
+                #{md5},
+                #{nodeId},
+                now(3),
+                now(3),
+                #{isDelete})
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1536,18 +1573,41 @@
         WHERE `id` = #{id}
     </update>
 
-    <update id="updateJobPhaseNodeSql" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeSqlVo">
-        UPDATE autoexec_job_phase_node_sql
-        SET `node_name`       = #{nodeName},
-            `host`= #{host},
-            `port`= #{port},
-            `status`          = #{status},
-            `access_end_point`= #{accessEndpoint},
-            `resource_id`= #{resourceId},
-            `md5`             = #{md5}
-        WHERE `job_id` = #{jobId}
-          AND `node_id` = #{nodeId}
-          AND `sql_file` = #{sqlFile}
+    <update id="updateJobSqlIsDeleteByIdList">
+        UPDATE autoexec_job_sql_detail
+        SET `is_delete` = 1
+        WHERE `id` IN
+        <foreach collection="idList" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+<!--    <update id="updateJobSqlDetailStatusAndMd5AndLcdById">-->
+<!--        UPDATE autoexec_job_sql_detail-->
+<!--        SET `md5`    = #{md5},-->
+<!--            `status` = #{status},-->
+<!--            `lcd` = now(3),-->
+<!--            `is_delete` = #{isDelete}-->
+<!--        WHERE id = #{id}-->
+<!--    </update>-->
+
+    <update id="updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
+        UPDATE autoexec_job_sql_detail
+        SET `md5`    = #{md5},
+            `status` = #{status},
+            `lcd`=now(3),
+            `is_delete` = 0
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateJobDeploySqlIsDeleteByIdList">
+        UPDATE deploy_sql_detail
+        SET
+        `is_delete` = 1
+        WHERE id in
+        <foreach collection="idList" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
     </update>
 
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
