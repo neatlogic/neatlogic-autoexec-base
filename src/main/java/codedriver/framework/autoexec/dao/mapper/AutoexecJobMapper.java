@@ -239,8 +239,6 @@ public interface AutoexecJobMapper {
 
     void updateJobSqlIsDeleteByIdList(@Param("idList") List<Long> idList);
 
-    void updateJobDeploySqlIsDeleteByIdList(@Param("idList") List<Long> idList);
-
     void updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById(@Param("status") String status, @Param("md5") String md5, @Param("id") Long id);
 
 

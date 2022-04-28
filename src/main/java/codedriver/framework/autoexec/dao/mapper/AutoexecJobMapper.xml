@@ -1582,15 +1582,6 @@
         </foreach>
     </update>
 
-<!--    <update id="updateJobSqlDetailStatusAndMd5AndLcdById">-->
-<!--        UPDATE autoexec_job_sql_detail-->
-<!--        SET `md5`    = #{md5},-->
-<!--            `status` = #{status},-->
-<!--            `lcd` = now(3),-->
-<!--            `is_delete` = #{isDelete}-->
-<!--        WHERE id = #{id}-->
-<!--    </update>-->
-
     <update id="updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
         UPDATE autoexec_job_sql_detail
         SET `md5`    = #{md5},
@@ -1598,16 +1589,6 @@
             `lcd`=now(3),
             `is_delete` = 0
         WHERE id = #{id}
-    </update>
-
-    <update id="updateJobDeploySqlIsDeleteByIdList">
-        UPDATE deploy_sql_detail
-        SET
-        `is_delete` = 1
-        WHERE id in
-        <foreach collection="idList" item="id" separator="," open="(" close=")">
-            #{id}
-        </foreach>
     </update>
 
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
