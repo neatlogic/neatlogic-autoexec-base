@@ -1145,10 +1145,10 @@
         FROM autoexec_sql_detail ajsd
         WHERE
         <foreach collection="sqlFileDetailVoList" item="vo" separator="or">
-         ( ajsd.job_id = #{vo.jobId}
+            (
             AND ajsd.node_id = #{vo.nodeId}
             AND ajsd.sql_file = #{vo.sqlFile}
-            AND ajsd.is_delete = #{vo.isDelete})
+            )AND ajsd.is_delete = 0
         </foreach>
     </select>
 
@@ -1355,6 +1355,28 @@
             `status` = #{status},
             `lcd` = #{lcd},
             `is_delete`= #{isDelete}
+    </insert>
+
+    <insert id="insertJobSqlDetailList">
+        insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`, `lcd`,
+        `is_delete`)
+        values
+        <foreach collection="sqlList" item="vo" separator=",">
+            (#{vo.id},
+            #{vo.jobId},
+            #{vo.nodeId},
+            #{vo.sqlFile},
+            #{vo.status},
+            #{vo.md5},
+            #{vo.lcd},
+            #{vo.isDelete})
+        </foreach>
+        ON DUPLICATE KEY
+        UPDATE `md5` =VALUES(md5),
+        `status` =VALUES(status),
+        `lcd`= #{lcd},
+        `is_delete`= 0
+
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">

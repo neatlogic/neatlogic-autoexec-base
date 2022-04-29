@@ -245,7 +245,10 @@ public interface AutoexecJobMapper {
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
 
-    void insertJobSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo);
+    void insertJobSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo );
+
+    void insertJobSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("lcd") Date lcd);
+
 
     void deleteJobParamContentByHash(String paramHash);
 
@@ -276,4 +279,5 @@ public interface AutoexecJobMapper {
     void deleteJobResourceInspectByJobId(Long jobId);
 
     void deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId(@Param("jobPhaseId") Long id, @Param("runnerMapId") Long runnerMapId);
+
 }
