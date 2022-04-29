@@ -1135,8 +1135,8 @@
         WHERE ajpnr.`job_phase_id` = #{value}
     </select>
 
-    <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo"
-            parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+    <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo"
+            parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         SELECT ajsd.`id`,
         ajsd.`md5`,
         ajsd.`status`,
@@ -1153,7 +1153,7 @@
     </select>
 
     <select id="getJobSqlDetailByJobIdAndNodeIdAndSqlFile"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         SELECT ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1340,7 +1340,7 @@
                    `lcd`         = #{lcd};
     </insert>
 
-    <insert id="insertJobSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+    <insert id="insertJobSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`, `lcd`,
                                           `is_delete`)
         values (#{id},

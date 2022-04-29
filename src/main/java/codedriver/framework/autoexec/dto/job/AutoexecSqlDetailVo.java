@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author longrf
  * @date 2022/4/25 6:02 下午
  */
-public class AutoexecJobSqlDetailVo extends BaseEditorVo {
+public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     private static final long serialVersionUID = -3975625036032471623L;
 
@@ -37,7 +37,7 @@ public class AutoexecJobSqlDetailVo extends BaseEditorVo {
     @EntityField(name = "是否已经被删除", type = ApiParamType.INTEGER)
     private Integer isDelete = 0;
 
-    public AutoexecJobSqlDetailVo(JSONObject paramObj) {
+    public AutoexecSqlDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
         this.nodeId = (paramObj.getLong("nodeId"));
         this.resourceId = (paramObj.getLong("resourceId"));
@@ -48,7 +48,7 @@ public class AutoexecJobSqlDetailVo extends BaseEditorVo {
         this.port = (paramObj.getInteger("port"));
     }
 
-    public AutoexecJobSqlDetailVo() {
+    public AutoexecSqlDetailVo() {
     }
 
     public Long getId() {

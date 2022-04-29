@@ -177,9 +177,9 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndNodeFromJob(Long jobId);
 
-    List<AutoexecJobSqlDetailVo> getJobSqlDetailList(@Param("sqlFileDetailVoList") List<AutoexecJobSqlDetailVo> sqlFileDetailVoList);
+    List<AutoexecSqlDetailVo> getJobSqlDetailList(@Param("sqlFileDetailVoList") List<AutoexecSqlDetailVo> sqlFileDetailVoList);
 
-    AutoexecJobSqlDetailVo getJobSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
+    AutoexecSqlDetailVo getJobSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
 
     List<Long> getJobSqlDetailByJobIdAndLcd(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
 
@@ -245,7 +245,7 @@ public interface AutoexecJobMapper {
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
 
-    void insertJobSqlDetail(AutoexecJobSqlDetailVo sqlFileDetailVo);
+    void insertJobSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo);
 
     void deleteJobParamContentByHash(String paramHash);
 
