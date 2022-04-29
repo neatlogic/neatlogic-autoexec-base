@@ -1,6 +1,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -9,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author longrf
  * @date 2022/4/25 6:02 下午
  */
-public class AutoexecJobSqlDetailVo {
+public class AutoexecJobSqlDetailVo extends BaseEditorVo {
 
     private static final long serialVersionUID = -3975625036032471623L;
 
@@ -35,7 +36,6 @@ public class AutoexecJobSqlDetailVo {
     private Long jobId;
     @EntityField(name = "是否已经被删除", type = ApiParamType.INTEGER)
     private Integer isDelete = 0;
-
 
     public AutoexecJobSqlDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));

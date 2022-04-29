@@ -181,7 +181,7 @@ public interface AutoexecJobMapper {
 
     AutoexecJobSqlDetailVo getJobSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
 
-    List<AutoexecJobSqlDetailVo> getJobAllSqlDetail(Long jobId);
+    List<Long> getJobSqlDetailByJobIdAndLcd(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
@@ -239,15 +239,11 @@ public interface AutoexecJobMapper {
 
     void updateJobSqlIsDeleteByIdList(@Param("idList") List<Long> idList);
 
-    void updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById(@Param("status") String status, @Param("md5") String md5, @Param("id") Long id);
-
-
+    int  updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById(@Param("status") String status, @Param("md5") String md5, @Param("id") Long id);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
-
-    void insertAutoexecJobSql(AutoexecJobSqlVo autoexecJobSqlVo);
 
     void insertJobSqlDetail(AutoexecJobSqlDetailVo sqlFileDetailVo);
 

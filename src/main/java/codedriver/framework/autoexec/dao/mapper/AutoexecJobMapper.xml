@@ -1142,11 +1142,10 @@
         ajsd.`status`,
         ajsd.`sql_file` as sqlFile,
         ajsd.`node_id` as nodeId
-        FROM autoexec_job_sql ajs
-        JOIN autoexec_job_sql_detail ajsd ON ajsd.id = ajs.sql_id
+        FROM autoexec_sql_detail ajsd
         WHERE
         <foreach collection="sqlFileDetailVoList" item="vo" separator="or">
-         ( ajs.job_id = #{vo.jobId}
+         ( ajsd.job_id = #{vo.jobId}
             AND ajsd.node_id = #{vo.nodeId}
             AND ajsd.sql_file = #{vo.sqlFile}
             AND ajsd.is_delete = #{vo.isDelete})
@@ -1161,26 +1160,19 @@
                ajsd.`sql_file` as sqlFile,
                ajsd.`node_id`,
                ajsd.is_delete  as isDelete
-        FROM autoexec_job_sql ajs
-                 JOIN autoexec_job_sql_detail ajsd ON ajsd.id = ajs.sql_id
-        WHERE ajs.job_id = #{jobId}
+        FROM autoexec_sql_detail ajsd
+        WHERE ajsd.job_id = #{jobId}
           AND ajsd.node_id = #{nodeId}
           AND ajsd.sql_file = #{sqlFile}
     </select>
 
-    <select id="getJobAllSqlDetail" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
-        SELECT ajsd.`id`,
-               ajsd.`md5`,
-               ajsd.`status`,
-               ajsd.`sql_file` as sqlFile,
-               ajsd.`node_id` as nodeId,
-               ajsd.`is_delete` as isDelete
-        FROM autoexec_job_sql ajs
-                 JOIN autoexec_job_sql_detail ajsd ON ajsd.id = ajs.sql_id
-        WHERE
-            ajs.job_id = #{jobId}
+    <select id="getJobSqlDetailByJobIdAndLcd"
+            resultType="java.lang.Long">
+        SELECT ajsd.`id`
+        FROM autoexec_sql_detail ajsd
+        WHERE ajsd.job_id = #{jobId}
+          and ajsd.lcd != #{lcd}
     </select>
-
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
@@ -1348,23 +1340,21 @@
                    `lcd`         = #{lcd};
     </insert>
 
-    <insert id="insertAutoexecJobSql" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlVo">
-        insert into autoexec_job_sql(`id`, `job_id`, `sql_id`)
+    <insert id="insertJobSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
+        insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`, `lcd`,
+                                          `is_delete`)
         values (#{id},
                 #{jobId},
-                #{sqlId})
-    </insert>
-
-    <insert id="insertJobSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobSqlDetailVo">
-        insert into autoexec_job_sql_detail(`id`, `status`, `sql_file`, `md5`, node_id, `lcd`, `fcd`, `is_delete`)
-        values (#{id},
-                #{status},
-                #{sqlFile},
-                #{md5},
                 #{nodeId},
-                now(3),
-                now(3),
-                #{isDelete})
+                #{sqlFile},
+                #{status},
+                #{md5},
+                #{lcd},
+                #{isDelete}) ON DUPLICATE KEY
+        UPDATE `md5` = #{md5},
+            `status` = #{status},
+            `lcd` = #{lcd},
+            `is_delete`= #{isDelete}
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1574,7 +1564,7 @@
     </update>
 
     <update id="updateJobSqlIsDeleteByIdList">
-        UPDATE autoexec_job_sql_detail
+        UPDATE autoexec_sql_detail
         SET `is_delete` = 1
         WHERE `id` IN
         <foreach collection="idList" item="id" open="(" close=")" separator=",">
@@ -1583,7 +1573,7 @@
     </update>
 
     <update id="updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
-        UPDATE autoexec_job_sql_detail
+        UPDATE autoexec_sql_detail
         SET `md5`    = #{md5},
             `status` = #{status},
             `lcd`=now(3),
