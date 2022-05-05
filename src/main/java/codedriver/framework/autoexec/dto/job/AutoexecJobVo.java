@@ -119,8 +119,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Date lncd;
     private Long nodeId;
     private List<Long> phaseNodeIdList;
+    @JSONField(serialize = false)
     private Long currentPhaseId;
+    @JSONField(serialize = false)
+    private AutoexecJobPhaseVo currentPhase;
+    @JSONField(serialize = false)
     private Long currentNodeResourceId;
+    @JSONField(serialize = false)
     private AutoexecJobPhaseNodeVo currentNode;
     private Integer isNoFireNext = 0;
     private Integer isFirstFire;
@@ -591,7 +596,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public JSONObject getActionParam() {
-        return actionParam;
+        return MapUtils.isEmpty(actionParam) ? new JSONObject() : actionParam;
     }
 
     public void setActionParam(JSONObject actionParam) {
@@ -640,6 +645,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     public ValueTextVo getTriggerTypeVo() {
         return new ValueTextVo(getTriggerType(), JobTriggerType.getText(getTriggerType()));
     }
+
     public AutoexecJobGroupVo getExecuteJobGroupVo() {
         return executeJobGroupVo;
     }
@@ -678,5 +684,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setLncd(Date lncd) {
         this.lncd = lncd;
+    }
+
+    public AutoexecJobPhaseVo getCurrentPhase() {
+        return currentPhase;
+    }
+
+    public void setCurrentPhase(AutoexecJobPhaseVo currentPhase) {
+        this.currentPhase = currentPhase;
     }
 }
