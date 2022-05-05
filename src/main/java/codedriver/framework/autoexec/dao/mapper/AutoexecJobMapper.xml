@@ -1152,7 +1152,7 @@
         </foreach>
     </select>
 
-    <select id="getJobSqlDetailByJobIdAndNodeIdAndSqlFile"
+    <select id="getSqlDetailByJobIdAndNodeIdAndSqlFile"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         SELECT ajsd.`id`,
                ajsd.`md5`,
@@ -1166,7 +1166,7 @@
           AND ajsd.sql_file = #{sqlFile}
     </select>
 
-    <select id="getJobSqlDetailByJobIdAndLcd"
+    <select id="getSqlDetailByJobIdAndLcd"
             resultType="java.lang.Long">
         SELECT ajsd.`id`
         FROM autoexec_sql_detail ajsd
@@ -1340,7 +1340,7 @@
                    `lcd`         = #{lcd};
     </insert>
 
-    <insert id="insertJobSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+    <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`, `lcd`,
                                           `is_delete`)
         values (#{id},
@@ -1357,7 +1357,7 @@
             `is_delete`= #{isDelete}
     </insert>
 
-    <insert id="insertJobSqlDetailList">
+    <insert id="insertSqlDetailList">
         insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`, `lcd`,
         `is_delete`)
         values
@@ -1585,7 +1585,7 @@
         WHERE `id` = #{id}
     </update>
 
-    <update id="updateJobSqlIsDeleteByIdList">
+    <update id="updateSqlIsDeleteByIdList">
         UPDATE autoexec_sql_detail
         SET `is_delete` = 1
         WHERE `id` IN
@@ -1594,7 +1594,7 @@
         </foreach>
     </update>
 
-    <update id="updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
+    <update id="updateSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
         UPDATE autoexec_sql_detail
         SET `md5`    = #{md5},
             `status` = #{status},

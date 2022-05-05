@@ -179,9 +179,9 @@ public interface AutoexecJobMapper {
 
     List<AutoexecSqlDetailVo> getJobSqlDetailList(@Param("sqlFileDetailVoList") List<AutoexecSqlDetailVo> sqlFileDetailVoList);
 
-    AutoexecSqlDetailVo getJobSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
+    AutoexecSqlDetailVo getSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
 
-    List<Long> getJobSqlDetailByJobIdAndLcd(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
+    List<Long> getSqlDetailByJobIdAndLcd(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
@@ -237,17 +237,17 @@ public interface AutoexecJobMapper {
 
     int updateJobExecUser(AutoexecJobVo vo);
 
-    void updateJobSqlIsDeleteByIdList(@Param("idList") List<Long> idList);
+    void updateSqlIsDeleteByIdList(@Param("idList") List<Long> idList);
 
-    int  updateJobSqlDetailIsDeleteAndStatusAndMd5AndLcdById(@Param("status") String status, @Param("md5") String md5, @Param("id") Long id);
+    int updateSqlDetailIsDeleteAndStatusAndMd5AndLcdById(@Param("status") String status, @Param("md5") String md5, @Param("id") Long id);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
 
-    void insertJobSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo );
+    void insertSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo );
 
-    void insertJobSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("lcd") Date lcd);
+    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("lcd") Date lcd);
 
 
     void deleteJobParamContentByHash(String paramHash);
