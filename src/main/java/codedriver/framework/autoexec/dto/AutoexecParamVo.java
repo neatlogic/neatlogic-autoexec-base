@@ -76,7 +76,7 @@ public class AutoexecParamVo implements Serializable {
         this.isRequired = argumentJson.getInteger("isRequired");
         this.validate = argumentJson.getString("validate");
         this.description = argumentJson.getString("description");
-        this.argumentCount = argumentJson.getInteger("argumentCount");
+        this.argumentCount = argumentJson.getInteger("count");
     }
 
     public String getKey() {
