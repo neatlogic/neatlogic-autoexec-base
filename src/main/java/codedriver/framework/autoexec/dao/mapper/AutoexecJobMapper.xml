@@ -1143,13 +1143,13 @@
         ajsd.`sql_file` as sqlFile,
         ajsd.`node_id` as nodeId
         FROM autoexec_sql_detail ajsd
-        WHERE
-        <foreach collection="sqlFileDetailVoList" item="vo" separator="or">
-            (
-             ajsd.node_id = #{vo.nodeId}
-            AND ajsd.sql_file = #{vo.sqlFile}
-            )AND ajsd.is_delete = 0
-        </foreach>
+        <where>
+            <foreach collection="sqlFileDetailVoList" item="vo" separator="or" open="(" close=")">
+                ( ajsd.node_id = #{vo.nodeId}
+                AND ajsd.sql_file = #{vo.sqlFile})
+            </foreach>
+            AND ajsd.is_delete = 0
+        </where>
     </select>
 
     <select id="getSqlDetailByJobIdAndNodeIdAndSqlFile"
