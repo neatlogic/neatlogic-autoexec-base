@@ -371,7 +371,7 @@
                 #{status}
             </foreach>
         </if>
-        ORDER BY `sort`, `name` ASC
+        ORDER BY ajg.sort,`sort`, `name` ASC
     </select>
 
     <select id="getJobPhaseListByJobIdAndNodeStatusList" resultMap="AutoexecJobPhaseMap">
