@@ -1146,7 +1146,7 @@
         WHERE
         <foreach collection="sqlFileDetailVoList" item="vo" separator="or">
             (
-            AND ajsd.node_id = #{vo.nodeId}
+             ajsd.node_id = #{vo.nodeId}
             AND ajsd.sql_file = #{vo.sqlFile}
             )AND ajsd.is_delete = 0
         </foreach>
