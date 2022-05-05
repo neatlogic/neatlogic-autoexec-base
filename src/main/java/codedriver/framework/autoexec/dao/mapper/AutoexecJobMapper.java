@@ -249,7 +249,6 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("lcd") Date lcd);
 
-
     void deleteJobParamContentByHash(String paramHash);
 
     void deleteJobPhaseOperationByJobId(Long jobId);
