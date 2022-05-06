@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
+import codedriver.framework.autoexec.constvalue.AutoexecJobPhaseExecutePolicy;
 import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
@@ -17,10 +18,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author lvzk
@@ -60,6 +59,12 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer completionRate = 0;
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
+    @EntityField(name = "组id", type = ApiParamType.LONG)
+    private Long groupId;
+    @EntityField(name = "组vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobGroupVo jobGroupVo;
+    @EntityField(name = "执行策略", type = ApiParamType.STRING)
+    private String executePolicy;
 
     private String uuid;
     private Long combopId;
@@ -78,7 +83,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.execUser = UserContext.get().getUserUuid(true);
     }
 
-    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId) {
+    public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId, Map<Long, AutoexecJobGroupVo> combopGroupJobMap) {
         this.uk = autoexecCombopPhaseVo.getUk();
         this.name = autoexecCombopPhaseVo.getName();
         this.execMode = autoexecCombopPhaseVo.getExecMode();
@@ -87,6 +92,9 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.sort = autoexecCombopPhaseVo.getSort();
         this.execUser = UserContext.get().getUserUuid(true);
         this.uuid = autoexecCombopPhaseVo.getUuid();
+        this.jobGroupVo = combopGroupJobMap.get(autoexecCombopPhaseVo.getGroupId());
+        this.groupId = jobGroupVo.getId();
+        this.executePolicy = Arrays.stream(AutoexecJobPhaseExecutePolicy.values()).map(AutoexecJobPhaseExecutePolicy::getValue).collect(Collectors.toList()).contains( autoexecCombopPhaseVo.getPolicy())?autoexecCombopPhaseVo.getPolicy():null;
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status) {
@@ -94,7 +102,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.status = _status;
     }
 
-    public AutoexecJobPhaseVo(Long _id, String _status,String _errorMsg) {
+    public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
         this.id = _id;
         this.status = _status;
         this.errorMsg = _errorMsg;
@@ -223,8 +231,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     }
 
     public AutoexecJobStatusVo getStatusVo() {
-        if(statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status),JobPhaseStatus.getColor(status));
+        if (statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status), JobPhaseStatus.getColor(status));
         }
         return statusVo;
     }
@@ -259,5 +267,29 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setLncd(Date lncd) {
         this.lncd = lncd;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public AutoexecJobGroupVo getJobGroupVo() {
+        return jobGroupVo;
+    }
+
+    public void setJobGroupVo(AutoexecJobGroupVo jobGroupVo) {
+        this.jobGroupVo = jobGroupVo;
+    }
+
+    public String getExecutePolicy() {
+        return executePolicy;
+    }
+
+    public void setExecutePolicy(String executePolicy) {
+        this.executePolicy = executePolicy;
     }
 }

@@ -9,13 +9,19 @@ import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.auth.core.AuthActionChecker;
 import codedriver.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
-import codedriver.framework.autoexec.constvalue.*;
+import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.JobAction;
+import codedriver.framework.autoexec.constvalue.JobSource;
+import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.exception.*;
+import codedriver.framework.autoexec.job.group.policy.core.AutoexecJobGroupPolicyHandlerFactory;
+import codedriver.framework.autoexec.job.group.policy.core.IAutoexecJobGroupPolicyHandler;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
+import codedriver.framework.exception.type.ParamIrregularException;
 import codedriver.framework.integration.authentication.enums.AuthenticateType;
 import codedriver.framework.util.HttpRequestUtil;
 import codedriver.framework.util.RestUtil;
@@ -63,7 +69,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     @Override
     public boolean validate(AutoexecJobVo jobVo) {
         JSONObject actionParam = jobVo.getActionParam();
-        if (actionParam != null && actionParam.containsKey("jobId")) {
+        /*if (actionParam != null && actionParam.containsKey("jobId")) {
             Long jobId = actionParam.getLong("jobId");
             if (jobId != null) {
                 AutoexecJobVo jobVoTmp = autoexecJobMapper.getJobInfo(jobId);
@@ -72,25 +78,9 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 }
                 jobVo.setStatus(jobVoTmp.getStatus());
             }
-        }
-        if (jobVo.getCurrentPhaseId() != null) {
-            //如果存在phaseId 则校验phase是否存在
-            AutoexecJobPhaseVo phaseVo = autoexecJobMapper.getJobPhaseByPhaseId(jobVo.getCurrentPhaseId());
-            if (phaseVo == null) {
-                throw new AutoexecJobPhaseNotFoundException(jobVo.getCurrentPhaseId().toString());
-            }
-            jobVo.setId(phaseVo.getJobId());
-            jobVo.setPhaseList(Collections.singletonList(phaseVo));
-            //如果nodeVo为null，说明phase是local模式,没有resourceId,phase只有唯一node
-            if (jobVo.getCurrentNodeResourceId() != null || Objects.equals(ExecMode.RUNNER.getValue(), phaseVo.getExecMode())) {
-                AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
-                if (nodeVo == null) {
-                    throw new AutoexecJobPhaseNodeNotFoundException(jobVo.getCurrentPhaseId().toString(), jobVo.getCurrentNodeResourceId() == null ? StringUtils.EMPTY : jobVo.getCurrentNodeResourceId().toString());
-                }
-                jobVo.setCurrentNode(nodeVo);
-            }
-        }
-
+        }*/
+        jobVo.setCurrentPhaseId(actionParam.getLong("jobPhaseId"));
+        jobVo.setCurrentNodeResourceId(actionParam.getLong("resourceId"));
         if (isNeedExecuteAuthCheck()) {
             if (Objects.equals(jobVo.getSource(), JobSource.TEST.getValue())) {//测试仅需判断是否有脚本维护权限即可
                 if (!AuthActionChecker.check(AUTOEXEC_SCRIPT_MODIFY.class)) {
@@ -110,6 +100,45 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
     public boolean myValidate(AutoexecJobVo jobVo) {
         return true;
+    }
+
+    protected void currentPhaseIdValid(AutoexecJobVo jobVo){
+        if (jobVo.getCurrentPhaseId() != null) {
+            //如果存在phaseId 则校验phase是否存在
+            AutoexecJobPhaseVo phaseVo = autoexecJobMapper.getJobPhaseByPhaseId(jobVo.getCurrentPhaseId());
+            if (phaseVo == null) {
+                throw new AutoexecJobPhaseNotFoundException(jobVo.getCurrentPhaseId().toString());
+            }
+            jobVo.setCurrentPhase(phaseVo);
+        }
+
+    }
+
+    protected void currentResourceIdValid(AutoexecJobVo jobVo){
+        //如果nodeVo为null，说明phase是local模式,没有resourceId,phase只有唯一node
+        if (jobVo.getCurrentNodeResourceId() != null || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
+            AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
+            if (nodeVo == null) {
+                throw new AutoexecJobPhaseNodeNotFoundException(jobVo.getCurrentPhaseId().toString(), jobVo.getCurrentNodeResourceId() == null ? StringUtils.EMPTY : jobVo.getCurrentNodeResourceId().toString());
+            }
+            if (StringUtils.isBlank(nodeVo.getRunnerUrl())) {
+                throw new AutoexecJobHostPortRunnerNotFoundException(jobVo.getCurrentNode().getHost() + ":" + jobVo.getCurrentNode().getPort());
+            }
+            jobVo.setCurrentNode(nodeVo);
+        }
+    }
+
+    protected void currentResourceIdListValid(AutoexecJobVo jobVo){
+        JSONObject jsonObj = jobVo.getActionParam();
+        if (CollectionUtils.isEmpty(jsonObj.getJSONArray("resourceIdList"))) {
+            throw new ParamIrregularException("resourceIdList");
+        }
+        List<Long> resourceIdList = JSONObject.parseArray(jsonObj.getJSONArray("resourceIdList").toJSONString(), Long.class);
+        List<AutoexecJobPhaseNodeVo> nodeVoList = autoexecJobMapper.getJobPhaseNodeListByJobPhaseIdAndResourceIdList(jobVo.getCurrentPhaseId(), resourceIdList);
+        if (CollectionUtils.isEmpty(nodeVoList)) {
+            throw new AutoexecJobPhaseNodeNotFoundException(StringUtils.EMPTY, resourceIdList.stream().map(Object::toString).collect(Collectors.joining(",")));
+        }
+        jobVo.setExecuteJobNodeVoList(nodeVoList);
     }
 
     @Override
@@ -162,41 +191,80 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     }
 
     /**
-     * 执行作业阶段
+     * 第一次执行作业阶段
      *
      * @param jobVo 作业
      */
-    protected void execute(AutoexecJobVo jobVo) {
+    @Deprecated
+    protected void firstExecute(AutoexecJobVo jobVo) {
         jobVo.setStatus(JobStatus.RUNNING.getValue());
         autoexecJobMapper.updateJobStatus(jobVo);
-        for (AutoexecJobPhaseVo jobPhase : jobVo.getPhaseList()) {
-            jobPhase.setStatus(JobPhaseStatus.WAITING.getValue());
-            autoexecJobMapper.updateJobPhaseStatus(jobPhase);
-        }
+        IAutoexecJobGroupPolicyHandler groupPolicyHandler = AutoexecJobGroupPolicyHandlerFactory.getGroupPolicy(jobVo.getExecuteJobGroupVo().getPolicy());
+        groupPolicyHandler.getExecutePhaseList(jobVo);
+        groupPolicyHandler.updateExecutePhaseListStatus(jobVo);
+        List<RunnerMapVo> runnerVos = groupPolicyHandler.getExecuteRunnerList(jobVo);
+        execute(jobVo, runnerVos);
+    }
 
+    /**
+     * 执行组
+     *
+     * @param jobVo 作业
+     */
+    protected void executeGroup(AutoexecJobVo jobVo) {
+        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobRunnerListByJobIdAndGroupId(jobVo.getId(), jobVo.getExecuteJobGroupVo().getId());
+        execute(jobVo, runnerVos);
+    }
+
+    /**
+     * 执行组
+     *
+     * @param jobVo 作业
+     */
+    protected void executeNode(AutoexecJobVo jobVo) {
+        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobRunnerListByJobIdAndJobNodeIdList(jobVo.getId(), jobVo.getExecuteJobNodeIdList());
+        execute(jobVo, runnerVos);
+    }
+
+    /**
+     * 发起执行命令
+     *
+     * @param jobVo     作业
+     * @param runnerVos runner列表
+     */
+    private void execute(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
+        if (CollectionUtils.isEmpty(runnerVos)) {
+            throw new AutoexecJobRunnerNotMatchException();
+        }
         JSONObject paramJson = new JSONObject();
         paramJson.put("jobId", jobVo.getId());
         paramJson.put("tenant", TenantContext.get().getTenantUuid());
         paramJson.put("isNoFireNext", jobVo.getIsNoFireNext());
         paramJson.put("isFirstFire", jobVo.getIsFirstFire());
-        paramJson.put("jobPhaseNameList", jobVo.getPhaseNameList());
-        paramJson.put("jobPhaseNodeIdList", jobVo.getPhaseNodeIdList());
-
+        if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
+            paramJson.put("jobPhaseNameList", jobVo.getExecuteJobPhaseList().stream().map(AutoexecJobPhaseVo::getName).collect(Collectors.toList()));
+        }
+        if (jobVo.getExecuteJobGroupVo() != null) {
+            paramJson.put("jobGroupIdList", Collections.singletonList(jobVo.getExecuteJobGroupVo().getSort()));
+        }
+        paramJson.put("jobPhaseNodeIdList", jobVo.getExecuteJobNodeIdList());
         RestVo restVo = null;
         String result = StringUtils.EMPTY;
         String url = StringUtils.EMPTY;
-        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobPhaseRunnerByJobIdAndPhaseIdList(jobVo.getId(), jobVo.getPhaseIdList());
-        if (CollectionUtils.isEmpty(runnerVos)) {
-            throw new AutoexecJobRunnerNotFoundException(jobVo.getPhaseNameList());
-        }
-        checkRunnerHealth(runnerVos);
         runnerVos = runnerVos.stream().filter(o -> StringUtils.isNotBlank(o.getUrl())).collect(collectingAndThen(toCollection(() -> new TreeSet<>(Comparator.comparing(RunnerMapVo::getUrl))), ArrayList::new));
+        checkRunnerHealth(runnerVos);
         try {
             for (RunnerMapVo runner : runnerVos) {
                 url = runner.getUrl() + "api/rest/job/exec";
                 paramJson.put("passThroughEnv", new JSONObject() {{
                     put("runnerId", runner.getRunnerMapId());
-                    put("phaseSort", jobVo.getCurrentPhaseSort());
+                    if (jobVo.getExecuteJobGroupVo() != null) {
+                        put("groupSort", jobVo.getExecuteJobGroupVo().getSort());
+                    }
+                    if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
+                        put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
+                    }
+                    put("isFirstFire", jobVo.getIsFirstFire());
                 }});
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);
@@ -206,7 +274,6 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 }
             }
         } catch (Exception ex) {
-            assert restVo != null;
             throw new AutoexecJobRunnerConnectRefusedException(url + " " + result);
         }
     }

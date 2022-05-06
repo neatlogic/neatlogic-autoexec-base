@@ -5,6 +5,9 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,7 +16,9 @@ import java.util.List;
  * @since: 2021/4/21 18:41
  **/
 public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
+    @EntityField(name = "参数映射列表", type = ApiParamType.JSONARRAY)
     private List<ParamMappingVo> paramMappingList;
+    @EntityField(name = "自由参数映射列表", type = ApiParamType.JSONARRAY)
     private List<ParamMappingVo> argumentMappingList;
 
     public List<ParamMappingVo> getParamMappingList() {
