@@ -85,12 +85,14 @@ public interface AutoexecJobMapper {
 
     AutoexecJobPhaseVo getJobCurrentPhase(Long jobId);
 
-    AutoexecJobPhaseVo getJobPhaseByJobIdAndGroupSortAndSort(@Param("jobId") Long jobId, @Param("groupSort")  Integer groupSort, @Param("sort")  int sort);
+    AutoexecJobPhaseVo getJobPhaseByJobIdAndGroupSortAndSort(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort, @Param("sort") int sort);
 
-    List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndPhaseIdList(@Param("jobId") Long jobId,@Param("jobPhaseIdList")List<Long> jobPhaseIdList);
+    List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList);
 
     //jobPhaseNode
     List<AutoexecJobPhaseNodeVo> searchJobPhaseNodeWithResource(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    List<AutoexecJobPhaseNodeVo> searchJobPhaseNodeByDistinct(AutoexecJobPhaseNodeVo nodeParamVo);
 
     List<AutoexecJobPhaseNodeVo> searchJobPhaseNode(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
@@ -99,6 +101,8 @@ public interface AutoexecJobMapper {
     int searchJobPhaseNodeCountWithResource(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     int searchJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    int searchJobPhaseNodeByDistinctResourceIdCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     List<AutoexecJobPhaseNodeStatusCountVo> getJobPhaseNodeStatusCount(Long jobId);
 
@@ -116,6 +120,8 @@ public interface AutoexecJobMapper {
     AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobNodeId(@Param("nodeId") Long nodeId);
 
     AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobPhaseIdAndResourceId(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceId") Long resourceId);
+
+    AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobIdAndJobPhaseNameAndResourceId(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("resourceId") Long resourceId);
 
     AutoexecJobPhaseNodeVo getJobPhaseRunnerNodeByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
@@ -173,7 +179,6 @@ public interface AutoexecJobMapper {
     List<RunnerMapVo> getJobRunnerListByJobIdAndJobNodeIdList(@Param("jobId") Long jobId, @Param("nodeIdList") List<Long> nodeIdList);
 
 
-
     List<RunnerMapVo> getJobPhaseNodeRunnerListByJobPhaseId(Long jobPhaseId);
 
     //invoke
@@ -215,7 +220,6 @@ public interface AutoexecJobMapper {
     Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobGroupId") Long jobGroupId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
 
 
-
     Integer insertJob(AutoexecJobVo jobVo);
 
     Integer insertJobGroup(AutoexecJobGroupVo autoexecJobGroupVo);
@@ -252,7 +256,7 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseRunnerFireNextByPhaseIdAndRunnerId(@Param("phaseId") Long phaseId, @Param("isFireNext") int isFireNext, @Param("runnerMapId") Long runnerMapId);
 
-    Integer updateJobPhaseRunnerFireNextByJobIdAndGroupSortAndRunnerId(@Param("jobId") Long jobId,@Param("groupSort") Integer groupSort, @Param("isFireNext") int isFireNext, @Param("runnerMapId") Long runnerMapId);
+    Integer updateJobPhaseRunnerFireNextByJobIdAndGroupSortAndRunnerId(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort, @Param("isFireNext") int isFireNext, @Param("runnerMapId") Long runnerMapId);
 
     Integer updateJobPhaseLcdById(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
