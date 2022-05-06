@@ -20,8 +20,6 @@ public class AutoexecCombopPhaseConfigVo implements Serializable {
     private List<AutoexecCombopPhaseOperationVo> phaseOperationList;
     @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
-    @EntityField(name = "是否预设执行目标", type = ApiParamType.INTEGER)
-    private Integer isPresetExecuteConfig;
 
     public List<AutoexecCombopPhaseOperationVo> getPhaseOperationList() {
         return phaseOperationList;
@@ -37,13 +35,5 @@ public class AutoexecCombopPhaseConfigVo implements Serializable {
 
     public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
         this.executeConfig = executeConfig;
-    }
-
-    public Integer getIsPresetExecuteConfig() {
-        return isPresetExecuteConfig;
-    }
-
-    public void setIsPresetExecuteConfig(Integer isPresetExecuteConfig) {
-        this.isPresetExecuteConfig = isPresetExecuteConfig;
     }
 }

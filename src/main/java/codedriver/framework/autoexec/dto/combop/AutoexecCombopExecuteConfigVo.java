@@ -33,6 +33,8 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     private List<AutoexecNodeVo> whitelist;
     @EntityField(name = "黑名单", type = ApiParamType.JSONARRAY)
     private List<AutoexecNodeVo> blacklist;
+    @EntityField(name = "是否预设执行目标", type = ApiParamType.INTEGER)
+    private Integer isPresetExecuteConfig;
 
     public String getProtocol() {
         return protocol;
@@ -96,5 +98,13 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setBlacklist(List<AutoexecNodeVo> blacklist) {
         this.blacklist = blacklist;
+    }
+
+    public Integer getIsPresetExecuteConfig() {
+        return isPresetExecuteConfig;
+    }
+
+    public void setIsPresetExecuteConfig(Integer isPresetExecuteConfig) {
+        this.isPresetExecuteConfig = isPresetExecuteConfig;
     }
 }
