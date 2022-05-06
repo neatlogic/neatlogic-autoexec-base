@@ -1166,14 +1166,6 @@
           AND ajsd.sql_file = #{sqlFile}
     </select>
 
-    <select id="getSqlDetailByJobIdAndStatus"
-            resultType="java.lang.Long">
-        SELECT ajsd.`id`
-        FROM autoexec_sql_detail ajsd
-        WHERE ajsd.job_id = #{jobId}
-          and ajsd.status != #{status}
-    </select>
-
     <select id="searchJobPhaseSqlCount" resultType="int">
         SELECT
        count(ajsd.`id`)

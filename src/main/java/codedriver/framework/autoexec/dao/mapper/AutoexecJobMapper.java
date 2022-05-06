@@ -100,7 +100,6 @@ public interface AutoexecJobMapper {
 
     int searchJobPhaseSqlCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
-
     AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobNodeId(@Param("nodeId") Long nodeId);
 
     AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobPhaseIdAndResourceId(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceId") Long resourceId);
@@ -187,8 +186,6 @@ public interface AutoexecJobMapper {
     List<AutoexecSqlDetailVo> getAllSqlByJobId(Long jobId);
 
     AutoexecSqlDetailVo getSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
-
-    List<Long> getSqlDetailByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
