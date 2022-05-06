@@ -1336,6 +1336,20 @@
                  LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpnr.`job_phase_id` = #{value}
     </select>
+    <select id="getJobPhaseListByJobIdAndPhaseIdList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        SELECT id,
+        job_id as jobId,
+        `name`,
+        `exec_mode` as execMode,
+        `sort`,
+        `status`
+        FROM `autoexec_job_phase`
+        WHERE job_id = #{jobId} and id in
+        <foreach collection="jobPhaseIdList" item="value" separator="," open="(" close=")">
+            #{value}
+        </foreach>
+    </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
