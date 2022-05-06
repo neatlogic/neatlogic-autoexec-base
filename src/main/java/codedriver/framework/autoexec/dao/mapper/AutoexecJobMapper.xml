@@ -1590,7 +1590,7 @@
                    `job_group_id`  = #{jobGroupId},
                    `job_phase_id`  = #{jobPhaseId},
                    `runner_map_id` = #{runnerMapId},
-                   `lcd`           = #{end_time};
+                   `lcd`           = #{lcd};
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
