@@ -1385,6 +1385,11 @@
     <select id="searchJobPhaseSqlCount" resultType="int">
         SELECT
        count(ajsd.`id`)
+        FROM
+        autoexec_sql_detail ajsd
+        LEFT JOIN autoexec_job_phase_node_runner ajpnr ON ajpnr.node_id = ajsd.node_id
+        LEFT JOIN autoexec_job_phase_node ajpn ON ajpn.id = ajsd.node_id
+        LEFT JOIN ${schemaName}.resource_ipobject ri ON ri.id = ajpn.resource_id
         <include refid="searchJobPhaseSql"></include>
     </select>
 
@@ -1394,30 +1399,13 @@
         ajsd.`status`,
         ajsd.`sql_file` AS sqlFile,
         ajsd.`node_id` AS nodeId ,
-        ajsd.`fcd`,
-        ajsd.`lcd`,
+        ajsd.`start_time` AS startTime,
+        ajsd.`end_time` AS endTime,
         r.`host`AS runnerIp,
         r.`port` AS runnerPort,
         ajpn.`host`,
         ajpn.`port`,
         ri.`name`
-        <include refid="searchJobPhaseSql"></include>
-        ORDER BY ajsd.`lcd` DESC
-        <if test="needPage">
-            LIMIT #{startNum}, #{pageSize}
-        </if>
-    </select>
-
-    <select id="getAllSqlByJobId" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
-        SELECT `id`,
-               `status`,
-               `sql_file` AS sqlFile,
-               `node_id`  AS nodeId
-        FROM autoexec_sql_detail
-        WHERE job_id = #{jobId}
-    </select>
-
-    <sql id="searchJobPhaseSql">
         FROM
         autoexec_sql_detail ajsd
         LEFT JOIN autoexec_job_phase_node_runner ajpnr ON ajpnr.node_id = ajsd.node_id
@@ -1425,6 +1413,21 @@
         LEFT JOIN runner r ON r.id = rm.runner_id
         LEFT JOIN autoexec_job_phase_node ajpn ON ajpn.id = ajsd.node_id
         LEFT JOIN ${schemaName}.resource_ipobject ri ON ri.id = ajpn.resource_id
+        <include refid="searchJobPhaseSql"></include>
+        ORDER BY ajsd.`start_time` DESC
+        <if test="needPage">
+            LIMIT #{startNum}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getSqlDetailByJobIdAndLcd" resultType="java.lang.Long">
+        SELECT ajsd.`id`
+        FROM autoexec_sql_detail ajsd
+        WHERE ajsd.job_id = #{jobId}
+          and ajsd.lcd != #{lcd}
+    </select>
+
+    <sql id="searchJobPhaseSql">
         <where>
             <if test="statusList != null and statusList.size() > 0 ">
                 and ajsd.`status` in
@@ -1587,7 +1590,7 @@
                    `job_group_id`  = #{jobGroupId},
                    `job_phase_id`  = #{jobPhaseId},
                    `runner_map_id` = #{runnerMapId},
-                   `lcd`           = #{lcd};
+                   `lcd`           = #{end_time};
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
@@ -1627,11 +1630,10 @@
             <when test="status == 'pending'">
             </when>
             <when test="status == 'running'">
-                `fcd`,
-                `lcd`,
+                `start_time`,
             </when>
             <otherwise>
-                `lcd`,
+                `end_time`,
             </otherwise>
         </choose>
         `is_delete`)
@@ -1646,7 +1648,6 @@
             </when>
             <when test="status == 'running'">
                 now(3),
-                now(3),
             </when>
             <otherwise>
                 now(3),
@@ -1656,7 +1657,7 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`,
+        insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
         <foreach collection="sqlList" item="vo" separator=",">
@@ -1666,11 +1667,13 @@
             #{vo.sqlFile},
             #{vo.status},
             #{vo.md5},
+            #{lcd},
             #{vo.isDelete})
         </foreach>
         ON DUPLICATE KEY
         UPDATE `md5` =VALUES(md5),
         `status` =VALUES(status),
+        `lcd`=#{lcd},
         `is_delete`= 0
     </insert>
 
@@ -1897,7 +1900,7 @@
         </foreach>
     </update>
 
-    <update id="updateSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
+    <update id="updateSqlDetailIsDeleteAndStatusAndMd5AndLcd">
         UPDATE autoexec_sql_detail
         SET `md5` = #{md5},
         `status` = #{status},
@@ -1905,14 +1908,16 @@
             <when test="status == 'pending'">
             </when>
             <when test="status == 'running'">
-                `fcd`=now(3),
+                `start_time`=now(3),
             </when>
             <otherwise>
-                `lcd`=now(3),
+                `end_time`=now(3),
             </otherwise>
         </choose>
         `is_delete` = 0
-        WHERE id = #{id}
+        WHERE
+        node_id = #{nodeId}
+        and sql_file = #{sqlFile}
     </update>
 
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
