@@ -32,6 +32,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private static final long serialVersionUID = -3975625036282871623L;
     @EntityField(name = "作业剧本节点id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "作业组id", type = ApiParamType.LONG)
+    private Long jobGroupId;
     @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
     @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
@@ -73,8 +75,12 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     @EntityField(name = "是否已删除", type = ApiParamType.INTEGER)
     private Integer isDelete;
     private Long resourceId;
-
+    @EntityField(name = "执行目标配置来源", type = ApiParamType.STRING)
+    private String nodeFrom;
+    @JSONField(serialize = false)
     private String schemaName;
+    @JSONField(serialize = false)
+    private Integer groupSort;//组排序用于节点过滤
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -92,9 +98,17 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.isDelete = isDelete;
     }
 
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Integer isDelete,String nodeFrom) {
+        this.setJobId(jobId);
+        this.jobPhaseName = jobPhaseName;
+        this.isDelete = isDelete;
+        this.setNodeFrom(nodeFrom);
+    }
+
     public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
         this.setJobId(jobId);
         this.jobPhaseId = jobPhaseVo.getId();
+        this.jobGroupId = jobPhaseVo.getGroupId();
         this.status = status;
         this.setUserName(userName);
         this.setHost(host);
@@ -120,6 +134,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.setPort(resourceVo.getPort());
         this.setJobId(jobId);
         this.jobPhaseId = jobPhaseVo.getId();
+        this.jobGroupId = jobPhaseVo.getGroupId();
         this.setProtocolId(protocolId);
         this.status = status;
         this.setUserName(userName);
@@ -145,6 +160,10 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public Long getJobPhaseId() {
         return jobPhaseId;
+    }
+
+    public Long getJobGroupId() {
+        return jobGroupId;
     }
 
     public String getJobPhaseName() {
@@ -325,5 +344,21 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setStatusBlackList(List<String> statusBlackList) {
         this.statusBlackList = statusBlackList;
+    }
+
+    public String getNodeFrom() {
+        return nodeFrom;
+    }
+
+    public void setNodeFrom(String nodeFrom) {
+        this.nodeFrom = nodeFrom;
+    }
+
+    public Integer getGroupSort() {
+        return groupSort;
+    }
+
+    public void setGroupSort(Integer groupSort) {
+        this.groupSort = groupSort;
     }
 }

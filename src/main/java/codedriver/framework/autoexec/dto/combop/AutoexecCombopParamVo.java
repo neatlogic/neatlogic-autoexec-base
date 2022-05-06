@@ -5,15 +5,9 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
-import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
-import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.common.dto.BasePageVo;
 import codedriver.framework.restful.annotation.EntityField;
-import com.alibaba.fastjson.JSONObject;
-
-import java.io.Serializable;
 
 /**
  * 组合工具运行参数Vo类

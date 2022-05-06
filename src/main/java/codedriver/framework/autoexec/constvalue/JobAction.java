@@ -27,7 +27,8 @@ public enum JobAction {
     DOWNLOAD_NODE_LOG("downloadNodeLog","下载节点日志"),
     DOWNLOAD_NODE_OUT_PUT("downloadNodeOutPut","下载节点输出参数"),
     DELETE("delete","删除作业"),
-    TAIL_NODE_LOG("tailNodeLog","获取节点日志");
+    TAIL_NODE_LOG("tailNodeLog","获取节点日志"),
+    INFORM_PHASE_ROUND("informPhaseRound","通知下一个phase round");
     private final String value;
     private final String text;
 

@@ -5,14 +5,21 @@
 
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
+
 /**
  * @author lvzk
  * @since 2021/5/31 18:10
  **/
 public class AutoexecJobPhaseNodeRunnerVo {
+    @EntityField(name = "作业id", type = ApiParamType.LONG)
     private Long jobId;
+    @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
     private Long jobPhaseId;
+    @EntityField(name = "作业剧本节点id", type = ApiParamType.LONG)
     private Long nodeId;
+    @EntityField(name = "作业剧本runner 映射id", type = ApiParamType.LONG)
     private Long runnerMapId;
 
     public AutoexecJobPhaseNodeRunnerVo(AutoexecJobPhaseNodeVo nodeVo) {

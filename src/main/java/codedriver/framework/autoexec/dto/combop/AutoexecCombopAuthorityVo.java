@@ -5,15 +5,27 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
+
 /**
  * 组合工具授权Vo类
+ *
  * @author: linbq
  * @since: 2021/4/13 9:58
  **/
 public class AutoexecCombopAuthorityVo {
+
+    @EntityField(name = "组合工具id", type = ApiParamType.LONG)
     private Long combopId;
+
+    @EntityField(name = "授权目标类型，用户、组、角色", type = ApiParamType.STRING)
     private String type;
+
+    @EntityField(name = "授权目标uuid", type = ApiParamType.STRING)
     private String uuid;
+
+    @EntityField(name = "权限类型，执行或编辑", type = ApiParamType.STRING)
     private String action;
 
     public Long getCombopId() {
