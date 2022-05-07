@@ -6,6 +6,8 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -19,14 +21,21 @@ import java.io.Serializable;
  * @since: 2021/4/13 10:08
  **/
 public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo implements Serializable {
+    @EntityField(name = "阶段id", type = ApiParamType.LONG)
     private Long combopPhaseId;
+    @EntityField(name = "操作id", type = ApiParamType.LONG)
     private Long operationId;
+    @EntityField(name = "操作类型，自定义工具或工具", type = ApiParamType.STRING)
     private String operationType;
+    @EntityField(name = "失败策略", type = ApiParamType.STRING)
     private String failPolicy;
+    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopPhaseOperationConfigVo config;
+    @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
-    @JSONField(serialize = false)
-    private String combopPhaseOperationConfigStr;
+//    @JSONField(serialize = false)
+//    private String configStr;
+    @EntityField(name = "uuid", type = ApiParamType.STRING)
     private String uuid;
     private String letter;
 
@@ -82,7 +91,7 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
         this.sort = sort;
     }
 
-    public String getCombopPhaseOperationConfigStr() {
+    public String getConfigStr() {
         if (this.config == null) {
             return null;
         }

@@ -133,6 +133,25 @@
         LIMIT #{startNum}, #{pageSize}
     </select>
 
+    <select id="getAutoexecCombopIdList" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo" resultType="java.lang.Long">
+        SELECT
+            `id`
+        FROM `autoexec_combop`
+        <where>
+        <if test="keyword != null and keyword != ''">
+            AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%'))
+        </if>
+        <if test="typeId != null">
+            AND `type_id` = #{typeId}
+        </if>
+        <if test="isActive != null">
+            AND `is_active` = #{isActive}
+        </if>
+        </where>
+        ORDER BY `id` DESC
+        LIMIT #{startNum}, #{pageSize}
+    </select>
+
     <select id="getAutoexecCombopListByIdList" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT
             `id`,
@@ -359,7 +378,9 @@
             `name`,
             `exec_mode`,
             `config`,
-            `sort`
+            `sort`,
+            `group_id`,
+            `policy`
         )
         VALUES
         (
@@ -369,7 +390,9 @@
             #{name},
             #{execMode},
             #{configStr},
-            #{sort}
+            #{sort},
+            #{groupId},
+            #{policy}
         )
     </insert>
 
@@ -388,8 +411,26 @@
             #{operationId},
             #{operationType},
             #{failPolicy},
-            #{combopPhaseOperationConfigStr},
+            #{configStr},
             #{sort}
+        )
+    </insert>
+
+    <insert id="insertAutoexecCombopGroup" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupVo">
+        INSERT INTO `autoexec_combop_group` (
+            `id`,
+            `combop_id`,
+            `sort`,
+            `policy`,
+            `config`
+        )
+        VALUES
+        (
+            #{id},
+            #{combopId},
+            #{sort},
+            #{policy},
+            #{configStr}
         )
     </insert>
 
@@ -440,6 +481,10 @@
 
     <delete id="deleteAutoexecCombopPhaseByCombopId" parameterType="java.lang.Long">
         DELETE FROM `autoexec_combop_phase` WHERE `combop_id` = #{value}
+    </delete>
+
+    <delete id="deleteAutoexecCombopGroupByCombopId" parameterType="java.lang.Long">
+        DELETE FROM `autoexec_combop_group` WHERE `combop_id` = #{value}
     </delete>
 
     <delete id="deleteAutoexecCombopPhaseOperationByCombopPhaseIdList" parameterType="java.lang.Long">
