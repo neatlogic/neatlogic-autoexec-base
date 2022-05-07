@@ -1622,7 +1622,8 @@
     <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         insert into `autoexec_sql_detail`(`id`,
         `job_id`,
-        `node_id`,
+        `resource_id`,
+        `job_phase_name`,
         `sql_file`,
         `status`,
         `md5`,
@@ -1639,7 +1640,8 @@
         `is_delete`)
         values (#{id},
         #{jobId},
-        #{nodeId},
+        #{resourceId},
+        #{jobPhaseName},
         #{sqlFile},
         #{status},
         #{md5},
@@ -1657,13 +1659,14 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_sql_detail`(`id`, `job_id`, `node_id`, `sql_file`, `status`, `md5`,`lcd`,
+        insert into `autoexec_sql_detail`(`id`, `job_id`, `resource_id`,`job_phase_name`, `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
         <foreach collection="sqlList" item="vo" separator=",">
             (#{vo.id},
             #{vo.jobId},
-            #{vo.nodeId},
+            #{vo.resourceId},
+            #{vo.jobPhaseName},
             #{vo.sqlFile},
             #{vo.status},
             #{vo.md5},
@@ -1916,7 +1919,8 @@
         </choose>
         `is_delete` = 0
         WHERE
-        node_id = #{nodeId}
+        resource_id = #{resourceId}
+        and job_phase_name = #{jobPhaseName}
         and sql_file = #{sqlFile}
     </update>
 
