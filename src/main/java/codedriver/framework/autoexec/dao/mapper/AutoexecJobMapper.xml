@@ -1706,7 +1706,7 @@
         values (#{id},
         #{jobId},
         #{resourceId},
-        #{jobPhaseName},
+        #{phaseName},
         #{sqlFile},
         #{status},
         #{md5},
@@ -1731,7 +1731,7 @@
             (#{vo.id},
             #{vo.jobId},
             #{vo.resourceId},
-            #{vo.jobPhaseName},
+            #{vo.phaseName},
             #{vo.sqlFile},
             #{vo.status},
             #{vo.md5},
@@ -1985,7 +1985,7 @@
         `is_delete` = 0
         WHERE
         resource_id = #{resourceId}
-        and job_phase_name = #{jobPhaseName}
+        and job_phase_name = #{phaseName}
         and sql_file = #{sqlFile}
     </update>
 
