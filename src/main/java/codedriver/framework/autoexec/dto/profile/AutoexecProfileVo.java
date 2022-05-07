@@ -1,7 +1,6 @@
 package codedriver.framework.autoexec.dto.profile;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
-import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.cmdb.dto.cientity.CiEntityVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
@@ -45,7 +44,7 @@ public class AutoexecProfileVo extends BaseEditorVo {
     @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.INTEGER)
     private Integer autoexecOperationCount = 0;
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecParamVo> paramList;
+    private List<AutoexecProfileParamVo> paramList;
     @EntityField(name = "工具库工具id/脚本工具id列表", type = ApiParamType.JSONARRAY)
     private List<Long> operationIdList;
 
@@ -168,7 +167,7 @@ public class AutoexecProfileVo extends BaseEditorVo {
         this.autoexecOperationVoList = autoexecOperationVoList;
     }
 
-    public List<AutoexecParamVo> getParamList() {
+    public List<AutoexecProfileParamVo> getParamList() {
 //        if (CollectionUtils.isEmpty(paramList) && MapUtils.isNotEmpty(getConfig())) {
 //            JSONArray params = getConfig().getJSONArray("paramList");
 //            if (CollectionUtils.isNotEmpty(params)) {
@@ -178,7 +177,7 @@ public class AutoexecProfileVo extends BaseEditorVo {
         return paramList;
     }
 
-    public void setParamList(List<AutoexecParamVo> paramList) {
+    public void setParamList(List<AutoexecProfileParamVo> paramList) {
         this.paramList = paramList;
     }
 
