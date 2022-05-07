@@ -33,10 +33,9 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
     private AutoexecCombopPhaseOperationConfigVo config;
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
-    @JSONField(serialize = false)
-    private String configStr;
+//    @JSONField(serialize = false)
+//    private String configStr;
     @EntityField(name = "uuid", type = ApiParamType.STRING)
-    private String combopPhaseOperationConfigStr;
     private String uuid;
     private String letter;
 
@@ -92,7 +91,7 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
         this.sort = sort;
     }
 
-    public String getCombopPhaseOperationConfigStr() {
+    public String getConfigStr() {
         if (this.config == null) {
             return null;
         }

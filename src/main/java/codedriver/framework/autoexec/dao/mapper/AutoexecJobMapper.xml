@@ -1097,6 +1097,38 @@
 
     </select>
 
+    <select id="getJobPhaseNodeInfoByJobIdAndJobPhaseNameAndResourceId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.port,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`status`,
+        ajp.`name` AS jobPhaseName,
+        ajpn.`name` AS nodeName,
+        ajpn.`user_name` as userName,
+        ajpn.`protocol_id` AS protocolId,
+        ajpn.`resource_id` as resourceId,
+        ap.`id` AS runnerId,
+        ap.`url` AS runnerUrl
+        FROM `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
+        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
+        where ajpn.job_id = #{jobId} and ajp.`name` = #{jobPhaseName}
+        <if test="resourceId == null">
+            and ajpn.`resource_id` is null
+        </if>
+        <if test="resourceId != null">
+            and ajpn.`resource_id` = #{resourceId}
+        </if>
+
+    </select>
+
     <select id="getJobInvokeByJobId" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobInvokeVo">
         SELECT `job_id`    as jobId,
                `invoke_id` as invokeId,
@@ -1351,7 +1383,7 @@
         </foreach>
     </select>
 
-        <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo"
+    <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo"
             parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         SELECT ajsd.`id`,
         ajsd.`md5`,
@@ -1384,7 +1416,7 @@
 
     <select id="searchJobPhaseSqlCount" resultType="int">
         SELECT
-       count(ajsd.`id`)
+        count(ajsd.`id`)
         FROM
         autoexec_sql_detail ajsd
         LEFT JOIN autoexec_job_phase_node_runner ajpnr ON ajpnr.node_id = ajsd.node_id
@@ -1426,6 +1458,40 @@
         WHERE ajsd.job_id = #{jobId}
           and ajsd.lcd != #{lcd}
     </select>
+    <select id="searchJobPhaseNodeByDistinctResourceIdCount" resultType="java.lang.Integer">
+        SELECT
+        count(distinct ajpn.`resource_id`)
+        FROM
+        `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        <where>
+            <include refid="searchJobPhaseNodeSql"/>
+        </where>
+    </select>
+    <select id="searchJobPhaseNodeByDistinct"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT
+        DISTINCT ajpn.`resource_id` AS resourceId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`protocol_id` AS protocolId,
+        ajpn.NAME AS nodeName,
+        ajpn.type AS nodeType,
+        ajpn.user_name as userName,
+        arm.id AS runnerMapId
+        FROM
+        `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        LEFT JOIN `autoexec_job_group` ajg ON ajp.job_id = ajg.job_id AND ajp.group_id = ajg.id
+        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
+        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        <where>
+            <include refid="searchJobPhaseNodeSql"/>
+        </where>
+        ORDER BY ajpn.`host`,ajpn.`port`
+        limit #{startNum}, #{pageSize}
+    </select>
 
     <sql id="searchJobPhaseSql">
         <where>
@@ -1445,7 +1511,6 @@
             and ajpn.job_phase_id= #{jobPhaseId}
         </where>
     </sql>
-
 
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
