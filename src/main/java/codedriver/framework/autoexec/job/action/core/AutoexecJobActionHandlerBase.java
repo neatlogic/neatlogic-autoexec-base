@@ -222,7 +222,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      * @param jobVo 作业
      */
     protected void executeNode(AutoexecJobVo jobVo) {
-        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobRunnerListByJobIdAndJobNodeIdList(jobVo.getId(), jobVo.getExecuteJobNodeIdList());
+        List<RunnerMapVo> runnerVos = autoexecJobMapper.getJobRunnerListByJobIdAndJobNodeIdList(jobVo.getId(), jobVo.getExecuteNodeIdList());
         execute(jobVo, runnerVos);
     }
 
@@ -247,7 +247,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         if (jobVo.getExecuteJobGroupVo() != null) {
             paramJson.put("jobGroupIdList", Collections.singletonList(jobVo.getExecuteJobGroupVo().getSort()));
         }
-        paramJson.put("jobPhaseNodeIdList", jobVo.getExecuteJobNodeIdList());
+        //TODO 待发版本后 更新字段名
+        paramJson.put("jobPhaseNodeIdList", jobVo.getExecuteResourceIdList());
         RestVo restVo = null;
         String result = StringUtils.EMPTY;
         String url = StringUtils.EMPTY;

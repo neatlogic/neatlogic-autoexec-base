@@ -118,7 +118,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
     private Long nodeId;
+    @JSONField(serialize = false)
     private List<Long> phaseNodeIdList;
+    @JSONField(serialize = false)
+    private List<Long> phaseResourceIdList;
     @JSONField(serialize = false)
     private Long currentPhaseId;
     @JSONField(serialize = false)
@@ -556,7 +559,14 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.executeJobNodeVoList = executeJobNodeVoList;
     }
 
-    public List<Long> getExecuteJobNodeIdList() {
+    public List<Long> getExecuteResourceIdList() {
+        if (CollectionUtils.isNotEmpty(executeJobNodeVoList)) {
+            phaseResourceIdList = executeJobNodeVoList.stream().map(AutoexecJobPhaseNodeVo::getResourceId).collect(Collectors.toList());
+        }
+        return phaseResourceIdList;
+    }
+
+    public List<Long> getExecuteNodeIdList() {
         if (CollectionUtils.isNotEmpty(executeJobNodeVoList)) {
             phaseNodeIdList = executeJobNodeVoList.stream().map(AutoexecJobPhaseNodeVo::getId).collect(Collectors.toList());
         }
