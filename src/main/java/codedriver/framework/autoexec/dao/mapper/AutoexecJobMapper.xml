@@ -1460,7 +1460,7 @@
     </select>
     <select id="searchJobPhaseNodeByDistinctResourceIdCount" resultType="java.lang.Integer">
         SELECT
-        count(distinct ajpn.`resource_id`)
+        count( DISTINCT IFNULL(ajpn.`resource_id`,-1))
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
