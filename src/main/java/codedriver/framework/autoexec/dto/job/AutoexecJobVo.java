@@ -16,7 +16,6 @@ import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
 import codedriver.framework.common.dto.BasePageVo;
-import codedriver.framework.common.dto.ValueTextVo;
 import codedriver.framework.dto.RoleVo;
 import codedriver.framework.dto.TeamVo;
 import codedriver.framework.dto.UserVo;
@@ -55,7 +54,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "作业状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
-    private AutoexecJobStatusVo statusVo;
+    private String statusName;
     @EntityField(name = "作业错误信息", type = ApiParamType.STRING)
     private String errorMsg;
     @EntityField(name = "作业计划开始时间", type = ApiParamType.LONG)
@@ -86,14 +85,15 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private String sourceName;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
     private Integer threadCount;
-    @EntityField(name = "作业其它配置", type = ApiParamType.STRING)
+    @JSONField(serialize = false)
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
+    @JSONField(serialize = false)
     private JSONObject config;
     @EntityField(name = "触发方式", type = ApiParamType.STRING)
     private String triggerType = JobTriggerType.AUTO.getValue();
     @EntityField(name = "触发方式Vo", type = ApiParamType.JSONOBJECT)
-    private ValueTextVo triggerTypeVo;
+    private String triggerTypeName;
     @EntityField(name = "作业剧本集合", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业剧本Id集合", type = ApiParamType.JSONARRAY)
@@ -104,8 +104,6 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private String costTime;
     @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
     private String paramStr;
-    @EntityField(name = "运行参数JSON", type = ApiParamType.JSONOBJECT)
-    private JSONObject actionParam;
     private String paramHash;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
@@ -117,6 +115,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isCanTakeOver = 0;
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
+    @JSONField(serialize = false)
+    private JSONObject actionParam;
+    @JSONField(serialize = false)
     private Long nodeId;
     @JSONField(serialize = false)
     private List<Long> phaseNodeIdList;
@@ -130,9 +131,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Long currentNodeResourceId;
     @JSONField(serialize = false)
     private AutoexecJobPhaseNodeVo currentNode;
+    @JSONField(serialize = false)
     private Integer isNoFireNext = 0;
+    @JSONField(serialize = false)
     private Integer isFirstFire;
+    @JSONField(serialize = false)
     private String action;//fire|refire|goon
+    @JSONField(serialize = false)
     private String nodeFrom;//job|group|phase
 
     @JSONField(serialize = false)
@@ -269,11 +274,11 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.status = status;
     }
 
-    public AutoexecJobStatusVo getStatusVo() {
-        if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobStatus.getText(status), JobStatus.getColor(status));
+    public String getStatusName() {
+        if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
+            return JobStatus.getText(status);
         }
-        return statusVo;
+        return statusName;
     }
 
     public String getErrorMsg() {
@@ -652,8 +657,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.triggerType = triggerType;
     }
 
-    public ValueTextVo getTriggerTypeVo() {
-        return new ValueTextVo(getTriggerType(), JobTriggerType.getText(getTriggerType()));
+    public String getTriggerTypeName() {
+        return JobTriggerType.getText(getTriggerType());
     }
 
     public AutoexecJobGroupVo getExecuteJobGroupVo() {

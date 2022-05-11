@@ -83,7 +83,7 @@ public interface AutoexecJobMapper {
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseStatus(@Param("jobId") Long id, @Param("status") String status);
 
-    AutoexecJobPhaseVo getJobCurrentPhase(Long jobId);
+    AutoexecJobPhaseVo getJobActivePhase(Long jobId);
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndGroupSortAndSort(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort, @Param("sort") int sort);
 

@@ -911,7 +911,7 @@
         order by `sort`, `name` asc
         limit 1
     </select>
-    <select id="getJobCurrentPhase" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+    <select id="getJobActivePhase" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT `name`
         FROM `autoexec_job_phase`
         WHERE job_id = #{value}
