@@ -1398,7 +1398,7 @@
         <where>
             <foreach collection="sqlFileDetailVoList" item="vo" separator="or" open="(" close=")">
                 ( asd.resource_id = #{vo.resourceId}
-                AND asd.job_phase_name = #{vo.phaseName}
+                AND asd.job_phase_name = #{phaseName}
                 AND asd.sql_file = #{vo.sqlFile})
             </foreach>
             AND asd.is_delete = 0
