@@ -319,6 +319,7 @@
                ajp.`uk`             as uk,
                ajg.id               as groupId,
                ajg.sort             as groupSort,
+               ajg.config,
                ajg.policy           as groupPolicy
         FROM `autoexec_job_phase` ajp
                  left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
@@ -911,7 +912,7 @@
         order by `sort`, `name` asc
         limit 1
     </select>
-    <select id="getJobCurrentPhase" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+    <select id="getJobActivePhase" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT `name`
         FROM `autoexec_job_phase`
         WHERE job_id = #{value}
@@ -1042,6 +1043,7 @@
                `name`,
                `exec_mode` as execMode,
                `sort`,
+               `group_id`  as groupId,
                `status`
         FROM `autoexec_job_phase`
         WHERE id = #{value}
@@ -1449,7 +1451,7 @@
     </select>
     <select id="searchJobPhaseNodeByDistinctResourceIdCount" resultType="java.lang.Integer">
         SELECT
-        count(distinct ajpn.`resource_id`)
+        count( DISTINCT IFNULL(ajpn.`resource_id`,-1))
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
@@ -1480,6 +1482,11 @@
         </where>
         ORDER BY ajpn.`host`,ajpn.`port`
         limit #{startNum}, #{pageSize}
+    </select>
+    <select id="getJobGroupById" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
+        select id, policy, job_id, sort, lncd, config as configStr
+        from autoexec_job_group
+        where id = #{value}
     </select>
 
     <sql id="searchJobPhaseSql">
