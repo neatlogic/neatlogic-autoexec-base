@@ -209,9 +209,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecSqlDetailVo> searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
-    AutoexecSqlDetailVo getSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
-
-    List<Long> getSqlDetailByJobIdAndLcd(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
+    List<Long> getSqlDetailByJobIdAndPhaseNameAndLcd(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
@@ -284,7 +282,7 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo);
 
-    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("lcd") Date lcd);
+    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
     void deleteJobParamContentByHash(String paramHash);
 
