@@ -1400,9 +1400,9 @@
         <where>
             <foreach collection="sqlFileDetailVoList" item="vo" separator="or" open="(" close=")">
                 ( asd.resource_id = #{vo.resourceId}
-                AND asd.job_phase_name = #{phaseName}
                 AND asd.sql_file = #{vo.sqlFile})
             </foreach>
+            AND asd.job_phase_name = #{phaseName}
             AND asd.is_delete = 0
         </where>
     </select>
@@ -1413,7 +1413,6 @@
         FROM autoexec_sql_detail asd
         JOIN autoexec_job_phase ajp ON ajp.job_id = asd.job_id AND asd.job_phase_name = ajp.name
         JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id = ajpn.resource_id
-        LEFT JOIN ${schemaName}.resource_ipobject ri ON ri.id = asd.resource_id
         <include refid="searchJobPhaseSql"></include>
     </select>
 
@@ -1428,13 +1427,12 @@
         r.`port` AS runnerPort,
         ajpn.`host`,
         ajpn.`port`,
-        ri.`name` AS nodeName,
+        asd.`node_name` AS nodeName,
         ajpn.id AS nodeId
         FROM autoexec_sql_detail asd
         JOIN autoexec_job_phase ajp ON ajp.job_id = asd.job_id AND asd.job_phase_name = ajp.name
         JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id = ajpn.resource_id
         JOIN runner r ON r.id = asd.runner_id
-        LEFT JOIN ${schemaName}.resource_ipobject ri ON ri.id = asd.resource_id
         <include refid="searchJobPhaseSql"></include>
         ORDER BY asd.`start_time` DESC
         <if test="needPage">
@@ -1498,7 +1496,7 @@
                 </foreach>
             </if>
             <if test="keyword != null and keyword != ''">
-                and (ri.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
+                and (ajpn.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
             </if>
             <if test="isDelete != null">
                 and asd.`is_delete` = #{isDelete}
@@ -1684,6 +1682,7 @@
         insert into `autoexec_sql_detail`(`id`,
         `job_id`,
         `resource_id`,
+        `node_name`,
         `runner_id`,
         `job_phase_name`,
         `sql_file`,
@@ -1702,8 +1701,9 @@
         `is_delete`)
         values (#{id},
         #{jobId},
-        #{runnerId},
         #{resourceId},
+        #{nodeName},
+        #{runnerId},
         #{phaseName},
         #{sqlFile},
         #{status},
@@ -1722,13 +1722,14 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_sql_detail`(`id`, `job_id`, `resource_id`,`runner_id`,`job_phase_name`, `sql_file`, `status`, `md5`,`lcd`,
+        insert into `autoexec_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`runner_id`,`job_phase_name`, `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
         <foreach collection="sqlList" item="vo" separator=",">
             (#{vo.id},
             #{vo.jobId},
             #{vo.resourceId},
+            #{vo.nodeName},
             #{vo.runnerId},
             #{phaseName},
             #{vo.sqlFile},
