@@ -13,6 +13,7 @@ public enum JobAction {
     GOON("goon","继续"),
     RESET_REFIRE("refireResetAll","重置并重新执行"),
     REFIRE_NODE("refireNode","重新执行节点"),
+    REFIRE_PHASE("refirePhase","重新执行节点"),
     REFIRE("refireAll","重新执行"),
     GET_NODE_SQL_LIST("getNodeSqlList","获取节点sql列表"),
     GET_NODE_SQL_CONTENT("getNodeSqlContent","获取节点sql内容"),

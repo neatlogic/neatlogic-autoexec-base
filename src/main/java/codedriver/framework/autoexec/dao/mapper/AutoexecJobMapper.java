@@ -52,6 +52,8 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobIdListByStatusAndTriggerType(@Param("status") String status, @Param("triggerType") String triggerType);
 
+    AutoexecJobGroupVo getJobGroupById(Long groupId);
+
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
