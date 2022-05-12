@@ -36,11 +36,11 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String host;
     @EntityField(name = "端口", type = ApiParamType.INTEGER)
     private Integer port;
-    @EntityField(name = "runnerId", type = ApiParamType.LONG)
+    @EntityField(name = "runner id", type = ApiParamType.LONG)
     private Long runnerId;
     @EntityField(name = "runner IP", type = ApiParamType.STRING)
     private String runnerHost;
-    @EntityField(name = "runner PORT", type = ApiParamType.INTEGER)
+    @EntityField(name = "runner 端口", type = ApiParamType.INTEGER)
     private Integer runnerPort;
     @EntityField(name = "状态", type = ApiParamType.STRING)
     private String status;
