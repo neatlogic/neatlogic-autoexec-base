@@ -1730,7 +1730,7 @@
             #{vo.jobId},
             #{vo.resourceId},
             #{vo.nodeName},
-            #{vo.runnerId},
+            #{runnerId},
             #{phaseName},
             #{vo.sqlFile},
             #{vo.status},

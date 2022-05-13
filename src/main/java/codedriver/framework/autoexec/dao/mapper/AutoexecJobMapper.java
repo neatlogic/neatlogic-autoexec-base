@@ -284,7 +284,7 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo);
 
-    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
+    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("runnerId") Long runnerId, @Param("lcd") Date lcd);
 
     void deleteJobParamContentByHash(String paramHash);
 
