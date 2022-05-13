@@ -1,11 +1,13 @@
 package codedriver.framework.autoexec.dto.profile;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.cmdb.dto.cientity.CiEntityVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.List;
 
@@ -44,9 +46,12 @@ public class AutoexecProfileVo extends BaseEditorVo {
     @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.INTEGER)
     private Integer autoexecOperationCount = 0;
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecProfileParamVo> paramList;
+    private List<AutoexecParamVo> paramList;
     @EntityField(name = "工具库工具id/脚本工具id列表", type = ApiParamType.JSONARRAY)
     private List<Long> operationIdList;
+
+    @JSONField(serialize = false)
+    private List<AutoexecProfileParamVo> profileParamVoList;
 
     public Long getId() {
         if (id == null) {
@@ -167,7 +172,7 @@ public class AutoexecProfileVo extends BaseEditorVo {
         this.autoexecOperationVoList = autoexecOperationVoList;
     }
 
-    public List<AutoexecProfileParamVo> getParamList() {
+    public List<AutoexecParamVo> getParamList() {
 //        if (CollectionUtils.isEmpty(paramList) && MapUtils.isNotEmpty(getConfig())) {
 //            JSONArray params = getConfig().getJSONArray("paramList");
 //            if (CollectionUtils.isNotEmpty(params)) {
@@ -177,7 +182,7 @@ public class AutoexecProfileVo extends BaseEditorVo {
         return paramList;
     }
 
-    public void setParamList(List<AutoexecProfileParamVo> paramList) {
+    public void setParamList(List<AutoexecParamVo> paramList) {
         this.paramList = paramList;
     }
 
@@ -195,5 +200,13 @@ public class AutoexecProfileVo extends BaseEditorVo {
 
     public void setOperationIdList(List<Long> operationIdList) {
         this.operationIdList = operationIdList;
+    }
+
+    public List<AutoexecProfileParamVo> getProfileParamVoList() {
+        return profileParamVoList;
+    }
+
+    public void setProfileParamVoList(List<AutoexecProfileParamVo> profileParamVoList) {
+        this.profileParamVoList = profileParamVoList;
     }
 }
