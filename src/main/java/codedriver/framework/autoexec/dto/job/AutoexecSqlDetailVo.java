@@ -1,12 +1,16 @@
 package codedriver.framework.autoexec.dto.job;
 
+import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import codedriver.framework.util.TimeUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author longrf
@@ -24,14 +28,26 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String nodeName;
     @EntityField(name = "资源id", type = ApiParamType.LONG)
     private Long resourceId;
+    @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
+    private String phaseName;
     @EntityField(name = "sql文件名", type = ApiParamType.STRING)
     private String sqlFile;
     @EntityField(name = "ip", type = ApiParamType.STRING)
     private String host;
     @EntityField(name = "端口", type = ApiParamType.INTEGER)
     private Integer port;
+    @EntityField(name = "runner id", type = ApiParamType.LONG)
+    private Long runnerId;
+    @EntityField(name = "runner IP", type = ApiParamType.STRING)
+    private String runnerHost;
+    @EntityField(name = "runner 端口", type = ApiParamType.INTEGER)
+    private Integer runnerPort;
     @EntityField(name = "状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "状态Vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobStatusVo statusVo;
+    @EntityField(name = "完成率", type = ApiParamType.INTEGER)
+    private Integer completionRate = 0;
     @EntityField(name = "md5", type = ApiParamType.STRING)
     private String md5;
     @EntityField(name = "作业id", type = ApiParamType.LONG)
@@ -42,11 +58,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private Date startTime;
     @EntityField(name = "结束时间", type = ApiParamType.LONG)
     private Date endTime;
+    @EntityField(name = "耗时", type = ApiParamType.STRING)
+    private String costTime;
 
     public AutoexecSqlDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
         this.nodeId = (paramObj.getLong("nodeId"));
         this.resourceId = (paramObj.getLong("resourceId"));
+        this.phaseName = (paramObj.getString("phaseName"));
         this.status = (paramObj.getString("status"));
         this.sqlFile = (paramObj.getString("sqlFile"));
         this.md5 = (paramObj.getString("md5"));
@@ -84,6 +103,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.resourceId = resourceId;
     }
 
+    public String getPhaseName() {
+        return phaseName;
+    }
+
+    public void setPhaseName(String phaseName) {
+        this.phaseName = phaseName;
+    }
+
     public String getNodeName() {
         return nodeName;
     }
@@ -116,12 +143,54 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.port = port;
     }
 
+    public Long getRunnerId() {
+        return runnerId;
+    }
+
+    public void setRunnerId(Long runnerId) {
+        this.runnerId = runnerId;
+    }
+
+    public String getRunnerHost() {
+        return runnerHost;
+    }
+
+    public void setRunnerHost(String runnerHost) {
+        this.runnerHost = runnerHost;
+    }
+
+    public Integer getRunnerPort() {
+        return runnerPort;
+    }
+
+    public void setRunnerPort(Integer runnerPort) {
+        this.runnerPort = runnerPort;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public AutoexecJobStatusVo getStatusVo() {
+        if (statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
+        }
+        return statusVo;
+    }
+
+    public Integer getCompletionRate() {
+        if (StringUtils.isNotBlank(status) && Objects.equals(JobNodeStatus.SUCCEED.getValue(), status)) {
+            return 100;
+        }
+        return completionRate;
+    }
+
+    public void setCompletionRate(Integer completionRate) {
+        this.completionRate = completionRate;
     }
 
     public String getMd5() {
@@ -162,5 +231,16 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getCostTime() {
+        if (startTime != null) {
+            if (endTime != null) {
+                return TimeUtil.millisecondsTransferMaxTimeUnit(endTime.getTime() - startTime.getTime());
+            } else {
+                return TimeUtil.millisecondsTransferMaxTimeUnit(new Date().getTime() - startTime.getTime());
+            }
+        }
+        return costTime;
     }
 }
