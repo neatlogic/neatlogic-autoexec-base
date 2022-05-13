@@ -52,6 +52,8 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobIdListByStatusAndTriggerType(@Param("status") String status, @Param("triggerType") String triggerType);
 
+    AutoexecJobGroupVo getJobGroupById(Long groupId);
+
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
@@ -83,7 +85,7 @@ public interface AutoexecJobMapper {
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseStatus(@Param("jobId") Long id, @Param("status") String status);
 
-    AutoexecJobPhaseVo getJobCurrentPhase(Long jobId);
+    AutoexecJobPhaseVo getJobActivePhase(Long jobId);
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndGroupSortAndSort(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort, @Param("sort") int sort);
 
@@ -205,13 +207,11 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndNodeFromJob(Long jobId);
 
-    List<AutoexecSqlDetailVo> getJobSqlDetailList(@Param("sqlFileDetailVoList") List<AutoexecSqlDetailVo> sqlFileDetailVoList);
+    List<AutoexecSqlDetailVo> getJobSqlDetailList(@Param("sqlFileDetailVoList") List<AutoexecSqlDetailVo> sqlFileDetailVoList, @Param("phaseName") String phaseName);
 
     List<AutoexecSqlDetailVo> searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
-    AutoexecSqlDetailVo getSqlDetailByJobIdAndNodeIdAndSqlFile(@Param("jobId") Long jobId, @Param("nodeId") Long nodeId, @Param("sqlFile") String sqlFile);
-
-    List<Long> getSqlDetailByJobIdAndLcd(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
+    List<Long> getSqlDetailByJobIdAndPhaseNameAndLcd(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
@@ -284,7 +284,7 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo);
 
-    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("lcd") Date lcd);
+    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("runnerId") Long runnerId, @Param("lcd") Date lcd);
 
     void deleteJobParamContentByHash(String paramHash);
 

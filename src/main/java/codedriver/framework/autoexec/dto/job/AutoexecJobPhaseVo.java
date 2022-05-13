@@ -15,6 +15,7 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -65,9 +66,14 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private AutoexecJobGroupVo jobGroupVo;
     @EntityField(name = "执行策略", type = ApiParamType.STRING)
     private String executePolicy;
+    @EntityField(name = "是否当前步骤", type = ApiParamType.INTEGER)
+    private Integer isActive;
 
+    @JSONField(serialize = false)
     private String uuid;
+    @JSONField(serialize = false)
     private Long combopId;
+    @JSONField(serialize = false)
     private Integer count;
 
     public AutoexecJobPhaseVo() {
@@ -291,5 +297,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setExecutePolicy(String executePolicy) {
         this.executePolicy = executePolicy;
+    }
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
     }
 }
