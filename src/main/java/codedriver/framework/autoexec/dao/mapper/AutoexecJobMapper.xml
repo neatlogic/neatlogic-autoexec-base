@@ -86,7 +86,7 @@
             ac.name like concat('%', #{combopName}, '%')
         </if>
         <if test="keyword != null and keyword != ''">
-            and aj.name like concat('%', #{keyword}, '%')
+            and (aj.name like concat('%', #{keyword}, '%') OR aj.id like concat('%', #{keyword}, '%'))
         </if>
         <if test="operationId != null">
             and aj.operation_id = #{operationId}
