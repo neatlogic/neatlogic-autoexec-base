@@ -238,6 +238,9 @@
     <sql id="searchVersionForSelect">
         from `autoexec_script_version`
         where `script_id` = #{scriptId}
+        <if test="keyword != null and keyword != ''">
+            and `title` LIKE CONCAT('%', #{keyword}, '%')
+        </if>
         <if test="status != null and status != ''">
             and `status` = #{status}
         </if>
