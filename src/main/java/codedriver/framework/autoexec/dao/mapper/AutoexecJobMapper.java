@@ -11,6 +11,7 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.dto.runner.RunnerVo;
+import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -280,7 +281,7 @@ public interface AutoexecJobMapper {
 
     void resetJobSqlStatusByJobIdAndPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
 
-    void resetJobSqlStatusByJobIdAndPhaseNameAndSqlFileList(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("sqlFileList") List<String> sqlFileList);
+    void resetJobSqlStatusBySqlIdList(@Param("idList") JSONArray idList);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
