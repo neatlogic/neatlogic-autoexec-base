@@ -280,6 +280,8 @@ public interface AutoexecJobMapper {
 
     void resetJobSqlStatusByJobIdAndPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
 
+    void resetJobSqlStatusByJobIdAndPhaseNameAndSqlFileList(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("sqlFileList") List<String> sqlFileList);
+
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
