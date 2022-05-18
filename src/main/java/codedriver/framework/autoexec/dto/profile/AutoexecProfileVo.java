@@ -7,7 +7,6 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
-import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.List;
 
@@ -49,8 +48,7 @@ public class AutoexecProfileVo extends BaseEditorVo {
     private List<AutoexecParamVo> paramList;
     @EntityField(name = "工具库工具id/脚本工具id列表", type = ApiParamType.JSONARRAY)
     private List<Long> operationIdList;
-
-    @JSONField(serialize = false)
+    @EntityField(name = "profile参数列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecProfileParamVo> profileParamVoList;
 
     public Long getId() {

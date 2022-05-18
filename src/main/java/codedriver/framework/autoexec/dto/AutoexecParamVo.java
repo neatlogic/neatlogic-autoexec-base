@@ -40,6 +40,11 @@ public class AutoexecParamVo implements Serializable {
     @EntityField(name = "正则校验", type = ApiParamType.STRING)
     private String validate;
 
+    @EntityField(name = "key来源的工具id", type = ApiParamType.LONG)
+    private Long operationId;
+    @EntityField(name = "key来源的工具类型", type = ApiParamType.STRING)
+    private String operationType;
+
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
 
@@ -226,5 +231,21 @@ public class AutoexecParamVo implements Serializable {
 
     public void setValidate(String validate) {
         this.validate = validate;
+    }
+
+    public Long getOperationId() {
+        return operationId;
+    }
+
+    public void setOperationId(Long operationId) {
+        this.operationId = operationId;
+    }
+
+    public String getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
     }
 }

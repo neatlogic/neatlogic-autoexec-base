@@ -8,16 +8,16 @@ import codedriver.framework.util.SnowflakeUtil;
  * @author longrf
  * @date 2022/5/13 11:44 上午
  */
-public class AutoexecProfileParamValueInvokeVo {
+public class AutoexecProfileParamValueVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "值引用id", type = ApiParamType.LONG)
-    private Long valueInvokeId;
+    @EntityField(name = "引用id", type = ApiParamType.LONG)
+    private Long invokeId;
     @EntityField(name = "profile参数id", type = ApiParamType.LONG)
     private Long profileParamId;
-    @EntityField(name = "值引用类型", type = ApiParamType.STRING)
-    private String valueInvokeType;
+    @EntityField(name = "引用值", type = ApiParamType.NOAUTH)
+    private Object invokeValue;
 
     public Long getId() {
         if (id == null) {
@@ -30,12 +30,12 @@ public class AutoexecProfileParamValueInvokeVo {
         this.id = id;
     }
 
-    public Long getValueInvokeId() {
-        return valueInvokeId;
+    public Long getInvokeId() {
+        return invokeId;
     }
 
-    public void setValueInvokeId(Long valueInvokeId) {
-        this.valueInvokeId = valueInvokeId;
+    public void setInvokeId(Long invokeId) {
+        this.invokeId = invokeId;
     }
 
     public Long getProfileParamId() {
@@ -46,11 +46,11 @@ public class AutoexecProfileParamValueInvokeVo {
         this.profileParamId = profileParamId;
     }
 
-    public String getValueInvokeType() {
-        return valueInvokeType;
+    public Object getInvokeValue() {
+        return invokeValue;
     }
 
-    public void setValueInvokeType(String valueInvokeType) {
-        this.valueInvokeType = valueInvokeType;
+    public void setInvokeValue(String invokeValue) {
+        this.invokeValue = invokeValue;
     }
 }

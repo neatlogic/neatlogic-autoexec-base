@@ -17,12 +17,11 @@ public class AutoexecProfileParamVo extends AutoexecParamVo {
     private Long id;
     @EntityField(name = "profile id", type = ApiParamType.LONG)
     private Long profileId;
-    @EntityField(name = "来源id", type = ApiParamType.LONG)
-    private Long operationId;
-    @EntityField(name = "来源类型", type = ApiParamType.STRING)
-    private String operationType;
     @EntityField(name = "值引用参数列表", type = ApiParamType.JSONARRAY)
-    private List<AutoexecProfileParamValueInvokeVo> valueInvokeVoList;
+    private List<AutoexecProfileParamValueVo> valueInvokeVoList;
+
+    public AutoexecProfileParamVo() {
+    }
 
     public AutoexecProfileParamVo(AutoexecParamVo operationParamVo) {
         super.setKey(operationParamVo.getKey());
@@ -62,28 +61,11 @@ public class AutoexecProfileParamVo extends AutoexecParamVo {
         this.profileId = profileId;
     }
 
-    public Long getOperationId() {
-        return operationId;
-    }
-
-    public void setOperationId(Long operationId) {
-        this.operationId = operationId;
-    }
-
-    public String getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(String operationType) {
-        this.operationType = operationType;
-    }
-
-    public List<AutoexecProfileParamValueInvokeVo> getValueInvokeVoList() {
+    public List<AutoexecProfileParamValueVo> getValueInvokeVoList() {
         return valueInvokeVoList;
     }
 
-    public void setValueInvokeVoList(List<AutoexecProfileParamValueInvokeVo> valueInvokeVoList) {
+    public void setValueInvokeVoList(List<AutoexecProfileParamValueVo> valueInvokeVoList) {
         this.valueInvokeVoList = valueInvokeVoList;
     }
-
 }
