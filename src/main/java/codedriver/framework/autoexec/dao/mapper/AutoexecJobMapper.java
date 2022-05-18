@@ -278,6 +278,8 @@ public interface AutoexecJobMapper {
 
     int updateSqlDetailIsDeleteAndStatusAndMd5AndLcd(AutoexecSqlDetailVo paramSqlVo);
 
+    void resetJobSqlStatusByJobIdAndPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
+
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);

@@ -1432,7 +1432,7 @@
         FROM autoexec_sql_detail asd
         JOIN autoexec_job_phase ajp ON ajp.job_id = asd.job_id AND asd.job_phase_name = ajp.name
         JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id = ajpn.resource_id
-        JOIN runner r ON r.id = asd.runner_id
+        LEFT JOIN runner r ON r.id = asd.runner_id
         <include refid="searchJobPhaseSql"></include>
         ORDER BY asd.`start_time` DESC
         <if test="needPage">
@@ -2008,6 +2008,18 @@
         update `autoexec_job_group`
         set `lncd` = #{lcd}
         where id = #{jobGroupId}
+    </update>
+
+    <update id="resetJobSqlStatusByJobIdAndPhaseNameList">
+        UPDATE autoexec_sql_detail
+        SET `status` = "pending",
+        `start_time` = null,
+        `end_time` = null
+        WHERE job_id = #{jobId}
+        AND job_phase_name IN
+        <foreach collection="jobPhaseNameList" item="name" separator="," open="(" close=")">
+            #{name}
+        </foreach>
     </update>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
