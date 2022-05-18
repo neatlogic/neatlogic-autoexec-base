@@ -17,8 +17,6 @@ import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.exception.*;
-import codedriver.framework.autoexec.job.group.policy.core.AutoexecJobGroupPolicyHandlerFactory;
-import codedriver.framework.autoexec.job.group.policy.core.IAutoexecJobGroupPolicyHandler;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.exception.type.ParamIrregularException;
@@ -191,22 +189,6 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     }
 
     /**
-     * 第一次执行作业阶段
-     *
-     * @param jobVo 作业
-     */
-    @Deprecated
-    protected void firstExecute(AutoexecJobVo jobVo) {
-        jobVo.setStatus(JobStatus.RUNNING.getValue());
-        autoexecJobMapper.updateJobStatus(jobVo);
-        IAutoexecJobGroupPolicyHandler groupPolicyHandler = AutoexecJobGroupPolicyHandlerFactory.getGroupPolicy(jobVo.getExecuteJobGroupVo().getPolicy());
-        groupPolicyHandler.getExecutePhaseList(jobVo);
-        groupPolicyHandler.updateExecutePhaseListStatus(jobVo);
-        List<RunnerMapVo> runnerVos = groupPolicyHandler.getExecuteRunnerList(jobVo);
-        execute(jobVo, runnerVos);
-    }
-
-    /**
      * 执行组
      *
      * @param jobVo 作业
@@ -235,6 +217,11 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     private void execute(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
         if (CollectionUtils.isEmpty(runnerVos)) {
             throw new AutoexecJobRunnerNotMatchException();
+        }
+        //如果作业第一次或重跑，更新作业状态为running 和 作业开始时间
+        if(Objects.equals(jobVo.getIsFirstFire() ,1)){
+            jobVo.setStatus(JobStatus.RUNNING.getValue());
+            autoexecJobMapper.updateJobStatus(jobVo);
         }
         JSONObject paramJson = new JSONObject();
         paramJson.put("jobId", jobVo.getId());

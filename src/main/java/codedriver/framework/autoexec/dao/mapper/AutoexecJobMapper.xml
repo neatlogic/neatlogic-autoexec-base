@@ -1763,7 +1763,7 @@
     <update id="updateJobStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         UPDATE `autoexec_job`
         SET `status` = #{status}
-        <if test="status == 'running' and action == 'fire'">
+        <if test="status == 'running' and isFirstFire == 1">
             ,`start_time` = NOW(3)
             ,`end_time` = NULL
         </if>
