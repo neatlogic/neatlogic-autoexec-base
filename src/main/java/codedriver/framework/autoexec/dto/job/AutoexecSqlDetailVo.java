@@ -65,6 +65,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.jobId = (paramObj.getLong("jobId"));
         this.nodeId = (paramObj.getLong("nodeId"));
         this.resourceId = (paramObj.getLong("resourceId"));
+        this.nodeName = (paramObj.getString("nodeName"));
         this.phaseName = (paramObj.getString("phaseName"));
         this.status = (paramObj.getString("status"));
         this.sqlFile = (paramObj.getString("sqlFile"));
