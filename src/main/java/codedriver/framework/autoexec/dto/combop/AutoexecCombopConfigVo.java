@@ -26,6 +26,7 @@ public class AutoexecCombopConfigVo implements Serializable {
     @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
+    @EntityField(name = "场景列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopScenarioVo> scenarioList;
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {

@@ -13,6 +13,6 @@ import java.util.List;
 public class AutoexecCombopScenarioVo {
     @EntityField(name = "场景id", type = ApiParamType.LONG)
     private Long ScenarioId;
-    @EntityField(name = "阶段id", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "阶段id列表", type = ApiParamType.JSONARRAY)
     private List<Long> combopPhaseIdList;
 }
