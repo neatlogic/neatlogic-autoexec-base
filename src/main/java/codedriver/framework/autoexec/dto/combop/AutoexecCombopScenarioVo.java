@@ -12,16 +12,26 @@ import java.util.List;
 
 public class AutoexecCombopScenarioVo {
     @EntityField(name = "场景id", type = ApiParamType.LONG)
-    private Long ScenarioId;
+    private Long scenarioId;
+    @EntityField(name = "场景名", type = ApiParamType.STRING)
+    private String scenarioName;
     @EntityField(name = "阶段名列表", type = ApiParamType.JSONARRAY)
     private List<String> combopPhaseNameList;
 
     public Long getScenarioId() {
-        return ScenarioId;
+        return scenarioId;
     }
 
     public void setScenarioId(Long scenarioId) {
-        ScenarioId = scenarioId;
+        scenarioId = scenarioId;
+    }
+
+    public String getScenarioName() {
+        return scenarioName;
+    }
+
+    public void setScenarioName(String scenarioName) {
+        this.scenarioName = scenarioName;
     }
 
     public List<String> getCombopPhaseNameList() {
