@@ -9,13 +9,15 @@ import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.auth.core.AuthActionChecker;
 import codedriver.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
-import codedriver.framework.autoexec.constvalue.ExecMode;
-import codedriver.framework.autoexec.constvalue.JobAction;
-import codedriver.framework.autoexec.constvalue.JobSource;
-import codedriver.framework.autoexec.constvalue.JobStatus;
+import codedriver.framework.autoexec.constvalue.*;
 import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
+import codedriver.framework.autoexec.dao.mapper.AutoexecScriptMapper;
+import codedriver.framework.autoexec.dao.mapper.AutoexecToolMapper;
+import codedriver.framework.autoexec.dto.AutoexecOperationVo;
+import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.job.*;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.autoexec.exception.*;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
@@ -56,6 +58,20 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     @Autowired
     private void setAutoexecCombopMapper(AutoexecCombopMapper _autoexecCombopMapper) {
         autoexecCombopMapper = _autoexecCombopMapper;
+    }
+
+    protected static AutoexecScriptMapper autoexecScriptMapper;
+
+    @Autowired
+    private void setAutoexecScriptMapper(AutoexecScriptMapper _autoexecScriptMapper) {
+        autoexecScriptMapper = _autoexecScriptMapper;
+    }
+
+    protected static AutoexecToolMapper autoexecToolMapper;
+
+    @Autowired
+    private void setAutoexecToolMapper(AutoexecToolMapper _autoexecToolMapper) {
+        autoexecToolMapper = _autoexecToolMapper;
     }
 
     /**
@@ -100,7 +116,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         return true;
     }
 
-    protected void currentPhaseIdValid(AutoexecJobVo jobVo){
+    protected void currentPhaseIdValid(AutoexecJobVo jobVo) {
         if (jobVo.getCurrentPhaseId() != null) {
             //如果存在phaseId 则校验phase是否存在
             AutoexecJobPhaseVo phaseVo = autoexecJobMapper.getJobPhaseByPhaseId(jobVo.getCurrentPhaseId());
@@ -112,7 +128,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
     }
 
-    protected void currentResourceIdValid(AutoexecJobVo jobVo){
+    protected void currentResourceIdValid(AutoexecJobVo jobVo) {
         //如果nodeVo为null，说明phase是local模式,没有resourceId,phase只有唯一node
         if (jobVo.getCurrentNodeResourceId() != null || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
             AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
@@ -126,7 +142,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         }
     }
 
-    protected void currentResourceIdListValid(AutoexecJobVo jobVo){
+    protected void currentResourceIdListValid(AutoexecJobVo jobVo) {
         JSONObject jsonObj = jobVo.getActionParam();
         if (CollectionUtils.isEmpty(jsonObj.getJSONArray("resourceIdList"))) {
             throw new ParamIrregularException("resourceIdList");
@@ -219,7 +235,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             throw new AutoexecJobRunnerNotMatchException();
         }
         //如果作业第一次或重跑，更新作业状态为running 和 作业开始时间
-        if(Objects.equals(jobVo.getIsFirstFire() ,1)){
+        if (Objects.equals(jobVo.getIsFirstFire(), 1)) {
             jobVo.setStatus(JobStatus.RUNNING.getValue());
             autoexecJobMapper.updateJobStatus(jobVo);
         }
@@ -301,8 +317,32 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         JSONObject statusJson = JSONObject.parseObject(requestRunner(url, paramJson));
         AutoexecJobPhaseNodeVo nodeVo = new AutoexecJobPhaseNodeVo(statusJson);
         List<AutoexecJobPhaseOperationVo> operationVoList = autoexecJobMapper.getJobPhaseOperationByJobIdAndPhaseId(paramJson.getLong("jobId"), paramJson.getLong("phaseId"));
+        //补充工具description
+        List<Long> scriptVersionIdList = operationVoList.stream().filter(o -> Objects.equals(o.getType(), CombopOperationType.SCRIPT.getValue())).map(AutoexecJobPhaseOperationVo::getVersionId).collect(Collectors.toList());
+        List<String> toolNameList = operationVoList.stream().filter(o -> Objects.equals(o.getType(), CombopOperationType.TOOL.getValue())).map(AutoexecJobPhaseOperationVo::getName).collect(Collectors.toList());
+        Map<Long, String> scriptDescriptionMap = new HashMap<>();
+        Map<String, String> ToolDescriptionMap = new HashMap<>();
+        if (CollectionUtils.isNotEmpty(scriptVersionIdList)) {
+            List<AutoexecScriptVo> scriptVos = autoexecScriptMapper.getScriptByVersionIdList(scriptVersionIdList);
+            if (CollectionUtils.isNotEmpty(scriptVos)) {
+                scriptDescriptionMap = scriptVos.stream().collect(Collectors.toMap(AutoexecScriptVo::getVersionId, AutoexecOperationVo::getDescription));
+            }
+        }
+        if (CollectionUtils.isNotEmpty(toolNameList)) {
+            List<AutoexecToolVo> toolVos = autoexecToolMapper.getToolByNameList(toolNameList);
+            if (CollectionUtils.isNotEmpty(toolVos)) {
+                ToolDescriptionMap = toolVos.stream().collect(Collectors.toMap(AutoexecToolVo::getName, o -> o.getDescription() == null ? StringUtils.EMPTY : o.getDescription()));
+            }
+        }
+
         for (AutoexecJobPhaseOperationVo operationVo : operationVoList) {
-            statusList.add(new AutoexecJobPhaseNodeOperationStatusVo(operationVo, statusJson));
+            String description = StringUtils.EMPTY;
+            if (Objects.equals(operationVo.getType(), CombopOperationType.SCRIPT.getValue())) {
+                description = scriptDescriptionMap.get(operationVo.getVersionId());
+            } else if (Objects.equals(operationVo.getType(), CombopOperationType.TOOL.getValue())) {
+                description = ToolDescriptionMap.get(operationVo.getName());
+            }
+            statusList.add(new AutoexecJobPhaseNodeOperationStatusVo(operationVo, statusJson, description));
         }
         nodeVo.setOperationStatusVoList(statusList.stream().sorted(Comparator.comparing(AutoexecJobPhaseNodeOperationStatusVo::getSort)).collect(Collectors.toList()));
         return nodeVo;

@@ -44,7 +44,8 @@
         WHERE a.`name` = #{value}
     </select>
 
-    <select id="getAutoexecScriptByIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+    <select id="getAutoexecScriptByIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select
         `id`,
         `name`,
@@ -63,33 +64,41 @@
         </foreach>
     </select>
 
-    <select id="getScriptLockById" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
-        select
-            `id`,
-            `name`,
-            `exec_mode` as execMode,
-            `type_id` as typeId,
-            `risk_id` as riskId,
-            `fcu`,
-            `fcd`
+    <select id="getScriptLockById" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+        select `id`,
+               `name`,
+               `exec_mode` as execMode,
+               `type_id`   as typeId,
+               `risk_id`   as riskId,
+               `fcu`,
+               `fcd`
         from `autoexec_script` a
         where `id` = #{value}
-            for update
+            for
+        update
     </select>
 
     <select id="checkScriptIsExistsById" parameterType="java.lang.Long" resultType="int">
         select count(1)
-        from `autoexec_script` where `id` = #{value}
+        from `autoexec_script`
+        where `id` = #{value}
     </select>
 
     <select id="checkScriptNameIsExists" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo"
             resultType="int">
-        select count(1) from `autoexec_script` where `name` = #{name} and `id` != #{id}
+        select count(1)
+        from `autoexec_script`
+        where `name` = #{name}
+          and `id` != #{id}
     </select>
 
     <select id="checkScriptUkIsExists" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo"
             resultType="int">
-        select count(1) from `autoexec_script` where `uk` = #{uk} and `id` != #{id}
+        select count(1)
+        from `autoexec_script`
+        where `uk` = #{uk}
+          and `id` != #{id}
     </select>
 
     <select id="checkScriptIdListExists" parameterType="java.util.List" resultType="java.lang.Long">
@@ -107,25 +116,26 @@
         where `hash` = #{value}
     </select>
 
-    <select id="getVersionByVersionId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        select
-        `id`,
-        `script_id` as scriptId,
-        `title`,
-        `version`,
-        `encoding`,
-        `parser`,
-        `status`,
-        `reviewer`,
-        `is_active` as isActive,
-        `config`,
-        `lcu`,
-        `lcd`
+    <select id="getVersionByVersionId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select `id`,
+               `script_id` as scriptId,
+               `title`,
+               `version`,
+               `encoding`,
+               `parser`,
+               `status`,
+               `reviewer`,
+               `is_active` as isActive,
+               `config`,
+               `lcu`,
+               `lcd`
         from `autoexec_script_version`
         where `id` = #{value}
     </select>
 
-    <select id="getVersionByVersionIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+    <select id="getVersionByVersionIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select
         `id`,
         `script_id` as scriptId,
@@ -146,34 +156,33 @@
         </foreach>
     </select>
 
-    <select id="getVersionByVersionIdForUpdate" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        select
-        `id`,
-        `script_id` as scriptId,
-        `version`,
-        `encoding`,
-        `parser`,
-        `status`,
-        `reviewer`,
-        `is_active` as isActive,
-        `config`,
-        `lcu`,
-        `lcd`
+    <select id="getVersionByVersionIdForUpdate" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select `id`,
+               `script_id` as scriptId,
+               `version`,
+               `encoding`,
+               `parser`,
+               `status`,
+               `reviewer`,
+               `is_active` as isActive,
+               `config`,
+               `lcu`,
+               `lcd`
         from `autoexec_script_version`
         where `id` = #{value}
-        for update
+            for
+        update
     </select>
 
     <select id="getMaxVersionByScriptId" parameterType="java.lang.Long" resultType="int">
-        select
-        max(`version`)
+        select max(`version`)
         from `autoexec_script_version`
         where `script_id` = #{value}
     </select>
 
     <select id="getVersionCountByScriptId" parameterType="java.lang.Long" resultType="int">
-        select
-        count(1)
+        select count(1)
         from `autoexec_script_version`
         where `script_id` = #{value}
     </select>
@@ -190,7 +199,8 @@
         <result column="lcd" property="lcd"/>
     </resultMap>
 
-    <select id="getVersionList" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultMap="scriptVersionMap">
+    <select id="getVersionList" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo"
+            resultMap="scriptVersionMap">
         select
         `id`,
         `version`,
@@ -207,7 +217,9 @@
         </if>
     </select>
 
-    <select id="getVersionListByScriptId" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+    <select id="getVersionListByScriptId"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select
         `id`,
         `script_id` as scriptId,
@@ -226,10 +238,10 @@
         </if>
     </select>
 
-    <select id="getVersionNumberListByScriptId" parameterType="java.lang.Long" resultType="codedriver.framework.common.dto.ValueTextVo">
-        select
-        `id` as `value`,
-        CONCAT('版本',`version`) as `text`
+    <select id="getVersionNumberListByScriptId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.common.dto.ValueTextVo">
+        select `id`                    as `value`,
+               CONCAT('版本', `version`) as `text`
         from `autoexec_script_version`
         where `script_id` = #{value}
         order by version desc
@@ -252,13 +264,16 @@
         </if>
     </sql>
 
-    <select id="searchVersionCountForSelect" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultType="int">
+    <select id="searchVersionCountForSelect"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultType="int">
         select
         count(1)
         <include refid="searchVersionForSelect"/>
     </select>
 
-    <select id="searchVersionListForSelect" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultMap="scriptVersionMap">
+    <select id="searchVersionListForSelect"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo"
+            resultMap="scriptVersionMap">
         select
         `id`,
         `script_id` as scriptId,
@@ -275,53 +290,54 @@
         </if>
     </select>
 
-    <select id="getActiveVersionByScriptId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        select
-        `id`,
-        `script_id` as scriptId,
-        `version`,
-        `encoding`,
-        `parser`,
-        `status`,
-        `reviewer`,
-        `is_active` as isActive,
-        `lcd`,
-        `lcu`
+    <select id="getActiveVersionByScriptId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select `id`,
+               `script_id` as scriptId,
+               `version`,
+               `encoding`,
+               `parser`,
+               `status`,
+               `reviewer`,
+               `is_active` as isActive,
+               `lcd`,
+               `lcu`
         from `autoexec_script_version`
         where `script_id` = #{value}
-        and `is_active` = 1
+          and `is_active` = 1
     </select>
 
-    <select id="getActiveVersionLockByScriptId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        select
-        `id`,
-        `script_id` as scriptId,
-        `version`,
-        `encoding`,
-        `parser`,
-        `status`,
-        `reviewer`,
-        `is_active` as isActive,
-        `lcd`,
-        `lcu`
+    <select id="getActiveVersionLockByScriptId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select `id`,
+               `script_id` as scriptId,
+               `version`,
+               `encoding`,
+               `parser`,
+               `status`,
+               `reviewer`,
+               `is_active` as isActive,
+               `lcd`,
+               `lcu`
         from `autoexec_script_version`
         where `script_id` = #{value}
-        and `is_active` = 1
-        for update
+          and `is_active` = 1
+            for
+        update
     </select>
 
-    <select id="getLatestVersionByScriptId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        select
-        `id`,
-        `script_id` as scriptId,
-        `version`,
-        `encoding`,
-        `parser`,
-        `status`,
-        `reviewer`,
-        `is_active` as isActive,
-        `lcd`,
-        `lcu`
+    <select id="getLatestVersionByScriptId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select `id`,
+               `script_id` as scriptId,
+               `version`,
+               `encoding`,
+               `parser`,
+               `status`,
+               `reviewer`,
+               `is_active` as isActive,
+               `lcd`,
+               `lcu`
         from `autoexec_script_version`
         where `script_id` = #{value}
         order by `id` desc
@@ -342,12 +358,15 @@
         </choose>
     </sql>
 
-    <select id="searchHistoricalVersionCountByScriptIdAndStatus" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultType="int">
+    <select id="searchHistoricalVersionCountByScriptIdAndStatus"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultType="int">
         select count(1)
         <include refid="searchHistoricalVersion"/>
     </select>
 
-    <select id="searchHistoricalVersionListByScriptIdAndStatus" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo" resultMap="scriptVersionMap">
+    <select id="searchHistoricalVersionListByScriptIdAndStatus"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo"
+            resultMap="scriptVersionMap">
         select
         `id`,
         `script_id` as scriptId,
@@ -372,105 +391,107 @@
         </if>
     </select>
 
-    <select id="getRecentlyVersionByScriptIdAndStatus" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        select
-        `id`,
-        `script_id` as scriptId,
-        `title`,
-        `version`,
-        `encoding`,
-        `parser`,
-        `status`,
-        `reviewer`,
-        `is_active` as isActive,
-        `lcd`,
-        `lcu`
+    <select id="getRecentlyVersionByScriptIdAndStatus"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select `id`,
+               `script_id` as scriptId,
+               `title`,
+               `version`,
+               `encoding`,
+               `parser`,
+               `status`,
+               `reviewer`,
+               `is_active` as isActive,
+               `lcd`,
+               `lcu`
         from `autoexec_script_version`
-        where `script_id` = #{scriptId} and `status` = #{status}
+        where `script_id` = #{scriptId}
+          and `status` = #{status}
         order by `lcd` desc
         limit 1
     </select>
 
-    <select id="getParamListByVersionId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
-        select
-        `script_version_id` as scriptVersionId,
-        `key`,
-        `name`,
-        `default_value` as defaultValue,
-        `type`,
-        `mode`,
-        `is_required` as isRequired,
-        `description`,
-        `sort`,
-        `config`
+    <select id="getParamListByVersionId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
+        select `script_version_id` as scriptVersionId,
+               `key`,
+               `name`,
+               `default_value`     as defaultValue,
+               `type`,
+               `mode`,
+               `is_required`       as isRequired,
+               `description`,
+               `sort`,
+               `config`
         from `autoexec_script_version_param`
         where `script_version_id` = #{value}
         order by `sort`
     </select>
 
-    <select id="getAutoexecParamVoListByVersionId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.AutoexecParamVo">
-        select
-            `key`,
-            `name`,
-            `default_value` as defaultValue,
-            `type`,
-            `mode`,
-            `is_required` as isRequired,
-            `description`,
-            `sort`,
-            `config`
+    <select id="getAutoexecParamVoListByVersionId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.AutoexecParamVo">
+        select `key`,
+               `name`,
+               `default_value` as defaultValue,
+               `type`,
+               `mode`,
+               `is_required`   as isRequired,
+               `description`,
+               `sort`,
+               `config`
         from `autoexec_script_version_param`
         where `script_version_id` = #{value}
         order by `sort`
     </select>
 
-    <select id="getParamListByVersionIdAndMode" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
-        select
-        `script_version_id` as scriptVersionId,
-        `key`,
-        `name`,
-        `default_value` as defaultValue,
-        `type`,
-        `mode`,
-        `is_required` as isRequired,
-        `description`,
-        `sort`,
-        `config`
+    <select id="getParamListByVersionIdAndMode"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
+        select `script_version_id` as scriptVersionId,
+               `key`,
+               `name`,
+               `default_value`     as defaultValue,
+               `type`,
+               `mode`,
+               `is_required`       as isRequired,
+               `description`,
+               `sort`,
+               `config`
         from `autoexec_script_version_param`
-        where `script_version_id` = #{versionId} and `mode` = #{mode}
+        where `script_version_id` = #{versionId}
+          and `mode` = #{mode}
         order by `sort`
     </select>
 
-    <select id="getParamListByScriptId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
-        select
-        a.`script_version_id` as scriptVersionId,
-        a.`key`,
-        a.`name`,
-        a.`default_value` as defaultValue,
-        a.`type`,
-        a.`mode`,
-        a.`is_required` as isRequired,
-        a.`description`,
-        a.`sort`,
-        a.`config`
+    <select id="getParamListByScriptId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
+        select a.`script_version_id` as scriptVersionId,
+               a.`key`,
+               a.`name`,
+               a.`default_value`     as defaultValue,
+               a.`type`,
+               a.`mode`,
+               a.`is_required`       as isRequired,
+               a.`description`,
+               a.`sort`,
+               a.`config`
         from `autoexec_script_version_param` a
-        join `autoexec_script_version` b on a.`script_version_id` = b.`id`
+                 join `autoexec_script_version` b on a.`script_version_id` = b.`id`
         where b.`is_active` = 1
-        and b.`script_id` = #{value}
+          and b.`script_id` = #{value}
         order by a.`sort`
     </select>
 
-    <select id="getLineListByVersionId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo">
-        select
-        a.`id`,
-        a.`script_id` as scriptId,
-        a.`script_version_id` as scriptVersionId,
-        a.`content_hash` as contentHash,
-        a.`line_number` as lineNumber,
-        b.`content`
+    <select id="getLineListByVersionId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptLineVo">
+        select a.`id`,
+               a.`script_id`         as scriptId,
+               a.`script_version_id` as scriptVersionId,
+               a.`content_hash`      as contentHash,
+               a.`line_number`       as lineNumber,
+               b.`content`
         from `autoexec_script_line` a
-        left join `autoexec_script_line_content` b
-        on a.`content_hash` = b.`hash`
+                 left join `autoexec_script_line_content` b
+                           on a.`content_hash` = b.`hash`
         where a.`script_version_id` = #{value}
         order by a.`line_number`
     </select>
@@ -512,7 +533,8 @@
                 </foreach>
             </if>
             <if test="versionStatus != null and versionStatus != ''">
-                and exists (select 1 from `autoexec_script_version` b where b.`script_id` = a.`id` and b.`status` = #{versionStatus})
+                and exists (select 1 from `autoexec_script_version` b where b.`script_id` = a.`id` and b.`status` =
+                #{versionStatus})
             </if>
             <if test="defaultValue != null and defaultValue.size() > 0">
                 and a.`id` in
@@ -523,7 +545,8 @@
         </where>
     </sql>
 
-    <select id="searchScriptCount" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo" resultType="int">
+    <select id="searchScriptCount" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo"
+            resultType="int">
         select
         count(`id`)
         from `autoexec_script` a
@@ -536,6 +559,7 @@
         <result column="execMode" property="execMode"/>
         <result column="typeName" property="typeName"/>
         <result column="description" property="description"/>
+        <result column="versionId" property="versionId"/>
         <result column="submittedVersionId" property="submittedVersionId"/>
         <!--<result column="currentVersion" property="currentVersion"/>-->
         <!--<result column="versionCount" property="versionCount"/>-->
@@ -559,11 +583,11 @@
         (select `color` from `autoexec_risk` where a.`risk_id` = `id`) as riskColor,
         (select `id` from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'submitted')
         as submittedVersionId
---         (select `version` from `autoexec_script_version` where a.`id` = `script_id` and `is_active` = 1)
---         as currentVersion,
---         (select count(`id`) from `autoexec_script_version` where a.`id` = `script_id`) as versionCount,
---         (select count(`id`) from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'passed')
---         as passedVersionCount
+        -- (select `version` from `autoexec_script_version` where a.`id` = `script_id` and `is_active` = 1)
+        -- as currentVersion,
+        -- (select count(`id`) from `autoexec_script_version` where a.`id` = `script_id`) as versionCount,
+        -- (select count(`id`) from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'passed')
+        -- as passedVersionCount
         from `autoexec_script` a
         <include refid="searchScriptCondition"/>
         order by `id` desc
@@ -643,28 +667,30 @@
         group by a.`id`
     </sql>
 
-    <select id="searchScriptAndToolCount" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo" resultType="int">
+    <select id="searchScriptAndToolCount" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo"
+            resultType="int">
         select
         count(1)
         from
         (
-          <if test="(type == null or type == '') or (type != null and type != '' and type == 'tool')">
-              select
-              `id`
-              <include refid="searchToolAndScriptConditionForTool"/>
-          </if>
-          <if test="type == null or type == ''">
-              union
-          </if>
-          <if test="(type == null or type == '') or (type != null and type != '' and type == 'script')">
-              select
-              a.`id`
-              <include refid="searchToolAndScriptConditionForScript"/>
-          </if>
+        <if test="(type == null or type == '') or (type != null and type != '' and type == 'tool')">
+            select
+            `id`
+            <include refid="searchToolAndScriptConditionForTool"/>
+        </if>
+        <if test="type == null or type == ''">
+            union
+        </if>
+        <if test="(type == null or type == '') or (type != null and type != '' and type == 'script')">
+            select
+            a.`id`
+            <include refid="searchToolAndScriptConditionForScript"/>
+        </if>
         ) a
     </select>
 
-    <select id="searchScriptAndTool" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo" resultMap="autoexecToolAndScriptMap">
+    <select id="searchScriptAndTool" parameterType="codedriver.framework.autoexec.dto.AutoexecOperationVo"
+            resultMap="autoexecToolAndScriptMap">
         select
         a.`id`,
         a.`name`,
@@ -851,7 +877,8 @@
         </foreach>
     </select>
 
-    <select id="getAutoexecOperationInputParamListByIdList" parameterType="java.util.List" resultMap="autoexecOperationInputParamListMap">
+    <select id="getAutoexecOperationInputParamListByIdList" parameterType="java.util.List"
+            resultMap="autoexecOperationInputParamListMap">
         SELECT
         a.`id`,
         c.`key`,
@@ -876,7 +903,8 @@
         </foreach>
     </select>
 
-    <select id="getAutoexecOperationOutputParamListByIdList" parameterType="java.util.List" resultMap="autoexecOperationOutputParamListMap">
+    <select id="getAutoexecOperationOutputParamListByIdList" parameterType="java.util.List"
+            resultMap="autoexecOperationOutputParamListMap">
         SELECT
         a.`id`,
         c.`key`,
@@ -909,8 +937,14 @@
         on a.`id` = b.`combop_id`
         join `autoexec_combop_phase_operation` c
         on b.`id` = c.`combop_phase_id`
-        where c.`operation_id` = #{value}
-        and c.`operation_type` = 'script'
+        where c.`operation_id` =
+        #{value}
+        and
+        c
+        .
+        `operation_type`
+        =
+        'script'
     </sql>
 
     <select id="getReferenceCountByScriptId" parameterType="java.lang.Long" resultType="int">
@@ -919,7 +953,8 @@
         <include refid="getScriptReference"/>
     </select>
 
-    <select id="getReferenceListByScriptId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
+    <select id="getReferenceListByScriptId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         select
         a.`id`,
         a.`name`
@@ -927,49 +962,47 @@
         group by a.`id`
     </select>
 
-    <select id="getScriptAuditByScriptVersionIdAndOperate" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptAuditVo">
-        select
-        `id`,
-        `script_id` as scriptId,
-        `script_version_id` as scriptVersionId,
-        `operate`,
-        `content_hash` as contentHash,
-        `fcu`,
-        `fcd`
+    <select id="getScriptAuditByScriptVersionIdAndOperate"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptAuditVo">
+        select `id`,
+               `script_id`         as scriptId,
+               `script_version_id` as scriptVersionId,
+               `operate`,
+               `content_hash`      as contentHash,
+               `fcu`,
+               `fcd`
         from `autoexec_script_audit`
         where `script_version_id` = #{versionId}
-        and `operate` = #{operate}
+          and `operate` = #{operate}
         order by `fcd` desc
         limit 1
     </select>
 
     <select id="getScriptAuditDetailByHash" parameterType="java.lang.String" resultType="java.lang.String">
-        select
-        `content`
+        select `content`
         from `autoexec_script_audit_detail`
         where `hash` = #{value}
     </select>
 
     <select id="getVersionIdListByScriptId" parameterType="java.lang.Long" resultType="java.lang.Long">
-        select
-        `id`
+        select `id`
         from `autoexec_script_version`
         where `script_id` = #{value}
     </select>
 
     <select id="checkScriptHasBeenGeneratedToCombop" parameterType="java.lang.Long" resultType="int">
-        select
-        count(1)
+        select count(1)
         from `autoexec_combop` a
-        join `autoexec_combop_phase` b
-        on a.`id` = b.`combop_id`
-        join `autoexec_combop_phase_operation` c
-        on b.`id` = c.`combop_phase_id`
+                 join `autoexec_combop_phase` b
+                      on a.`id` = b.`combop_id`
+                 join `autoexec_combop_phase_operation` c
+                      on b.`id` = c.`combop_phase_id`
         where c.`operation_id` = #{value}
-        and a.`operation_type` = 'script'
+          and a.`operation_type` = 'script'
     </select>
 
-    <select id="checkScriptListHasBeenGeneratedToCombop" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+    <select id="checkScriptListHasBeenGeneratedToCombop" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select
         c.`operation_id` as id,
         count(c.`operation_id`) as hasBeenGeneratedToCombop
@@ -986,7 +1019,8 @@
         group by c.`operation_id`
     </select>
 
-    <select id="getReferenceCountListByScriptIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+    <select id="getReferenceCountListByScriptIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select
         c.`operation_id` as id,
         count(c.`operation_id`) as referenceCount
@@ -1004,14 +1038,14 @@
     </select>
 
     <select id="getActiveVersionNumberByScriptId" parameterType="java.lang.Long" resultType="int">
-        select
-        `version`
+        select `version`
         from `autoexec_script_version`
         where `script_id` = #{value}
-        and `is_active` = 1
+          and `is_active` = 1
     </select>
 
-    <select id="getActiveVersionNumberListByScriptIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+    <select id="getActiveVersionNumberListByScriptIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         select
         `script_id` as id,
         `version` as currentVersion
@@ -1026,25 +1060,27 @@
     <select id="checkScriptHasSubmittedVersionByScriptId" parameterType="java.lang.Long" resultType="int">
         select count(1)
         from `autoexec_script_version`
-        where `script_id` = #{value} and `status` = 'submitted'
+        where `script_id` = #{value}
+          and `status` = 'submitted'
     </select>
 
     <select id="getVersionIdList" resultType="java.lang.Long">
-        select `id` from `autoexec_script_version`
+        select `id`
+        from `autoexec_script_version`
     </select>
 
-    <select id="getScriptVersionListByScriptId" resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        select
-            `id`,
-            `script_id` as scriptId,
-            `version`,
-            `encoding`,
-            `parser`,
-            `status`,
-            `reviewer`,
-            `is_active` as isActive,
-            `lcu`,
-            `lcd`
+    <select id="getScriptVersionListByScriptId"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        select `id`,
+               `script_id` as scriptId,
+               `version`,
+               `encoding`,
+               `parser`,
+               `status`,
+               `reviewer`,
+               `is_active` as isActive,
+               `lcu`,
+               `lcd`
         from `autoexec_script_version`
         where `script_id` = #{vaule}
     </select>
@@ -1055,7 +1091,8 @@
         where `id` = #{value}
     </select>
 
-    <select id="getAutoexecScriptIdListWhichHasActiveVersionByCatalogIdList" parameterType="java.util.List" resultType="java.lang.Long">
+    <select id="getAutoexecScriptIdListWhichHasActiveVersionByCatalogIdList" parameterType="java.util.List"
+            resultType="java.lang.Long">
         select `id`
         from `autoexec_script` a
         where exists (select 1 from `autoexec_script_version` where `script_id` = a.`id` and `is_active` = 1)
@@ -1069,13 +1106,12 @@
 
     <select id="getArgumentByVersionId" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptArgumentVo">
-        select
-        `script_version_id` as scriptVersionId,
-        `name`,
-        `default_value` as defaultValue,
-        `argument_count` as argumentCount,
-        `description`,
-        `is_required` as isRequired
+        select `script_version_id` as scriptVersionId,
+               `name`,
+               `default_value`     as defaultValue,
+               `argument_count`    as argumentCount,
+               `description`,
+               `is_required`       as isRequired
         from `autoexec_script_version_argument`
         where `script_version_id` = #{value}
     </select>
@@ -1108,14 +1144,24 @@
         </foreach>
     </select>
 
+    <select id="getScriptByVersionIdList" resultMap="AutoexecScriptMap">
+        select asct.id,asct.name,asct.description,asctv.id as versionId
+        from autoexec_script asct
+        join autoexec_script_version asctv on asct.id = asctv.script_id
+        where asctv.id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
-        update `autoexec_script` set
-        `name` = #{name},
-        `exec_mode` = #{execMode},
-        `type_id` = #{typeId},
-        `catalog_id` = #{catalogId},
-        `risk_id` = #{riskId},
-        `description` = #{description}
+        update `autoexec_script`
+        set `name`        = #{name},
+            `exec_mode`   = #{execMode},
+            `type_id`     = #{typeId},
+            `catalog_id`  = #{catalogId},
+            `risk_id`     = #{riskId},
+            `description` = #{description}
         where `id` = #{id}
     </update>
 
@@ -1148,53 +1194,47 @@
     </update>
 
     <insert id="insertScript" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
-        insert into `autoexec_script` (
-        `id`,
-        `name`,
-        `type_id`,
-        `catalog_id`,
-        `risk_id`,
-        `exec_mode`,
-        `description`,
-        `fcu`,
-        `fcd`
-        )values (
-        #{id},
-        #{name},
-        #{typeId},
-        #{catalogId},
-        #{riskId},
-        #{execMode},
-        #{description},
-        #{fcu},
-        now(3)
-        )
+        insert into `autoexec_script` (`id`,
+                                       `name`,
+                                       `type_id`,
+                                       `catalog_id`,
+                                       `risk_id`,
+                                       `exec_mode`,
+                                       `description`,
+                                       `fcu`,
+                                       `fcd`)
+        values (#{id},
+                #{name},
+                #{typeId},
+                #{catalogId},
+                #{riskId},
+                #{execMode},
+                #{description},
+                #{fcu},
+                now(3))
     </insert>
 
     <insert id="insertScriptVersion" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
-        insert into `autoexec_script_version` (
-        `id`,
-        `script_id`,
-        `title`,
-        `version`,
-        `encoding`,
-        `parser`,
-        `status`,
-        `is_active`,
-        `lcu`,
-        `lcd`
-        )values (
-        #{id},
-        #{scriptId},
-        #{title},
-        #{version},
-        #{encoding},
-        #{parser},
-        #{status},
-        #{isActive},
-        #{lcu},
-        now(3)
-        )
+        insert into `autoexec_script_version` (`id`,
+                                               `script_id`,
+                                               `title`,
+                                               `version`,
+                                               `encoding`,
+                                               `parser`,
+                                               `status`,
+                                               `is_active`,
+                                               `lcu`,
+                                               `lcd`)
+        values (#{id},
+                #{scriptId},
+                #{title},
+                #{version},
+                #{encoding},
+                #{parser},
+                #{status},
+                #{isActive},
+                #{lcu},
+                now(3))
     </insert>
 
     <insert id="insertScriptVersionParamList" parameterType="java.util.List">
@@ -1245,44 +1285,37 @@
         </foreach>
     </insert>
 
-    <insert id="insertScriptLineContent" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptLineContentVo">
-        insert ignore into `autoexec_script_line_content` (
-        `hash`,
-        `content`
-        ) values (
-        #{hash},
-        #{content}
-        )
+    <insert id="insertScriptLineContent"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptLineContentVo">
+        insert ignore into `autoexec_script_line_content` (`hash`,
+                                                           `content`)
+        values (#{hash},
+                #{content})
     </insert>
 
     <insert id="insertScriptAudit" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptAuditVo">
-        insert into `autoexec_script_audit`(
-        `id`,
-        `script_id`,
-        `script_version_id`,
-        `operate`,
-        `content_hash`,
-        `fcu`,
-        `fcd`
-        ) values (
-        #{id},
-        #{scriptId},
-        #{scriptVersionId},
-        #{operate},
-        #{contentHash},
-        #{fcu},
-        now(3)
-        )
+        insert into `autoexec_script_audit`(`id`,
+                                            `script_id`,
+                                            `script_version_id`,
+                                            `operate`,
+                                            `content_hash`,
+                                            `fcu`,
+                                            `fcd`)
+        values (#{id},
+                #{scriptId},
+                #{scriptVersionId},
+                #{operate},
+                #{contentHash},
+                #{fcu},
+                now(3))
     </insert>
 
-    <insert id="insertScriptAuditDetail" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptAuditContentVo">
-        insert ignore into `autoexec_script_audit_detail`(
-        `hash`,
-        `content`
-        ) values (
-        #{hash},
-        #{content}
-        )
+    <insert id="insertScriptAuditDetail"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptAuditContentVo">
+        insert ignore into `autoexec_script_audit_detail`(`hash`,
+                                                          `content`)
+        values (#{hash},
+                #{content})
     </insert>
 
     <insert id="batchInsertScriptVersion" parameterType="java.util.List">
@@ -1314,41 +1347,39 @@
         </foreach>
     </insert>
 
-    <insert id="insertScriptVersionArgument" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptArgumentVo">
-        insert into `autoexec_script_version_argument` (
-            `script_version_id`,
-            `name`,
-            `default_value`,
-            `argument_count`,
-            `description`,
-            `is_required`
-        ) values (
-            #{scriptVersionId},
-            #{name},
-            #{defaultValueStr},
-            #{argumentCount},
-            #{description},
-            #{isRequired}
-        )
+    <insert id="insertScriptVersionArgument"
+            parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptArgumentVo">
+        insert into `autoexec_script_version_argument` (`script_version_id`,
+                                                        `name`,
+                                                        `default_value`,
+                                                        `argument_count`,
+                                                        `description`,
+                                                        `is_required`)
+        values (#{scriptVersionId},
+                #{name},
+                #{defaultValueStr},
+                #{argumentCount},
+                #{description},
+                #{isRequired})
     </insert>
 
     <insert id="batchInsertVersionArgument">
         insert into `autoexec_script_version_argument` (
-            `script_version_id`,
-            `name`,
-            `default_value`,
-            `argument_count`,
-            `description`,
-            `is_required`
+        `script_version_id`,
+        `name`,
+        `default_value`,
+        `argument_count`,
+        `description`,
+        `is_required`
         ) values
         <foreach collection="list" item="item" separator=",">
             (
-                #{item.scriptVersionId},
-                #{item.name},
-                #{item.defaultValueStr},
-                #{item.argumentCount},
-                #{item.description},
-                #{item.isRequired}
+            #{item.scriptVersionId},
+            #{item.name},
+            #{item.defaultValueStr},
+            #{item.argumentCount},
+            #{item.description},
+            #{item.isRequired}
             )
         </foreach>
     </insert>

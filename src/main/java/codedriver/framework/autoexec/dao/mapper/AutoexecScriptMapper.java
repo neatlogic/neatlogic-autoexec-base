@@ -39,7 +39,7 @@ public interface AutoexecScriptMapper {
 
     AutoexecScriptVersionVo getVersionByVersionId(Long versionId);
 
-    List<AutoexecScriptVersionVo> getVersionByVersionIdList(ArrayList<Long> versionIdList);
+    List<AutoexecScriptVersionVo> getVersionByVersionIdList(List<Long> versionIdList);
 
     Integer getMaxVersionByScriptId(Long id);
 
@@ -92,6 +92,8 @@ public interface AutoexecScriptMapper {
     List<AutoexecOperationVo> searchScriptAndTool(AutoexecOperationVo searchVo);
 
     List<AutoexecOperationVo> getScriptListByIdList(List<Long> idList);
+
+    List<AutoexecScriptVo> getScriptByVersionIdList(List<Long> scriptVersionIdList);
 
     /**
      * 根据idList查找AutoexecOperationVoList（不含参数）

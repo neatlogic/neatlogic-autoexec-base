@@ -271,6 +271,8 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
+    Integer updateJobPhaseOperationVersionIdByJobIdAndOperationId(@Param("versionId") Long versionId,@Param("jobId") Long jobId,@Param("operationId") Long operationId);
+
     int updateJobPlanStartTimeAndTriggerTypeById(AutoexecJobVo vo);
 
     int updateJobExecUser(AutoexecJobVo vo);

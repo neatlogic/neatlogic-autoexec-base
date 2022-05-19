@@ -148,6 +148,19 @@
         where `name` = #{value}
     </select>
 
+    <select id="getToolByNameList" parameterType="java.lang.String" resultType="codedriver.framework.autoexec.dto.AutoexecToolVo">
+        select
+            `id`,
+            `name`,
+            description,
+            `is_active`
+        from `autoexec_tool`
+        where `name` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <select id="checkToolHasBeenGeneratedToCombop" parameterType="java.lang.Long" resultType="int">
         select
         count(c.`operation_id`) as hasBeenGeneratedToCombop

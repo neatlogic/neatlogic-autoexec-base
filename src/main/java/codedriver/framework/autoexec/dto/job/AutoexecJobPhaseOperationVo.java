@@ -68,6 +68,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private JSONArray outputParamList;
     @EntityField(name = "顺序", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "操作id", type = ApiParamType.LONG)
+    private Long operationId;
     private Long versionId;
     private String paramHash;
     private String uuid;
@@ -126,6 +128,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
         this.parser = operationVo.getParser();
         this.sort = autoexecCombopPhaseOperationVo.getSort();
+        this.operationId = autoexecCombopPhaseOperationVo.getOperationId();
         //拼接操作脚本到config
         JSONObject paramObj = new JSONObject();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
@@ -362,5 +365,13 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setVersionId(Long versionId) {
         this.versionId = versionId;
+    }
+
+    public Long getOperationId() {
+        return operationId;
+    }
+
+    public void setOperationId(Long operationId) {
+        this.operationId = operationId;
     }
 }

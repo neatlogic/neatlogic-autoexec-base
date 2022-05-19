@@ -582,6 +582,7 @@
                `exec_mode`    as execMode,
                `sort`,
                `fail_policy`  as failPolicy,
+               version_id     as versionId,
                `param_hash`   as paramHash
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
@@ -1396,7 +1397,8 @@
         ajpn.`name` as nodeName
         FROM autoexec_sql_detail asd
         JOIN autoexec_job_phase ajp ON ajp.job_id = asd.job_id AND asd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id = ajpn.resource_id
+        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id
+        = ajpn.resource_id
         <where>
             <foreach collection="sqlFileDetailVoList" item="vo" separator="or" open="(" close=")">
                 ( asd.resource_id = #{vo.resourceId}
@@ -1412,7 +1414,8 @@
         count( asd.`id` )
         FROM autoexec_sql_detail asd
         JOIN autoexec_job_phase ajp ON ajp.job_id = asd.job_id AND asd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id = ajpn.resource_id
+        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id
+        = ajpn.resource_id
         <include refid="searchJobPhaseSql"></include>
     </select>
 
@@ -1431,7 +1434,8 @@
         ajpn.id AS nodeId
         FROM autoexec_sql_detail asd
         JOIN autoexec_job_phase ajp ON ajp.job_id = asd.job_id AND asd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id = ajpn.resource_id
+        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND asd.resource_id
+        = ajpn.resource_id
         LEFT JOIN runner r ON r.id = asd.runner_id
         <include refid="searchJobPhaseSql"></include>
         ORDER BY asd.`start_time` DESC
@@ -1612,6 +1616,7 @@
             `version_id`,
         </if>
         `sort`,
+        `operation_id`,
         `param_hash`)
         VALUES (#{id},
         #{jobId},
@@ -1626,6 +1631,7 @@
             #{versionId},
         </if>
         #{sort},
+        #{operationId},
         #{paramHash});
     </insert>
 
@@ -1722,7 +1728,8 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`runner_id`,`job_phase_name`, `sql_file`, `status`, `md5`,`lcd`,
+        insert into `autoexec_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`runner_id`,`job_phase_name`,
+        `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
         <foreach collection="sqlList" item="vo" separator=",">
@@ -2031,6 +2038,12 @@
         <foreach collection="idList" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
+    </update>
+    <update id="updateJobPhaseOperationVersionIdByJobIdAndOperationId">
+        update autoexec_job_phase_operation
+        set `version_id` = #{versionId}
+        where `job_id` = #{jobId}
+          and `operation_id` = #{operationId}
     </update>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">

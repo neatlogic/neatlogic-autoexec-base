@@ -31,9 +31,11 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     private String statusName;
     @EntityField(name = "是否失败忽略", type = ApiParamType.INTEGER)
     private final Integer failIgnore;
+    @EntityField(name = "描述说明", type = ApiParamType.STRING)
+    private String description;
     private final Integer sort;
 
-    public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson) {
+    public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson,String description) {
         this.id = operationVo.getId();
         this.name = operationVo.getName();
         this.type = operationVo.getType();
@@ -44,6 +46,7 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         }
         this.sort = operationVo.getSort();
         this.failIgnore = operationVo.getFailIgnore();
+        this.description = description;
     }
 
     public Long getId() {
@@ -99,5 +102,13 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
 
     public Integer getFailIgnore() {
         return failIgnore;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
