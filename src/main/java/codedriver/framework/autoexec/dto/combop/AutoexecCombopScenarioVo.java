@@ -13,10 +13,8 @@ import java.util.List;
 public class AutoexecCombopScenarioVo {
     @EntityField(name = "场景id", type = ApiParamType.LONG)
     private Long ScenarioId;
-    @EntityField(name = "阶段id列表", type = ApiParamType.JSONARRAY)
-    private List<Long> combopPhaseIdList;
-    @EntityField(name = "阶段uuid列表", type = ApiParamType.JSONARRAY)
-    private List<String> combopPhaseUuidList;
+    @EntityField(name = "阶段名列表", type = ApiParamType.JSONARRAY)
+    private List<String> combopPhaseNameList;
 
     public Long getScenarioId() {
         return ScenarioId;
@@ -26,19 +24,11 @@ public class AutoexecCombopScenarioVo {
         ScenarioId = scenarioId;
     }
 
-    public List<Long> getCombopPhaseIdList() {
-        return combopPhaseIdList;
+    public List<String> getCombopPhaseNameList() {
+        return combopPhaseNameList;
     }
 
-    public void setCombopPhaseIdList(List<Long> combopPhaseIdList) {
-        this.combopPhaseIdList = combopPhaseIdList;
-    }
-
-    public List<String> getCombopPhaseUuidList() {
-        return combopPhaseUuidList;
-    }
-
-    public void setCombopPhaseUuidList(List<String> combopPhaseUuidList) {
-        this.combopPhaseUuidList = combopPhaseUuidList;
+    public void setCombopPhaseNameList(List<String> combopPhaseNameList) {
+        this.combopPhaseNameList = combopPhaseNameList;
     }
 }
