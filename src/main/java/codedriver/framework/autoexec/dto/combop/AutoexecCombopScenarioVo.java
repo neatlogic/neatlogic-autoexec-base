@@ -23,7 +23,7 @@ public class AutoexecCombopScenarioVo {
     }
 
     public void setScenarioId(Long scenarioId) {
-        scenarioId = scenarioId;
+        this.scenarioId = scenarioId;
     }
 
     public String getScenarioName() {
