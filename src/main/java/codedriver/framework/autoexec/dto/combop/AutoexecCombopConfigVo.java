@@ -26,6 +26,8 @@ public class AutoexecCombopConfigVo implements Serializable {
     @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
+    private List<AutoexecCombopScenarioVo> scenarioList;
+
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;
     }
@@ -48,5 +50,13 @@ public class AutoexecCombopConfigVo implements Serializable {
 
     public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
         this.executeConfig = executeConfig;
+    }
+
+    public List<AutoexecCombopScenarioVo> getScenarioList() {
+        return scenarioList;
+    }
+
+    public void setScenarioList(List<AutoexecCombopScenarioVo> scenarioList) {
+        this.scenarioList = scenarioList;
     }
 }
