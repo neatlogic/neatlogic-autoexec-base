@@ -33,7 +33,8 @@ public enum ParamType implements IEnum {
     CHECKBOX("checkbox", "复选", "复选选择器"),
     NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
     ACCOUNT("account", "账号", "服务的连接协议、帐号，用户连接主机上的数据库，中间件等服务"),
-    TEXTAREA("textarea", "文本域", "可输入字符串、数字");
+    TEXTAREA("textarea", "文本域", "可输入字符串、数字"),
+    PHASE("phase", "阶段", "可输入SQL导入的目标执行阶段");
 
     private final String value;
     private final String text;
