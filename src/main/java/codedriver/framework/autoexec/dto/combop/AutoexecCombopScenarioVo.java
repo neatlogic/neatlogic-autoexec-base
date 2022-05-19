@@ -15,4 +15,30 @@ public class AutoexecCombopScenarioVo {
     private Long ScenarioId;
     @EntityField(name = "阶段id列表", type = ApiParamType.JSONARRAY)
     private List<Long> combopPhaseIdList;
+    @EntityField(name = "阶段uuid列表", type = ApiParamType.JSONARRAY)
+    private List<String> combopPhaseUuidList;
+
+    public Long getScenarioId() {
+        return ScenarioId;
+    }
+
+    public void setScenarioId(Long scenarioId) {
+        ScenarioId = scenarioId;
+    }
+
+    public List<Long> getCombopPhaseIdList() {
+        return combopPhaseIdList;
+    }
+
+    public void setCombopPhaseIdList(List<Long> combopPhaseIdList) {
+        this.combopPhaseIdList = combopPhaseIdList;
+    }
+
+    public List<String> getCombopPhaseUuidList() {
+        return combopPhaseUuidList;
+    }
+
+    public void setCombopPhaseUuidList(List<String> combopPhaseUuidList) {
+        this.combopPhaseUuidList = combopPhaseUuidList;
+    }
 }
