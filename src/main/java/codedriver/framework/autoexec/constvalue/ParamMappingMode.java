@@ -24,7 +24,8 @@ public enum ParamMappingMode implements IEnum {
     PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "上游节点输出参数名"),
     IS_EMPTY("isempty", "为空"),
     PROFILE("profile", "预置参数集"),
-    GLOBAL_PARAM("globalparam", "全局参数");
+    GLOBAL_PARAM("globalparam", "全局参数"),
+    SQL_PHASE("sqlphase", "SQL执行阶段");
 
     private final String value;
     private final String text;
