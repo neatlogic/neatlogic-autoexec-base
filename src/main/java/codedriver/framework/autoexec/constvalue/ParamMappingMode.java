@@ -22,7 +22,9 @@ public enum ParamMappingMode implements IEnum {
     RUNTIME_PARAM("runtimeparam", "作业参数"),
     PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数值"),
     PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "上游节点输出参数名"),
-    IS_EMPTY("isempty", "为空");
+    IS_EMPTY("isempty", "为空"),
+    PROFILE("profile", "预置参数集"),
+    GLOBAL_PARAM("globalparam", "全局参数");
 
     private final String value;
     private final String text;
