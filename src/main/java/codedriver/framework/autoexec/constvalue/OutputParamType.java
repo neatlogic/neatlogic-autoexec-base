@@ -35,7 +35,7 @@ public enum OutputParamType implements IEnum {
     ACCOUNT("account", "账号", "服务的连接协议、帐号，用户连接主机上的数据库，中间件等服务"),
     FILEPATH("filepath", "文件路径", "可输出文件路径参数"),
     TEXTAREA("textarea", "文本域", "可输出字符串、数字"),
-    PHASE("phase", "阶段", "可输出SQL导入的目标执行阶段");
+    PHASE("phase", "阶段", "可输出阶段");
 
     private final String value;
     private final String text;
