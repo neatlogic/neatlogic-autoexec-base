@@ -23,6 +23,7 @@ public class AutoexecParamVo implements Serializable {
     private String key;
     @EntityField(name = "中文名", type = ApiParamType.STRING)
     private String name;
+    //TODO defaultValue 与 BasePageVo的defaultValue冲突，类型不一致，现无法继承 BasePageVo
     @EntityField(name = "参数默认值", type = ApiParamType.NOAUTH)
     private Object defaultValue;
     @EntityField(name = "参数类型(出参、入参)", type = ApiParamType.STRING)
@@ -39,6 +40,11 @@ public class AutoexecParamVo implements Serializable {
     private Integer sort;
     @EntityField(name = "正则校验", type = ApiParamType.STRING)
     private String validate;
+
+    @EntityField(name = "key来源的工具id", type = ApiParamType.LONG)
+    private Long operationId;
+    @EntityField(name = "key来源的工具类型", type = ApiParamType.STRING)
+    private String operationType;
 
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
@@ -226,5 +232,21 @@ public class AutoexecParamVo implements Serializable {
 
     public void setValidate(String validate) {
         this.validate = validate;
+    }
+
+    public Long getOperationId() {
+        return operationId;
+    }
+
+    public void setOperationId(Long operationId) {
+        this.operationId = operationId;
+    }
+
+    public String getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
     }
 }
