@@ -23,6 +23,7 @@ public class AutoexecParamVo implements Serializable {
     private String key;
     @EntityField(name = "中文名", type = ApiParamType.STRING)
     private String name;
+    //TODO defaultValue 与 BasePageVo的defaultValue冲突，类型不一致，现无法继承 BasePageVo
     @EntityField(name = "参数默认值", type = ApiParamType.NOAUTH)
     private Object defaultValue;
     @EntityField(name = "参数类型(出参、入参)", type = ApiParamType.STRING)
