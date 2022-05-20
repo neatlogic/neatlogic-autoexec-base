@@ -1373,17 +1373,19 @@
     </select>
     <select id="getJobPhaseListByJobIdAndPhaseIdList"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        SELECT id,
-        job_id as jobId,
-        `name`,
-        `exec_mode` as execMode,
-        `sort`,
-        `status`
-        FROM `autoexec_job_phase`
-        WHERE job_id = #{jobId} and id in
+        SELECT ajp.id,
+        ajp.job_id as jobId,
+        ajp.`name`,
+        ajp.`exec_mode` as execMode,
+        ajp.`sort`,
+        ajp.`status`
+        FROM `autoexec_job_phase` ajp
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        WHERE ajp.job_id = #{jobId} and ajp.id in
         <foreach collection="jobPhaseIdList" item="value" separator="," open="(" close=")">
             #{value}
         </foreach>
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name` ASC
     </select>
 
     <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo"
