@@ -1430,6 +1430,7 @@
         asd.`end_time` AS endTime,
         r.`host` AS runnerHost,
         r.`port` AS runnerPort,
+        asd.resource_id AS resourceId,
         ajpn.`host`,
         ajpn.`port`,
         asd.`node_name` AS nodeName,
