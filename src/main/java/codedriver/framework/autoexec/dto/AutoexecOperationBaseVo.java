@@ -6,7 +6,7 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
-import codedriver.framework.autoexec.constvalue.ExecMode;
+import codedriver.framework.autoexec.constvalue.ScriptExecMode;
 import codedriver.framework.autoexec.constvalue.ToolType;
 import codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
@@ -138,7 +138,7 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public String getExecModeText() {
         if (StringUtils.isNotBlank(execMode)) {
-            ExecMode mode = ExecMode.getExecMode(this.execMode);
+            ScriptExecMode mode = ScriptExecMode.getExecMode(this.execMode);
             if (mode != null) {
                 execModeText = mode.getText();
             }
