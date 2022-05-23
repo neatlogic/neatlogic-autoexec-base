@@ -1,5 +1,6 @@
 package codedriver.framework.autoexec.dto.profile;
 
+import codedriver.framework.autoexec.constvalue.AutoexecProfileParamInvokeType;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
@@ -41,6 +42,7 @@ public class AutoexecProfileParamVo extends AutoexecParamVo {
 
         }
         super.setArgumentCount(operationParamVo.getArgumentCount());
+        this.setValueInvokeType(AutoexecProfileParamInvokeType.CONSTANT.getValue());
     }
 
 
