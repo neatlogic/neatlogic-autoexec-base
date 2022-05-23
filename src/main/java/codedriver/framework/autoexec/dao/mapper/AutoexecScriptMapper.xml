@@ -606,10 +606,10 @@
         <if test="execMode != null and execMode != ''">
             <choose>
                 <when test="execMode == 'target' or execMode == 'runner_target'">
-                    and `exec_mode` in ('target','runner_target')
+                    and `exec_mode` in ('target','runner_target','native')
                 </when>
                 <otherwise>
-                    and `exec_mode` = #{execMode}
+                    and `exec_mode` in (#{execMode},'native')
                 </otherwise>
             </choose>
         </if>
@@ -639,10 +639,10 @@
         <if test="execMode != null and execMode != ''">
             <choose>
                 <when test="execMode == 'target' or execMode == 'runner_target'">
-                    and a.`exec_mode` in ('target','runner_target')
+                    and a.`exec_mode` in ('target','runner_target','native')
                 </when>
                 <otherwise>
-                    and a.`exec_mode` = #{execMode}
+                    and a.`exec_mode` in (#{execMode},'native')
                 </otherwise>
             </choose>
         </if>
