@@ -284,9 +284,7 @@ public interface AutoexecJobMapper {
 
     int updateSqlDetailIsDeleteAndStatusAndMd5AndLcd(AutoexecSqlDetailVo paramSqlVo);
 
-
     void resetJobSqlStatusBySqlIdList(@Param("idList") List idList);
-
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
