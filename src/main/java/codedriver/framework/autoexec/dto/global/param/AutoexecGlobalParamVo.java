@@ -24,7 +24,7 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
     private static final int OFFSET_SIZE = 5;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "类型列表", type = ApiParamType.JSONARRAY)
+    @JSONField(serialize = false)
     private JSONArray typeList;
     @JSONField(serialize = false)
     private boolean needPage = true;
