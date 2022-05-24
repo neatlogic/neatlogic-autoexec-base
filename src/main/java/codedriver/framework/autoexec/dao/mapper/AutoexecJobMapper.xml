@@ -1494,6 +1494,23 @@
         where id = #{value}
     </select>
 
+    <select id="getJobSqlIdListByJobIdAndJobPhaseName" resultType="java.lang.Long">
+        select id
+        from  autoexec_job_sql_detail
+        where job_id = #{jobId}
+        and job_phase_name =#{phaseName}
+    </select>
+
+    <select id="getJobSqlIdListByJobIdAndJobPhaseNameList" resultType="java.lang.Long">
+        select id
+        from  autoexec_job_sql_detail
+        where job_id = #{jobId}
+          and job_phase_name in
+        <foreach collection="jobPhaseNameList" item="name" separator="," open="(" close=")">
+            #{name}
+        </foreach>
+    </select>
+
     <sql id="searchJobPhaseSql">
         <where>
             <if test="statusList != null and statusList.size() > 0 ">
@@ -2020,18 +2037,6 @@
         where id = #{jobGroupId}
     </update>
 
-    <update id="resetJobSqlStatusByJobIdAndPhaseNameList">
-        UPDATE autoexec_job_sql_detail
-        SET `status` = "pending",
-        `start_time` = null,
-        `end_time` = null
-        WHERE job_id = #{jobId}
-        AND job_phase_name IN
-        <foreach collection="jobPhaseNameList" item="name" separator="," open="(" close=")">
-            #{name}
-        </foreach>
-    </update>
-
     <update id="resetJobSqlStatusBySqlIdList">
         UPDATE autoexec_job_sql_detail
         SET `status` = "pending",
@@ -2042,6 +2047,7 @@
             #{id}
         </foreach>
     </update>
+
     <update id="updateJobPhaseOperationVersionIdByJobIdAndOperationId">
         update autoexec_job_phase_operation
         set `version_id` = #{versionId}
