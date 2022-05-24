@@ -8,6 +8,7 @@ import codedriver.framework.common.util.PageUtil;
 import codedriver.framework.dto.UserVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,6 +24,8 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
     private static final int OFFSET_SIZE = 5;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "类型列表", type = ApiParamType.JSONARRAY)
+    private JSONArray typeList;
     @JSONField(serialize = false)
     private boolean needPage = true;
     @JSONField(serialize = false)
@@ -79,6 +82,14 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public JSONArray getTypeList() {
+        return typeList;
+    }
+
+    public void setTypeList(JSONArray typeList) {
+        this.typeList = typeList;
     }
 
     public Integer getRowNum() {
