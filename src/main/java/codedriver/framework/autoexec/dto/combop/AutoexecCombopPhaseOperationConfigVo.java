@@ -22,6 +22,8 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
     private List<ParamMappingVo> argumentMappingList;
     @EntityField(name = "预置参数集id", type = ApiParamType.LONG)
     private Long profileId;
+    @EntityField(name = "预置参数集名", type = ApiParamType.STRING)
+    private String profileName;
 
     public List<ParamMappingVo> getParamMappingList() {
         return paramMappingList;
@@ -45,5 +47,13 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
 
     public void setProfileId(Long profileId) {
         this.profileId = profileId;
+    }
+
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
     }
 }
