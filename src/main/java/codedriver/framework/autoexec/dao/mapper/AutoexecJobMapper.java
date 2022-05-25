@@ -11,7 +11,6 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.dto.runner.RunnerVo;
-import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -214,6 +213,10 @@ public interface AutoexecJobMapper {
 
     List<Long> getSqlDetailByJobIdAndPhaseNameAndLcd(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
+    List<Long> getJobSqlIdListByJobIdAndJobPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
+
+    List<Long> getJobSqlIdListByJobIdAndJobPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
+
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
@@ -281,9 +284,7 @@ public interface AutoexecJobMapper {
 
     int updateSqlDetailIsDeleteAndStatusAndMd5AndLcd(AutoexecSqlDetailVo paramSqlVo);
 
-    void resetJobSqlStatusByJobIdAndPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
-
-    void resetJobSqlStatusBySqlIdList(@Param("idList") JSONArray idList);
+    void resetJobSqlStatusBySqlIdList(@Param("idList") List idList);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
