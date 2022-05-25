@@ -16,7 +16,7 @@ public class AutoexecParamMappingTargetTypeMismatchException extends ApiRuntimeE
     private static final long serialVersionUID = -977868375722886185L;
 
     public AutoexecParamMappingTargetTypeMismatchException(String operationName, String key, String target) {
-        super(operationName + "的参数：'" + key + "'映射目标" + target + "类型不匹配");
+        super(operationName + "的参数：'" + key + "'映射目标'" + target + "'类型不匹配");
     }
 
 }
