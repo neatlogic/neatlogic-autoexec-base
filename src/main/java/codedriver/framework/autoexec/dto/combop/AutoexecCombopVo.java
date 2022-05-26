@@ -72,8 +72,6 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     @JSONField(serialize = false)
     private String configStr;
-    @JSONField(serialize = false)
-    private Boolean isTest;//是否测试
 
     public AutoexecCombopVo() {
     }
@@ -272,11 +270,4 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         return JSONObject.toJSONString(config);
     }
 
-    public Boolean getIsTest() {
-        return isTest;
-    }
-
-    public void setIsTest(Boolean test) {
-        isTest = test;
-    }
 }

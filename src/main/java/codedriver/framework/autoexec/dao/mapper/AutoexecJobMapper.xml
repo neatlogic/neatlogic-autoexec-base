@@ -461,7 +461,7 @@
     <resultMap id="jobMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="paramStr" property="paramStr"/>
+        <result column="paramStr" property="paramArrayStr"/>
         <collection property="phaseList" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
             <id column="phaseId" property="id"/>
             <result column="phaseName" property="name"/>

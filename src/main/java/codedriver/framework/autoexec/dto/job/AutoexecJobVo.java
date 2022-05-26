@@ -7,11 +7,9 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
-import codedriver.framework.autoexec.constvalue.JobSource;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.constvalue.JobTriggerType;
-import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
-import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
@@ -32,7 +30,6 @@ import org.springframework.util.DigestUtils;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -84,7 +81,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "来源名", type = ApiParamType.STRING)
     private String sourceName;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
-    private Integer threadCount;
+    private Integer threadCount = 64;
     @JSONField(serialize = false)
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
@@ -103,7 +100,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
     @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
-    private String paramStr;
+    private String paramArrayStr;
     private String paramHash;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
@@ -146,8 +143,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private AutoexecJobGroupVo executeJobGroupVo;
     @JSONField(serialize = false)
     private List<AutoexecJobPhaseVo> executeJobPhaseList;
-
-
+    @JSONField(serialize = false)
+    List<AutoexecCombopParamVo> runTimeParamList;
     //param
     @JSONField(serialize = false)
     private String combopName;
@@ -159,86 +156,16 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private List<String> execUserList;
     @JSONField(serialize = false)
     private List<String> typeIdList;
+    @JSONField(serialize = false)
+    private JSONObject param;
 
 
     public AutoexecJobVo() {
     }
 
-    public AutoexecJobVo(AutoexecCombopVo combopVo, String source, Integer threadCount, JSONObject paramJson) {
-        this.operationId = combopVo.getId();
-        this.operationType = combopVo.getOperationType();
-        this.name = combopVo.getName();
-        this.status = JobStatus.PENDING.getValue();
-        this.source = source;
-        this.threadCount = threadCount;
-        JSONArray combopParamsResult = new JSONArray();
-        if (MapUtils.isNotEmpty(paramJson)) {
-            JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(combopVo.getRuntimeParamList()));
-            for (Object combopParam : combopParams) {
-                JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
-                if (MapUtils.isNotEmpty(combopParamJson)) {
-                    String key = combopParamJson.getString("key");
-                    if (StringUtils.isNotBlank(key)) {
-                        Object value = paramJson.get(key);
-                        combopParamJson.put("value", value);
-                        combopParamsResult.add(combopParamJson);
-                    }
-                }
-            }
-        }
-        this.execUser = UserContext.get().getUserUuid();
-        this.execUserType = GroupSearch.USER.getValue();
-        this.paramStr = combopParamsResult.toJSONString();
-        this.configStr = combopVo.getConfigStr();
-        if (combopVo.getIsTest() != null && combopVo.getIsTest()) {
-            this.source = JobSource.TEST.getValue();
-        }
-    }
-
-    public AutoexecJobVo(AutoexecCombopVo combopVo, String source, Integer threadCount, JSONObject paramJson, Date planStartTime, String triggerType) {
-        this(combopVo, source, threadCount, paramJson);
-        this.planStartTime = planStartTime;
-        if (StringUtils.isNotBlank(triggerType)) {
-            this.triggerType = triggerType;
-        }
-        if (planStartTime != null && StringUtils.isNotBlank(triggerType)) {
-            this.status = JobStatus.READY.getValue();
-        }
-    }
-
-
-    public AutoexecJobVo(JSONObject jsonObj) throws ParseException {
-        JSONObject startTimeJson = jsonObj.getJSONObject("startTime");
-        Long operationId = jsonObj.getLong("combopId");
-        jsonObj.remove("startTime");
-        AutoexecJobVo jobVo = JSONObject.toJavaObject(jsonObj, AutoexecJobVo.class);
-        this.setCombopName(jobVo.getCombopName());
-        this.setTypeIdList(jobVo.getTypeIdList());
-        this.setSourceList(jobVo.getSourceList());
-        this.setStatusList(jobVo.getStatusList());
-        this.setExecUserList(jobVo.getExecUserList());
-        if (MapUtils.isNotEmpty(startTimeJson)) {
-            JSONObject timeJson = TimeUtil.getStartTimeAndEndTimeByDateJson(startTimeJson);
-            this.setStartTime(timeJson.getDate("startTime"));
-            this.setEndTime(timeJson.getDate("endTime"));
-        }
-        this.setCurrentPage(jobVo.getCurrentPage());
-        this.setPageSize(jobVo.getPageSize());
-        this.setOperationId(operationId);
-        this.invokeId = jsonObj.getLong("scheduleId");
-        this.setKeyword(jobVo.getKeyword());
-    }
-
     public AutoexecJobVo(Long jobId, String status) {
         this.id = jobId;
         this.status = status;
-    }
-
-    public AutoexecJobVo(Long jobId) {
-        this.id = jobId;
-    }
-
-    public AutoexecJobVo(AutoexecScriptVersionVo scriptVersionVo, String value, String source, JSONObject paramJson) {
     }
 
     public AutoexecJobVo(Long id, Date planStartTime, String triggerType) {
@@ -333,6 +260,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getExecUser() {
+        if(StringUtils.isBlank(execUser)){
+            return UserContext.get().getUserUuid();
+        }
         return execUser;
     }
 
@@ -341,6 +271,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getExecUserType() {
+        if(StringUtils.isBlank(execUserType)){
+            return GroupSearch.USER.getValue();
+        }
         return execUserType;
     }
 
@@ -455,24 +388,44 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.costTime = costTime;
     }
 
-    public String getParamStr() {
-        return paramStr;
-    }
-
-    public void setParamStr(String paramStr) {
-        this.paramStr = paramStr;
-    }
-
-    public JSONArray getParam() {
-        if (StringUtils.isNotBlank(paramStr)) {
-            return JSONObject.parseArray(paramStr);
+    public String getParamArrayStr() {
+        if (StringUtils.isBlank(paramArrayStr) && this.param != null) {
+            JSONArray combopParamsResult = new JSONArray();
+            if (MapUtils.isNotEmpty(this.param)) {
+                JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(this.runTimeParamList));
+                if(CollectionUtils.isNotEmpty(combopParams)) {
+                    for (Object combopParam : combopParams) {
+                        JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
+                        if (MapUtils.isNotEmpty(combopParamJson)) {
+                            String key = combopParamJson.getString("key");
+                            if (StringUtils.isNotBlank(key)) {
+                                Object value = this.param.get(key);
+                                combopParamJson.put("value", value);
+                                combopParamsResult.add(combopParamJson);
+                            }
+                        }
+                    }
+                }
+            }
+            paramArrayStr =  combopParamsResult.toJSONString();
         }
-        return null;
+        return paramArrayStr;
+    }
+
+    public void setParamArrayStr(String paramArrayStr) {
+        this.paramArrayStr = paramArrayStr;
+    }
+
+    public JSONArray getParamArray() {
+        if (StringUtils.isNotBlank(paramArrayStr)) {
+            return JSONObject.parseArray(paramArrayStr);
+        }
+        return new JSONArray();
     }
 
     public String getParamHash() {
-        if (StringUtils.isNotBlank(paramStr)) {
-            paramHash = DigestUtils.md5DigestAsHex(paramStr.getBytes(StandardCharsets.UTF_8));
+        if (StringUtils.isNotBlank(getParamArrayStr())) {
+            paramHash = DigestUtils.md5DigestAsHex(paramArrayStr.getBytes(StandardCharsets.UTF_8));
         }
         return paramHash;
     }
@@ -707,5 +660,17 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setCurrentPhase(AutoexecJobPhaseVo currentPhase) {
         this.currentPhase = currentPhase;
+    }
+
+    public JSONObject getParam() {
+        return param;
+    }
+
+    public void setParam(JSONObject param) {
+        this.param = param;
+    }
+
+    public void setRunTimeParamList(List<AutoexecCombopParamVo> runTimeParamList) {
+        this.runTimeParamList = runTimeParamList;
     }
 }
