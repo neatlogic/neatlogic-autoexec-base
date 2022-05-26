@@ -112,6 +112,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isCanTakeOver = 0;
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
+    @EntityField(name = "场景id", type = ApiParamType.LONG)
+    @JSONField(serialize = false)
+    private Long scenarioId;
     @JSONField(serialize = false)
     private JSONObject actionParam;
     @JSONField(serialize = false)
@@ -672,5 +675,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setRunTimeParamList(List<AutoexecCombopParamVo> runTimeParamList) {
         this.runTimeParamList = runTimeParamList;
+    }
+
+    public Long getScenarioId() {
+        return scenarioId;
+    }
+
+    public void setScenarioId(Long scenarioId) {
+        this.scenarioId = scenarioId;
     }
 }
