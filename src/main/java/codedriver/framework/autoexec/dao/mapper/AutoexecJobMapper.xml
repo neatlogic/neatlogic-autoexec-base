@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright(c) 2021 TechSureCo.,Ltd.AllRightsReserved.
+  ~ Copyright(c) 2022 TechSure Co., Ltd. All Rights Reserved.
   ~ 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
   -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
@@ -324,7 +324,7 @@
         FROM `autoexec_job_phase` ajp
                  left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where ajp.`job_id` = #{value}
-        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name` ASC
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name`
     </select>
 
     <resultMap id="AutoexecJobPhaseMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1377,6 +1377,7 @@
         ajp.job_id as jobId,
         ajp.`name`,
         ajp.`exec_mode` as execMode,
+        ajp.`group_id` as groupId,
         ajp.`sort`,
         ajp.`status`
         FROM `autoexec_job_phase` ajp
@@ -1385,7 +1386,7 @@
         <foreach collection="jobPhaseIdList" item="value" separator="," open="(" close=")">
             #{value}
         </foreach>
-        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name` ASC
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name`
     </select>
 
     <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo"
@@ -1399,7 +1400,8 @@
         ajpn.`name` as nodeName
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND ajsd.resource_id
+        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
+        ajsd.resource_id
         = ajpn.resource_id
         <where>
             <foreach collection="sqlFileDetailVoList" item="vo" separator="or" open="(" close=")">
@@ -1416,7 +1418,8 @@
         count( ajsd.`id` )
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND ajsd.resource_id
+        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
+        ajsd.resource_id
         = ajpn.resource_id
         <include refid="searchJobPhaseSql"></include>
     </select>
@@ -1437,7 +1440,8 @@
         ajpn.id AS nodeId
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND ajsd.resource_id
+        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
+        ajsd.resource_id
         = ajpn.resource_id
         LEFT JOIN runner r ON r.id = ajsd.runner_id
         <include refid="searchJobPhaseSql"></include>
@@ -1496,16 +1500,16 @@
 
     <select id="getJobSqlIdListByJobIdAndJobPhaseName" resultType="java.lang.Long">
         select id
-        from  autoexec_job_sql_detail
+        from autoexec_job_sql_detail
         where job_id = #{jobId}
-        and job_phase_name =#{phaseName}
+          and job_phase_name = #{phaseName}
     </select>
 
     <select id="getJobSqlIdListByJobIdAndJobPhaseNameList" resultType="java.lang.Long">
         select id
-        from  autoexec_job_sql_detail
+        from autoexec_job_sql_detail
         where job_id = #{jobId}
-          and job_phase_name in
+        and job_phase_name in
         <foreach collection="jobPhaseNameList" item="name" separator="," open="(" close=")">
             #{name}
         </foreach>
