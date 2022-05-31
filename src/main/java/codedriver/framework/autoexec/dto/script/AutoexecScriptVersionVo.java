@@ -9,12 +9,12 @@ import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
+import codedriver.framework.common.dto.ValueTextVo;
 import codedriver.framework.dto.OperateVo;
 import codedriver.framework.dto.UserVo;
 import codedriver.framework.dto.WorkAssignmentUnitVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +40,7 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     @EntityField(name = "状态(draft:草稿、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "状态", type = ApiParamType.JSONOBJECT)
-    private JSONObject statusVo;
+    private ValueTextVo statusVo;
     @EntityField(name = "审批人", type = ApiParamType.STRING)
     private String reviewer;
     @EntityField(name = "审批用户")
@@ -138,20 +138,16 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
         this.status = status;
     }
 
-    public JSONObject getStatusVo() {
+    public ValueTextVo getStatusVo() {
         if (status != null) {
-            statusVo = new JSONObject();
             if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
                 if (Objects.equals(getIsActive(), 1)) {
-                    statusVo.put("value", ScriptVersionStatus.CURRENT.getValue());
-                    statusVo.put("text", ScriptVersionStatus.CURRENT.getText());
+                    statusVo = new ValueTextVo(ScriptVersionStatus.CURRENT.getValue(), ScriptVersionStatus.CURRENT.getText());
                 } else {
-                    statusVo.put("value", ScriptVersionStatus.HISTORY.getValue());
-                    statusVo.put("text", ScriptVersionStatus.HISTORY.getText());
+                    statusVo = new ValueTextVo(ScriptVersionStatus.HISTORY.getValue(), ScriptVersionStatus.HISTORY.getText());
                 }
             } else {
-                statusVo.put("value", status);
-                statusVo.put("text", ScriptVersionStatus.getText(status));
+                statusVo = new ValueTextVo(status, ScriptVersionStatus.getText(status));
             }
         }
         return statusVo;
