@@ -40,6 +40,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private String jobPhaseName;
     @EntityField(name = "作业剧本节点状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "作业剧本节点状态名", type = ApiParamType.STRING)
+    private String statusName;
     @EntityField(name = "作业剧本runner 映射id", type = ApiParamType.LONG)
     private Long runnerMapId;
     @EntityField(name = "作业剧本runner id", type = ApiParamType.LONG)
@@ -66,8 +68,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private List<String> statusList;
     @JSONField(serialize = false)
     private List<String> statusBlackList;
-    @EntityField(name = "作业节点状态Vo", type = ApiParamType.JSONOBJECT)
-    private AutoexecJobStatusVo statusVo;
     @EntityField(name = "作业节点工具状态Vo列表", type = ApiParamType.JSONOBJECT)
     private List<AutoexecJobPhaseNodeOperationStatusVo> operationStatusVoList;
     @EntityField(name = "作业节点等待输入渲染jsonStr", type = ApiParamType.JSONOBJECT)
@@ -266,11 +266,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.completionRate = completionRate;
     }
 
-    public AutoexecJobStatusVo getStatusVo() {
-        if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
+    public String getStatusName() {
+        if (StringUtils.isNotBlank(statusName) && StringUtils.isNotBlank(status)) {
+           statusName = JobNodeStatus.getText(status);
         }
-        return statusVo;
+        return statusName;
     }
 
     public String getSchemaName() {
