@@ -267,7 +267,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     }
 
     public String getStatusName() {
-        if (StringUtils.isNotBlank(statusName) && StringUtils.isNotBlank(status)) {
+        if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
            statusName = JobNodeStatus.getText(status);
         }
         return statusName;
