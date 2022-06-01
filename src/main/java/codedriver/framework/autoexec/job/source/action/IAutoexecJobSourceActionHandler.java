@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.job.source.action;
 
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
+import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 
 /**
  * @author lvzk
@@ -15,13 +16,32 @@ public interface IAutoexecJobSourceActionHandler {
 
     /**
      * 来源
+     *
      * @return 来源
      */
     String getName();
 
     /**
      * 保存作业阶段
+     *
      * @param combopPhaseVo 组合工具｜流水线阶段
      */
     void saveJobPhase(AutoexecCombopPhaseVo combopPhaseVo);
+
+    /**
+     * 获取作业sql内容
+     *
+     * @param jobVo
+     * @return
+     */
+    String getJobSqlContent(AutoexecJobVo jobVo);
+
+    /**
+     * 下载作业sql文件
+     *
+     * @param jobVo
+     * @return
+     * @throws Exception
+     */
+    void  downloadJobSqlFile(AutoexecJobVo jobVo) throws Exception;
 }
