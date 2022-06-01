@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.job.source.action;
 
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author lvzk
@@ -31,17 +32,22 @@ public interface IAutoexecJobSourceActionHandler {
     /**
      * 获取作业sql内容
      *
-     * @param jobVo
-     * @return
+     * @param jobVo 作业vo
+     * @return sql内容
      */
     String getJobSqlContent(AutoexecJobVo jobVo);
 
     /**
      * 下载作业sql文件
      *
-     * @param jobVo
-     * @return
-     * @throws Exception
+     * @param jobVo 作业vo
+     * @throws Exception 异常
      */
     void  downloadJobSqlFile(AutoexecJobVo jobVo) throws Exception;
+
+    /**
+     *
+     * @param paramObj 入参
+     */
+    void resetSqlStatus(JSONObject paramObj,AutoexecJobVo jobVo);
 }
