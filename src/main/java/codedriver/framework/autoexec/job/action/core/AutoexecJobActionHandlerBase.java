@@ -19,6 +19,7 @@ import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.autoexec.exception.*;
+import codedriver.framework.autoexec.util.AutoexecUtil;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.exception.type.ParamIrregularException;
@@ -283,29 +284,6 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     }
 
     /**
-     * 请求runner
-     *
-     * @param runnerUrl runner 链接
-     * @param paramJson 入参
-     * @return runner response
-     */
-    protected String requestRunner(String runnerUrl, JSONObject paramJson) {
-        RestVo restVo = new RestVo.Builder(runnerUrl, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
-        String restResult = RestUtil.sendPostRequest(restVo);
-        JSONObject resultJson = null;
-        try {
-            resultJson = JSONObject.parseObject(restResult);
-        } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new AutoexecJobRunnerConnectRefusedException(restVo.getUrl() + " " + restResult);
-        }
-        if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-            throw new AutoexecJobRunnerHttpRequestException(resultJson.getString("Message"));
-        }
-        return resultJson.getString("Return");
-    }
-
-    /**
      * 获取节点状态
      *
      * @param paramJson 入参
@@ -314,7 +292,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     protected AutoexecJobPhaseNodeVo getNodeOperationStatus(JSONObject paramJson) {
         List<AutoexecJobPhaseNodeOperationStatusVo> statusList = new ArrayList<>();
         String url = paramJson.getString("runnerUrl") + "/api/rest/job/phase/node/status/get";
-        JSONObject statusJson = JSONObject.parseObject(requestRunner(url, paramJson));
+        JSONObject statusJson = JSONObject.parseObject(AutoexecUtil.requestRunner(url, paramJson));
         AutoexecJobPhaseNodeVo nodeVo = new AutoexecJobPhaseNodeVo(statusJson);
         List<AutoexecJobPhaseOperationVo> operationVoList = autoexecJobMapper.getJobPhaseOperationByJobIdAndPhaseId(paramJson.getLong("jobId"), paramJson.getLong("phaseId"));
         //补充工具description
@@ -356,7 +334,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      */
     protected AutoexecJobNodeSqlVo getNodeSqlStatus(JSONObject paramJson) {
         String url = paramJson.getString("runnerUrl") + "/api/rest/job/phase/node/status/get";
-        JSONObject statusJson = JSONObject.parseObject(requestRunner(url, paramJson));
+        JSONObject statusJson = JSONObject.parseObject(AutoexecUtil.requestRunner(url, paramJson));
         if (MapUtils.isNotEmpty(statusJson)) {
             return new AutoexecJobNodeSqlVo(statusJson);
         }
