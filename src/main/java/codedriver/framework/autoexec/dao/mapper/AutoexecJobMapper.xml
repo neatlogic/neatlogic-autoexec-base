@@ -141,6 +141,12 @@
                 #{status}
             </foreach>
         </if>
+        <if test="nodeIdList != null and nodeIdList.size() > 0 ">
+            and ajpn.`id` in
+            <foreach collection="nodeIdList" item="nodeId" open="(" close=")" separator=",">
+                #{nodeId}
+            </foreach>
+        </if>
         <if test="statusBlackList != null and statusBlackList.size() > 0 ">
             and ajpn.`status` not in
             <foreach collection="statusBlackList" item="statusBlack" open="(" close=")" separator=",">

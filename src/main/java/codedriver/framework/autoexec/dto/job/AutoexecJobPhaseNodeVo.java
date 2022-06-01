@@ -81,6 +81,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private String schemaName;
     @JSONField(serialize = false)
     private Integer groupSort;//组排序用于节点过滤
+    @JSONField(serialize = false)
+    private List<Long> nodeIdList;
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -360,5 +362,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setGroupSort(Integer groupSort) {
         this.groupSort = groupSort;
+    }
+
+    public List<Long> getNodeIdList() {
+        return nodeIdList;
+    }
+
+    public void setNodeIdList(List<Long> nodeIdList) {
+        this.nodeIdList = nodeIdList;
     }
 }
