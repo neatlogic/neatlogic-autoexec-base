@@ -52,6 +52,9 @@ public class AutoexecParamVo implements Serializable {
     @EntityField(name = "自由参数数量", type = ApiParamType.INTEGER)
     private Integer argumentCount = 0;
 
+    @EntityField(name = "参数映射模式", type = ApiParamType.STRING)
+    private String paramMappingMode;
+
     @JSONField(serialize = false)
     private String defaultValueStr;
 
@@ -248,5 +251,13 @@ public class AutoexecParamVo implements Serializable {
 
     public void setOperationType(String operationType) {
         this.operationType = operationType;
+    }
+
+    public String getParamMappingMode() {
+        return paramMappingMode;
+    }
+
+    public void setParamMappingMode(String paramMappingMode) {
+        this.paramMappingMode = paramMappingMode;
     }
 }
