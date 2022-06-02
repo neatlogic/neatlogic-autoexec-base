@@ -30,7 +30,7 @@ public interface AutoexecCombopMapper {
 
     AutoexecCombopVo getAutoexecCombopByName(String name);
 
-    List<AutoexecCombopVo> getAutoexecCombopByIdList(ArrayList<Long> idList);
+    List<AutoexecCombopVo> getAutoexecCombopByIdList(List<Long> idList);
 
     int getAutoexecCombopCount(AutoexecCombopVo searchVo);
 
