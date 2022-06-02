@@ -73,7 +73,6 @@
             `operation_type` AS operationType,
             `notify_policy_id` AS notifyPolicyId,
             `owner`,
-            `config`,
             `fcd`,
             `fcu`,
             `lcd`,
