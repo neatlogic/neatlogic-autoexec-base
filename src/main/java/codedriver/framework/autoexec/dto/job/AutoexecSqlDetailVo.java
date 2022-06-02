@@ -44,8 +44,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private Integer runnerPort;
     @EntityField(name = "状态", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "状态Vo", type = ApiParamType.JSONOBJECT)
-    private AutoexecJobStatusVo statusVo;
+    @EntityField(name = "状态名", type = ApiParamType.STRING)
+    private String statusName;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
     @EntityField(name = "md5", type = ApiParamType.STRING)
@@ -176,11 +176,11 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.status = status;
     }
 
-    public AutoexecJobStatusVo getStatusVo() {
-        if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
+    public String getStatusName() {
+        if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
+            statusName = JobNodeStatus.getText(status);
         }
-        return statusVo;
+        return statusName;
     }
 
     public Integer getCompletionRate() {
