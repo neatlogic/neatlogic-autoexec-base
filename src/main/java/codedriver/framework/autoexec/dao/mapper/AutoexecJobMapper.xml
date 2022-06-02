@@ -2031,11 +2031,7 @@
 
     <update id="updateSqlIsDeleteByIdList">
         UPDATE autoexec_job_sql_detail
-        SET `is_delete` = 1,
-            md5 = null,
-            status = null,
-            start_time = null,
-            end_time = null
+        SET `is_delete` = 1
         WHERE `id` IN
         <foreach collection="idList" item="id" open="(" close=")" separator=",">
             #{id}
