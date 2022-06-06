@@ -32,6 +32,7 @@ public enum JobAction {
     DELETE("delete", "删除作业"),
     TAIL_NODE_LOG("tailNodeLog", "获取节点日志"),
     TAIL_NODE_LOG_NEW("tailNodeLogNew", "获取节点日志"),
+    GET_NODE_OPERATION_LIST("getNodeOperationList","获取节点操作列表"),
     INFORM_PHASE_ROUND("informPhaseRound", "通知下一个phase round");
 
     private final String value;
