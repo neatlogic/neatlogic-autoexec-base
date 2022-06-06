@@ -1403,6 +1403,7 @@
         ajsd.`sql_file` as sqlFile,
         ajsd.`runner_id` as runnerId,
         ajsd.`resource_id` as resourceId,
+        ajsd.`user_name` as userName,
         ajpn.`name` as nodeName
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
