@@ -1403,6 +1403,7 @@
         ajsd.`sql_file` as sqlFile,
         ajsd.`runner_id` as runnerId,
         ajsd.`resource_id` as resourceId,
+        ajsd.`user_name` as userName,
         ajpn.`name` as nodeName
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
@@ -1753,7 +1754,9 @@
         `job_id`,
         `resource_id`,
         `node_name`,
+        `user_name`,
         `runner_id`,
+        `job_phase_id`,
         `job_phase_name`,
         `sql_file`,
         `status`,
@@ -1773,7 +1776,9 @@
         #{jobId},
         #{resourceId},
         #{nodeName},
+        #{userName},
         #{runnerId},
+        #{phaseId},
         #{phaseName},
         #{sqlFile},
         #{status},
@@ -1792,7 +1797,7 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_job_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
+        insert into `autoexec_job_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
@@ -1801,6 +1806,7 @@
             #{vo.jobId},
             #{vo.resourceId},
             #{vo.nodeName},
+            #{vo.userName},
             #{runnerId},
             #{phaseId},
             #{phaseName},

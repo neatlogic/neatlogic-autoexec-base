@@ -28,10 +28,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String nodeName;
     @EntityField(name = "资源id", type = ApiParamType.LONG)
     private Long resourceId;
+    @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
+    private Long phaseId;
     @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
     private String phaseName;
     @EntityField(name = "sql文件名", type = ApiParamType.STRING)
     private String sqlFile;
+    @EntityField(name = "用户名", type = ApiParamType.STRING)
+    private String userName;
     @EntityField(name = "ip", type = ApiParamType.STRING)
     private String host;
     @EntityField(name = "端口", type = ApiParamType.INTEGER)
@@ -67,6 +71,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.resourceId = (paramObj.getLong("resourceId"));
         this.nodeName = (paramObj.getString("nodeName"));
         this.phaseName = (paramObj.getString("phaseName"));
+        this.userName = (paramObj.getString("userName"));
         this.status = (paramObj.getString("status"));
         this.sqlFile = (paramObj.getString("sqlFile"));
         this.md5 = (paramObj.getString("md5"));
@@ -104,6 +109,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.resourceId = resourceId;
     }
 
+    public Long getPhaseId() {
+        return phaseId;
+    }
+
+    public void setPhaseId(Long phaseId) {
+        this.phaseId = phaseId;
+    }
+
     public String getPhaseName() {
         return phaseName;
     }
@@ -118,6 +131,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getSqlFile() {
