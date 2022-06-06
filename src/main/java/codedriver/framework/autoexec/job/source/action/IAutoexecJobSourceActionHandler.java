@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.job.source.action;
 
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
+import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import com.alibaba.fastjson.JSONObject;
 
@@ -43,11 +44,35 @@ public interface IAutoexecJobSourceActionHandler {
      * @param jobVo 作业vo
      * @throws Exception 异常
      */
-    void  downloadJobSqlFile(AutoexecJobVo jobVo) throws Exception;
+    void downloadJobSqlFile(AutoexecJobVo jobVo) throws Exception;
 
     /**
+     * 重置sql文件状态
      *
      * @param paramObj 入参
      */
-    void resetSqlStatus(JSONObject paramObj,AutoexecJobVo jobVo);
+    void resetSqlStatus(JSONObject paramObj, AutoexecJobVo jobVo);
+
+    /**
+     * 查询作业剧本sql（管理页）
+     *
+     * @param jobPhaseNodeVo 节点vo
+     * @return sql列表和分页数据
+     */
+    JSONObject searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    /**
+     * 检查作业执行sql文件状态(多删少补，不更新状态)
+     *
+     * @param paramObj 入参
+     */
+    void checkinSqlList(JSONObject paramObj);
+
+    /**
+     * 更新sql文件状态(存在则更新，不存在则新增)
+     *
+     * @param paramObj 入参
+     */
+    void updateSqlStatus(JSONObject paramObj);
+
 }
