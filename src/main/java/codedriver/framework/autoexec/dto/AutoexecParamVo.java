@@ -70,6 +70,7 @@ public class AutoexecParamVo implements Serializable {
         this.name = autoexecParamVo.name;
         this.defaultValue = autoexecParamVo.defaultValue;
         this.mode = autoexecParamVo.mode;
+        this.mappingMode = autoexecParamVo.mappingMode;
         this.type = autoexecParamVo.type;
         this.isRequired = autoexecParamVo.isRequired;
         this.description = autoexecParamVo.description;

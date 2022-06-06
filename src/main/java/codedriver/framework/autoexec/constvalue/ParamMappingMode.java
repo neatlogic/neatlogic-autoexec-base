@@ -60,4 +60,13 @@ public enum ParamMappingMode implements IEnum {
         }
         return resultList;
     }
+
+    public static ParamMappingMode getParamMappingMode(String value) {
+        for (ParamMappingMode mappingMode : ParamMappingMode.values()) {
+            if (mappingMode.value.equals(value)) {
+                return mappingMode;
+            }
+        }
+        return null;
+    }
 }
