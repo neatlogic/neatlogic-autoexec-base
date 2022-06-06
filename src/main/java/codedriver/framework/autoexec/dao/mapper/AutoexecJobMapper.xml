@@ -1811,9 +1811,7 @@
             #{vo.isDelete})
         </foreach>
         ON DUPLICATE KEY
-        UPDATE `md5` =VALUES(md5),
-        `status` =VALUES(status),
-        `lcd`=#{lcd},
+        UPDATE `lcd`=#{lcd},
         `is_delete`= 0
     </insert>
 
