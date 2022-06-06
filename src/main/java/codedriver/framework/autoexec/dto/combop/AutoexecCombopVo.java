@@ -269,5 +269,4 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         }
         return JSONObject.toJSONString(config);
     }
-
 }

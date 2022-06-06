@@ -154,7 +154,7 @@
             </foreach>
         </if>
         <if test="keyword != null and keyword != ''">
-            and (ri.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
+            and (ajpn.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
         </if>
         <if test="runnerMapId != null">
             and arm.id = #{runnerMapId}
@@ -1403,6 +1403,7 @@
         ajsd.`sql_file` as sqlFile,
         ajsd.`runner_id` as runnerId,
         ajsd.`resource_id` as resourceId,
+        ajsd.`user_name` as userName,
         ajpn.`name` as nodeName
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
@@ -1518,6 +1519,40 @@
         and job_phase_name in
         <foreach collection="jobPhaseNameList" item="name" separator="," open="(" close=")">
             #{name}
+        </foreach>
+    </select>
+    <select id="getJobPhaseNodeListByJobIdAndPhaseName"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+               ajpn.`job_id`       AS jobId,
+               ajpn.`job_phase_id` AS jobPhaseId,
+               ajpn.`host`,
+               ajpn.`port`,
+               ajpn.`start_time`   AS startTime,
+               ajpn.`end_time`     AS endTime,
+               ajpn.`resource_id`  as resourceId,
+               ajpn.`status`
+        FROM `autoexec_job_phase_node` ajpn
+                 join autoexec_job_phase ajp on ajpn.job_phase_id = ajp.id
+        where ajpn.`job_id` = #{jobId}
+          and ajp.`name` = #{phaseName}
+    </select>
+    <select id="getJobPhaseNodeListBySqlIdList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`resource_id` as resourceId,
+        ajpn.`status`
+        from autoexec_job_sql_detail ajsd
+        LEFT JOIN autoexec_job_phase_node ajpn on ajsd.job_id = ajpn.job_id and ajsd.job_phase_id = ajpn.job_phase_id
+        where ajsd.id in
+        <foreach collection="sqlIdList" item="sqlId" close=")" open="(" separator=",">
+            #{sqlId}
         </foreach>
     </select>
 
@@ -1719,7 +1754,9 @@
         `job_id`,
         `resource_id`,
         `node_name`,
+        `user_name`,
         `runner_id`,
+        `job_phase_id`,
         `job_phase_name`,
         `sql_file`,
         `status`,
@@ -1739,7 +1776,9 @@
         #{jobId},
         #{resourceId},
         #{nodeName},
+        #{userName},
         #{runnerId},
+        #{phaseId},
         #{phaseName},
         #{sqlFile},
         #{status},
@@ -1758,7 +1797,7 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_job_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`runner_id`,`job_phase_name`,
+        insert into `autoexec_job_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
@@ -1767,7 +1806,9 @@
             #{vo.jobId},
             #{vo.resourceId},
             #{vo.nodeName},
+            #{vo.userName},
             #{runnerId},
+            #{phaseId},
             #{phaseName},
             #{vo.sqlFile},
             #{vo.status},
@@ -1776,9 +1817,7 @@
             #{vo.isDelete})
         </foreach>
         ON DUPLICATE KEY
-        UPDATE `md5` =VALUES(md5),
-        `status` =VALUES(status),
-        `lcd`=#{lcd},
+        UPDATE `lcd`=#{lcd},
         `is_delete`= 0
     </insert>
 

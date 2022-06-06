@@ -28,10 +28,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String nodeName;
     @EntityField(name = "资源id", type = ApiParamType.LONG)
     private Long resourceId;
+    @EntityField(name = "作业剧本id", type = ApiParamType.LONG)
+    private Long phaseId;
     @EntityField(name = "作业剧本名", type = ApiParamType.STRING)
     private String phaseName;
     @EntityField(name = "sql文件名", type = ApiParamType.STRING)
     private String sqlFile;
+    @EntityField(name = "用户名", type = ApiParamType.STRING)
+    private String userName;
     @EntityField(name = "ip", type = ApiParamType.STRING)
     private String host;
     @EntityField(name = "端口", type = ApiParamType.INTEGER)
@@ -44,8 +48,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private Integer runnerPort;
     @EntityField(name = "状态", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "状态Vo", type = ApiParamType.JSONOBJECT)
-    private AutoexecJobStatusVo statusVo;
+    @EntityField(name = "状态名", type = ApiParamType.STRING)
+    private String statusName;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
     @EntityField(name = "md5", type = ApiParamType.STRING)
@@ -67,6 +71,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.resourceId = (paramObj.getLong("resourceId"));
         this.nodeName = (paramObj.getString("nodeName"));
         this.phaseName = (paramObj.getString("phaseName"));
+        this.userName = (paramObj.getString("userName"));
         this.status = (paramObj.getString("status"));
         this.sqlFile = (paramObj.getString("sqlFile"));
         this.md5 = (paramObj.getString("md5"));
@@ -104,6 +109,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.resourceId = resourceId;
     }
 
+    public Long getPhaseId() {
+        return phaseId;
+    }
+
+    public void setPhaseId(Long phaseId) {
+        this.phaseId = phaseId;
+    }
+
     public String getPhaseName() {
         return phaseName;
     }
@@ -118,6 +131,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getSqlFile() {
@@ -176,11 +197,11 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.status = status;
     }
 
-    public AutoexecJobStatusVo getStatusVo() {
-        if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
+    public String getStatusName() {
+        if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
+            statusName = JobNodeStatus.getText(status);
         }
-        return statusVo;
+        return statusName;
     }
 
     public Integer getCompletionRate() {
