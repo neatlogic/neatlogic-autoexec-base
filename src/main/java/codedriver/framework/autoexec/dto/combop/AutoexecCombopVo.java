@@ -71,7 +71,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private boolean needExecuteNode = false;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
-    @EntityField(name = "引用id", type = ApiParamType.LONG)
+    @EntityField(name = "引用id，如果是组合工具id，说明没有被引用", type = ApiParamType.LONG)
     private Long invokeId;
 
     @JSONField(serialize = false)
