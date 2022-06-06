@@ -69,6 +69,10 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private boolean needProtocol = false;
     @EntityField(name = "执行页面是否需要设置执行目标", type = ApiParamType.BOOLEAN)
     private boolean needExecuteNode = false;
+    @EntityField(name = "来源", type = ApiParamType.STRING)
+    private String source;
+    @EntityField(name = "引用id，如果是组合工具id，说明没有被引用", type = ApiParamType.LONG)
+    private Long invokeId;
 
     @JSONField(serialize = false)
     private String configStr;
@@ -270,4 +274,19 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         return JSONObject.toJSONString(config);
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public Long getInvokeId() {
+        return invokeId;
+    }
+
+    public void setInvokeId(Long invokeId) {
+        this.invokeId = invokeId;
+    }
 }
