@@ -5,10 +5,7 @@
 
 package codedriver.framework.autoexec.dto;
 
-import codedriver.framework.autoexec.constvalue.OutputParamType;
-import codedriver.framework.autoexec.constvalue.ParamMode;
-import codedriver.framework.autoexec.constvalue.ParamType;
-import codedriver.framework.autoexec.constvalue.ScriptParamMappingMode;
+import codedriver.framework.autoexec.constvalue.*;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONException;
@@ -268,7 +265,7 @@ public class AutoexecParamVo implements Serializable {
 
     public String getMappingModeText() {
         if (StringUtils.isNotBlank(mappingMode)) {
-            ScriptParamMappingMode mode = ScriptParamMappingMode.getParamMappingMode(mappingMode);
+            AutoexecProfileParamInvokeType mode = AutoexecProfileParamInvokeType.getParamType(mappingMode);
             if (mode != null) {
                 mappingModeText = mode.getText();
             }

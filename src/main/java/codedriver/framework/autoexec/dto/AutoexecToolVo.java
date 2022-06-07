@@ -7,12 +7,20 @@ package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import com.alibaba.fastjson.JSONObject;
 
 public class AutoexecToolVo extends AutoexecOperationVo {
     @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
     private Integer isActive;
 
     public AutoexecToolVo() {
+    }
+
+    public AutoexecToolVo(JSONObject object) {
+        setName(object.getString("opName"));
+        setExecMode(object.getString("opType"));
+        setParser(object.getString("interpreter"));
+        setDescription(object.getString("description"));
     }
 
     public Integer getIsActive() {
