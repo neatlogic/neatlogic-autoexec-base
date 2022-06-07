@@ -1531,7 +1531,7 @@
         </foreach>
     </select>
 
-    <select id="getJobSqlDetailListByIdList"
+    <select id="getJobSqlDetailListByJobIdAndPhaseName"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         SELECT ajsd.`id`,
         ajsd.`md5`,
@@ -1549,10 +1549,8 @@
         JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
         ajsd.resource_id
         = ajpn.resource_id
-        where ajsd.id in
-        <foreach collection="idList" item="id" close=")" open="(" separator=",">
-            #{id}
-        </foreach>
+        where ajsd.job_id = #{jobId}
+          and ajsd.job_phase_name = #{phaseName}
     </select>
 
     <sql id="searchJobPhaseSql">
