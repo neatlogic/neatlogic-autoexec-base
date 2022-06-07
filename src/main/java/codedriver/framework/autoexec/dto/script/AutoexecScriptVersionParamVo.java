@@ -60,6 +60,7 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
                 && Objects.equals(this.getDefaultValueStr(), other.getDefaultValueStr())
                 && Objects.equals(this.getType(), other.getType())
                 && Objects.equals(this.getMode(), other.getMode())
+                && Objects.equals(this.getMappingMode(), other.getMappingMode())
                 && Objects.equals(this.getIsRequired(), other.getIsRequired())
                 && Objects.equals(this.getDescription(), other.getDescription())
                 && Objects.equals(this.getConfigStr(), other.getConfigStr())
@@ -74,6 +75,7 @@ public class AutoexecScriptVersionParamVo extends AutoexecParamVo {
         _key += (getDefaultValueStr() != null ? getDefaultValueStr() : "undefined") + "_";
         _key += (getType() != null ? getType() : "undefined") + "_";
         _key += (getMode() != null ? getMode() : "undefined") + "_";
+        _key += (getMappingMode() != null ? getMappingMode() : "undefined") + "_";
         _key += (getIsRequired() != null ? getIsRequired() : "undefined") + "_";
         _key += (getDescription() != null ? getDescription() : "undefined") + "_";
         _key += (getConfigStr() != null ? getConfigStr() : "undefined") + "_";

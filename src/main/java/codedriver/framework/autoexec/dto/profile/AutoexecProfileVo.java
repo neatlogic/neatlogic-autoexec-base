@@ -44,6 +44,14 @@ public class AutoexecProfileVo extends BaseEditorVo {
     @EntityField(name = "profile参数列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecProfileParamVo> profileParamVoList;
 
+    public AutoexecProfileVo() {
+    }
+
+    public AutoexecProfileVo(String name, Long fromSystemId) {
+        this.name = name;
+        this.fromSystemId = fromSystemId;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();
