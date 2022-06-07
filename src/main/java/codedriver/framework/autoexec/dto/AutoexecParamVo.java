@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.autoexec.constvalue.OutputParamType;
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.constvalue.ParamType;
+import codedriver.framework.autoexec.constvalue.ScriptParamMappingMode;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONException;
@@ -54,6 +55,9 @@ public class AutoexecParamVo implements Serializable {
 
     @EntityField(name = "参数映射模式", type = ApiParamType.STRING)
     private String mappingMode;
+
+    @EntityField(name = "参数映射模式中文名", type = ApiParamType.STRING)
+    private String mappingModeText;
 
     @JSONField(serialize = false)
     private String defaultValueStr;
@@ -260,5 +264,15 @@ public class AutoexecParamVo implements Serializable {
 
     public void setMappingMode(String mappingMode) {
         this.mappingMode = mappingMode;
+    }
+
+    public String getMappingModeText() {
+        if (StringUtils.isNotBlank(mappingMode)) {
+            ScriptParamMappingMode mode = ScriptParamMappingMode.getParamMappingMode(mappingMode);
+            if (mode != null) {
+                mappingModeText = mode.getText();
+            }
+        }
+        return mappingModeText;
     }
 }

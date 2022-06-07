@@ -12,24 +12,18 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 /**
- * 参数映射模式枚举类
+ * 工具/自定义工具参数映射模式枚举类
  *
- * @author: linbq
- * @since: 2021/4/14 17:47
+ * @author: laiwt
+ * @since: 2022/6/7 17:47
  **/
-public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量"),
-    RUNTIME_PARAM("runtimeparam", "作业参数"),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数值"),
-    PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "上游节点输出参数名"),
-    IS_EMPTY("isempty", "为空"),
-    PROFILE("profile", "预置参数集"),
+public enum ScriptParamMappingMode implements IEnum {
     GLOBAL_PARAM("globalparam", "全局参数");
 
     private final String value;
     private final String text;
 
-    private ParamMappingMode(String value, String text) {
+    ScriptParamMappingMode(String value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -52,12 +46,21 @@ public enum ParamMappingMode implements IEnum {
     @Override
     public List getValueTextList() {
         JSONArray resultList = new JSONArray();
-        for (ParamMappingMode e : values()) {
+        for (ScriptParamMappingMode e : values()) {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("value", e.getValue());
             jsonObj.put("text", e.getText());
             resultList.add(jsonObj);
         }
         return resultList;
+    }
+
+    public static ScriptParamMappingMode getParamMappingMode(String value) {
+        for (ScriptParamMappingMode mappingMode : ScriptParamMappingMode.values()) {
+            if (mappingMode.value.equals(value)) {
+                return mappingMode;
+            }
+        }
+        return null;
     }
 }
