@@ -41,4 +41,6 @@ public interface AutoexecToolMapper {
 
     int replaceTool(AutoexecToolVo toolVo);
 
+    int deleteToolByIdList(List<Long> list);
+
 }

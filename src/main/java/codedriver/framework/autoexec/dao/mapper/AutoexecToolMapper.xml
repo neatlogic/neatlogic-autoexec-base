@@ -271,5 +271,12 @@
         )
     </update>
 
+    <delete id="deleteToolByIdList" parameterType="java.util.List">
+        delete from `autoexec_tool` where `id` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
 </mapper>
 
