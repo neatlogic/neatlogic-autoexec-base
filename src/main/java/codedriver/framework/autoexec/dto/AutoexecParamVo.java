@@ -51,7 +51,7 @@ public class AutoexecParamVo implements Serializable {
     private Integer argumentCount = 0;
 
     @EntityField(name = "参数映射模式", type = ApiParamType.STRING)
-    private String mappingMode;
+    private String mappingMode = AutoexecProfileParamInvokeType.CONSTANT.getValue();
 
     @EntityField(name = "参数映射模式中文名", type = ApiParamType.STRING)
     private String mappingModeText;
