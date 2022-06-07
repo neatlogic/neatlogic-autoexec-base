@@ -35,7 +35,11 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     @EntityField(name = "sql文件名", type = ApiParamType.STRING)
     private String sqlFile;
     @EntityField(name = "用户名", type = ApiParamType.STRING)
-    private String userName;
+    private String username;
+    @EntityField(name = "访问地址", type = ApiParamType.STRING)
+    private String accessEndPoint;
+    @EntityField(name = "节点类型", type = ApiParamType.STRING)
+    private String nodeType;
     @EntityField(name = "ip", type = ApiParamType.STRING)
     private String host;
     @EntityField(name = "端口", type = ApiParamType.INTEGER)
@@ -71,7 +75,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.resourceId = (paramObj.getLong("resourceId"));
         this.nodeName = (paramObj.getString("nodeName"));
         this.phaseName = (paramObj.getString("phaseName"));
-        this.userName = (paramObj.getString("userName"));
+        this.username = (paramObj.getString("username"));
         this.status = (paramObj.getString("status"));
         this.sqlFile = (paramObj.getString("sqlFile"));
         this.md5 = (paramObj.getString("md5"));
@@ -133,12 +137,28 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.nodeName = nodeName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAccessEndPoint() {
+        return accessEndPoint;
+    }
+
+    public void setAccessEndPoint(String accessEndPoint) {
+        this.accessEndPoint = accessEndPoint;
+    }
+
+    public String getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
     }
 
     public String getSqlFile() {

@@ -1395,31 +1395,6 @@
         ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name`
     </select>
 
-    <select id="getJobSqlDetailList" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo"
-            parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
-        SELECT ajsd.`id`,
-        ajsd.`md5`,
-        ajsd.`status`,
-        ajsd.`sql_file` as sqlFile,
-        ajsd.`runner_id` as runnerId,
-        ajsd.`resource_id` as resourceId,
-        ajsd.`user_name` as userName,
-        ajpn.`name` as nodeName
-        FROM autoexec_job_sql_detail ajsd
-        JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
-        ajsd.resource_id
-        = ajpn.resource_id
-        <where>
-            <foreach collection="sqlFileDetailVoList" item="vo" separator="or" open="(" close=")">
-                ( ajsd.resource_id = #{vo.resourceId}
-                AND ajsd.sql_file = #{vo.sqlFile})
-            </foreach>
-            AND ajsd.job_phase_name = #{phaseName}
-            AND ajsd.is_delete = 0
-        </where>
-    </select>
-
     <select id="searchJobPhaseSqlCount" resultType="int">
         SELECT
         count( ajsd.`id` )
@@ -1553,6 +1528,30 @@
         where ajsd.id in
         <foreach collection="sqlIdList" item="sqlId" close=")" open="(" separator=",">
             #{sqlId}
+        </foreach>
+    </select>
+
+    <select id="getJobSqlDetailListByIdList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+        SELECT ajsd.`id`,
+        ajsd.`md5`,
+        ajsd.`status`,
+        ajsd.`sql_file` as sqlFile,
+        ajsd.`runner_id` as runnerId,
+        ajsd.`resource_id` as resourceId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`name` as nodeName,
+        ajpn.`type` as nodeType,
+        ajpn.`user_name` as username
+        FROM autoexec_job_sql_detail ajsd
+        JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
+        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
+        ajsd.resource_id
+        = ajpn.resource_id
+        where ajsd.id in
+        <foreach collection="idList" item="id" close=")" open="(" separator=",">
+            #{id}
         </foreach>
     </select>
 
@@ -1754,7 +1753,6 @@
         `job_id`,
         `resource_id`,
         `node_name`,
-        `user_name`,
         `runner_id`,
         `job_phase_id`,
         `job_phase_name`,
@@ -1776,7 +1774,6 @@
         #{jobId},
         #{resourceId},
         #{nodeName},
-        #{userName},
         #{runnerId},
         #{phaseId},
         #{phaseName},
@@ -1797,7 +1794,7 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_job_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
+        insert into `autoexec_job_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
@@ -1806,7 +1803,6 @@
             #{vo.jobId},
             #{vo.resourceId},
             #{vo.nodeName},
-            #{vo.userName},
             #{runnerId},
             #{phaseId},
             #{phaseName},
