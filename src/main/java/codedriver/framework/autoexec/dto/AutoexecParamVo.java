@@ -5,9 +5,7 @@
 
 package codedriver.framework.autoexec.dto;
 
-import codedriver.framework.autoexec.constvalue.OutputParamType;
-import codedriver.framework.autoexec.constvalue.ParamMode;
-import codedriver.framework.autoexec.constvalue.ParamType;
+import codedriver.framework.autoexec.constvalue.*;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONException;
@@ -52,6 +50,12 @@ public class AutoexecParamVo implements Serializable {
     @EntityField(name = "自由参数数量", type = ApiParamType.INTEGER)
     private Integer argumentCount = 0;
 
+    @EntityField(name = "参数映射模式", type = ApiParamType.STRING)
+    private String mappingMode;
+
+    @EntityField(name = "参数映射模式中文名", type = ApiParamType.STRING)
+    private String mappingModeText;
+
     @JSONField(serialize = false)
     private String defaultValueStr;
 
@@ -67,6 +71,7 @@ public class AutoexecParamVo implements Serializable {
         this.name = autoexecParamVo.name;
         this.defaultValue = autoexecParamVo.defaultValue;
         this.mode = autoexecParamVo.mode;
+        this.mappingMode = autoexecParamVo.mappingMode;
         this.type = autoexecParamVo.type;
         this.isRequired = autoexecParamVo.isRequired;
         this.description = autoexecParamVo.description;
@@ -79,9 +84,13 @@ public class AutoexecParamVo implements Serializable {
         this.defaultValue = argumentJson.getString("defaultValue");
         this.mode = ParamMode.INPUT.getValue();
         this.type = argumentJson.getString("type");
-        this.isRequired = argumentJson.getInteger("isRequired");
+        this.isRequired = 0;
+        String required = argumentJson.getString("required");
+        if (StringUtils.isNotBlank(required) && Boolean.parseBoolean(required)) {
+            this.isRequired = 1;
+        }
         this.validate = argumentJson.getString("validate");
-        this.description = argumentJson.getString("description");
+        this.description = argumentJson.getString("help");
         this.argumentCount = argumentJson.getInteger("count");
     }
 
@@ -248,5 +257,23 @@ public class AutoexecParamVo implements Serializable {
 
     public void setOperationType(String operationType) {
         this.operationType = operationType;
+    }
+
+    public String getMappingMode() {
+        return mappingMode;
+    }
+
+    public void setMappingMode(String mappingMode) {
+        this.mappingMode = mappingMode;
+    }
+
+    public String getMappingModeText() {
+        if (StringUtils.isNotBlank(mappingMode)) {
+            AutoexecProfileParamInvokeType mode = AutoexecProfileParamInvokeType.getParamType(mappingMode);
+            if (mode != null) {
+                mappingModeText = mode.getText();
+            }
+        }
+        return mappingModeText;
     }
 }

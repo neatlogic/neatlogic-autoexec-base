@@ -108,7 +108,7 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
             JSONObject toolConfig = JSONObject.parseObject(super.getConfigStr());
             JSONObject argumentJson = toolConfig.getJSONObject("argument");
             if (MapUtils.isNotEmpty(argumentJson)) {
-                super.setArgument(new AutoexecParamVo(argumentJson));
+                super.setArgument(argumentJson.toJavaObject(AutoexecParamVo.class));
             }
         }
         return super.getArgument();

@@ -73,6 +73,15 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
     @EntityField(name = "修改者VO")
     private UserVo lcuVo;
 
+    public AutoexecGlobalParamVo() {
+    }
+
+    public AutoexecGlobalParamVo(String key, String name, String type) {
+        super.setKey(key);
+        super.setName(name);
+        super.setType(type);
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();
@@ -206,7 +215,6 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
     public void setExpectOffsetRowNum(Integer expectOffsetRowNum) {
         this.expectOffsetRowNum = expectOffsetRowNum;
     }
-
 
 
     public String getTenantUuid() {

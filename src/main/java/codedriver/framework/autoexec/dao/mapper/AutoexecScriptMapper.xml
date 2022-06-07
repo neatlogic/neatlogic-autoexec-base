@@ -419,6 +419,7 @@
                `default_value`     as defaultValue,
                `type`,
                `mode`,
+               `mapping_mode`      as mappingMode,
                `is_required`       as isRequired,
                `description`,
                `sort`,
@@ -435,6 +436,7 @@
                `default_value` as defaultValue,
                `type`,
                `mode`,
+               `mapping_mode`  as mappingMode,
                `is_required`   as isRequired,
                `description`,
                `sort`,
@@ -452,6 +454,7 @@
                `default_value`     as defaultValue,
                `type`,
                `mode`,
+               `mapping_mode`      as mappingMode,
                `is_required`       as isRequired,
                `description`,
                `sort`,
@@ -470,6 +473,7 @@
                a.`default_value`     as defaultValue,
                a.`type`,
                a.`mode`,
+               a.`mapping_mode`      as mappingMode,
                a.`is_required`       as isRequired,
                a.`description`,
                a.`sort`,
@@ -762,6 +766,7 @@
             <result property="defaultValue" column="defaultValue"/>
             <result property="type" column="paramType"/>
             <result property="mode" column="mode"/>
+            <result property="mappingMode" column="mappingMode"/>
             <result property="isRequired" column="isRequired"/>
             <result property="description" column="paramDescription"/>
             <result property="sort" column="sort"/>
@@ -793,6 +798,7 @@
             <result property="defaultValue" column="defaultValue"/>
             <result property="type" column="paramType"/>
             <result property="mode" column="mode"/>
+            <result property="mappingMode" column="mappingMode"/>
             <result property="isRequired" column="isRequired"/>
             <result property="description" column="paramDescription"/>
             <result property="sort" column="sort"/>
@@ -808,6 +814,7 @@
             <result property="defaultValue" column="defaultValue"/>
             <result property="type" column="paramType"/>
             <result property="mode" column="mode"/>
+            <result property="mappingMode" column="mappingMode"/>
             <result property="isRequired" column="isRequired"/>
             <result property="description" column="paramDescription"/>
             <result property="sort" column="sort"/>
@@ -836,6 +843,7 @@
         c.`default_value` AS defaultValue,
         c.`type` AS paramType,
         c.`mode`,
+        c.`mapping_mode` AS mappingMode,
         c.`is_required` AS isRequired,
         c.`description` AS paramDescription,
         c.`sort`,
@@ -886,6 +894,7 @@
         c.`default_value` AS defaultValue,
         c.`type` AS paramType,
         c.`mode`,
+        c.`mapping_mode` AS mappingMode,
         c.`is_required` AS isRequired,
         c.`description` AS paramDescription,
         c.`sort`,
@@ -912,6 +921,7 @@
         c.`default_value` AS defaultValue,
         c.`type` AS paramType,
         c.`mode`,
+        c.`mapping_mode` AS mappingMode,
         c.`is_required` AS isRequired,
         c.`description` AS paramDescription,
         c.`sort`,
@@ -1245,6 +1255,7 @@
         `default_value`,
         `type`,
         `mode`,
+        `mapping_mode`,
         `is_required`,
         `description`,
         `sort`,
@@ -1258,6 +1269,7 @@
             #{item.defaultValueStr},
             #{item.type},
             #{item.mode},
+            #{item.mappingMode},
             #{item.isRequired},
             #{item.description},
             #{item.sort},
