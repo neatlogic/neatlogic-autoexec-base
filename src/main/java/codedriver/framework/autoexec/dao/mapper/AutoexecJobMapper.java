@@ -211,9 +211,9 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndNodeFromJob(Long jobId);
 
-    List<AutoexecSqlDetailVo> getJobSqlDetailList(@Param("sqlFileDetailVoList") List<AutoexecSqlDetailVo> sqlFileDetailVoList, @Param("phaseName") String phaseName);
-
     List<AutoexecSqlDetailVo> searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 
     List<Long> getSqlDetailByJobIdAndPhaseNameAndLcd(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
