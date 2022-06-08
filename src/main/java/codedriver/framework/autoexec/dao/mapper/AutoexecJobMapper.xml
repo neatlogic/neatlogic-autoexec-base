@@ -2055,6 +2055,7 @@
         `is_delete` = 0
         WHERE
         resource_id = #{resourceId}
+        and job_id = #{jobId}
         and job_phase_name = #{phaseName}
         and sql_file = #{sqlFile}
     </update>
