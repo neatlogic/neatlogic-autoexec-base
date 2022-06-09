@@ -215,6 +215,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 
+    AutoexecSqlDetailVo getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("sqlFile") String sqlFile);
+
     List<Long> getSqlDetailIdListByJobIdAndPhaseNameAndResourceIdAndLcd(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
     List<Long> getJobSqlIdListByJobIdAndJobPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
@@ -285,9 +287,9 @@ public interface AutoexecJobMapper {
 
     void updateSqlIsDeleteByIdList(@Param("idList") List<Long> idList);
 
-    int updateSqlDetailIsDeleteAndStatusAndMd5AndLcd(AutoexecSqlDetailVo paramSqlVo);
+    void updateSqlDetailIsDeleteAndStatusAndMd5AndLcdById(AutoexecSqlDetailVo paramSqlVo);
 
-    void resetJobSqlStatusBySqlIdList(@Param("idList") List idList);
+    void resetJobSqlStatusBySqlIdList(@Param("idList") List<Long> idList);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 

@@ -1554,6 +1554,21 @@
           and ajsd.job_phase_name = #{phaseName}
     </select>
 
+    <select id="getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+        select ajsd.`id`,
+               ajsd.`md5`,
+               ajsd.`status`,
+               ajsd.`sql_file`    as sqlFile,
+               ajsd.`runner_id`   as runnerId,
+               ajsd.`resource_id` as resourceId
+        from autoexec_job_sql_detail ajsd
+        where resource_id = #{resourceId}
+          and job_id = #{jobId}
+          and job_phase_name = #{phaseName}
+          and sql_file = #{sqlFile}
+    </select>
+
     <sql id="searchJobPhaseSql">
         <where>
             <if test="statusList != null and statusList.size() > 0 ">
@@ -2039,7 +2054,7 @@
         </foreach>
     </update>
 
-    <update id="updateSqlDetailIsDeleteAndStatusAndMd5AndLcd">
+    <update id="updateSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
         UPDATE autoexec_job_sql_detail
         SET `md5` = #{md5},
         `status` = #{status},
@@ -2055,10 +2070,7 @@
         </choose>
         `is_delete` = 0
         WHERE
-        resource_id = #{resourceId}
-        and job_id = #{jobId}
-        and job_phase_name = #{phaseName}
-        and sql_file = #{sqlFile}
+        `id` = #{id}
     </update>
 
     <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
