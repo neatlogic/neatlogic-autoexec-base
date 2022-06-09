@@ -1440,6 +1440,7 @@
           and ajsd.job_phase_name = #{phaseName}
           and ajsd.resource_id = #{resourceId}
           and ajsd.lcd != #{lcd}
+          and is_delete = 0
     </select>
     <select id="searchJobPhaseNodeByDistinctResourceIdCount" resultType="java.lang.Integer">
         SELECT
@@ -2054,7 +2055,7 @@
         </foreach>
     </update>
 
-    <update id="updateSqlDetailIsDeleteAndStatusAndMd5AndLcdById">
+    <update id="updateSqlDetailById">
         UPDATE autoexec_job_sql_detail
         SET `md5` = #{md5},
         `status` = #{status},
