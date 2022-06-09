@@ -215,7 +215,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 
-    List<Long> getSqlDetailByJobIdAndPhaseNameAndLcd(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
+    List<Long> getSqlDetailIdListByJobIdAndPhaseNameAndResourceIdAndLcd(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
     List<Long> getJobSqlIdListByJobIdAndJobPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 

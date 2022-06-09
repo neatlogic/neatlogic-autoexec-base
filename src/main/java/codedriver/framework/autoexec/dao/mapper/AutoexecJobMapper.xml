@@ -1433,11 +1433,12 @@
         </if>
     </select>
 
-    <select id="getSqlDetailByJobIdAndPhaseNameAndLcd" resultType="java.lang.Long">
+    <select id="getSqlDetailIdListByJobIdAndPhaseNameAndResourceIdAndLcd" resultType="java.lang.Long">
         SELECT ajsd.`id`
         FROM autoexec_job_sql_detail ajsd
         WHERE ajsd.job_id = #{jobId}
           and ajsd.job_phase_name = #{phaseName}
+          and ajsd.resource_id = #{resourceId}
           and ajsd.lcd != #{lcd}
     </select>
     <select id="searchJobPhaseNodeByDistinctResourceIdCount" resultType="java.lang.Integer">
