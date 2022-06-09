@@ -18,6 +18,8 @@ public class AutoexecTypeVo extends BaseEditorVo {
     private String name;
     @EntityField(name = "描述", type = ApiParamType.STRING)
     private String description;
+    @EntityField(name = "类型", type = ApiParamType.STRING)
+    private String type;
 
     @EntityField(name = "关联的工具数",type = ApiParamType.INTEGER)
     private Integer referenceCountForTool = 0;
@@ -80,5 +82,13 @@ public class AutoexecTypeVo extends BaseEditorVo {
 
     public void setReferenceCountForCombop(Integer referenceCountForCombop) {
         this.referenceCountForCombop = referenceCountForCombop;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
