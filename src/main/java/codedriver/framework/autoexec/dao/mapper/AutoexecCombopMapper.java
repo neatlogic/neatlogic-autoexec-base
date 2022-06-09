@@ -54,7 +54,8 @@ public interface AutoexecCombopMapper {
     );
 
     Set<Long> getExecutableAutoexecCombopIdListByKeywordAndAuthenticationInfo(
-            @Param("keyword")String keyword,
+            @Param("keyword") String keyword,
+            @Param("typeId") Long typeId,
             @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 

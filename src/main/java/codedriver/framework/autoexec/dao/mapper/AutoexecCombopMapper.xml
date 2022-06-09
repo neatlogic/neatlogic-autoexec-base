@@ -90,7 +90,7 @@
         FROM `autoexec_combop`
         <where>
         <if test="keyword != null and keyword != ''">
-            AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%'))
+            AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
         </if>
         <if test="typeId != null">
             AND `type_id` = #{typeId}
@@ -119,7 +119,7 @@
         FROM `autoexec_combop`
         <where>
         <if test="keyword != null and keyword != ''">
-            AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%'))
+            AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
         </if>
         <if test="typeId != null">
             AND `type_id` = #{typeId}
@@ -264,7 +264,10 @@
             </if>
             )
         <if test="keyword != null and keyword != ''">
-            AND a.`name` LIKE CONCAT('%', #{keyword}, '%')
+            AND (a.`name` LIKE CONCAT('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
+        </if>
+        <if test="typeId != null">
+            AND a.`type_id` = #{typeId}
         </if>
     </select>
 
