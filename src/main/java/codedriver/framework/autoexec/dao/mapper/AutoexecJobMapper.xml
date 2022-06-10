@@ -1406,9 +1406,7 @@
         count( ajsd.`id` )
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
-        ajsd.resource_id
-        = ajpn.resource_id
+        JOIN
         <include refid="searchJobPhaseSql"></include>
     </select>
 
@@ -1422,15 +1420,11 @@
         r.`host` AS runnerHost,
         r.`port` AS runnerPort,
         ajsd.resource_id AS resourceId,
-        ajpn.`host`,
-        ajpn.`port`,
-        ajsd.`node_name` AS nodeName,
-        ajpn.id AS nodeId
+        ajsd.`host`,
+        ajsd.`port`,
+        ajsd.`node_name` AS nodeName
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
-        ajsd.resource_id
-        = ajpn.resource_id
         LEFT JOIN runner r ON r.id = ajsd.runner_id
         <include refid="searchJobPhaseSql"></include>
         ORDER BY ajsd.`start_time` DESC
@@ -1547,16 +1541,12 @@
                ajsd.`sql_file`    as sqlFile,
                ajsd.`runner_id`   as runnerId,
                ajsd.`resource_id` as resourceId,
-               ajpn.`host`,
-               ajpn.`port`,
-               ajpn.`name`        as nodeName,
-               ajpn.`type`        as nodeType,
-               ajpn.`user_name`   as username
+               ajsd.`host`,
+               ajsd.`port`,
+               ajsd.`node_name`        as nodeName,
+               ajsd.`user_name`   as username
         FROM autoexec_job_sql_detail ajsd
                  JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-                 JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
-                                                      ajsd.resource_id
-                                                          = ajpn.resource_id
         where ajsd.job_id = #{jobId}
           and ajsd.job_phase_name = #{phaseName}
     </select>
@@ -1585,13 +1575,13 @@
                 </foreach>
             </if>
             <if test="keyword != null and keyword != ''">
-                and (ajpn.`name` like concat('%',#{keyword},'%') or ajpn.`host` like concat('%',#{keyword},'%'))
+                and (ajsd.`node_name` like concat('%',#{keyword},'%') or ajsd.`host` like concat('%',#{keyword},'%'))
             </if>
             <if test="isDelete != null">
                 and ajsd.`is_delete` = #{isDelete}
             </if>
-            and ajpn.job_id= #{jobId}
-            and ajpn.job_phase_id= #{jobPhaseId}
+            and ajsd.job_id= #{jobId}
+            and ajsd.job_phase_id= #{jobPhaseId}
         </where>
     </sql>
 
@@ -1772,6 +1762,8 @@
     <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         insert into `autoexec_job_sql_detail`(`id`,
         `job_id`,
+        `host`,
+        `port`,
         `resource_id`,
         `node_name`,
         `runner_id`,
@@ -1793,6 +1785,8 @@
         `is_delete`)
         values (#{id},
         #{jobId},
+        #{host},
+        #{port},
         #{resourceId},
         #{nodeName},
         #{runnerId},
@@ -1815,16 +1809,20 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_job_sql_detail`(`id`, `job_id`,
-        `resource_id`,`node_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
+        insert into `autoexec_job_sql_detail`(`id`, `job_id`,`host`,`port`,
+        `resource_id`,`node_name`,`node_type`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
         <foreach collection="sqlList" item="vo" separator=",">
             (#{vo.id},
             #{vo.jobId},
+            #{vo.host},
+            #{vo.port},
             #{vo.resourceId},
             #{vo.nodeName},
+            #{vo.nodeType},
+            #{vo.username},
             #{runnerId},
             #{phaseId},
             #{phaseName},
@@ -2066,6 +2064,11 @@
         UPDATE autoexec_job_sql_detail
         SET `md5` = #{md5},
         `status` = #{status},
+        `node_name` = #{nodeName},
+        `node_type` = #{nodeType},
+        `user_name` = #{username},
+        `host` = #{host},
+        `port` = #{port},
         <choose>
             <when test="status == 'pending'">
             </when>
