@@ -1,5 +1,5 @@
 /*
- * Copyright(c) 2021. TechSure Co., Ltd. All Rights Reserved.
+ * Copyright(c) 2022 TechSure Co., Ltd. All Rights Reserved.
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
@@ -21,7 +21,7 @@ public interface AutoexecJobMapper {
     //job
     List<Long> searchJobId(AutoexecJobVo jobVo);
 
-    List<AutoexecJobVo> searchJob(List<Long> jobIdList);
+    List<AutoexecJobVo> searchJob(@Param("jobIdList") List<Long> jobIdList);
 
     List<AutoexecJobVo> getJobByExpiredDays(int expiredDays);
 
@@ -279,7 +279,7 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
-    Integer updateJobPhaseOperationVersionIdByJobIdAndOperationId(@Param("versionId") Long versionId,@Param("jobId") Long jobId,@Param("operationId") Long operationId);
+    Integer updateJobPhaseOperationVersionIdByJobIdAndOperationId(@Param("versionId") Long versionId, @Param("jobId") Long jobId, @Param("operationId") Long operationId);
 
     int updateJobPlanStartTimeAndTriggerTypeById(AutoexecJobVo vo);
 

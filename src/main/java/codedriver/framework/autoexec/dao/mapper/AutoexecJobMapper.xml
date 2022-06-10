@@ -5,7 +5,8 @@
   -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper">
-    <select id="searchJobId" resultType="java.lang.Long">
+    <select id="searchJobId" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo"
+            resultType="java.lang.Long">
         SELECT
         distinct aj.`id`
         FROM
@@ -24,7 +25,7 @@
         limit #{startNum}, #{pageSize}
     </select>
 
-    <select id="searchJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo"
+    <select id="searchJob"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         SELECT
         aj.`id`,
@@ -44,7 +45,7 @@
         FROM
         `autoexec_job` aj
         WHERE aj.`id` in
-        <foreach collection="list" item="jobId" open="(" close=")" separator=",">
+        <foreach collection="jobIdList" item="jobId" open="(" close=")" separator=",">
             #{jobId}
         </foreach>
         order by aj.`id` desc
@@ -112,17 +113,22 @@
         </if>
         <if test="execUserList != null and execUserList.size() > 0 ">
             and aj.`exec_user` in
-            <foreach collection="execUserList" item="execUser" open="(" close=")"
-                     separator=",">
+            <foreach collection="execUserList" item="execUser" open="(" close=")" separator=",">
                 #{execUser}
             </foreach>
         </if>
-        <if test="startTime != null">
-            and aj.start_time >= #{startTime}
+        <if test="idList != null and idList.size() > 0">
+            and aj.`id` in
+            <foreach collection="idList" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
         </if>
-        <if test="endTime != null "><![CDATA[
-               and aj.start_time <= #{endTime}
-            ]]></if>
+        <if test="startTime != null">
+            and aj.start_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null ">
+            and aj.start_time &lt;= #{endTime}
+        </if>
     </sql>
 
     <sql id="searchJobPhaseNodeSql">
@@ -1536,21 +1542,21 @@
     <select id="getJobSqlDetailListByJobIdAndPhaseName"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         SELECT ajsd.`id`,
-        ajsd.`md5`,
-        ajsd.`status`,
-        ajsd.`sql_file` as sqlFile,
-        ajsd.`runner_id` as runnerId,
-        ajsd.`resource_id` as resourceId,
-        ajpn.`host`,
-        ajpn.`port`,
-        ajpn.`name` as nodeName,
-        ajpn.`type` as nodeType,
-        ajpn.`user_name` as username
+               ajsd.`md5`,
+               ajsd.`status`,
+               ajsd.`sql_file`    as sqlFile,
+               ajsd.`runner_id`   as runnerId,
+               ajsd.`resource_id` as resourceId,
+               ajpn.`host`,
+               ajpn.`port`,
+               ajpn.`name`        as nodeName,
+               ajpn.`type`        as nodeType,
+               ajpn.`user_name`   as username
         FROM autoexec_job_sql_detail ajsd
-        JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
-        ajsd.resource_id
-        = ajpn.resource_id
+                 JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
+                 JOIN autoexec_job_phase_node ajpn ON ajpn.job_phase_id = ajp.id AND ajpn.job_id = ajp.job_id AND
+                                                      ajsd.resource_id
+                                                          = ajpn.resource_id
         where ajsd.job_id = #{jobId}
           and ajsd.job_phase_name = #{phaseName}
     </select>
@@ -1809,7 +1815,8 @@
     </insert>
 
     <insert id="insertSqlDetailList">
-        insert into `autoexec_job_sql_detail`(`id`, `job_id`, `resource_id`,`node_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
+        insert into `autoexec_job_sql_detail`(`id`, `job_id`,
+        `resource_id`,`node_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
         `is_delete`)
         values
