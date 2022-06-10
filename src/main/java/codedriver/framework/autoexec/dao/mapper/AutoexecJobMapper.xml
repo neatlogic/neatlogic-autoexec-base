@@ -1488,6 +1488,19 @@
           and job_phase_name = #{phaseName}
     </select>
 
+    <select id="getJobSqlListByJobIdAndJobPhaseName"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+        select ajsd.`id`,
+               ajsd.`md5`,
+               ajsd.`status`,
+               ajsd.`sql_file`    as sqlFile,
+               ajsd.`runner_id`   as runnerId,
+               ajsd.`resource_id` as resourceId
+        from autoexec_job_sql_detail ajsd
+        where ajsd.job_id = #{jobId}
+          and ajsd.job_phase_name = #{phaseName}
+    </select>
+
     <select id="getJobSqlIdListByJobIdAndJobPhaseNameList" resultType="java.lang.Long">
         select id
         from autoexec_job_sql_detail
@@ -1563,6 +1576,39 @@
           and job_id = #{jobId}
           and job_phase_name = #{phaseName}
           and sql_file = #{sqlFile}
+    </select>
+
+    <select id="getJobSqlById"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+        select ajsd.`id`,
+               ajsd.`md5`,
+               ajsd.`status`,
+               ajsd.`host`,
+               ajsd.`port`,
+               ajsd.`job_phase_name` as phaseName,
+               ajsd.`job_id`         as jobId,
+               ajsd.`sql_file`       as sqlFile,
+               ajsd.`runner_id`      as runnerId,
+               ajsd.`resource_id`    as resourceId
+        from autoexec_job_sql_detail ajsd
+        where ajsd.id = #{id}
+    </select>
+    <select id="getJobSqlByJobPhaseIdAndResourceIdAndSqlName"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+        select ajsd.`id`,
+               ajsd.`md5`,
+               ajsd.`status`,
+               ajsd.`host`,
+               ajsd.`port`,
+               ajsd.`job_phase_name` as phaseName,
+               ajsd.`job_id`         as jobId,
+               ajsd.`sql_file`       as sqlFile,
+               ajsd.`runner_id`      as runnerId,
+               ajsd.`resource_id`    as resourceId
+        from autoexec_job_sql_detail ajsd
+        where ajsd.`job_phase_id` = #{jobPhaseId}
+          and ajsd.`resource_id` = #{resourceId}
+          and ajsd.`sql_file` = #{sqlName}
     </select>
 
     <sql id="searchJobPhaseSql">

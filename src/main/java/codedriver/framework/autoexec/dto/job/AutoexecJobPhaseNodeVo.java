@@ -149,6 +149,16 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     }
 
+    public AutoexecJobPhaseNodeVo(Long jobId, String phaseName, String host, Integer port, Long resourceId,String runnerUrl,Long runnerMapId) {
+        this.setJobId(jobId);
+        this.jobPhaseName = phaseName;
+        this.setHost(host);
+        this.setPort(port);
+        this.resourceId = resourceId;
+        this.runnerMapId = runnerMapId;
+        this.runnerUrl = runnerUrl;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();
