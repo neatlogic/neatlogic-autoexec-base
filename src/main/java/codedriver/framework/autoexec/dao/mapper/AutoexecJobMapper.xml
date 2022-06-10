@@ -2064,8 +2064,6 @@
         SET `md5` = #{md5},
         `status` = #{status},
         `node_name` = #{nodeName},
-        `node_type` = #{nodeType},
-        `user_name` = #{username},
         `host` = #{host},
         `port` = #{port},
         <choose>
