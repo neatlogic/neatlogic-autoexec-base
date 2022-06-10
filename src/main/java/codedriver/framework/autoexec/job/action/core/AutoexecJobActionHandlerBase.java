@@ -131,7 +131,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
     protected void currentResourceIdValid(AutoexecJobVo jobVo) {
         //如果nodeVo为null，说明phase是local模式,没有resourceId,phase只有唯一node
-        if (jobVo.getCurrentNodeResourceId() != null || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
+        if (jobVo.getCurrentNodeResourceId() != null || Arrays.asList(ExecMode.RUNNER.getValue(),ExecMode.SQL.getValue()).contains(jobVo.getCurrentPhase().getExecMode())) {
             AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
             if (nodeVo == null) {
                 throw new AutoexecJobPhaseNodeNotFoundException(jobVo.getCurrentPhaseId().toString(), jobVo.getCurrentNodeResourceId() == null ? StringUtils.EMPTY : jobVo.getCurrentNodeResourceId().toString());

@@ -1,5 +1,5 @@
 /*
- * Copyright (c)  2021 TechSure Co.,Ltd.  All Rights Reserved.
+ * Copyright(c) 2022 TechSure Co., Ltd. All Rights Reserved.
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
@@ -46,6 +46,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private static final long serialVersionUID = -1382188874082154509L;
     @EntityField(name = "作业id(如果是人工发起则id正常生成，其它情况存放来源id)", type = ApiParamType.LONG)
     private Long id;
+
+    @EntityField(name = "作业id列表", type = ApiParamType.JSONARRAY)
+    private List<Long> idList;
     @EntityField(name = "作业名称（唯一标识）", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "作业状态", type = ApiParamType.STRING)
@@ -184,6 +187,14 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         return id;
     }
 
+    public List<Long> getIdList() {
+        return idList;
+    }
+
+    public void setIdList(List<Long> idList) {
+        this.idList = idList;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -263,7 +274,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getExecUser() {
-        if(StringUtils.isBlank(execUser)){
+        if (StringUtils.isBlank(execUser)) {
             return UserContext.get().getUserUuid();
         }
         return execUser;
@@ -274,7 +285,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getExecUserType() {
-        if(StringUtils.isBlank(execUserType)){
+        if (StringUtils.isBlank(execUserType)) {
             return GroupSearch.USER.getValue();
         }
         return execUserType;
@@ -396,7 +407,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
             JSONArray combopParamsResult = new JSONArray();
             if (MapUtils.isNotEmpty(this.param)) {
                 JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(this.runTimeParamList));
-                if(CollectionUtils.isNotEmpty(combopParams)) {
+                if (CollectionUtils.isNotEmpty(combopParams)) {
                     for (Object combopParam : combopParams) {
                         JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
                         if (MapUtils.isNotEmpty(combopParamJson)) {
@@ -410,7 +421,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
                     }
                 }
             }
-            paramArrayStr =  combopParamsResult.toJSONString();
+            paramArrayStr = combopParamsResult.toJSONString();
         }
         return paramArrayStr;
     }
