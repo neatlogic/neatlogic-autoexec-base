@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.crossover;
 
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import codedriver.framework.autoexec.dto.profile.AutoexecProfileParamVo;
 import codedriver.framework.autoexec.dto.profile.AutoexecProfileVo;
 import codedriver.framework.crossover.ICrossoverService;
 
@@ -17,7 +18,7 @@ import java.util.List;
  **/
 public interface IAutoexecProfileCrossoverService extends ICrossoverService {
 
-
+    List<AutoexecProfileParamVo> getProfileParamListById(Long id);
 
     /**
      * 批量根据profileId列表获取对应的profile列表
