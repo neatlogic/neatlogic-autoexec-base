@@ -1406,7 +1406,6 @@
         count( ajsd.`id` )
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
-        JOIN
         <include refid="searchJobPhaseSql"></include>
     </select>
 
