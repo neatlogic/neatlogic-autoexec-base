@@ -39,7 +39,10 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     private List<OperateVo> operateList;
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
-    private String profileName;
+    @EntityField(name = "默认profileId", type = ApiParamType.LONG)
+    private Long defaultProfileId; // 当前工具关联的profileId
+    @EntityField(name = "默认默认profile名称", type = ApiParamType.STRING)
+    private String defaultProfileName; // 当前工具关联的默认profile名称
 
     public AutoexecOperationVo() {
 
@@ -150,11 +153,19 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
         return super.getOutputParamList();
     }
 
-    public String getProfileName() {
-        return profileName;
+    public Long getDefaultProfileId() {
+        return defaultProfileId;
     }
 
-    public void setProfileName(String profileName) {
-        this.profileName = profileName;
+    public void setDefaultProfileId(Long defaultProfileId) {
+        this.defaultProfileId = defaultProfileId;
+    }
+
+    public String getDefaultProfileName() {
+        return defaultProfileName;
+    }
+
+    public void setDefaultProfileName(String defaultProfileName) {
+        this.defaultProfileName = defaultProfileName;
     }
 }

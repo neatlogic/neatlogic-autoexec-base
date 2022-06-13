@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecScriptMapper">
 
-    <select id="getScriptBaseInfoById" parameterType="java.lang.Long"
-            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+    <sql id="getScriptBaseInfo">
         SELECT a.`id`,
                a.`name`,
                a.`exec_mode`  AS execMode,
@@ -14,33 +13,26 @@
                b.`name`       AS catalogName,
                d.`name`       AS riskName,
                a.`description`,
+               a.`default_profile_id` AS defaultProfileId,
+               e.`name` AS defaultProfileName,
                a.`fcu`,
                a.`fcd`
         FROM `autoexec_script` a
-                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
-                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
-                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+        LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
+        LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
+        LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+        LEFT JOIN `autoexec_profile` e ON a.`default_profile_id` = e.`id`
+    </sql>
+
+    <select id="getScriptBaseInfoById" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
+        <include refid="getScriptBaseInfo"/>
         WHERE a.`id` = #{value}
     </select>
 
     <select id="getScriptBaseInfoByName" parameterType="java.lang.String"
             resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
-        SELECT a.`id`,
-               a.`name`,
-               a.`exec_mode`  AS execMode,
-               a.`type_id`    AS typeId,
-               a.`risk_id`    AS riskId,
-               c.`name`       AS typeName,
-               a.`catalog_id` AS catalogId,
-               b.`name`       AS catalogName,
-               d.`name`       AS riskName,
-               a.`description`,
-               a.`fcu`,
-               a.`fcd`
-        FROM `autoexec_script` a
-                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
-                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
-                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+        <include refid="getScriptBaseInfo"/>
         WHERE a.`name` = #{value}
     </select>
 
@@ -55,6 +47,7 @@
         (select `name` from `autoexec_type` where a.`type_id` = `id`) as typeName,
         (select `name` from `autoexec_risk` where a.`risk_id` = `id`) as riskName,
         `description`,
+        `default_profile_id` as defaultProfileId,
         `fcu`,
         `fcd`
         from `autoexec_script` a
@@ -705,7 +698,8 @@
         a.`riskId`,
         a.`riskName`,
         a.`riskColor`,
-        a.`description`
+        a.`description`,
+        a.`defaultProfileId`
         from
         (
         <if test="(type == null or type == '') or (type != null and type != '' and type == 'tool')">
@@ -719,7 +713,8 @@
             `risk_id` as riskId,
             (select `name` from `autoexec_risk` where `id` = `risk_id`) as riskName,
             (select `color` from `autoexec_risk` where `id` = `risk_id`) as riskColor,
-            `description`
+            `description`,
+            `default_profile_id` as defaultProfileId
             <include refid="searchToolAndScriptConditionForTool"/>
         </if>
         <if test="type == null or type == ''">
@@ -736,7 +731,8 @@
             `risk_id` as riskId,
             (select `name` from `autoexec_risk` where `id` = `risk_id`) as riskName,
             (select `color` from `autoexec_risk` where `id` = `risk_id`) as riskColor,
-            a.`description`
+            a.`description`,
+            a.`default_profile_id` as defaultProfileId
             <include refid="searchToolAndScriptConditionForScript"/>
         </if>
         ) a
@@ -754,6 +750,7 @@
         <result column="typeId" property="typeId"/>
         <result column="typeName" property="typeName"/>
         <result column="description" property="description"/>
+        <result column="defaultProfileId" property="defaultProfileId"/>
         <result column="configStr" property="configStr"/>
         <association property="riskVo" javaType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
             <result column="riskId" property="id"/>
@@ -782,6 +779,7 @@
         <result column="typeId" property="typeId"/>
         <result column="typeName" property="typeName"/>
         <result column="description" property="description"/>
+        <result column="defaultProfileId" property="defaultProfileId"/>
         <result column="configStr" property="configStr"/>
         <association property="riskVo" javaType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
             <result column="riskId" property="id"/>
@@ -838,6 +836,7 @@
         ar.`name` AS riskName,
         ar.`color` AS riskColor,
         a.`description`,
+        a.`default_profile_id` AS defaultProfileId,
         c.`key`,
         c.`name` AS paramName,
         c.`default_value` AS defaultValue,
@@ -872,7 +871,8 @@
         a.`risk_id` AS riskId,
         ar.`name` AS riskName,
         ar.`color` AS riskColor,
-        a.`description`
+        a.`description`,
+        a.`default_profile_id` AS defaultProfileId
         FROM
         `autoexec_script` a
         JOIN `autoexec_script_version` b ON a.`id` = b.`script_id`
@@ -1171,7 +1171,8 @@
             `type_id`     = #{typeId},
             `catalog_id`  = #{catalogId},
             `risk_id`     = #{riskId},
-            `description` = #{description}
+            `description` = #{description},
+            `default_profile_id` = #{defaultProfileId}
         where `id` = #{id}
     </update>
 
@@ -1211,6 +1212,7 @@
                                        `risk_id`,
                                        `exec_mode`,
                                        `description`,
+                                       `default_profile_id`,
                                        `fcu`,
                                        `fcd`)
         values (#{id},
@@ -1220,6 +1222,7 @@
                 #{riskId},
                 #{execMode},
                 #{description},
+                #{defaultProfileId},
                 #{fcu},
                 now(3))
     </insert>
