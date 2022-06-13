@@ -39,6 +39,7 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     private List<OperateVo> operateList;
     @EntityField(name = "是否已经被发布为组合工具", type = ApiParamType.INTEGER)
     private Integer hasBeenGeneratedToCombop = 0;
+    private String profileName;
 
     public AutoexecOperationVo() {
 
@@ -149,4 +150,11 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
         return super.getOutputParamList();
     }
 
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
 }
