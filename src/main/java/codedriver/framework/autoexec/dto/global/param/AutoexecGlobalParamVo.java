@@ -24,6 +24,8 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
     private static final int OFFSET_SIZE = 5;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "profile依赖数", type = ApiParamType.INTEGER)
+    private Integer profileReferredCount = 0;
     @JSONField(serialize = false)
     private JSONArray typeList;
     @JSONField(serialize = false)
@@ -91,6 +93,14 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getProfileReferredCount() {
+        return profileReferredCount;
+    }
+
+    public void setProfileReferredCount(Integer profileReferredCount) {
+        this.profileReferredCount = profileReferredCount;
     }
 
     public JSONArray getTypeList() {
