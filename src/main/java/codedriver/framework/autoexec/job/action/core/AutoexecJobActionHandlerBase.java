@@ -20,6 +20,7 @@ import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.autoexec.exception.*;
 import codedriver.framework.autoexec.util.AutoexecUtil;
+import codedriver.framework.dao.mapper.runner.RunnerMapper;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.exception.type.ParamIrregularException;
@@ -73,6 +74,13 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     @Autowired
     private void setAutoexecToolMapper(AutoexecToolMapper _autoexecToolMapper) {
         autoexecToolMapper = _autoexecToolMapper;
+    }
+
+    protected static RunnerMapper runnerMapper;
+
+    @Autowired
+    private void setRunnerMapper(RunnerMapper _runnerMapper) {
+        runnerMapper = _runnerMapper;
     }
 
     /**
@@ -131,7 +139,16 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
     protected void currentResourceIdValid(AutoexecJobVo jobVo) {
         //如果nodeVo为null，说明phase是local模式,没有resourceId,phase只有唯一node
-        if (jobVo.getCurrentNodeResourceId() != null || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
+        //TODO 需要分拆接口
+        Long nodeId = jobVo.getActionParam().getLong("nodeId");
+        if (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") != null) {
+            AutoexecSqlDetailVo sqlDetailVo = autoexecJobMapper.getJobSqlByJobPhaseIdAndResourceIdAndSqlName(jobVo.getActionParam().getLong("jobPhaseId"), jobVo.getActionParam().getLong("resourceId"), jobVo.getActionParam().getString("sqlName"));
+            if (sqlDetailVo == null) {
+                throw new AutoexecJobSqlDetailNotFoundException(nodeId);
+            }
+            RunnerMapVo runnerMapVo = runnerMapper.getRunnerByRunnerMapId(sqlDetailVo.getRunnerId());
+            jobVo.setCurrentNode(new AutoexecJobPhaseNodeVo(sqlDetailVo.getJobId(), sqlDetailVo.getPhaseName(), sqlDetailVo.getHost(), sqlDetailVo.getPort(), sqlDetailVo.getResourceId(), runnerMapVo.getUrl(), sqlDetailVo.getRunnerId()));
+        } else if (jobVo.getCurrentNodeResourceId() != null || (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") == null) || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
             AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
             if (nodeVo == null) {
                 throw new AutoexecJobPhaseNodeNotFoundException(jobVo.getCurrentPhaseId().toString(), jobVo.getCurrentNodeResourceId() == null ? StringUtils.EMPTY : jobVo.getCurrentNodeResourceId().toString());
@@ -286,16 +303,16 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     /**
      * 获取节点状态
      *
-     * @param paramJson 入参
+     * @param paramJson           入参
      * @param isNeedOperationList 是否需要操作列表信息
      * @return 节点状态
      */
-    protected AutoexecJobPhaseNodeVo getNodeOperationStatus(JSONObject paramJson,boolean isNeedOperationList) {
+    protected AutoexecJobPhaseNodeVo getNodeOperationStatus(JSONObject paramJson, boolean isNeedOperationList) {
         List<AutoexecJobPhaseNodeOperationStatusVo> statusList = new ArrayList<>();
         String url = paramJson.getString("runnerUrl") + "/api/rest/job/phase/node/status/get";
         JSONObject statusJson = JSONObject.parseObject(AutoexecUtil.requestRunner(url, paramJson));
         AutoexecJobPhaseNodeVo nodeVo = new AutoexecJobPhaseNodeVo(statusJson);
-        if(isNeedOperationList) {
+        if (isNeedOperationList) {
             List<AutoexecJobPhaseOperationVo> operationVoList = autoexecJobMapper.getJobPhaseOperationByJobIdAndPhaseId(paramJson.getLong("jobId"), paramJson.getLong("phaseId"));
             //补充工具description
             List<Long> scriptVersionIdList = operationVoList.stream().filter(o -> Objects.equals(o.getType(), CombopOperationType.SCRIPT.getValue())).map(AutoexecJobPhaseOperationVo::getVersionId).collect(Collectors.toList());
