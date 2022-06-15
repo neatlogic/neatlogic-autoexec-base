@@ -39,11 +39,6 @@ public class AutoexecJobNodeSqlVo {
     public AutoexecJobNodeSqlVo() {
     }
 
-    public AutoexecJobNodeSqlVo(JSONObject statusJson) {
-        this.interact = statusJson.getJSONObject("statusJson");
-        this.status = statusJson.getString("status");
-    }
-
     public JSONObject getInteract() {
         return interact;
     }
