@@ -8,9 +8,9 @@ package codedriver.framework.autoexec.dto.combop;
 import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 
@@ -49,7 +49,7 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
 
     public Long getOperationId() {
         if (operationId == null) {
-            operationId = super.getId();
+            operationId = SnowflakeUtil.uniqueLong();
         }
         return operationId;
     }
