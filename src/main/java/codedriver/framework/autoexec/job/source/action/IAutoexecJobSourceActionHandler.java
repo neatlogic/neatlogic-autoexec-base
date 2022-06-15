@@ -36,7 +36,7 @@ public interface IAutoexecJobSourceActionHandler {
      * @param jobVo 作业vo
      * @return sql内容
      */
-    String getJobSqlContent(AutoexecJobVo jobVo);
+    JSONObject getJobSqlContent(AutoexecJobVo jobVo);
 
     /**
      * 下载作业sql文件
