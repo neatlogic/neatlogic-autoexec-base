@@ -29,7 +29,6 @@ import codedriver.framework.util.HttpRequestUtil;
 import codedriver.framework.util.RestUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,6 +141,9 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         //TODO 需要分拆接口
         Long nodeId = jobVo.getActionParam().getLong("nodeId");
         if (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") != null) {
+            if(StringUtils.isBlank(jobVo.getActionParam().getString("sqlName"))){
+                throw new ParamIrregularException("sqlName");
+            }
             AutoexecSqlDetailVo sqlDetailVo = autoexecJobMapper.getJobSqlByJobPhaseIdAndResourceIdAndSqlName(jobVo.getActionParam().getLong("jobPhaseId"), jobVo.getActionParam().getLong("resourceId"), jobVo.getActionParam().getString("sqlName"));
             if (sqlDetailVo == null) {
                 throw new AutoexecJobSqlDetailNotFoundException(nodeId);
@@ -345,20 +347,4 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         }
         return nodeVo;
     }
-
-    /**
-     * 获取执行sql状态
-     *
-     * @param paramJson 参数
-     * @return sql执行状态
-     */
-    protected AutoexecJobNodeSqlVo getNodeSqlStatus(JSONObject paramJson) {
-        String url = paramJson.getString("runnerUrl") + "/api/rest/job/phase/node/status/get";
-        JSONObject statusJson = JSONObject.parseObject(AutoexecUtil.requestRunner(url, paramJson));
-        if (MapUtils.isNotEmpty(statusJson)) {
-            return new AutoexecJobNodeSqlVo(statusJson);
-        }
-        return null;
-    }
-
 }
