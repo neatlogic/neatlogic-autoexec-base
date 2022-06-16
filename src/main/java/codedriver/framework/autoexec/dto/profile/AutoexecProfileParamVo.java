@@ -28,6 +28,7 @@ public class AutoexecProfileParamVo extends AutoexecParamVo {
         super.setDefaultValue(operationParamVo.getDefaultValue());
         super.setMode(operationParamVo.getMode());
         super.setType(operationParamVo.getType());
+        super.setMappingMode(operationParamVo.getMappingMode());
         super.setDescription(operationParamVo.getDescription());
         super.setSort(operationParamVo.getSort());
         super.setValidate(operationParamVo.getValidate());
@@ -37,7 +38,6 @@ public class AutoexecProfileParamVo extends AutoexecParamVo {
             super.setConfig(operationParamVo.getConfig().toJSONString());
         }
         super.setArgumentCount(operationParamVo.getArgumentCount());
-        this.setMappingMode(AutoexecProfileParamInvokeType.CONSTANT.getValue());
     }
 
     public Long getId() {
