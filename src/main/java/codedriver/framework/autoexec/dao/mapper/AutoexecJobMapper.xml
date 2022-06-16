@@ -1979,7 +1979,13 @@
         UPDATE
         `autoexec_job_phase_node`
         SET
-        `status` = #{status}
+        `status` = #{status},
+        <if test="status == 'pending'">
+            `start_time` = null,
+        </if>
+        <if test="status == 'pending'">
+            `end_time` = null
+        </if>
         WHERE `id` in
         <foreach collection="nodeIdList" item="nodeId" open="(" close=")" separator=",">
             #{nodeId}
