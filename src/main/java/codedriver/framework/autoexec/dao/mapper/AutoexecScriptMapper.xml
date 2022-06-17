@@ -575,20 +575,6 @@
         `id`,
         `name`,
         `exec_mode` as execMode,
-        <if test="versionStatus != null and versionStatus != ''">
-            (select `parser` from `autoexec_script_version` where a.`id` = `script_id`
-            <choose>
-                <when test="versionStatus == 'passed'">
-                    and `status` = 'passed' and `is_active` = 1) as parser,
-                </when>
-                <when test="versionStatus == 'draft'">
-                    and `status` = 'draft' order by `lcd` desc limit 1) as parser,
-                </when>
-                <otherwise>
-                    and `status` = #{versionStatus} limit 1) as parser,
-                </otherwise>
-            </choose>
-        </if>
         `description`,
         (select `name` from `autoexec_type` where a.`type_id` = `id`) as typeName,
         (select `name` from `autoexec_risk` where a.`risk_id` = `id`) as riskName,
@@ -1177,6 +1163,36 @@
         <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
+    </select>
+
+    <select id="getVersionParserByScriptIdListAndVersionStatus"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        SELECT
+        `script_id` as scriptId,
+        `parser`
+        FROM
+        `autoexec_script_version`
+        WHERE
+        `id` IN (
+        SELECT
+        SUBSTRING_INDEX( GROUP_CONCAT( `id` ORDER BY `lcd` DESC ), ',', 1 )
+        FROM
+        `autoexec_script_version`
+        WHERE
+        `status` = #{versionStatus}
+        <choose>
+            <when test="versionStatus == 'passed'">
+                and `is_active` = 1
+            </when>
+        </choose>
+        and `script_id` in
+        <foreach collection="scriptIdList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY
+        `script_id`
+        )
+
     </select>
 
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
