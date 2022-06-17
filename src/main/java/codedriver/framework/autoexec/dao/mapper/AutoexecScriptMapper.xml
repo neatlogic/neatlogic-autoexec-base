@@ -554,6 +554,7 @@
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="execMode" property="execMode"/>
+        <result column="parser" property="parser"/>
         <result column="typeName" property="typeName"/>
         <result column="description" property="description"/>
         <result column="versionId" property="versionId"/>
@@ -574,6 +575,19 @@
         `id`,
         `name`,
         `exec_mode` as execMode,
+        <if test="versionStatus != null and versionStatus != ''">
+            <choose>
+                <when test="versionStatus == 'passed'">
+                    (select `parser` from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'passed' and `is_active` = 1) as parser,
+                </when>
+                <when test="versionStatus == 'draft'">
+                    (select `parser` from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'draft' order by `lcd` desc limit 1) as parser,
+                </when>
+                <otherwise>
+                    (select `parser` from `autoexec_script_version` where a.`id` = `script_id` and `status` = #{versionStatus} limit 1) as parser,
+                </otherwise>
+            </choose>
+        </if>
         `description`,
         (select `name` from `autoexec_type` where a.`type_id` = `id`) as typeName,
         (select `name` from `autoexec_risk` where a.`risk_id` = `id`) as riskName,
