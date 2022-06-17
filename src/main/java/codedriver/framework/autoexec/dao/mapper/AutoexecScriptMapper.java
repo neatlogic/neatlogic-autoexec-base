@@ -166,7 +166,7 @@ public interface AutoexecScriptMapper {
     List<AutoexecOperationVo> getArgumentListByScriptIdList(List<Long> scriptIdList);
 
     /**
-     * 根据状态查询{scriptIdList}中各自的解析器
+     * 根据状态查询{scriptIdList}中各自最近修改版本的解析器
      *
      * @param scriptIdList
      * @param versionStatus
