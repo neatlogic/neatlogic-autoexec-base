@@ -554,6 +554,7 @@
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="execMode" property="execMode"/>
+        <result column="parser" property="parser"/>
         <result column="typeName" property="typeName"/>
         <result column="description" property="description"/>
         <result column="versionId" property="versionId"/>
@@ -1162,6 +1163,36 @@
         <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
+    </select>
+
+    <select id="getVersionParserByScriptIdListAndVersionStatus"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        SELECT
+        `script_id` as scriptId,
+        `parser`
+        FROM
+        `autoexec_script_version`
+        WHERE
+        `id` IN (
+        SELECT
+        SUBSTRING_INDEX( GROUP_CONCAT( `id` ORDER BY `lcd` DESC ), ',', 1 )
+        FROM
+        `autoexec_script_version`
+        WHERE
+        `status` = #{versionStatus}
+        <choose>
+            <when test="versionStatus == 'passed'">
+                and `is_active` = 1
+            </when>
+        </choose>
+        and `script_id` in
+        <foreach collection="scriptIdList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY
+        `script_id`
+        )
+
     </select>
 
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
