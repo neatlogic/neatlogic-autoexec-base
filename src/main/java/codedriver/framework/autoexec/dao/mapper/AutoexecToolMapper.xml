@@ -16,6 +16,7 @@
         <result column="typeId" property="typeId"/>
         <result column="typeName" property="typeName"/>
         <result column="description" property="description"/>
+        <result column="defaultProfileId" property="defaultProfileId"/>
         <result column="configStr" property="configStr"/>
         <association property="riskVo" javaType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
             <result column="riskId" property="id"/>
@@ -32,6 +33,7 @@
         <result column="typeId" property="typeId"/>
         <result column="typeName" property="typeName"/>
         <result column="description" property="description"/>
+        <result column="defaultProfileId" property="defaultProfileId"/>
         <result column="configStr" property="configStr"/>
         <association property="riskVo" javaType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
             <result column="riskId" property="id"/>
@@ -56,6 +58,7 @@
         ar.`name` as riskName,
         ar.`color` as riskColor,
         a.`description`,
+        a.`default_profile_id` as defaultProfileId,
         a.`config` as configStr
         from `autoexec_tool` a
         LEFT JOIN autoexec_type ate ON a.`type_id` = ate.`id`
@@ -107,6 +110,7 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="execMode" property="execMode"/>
+        <result column="parser" property="parser"/>
         <result column="description" property="description"/>
         <result column="typeId" property="typeId"/>
         <result column="typeName" property="typeName"/>
@@ -124,6 +128,7 @@
         `id`,
         `name`,
         `exec_mode` as execMode,
+        `parser`,
         `description`,
         `type_id` as typeId,
         (select `name` from `autoexec_type` where `type_id` = `id`) as typeName,
@@ -233,6 +238,8 @@
             `risk_id` AS riskId,
             (select `name` from `autoexec_risk` where `id` = `risk_id`) as riskName,
             `description`,
+            `default_profile_id` as defaultProfileId,
+            (select `name` from `autoexec_profile` where `id` = `default_profile_id`) as defaultProfileName,
             `parser`,
             `config` AS configStr
         FROM `autoexec_tool`
@@ -248,6 +255,7 @@
             `type_id` AS typeId,
             `risk_id` AS riskId,
             `description`,
+            `default_profile_id` AS defaultProfileId,
             `parser`,
             `config` AS configStr
         FROM `autoexec_tool`
@@ -275,6 +283,7 @@
         `risk_id`,
         `is_active`,
         `description`,
+        `default_profile_id`,
         `config`,
         `lcd`
         ) values (
@@ -286,6 +295,7 @@
         #{riskId},
         #{isActive},
         #{description},
+        #{defaultProfileId},
         #{configStr},
         now(3)
         )

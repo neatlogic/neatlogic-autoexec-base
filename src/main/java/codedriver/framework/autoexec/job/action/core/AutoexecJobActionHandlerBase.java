@@ -347,4 +347,44 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         }
         return nodeVo;
     }
+
+    /**
+     * 重置autoexec 作业节点状态
+     * @param jobVo 作业
+     * @param nodeVoList 节点列表
+     */
+    public void resetJobNodeStatus(AutoexecJobVo jobVo,List<AutoexecJobPhaseNodeVo> nodeVoList){
+        //重置mongodb node 状态
+        List<RunnerMapVo> runnerVos = new ArrayList<>();
+        for (AutoexecJobPhaseNodeVo nodeVo : nodeVoList) {
+            runnerVos.add(new RunnerMapVo(nodeVo.getRunnerUrl(), nodeVo.getRunnerMapId()));
+        }
+        runnerVos = runnerVos.stream().filter(o -> StringUtils.isNotBlank(o.getUrl())).collect(collectingAndThen(toCollection(() -> new TreeSet<>(Comparator.comparing(RunnerMapVo::getUrl))), ArrayList::new));
+        checkRunnerHealth(runnerVos);
+        RestVo restVo = null;
+        String result = StringUtils.EMPTY;
+        AutoexecJobPhaseVo currentPhaseVo = jobVo.getCurrentPhase();
+        try {
+            JSONObject paramJson = new JSONObject();
+            paramJson.put("jobId", jobVo.getId());
+            paramJson.put("tenant", TenantContext.get().getTenantUuid());
+            paramJson.put("execUser", UserContext.get().getUserUuid(true));
+            paramJson.put("phaseName", currentPhaseVo.getName());
+            paramJson.put("execMode", currentPhaseVo.getExecMode());
+            paramJson.put("phaseNodeList", jobVo.getExecuteJobNodeVoList());
+            for (RunnerMapVo runner : runnerVos) {
+                String url = runner.getUrl() + "api/rest/job/phase/node/status/reset";
+                restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
+                result = RestUtil.sendPostRequest(restVo);
+                JSONObject resultJson = JSONObject.parseObject(result);
+                if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
+                    throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
+                }
+            }
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            assert restVo != null;
+            throw new AutoexecJobRunnerConnectRefusedException(restVo.getUrl() + " " + result);
+        }
+    }
 }

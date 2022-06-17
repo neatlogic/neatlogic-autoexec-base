@@ -1317,6 +1317,7 @@
         from autoexec_job_group
         where job_id = #{jobId}
     </select>
+
     <select id="getJobRunnerListByJobIdAndGroupId" resultType="codedriver.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
                         ar.`name`,
@@ -1331,7 +1332,6 @@
                  LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpr.`job_id` = #{jobId}
           and ajp.group_id = #{groupId}
-
     </select>
     <select id="getJobRunnerListByJobIdAndJobNodeIdList" resultType="codedriver.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
@@ -1979,7 +1979,13 @@
         UPDATE
         `autoexec_job_phase_node`
         SET
-        `status` = #{status}
+        `status` = #{status},
+        <if test="status == 'pending'">
+            `start_time` = null,
+        </if>
+        <if test="status == 'pending'">
+            `end_time` = null
+        </if>
         WHERE `id` in
         <foreach collection="nodeIdList" item="nodeId" open="(" close=")" separator=",">
             #{nodeId}

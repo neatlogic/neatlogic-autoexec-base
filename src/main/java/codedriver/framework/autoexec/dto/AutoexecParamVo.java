@@ -206,6 +206,8 @@ public class AutoexecParamVo implements Serializable {
     public void setConfig(String configStr) {
         if (StringUtils.isNotBlank(configStr)) {
             this.config = JSONObject.parseObject(configStr);
+        } else {
+            this.config = null;
         }
     }
 
