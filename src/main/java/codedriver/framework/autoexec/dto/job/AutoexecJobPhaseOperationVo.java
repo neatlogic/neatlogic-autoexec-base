@@ -128,7 +128,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
         this.parser = operationVo.getParser();
         this.sort = autoexecCombopPhaseOperationVo.getSort();
-        this.operationId = autoexecCombopPhaseOperationVo.getOperationId();
+        this.operationId = autoexecCombopPhaseOperationVo.getId();
         //拼接操作脚本到config
         JSONObject paramObj = new JSONObject();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
