@@ -839,7 +839,7 @@
         WHERE ajpn.`job_id` = #{value}
     </select>
 
-    <select id="getJobPhaseRunnerByJobIdAndPhaseIdList" resultType="codedriver.framework.dto.runner.RunnerMapVo">
+    <select id="getJobPhaseRunnerMapByJobIdAndPhaseIdList" resultType="codedriver.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
         ar.`name`,
         ar.`url`,
@@ -1611,6 +1611,24 @@
           and ajsd.`resource_id` = #{resourceId}
           and ajsd.`sql_file` = #{sqlName}
     </select>
+    <select id="getJobPhaseRunnerByJobIdAndPhaseIdList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
+        SELECT
+        job_id as jobId,
+        job_group_id as jobGroupId,
+        job_phase_id as jobPhaseId,
+        `status`,
+        runner_map_id as runnerMapId,
+        is_fire_next as isFireNext,
+        lcd,
+        warn_count as warnCount
+        FROM
+        autoexec_job_phase_runner
+        where job_id = #{jobId} and job_phase_id in
+        <foreach collection="jobPhaseIdList" item="jobPhaseId" open="(" close=")" separator=",">
+            #{jobPhaseId}
+        </foreach>
+    </select>
 
     <sql id="searchJobPhaseSql">
         <where>
@@ -1895,6 +1913,9 @@
         <if test="status == 'completed' or status == 'failed'">
             ,`end_time` = NOW(3)
         </if>
+        <if test="warnCount != null">
+            ,`warn_count` = #{warnCount}
+        </if>
         WHERE id = #{id}
     </update>
 
@@ -1962,7 +1983,8 @@
         UPDATE
         `autoexec_job_phase_runner`
         SET
-        `status` = #{status}
+        `status` = #{status},
+        `warn_count` = #{warnCount}
         WHERE `job_phase_id` in
         <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}

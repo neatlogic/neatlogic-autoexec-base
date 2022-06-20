@@ -68,6 +68,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private String executePolicy;
     @EntityField(name = "是否当前步骤", type = ApiParamType.INTEGER)
     private Integer isActive;
+    @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
+    private Integer warnCount;
 
     @JSONField(serialize = false)
     private String uuid;
@@ -100,12 +102,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.uuid = autoexecCombopPhaseVo.getUuid();
         this.jobGroupVo = combopGroupJobMap.get(autoexecCombopPhaseVo.getGroupId());
         this.groupId = jobGroupVo.getId();
-        this.executePolicy = Arrays.stream(AutoexecJobPhaseExecutePolicy.values()).map(AutoexecJobPhaseExecutePolicy::getValue).collect(Collectors.toList()).contains( autoexecCombopPhaseVo.getPolicy())?autoexecCombopPhaseVo.getPolicy():null;
+        this.executePolicy = Arrays.stream(AutoexecJobPhaseExecutePolicy.values()).map(AutoexecJobPhaseExecutePolicy::getValue).collect(Collectors.toList()).contains(autoexecCombopPhaseVo.getPolicy()) ? autoexecCombopPhaseVo.getPolicy() : null;
     }
 
-    public AutoexecJobPhaseVo(Long _id, String _status) {
+    public AutoexecJobPhaseVo(Long _id, String _status, Integer _warnCount) {
         this.id = _id;
         this.status = _status;
+        this.warnCount = _warnCount;
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
@@ -305,5 +308,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setIsActive(Integer isActive) {
         this.isActive = isActive;
+    }
+
+    public Integer getWarnCount() {
+        return warnCount;
+    }
+
+    public void setWarnCount(Integer warnCount) {
+        this.warnCount = warnCount;
     }
 }
