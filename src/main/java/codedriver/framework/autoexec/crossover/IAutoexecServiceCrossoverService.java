@@ -1,5 +1,6 @@
 package codedriver.framework.autoexec.crossover;
 
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import codedriver.framework.crossover.ICrossoverService;
 
@@ -11,4 +12,5 @@ public interface IAutoexecServiceCrossoverService extends ICrossoverService {
 
     void updateAutoexecCombopConfig(AutoexecCombopConfigVo config);
 
+    void mergeConfig(AutoexecParamVo autoexecParamVo);
 }

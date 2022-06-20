@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto;
 import codedriver.framework.autoexec.constvalue.*;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -17,6 +18,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class AutoexecParamVo implements Serializable {
+    @EntityField(name = "唯一标识", type = ApiParamType.LONG)
+    private Long id;
     @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String key;
     @EntityField(name = "中文名", type = ApiParamType.STRING)
@@ -92,6 +95,17 @@ public class AutoexecParamVo implements Serializable {
         this.validate = argumentJson.getString("validate");
         this.description = argumentJson.getString("help");
         this.argumentCount = argumentJson.getInteger("count");
+    }
+
+    public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getKey() {
