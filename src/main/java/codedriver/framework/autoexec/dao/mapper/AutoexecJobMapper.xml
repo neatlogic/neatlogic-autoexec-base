@@ -188,6 +188,7 @@
         ajpn.`status`,
         ajpn.`protocol_id` as protocolId,
         ajpn.`resource_id` AS resourceId,
+        ajpn.`warn_count` as warnCount,
         ri.`id` AS nodeId,
         ajpn.name AS nodeName,
         ajpn.type AS nodeType,
@@ -328,6 +329,7 @@
                ajp.`group_id`       as groupId,
                ajp.`execute_policy` as executePolicy,
                ajp.`sort`,
+               ajp.`warn_count`     as warnCount,
                ajp.`uk`             as uk,
                ajg.id               as groupId,
                ajg.sort             as groupSort,
@@ -1391,6 +1393,7 @@
         ajp.`exec_mode` as execMode,
         ajp.`group_id` as groupId,
         ajp.`sort`,
+        ajp.`warn_count` as warnCount,
         ajp.`status`
         FROM `autoexec_job_phase` ajp
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
@@ -1956,6 +1959,9 @@
         </if>
         <if test="status == 'succeed' or status == 'failed' or status == 'ignored'">
             `end_time` = NOW(3),
+        </if>
+        <if test="warnCount != null">
+            `warn_count` = #{warnCount},
         </if>
         `status` = #{status}
         WHERE `job_id` = #{jobId}

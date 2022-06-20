@@ -83,6 +83,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private Integer groupSort;//组排序用于节点过滤
     @JSONField(serialize = false)
     private List<Long> nodeIdList;
+    @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
+    private Integer warnCount = 0;
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -380,5 +382,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setNodeIdList(List<Long> nodeIdList) {
         this.nodeIdList = nodeIdList;
+    }
+
+    public Integer getWarnCount() {
+        return warnCount;
+    }
+
+    public void setWarnCount(Integer warnCount) {
+        this.warnCount = warnCount;
     }
 }

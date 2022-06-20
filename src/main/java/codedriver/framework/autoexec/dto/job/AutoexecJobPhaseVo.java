@@ -69,7 +69,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "是否当前步骤", type = ApiParamType.INTEGER)
     private Integer isActive;
     @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
-    private Integer warnCount;
+    private Integer warnCount = 0;
 
     @JSONField(serialize = false)
     private String uuid;
