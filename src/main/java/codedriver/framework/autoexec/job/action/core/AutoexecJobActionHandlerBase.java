@@ -141,7 +141,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         //TODO 需要分拆接口
         Long nodeId = jobVo.getActionParam().getLong("nodeId");
         if (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") != null) {
-            if(StringUtils.isBlank(jobVo.getActionParam().getString("sqlName"))){
+            if (StringUtils.isBlank(jobVo.getActionParam().getString("sqlName"))) {
                 throw new ParamIrregularException("sqlName");
             }
             AutoexecSqlDetailVo sqlDetailVo = autoexecJobMapper.getJobSqlByJobPhaseIdAndResourceIdAndSqlName(jobVo.getActionParam().getLong("jobPhaseId"), jobVo.getActionParam().getLong("resourceId"), jobVo.getActionParam().getString("sqlName"));
@@ -245,7 +245,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             for (AutoexecJobPhaseNodeVo nodeVo : jobVo.getExecuteJobNodeVoList()) {
                 runnerVos.add(new RunnerMapVo(nodeVo.getRunnerUrl(), nodeVo.getRunnerMapId()));
             }
-        }else {
+        } else {
             runnerVos = autoexecJobMapper.getJobRunnerListByJobIdAndJobNodeIdList(jobVo.getId(), jobVo.getExecuteNodeIdList());
         }
         execute(jobVo, runnerVos);
@@ -278,8 +278,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             paramJson.put("jobGroupIdList", Collections.singletonList(jobVo.getExecuteJobGroupVo().getSort()));
         }
         paramJson.put("jobPhaseResourceIdList", jobVo.getExecuteResourceIdList());
-        if (Objects.equals(jobVo.getCurrentPhase().getExecMode(), ExecMode.SQL.getValue())) {
-            paramJson.put("jobPhaseNodeSqlList",jobVo.getExecuteJobNodeVoList());
+        if (jobVo.getCurrentPhase() != null && Objects.equals(jobVo.getCurrentPhase().getExecMode(), ExecMode.SQL.getValue())) {
+            paramJson.put("jobPhaseNodeSqlList", jobVo.getExecuteJobNodeVoList());
         }
         RestVo restVo = null;
         String result = StringUtils.EMPTY;
@@ -359,10 +359,11 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
     /**
      * 重置autoexec 作业节点状态
-     * @param jobVo 作业
+     *
+     * @param jobVo      作业
      * @param nodeVoList 节点列表
      */
-    public void resetJobNodeStatus(AutoexecJobVo jobVo,List<AutoexecJobPhaseNodeVo> nodeVoList){
+    public void resetJobNodeStatus(AutoexecJobVo jobVo, List<AutoexecJobPhaseNodeVo> nodeVoList) {
         //重置mongodb node 状态
         List<RunnerMapVo> runnerVos = new ArrayList<>();
         for (AutoexecJobPhaseNodeVo nodeVo : nodeVoList) {

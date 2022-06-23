@@ -156,7 +156,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         if (argumentParam != null) {
             paramObj.put("argument", new JSONObject() {{
                 put("type", argumentParam.getMode());
-                put("values", argumentMappingVos.stream().map(ParamMappingVo::getValue).collect(Collectors.toList()));
+                put("values", argumentMappingVos == null ? null : argumentMappingVos.stream().map(ParamMappingVo::getValue).collect(Collectors.toList()));
             }});
         }
         this.paramStr = paramObj.toString();
