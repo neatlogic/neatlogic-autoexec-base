@@ -5,6 +5,9 @@
 
 package codedriver.framework.autoexec.constvalue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum JobLogEncoding {
     UTF8("UTF-8"),
     GBK("GBK");
@@ -25,6 +28,14 @@ public enum JobLogEncoding {
             }
         }
         return null;
+    }
+
+    public static List<String> getJobLogEncodingValueList() {
+        List<String> list = new ArrayList<>();
+        for (JobLogEncoding encoding : JobLogEncoding.values()) {
+            list.add(encoding.getValue());
+        }
+        return list;
     }
 
 }
