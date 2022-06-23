@@ -5,12 +5,12 @@
 
 package codedriver.framework.autoexec.constvalue;
 
-public enum JobLogCharset {
+public enum JobLogEncoding {
     UTF8("UTF-8"),
     GBK("GBK");
     private final String value;
 
-    JobLogCharset(String value) {
+    JobLogEncoding(String value) {
         this.value = value;
     }
 
@@ -18,10 +18,10 @@ public enum JobLogCharset {
         return value;
     }
 
-    public static JobLogCharset getJobLogCharset(String _value) {
-        for (JobLogCharset charset : values()) {
-            if (charset.value.equals(_value)) {
-                return charset;
+    public static JobLogEncoding getJobLogEncoding(String _value) {
+        for (JobLogEncoding encoding : values()) {
+            if (encoding.value.equals(_value)) {
+                return encoding;
             }
         }
         return null;

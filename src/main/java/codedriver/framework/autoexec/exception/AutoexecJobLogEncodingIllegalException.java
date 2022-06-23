@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobLogCharsetIllegalException extends ApiRuntimeException {
+public class AutoexecJobLogEncodingIllegalException extends ApiRuntimeException {
 
     private static final long serialVersionUID = -1640145007212453847L;
 
-    public AutoexecJobLogCharsetIllegalException(String charset) {
-        super("非法的字符编码：" + charset);
+    public AutoexecJobLogEncodingIllegalException(String encoding) {
+        super("非法的字符编码：" + encoding);
     }
 
 
