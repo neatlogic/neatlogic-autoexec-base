@@ -75,4 +75,8 @@ public interface IAutoexecJobSourceActionHandler {
      */
     void updateSqlStatus(JSONObject paramObj);
 
+    /**
+     * 获取runnerGroup
+     */
+
 }
