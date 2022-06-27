@@ -8,7 +8,10 @@ package codedriver.framework.autoexec.job.source.action;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
+import codedriver.framework.dto.runner.RunnerMapVo;
 import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
 
 /**
  * @author lvzk
@@ -76,7 +79,9 @@ public interface IAutoexecJobSourceActionHandler {
     void updateSqlStatus(JSONObject paramObj);
 
     /**
-     * 获取runnerGroup
+     * 获取runnerMapList
+     *
+     * @param jobVo 作业参数
      */
-
+    List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo);
 }
