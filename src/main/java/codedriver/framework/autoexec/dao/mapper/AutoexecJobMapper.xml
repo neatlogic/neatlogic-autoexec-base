@@ -1541,7 +1541,7 @@
         ajsd.`start_time` AS startTime,
         ajsd.`end_time` AS endTime,
         ajsd.`resource_id` as resourceId,
-        ajsd.`user_name` as username,
+        ajsd.`user_name` as userName,
         ajsd.`status`,
         ajsd.runner_id as runnerMapId,
         ajsd.sql_file as sqlFile,

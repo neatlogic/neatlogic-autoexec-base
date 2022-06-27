@@ -87,8 +87,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private Integer warnCount = 0;
     @EntityField(name = "sql名", type = ApiParamType.STRING)
     private String sqlFile;
-    @EntityField(name = "账号", type = ApiParamType.STRING)
-    private String username;
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -402,13 +400,5 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setSqlFile(String sqlFile) {
         this.sqlFile = sqlFile;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }
