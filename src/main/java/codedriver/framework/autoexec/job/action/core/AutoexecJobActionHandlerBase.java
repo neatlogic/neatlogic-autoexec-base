@@ -148,7 +148,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (sqlDetailVo == null) {
                 throw new AutoexecJobSqlDetailNotFoundException(nodeId);
             }
-            RunnerMapVo runnerMapVo = runnerMapper.getRunnerByRunnerMapId(sqlDetailVo.getRunnerId());
+            RunnerMapVo runnerMapVo = runnerMapper.getRunnerMapByRunnerMapId(sqlDetailVo.getRunnerId());
             jobVo.setCurrentNode(new AutoexecJobPhaseNodeVo(sqlDetailVo.getJobId(), sqlDetailVo.getPhaseName(), sqlDetailVo.getHost(), sqlDetailVo.getPort(), sqlDetailVo.getResourceId(), runnerMapVo.getUrl(), sqlDetailVo.getRunnerId()));
         } else if (jobVo.getCurrentNodeResourceId() != null || (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") == null) || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
             AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
