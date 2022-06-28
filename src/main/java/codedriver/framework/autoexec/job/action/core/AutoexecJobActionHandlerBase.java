@@ -280,8 +280,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
         if (jobVo.getCurrentPhase() != null && Objects.equals(jobVo.getCurrentPhase().getExecMode(), ExecMode.SQL.getValue())) {
             paramJson.put("jobPhaseNodeSqlList", jobVo.getExecuteJobNodeVoList());
-        }
-        if(jobVo.getCurrentPhase() == null || !Objects.equals(jobVo.getCurrentPhase().getExecMode(), ExecMode.SQL.getValue())){
+        } else {
             paramJson.put("jobPhaseResourceIdList", jobVo.getExecuteResourceIdList());
         }
         RestVo restVo = null;
