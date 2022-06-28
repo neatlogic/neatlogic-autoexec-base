@@ -1429,7 +1429,7 @@
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
         LEFT JOIN runner r ON r.id = ajsd.runner_id
         <include refid="searchJobPhaseSql"></include>
-        ORDER BY ajsd.`start_time` DESC
+        order by ajsd.`sql_file` desc
         <if test="needPage">
             LIMIT #{startNum}, #{pageSize}
         </if>
