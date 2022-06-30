@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.job.source.action;
 
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
@@ -84,4 +85,11 @@ public interface IAutoexecJobSourceActionHandler {
      * @param jobVo 作业参数
      */
     List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo);
+
+    /**
+     * 获取组合工具｜流水线
+     * @param paramJson 入参
+     * @return 组合工具｜流水线
+     */
+    AutoexecCombopVo getAutoexecCombop(JSONObject paramJson);
 }

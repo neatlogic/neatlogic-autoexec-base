@@ -21,19 +21,22 @@ public class AutoexecJobInvokeVo {
     private Long invokeId;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
-
+    @EntityField(name = "来源类型", type = ApiParamType.STRING)
+    private String type;
     private int count;
 
     public AutoexecJobInvokeVo() {
     }
 
-    public AutoexecJobInvokeVo(Long invokeId, String source) {
+    public AutoexecJobInvokeVo(Long jobId,Long invokeId, String source, String type) {
+        this.jobId = jobId;
         this.invokeId = invokeId;
         this.source = source;
+        this.type = type;
     }
 
     public AutoexecJobInvokeVo(String source) {
-        if(StringUtils.isBlank(source)){
+        if (StringUtils.isBlank(source)) {
             this.source = JobSource.HUMAN.getValue();
         }
         this.source = source;
@@ -69,5 +72,13 @@ public class AutoexecJobInvokeVo {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

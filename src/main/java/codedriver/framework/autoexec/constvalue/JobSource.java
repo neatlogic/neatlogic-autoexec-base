@@ -18,6 +18,7 @@ public enum JobSource implements IAutoexecJobSource {
     private final String text;
     private final String value;
 
+
     JobSource(String _text, String _value) {
         this.text = _text;
         this.value = _value;
@@ -40,6 +41,10 @@ public enum JobSource implements IAutoexecJobSource {
         return "";
     }
 
+    public String getType(){
+        return JobSourceType.AUTOEXEC.getValue();
+    }
+
     /**
      * @return 返回对应的来源
      */
@@ -50,6 +55,7 @@ public enum JobSource implements IAutoexecJobSource {
             AutoexecJobSourceVo source = new AutoexecJobSourceVo();
             source.setSource(s.value);
             source.setSourceName(s.text);
+            source.setType(s.getType());
             list.add(source);
         }
         return list;
