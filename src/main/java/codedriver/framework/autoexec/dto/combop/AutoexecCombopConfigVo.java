@@ -29,6 +29,9 @@ public class AutoexecCombopConfigVo implements Serializable {
     @EntityField(name = "场景列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopScenarioVo> scenarioList;
 
+    @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
+    private List<AutoexecCombopParamVo> runtimeParamList;
+
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;
     }
@@ -59,5 +62,13 @@ public class AutoexecCombopConfigVo implements Serializable {
 
     public void setScenarioList(List<AutoexecCombopScenarioVo> scenarioList) {
         this.scenarioList = scenarioList;
+    }
+
+    public List<AutoexecCombopParamVo> getRuntimeParamList() {
+        return runtimeParamList;
+    }
+
+    public void setRuntimeParamList(List<AutoexecCombopParamVo> runtimeParamList) {
+        this.runtimeParamList = runtimeParamList;
     }
 }
