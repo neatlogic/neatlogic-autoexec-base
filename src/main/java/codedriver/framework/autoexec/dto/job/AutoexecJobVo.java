@@ -164,6 +164,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private List<String> typeIdList;
     @JSONField(serialize = false)
     private JSONObject param;
+    @JSONField(serialize = false)
+    private JSONObject environment = new JSONObject();//runner 环境参数
 
 
     public AutoexecJobVo() {
@@ -694,5 +696,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setScenarioId(Long scenarioId) {
         this.scenarioId = scenarioId;
+    }
+
+    public JSONObject getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(JSONObject environment) {
+        this.environment = environment;
     }
 }

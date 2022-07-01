@@ -290,6 +290,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         checkRunnerHealth(runnerVos);
         try {
             for (RunnerMapVo runner : runnerVos) {
+                jobVo.getEnvironment().put("RUNNER_ID",runner.getRunnerMapId());
                 url = runner.getUrl() + "api/rest/job/exec";
                 paramJson.put("passThroughEnv", new JSONObject() {{
                     put("runnerId", runner.getRunnerMapId());
@@ -301,6 +302,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     }
                     put("isFirstFire", jobVo.getIsFirstFire());
                 }});
+                paramJson.put("environment",jobVo.getEnvironment());
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);
                 JSONObject resultJson = JSONObject.parseObject(result);
