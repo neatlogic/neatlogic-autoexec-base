@@ -623,6 +623,12 @@
                 #{item}
             </foreach>
         </if>
+        <if test="excludeList != null and excludeList.size() != 0">
+            and `id` not in
+            <foreach collection="excludeList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
     </sql>
 
     <sql id="searchToolAndScriptConditionForScript">
@@ -659,6 +665,12 @@
         <if test="riskIdList != null and riskIdList.size() != 0">
             and a.`risk_id` in
             <foreach collection="riskIdList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="excludeList != null and excludeList.size() != 0">
+            and a.`id` not in
+            <foreach collection="excludeList" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
