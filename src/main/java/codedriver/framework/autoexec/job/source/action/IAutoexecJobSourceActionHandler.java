@@ -88,8 +88,17 @@ public interface IAutoexecJobSourceActionHandler {
 
     /**
      * 获取组合工具｜流水线
+     *
      * @param paramJson 入参
      * @return 组合工具｜流水线
      */
     AutoexecCombopVo getAutoexecCombop(JSONObject paramJson);
+
+    /**
+     * 获取 params.json
+     *
+     * @param jsonObject params
+     * @param jobVo      作业
+     */
+    void getFireParamJson(JSONObject jsonObject, AutoexecJobVo jobVo);
 }
