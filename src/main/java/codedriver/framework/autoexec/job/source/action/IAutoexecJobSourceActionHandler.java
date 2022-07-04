@@ -87,12 +87,26 @@ public interface IAutoexecJobSourceActionHandler {
     List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo);
 
     /**
+     *
+     * @param jobId 作业id
+     * @param runnerMapId runner映射id
+     */
+    default void updateJobRunnerMap(Long jobId,Long runnerMapId){}
+
+    /**
      * 获取组合工具｜流水线
      *
      * @param paramJson 入参
      * @return 组合工具｜流水线
      */
     AutoexecCombopVo getAutoexecCombop(JSONObject paramJson);
+
+    /**
+     * 更新作业关系表，如：发布作业表
+     * @param paramJson 入参
+     * @param jobVo 作业
+     */
+    void updateInvokeJob(JSONObject paramJson ,AutoexecJobVo jobVo);
 
     /**
      * 获取 params.json
