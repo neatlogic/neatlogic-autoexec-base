@@ -597,7 +597,8 @@
                `sort`,
                `fail_policy`  as failPolicy,
                version_id     as versionId,
-               `param_hash`   as paramHash
+               `param_hash`   as paramHash,
+               `profile_id`   as profileId
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
@@ -1659,12 +1660,13 @@
         </where>
     </sql>
 
-    <select id="getAutoexecJobNodeListByResourceId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+    <select id="getAutoexecJobNodeListByResourceId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT
-               a.`id`,
-               a.`job_id` AS jobId,
-               a.`status`,
-               a.`resource_id` as resourceId
+        a.`id`,
+        a.`job_id` AS jobId,
+        a.`status`,
+        a.`resource_id` as resourceId
         from autoexec_job_phase_node a
         join autoexec_job_resource_inspect b on b.`phase_id` = a.`job_phase_id` and b.`resource_id` = a.`resource_id`
         where a.`resource_id` in
@@ -1779,6 +1781,7 @@
         </if>
         `sort`,
         `operation_id`,
+        `profile_id`,
         `param_hash`)
         VALUES (#{id},
         #{jobId},
@@ -1794,6 +1797,7 @@
         </if>
         #{sort},
         #{operationId},
+        #{profileId},
         #{paramHash});
     </insert>
 

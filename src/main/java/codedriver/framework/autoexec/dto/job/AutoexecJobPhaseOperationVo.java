@@ -77,6 +77,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private String script;
     private Long scriptId;
     private String scriptHash;
+    @EntityField(name = "预制参数集id", type = ApiParamType.LONG)
+    private Long profileId;
 
     public AutoexecJobPhaseOperationVo() {
     }
@@ -92,13 +94,6 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.parser = scriptVersionVo.getParser();
         //拼接操作脚本到config
         JSONObject operationConfigJson = operationJson.getJSONObject("config");
-        /*StringBuilder scriptSb = new StringBuilder();
-        for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
-            scriptSb.append(lineVo.getContent());
-        }
-        String script = scriptSb.toString();
-        operationConfigJson.put("script", script);
-        this.script = script;*/
         this.paramStr = operationConfigJson.toString();
         this.scriptId = scriptVo.getId();
 
@@ -162,6 +157,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.paramStr = paramObj.toString();
         this.scriptId = operationVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
+        //profileId
+        this.profileId = autoexecCombopPhaseOperationVo.getConfig().getProfileId();
     }
 
     /**
@@ -373,5 +370,13 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setOperationId(Long operationId) {
         this.operationId = operationId;
+    }
+
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
     }
 }
