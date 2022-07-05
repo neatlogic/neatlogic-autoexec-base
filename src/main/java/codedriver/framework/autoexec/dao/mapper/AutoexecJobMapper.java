@@ -232,6 +232,8 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobSqlIdListByJobIdAndJobPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
 
+    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByResourceId(List<Long> resourceIdList);
+
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
