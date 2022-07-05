@@ -148,6 +148,8 @@ public class AutoexecParamVo implements Serializable {
                             defaultValue = JSONObject.parseObject(valueStr);
                         }
                         break;
+                    case "switch":
+                        defaultValue = Boolean.valueOf(defaultValue.toString());
                     default:
                         break;
                 }
