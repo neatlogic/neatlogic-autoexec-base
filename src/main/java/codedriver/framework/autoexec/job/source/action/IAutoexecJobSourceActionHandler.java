@@ -106,7 +106,7 @@ public interface IAutoexecJobSourceActionHandler {
      * @param paramJson 入参
      * @param jobVo 作业
      */
-    void updateInvokeJob(JSONObject paramJson ,AutoexecJobVo jobVo);
+    default void updateInvokeJob(JSONObject paramJson ,AutoexecJobVo jobVo){};
 
     /**
      * 获取 params.json
