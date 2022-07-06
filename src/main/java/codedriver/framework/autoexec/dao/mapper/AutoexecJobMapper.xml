@@ -1660,7 +1660,7 @@
         </where>
     </sql>
 
-    <select id="getAutoexecJobNodeListByResourceId" parameterType="java.lang.Long"
+    <select id="getAutoexecJobNodeListByResourceIdList" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT
         a.`id`,
@@ -1671,6 +1671,19 @@
         join autoexec_job_resource_inspect b on b.`phase_id` = a.`job_phase_id` and b.`resource_id` = a.`resource_id`
         where a.`resource_id` in
         <foreach collection="list" item="resourceId" open="(" separator="," close=")">
+            #{resourceId}
+        </foreach>
+    </select>
+
+    <select id="getAutoexecJobNodeListByJobIdAndResourceIdList" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT
+               a.`id`,
+               a.`job_id` AS jobId,
+               a.`status`,
+               a.`resource_id` as resourceId
+        FROM autoexec_job_phase_node a
+        WHERE a.`job_id` = #{jobId} AND a.`resource_id` IN
+        <foreach collection="resourceIdList" item="resourceId" open="(" separator="," close=")">
             #{resourceId}
         </foreach>
     </select>
@@ -1781,7 +1794,6 @@
         </if>
         `sort`,
         `operation_id`,
-        `profile_id`,
         `param_hash`)
         VALUES (#{id},
         #{jobId},
@@ -1797,7 +1809,6 @@
         </if>
         #{sort},
         #{operationId},
-        #{profileId},
         #{paramHash});
     </insert>
 

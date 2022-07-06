@@ -232,10 +232,11 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobSqlIdListByJobIdAndJobPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
 
-    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByResourceId(List<Long> resourceIdList);
+    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByResourceIdList(List<Long> resourceIdList);
+
+    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByJobIdAndResourceIdList(@Param("jobId") Long jobId, @Param("resourceIdList") List<Long> resourceIdList);
 
     int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
-
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
 
     Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobGroupId") Long jobGroupId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
