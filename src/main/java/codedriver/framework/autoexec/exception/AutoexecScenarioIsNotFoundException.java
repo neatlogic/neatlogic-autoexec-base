@@ -10,4 +10,8 @@ public class AutoexecScenarioIsNotFoundException extends ApiRuntimeException {
     public AutoexecScenarioIsNotFoundException(Long id) {
         super("场景 id“" + id + "”不存在");
     }
+
+    public AutoexecScenarioIsNotFoundException(String name) {
+        super("场景 “" + name + "”不存在");
+    }
 }
