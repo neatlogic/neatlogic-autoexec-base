@@ -1675,12 +1675,13 @@
         </foreach>
     </select>
 
-    <select id="getAutoexecJobNodeListByJobIdAndResourceIdList" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+    <select id="getAutoexecJobNodeListByJobIdAndResourceIdList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT
-               a.`id`,
-               a.`job_id` AS jobId,
-               a.`status`,
-               a.`resource_id` as resourceId
+        a.`id`,
+        a.`job_id` AS jobId,
+        a.`status`,
+        a.`resource_id` as resourceId
         FROM autoexec_job_phase_node a
         WHERE a.`job_id` = #{jobId} AND a.`resource_id` IN
         <foreach collection="resourceIdList" item="resourceId" open="(" separator="," close=")">
@@ -1794,6 +1795,7 @@
         </if>
         `sort`,
         `operation_id`,
+        `profile_id`,
         `param_hash`)
         VALUES (#{id},
         #{jobId},
@@ -1809,6 +1811,7 @@
         </if>
         #{sort},
         #{operationId},
+        #{profileId},
         #{paramHash});
     </insert>
 
