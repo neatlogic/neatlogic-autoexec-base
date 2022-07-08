@@ -30,9 +30,7 @@ import org.springframework.util.DigestUtils;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -164,6 +162,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private List<String> typeIdList;
     @JSONField(serialize = false)
     private JSONObject param;
+    @JSONField(serialize = false)
+    private Set<Long> invokeIdList = new HashSet<>();
 
 
     public AutoexecJobVo() {
@@ -694,5 +694,16 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setScenarioId(Long scenarioId) {
         this.scenarioId = scenarioId;
+    }
+
+    public Set<Long> getInvokeIdList() {
+        if(invokeId != null){
+            invokeIdList.add(invokeId);
+        }
+        return invokeIdList;
+    }
+
+    public void setInvokeIdList(Set<Long> invokeIdList) {
+        this.invokeIdList = invokeIdList;
     }
 }

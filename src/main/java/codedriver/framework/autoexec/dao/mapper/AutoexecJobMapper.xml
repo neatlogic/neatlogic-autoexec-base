@@ -14,9 +14,12 @@
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '' )">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
-        <if test="invokeId != null">
+        <if test="invokeIdList != null and invokeIdList.size() > 0">
             JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
-            aji.`invoke_id` = #{invokeId}
+            aji.`invoke_id` in
+            <foreach collection="invokeIdList" open="(" item="invokeId" close=")" separator=",">
+                #{invokeId}
+            </foreach>
         </if>
         <where>
             <include refid="searchJobSql"/>
@@ -60,9 +63,12 @@
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '') ">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
-        <if test="invokeId != null">
+        <if test="invokeIdList != null and invokeIdList.size() > 0">
             JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
-            aji.`invoke_id` = #{invokeId}
+            aji.`invoke_id` in
+            <foreach collection="invokeIdList" open="(" item="invokeId" close=")" separator=",">
+                #{invokeId}
+            </foreach>
         </if>
         <where>
             <include refid="searchJobSql"/>
