@@ -148,12 +148,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         }
         paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
         paramObj.put("inputParamList", paramMappingVos);
-        if (argumentParam != null) {
-            paramObj.put("argument", new JSONObject() {{
-                put("type", argumentParam.getMode());
-                put("values", argumentMappingVos == null ? null : argumentMappingVos.stream().map(ParamMappingVo::getValue).collect(Collectors.toList()));
-            }});
-        }
+        paramObj.put("argumentList", argumentMappingVos);
         this.paramStr = paramObj.toString();
         this.scriptId = operationVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
