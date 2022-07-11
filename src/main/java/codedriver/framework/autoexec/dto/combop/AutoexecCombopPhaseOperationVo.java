@@ -33,6 +33,10 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
     private AutoexecCombopPhaseOperationConfigVo config;
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "父工具id", type = ApiParamType.LONG)
+    private Long parentOperationId;
+    @EntityField(name = "父工具类型", type = ApiParamType.LONG)
+    private String parentOperationType;
 //    @JSONField(serialize = false)
 //    private String configStr;
     @EntityField(name = "uuid", type = ApiParamType.STRING)
@@ -112,5 +116,21 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
 
     public void setLetter(String letter) {
         this.letter = letter;
+    }
+
+    public Long getParentOperationId() {
+        return parentOperationId;
+    }
+
+    public void setParentOperationId(Long parentOperationId) {
+        this.parentOperationId = parentOperationId;
+    }
+
+    public String getParentOperationType() {
+        return parentOperationType;
+    }
+
+    public void setParentOperationType(String parentOperationType) {
+        this.parentOperationType = parentOperationType;
     }
 }
