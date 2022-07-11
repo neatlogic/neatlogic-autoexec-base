@@ -273,8 +273,8 @@
         where `id` = #{id}
     </update>
 
-    <update id="replaceTool" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo">
-        replace into `autoexec_tool`(
+    <update id="insertTool" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo">
+        insert into `autoexec_tool`(
         `id`,
         `name`,
         `exec_mode`,
@@ -299,6 +299,16 @@
         #{configStr},
         now(3)
         )
+        ON DUPLICATE KEY UPDATE
+        `exec_mode` = #{execMode},
+        `parser` = #{parser},
+        `type_id` = #{typeId},
+        `risk_id` = #{riskId},
+        `is_active` = #{isActive},
+        `description` = #{description},
+        `default_profile_id` = #{defaultProfileId},
+        `config` = #{configStr},
+        `lcd` = now( 3 );
     </update>
 
     <delete id="deleteToolByIdList" parameterType="java.util.List">
