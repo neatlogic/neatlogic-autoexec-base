@@ -133,9 +133,11 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         List<AutoexecParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
         AutoexecParamVo argumentParam = autoexecCombopPhaseOperationVo.getArgument();
         //替换输入参数（上游参数）
-        for (ParamMappingVo paramMappingVo : paramMappingVos) {
-            for (AutoexecParamVo input : inputParamList) {
-                exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
+        if(CollectionUtils.isNotEmpty(paramMappingVos)) {
+            for (ParamMappingVo paramMappingVo : paramMappingVos) {
+                for (AutoexecParamVo input : inputParamList) {
+                    exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
+                }
             }
         }
         //替换自由参数（上游参数）
@@ -149,6 +151,9 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
         paramObj.put("inputParamList", paramMappingVos);
         paramObj.put("argumentList", argumentMappingVos);
+        paramObj.put("condition",operationConfigVo.getCondition());
+        paramObj.put("ifList",operationConfigVo.getIfList());
+        paramObj.put("elseList",operationConfigVo.getElseList());
         this.paramStr = paramObj.toString();
         this.scriptId = operationVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
