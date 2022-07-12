@@ -30,7 +30,7 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * @author lvzk
@@ -68,7 +68,10 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private JSONArray outputParamList;
     @EntityField(name = "顺序", type = ApiParamType.INTEGER)
     private Integer sort;
-    @EntityField(name = "操作id", type = ApiParamType.LONG)
+    @EntityField(name = "父工具id", type = ApiParamType.LONG)
+    private Long parentOperationId;
+    @EntityField(name = "父工具类型", type = ApiParamType.LONG)
+    private String parentOperationType;
     private Long operationId;
     private Long versionId;
     private String paramHash;
@@ -124,6 +127,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.parser = operationVo.getParser();
         this.sort = autoexecCombopPhaseOperationVo.getSort();
         this.operationId = autoexecCombopPhaseOperationVo.getId();
+        this.setParentOperationId(autoexecCombopPhaseOperationVo.getParentOperationId());
+        this.setParentOperationType(autoexecCombopPhaseOperationVo.getParentOperationType());
         //拼接操作脚本到config
         JSONObject paramObj = new JSONObject();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
@@ -133,9 +138,11 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         List<AutoexecParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
         AutoexecParamVo argumentParam = autoexecCombopPhaseOperationVo.getArgument();
         //替换输入参数（上游参数）
-        for (ParamMappingVo paramMappingVo : paramMappingVos) {
-            for (AutoexecParamVo input : inputParamList) {
-                exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
+        if(CollectionUtils.isNotEmpty(paramMappingVos)) {
+            for (ParamMappingVo paramMappingVo : paramMappingVos) {
+                for (AutoexecParamVo input : inputParamList) {
+                    exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
+                }
             }
         }
         //替换自由参数（上游参数）
@@ -148,12 +155,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         }
         paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
         paramObj.put("inputParamList", paramMappingVos);
-        if (argumentParam != null) {
-            paramObj.put("argument", new JSONObject() {{
-                put("type", argumentParam.getMode());
-                put("values", argumentMappingVos == null ? null : argumentMappingVos.stream().map(ParamMappingVo::getValue).collect(Collectors.toList()));
-            }});
-        }
+        paramObj.put("argumentList", argumentMappingVos);
         this.paramStr = paramObj.toString();
         this.scriptId = operationVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
@@ -183,16 +185,16 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                     String opName = values[1];
                     String opUuid = values[2];
                     value = values[3];
-                    List<AutoexecJobPhaseVo> tmpPhaseList = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).collect(Collectors.toList());
-                    if (tmpPhaseList.size() == 1) {
-                        List<AutoexecJobPhaseOperationVo> tmpOperationList = tmpPhaseList.get(0).getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).collect(Collectors.toList());
-                        if (tmpOperationList.size() == 1) {
-                            paramMappingVo.setValue(String.format("${%s.%s_%d.%s}", tmpPhaseList.get(0).getName(), opName, tmpOperationList.get(0).getId(), value));
+                    Optional<AutoexecJobPhaseVo> phaseVoOptional = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).findFirst();
+                    if (phaseVoOptional.isPresent()) {
+                        Optional<AutoexecJobPhaseOperationVo> operationVoOptional = phaseVoOptional.get().getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).findFirst();
+                        if (operationVoOptional.isPresent()) {
+                            paramMappingVo.setValue(String.format("${%s.%s_%d.%s}", phaseVoOptional.get().getName(), opName, operationVoOptional.get().getId(), value));
                         } else {
-                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
+                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
                         }
                     } else {
-                        throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
+                        throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
                     }
                 } else {
                     throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
@@ -378,5 +380,21 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setProfileId(Long profileId) {
         this.profileId = profileId;
+    }
+
+    public Long getParentOperationId() {
+        return parentOperationId;
+    }
+
+    public void setParentOperationId(Long parentOperationId) {
+        this.parentOperationId = parentOperationId;
+    }
+
+    public String getParentOperationType() {
+        return parentOperationType;
+    }
+
+    public void setParentOperationType(String parentOperationType) {
+        this.parentOperationType = parentOperationType;
     }
 }

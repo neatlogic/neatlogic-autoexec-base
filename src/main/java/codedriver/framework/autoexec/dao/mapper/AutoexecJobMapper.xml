@@ -14,9 +14,12 @@
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '' )">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
-        <if test="invokeId != null">
+        <if test="invokeIdList != null and invokeIdList.size() > 0">
             JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
-            aji.`invoke_id` = #{invokeId}
+            aji.`invoke_id` in
+            <foreach collection="invokeIdList" open="(" item="invokeId" close=")" separator=",">
+                #{invokeId}
+            </foreach>
         </if>
         <where>
             <include refid="searchJobSql"/>
@@ -60,9 +63,12 @@
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '') ">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
-        <if test="invokeId != null">
+        <if test="invokeIdList != null and invokeIdList.size() > 0">
             JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
-            aji.`invoke_id` = #{invokeId}
+            aji.`invoke_id` in
+            <foreach collection="invokeIdList" open="(" item="invokeId" close=")" separator=",">
+                #{invokeId}
+            </foreach>
         </if>
         <where>
             <include refid="searchJobSql"/>
@@ -602,6 +608,7 @@
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
+          and `parent_operation_id` is null
     </select>
 
     <select id="checkIsJobParamReference" resultType="java.lang.Integer">
@@ -1796,6 +1803,12 @@
         `sort`,
         `operation_id`,
         `profile_id`,
+        <if test="parentOperationId != null">
+            `parent_operation_id`,
+        </if>
+        <if test="parentOperationType != null">
+            `parent_operation_type`,
+        </if>
         `param_hash`)
         VALUES (#{id},
         #{jobId},
@@ -1812,6 +1825,12 @@
         #{sort},
         #{operationId},
         #{profileId},
+        <if test="parentOperationId != null">
+            #{parentOperationId},
+        </if>
+        <if test="parentOperationType != null">
+            #{parentOperationType},
+        </if>
         #{paramHash});
     </insert>
 
