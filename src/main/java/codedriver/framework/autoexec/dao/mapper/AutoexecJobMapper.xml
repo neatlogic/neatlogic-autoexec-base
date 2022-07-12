@@ -1866,8 +1866,8 @@
                    `value`  = #{value};
     </insert>
     <insert id="insertIgnoreIntoJobInvoke">
-        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`)
-        VALUES (#{jobId}, #{invokeId}, #{source});
+        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`)
+        VALUES (#{jobId}, #{invokeId}, #{source}, #{type});
     </insert>
     <insert id="insertDuplicateJobResourceInspect">
         INSERT INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`, `phase_id`, `lcd`)

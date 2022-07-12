@@ -264,9 +264,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     }
 
     public String getConfigStr() {
-        if (this.config == null) {
-            return null;
+        if (configStr == null && config != null) {
+            configStr = JSONObject.toJSONString(config);
         }
-        return JSONObject.toJSONString(config);
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        this.configStr = configStr;
     }
 }

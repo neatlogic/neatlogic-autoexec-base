@@ -72,6 +72,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer warnCount = 0;
 
     @JSONField(serialize = false)
+    private AutoexecJobNodeVo currentNode;
+    @JSONField(serialize = false)
     private String uuid;
     @JSONField(serialize = false)
     private Long combopId;
@@ -316,5 +318,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setWarnCount(Integer warnCount) {
         this.warnCount = warnCount;
+    }
+
+    public AutoexecJobNodeVo getCurrentNode() {
+        return currentNode;
+    }
+
+    public void setCurrentNode(AutoexecJobNodeVo currentNode) {
+        this.currentNode = currentNode;
     }
 }

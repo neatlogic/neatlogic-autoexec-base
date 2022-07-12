@@ -148,7 +148,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (sqlDetailVo == null) {
                 throw new AutoexecJobSqlDetailNotFoundException(nodeId);
             }
-            RunnerMapVo runnerMapVo = runnerMapper.getRunnerByRunnerMapId(sqlDetailVo.getRunnerId());
+            RunnerMapVo runnerMapVo = runnerMapper.getRunnerMapByRunnerMapId(sqlDetailVo.getRunnerId());
             jobVo.setCurrentNode(new AutoexecJobPhaseNodeVo(sqlDetailVo.getJobId(), sqlDetailVo.getPhaseName(), sqlDetailVo.getHost(), sqlDetailVo.getPort(), sqlDetailVo.getResourceId(), runnerMapVo.getUrl(), sqlDetailVo.getRunnerId()));
         } else if (jobVo.getCurrentNodeResourceId() != null || (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") == null) || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
             AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
@@ -280,8 +280,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
         if (jobVo.getCurrentPhase() != null && Objects.equals(jobVo.getCurrentPhase().getExecMode(), ExecMode.SQL.getValue())) {
             paramJson.put("jobPhaseNodeSqlList", jobVo.getExecuteJobNodeVoList());
-        }
-        if(jobVo.getCurrentPhase() == null || !Objects.equals(jobVo.getCurrentPhase().getExecMode(), ExecMode.SQL.getValue())){
+        } else {
             paramJson.put("jobPhaseResourceIdList", jobVo.getExecuteResourceIdList());
         }
         RestVo restVo = null;
@@ -291,6 +290,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         checkRunnerHealth(runnerVos);
         try {
             for (RunnerMapVo runner : runnerVos) {
+                jobVo.getEnvironment().put("RUNNER_ID",runner.getRunnerMapId());
                 url = runner.getUrl() + "api/rest/job/exec";
                 paramJson.put("passThroughEnv", new JSONObject() {{
                     put("runnerId", runner.getRunnerMapId());
@@ -302,6 +302,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     }
                     put("isFirstFire", jobVo.getIsFirstFire());
                 }});
+                paramJson.put("environment",jobVo.getEnvironment());
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);
                 JSONObject resultJson = JSONObject.parseObject(result);

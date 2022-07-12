@@ -12,6 +12,7 @@ package codedriver.framework.autoexec.dto;
 public class AutoexecJobSourceVo {
     private String source;
     private String sourceName;
+    private String type;
     public String getSource() {
         return source;
     }
@@ -23,5 +24,13 @@ public class AutoexecJobSourceVo {
     }
     public void setSourceName(String sourceName) {
         this.sourceName = sourceName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.job.source.action;
 
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
@@ -84,4 +85,34 @@ public interface IAutoexecJobSourceActionHandler {
      * @param jobVo 作业参数
      */
     List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo);
+
+    /**
+     *
+     * @param jobId 作业id
+     * @param runnerMapId runner映射id
+     */
+    default void updateJobRunnerMap(Long jobId,Long runnerMapId){}
+
+    /**
+     * 获取组合工具｜流水线
+     *
+     * @param paramJson 入参
+     * @return 组合工具｜流水线
+     */
+    AutoexecCombopVo getAutoexecCombop(JSONObject paramJson);
+
+    /**
+     * 更新作业关系表，如：发布作业表
+     * @param paramJson 入参
+     * @param jobVo 作业
+     */
+    default void updateInvokeJob(JSONObject paramJson ,AutoexecJobVo jobVo){};
+
+    /**
+     * 获取 params.json
+     *
+     * @param jsonObject params
+     * @param jobVo      作业
+     */
+    void getFireParamJson(JSONObject jsonObject, AutoexecJobVo jobVo);
 }
