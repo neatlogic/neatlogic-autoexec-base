@@ -43,7 +43,7 @@ public interface AutoexecToolMapper {
 
     int updateConfig(AutoexecToolVo toolVo);
 
-    int replaceTool(AutoexecToolVo toolVo);
+    int insertTool(AutoexecToolVo toolVo);
 
     int deleteToolByIdList(List<Long> list);
 

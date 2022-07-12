@@ -608,6 +608,7 @@
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
+          and `parent_operation_id` is null
     </select>
 
     <select id="checkIsJobParamReference" resultType="java.lang.Integer">
@@ -1802,6 +1803,12 @@
         `sort`,
         `operation_id`,
         `profile_id`,
+        <if test="parentOperationId != null">
+            `parent_operation_id`,
+        </if>
+        <if test="parentOperationType != null">
+            `parent_operation_type`,
+        </if>
         `param_hash`)
         VALUES (#{id},
         #{jobId},
@@ -1818,6 +1825,12 @@
         #{sort},
         #{operationId},
         #{profileId},
+        <if test="parentOperationId != null">
+            #{parentOperationId},
+        </if>
+        <if test="parentOperationType != null">
+            #{parentOperationType},
+        </if>
         #{paramHash});
     </insert>
 
