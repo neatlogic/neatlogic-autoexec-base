@@ -77,11 +77,13 @@ public interface AutoexecJobMapper {
 
     Integer checkIsHasActivePhaseFailed(Long jobId);
 
-    int getJobPhaseRunnerByNotStatusCount(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("status") String status);
+    int getJobPhaseRunnerCountByPhaseIdListAndRunnerNotStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("status") String status);
 
-    int getJobPhaseRunnerByStatusCount(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("status") String status);
+    int getJobPhaseRunnerCountByJobIdAndRunnerStatus(@Param("jobId") Long jobId, @Param("status") String status);
 
-    List<AutoexecJobPhaseVo> getJobPhaseRunnerCountByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
+    int getJobPhaseRunnerByPhaseListAndStatusCount(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("status") String status);
+
+    List<AutoexecJobPhaseVo> getJobPhaseByJobIdAndRunnerStatus(@Param("jobId") Long jobId, @Param("status") String status);
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseStatus(@Param("jobId") Long id, @Param("status") String status);
 
@@ -266,6 +268,8 @@ public interface AutoexecJobMapper {
     Integer updateJobPhaseStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
 
     Integer updateJobPhaseRunnerStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount);
+
+    Integer updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId, @Param("status") String status);
 
     Integer updateBatchJobPhaseRunnerStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("status") String status);
 

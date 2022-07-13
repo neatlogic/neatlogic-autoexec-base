@@ -884,7 +884,7 @@
         </foreach>
     </select>
 
-    <select id="getJobPhaseRunnerByNotStatusCount" resultType="java.lang.Integer">
+    <select id="getJobPhaseRunnerCountByPhaseIdListAndRunnerNotStatus" resultType="java.lang.Integer">
         SELECT
         COUNT(1)
         FROM
@@ -895,7 +895,15 @@
         </foreach>
         and `status` != #{status}
     </select>
-    <select id="getJobPhaseRunnerCountByJobIdAndStatus"
+    <select id="getJobPhaseRunnerCountByJobIdAndRunnerStatus" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        `autoexec_job_phase_runner`
+        WHERE `job_id` = #{jobId}
+        and `status` != #{status}
+    </select>
+    <select id="getJobPhaseByJobIdAndRunnerStatus"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT ajpr.job_phase_id,
                COUNT(1) as `count`
@@ -905,7 +913,7 @@
           AND ajpr.`status` = #{status}
         GROUP BY ajpr.job_phase_id
     </select>
-    <select id="getJobPhaseRunnerByStatusCount" resultType="java.lang.Integer">
+    <select id="getJobPhaseRunnerByPhaseListAndStatusCount" resultType="java.lang.Integer">
         SELECT
         COUNT(1)
         FROM
@@ -2052,6 +2060,14 @@
         <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}
         </foreach>
+        AND `runner_map_id` = #{runnerId};
+    </update>
+    <update id="updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus">
+        UPDATE
+        `autoexec_job_phase_runner`
+        SET
+        `status` = #{status}
+        WHERE `job_id` = #{jobId}
         AND `runner_map_id` = #{runnerId};
     </update>
     <update id="updateBatchJobPhaseRunnerStatus">
