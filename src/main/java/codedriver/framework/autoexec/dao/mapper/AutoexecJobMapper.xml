@@ -901,7 +901,7 @@
         FROM
         `autoexec_job_phase_runner`
         WHERE `job_id` = #{jobId}
-        and `status` != #{status}
+        and `status` = #{status}
     </select>
     <select id="getJobPhaseByJobIdAndRunnerStatus"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
