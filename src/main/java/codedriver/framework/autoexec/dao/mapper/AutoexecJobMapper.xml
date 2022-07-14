@@ -896,12 +896,10 @@
         and `status` != #{status}
     </select>
     <select id="getJobPhaseRunnerCountByJobIdAndRunnerStatus" resultType="java.lang.Integer">
-        SELECT
-        COUNT(1)
-        FROM
-        `autoexec_job_phase_runner`
+        SELECT COUNT(1)
+        FROM `autoexec_job_phase_runner`
         WHERE `job_id` = #{jobId}
-        and `status` = #{status}
+          and `status` = #{status}
     </select>
     <select id="getJobPhaseByJobIdAndRunnerStatus"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -2064,11 +2062,10 @@
     </update>
     <update id="updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus">
         UPDATE
-        `autoexec_job_phase_runner`
-        SET
-        `status` = #{status}
+            `autoexec_job_phase_runner`
+        SET `status` = #{status}
         WHERE `job_id` = #{jobId}
-        AND `runner_map_id` = #{runnerId};
+          AND `runner_map_id` = #{runnerId};
     </update>
     <update id="updateBatchJobPhaseRunnerStatus">
         UPDATE
@@ -2272,6 +2269,13 @@
         set `version_id` = #{versionId}
         where `job_id` = #{jobId}
           and `operation_id` = #{operationId}
+    </update>
+    <update id="updateJobPhaseStatusByJobIdAndPhaseStatus">
+        UPDATE
+            `autoexec_job_phase`
+        SET `status` = #{status}
+        WHERE `job_id` = #{jobId}
+          and `status` = #{whereStatus}
     </update>
 
     <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
