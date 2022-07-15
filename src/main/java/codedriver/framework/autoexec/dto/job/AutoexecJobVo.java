@@ -166,6 +166,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private JSONObject environment = new JSONObject();//runner 环境参数
     @JSONField(serialize = false)
     private Set<Long> invokeIdList = new HashSet<>();
+    @JSONField(serialize = false)
+    private String configHash;
 
 
     public AutoexecJobVo() {
@@ -715,5 +717,16 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setInvokeIdList(Set<Long> invokeIdList) {
         this.invokeIdList = invokeIdList;
+    }
+
+    public String getConfigHash() {
+        if (StringUtils.isBlank(configHash) && StringUtils.isNotBlank(configStr)) {
+            configHash = DigestUtils.md5DigestAsHex(configStr.getBytes(StandardCharsets.UTF_8));
+        }
+        return configHash;
+    }
+
+    public void setConfigHash(String configHash) {
+        this.configHash = configHash;
     }
 }

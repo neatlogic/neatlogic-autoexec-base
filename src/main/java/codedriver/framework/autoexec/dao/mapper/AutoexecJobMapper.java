@@ -37,9 +37,9 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobLockByJobId(Long jobId);
 
-    AutoexecJobParamContentVo getJobParamContentLock(String hash);
+    AutoexecJobContentVo getJobContentLock(String hash);
 
-    AutoexecJobParamContentVo getJobParamContent(String hash);
+    AutoexecJobContentVo getJobContent(String hash);
 
     int checkIsJobParamReference(@Param("jobId") Long jobId, @Param("hash") String hash);
 
@@ -170,7 +170,7 @@ public interface AutoexecJobMapper {
     //jobParamContent
     Integer getNextJobPhaseSortByJobId(@Param("jobId") Long jobId, @Param("sort") Integer sort);
 
-    List<AutoexecJobParamContentVo> getJobParamContentList(@Param("hashList") List<String> hashList);
+    List<AutoexecJobContentVo> getJobContentList(@Param("hashList") List<String> hashList);
 
     //runner
     List<RunnerVo> getJobRunnerListByJobId(Long jobId);
@@ -254,7 +254,7 @@ public interface AutoexecJobMapper {
 
     Integer insertJobPhaseOperation(AutoexecJobPhaseOperationVo operationVo);
 
-    Integer insertIgnoreJobParamContent(AutoexecJobParamContentVo contentVo);
+    Integer insertIgnoreJobContent(AutoexecJobContentVo contentVo);
 
     Integer updateJobLncdById(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
 
@@ -318,7 +318,7 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("phaseId") Long phaseId, @Param("runnerId") Long runnerId, @Param("lcd") Date lcd);
 
-    void deleteJobParamContentByHash(String paramHash);
+    void deleteJobContentByHash(String paramHash);
 
     void deleteJobPhaseOperationByJobId(Long jobId);
 

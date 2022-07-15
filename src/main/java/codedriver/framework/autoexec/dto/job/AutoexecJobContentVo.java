@@ -9,14 +9,14 @@ package codedriver.framework.autoexec.dto.job;
  * @author lvzk
  * @since 2021/4/12 17:46
  **/
-public class AutoexecJobParamContentVo {
+public class AutoexecJobContentVo {
     private String hash;
     private String content;
 
-    public AutoexecJobParamContentVo() {
+    public AutoexecJobContentVo() {
     }
 
-    public AutoexecJobParamContentVo(String hash, String content) {
+    public AutoexecJobContentVo(String hash, String content) {
         this.hash = hash;
         this.content = content;
     }
