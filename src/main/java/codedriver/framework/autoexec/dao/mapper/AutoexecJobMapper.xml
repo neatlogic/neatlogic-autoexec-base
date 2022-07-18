@@ -43,7 +43,7 @@
         aj.`exec_user` as execUser,
         aj.`exec_user_type` as execUserType,
         aj.`source`,
-        aj.`thread_count` as threadCount,
+        aj.`round_count` as roundCount,
         aj.`trigger_type` as triggerType
         FROM
         `autoexec_job` aj
@@ -441,7 +441,7 @@
                aj.`exec_user`       as execUser,
                aj.`exec_user_type`  as execUserType,
                aj.`source`,
-               aj.`thread_count`    as threadCount,
+               aj.`round_count`    as roundCount,
                aj.`param_hash`      as paramHash,
                aj.`config_hash`          as configHash,
                aj.`lncd`,
@@ -541,7 +541,7 @@
                aj.`operation_type`  as operationType,
                aj.`exec_user`       as execUser,
                aj.`source`,
-               aj.`thread_count`    as threadCount,
+               aj.`round_count`    as roundCount,
                aj.`param_hash`      as paramHash,
                aj.`config_hash`          as configHash,
                aj.`trigger_type`    as triggerType
@@ -1089,7 +1089,7 @@
                aj.`operation_type`  as operationType,
                aj.`exec_user`       as execUser,
                aj.`source`,
-               aj.`thread_count`    as threadCount,
+               aj.`round_count`    as roundCount,
                aj.`param_hash`      as paramHash,
                aj.`config_hash`          as configHash
         FROM `autoexec_job` aj
@@ -1296,7 +1296,7 @@
                aj.`exec_user`       as execUser,
                aj.`exec_user_type`  as execUserType,
                aj.`source`,
-               aj.`thread_count`    as threadCount
+               aj.`round_count`    as roundCount
         FROM `autoexec_job` aj
         WHERE aj.`start_time` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY)
     </select>
@@ -1711,7 +1711,7 @@
         </if>
         `operation_id`,
         `operation_type`,
-        `thread_count`,
+        `round_count`,
         `param_hash`,
         `exec_user`,
         `exec_user_type`,
@@ -1729,7 +1729,7 @@
         </if>
         #{operationId},
         #{operationType},
-        #{threadCount},
+        #{roundCount},
         #{paramHash},
         #{execUser},
         #{execUserType},

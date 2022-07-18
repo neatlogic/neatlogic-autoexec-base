@@ -82,7 +82,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "来源名", type = ApiParamType.STRING)
     private String sourceName;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
-    private Integer threadCount = 64;
+    private Integer roundCount = 64;
     @JSONField(serialize = false)
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
@@ -299,12 +299,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.execUserType = execUserType;
     }
 
-    public Integer getThreadCount() {
-        return threadCount;
+    public Integer getRoundCount() {
+        return roundCount;
     }
 
-    public void setThreadCount(Integer threadCount) {
-        this.threadCount = threadCount;
+    public void setRoundCount(Integer roundCount) {
+        this.roundCount = roundCount;
     }
 
     public String getConfigStr() {
