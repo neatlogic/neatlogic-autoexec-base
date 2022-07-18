@@ -71,11 +71,11 @@ public interface AutoexecCombopMapper {
 
     int insertAutoexecCombopParamVoList(List<AutoexecCombopParamVo> autoexecCombopParamVoList);
 
-    int insertAutoexecCombopPhase(AutoexecCombopPhaseVo autoexecCombopPhaseVo);
+//    int insertAutoexecCombopPhase(AutoexecCombopPhaseVo autoexecCombopPhaseVo);
 
-    int insertAutoexecCombopPhaseOperation(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo);
+//    int insertAutoexecCombopPhaseOperation(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo);
 
-    int insertAutoexecCombopGroup(AutoexecCombopGroupVo autoexecCombopGroupVo);
+//    int insertAutoexecCombopGroup(AutoexecCombopGroupVo autoexecCombopGroupVo);
 
     int updateAutoexecCombopById(AutoexecCombopVo autoexecCombopVo);
 
@@ -89,9 +89,9 @@ public interface AutoexecCombopMapper {
 
     int deleteAutoexecCombopParamByCombopId(Long combopId);
 
-    int deleteAutoexecCombopPhaseByCombopId(Long combopId);
+//    int deleteAutoexecCombopPhaseByCombopId(Long combopId);
 
     int deleteAutoexecCombopGroupByCombopId(Long combopId);
 
-    int deleteAutoexecCombopPhaseOperationByCombopPhaseIdList(List<Long> combopPhaseIdList);
+//    int deleteAutoexecCombopPhaseOperationByCombopPhaseIdList(List<Long> combopPhaseIdList);
 }

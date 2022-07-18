@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.dto.profile.AutoexecProfileParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
@@ -24,6 +25,8 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
     private Long profileId;
     @EntityField(name = "预置参数集名", type = ApiParamType.STRING)
     private String profileName;
+    @EntityField(name = "预置参数列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecProfileParamVo> profileParamList;
     @EntityField(name = "条件", type = ApiParamType.STRING)
     private String condition;
     @EntityField(name = "条件成立执行列表", type = ApiParamType.JSONARRAY)
@@ -85,5 +88,13 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
 
     public void setElseList(List<AutoexecCombopPhaseOperationVo> elseList) {
         this.elseList = elseList;
+    }
+
+    public List<AutoexecProfileParamVo> getProfileParamList() {
+        return profileParamList;
+    }
+
+    public void setProfileParamList(List<AutoexecProfileParamVo> profileParamList) {
+        this.profileParamList = profileParamList;
     }
 }

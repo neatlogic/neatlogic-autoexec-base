@@ -20,11 +20,16 @@ import java.io.Serializable;
  * @author: linbq
  * @since: 2021/4/13 10:08
  **/
-public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo implements Serializable {
+public class AutoexecCombopPhaseOperationVo implements Serializable {
+
+    @EntityField(name = "id", type = ApiParamType.LONG)
+    private Long id;
     @EntityField(name = "阶段id", type = ApiParamType.LONG)
     private Long combopPhaseId;
     @EntityField(name = "操作id", type = ApiParamType.LONG)
     private Long operationId;
+    @EntityField(name = "工具名", type = ApiParamType.STRING)
+    private String operationName;
     @EntityField(name = "操作类型，自定义工具或工具", type = ApiParamType.STRING)
     private String operationType;
     @EntityField(name = "失败策略", type = ApiParamType.STRING)
@@ -43,6 +48,9 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
     private String uuid;
     private String letter;
 
+    @EntityField(name = "工具信息", type = ApiParamType.JSONOBJECT)
+    private AutoexecOperationBaseVo operation;
+
     public Long getCombopPhaseId() {
         return combopPhaseId;
     }
@@ -52,9 +60,9 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
     }
 
     public Long getOperationId() {
-        if (operationId == null) {
-            operationId = SnowflakeUtil.uniqueLong();
-        }
+//        if (operationId == null) {
+//            operationId = SnowflakeUtil.uniqueLong();
+//        }
         return operationId;
     }
 
@@ -68,6 +76,33 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
 
     public void setOperationType(String operationType) {
         this.operationType = operationType;
+    }
+
+    public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getOperationName() {
+        return operationName;
+    }
+
+    public void setOperationName(String operationName) {
+        this.operationName = operationName;
+    }
+
+    public AutoexecOperationBaseVo getOperation() {
+        return operation;
+    }
+
+    public void setOperation(AutoexecOperationBaseVo operation) {
+        this.operation = operation;
     }
 
     public String getFailPolicy() {
