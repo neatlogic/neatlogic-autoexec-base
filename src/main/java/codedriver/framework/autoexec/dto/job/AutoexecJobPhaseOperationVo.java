@@ -125,7 +125,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.execMode = operationVo.getExecMode();
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
         this.parser = operationVo.getParser();
-        this.sort = autoexecCombopPhaseOperationVo.getSort();
+        this.sort = autoexecCombopPhaseOperationVo.getSort() == null ? 0 : autoexecCombopPhaseOperationVo.getSort();//兼容operation sort 为null bug
         this.operationId = autoexecCombopPhaseOperationVo.getId();
         this.setParentOperationId(autoexecCombopPhaseOperationVo.getParentOperationId());
         this.setParentOperationType(autoexecCombopPhaseOperationVo.getParentOperationType());
@@ -138,7 +138,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         List<AutoexecParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
         AutoexecParamVo argumentParam = autoexecCombopPhaseOperationVo.getArgument();
         //替换输入参数（上游参数）
-        if(CollectionUtils.isNotEmpty(paramMappingVos)) {
+        if (CollectionUtils.isNotEmpty(paramMappingVos)) {
             for (ParamMappingVo paramMappingVo : paramMappingVos) {
                 for (AutoexecParamVo input : inputParamList) {
                     exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
