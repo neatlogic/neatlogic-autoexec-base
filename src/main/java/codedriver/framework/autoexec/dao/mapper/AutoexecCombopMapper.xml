@@ -271,10 +271,6 @@
         </if>
     </select>
 
-    <!--<select id="getCombopPhaseIdListByCombopId" parameterType="java.lang.Long" resultType="java.lang.Long">
-        SELECT `id` FROM `autoexec_combop_phase` WHERE `combop_id` = #{value}
-    </select>-->
-
     <select id="checkAutoexecCombopIdListIsExists" parameterType="java.util.List" resultType="java.lang.Long">
         SELECT `id` FROM `autoexec_combop` WHERE `id` IN
         <foreach collection="list" item="id" open="(" separator="," close=")">
@@ -284,12 +280,9 @@
 
     <select id="checkItHasBeenGeneratedToCombopByOperationId" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT
-            a.`id`
-        FROM `autoexec_combop` a
-        JOIN `autoexec_combop_phase` b ON a.`id` = b.`combop_id`
-        JOIN `autoexec_combop_phase_operation` c ON b.`id` = c.`combop_phase_id` AND c.`operation_id` = #{value}
-        WHERE a.`operation_type` != 'combop'
-        LIMIT 1
+            `combop_id`
+        FROM `autoexec_operation_generate_combop`
+        WHERE `operation_id` = #{value}
     </select>
 
     <insert id="insertAutoexecCombop" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
@@ -372,69 +365,19 @@
         </foreach>
     </insert>
 
-    <!--<insert id="insertAutoexecCombopPhase" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo">
-        INSERT INTO `autoexec_combop_phase` (
-            `id`,
+    <insert id="insertAutoexecOperationGenerateCombop">
+        INSERT INTO `autoexec_operation_generate_combop` (
             `combop_id`,
-            `uk`,
-            `name`,
-            `exec_mode`,
-            `config`,
-            `sort`,
-            `group_id`,
-            `policy`
-        )
-        VALUES
-        (
-            #{id},
-            #{combopId},
-            #{uk},
-            #{name},
-            #{execMode},
-            #{configStr},
-            #{sort},
-            #{groupId},
-            #{policy}
-        )
-    </insert>-->
-
-    <!--<insert id="insertAutoexecCombopPhaseOperation" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo">
-        INSERT INTO `autoexec_combop_phase_operation` (
-            `combop_phase_id`,
-            `operation_id`,
             `operation_type`,
-            `fail_policy`,
-            `config`,
-            `sort`
+            `operation_id`
         )
         VALUES
         (
-            #{combopPhaseId},
-            #{operationId},
-            #{operationType},
-            #{failPolicy},
-            #{configStr},
-            #{sort}
-        )
-    </insert>-->
-
-    <!--<insert id="insertAutoexecCombopGroup" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopGroupVo">
-        INSERT INTO `autoexec_combop_group` (
-            `id`,
-            `combop_id`,
-            `sort`,
-            `policy`,
-            `config`
-        )
-        VALUES
-        (
-            #{id},
             #{combopId},
-            #{sort},
-            #{policy},
-            #{configStr}
+            #{operationType},
+            #{operationId}
         )
-    </insert>-->
+    </insert>
 
     <update id="updateAutoexecCombopById" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         UPDATE `autoexec_combop`
@@ -481,19 +424,7 @@
         DELETE FROM `autoexec_combop_param` WHERE `combop_id` = #{value}
     </delete>
 
-    <!--<delete id="deleteAutoexecCombopPhaseByCombopId" parameterType="java.lang.Long">
-        DELETE FROM `autoexec_combop_phase` WHERE `combop_id` = #{value}
-    </delete>-->
-
     <delete id="deleteAutoexecCombopGroupByCombopId" parameterType="java.lang.Long">
         DELETE FROM `autoexec_combop_group` WHERE `combop_id` = #{value}
     </delete>
-
-    <!--<delete id="deleteAutoexecCombopPhaseOperationByCombopPhaseIdList" parameterType="java.lang.Long">
-        DELETE FROM `autoexec_combop_phase_operation`
-        WHERE `combop_phase_id` IN
-        <foreach collection="list" item="combopPhaseId" open="(" separator="," close=")">
-            #{combopPhaseId}
-        </foreach>
-    </delete>-->
 </mapper>

@@ -59,8 +59,6 @@ public interface AutoexecCombopMapper {
             @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 
-//    List<Long> getCombopPhaseIdListByCombopId(Long combopId);
-
     List<Long> checkAutoexecCombopIdListIsExists(List<Long> idList);
 
     Long checkItHasBeenGeneratedToCombopByOperationId(Long operationId);
@@ -71,11 +69,7 @@ public interface AutoexecCombopMapper {
 
     int insertAutoexecCombopParamVoList(List<AutoexecCombopParamVo> autoexecCombopParamVoList);
 
-//    int insertAutoexecCombopPhase(AutoexecCombopPhaseVo autoexecCombopPhaseVo);
-
-//    int insertAutoexecCombopPhaseOperation(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo);
-
-//    int insertAutoexecCombopGroup(AutoexecCombopGroupVo autoexecCombopGroupVo);
+    int insertAutoexecOperationGenerateCombop(@Param("combopId") Long combopId, @Param("operationType") String operationType, @Param("operationId") Long operationId);
 
     int updateAutoexecCombopById(AutoexecCombopVo autoexecCombopVo);
 
@@ -89,9 +83,5 @@ public interface AutoexecCombopMapper {
 
     int deleteAutoexecCombopParamByCombopId(Long combopId);
 
-//    int deleteAutoexecCombopPhaseByCombopId(Long combopId);
-
     int deleteAutoexecCombopGroupByCombopId(Long combopId);
-
-//    int deleteAutoexecCombopPhaseOperationByCombopPhaseIdList(List<Long> combopPhaseIdList);
 }
