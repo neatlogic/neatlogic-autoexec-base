@@ -59,7 +59,7 @@ public interface AutoexecCombopMapper {
             @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 
-    List<Long> getCombopPhaseIdListByCombopId(Long combopId);
+//    List<Long> getCombopPhaseIdListByCombopId(Long combopId);
 
     List<Long> checkAutoexecCombopIdListIsExists(List<Long> idList);
 

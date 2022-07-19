@@ -976,14 +976,14 @@
         <include refid="getScriptReference"/>
     </select>
 
-    <select id="getReferenceListByScriptId" parameterType="java.lang.Long"
+    <!--<select id="getReferenceListByScriptId" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         select
         a.`id`,
         a.`name`
         <include refid="getScriptReference"/>
         group by a.`id`
-    </select>
+    </select>-->
 
     <select id="getScriptAuditByScriptVersionIdAndOperate"
             resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptAuditVo">

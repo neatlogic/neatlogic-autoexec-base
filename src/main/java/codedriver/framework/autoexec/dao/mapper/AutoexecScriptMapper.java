@@ -121,7 +121,7 @@ public interface AutoexecScriptMapper {
 
     int getReferenceCountByScriptId(Long scriptId);
 
-    List<AutoexecCombopVo> getReferenceListByScriptId(Long scriptId);
+//    List<AutoexecCombopVo> getReferenceListByScriptId(Long scriptId);
 
     List<Long> getVersionIdListByScriptId(Long scriptId);
 

@@ -195,7 +195,7 @@
         group by c.`operation_id`
     </select>
 
-    <select id="getReferenceListByToolId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
+    <!--<select id="getReferenceListByToolId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         select
         a.`id`,
         a.`name`
@@ -207,7 +207,7 @@
         where c.`operation_id` = #{value}
         and c.`operation_type` = 'tool'
         group by a.`id`
-    </select>
+    </select>-->
 
     <select id="getReferenceCountListByToolIdList" parameterType="java.util.List" resultType="codedriver.framework.autoexec.dto.AutoexecToolVo">
         select

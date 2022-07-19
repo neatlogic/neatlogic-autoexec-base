@@ -271,9 +271,9 @@
         </if>
     </select>
 
-    <select id="getCombopPhaseIdListByCombopId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <!--<select id="getCombopPhaseIdListByCombopId" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT `id` FROM `autoexec_combop_phase` WHERE `combop_id` = #{value}
-    </select>
+    </select>-->
 
     <select id="checkAutoexecCombopIdListIsExists" parameterType="java.util.List" resultType="java.lang.Long">
         SELECT `id` FROM `autoexec_combop` WHERE `id` IN
