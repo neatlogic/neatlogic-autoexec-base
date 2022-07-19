@@ -11,7 +11,6 @@ import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
@@ -49,8 +48,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
-    @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
-    private int referenceCount;
+//    @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
+//    private int referenceCount;
     //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
 //    private Integer viewable;
     @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
@@ -175,21 +174,26 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     }
 
     public AutoexecCombopConfigVo getConfig() {
+        if (config == null && configStr != null) {
+            config = JSONObject.parseObject(configStr, AutoexecCombopConfigVo.class);
+        }
         return config;
     }
 
-    public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopConfigVo>() {
-        });
+    public void setConfig(AutoexecCombopConfigVo config) {
+        if (config != null) {
+            this.configStr = null;
+        }
+        this.config = config;
     }
 
-    public int getReferenceCount() {
-        return referenceCount;
-    }
-
-    public void setReferenceCount(int referenceCount) {
-        this.referenceCount = referenceCount;
-    }
+//    public int getReferenceCount() {
+//        return referenceCount;
+//    }
+//
+//    public void setReferenceCount(int referenceCount) {
+//        this.referenceCount = referenceCount;
+//    }
 
 //    public Integer getViewable() {
 //        return viewable;
@@ -271,6 +275,9 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     }
 
     public void setConfigStr(String configStr) {
+        if (configStr != null) {
+            this.config = null;
+        }
         this.configStr = configStr;
     }
 }

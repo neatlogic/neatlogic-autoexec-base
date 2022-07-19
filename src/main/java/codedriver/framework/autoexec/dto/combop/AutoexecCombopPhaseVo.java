@@ -9,7 +9,6 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
@@ -23,8 +22,6 @@ import java.io.Serializable;
 public class AutoexecCombopPhaseVo implements Serializable {
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "组合工具id", type = ApiParamType.LONG)
-    private Long combopId;
     @EntityField(name = "唯一标识", type = ApiParamType.STRING)
     private String uk;
     @EntityField(name = "显示名", type = ApiParamType.STRING)
@@ -63,14 +60,6 @@ public class AutoexecCombopPhaseVo implements Serializable {
         this.id = id;
     }
 
-    public Long getCombopId() {
-        return combopId;
-    }
-
-    public void setCombopId(Long combopId) {
-        this.combopId = combopId;
-    }
-
     public String getUk() {
         return uk;
     }
@@ -104,12 +93,17 @@ public class AutoexecCombopPhaseVo implements Serializable {
     }
 
     public AutoexecCombopPhaseConfigVo getConfig() {
+        if (config == null && configStr != null) {
+            config = JSONObject.parseObject(configStr, AutoexecCombopPhaseConfigVo.class);
+        }
         return config;
     }
 
-    public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopPhaseConfigVo>() {
-        });
+    public void setConfig(AutoexecCombopPhaseConfigVo config) {
+        if (config != null) {
+            configStr = null;
+        }
+        this.config = config;
     }
 
     public Integer getSort() {
@@ -140,10 +134,17 @@ public class AutoexecCombopPhaseVo implements Serializable {
     }
 
     public String getConfigStr() {
-        if (this.config == null) {
-            return null;
+        if (configStr == null && config != null) {
+            configStr = JSONObject.toJSONString(config);
         }
-        return JSONObject.toJSONString(config);
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        if (configStr != null) {
+            this.config = null;
+        }
+        this.configStr = configStr;
     }
 
     public Long getGroupId() {

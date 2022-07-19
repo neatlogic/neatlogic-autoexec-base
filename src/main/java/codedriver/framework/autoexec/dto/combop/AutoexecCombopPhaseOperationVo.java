@@ -10,7 +10,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 
@@ -24,8 +24,6 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "阶段id", type = ApiParamType.LONG)
-    private Long combopPhaseId;
     @EntityField(name = "操作id", type = ApiParamType.LONG)
     private Long operationId;
     @EntityField(name = "工具名", type = ApiParamType.STRING)
@@ -42,8 +40,8 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
     private Long parentOperationId;
     @EntityField(name = "父工具类型", type = ApiParamType.LONG)
     private String parentOperationType;
-//    @JSONField(serialize = false)
-//    private String configStr;
+    @JSONField(serialize = false)
+    private String configStr;
     @EntityField(name = "uuid", type = ApiParamType.STRING)
     private String uuid;
     private String letter;
@@ -51,18 +49,7 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
     @EntityField(name = "工具信息", type = ApiParamType.JSONOBJECT)
     private AutoexecOperationBaseVo operation;
 
-    public Long getCombopPhaseId() {
-        return combopPhaseId;
-    }
-
-    public void setCombopPhaseId(Long combopPhaseId) {
-        this.combopPhaseId = combopPhaseId;
-    }
-
     public Long getOperationId() {
-//        if (operationId == null) {
-//            operationId = SnowflakeUtil.uniqueLong();
-//        }
         return operationId;
     }
 
@@ -114,12 +101,17 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
     }
 
     public AutoexecCombopPhaseOperationConfigVo getConfig() {
+        if (config == null && configStr != null) {
+            config = JSONObject.parseObject(configStr, AutoexecCombopPhaseOperationConfigVo.class);
+        }
         return config;
     }
 
-    public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopPhaseOperationConfigVo>() {
-        });
+    public void setConfig(AutoexecCombopPhaseOperationConfigVo config) {
+        if (config != null) {
+            configStr = null;
+        }
+        this.config = config;
     }
 
     public Integer getSort() {
@@ -131,10 +123,17 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
     }
 
     public String getConfigStr() {
-        if (this.config == null) {
-            return null;
+        if (configStr == null && config != null) {
+            configStr = JSONObject.toJSONString(config);
         }
-        return JSONObject.toJSONString(config);
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        if (configStr != null) {
+            config = null;
+        }
+        this.configStr = configStr;
     }
 
     public String getUuid() {
