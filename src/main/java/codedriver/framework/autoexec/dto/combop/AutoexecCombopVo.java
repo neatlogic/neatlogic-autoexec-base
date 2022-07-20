@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -61,7 +62,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
     private Integer ownerEditable;
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
-    private List<AutoexecCombopParamVo> runtimeParamList;
+    private List<AutoexecParamVo> runtimeParamList;
     @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
     private boolean needExecuteUser = false;
     @EntityField(name = "执行页面是否需要设置连接协议", type = ApiParamType.BOOLEAN)
@@ -235,11 +236,11 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.ownerEditable = ownerEditable;
     }
 
-    public List<AutoexecCombopParamVo> getRuntimeParamList() {
+    public List<AutoexecParamVo> getRuntimeParamList() {
         return runtimeParamList;
     }
 
-    public void setRuntimeParamList(List<AutoexecCombopParamVo> runtimeParamList) {
+    public void setRuntimeParamList(List<AutoexecParamVo> runtimeParamList) {
         this.runtimeParamList = runtimeParamList;
     }
 

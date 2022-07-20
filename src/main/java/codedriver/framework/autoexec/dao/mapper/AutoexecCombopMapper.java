@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.crossover.IAutoexecCombopCrossoverMapper;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.*;
 import codedriver.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
@@ -42,7 +43,7 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
 
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopIdAndAction(@Param("combopId") Long combopId, @Param("action") String action);
 
-    List<AutoexecCombopParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
+    List<AutoexecParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
 
     List<AutoexecCombopParamVo> getAllAutoexecCombopPasswordParamList();
 

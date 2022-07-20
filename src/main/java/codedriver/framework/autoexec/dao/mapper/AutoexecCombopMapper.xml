@@ -182,9 +182,8 @@
           AND `action` = #{action}
     </select>
 
-    <select id="getAutoexecCombopParamListByCombopId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo">
+    <select id="getAutoexecCombopParamListByCombopId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.AutoexecParamVo">
         SELECT
-            `combop_id` AS combopId,
             `key`,
             `name`,
             `default_value` AS defaultValue,
