@@ -14,11 +14,15 @@ import codedriver.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecScriptMapper;
 import codedriver.framework.autoexec.dao.mapper.AutoexecToolMapper;
+import codedriver.framework.autoexec.dto.AutoexecJobSourceVo;
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.autoexec.exception.*;
+import codedriver.framework.autoexec.job.source.action.AutoexecJobSourceActionHandlerFactory;
+import codedriver.framework.autoexec.job.source.action.IAutoexecJobSourceActionHandler;
+import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.autoexec.util.AutoexecUtil;
 import codedriver.framework.dao.mapper.runner.RunnerMapper;
 import codedriver.framework.dto.RestVo;
@@ -131,7 +135,13 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (phaseVo == null) {
                 throw new AutoexecJobPhaseNotFoundException(jobVo.getCurrentPhaseId().toString());
             }
+            AutoexecJobVo jobVoTmp = autoexecJobMapper.getJobInfo(phaseVo.getJobId());
+            if (jobVoTmp == null) {
+                throw new AutoexecJobNotFoundException(phaseVo.getJobId());
+            }
+            jobVo.setSource(jobVoTmp.getSource());
             jobVo.setCurrentPhase(phaseVo);
+            jobVo.setId(phaseVo.getJobId());
         }
 
     }
@@ -144,9 +154,14 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (StringUtils.isBlank(jobVo.getActionParam().getString("sqlName"))) {
                 throw new ParamIrregularException("sqlName");
             }
-            AutoexecSqlDetailVo sqlDetailVo = autoexecJobMapper.getJobSqlByJobPhaseIdAndResourceIdAndSqlName(jobVo.getActionParam().getLong("jobPhaseId"), jobVo.getActionParam().getLong("resourceId"), jobVo.getActionParam().getString("sqlName"));
+            AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
+            if (jobSourceVo == null) {
+                throw new AutoexecJobSourceInvalidException(jobVo.getSource());
+            }
+            IAutoexecJobSourceActionHandler autoexecJobSourceActionHandler = AutoexecJobSourceActionHandlerFactory.getAction(jobSourceVo.getType());
+            AutoexecSqlDetailVo sqlDetailVo = autoexecJobSourceActionHandler.getSqlDetail(jobVo);
             if (sqlDetailVo == null) {
-                throw new AutoexecJobSqlDetailNotFoundException(nodeId);
+                throw new AutoexecJobSqlDetailNotFoundException();
             }
             RunnerMapVo runnerMapVo = runnerMapper.getRunnerMapByRunnerMapId(sqlDetailVo.getRunnerId());
             jobVo.setCurrentNode(new AutoexecJobPhaseNodeVo(sqlDetailVo.getJobId(), sqlDetailVo.getPhaseName(), sqlDetailVo.getHost(), sqlDetailVo.getPort(), sqlDetailVo.getResourceId(), runnerMapVo.getUrl(), sqlDetailVo.getRunnerId()));

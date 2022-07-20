@@ -9,6 +9,7 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
+import codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import com.alibaba.fastjson.JSONObject;
 
@@ -79,6 +80,15 @@ public interface IAutoexecJobSourceActionHandler {
      */
     void updateSqlStatus(JSONObject paramObj);
 
+
+    /**
+     * 获取sql详情
+     *
+     * @param jobVo 作业入参
+     * @return sql详情
+     */
+    AutoexecSqlDetailVo getSqlDetail(AutoexecJobVo jobVo);
+
     /**
      * 获取runnerMapList
      *
@@ -87,11 +97,11 @@ public interface IAutoexecJobSourceActionHandler {
     List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo);
 
     /**
-     *
-     * @param jobId 作业id
+     * @param jobId       作业id
      * @param runnerMapId runner映射id
      */
-    default void updateJobRunnerMap(Long jobId,Long runnerMapId){}
+    default void updateJobRunnerMap(Long jobId, Long runnerMapId) {
+    }
 
     /**
      * 获取组合工具｜流水线
@@ -103,10 +113,14 @@ public interface IAutoexecJobSourceActionHandler {
 
     /**
      * 更新作业关系表，如：发布作业表
+     *
      * @param paramJson 入参
-     * @param jobVo 作业
+     * @param jobVo     作业
      */
-    default void updateInvokeJob(JSONObject paramJson ,AutoexecJobVo jobVo){};
+    default void updateInvokeJob(JSONObject paramJson, AutoexecJobVo jobVo) {
+    }
+
+    ;
 
     /**
      * 获取 params.json
