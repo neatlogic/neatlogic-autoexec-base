@@ -198,6 +198,20 @@
         ORDER BY `sort`
     </select>
 
+    <select id="getAllAutoexecCombopPasswordParamList"
+            resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo">
+        SELECT `combop_id`     AS combopId,
+               `key`,
+               `name`,
+               `default_value` AS defaultValue,
+               `description`,
+               `is_required`   AS isRequired,
+               `type`,
+               `sort`
+        FROM `autoexec_combop_param`
+        where `type` = 'password'
+    </select>
+
     <select id="getAutoexecCombopParamByCombopIdAndKey" resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo">
         SELECT
             `combop_id` AS combopId,
@@ -410,6 +424,13 @@
             `lcd` = NOW(3),
             `lcu` = #{lcu}
         WHERE `id` = #{id}
+    </update>
+
+    <update id="updateAutoexecCombopPasswordParam">
+        update `autoexec_combop_param`
+        set `default_value` = #{password}
+        where combop_id = #{param.combopId}
+          and `key` = #{param.key}
     </update>
 
     <delete id="deleteAutoexecCombopById" parameterType="java.lang.Long">
