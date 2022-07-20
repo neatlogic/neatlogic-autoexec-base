@@ -7,11 +7,11 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobThreadCountException extends ApiRuntimeException {
+public class AutoexecJobRoundCountException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 1442834258333155064L;
 
-    public AutoexecJobThreadCountException() {
+    public AutoexecJobRoundCountException() {
         super("并发线程数：必须是2的n次方");
     }
 

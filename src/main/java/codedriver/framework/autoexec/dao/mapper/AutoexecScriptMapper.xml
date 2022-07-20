@@ -5,23 +5,23 @@
     <sql id="getScriptBaseInfo">
         SELECT a.`id`,
                a.`name`,
-               a.`exec_mode`  AS execMode,
-               a.`type_id`    AS typeId,
-               a.`risk_id`    AS riskId,
-               c.`name`       AS typeName,
-               a.`catalog_id` AS catalogId,
-               b.`name`       AS catalogName,
-               d.`name`       AS riskName,
+               a.`exec_mode`          AS execMode,
+               a.`type_id`            AS typeId,
+               a.`risk_id`            AS riskId,
+               c.`name`               AS typeName,
+               a.`catalog_id`         AS catalogId,
+               b.`name`               AS catalogName,
+               d.`name`               AS riskName,
                a.`description`,
                a.`default_profile_id` AS defaultProfileId,
-               e.`name` AS defaultProfileName,
+               e.`name`               AS defaultProfileName,
                a.`fcu`,
                a.`fcd`
         FROM `autoexec_script` a
-        LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
-        LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
-        LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
-        LEFT JOIN `autoexec_profile` e ON a.`default_profile_id` = e.`id`
+                 LEFT JOIN `autoexec_catalog` b ON a.`catalog_id` = b.`id`
+                 LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
+                 LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
+                 LEFT JOIN `autoexec_profile` e ON a.`default_profile_id` = e.`id`
     </sql>
 
     <select id="getScriptBaseInfoById" parameterType="java.lang.Long"
@@ -1145,15 +1145,31 @@
         )
 
     </select>
+    <select id="getAllPasswordScriptParam"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
+        select `script_version_id` as scriptVersionId,
+               `key`,
+               `name`,
+               `default_value`     as defaultValue,
+               `type`,
+               `mode`,
+               `mapping_mode`      as mappingMode,
+               `is_required`       as isRequired,
+               `description`,
+               `sort`,
+               `config`
+        from `autoexec_script_version_param`
+        where `type` = 'password'
+    </select>
 
     <update id="updateScriptBaseInfo" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script`
-        set `name`        = #{name},
-            `exec_mode`   = #{execMode},
-            `type_id`     = #{typeId},
-            `catalog_id`  = #{catalogId},
-            `risk_id`     = #{riskId},
-            `description` = #{description},
+        set `name`               = #{name},
+            `exec_mode`          = #{execMode},
+            `type_id`            = #{typeId},
+            `catalog_id`         = #{catalogId},
+            `risk_id`            = #{riskId},
+            `description`        = #{description},
             `default_profile_id` = #{defaultProfileId}
         where `id` = #{id}
     </update>
@@ -1184,6 +1200,13 @@
         `lcu` = #{lcu},
         `lcd` = now(3)
         where `id` = #{id}
+    </update>
+    <update id="updateScriptVersionParamPassword">
+        update `autoexec_script_version_param`
+        set default_value = #{password}
+        where script_version_id = #{param.scriptVersionId}
+          and `key` = #{param.key}
+          and `mode` = #{param.mode}
     </update>
 
     <insert id="insertScript" parameterType="codedriver.framework.autoexec.dto.script.AutoexecScriptVo">

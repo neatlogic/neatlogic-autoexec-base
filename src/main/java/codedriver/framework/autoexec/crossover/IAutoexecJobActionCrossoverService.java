@@ -20,4 +20,11 @@ public interface IAutoexecJobActionCrossoverService extends ICrossoverService {
      * @param isNeedAuth 是否需要鉴权
      */
     AutoexecJobVo validateAndCreateJobFromCombop(JSONObject param, boolean isNeedAuth);
+
+
+    /**
+     * 获取作业详细并激活作业
+     * @param jobVo 作业vo
+     */
+    void getJobDetailAndFireJob(AutoexecJobVo jobVo) throws Exception;
 }

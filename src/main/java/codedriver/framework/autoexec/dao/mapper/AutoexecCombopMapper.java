@@ -5,11 +5,11 @@
 
 package codedriver.framework.autoexec.dao.mapper;
 
+import codedriver.framework.autoexec.crossover.IAutoexecCombopCrossoverMapper;
 import codedriver.framework.autoexec.dto.combop.*;
 import codedriver.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ import java.util.Set;
  * @author: linbq
  * @since: 2021/4/13 11:05
  **/
-public interface AutoexecCombopMapper {
+public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
     int checkAutoexecCombopIsExists(Long id);
 
     Long checkAutoexecCombopNameIsRepeat(AutoexecCombopVo autoexecCombopVo);
@@ -43,6 +43,8 @@ public interface AutoexecCombopMapper {
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopIdAndAction(@Param("combopId") Long combopId, @Param("action") String action);
 
     List<AutoexecCombopParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
+
+    List<AutoexecCombopParamVo> getAllAutoexecCombopPasswordParamList();
 
     AutoexecCombopParamVo getAutoexecCombopParamByCombopIdAndKey(@Param("combopId") Long combopId, @Param("key") String key);
 
@@ -76,6 +78,8 @@ public interface AutoexecCombopMapper {
     int updateAutoexecCombopIsActiveById(AutoexecCombopVo autoexecCombopVo);
 
     int updateAutoexecCombopConfigById(AutoexecCombopVo autoexecCombopVo);
+
+    int updateAutoexecCombopPasswordParam(@Param("param") AutoexecCombopParamVo autoexecCombopParamVo, @Param("password") String password);
 
     int deleteAutoexecCombopById(Long id);
 

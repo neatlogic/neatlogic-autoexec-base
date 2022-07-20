@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface AutoexecScriptMapper {
+public interface AutoexecScriptMapper{
 
     AutoexecScriptVo getScriptBaseInfoById(Long id);
 
@@ -74,6 +74,8 @@ public interface AutoexecScriptMapper {
     List<AutoexecScriptVersionVo> getScriptVersionListByScriptId(Long scriptId);
 
     List<AutoexecScriptVersionParamVo> getParamListByVersionId(Long versionId);
+
+    List<AutoexecScriptVersionParamVo> getAllPasswordScriptParam();
 
     List<AutoexecParamVo> getAutoexecParamVoListByVersionId(Long versionId);
 
@@ -171,6 +173,8 @@ public interface AutoexecScriptMapper {
     int updateScriptBaseInfo(AutoexecScriptVo scriptVo);
 
     int updateScriptVersion(AutoexecScriptVersionVo versionVo);
+
+    int updateScriptVersionParamPassword(@Param("param") AutoexecScriptVersionParamVo param, @Param("password") String password);
 
     int insertScript(AutoexecScriptVo vo);
 
