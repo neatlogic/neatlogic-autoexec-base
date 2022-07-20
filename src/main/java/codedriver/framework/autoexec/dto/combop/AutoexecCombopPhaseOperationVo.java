@@ -77,6 +77,9 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
     }
 
     public String getOperationName() {
+        if (operation != null) {
+            return operation.getName();
+        }
         return operationName;
     }
 
