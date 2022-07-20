@@ -129,4 +129,12 @@ public interface IAutoexecJobSourceActionHandler {
      * @param jobVo      作业
      */
     void getFireParamJson(JSONObject jsonObject, AutoexecJobVo jobVo);
+
+
+    /**
+     * 获取 sqlId 对应的node节点List
+     * @param sqlIdList sqlId列表
+     * @return node节点List
+     */
+    List<AutoexecJobPhaseNodeVo> getJobNodeListBySqlIdList(List<Long> sqlIdList);
 }
