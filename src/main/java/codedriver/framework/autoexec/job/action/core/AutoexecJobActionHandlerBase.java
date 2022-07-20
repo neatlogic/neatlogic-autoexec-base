@@ -141,6 +141,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             }
             jobVo.setSource(jobVoTmp.getSource());
             jobVo.setCurrentPhase(phaseVo);
+            jobVo.setId(phaseVo.getJobId());
         }
 
     }
