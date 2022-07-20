@@ -135,6 +135,11 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (phaseVo == null) {
                 throw new AutoexecJobPhaseNotFoundException(jobVo.getCurrentPhaseId().toString());
             }
+            AutoexecJobVo jobVoTmp = autoexecJobMapper.getJobInfo(phaseVo.getJobId());
+            if (jobVoTmp == null) {
+                throw new AutoexecJobNotFoundException(phaseVo.getJobId());
+            }
+            jobVo.setSource(jobVoTmp.getSource());
             jobVo.setCurrentPhase(phaseVo);
         }
 
