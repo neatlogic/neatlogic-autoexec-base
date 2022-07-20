@@ -36,8 +36,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String sqlFile;
     @EntityField(name = "用户名", type = ApiParamType.STRING)
     private String username;
-    @EntityField(name = "访问地址", type = ApiParamType.STRING)
-    private String accessEndPoint;
+    @EntityField(name = "服务地址", type = ApiParamType.STRING)
+    private String serviceAddr;
     @EntityField(name = "节点类型", type = ApiParamType.STRING)
     private String nodeType;
     @EntityField(name = "ip", type = ApiParamType.STRING)
@@ -145,12 +145,12 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.username = username;
     }
 
-    public String getAccessEndPoint() {
-        return accessEndPoint;
+    public String getServiceAddr() {
+        return serviceAddr;
     }
 
-    public void setAccessEndPoint(String accessEndPoint) {
-        this.accessEndPoint = accessEndPoint;
+    public void setServiceAddr(String serviceAddr) {
+        this.serviceAddr = serviceAddr;
     }
 
     public String getNodeType() {
