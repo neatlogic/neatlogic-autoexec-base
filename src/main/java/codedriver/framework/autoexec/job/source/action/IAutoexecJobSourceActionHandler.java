@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.job.source.action;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
+import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
@@ -137,4 +138,7 @@ public interface IAutoexecJobSourceActionHandler {
      * @return node节点List
      */
     List<AutoexecJobPhaseNodeVo> getJobNodeListBySqlIdList(List<Long> sqlIdList);
+
+
+    boolean getIsCanUpdatePhaseRunner(AutoexecJobPhaseVo jobPhaseVo,Long runnerMapId);
 }

@@ -441,9 +441,9 @@
                aj.`exec_user`       as execUser,
                aj.`exec_user_type`  as execUserType,
                aj.`source`,
-               aj.`round_count`    as roundCount,
+               aj.`round_count`     as roundCount,
                aj.`param_hash`      as paramHash,
-               aj.`config_hash`          as configHash,
+               aj.`config_hash`     as configHash,
                aj.`lncd`,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
@@ -541,9 +541,9 @@
                aj.`operation_type`  as operationType,
                aj.`exec_user`       as execUser,
                aj.`source`,
-               aj.`round_count`    as roundCount,
+               aj.`round_count`     as roundCount,
                aj.`param_hash`      as paramHash,
-               aj.`config_hash`          as configHash,
+               aj.`config_hash`     as configHash,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value} for
@@ -824,6 +824,27 @@
         </foreach>
     </select>
 
+    <select id="getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatusAndRunnerMapId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`status`
+        FROM `autoexec_job_phase_node` ajpn
+        left join autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
+        where ajpn.`job_id` = #{jobId} and ajpn.`job_phase_id` = #{phaseId}
+        and ajpnr.runner_map_id = #{runnerMapId}
+        and
+        ajpn.`status` not in
+        <foreach collection="exceptStatus" item="status" separator="," open="(" close=")">
+            #{status}
+        </foreach>
+    </select>
+
     <select id="getJobPhaseNodeListByJobIdAndPhaseId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT ajpn.`id`,
@@ -1089,9 +1110,9 @@
                aj.`operation_type`  as operationType,
                aj.`exec_user`       as execUser,
                aj.`source`,
-               aj.`round_count`    as roundCount,
+               aj.`round_count`     as roundCount,
                aj.`param_hash`      as paramHash,
-               aj.`config_hash`          as configHash
+               aj.`config_hash`     as configHash
         FROM `autoexec_job` aj
         WHERE aj.`operation_id` = #{value} for
         update
@@ -1296,7 +1317,7 @@
                aj.`exec_user`       as execUser,
                aj.`exec_user_type`  as execUserType,
                aj.`source`,
-               aj.`round_count`    as roundCount
+               aj.`round_count`     as roundCount
         FROM `autoexec_job` aj
         WHERE aj.`start_time` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY)
     </select>
@@ -1699,6 +1720,23 @@
         WHERE a.`job_id` = #{jobId} AND a.`resource_id` IN
         <foreach collection="resourceIdList" item="resourceId" open="(" separator="," close=")">
             #{resourceId}
+        </foreach>
+    </select>
+    <select id="getJobSqlDetailListByJobIdAndPhaseNameAndExceptStatusAndRunnerMapId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+        select ajsd.`id`,
+        ajsd.`md5`,
+        ajsd.`status`,
+        ajsd.`sql_file` as sqlFile,
+        ajsd.`runner_id` as runnerId,
+        ajsd.`resource_id` as resourceId
+        from autoexec_job_sql_detail ajsd
+        where ajsd.job_id = #{jobId}
+        and ajsd.job_phase_name = #{jobPhaseName}
+        and ajsd.`runner_id` = #{runnerMapId}
+        and ajsd.`status` not in
+        <foreach collection="exceptStatusList" item="status" separator="," close=")" open="(">
+            #{status}
         </foreach>
     </select>
 
