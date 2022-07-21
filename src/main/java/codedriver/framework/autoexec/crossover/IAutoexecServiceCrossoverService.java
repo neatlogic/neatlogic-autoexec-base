@@ -1,7 +1,9 @@
 package codedriver.framework.autoexec.crossover;
 
+import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
 import codedriver.framework.crossover.ICrossoverService;
 
 import java.util.List;
@@ -13,6 +15,13 @@ import java.util.List;
 public interface IAutoexecServiceCrossoverService extends ICrossoverService {
 
     void updateAutoexecCombopConfig(AutoexecCombopConfigVo config);
+
+    /**
+     * 补充阶段操作中的自定义工具或工具信息
+     * @param autoexecCombopPhaseOperationVo
+     * @return
+     */
+    AutoexecOperationBaseVo getAutoexecOperationBaseVoByIdAndType(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo);
 
     void mergeConfig(AutoexecParamVo autoexecParamVo);
 

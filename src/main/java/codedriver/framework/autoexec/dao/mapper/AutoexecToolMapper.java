@@ -31,11 +31,7 @@ public interface AutoexecToolMapper {
 
     int checkToolHasBeenGeneratedToCombop(Long id);
 
-    List<AutoexecToolVo> checkToolListHasBeenGeneratedToCombop(List<Long> idList);
-
-    List<AutoexecCombopVo> getReferenceListByToolId(Long toolId);
-
-    List<AutoexecToolVo> getReferenceCountListByToolIdList(List<Long> idList);
+    List<Long> checkToolListHasBeenGeneratedToCombop(List<Long> idList);
 
     List<AutoexecToolVo> getAllTool();
 

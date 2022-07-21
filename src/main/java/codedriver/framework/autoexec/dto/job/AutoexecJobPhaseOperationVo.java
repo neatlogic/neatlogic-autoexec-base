@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.AutoexecToolVo;
@@ -126,7 +127,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
         this.parser = operationVo.getParser();
         this.sort = autoexecCombopPhaseOperationVo.getSort() == null ? 0 : autoexecCombopPhaseOperationVo.getSort();//兼容operation sort 为null bug
-        this.operationId = autoexecCombopPhaseOperationVo.getId();
+        this.operationId = autoexecCombopPhaseOperationVo.getOperationId();
         this.setParentOperationId(autoexecCombopPhaseOperationVo.getParentOperationId());
         this.setParentOperationType(autoexecCombopPhaseOperationVo.getParentOperationType());
         //拼接操作脚本到config
@@ -134,9 +135,9 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
         List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
         List<ParamMappingVo> argumentMappingVos = operationConfigVo.getArgumentMappingList();
-
-        List<AutoexecParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
-        AutoexecParamVo argumentParam = autoexecCombopPhaseOperationVo.getArgument();
+        AutoexecOperationBaseVo autoexecOperationBaseVo = autoexecCombopPhaseOperationVo.getOperation();
+        List<AutoexecParamVo> inputParamList = autoexecOperationBaseVo.getInputParamList();
+        AutoexecParamVo argumentParam = autoexecOperationBaseVo.getArgument();
         //替换输入参数（上游参数）
         if (CollectionUtils.isNotEmpty(paramMappingVos)) {
             for (ParamMappingVo paramMappingVo : paramMappingVos) {
@@ -153,7 +154,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                 }
             }
         }
-        paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
+        paramObj.put("outputParamList", autoexecOperationBaseVo.getOutputParamList());
         paramObj.put("inputParamList", paramMappingVos);
         paramObj.put("argumentList", argumentMappingVos);
         this.paramStr = paramObj.toString();

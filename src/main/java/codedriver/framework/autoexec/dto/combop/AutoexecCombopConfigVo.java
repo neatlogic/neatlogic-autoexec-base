@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
@@ -30,7 +31,7 @@ public class AutoexecCombopConfigVo implements Serializable {
     private List<AutoexecCombopScenarioVo> scenarioList;
 
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
-    private List<AutoexecCombopParamVo> runtimeParamList;
+    private List<AutoexecParamVo> runtimeParamList;
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;
@@ -64,11 +65,11 @@ public class AutoexecCombopConfigVo implements Serializable {
         this.scenarioList = scenarioList;
     }
 
-    public List<AutoexecCombopParamVo> getRuntimeParamList() {
+    public List<AutoexecParamVo> getRuntimeParamList() {
         return runtimeParamList;
     }
 
-    public void setRuntimeParamList(List<AutoexecCombopParamVo> runtimeParamList) {
+    public void setRuntimeParamList(List<AutoexecParamVo> runtimeParamList) {
         this.runtimeParamList = runtimeParamList;
     }
 }
