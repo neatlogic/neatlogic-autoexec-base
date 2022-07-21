@@ -11,6 +11,7 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.dto.runner.RunnerVo;
+import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -218,7 +219,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecSqlDetailVo> searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
-    List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
+    List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("sqlFileList") JSONArray sqlFileList);
 
     AutoexecSqlDetailVo getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile(@Param("resourceId") Long resourceId, @Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("sqlFile") String sqlFile);
 

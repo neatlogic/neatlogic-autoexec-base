@@ -1438,12 +1438,13 @@
         ajsd.resource_id AS resourceId,
         ajsd.`host`,
         ajsd.`port`,
-        ajsd.`node_name` AS nodeName
+        ajsd.`node_name` AS nodeName,
+        ajsd.`is_delete` AS isDelete
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
         LEFT JOIN runner r ON r.id = ajsd.runner_id
         <include refid="searchJobPhaseSql"></include>
-        order by ajsd.`sql_file` desc
+        order by ajsd.`sort` asc
         <if test="needPage">
             LIMIT #{startNum}, #{pageSize}
         </if>
@@ -1586,6 +1587,12 @@
                  JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
         where ajsd.job_id = #{jobId}
           and ajsd.job_phase_name = #{phaseName}
+        <if test="sqlFileList != null and sqlFileList.size() > 0">
+            AND ajsd.`sql_file` IN
+            <foreach collection="sqlFileList" item="sqlFile" open="(" separator="," close=")">
+                #{sqlFile}
+            </foreach>
+        </if>
     </select>
 
     <select id="getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile"
@@ -1942,9 +1949,9 @@
         insert into `autoexec_job_sql_detail`(`id`, `job_id`,`host`,`port`,
         `resource_id`,`node_name`,`node_type`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
-        `is_delete`)
+        `is_delete`,`sort`)
         values
-        <foreach collection="sqlList" item="vo" separator=",">
+        <foreach collection="sqlList" item="vo" separator="," index="index">
             (#{vo.id},
             #{vo.jobId},
             #{vo.host},
@@ -1960,11 +1967,13 @@
             #{vo.status},
             #{vo.md5},
             #{lcd},
-            #{vo.isDelete})
+            #{vo.isDelete},
+            #{index})
         </foreach>
         ON DUPLICATE KEY
         UPDATE `lcd`=#{lcd},
-        `is_delete`= 0
+        `is_delete`= 0,
+        `sort` = VALUES(`sort`)
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -2203,7 +2212,8 @@
 
     <update id="updateSqlIsDeleteByIdList">
         UPDATE autoexec_job_sql_detail
-        SET `is_delete` = 1
+        SET `is_delete` = 1,
+            sort = 999999
         WHERE `id` IN
         <foreach collection="idList" item="id" open="(" close=")" separator=",">
             #{id}
