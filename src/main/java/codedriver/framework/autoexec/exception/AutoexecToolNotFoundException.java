@@ -14,6 +14,9 @@ public class AutoexecToolNotFoundException extends ApiRuntimeException {
     public AutoexecToolNotFoundException(Long id) {
         super("工具：'" + id + "'不存在");
     }
+    public AutoexecToolNotFoundException(String name) {
+        super("工具：'" + name + "'不存在");
+    }
 
 
 }

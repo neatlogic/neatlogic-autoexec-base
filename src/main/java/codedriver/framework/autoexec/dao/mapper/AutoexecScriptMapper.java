@@ -121,10 +121,6 @@ public interface AutoexecScriptMapper{
      */
     List<AutoexecOperationVo> getAutoexecOperationOutputParamListByIdList(List<Long> idList);
 
-    int getReferenceCountByScriptId(Long scriptId);
-
-    List<AutoexecCombopVo> getReferenceListByScriptId(Long scriptId);
-
     List<Long> getVersionIdListByScriptId(Long scriptId);
 
     AutoexecScriptAuditVo getScriptAuditByScriptVersionIdAndOperate(@Param("versionId") Long versionId, @Param("operate") String operate);
@@ -139,9 +135,7 @@ public interface AutoexecScriptMapper{
      */
     int checkScriptHasBeenGeneratedToCombop(Long scriptId);
 
-    List<AutoexecScriptVo> checkScriptListHasBeenGeneratedToCombop(List<Long> scriptIdList);
-
-    List<AutoexecScriptVo> getReferenceCountListByScriptIdList(List<Long> scriptIdList);
+    List<Long> checkScriptListHasBeenGeneratedToCombop(List<Long> scriptIdList);
 
     int checkScriptHasSubmittedVersionByScriptId(Long scriptId);
 

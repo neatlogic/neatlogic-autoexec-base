@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.crossover;
 
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.crossover.ICrossoverService;
 
@@ -19,4 +20,15 @@ public interface IAutoexecCombopCrossoverService extends ICrossoverService {
      * @param autoexecCombopVo 组合工具Vo对象
      */
     void setOperableButtonList(AutoexecCombopVo autoexecCombopVo);
+    /**
+     * 校验组合工具每个阶段是否配置正确
+     * 校验规则
+     * 1.每个阶段至少选择了一个工具
+     * 2.引用上游出参或顶层参数，能找到来源（防止修改顶层参数或插件排序、或修改顶层参数带来的影响）
+     *
+     * @param autoexecCombopConfigVo 组合工具Vo对象配置信息
+     * @param isExecuteJob     是否执行创建作业
+     * @return 是否合法
+     */
+    boolean verifyAutoexecCombopConfig(AutoexecCombopConfigVo autoexecCombopConfigVo, boolean isExecuteJob);
 }

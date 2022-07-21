@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.crossover.IAutoexecCombopCrossoverMapper;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.*;
 import codedriver.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
@@ -42,7 +43,7 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
 
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopIdAndAction(@Param("combopId") Long combopId, @Param("action") String action);
 
-    List<AutoexecCombopParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
+    List<AutoexecParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
 
     List<AutoexecCombopParamVo> getAllAutoexecCombopPasswordParamList();
 
@@ -61,8 +62,6 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
             @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 
-    List<Long> getCombopPhaseIdListByCombopId(Long combopId);
-
     List<Long> checkAutoexecCombopIdListIsExists(List<Long> idList);
 
     Long checkItHasBeenGeneratedToCombopByOperationId(Long operationId);
@@ -73,11 +72,7 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
 
     int insertAutoexecCombopParamVoList(List<AutoexecCombopParamVo> autoexecCombopParamVoList);
 
-    int insertAutoexecCombopPhase(AutoexecCombopPhaseVo autoexecCombopPhaseVo);
-
-    int insertAutoexecCombopPhaseOperation(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo);
-
-    int insertAutoexecCombopGroup(AutoexecCombopGroupVo autoexecCombopGroupVo);
+    int insertAutoexecOperationGenerateCombop(@Param("combopId") Long combopId, @Param("operationType") String operationType, @Param("operationId") Long operationId);
 
     int updateAutoexecCombopById(AutoexecCombopVo autoexecCombopVo);
 
@@ -93,9 +88,5 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
 
     int deleteAutoexecCombopParamByCombopId(Long combopId);
 
-    int deleteAutoexecCombopPhaseByCombopId(Long combopId);
-
     int deleteAutoexecCombopGroupByCombopId(Long combopId);
-
-    int deleteAutoexecCombopPhaseOperationByCombopPhaseIdList(List<Long> combopPhaseIdList);
 }

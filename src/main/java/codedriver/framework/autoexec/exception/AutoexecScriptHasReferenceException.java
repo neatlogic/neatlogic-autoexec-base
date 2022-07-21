@@ -14,6 +14,9 @@ public class AutoexecScriptHasReferenceException extends ApiRuntimeException {
     public AutoexecScriptHasReferenceException(String combopName) {
         super("当前自定义工具已经被组合工具：'" + combopName + "'引用，不可删除或无激活版本，如需切换激活版本，请激活其他版本");
     }
+    public AutoexecScriptHasReferenceException() {
+        super("当前自定义工具已经被引用，不可删除或无激活版本，如需切换激活版本，请激活其他版本");
+    }
 
 
 }
