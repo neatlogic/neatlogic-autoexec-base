@@ -68,6 +68,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private Date endTime;
     @EntityField(name = "耗时", type = ApiParamType.STRING)
     private String costTime;
+    @EntityField(name = "序号", type = ApiParamType.INTEGER)
+    private Integer sort;
 
     public AutoexecSqlDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
@@ -284,5 +286,13 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
             }
         }
         return costTime;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }
