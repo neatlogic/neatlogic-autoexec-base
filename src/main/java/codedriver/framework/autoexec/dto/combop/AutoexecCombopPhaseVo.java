@@ -180,12 +180,22 @@ public class AutoexecCombopPhaseVo implements Serializable {
     }
 
     //流水线增加的字段，组合工具没用到
+    @EntityField(name = "父级启用", type = ApiParamType.INTEGER)
+    private Integer parentIsActive;
     @EntityField(name = "启用", type = ApiParamType.INTEGER)
     private Integer isActive;
     @EntityField(name = "重载", type = ApiParamType.INTEGER)
     private Integer override;
     @EntityField(name = "继承", type = ApiParamType.STRING)
     private String inherit;
+
+    public Integer getParentIsActive() {
+        return parentIsActive;
+    }
+
+    public void setParentIsActive(Integer parentIsActive) {
+        this.parentIsActive = parentIsActive;
+    }
 
     public Integer getIsActive() {
         return isActive;
