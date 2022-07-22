@@ -10,7 +10,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 
@@ -20,11 +20,14 @@ import java.io.Serializable;
  * @author: linbq
  * @since: 2021/4/13 10:08
  **/
-public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo implements Serializable {
-    @EntityField(name = "阶段id", type = ApiParamType.LONG)
-    private Long combopPhaseId;
+public class AutoexecCombopPhaseOperationVo implements Serializable {
+
+    @EntityField(name = "id", type = ApiParamType.LONG)
+    private Long id;
     @EntityField(name = "操作id", type = ApiParamType.LONG)
     private Long operationId;
+    @EntityField(name = "工具名", type = ApiParamType.STRING)
+    private String operationName;
     @EntityField(name = "操作类型，自定义工具或工具", type = ApiParamType.STRING)
     private String operationType;
     @EntityField(name = "失败策略", type = ApiParamType.STRING)
@@ -37,24 +40,16 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
     private Long parentOperationId;
     @EntityField(name = "父工具类型", type = ApiParamType.LONG)
     private String parentOperationType;
-//    @JSONField(serialize = false)
-//    private String configStr;
+    @JSONField(serialize = false)
+    private String configStr;
     @EntityField(name = "uuid", type = ApiParamType.STRING)
     private String uuid;
     private String letter;
 
-    public Long getCombopPhaseId() {
-        return combopPhaseId;
-    }
-
-    public void setCombopPhaseId(Long combopPhaseId) {
-        this.combopPhaseId = combopPhaseId;
-    }
+    @EntityField(name = "工具信息", type = ApiParamType.JSONOBJECT)
+    private AutoexecOperationBaseVo operation;
 
     public Long getOperationId() {
-        if (operationId == null) {
-            operationId = SnowflakeUtil.uniqueLong();
-        }
         return operationId;
     }
 
@@ -70,6 +65,36 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
         this.operationType = operationType;
     }
 
+    public Long getId() {
+        if (id == null) {
+            id = SnowflakeUtil.uniqueLong();
+        }
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getOperationName() {
+        if (operation != null) {
+            return operation.getName();
+        }
+        return operationName;
+    }
+
+    public void setOperationName(String operationName) {
+        this.operationName = operationName;
+    }
+
+    public AutoexecOperationBaseVo getOperation() {
+        return operation;
+    }
+
+    public void setOperation(AutoexecOperationBaseVo operation) {
+        this.operation = operation;
+    }
+
     public String getFailPolicy() {
         return failPolicy;
     }
@@ -79,12 +104,17 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
     }
 
     public AutoexecCombopPhaseOperationConfigVo getConfig() {
+        if (config == null && configStr != null) {
+            config = JSONObject.parseObject(configStr, AutoexecCombopPhaseOperationConfigVo.class);
+        }
         return config;
     }
 
-    public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopPhaseOperationConfigVo>() {
-        });
+    public void setConfig(AutoexecCombopPhaseOperationConfigVo config) {
+        if (config != null) {
+            configStr = null;
+        }
+        this.config = config;
     }
 
     public Integer getSort() {
@@ -96,10 +126,17 @@ public class AutoexecCombopPhaseOperationVo extends AutoexecOperationBaseVo impl
     }
 
     public String getConfigStr() {
-        if (this.config == null) {
-            return null;
+        if (configStr == null && config != null) {
+            configStr = JSONObject.toJSONString(config);
         }
-        return JSONObject.toJSONString(config);
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        if (configStr != null) {
+            config = null;
+        }
+        this.configStr = configStr;
     }
 
     public String getUuid() {

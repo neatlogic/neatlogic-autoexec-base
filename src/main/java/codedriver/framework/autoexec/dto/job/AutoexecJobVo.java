@@ -9,6 +9,7 @@ import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.constvalue.JobTriggerType;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -148,7 +149,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @JSONField(serialize = false)
     private List<AutoexecJobPhaseVo> executeJobPhaseList;
     @JSONField(serialize = false)
-    List<AutoexecCombopParamVo> runTimeParamList;
+    List<AutoexecParamVo> runTimeParamList;
     //param
     @JSONField(serialize = false)
     private String combopName;
@@ -688,7 +689,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.param = param;
     }
 
-    public void setRunTimeParamList(List<AutoexecCombopParamVo> runTimeParamList) {
+    public void setRunTimeParamList(List<AutoexecParamVo> runTimeParamList) {
         this.runTimeParamList = runTimeParamList;
     }
 

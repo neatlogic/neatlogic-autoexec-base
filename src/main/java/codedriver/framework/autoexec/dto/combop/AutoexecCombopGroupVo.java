@@ -22,8 +22,6 @@ public class AutoexecCombopGroupVo implements Serializable {
     private Long id;
     @EntityField(name = "uuid", type = ApiParamType.STRING)
     private String uuid;
-    @EntityField(name = "组合工具id", type = ApiParamType.LONG)
-    private Long combopId;
     @EntityField(name = "运行策略", type = ApiParamType.STRING)
     private String policy;
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
@@ -53,14 +51,6 @@ public class AutoexecCombopGroupVo implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public Long getCombopId() {
-        return combopId;
-    }
-
-    public void setCombopId(Long combopId) {
-        this.combopId = combopId;
     }
 
     public String getPolicy() {
