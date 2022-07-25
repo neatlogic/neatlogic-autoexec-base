@@ -1460,6 +1460,8 @@
         ajsd.`host`,
         ajsd.`port`,
         ajsd.`node_name` AS nodeName,
+        ajsd.`is_modified` AS isModified,
+        ajsd.`warn_count` AS warnCount,
         ajsd.`is_delete` AS isDelete
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
@@ -1947,6 +1949,8 @@
         `sql_file`,
         `status`,
         `md5`,
+        `is_modified`,
+        `warn_count`,
         <choose>
             <when test="status == 'pending'">
             </when>
@@ -1970,6 +1974,8 @@
         #{sqlFile},
         #{status},
         #{md5},
+        #{isModified},
+        #{warnCount},
         <choose>
             <when test="status == 'pending'">
             </when>
@@ -1987,7 +1993,7 @@
         insert into `autoexec_job_sql_detail`(`id`, `job_id`,`host`,`port`,
         `resource_id`,`node_name`,`node_type`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
-        `is_delete`,`sort`)
+        `is_delete`,`is_modified`,`warn_count`,`sort`)
         values
         <foreach collection="sqlList" item="vo" separator="," index="index">
             (#{vo.id},
@@ -2006,12 +2012,16 @@
             #{vo.md5},
             #{lcd},
             #{vo.isDelete},
+            #{vo.isModified},
+            #{vo.warnCount},
             #{index})
         </foreach>
         ON DUPLICATE KEY
         UPDATE `lcd`=#{lcd},
         `is_delete`= 0,
-        `sort` = VALUES(`sort`)
+        `sort` = VALUES(`sort`),
+        `is_modified` = VALUES(`is_modified`),
+        `warn_count` = VALUES(`warn_count`)
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -2265,6 +2275,8 @@
         `node_name` = #{nodeName},
         `host` = #{host},
         `port` = #{port},
+        `is_modified` = #{isModified},
+        `warn_count` = #{warnCount},
         <choose>
             <when test="status == 'pending'">
             </when>
