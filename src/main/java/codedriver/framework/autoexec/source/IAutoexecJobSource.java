@@ -4,6 +4,7 @@
  */
 package codedriver.framework.autoexec.source;
 
+import codedriver.framework.autoexec.constvalue.JobSourceType;
 import codedriver.framework.autoexec.dto.AutoexecJobSourceVo;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface IAutoexecJobSource {
 	 * @return 返回对应的来源
 	 */
 	 List<AutoexecJobSourceVo> getSource();
+
+	default String getType(){
+		return JobSourceType.AUTOEXEC.getValue();
+	}
 }
