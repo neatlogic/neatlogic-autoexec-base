@@ -89,8 +89,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.md5 = (paramObj.getString("md5"));
         this.host = (paramObj.getString("host"));
         this.port = (paramObj.getInteger("port"));
-        this.isModified = (paramObj.getInteger("isModified"));
-        this.warnCount = (paramObj.getInteger("warnCount"));
+        if (!Objects.isNull(paramObj.getInteger("isModified"))) {
+            this.isModified = (paramObj.getInteger("isModified"));
+
+        }
+        if (!Objects.isNull(paramObj.getInteger("warnCount"))) {
+            this.warnCount = (paramObj.getInteger("warnCount"));
+
+        }
     }
 
     public AutoexecSqlDetailVo() {
