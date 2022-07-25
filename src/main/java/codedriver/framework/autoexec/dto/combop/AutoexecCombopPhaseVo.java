@@ -179,45 +179,4 @@ public class AutoexecCombopPhaseVo implements Serializable {
         this.groupSort = groupSort;
     }
 
-    //流水线增加的字段，组合工具没用到
-    @EntityField(name = "父级启用", type = ApiParamType.INTEGER)
-    private Integer parentIsActive;
-    @EntityField(name = "启用", type = ApiParamType.INTEGER)
-    private Integer isActive;
-    @EntityField(name = "重载", type = ApiParamType.INTEGER)
-    private Integer override;
-    @EntityField(name = "继承", type = ApiParamType.STRING)
-    private String inherit;
-
-    public Integer getParentIsActive() {
-        return parentIsActive;
-    }
-
-    public void setParentIsActive(Integer parentIsActive) {
-        this.parentIsActive = parentIsActive;
-    }
-
-    public Integer getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Integer isActive) {
-        this.isActive = isActive;
-    }
-
-    public Integer getOverride() {
-        return override;
-    }
-
-    public void setOverride(Integer override) {
-        this.override = override;
-    }
-
-    public String getInherit() {
-        return inherit;
-    }
-
-    public void setInherit(String inherit) {
-        this.inherit = inherit;
-    }
 }
