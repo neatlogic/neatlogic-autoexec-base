@@ -51,7 +51,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     @EntityField(name = "runner 端口", type = ApiParamType.INTEGER)
     private Integer runnerPort;
     @EntityField(name = "状态", type = ApiParamType.STRING)
-    private String status;
+    private String status = "pending";
     @EntityField(name = "状态名", type = ApiParamType.STRING)
     private String statusName;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
@@ -70,6 +70,10 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String costTime;
     @EntityField(name = "序号", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "是否改动", type = ApiParamType.INTEGER)
+    private Integer isModified = 0;
+    @EntityField(name = "告警个数", type = ApiParamType.INTEGER)
+    private Integer warnCount = 0;
 
     public AutoexecSqlDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
@@ -78,11 +82,15 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.nodeName = (paramObj.getString("nodeName"));
         this.phaseName = (paramObj.getString("phaseName"));
         this.username = (paramObj.getString("username"));
-        this.status = (paramObj.getString("status"));
+        if (StringUtils.isNotBlank(paramObj.getString("status"))) {
+            this.status = (paramObj.getString("status"));
+        }
         this.sqlFile = (paramObj.getString("sqlFile"));
         this.md5 = (paramObj.getString("md5"));
         this.host = (paramObj.getString("host"));
         this.port = (paramObj.getInteger("port"));
+        this.isModified = (paramObj.getInteger("isModified"));
+        this.warnCount = (paramObj.getInteger("warnCount"));
     }
 
     public AutoexecSqlDetailVo() {
@@ -294,5 +302,21 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Integer getIsModified() {
+        return isModified;
+    }
+
+    public void setIsModified(Integer isModified) {
+        this.isModified = isModified;
+    }
+
+    public Integer getWarnCount() {
+        return warnCount;
+    }
+
+    public void setWarnCount(Integer warnCount) {
+        this.warnCount = warnCount;
     }
 }
