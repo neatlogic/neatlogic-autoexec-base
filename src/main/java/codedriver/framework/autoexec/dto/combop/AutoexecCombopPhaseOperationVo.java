@@ -49,6 +49,9 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
     @EntityField(name = "工具信息", type = ApiParamType.JSONOBJECT)
     private AutoexecOperationBaseVo operation;
 
+    @EntityField(name = "指定脚本版本Id", type = ApiParamType.LONG)
+    private Long scriptVersionId;
+
     public Long getOperationId() {
         return operationId;
     }
@@ -169,5 +172,13 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
 
     public void setParentOperationType(String parentOperationType) {
         this.parentOperationType = parentOperationType;
+    }
+
+    public Long getScriptVersionId() {
+        return scriptVersionId;
+    }
+
+    public void setScriptVersionId(Long scriptVersionId) {
+        this.scriptVersionId = scriptVersionId;
     }
 }
