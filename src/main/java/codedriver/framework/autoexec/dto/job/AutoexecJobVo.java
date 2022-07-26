@@ -10,7 +10,6 @@ import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.constvalue.JobTriggerType;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
-import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
@@ -169,6 +168,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Set<Long> invokeIdList = new HashSet<>();
     @JSONField(serialize = false)
     private String configHash;
+    @EntityField(name = "父作业id", type = ApiParamType.LONG)
+    private Long parentId;
+    @EntityField(name = "排序", type = ApiParamType.INTEGER)
+    private Integer sort;
 
 
     public AutoexecJobVo() {
@@ -710,7 +713,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Set<Long> getInvokeIdList() {
-        if(invokeId != null){
+        if (invokeId != null) {
             invokeIdList.add(invokeId);
         }
         return invokeIdList;
@@ -729,5 +732,21 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setConfigHash(String configHash) {
         this.configHash = configHash;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }
