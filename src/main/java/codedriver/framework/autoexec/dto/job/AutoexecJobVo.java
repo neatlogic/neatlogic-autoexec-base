@@ -47,6 +47,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     @EntityField(name = "作业id列表", type = ApiParamType.JSONARRAY)
     private List<Long> idList;
+    @EntityField(name = "排除作业id列表", type = ApiParamType.JSONARRAY)
+    private List<Long> excludeIdList;
     @EntityField(name = "作业名称（唯一标识）", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "作业状态", type = ApiParamType.STRING)
@@ -61,6 +63,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Date startTime;
     @EntityField(name = "结束时间", type = ApiParamType.LONG)
     private Date endTime;
+
+    @JSONField(serialize = false)
+    private List<String> startTimeRange;
+    @JSONField(serialize = false)
+    private List<String> endTimeRange;
+    @JSONField(serialize = false)
+    private List<String> planStartTimeRange;
     @EntityField(name = "操作ID", type = ApiParamType.LONG)
     private Long operationId;
     @EntityField(name = "操作Name", type = ApiParamType.STRING)
@@ -186,6 +195,38 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.id = id;
         this.planStartTime = planStartTime;
         this.triggerType = triggerType;
+    }
+
+    public List<String> getStartTimeRange() {
+        return startTimeRange;
+    }
+
+    public void setStartTimeRange(List<String> startTimeRange) {
+        this.startTimeRange = startTimeRange;
+    }
+
+    public List<String> getEndTimeRange() {
+        return endTimeRange;
+    }
+
+    public void setEndTimeRange(List<String> endTimeRange) {
+        this.endTimeRange = endTimeRange;
+    }
+
+    public List<String> getPlanStartTimeRange() {
+        return planStartTimeRange;
+    }
+
+    public void setPlanStartTimeRange(List<String> planStartTimeRange) {
+        this.planStartTimeRange = planStartTimeRange;
+    }
+
+    public List<Long> getExcludeIdList() {
+        return excludeIdList;
+    }
+
+    public void setExcludeIdList(List<Long> excludeIdList) {
+        this.excludeIdList = excludeIdList;
     }
 
     public Long getId() {
@@ -359,10 +400,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public List<String> getExecUserList() {
         if (CollectionUtils.isNotEmpty(execUserList)) {
-            for (int i = 0; i < execUserList.size(); i++) {
-                String tmpUser = execUserList.get(i).replaceAll(GroupSearch.USER.getValuePlugin(), StringUtils.EMPTY);
-                execUserList.set(i, tmpUser);
-            }
+            execUserList.replaceAll(s -> s.replaceAll(GroupSearch.USER.getValuePlugin(), StringUtils.EMPTY));
         }
         return execUserList;
     }

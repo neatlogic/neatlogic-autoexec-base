@@ -92,6 +92,10 @@
         <if test="combopName != null and combopName != ''">
             ac.name like concat('%', #{combopName}, '%')
         </if>
+        <if test="excludeIdList != null and excludeIdList.size() > 0">
+            AND aj.id not in
+            <foreach collection="excludeIdList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+        </if>
         <if test="keyword != null and keyword != ''">
             and (aj.name like concat('%', #{keyword}, '%') OR aj.id like concat('%', #{keyword}, '%'))
         </if>
@@ -1596,20 +1600,20 @@
     <select id="getJobSqlDetailListByJobIdAndPhaseName"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
         SELECT ajsd.`id`,
-               ajsd.`md5`,
-               ajsd.`status`,
-               ajsd.`sql_file`    as sqlFile,
-               ajsd.`runner_id`   as runnerId,
-               ajsd.`resource_id` as resourceId,
-               ajsd.`host`,
-               ajsd.`port`,
-               ajsd.`node_name`   as nodeName,
-               ajsd.`node_type`   as nodeType,
-               ajsd.`user_name`   as username
+        ajsd.`md5`,
+        ajsd.`status`,
+        ajsd.`sql_file` as sqlFile,
+        ajsd.`runner_id` as runnerId,
+        ajsd.`resource_id` as resourceId,
+        ajsd.`host`,
+        ajsd.`port`,
+        ajsd.`node_name` as nodeName,
+        ajsd.`node_type` as nodeType,
+        ajsd.`user_name` as username
         FROM autoexec_job_sql_detail ajsd
-                 JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
+        JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
         where ajsd.job_id = #{jobId}
-          and ajsd.job_phase_name = #{phaseName}
+        and ajsd.job_phase_name = #{phaseName}
         <if test="sqlFileList != null and sqlFileList.size() > 0">
             AND ajsd.`sql_file` IN
             <foreach collection="sqlFileList" item="sqlFile" open="(" separator="," close=")">
@@ -2261,7 +2265,7 @@
     <update id="updateSqlIsDeleteByIdList">
         UPDATE autoexec_job_sql_detail
         SET `is_delete` = 1,
-            sort = 999999
+        sort = 999999
         WHERE `id` IN
         <foreach collection="idList" item="id" open="(" close=")" separator=",">
             #{id}
