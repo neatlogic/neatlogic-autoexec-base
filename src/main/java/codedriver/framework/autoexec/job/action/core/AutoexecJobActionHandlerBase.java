@@ -20,8 +20,8 @@ import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.autoexec.exception.*;
-import codedriver.framework.autoexec.job.source.action.AutoexecJobSourceActionHandlerFactory;
-import codedriver.framework.autoexec.job.source.action.IAutoexecJobSourceActionHandler;
+import codedriver.framework.autoexec.job.source.type.AutoexecJobSourceTypeHandlerFactory;
+import codedriver.framework.autoexec.job.source.type.IAutoexecJobSourceTypeHandler;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.autoexec.util.AutoexecUtil;
 import codedriver.framework.dao.mapper.runner.RunnerMapper;
@@ -158,7 +158,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (jobSourceVo == null) {
                 throw new AutoexecJobSourceInvalidException(jobVo.getSource());
             }
-            IAutoexecJobSourceActionHandler autoexecJobSourceActionHandler = AutoexecJobSourceActionHandlerFactory.getAction(jobSourceVo.getType());
+            IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSourceVo.getType());
             AutoexecSqlDetailVo sqlDetailVo = autoexecJobSourceActionHandler.getSqlDetail(jobVo);
             if (sqlDetailVo == null) {
                 throw new AutoexecJobSqlDetailNotFoundException();

@@ -181,6 +181,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Long parentId;
     @EntityField(name = "排序", type = ApiParamType.INTEGER)
     private Integer sort;
+    @EntityField(name = "额外信息，如发布的系统名等", type = ApiParamType.JSONOBJECT)
+    private JSONObject extraInfo;
 
 
     public AutoexecJobVo() {
@@ -786,5 +788,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public JSONObject getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(JSONObject extraInfo) {
+        this.extraInfo = extraInfo;
     }
 }
