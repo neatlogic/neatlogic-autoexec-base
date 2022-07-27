@@ -467,4 +467,8 @@
         FROM `autoexec_combop_group`
         WHERE `combop_id` = #{value}
     </delete>
+
+    <delete id="deleteAutoexecOperationGenerateCombop" parameterType="java.lang.Long">
+        DELETE FROM `autoexec_operation_generate_combop` WHERE `combop_id` = #{value}
+    </delete>
 </mapper>

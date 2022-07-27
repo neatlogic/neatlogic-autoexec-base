@@ -89,4 +89,6 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
     int deleteAutoexecCombopParamByCombopId(Long combopId);
 
     int deleteAutoexecCombopGroupByCombopId(Long combopId);
+
+    int deleteAutoexecOperationGenerateCombop(Long combopId);
 }
