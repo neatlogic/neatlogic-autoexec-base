@@ -1985,8 +1985,22 @@
             </otherwise>
         </choose>
         #{md5},
-        #{isModified},
-        #{warnCount},
+        <choose>
+            <when test="isModified != null">
+                #{isModified},
+            </when>
+            <otherwise>
+                0,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="warnCount != null">
+                #{warnCount},
+            </when>
+            <otherwise>
+                0,
+            </otherwise>
+        </choose>
         <choose>
             <when test="status == 'pending'">
             </when>
@@ -2030,8 +2044,22 @@
             #{vo.md5},
             #{lcd},
             #{vo.isDelete},
-            #{vo.isModified},
-            #{vo.warnCount},
+            <choose>
+                <when test="vo.isModified != null">
+                    #{vo.isModified},
+                </when>
+                <otherwise>
+                    0,
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="vo.warnCount != null">
+                    #{vo.warnCount},
+                </when>
+                <otherwise>
+                    0,
+                </otherwise>
+            </choose>
             #{index})
         </foreach>
         ON DUPLICATE KEY
