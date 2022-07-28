@@ -10,6 +10,7 @@ import codedriver.framework.autoexec.constvalue.AutoexecJobPhaseExecutePolicy;
 import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
+import codedriver.framework.autoexec.exception.AutoexecCombopPhaseGroupIdIsNullException;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -102,6 +103,9 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.sort = autoexecCombopPhaseVo.getSort();
         this.execUser = UserContext.get().getUserUuid(true);
         this.uuid = autoexecCombopPhaseVo.getUuid();
+        if(autoexecCombopPhaseVo.getGroupId() == null){
+            throw new AutoexecCombopPhaseGroupIdIsNullException(autoexecCombopPhaseVo.getName());
+        }
         this.jobGroupVo = combopGroupJobMap.get(autoexecCombopPhaseVo.getGroupId());
         this.groupId = jobGroupVo.getId();
         this.executePolicy = Arrays.stream(AutoexecJobPhaseExecutePolicy.values()).map(AutoexecJobPhaseExecutePolicy::getValue).collect(Collectors.toList()).contains(autoexecCombopPhaseVo.getPolicy()) ? autoexecCombopPhaseVo.getPolicy() : null;

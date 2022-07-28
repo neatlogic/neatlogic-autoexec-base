@@ -1770,6 +1770,9 @@
         <if test="triggerType != null and triggerType !='' ">
             `trigger_type`,
         </if>
+        <if test="parentId != null">
+            `parent_id`,
+        </if>
         `source`
         )
         VALUES (#{id},
@@ -1787,6 +1790,9 @@
         #{configHash},
         <if test="triggerType != null and triggerType !='' ">
             #{triggerType},
+        </if>
+        <if test="parentId != null">
+            #{parentId},
         </if>
         #{source}
         )
