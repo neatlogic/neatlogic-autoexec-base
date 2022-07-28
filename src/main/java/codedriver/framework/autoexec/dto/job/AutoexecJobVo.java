@@ -9,6 +9,7 @@ import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.constvalue.JobTriggerType;
+import codedriver.framework.autoexec.constvalue.ReviewStatus;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
@@ -105,6 +106,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private List<AutoexecJobPhaseVo> phaseList;
     @EntityField(name = "作业剧本Id集合", type = ApiParamType.JSONARRAY)
     private List<Long> phaseIdList;
+    @JSONField(serialize = false)
+    private Boolean hasParent;//搜索条件，是否拥有父作业
     @EntityField(name = "作业剧本Name集合", type = ApiParamType.JSONARRAY)
     private List<String> phaseNameList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
@@ -183,7 +186,15 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer sort;
     @EntityField(name = "额外信息，如发布的系统名等", type = ApiParamType.JSONOBJECT)
     private JSONObject extraInfo;
+    @EntityField(name = "审核人", type = ApiParamType.STRING)
+    private String reviewer;
+    @EntityField(name = "审核状态", type = ApiParamType.ENUM, member = ReviewStatus.class)
+    private String reviewStatus;
 
+    @EntityField(name = "审核状态名称", type = ApiParamType.STRING)
+    private String reviewStatusName;
+    @EntityField(name = "审核时间", type = ApiParamType.LONG)
+    private Date reviewTime;
 
     public AutoexecJobVo() {
     }
@@ -198,6 +209,22 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.planStartTime = planStartTime;
         this.triggerType = triggerType;
     }
+
+    public Boolean getHasParent() {
+        return hasParent;
+    }
+
+    public void setHasParent(Boolean hasParent) {
+        this.hasParent = hasParent;
+    }
+
+    public String getReviewStatusName() {
+        if (StringUtils.isBlank(this.reviewStatusName) && StringUtils.isNotBlank(this.reviewStatus)) {
+            this.reviewStatusName = ReviewStatus.getText(this.reviewStatus);
+        }
+        return this.reviewStatusName;
+    }
+
 
     public List<String> getStartTimeRange() {
         return startTimeRange;
@@ -236,6 +263,34 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
             id = SnowflakeUtil.uniqueLong();
         }
         return id;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public String getReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(String reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
+
+    public Date getReviewTime() {
+        return reviewTime;
+    }
+
+    public void setReviewTime(Date reviewTime) {
+        this.reviewTime = reviewTime;
     }
 
     public List<Long> getIdList() {
