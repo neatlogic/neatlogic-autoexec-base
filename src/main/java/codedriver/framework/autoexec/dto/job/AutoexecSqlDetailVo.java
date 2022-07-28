@@ -51,7 +51,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     @EntityField(name = "runner 端口", type = ApiParamType.INTEGER)
     private Integer runnerPort;
     @EntityField(name = "状态", type = ApiParamType.STRING)
-    private String status = "pending";
+    private String status;
     @EntityField(name = "状态名", type = ApiParamType.STRING)
     private String statusName;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
@@ -71,9 +71,9 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     @EntityField(name = "序号", type = ApiParamType.INTEGER)
     private Integer sort;
     @EntityField(name = "是否改动", type = ApiParamType.INTEGER)
-    private Integer isModified = 0;
+    private Integer isModified ;
     @EntityField(name = "告警个数", type = ApiParamType.INTEGER)
-    private Integer warnCount = 0;
+    private Integer warnCount;
 
     public AutoexecSqlDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
