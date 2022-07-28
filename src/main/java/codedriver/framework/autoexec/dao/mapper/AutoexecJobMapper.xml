@@ -1976,7 +1976,14 @@
         #{phaseId},
         #{phaseName},
         #{sqlFile},
-        #{status},
+        <choose>
+            <when test="status != null">
+                #{status},
+            </when>
+            <otherwise>
+                'pending',
+            </otherwise>
+        </choose>
         #{md5},
         #{isModified},
         #{warnCount},
@@ -2012,7 +2019,14 @@
             #{phaseId},
             #{phaseName},
             #{vo.sqlFile},
-            #{vo.status},
+            <choose>
+                <when test="vo.status != null">
+                    #{vo.status},
+                </when>
+                <otherwise>
+                    'pending',
+                </otherwise>
+            </choose>
             #{vo.md5},
             #{lcd},
             #{vo.isDelete},
@@ -2024,6 +2038,7 @@
         UPDATE `lcd`=#{lcd},
         `is_delete`= 0,
         `sort` = VALUES(`sort`),
+        `md5` = VALUES(`md5`),
         `is_modified` = VALUES(`is_modified`),
         `warn_count` = VALUES(`warn_count`)
     </insert>
@@ -2275,12 +2290,18 @@
     <update id="updateSqlDetailById">
         UPDATE autoexec_job_sql_detail
         SET `md5` = #{md5},
-        `status` = #{status},
+        <if test="status != null">
+            `status` = #{status},
+        </if>
         `node_name` = #{nodeName},
         `host` = #{host},
         `port` = #{port},
-        `is_modified` = #{isModified},
-        `warn_count` = #{warnCount},
+        <if test="isModified != null">
+            `is_modified` = #{isModified},
+        </if>
+        <if test="warnCount != null">
+            `warn_count` = #{warnCount},
+        </if>
         <choose>
             <when test="status == 'pending'">
             </when>
