@@ -117,7 +117,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                         || JobAction.DELETE.getValue().equals(jobVo.getAction()) || JobAction.REFIRE.getValue().equals(jobVo.getAction())
                         || JobAction.RESET_NODE.getValue().equals(jobVo.getAction()) || JobAction.REFIRE_NODE.getValue().equals(jobVo.getAction())
                         || JobAction.IGNORE_NODE.getValue().equals(jobVo.getAction()) || JobAction.SUBMIT_NODE_WAIT_INPUT.getValue().equals(jobVo.getAction())) {
-                    executeAuthCheck(jobVo);
+                    //TODO 自动化和发布的权限
+                    //executeAuthCheck(jobVo);
                 }
             }
         }
@@ -229,7 +230,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             url = runner.getUrl() + "api/rest/health/check";
             HttpRequestUtil requestUtil = HttpRequestUtil.post(url).setConnectTimeout(5000).setReadTimeout(5000).setPayload(new JSONObject().toJSONString()).setAuthType(AuthenticateType.BUILDIN).sendRequest();
             if (StringUtils.isNotBlank(requestUtil.getError())) {
-                throw new AutoexecJobRunnerConnectRefusedException(url);
+                throw new AutoexecJobRunnerConnectRefusedException(url,requestUtil.getError());
             }
             JSONObject resultJson = requestUtil.getResultJson();
             if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
