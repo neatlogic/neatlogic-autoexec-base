@@ -88,6 +88,7 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
         this.typeId = autoexecToolVo.getTypeId();
         this.typeName = autoexecToolVo.getTypeName();
         this.riskId = autoexecToolVo.getRiskId();
+        this.description = autoexecToolVo.getDescription();
     }
 
     public AutoexecOperationBaseVo(AutoexecScriptVo autoexecScriptVo) {
@@ -99,6 +100,7 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
         this.typeId = autoexecScriptVo.getTypeId();
         this.typeName = autoexecScriptVo.getTypeName();
         this.riskId = autoexecScriptVo.getRiskId();
+        this.description = autoexecScriptVo.getDescription();
     }
 
     public Long getId() {
