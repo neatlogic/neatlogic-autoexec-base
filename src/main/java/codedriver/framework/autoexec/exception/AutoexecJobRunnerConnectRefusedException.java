@@ -12,9 +12,11 @@ public class AutoexecJobRunnerConnectRefusedException extends ApiRuntimeExceptio
 
     private static final long serialVersionUID = 1799177301356468646L;
 
+    public AutoexecJobRunnerConnectRefusedException(String uk,String msg) {
+        super("Runner url：'" + uk + "'connect failed, errorMsg:"+msg);
+    }
     public AutoexecJobRunnerConnectRefusedException(String uk) {
         super("Runner url：'" + uk + "'connect failed");
     }
-
 
 }
