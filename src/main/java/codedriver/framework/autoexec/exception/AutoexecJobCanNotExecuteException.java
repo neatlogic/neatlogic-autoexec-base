@@ -12,7 +12,7 @@ public class AutoexecJobCanNotExecuteException extends ApiRuntimeException {
     private static final long serialVersionUID = -8039611777108111151L;
 
     public AutoexecJobCanNotExecuteException(Long jobId) {
-        super("无法执行作业: " + jobId + "，执行用户才有权限执行，且作业需要处于'已就绪'状态、触发方式为人工触发");
+        super("无法执行作业: " + jobId + "，需同时满足以下条件：触发方式为'人工触发'；状态为'已就绪'；用户为'执行用户'或拥有'作业管理'权限的用户");
     }
 
 

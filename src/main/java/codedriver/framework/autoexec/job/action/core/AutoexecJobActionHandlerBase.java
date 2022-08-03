@@ -95,16 +95,6 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     @Override
     public boolean validate(AutoexecJobVo jobVo) {
         JSONObject actionParam = jobVo.getActionParam();
-        /*if (actionParam != null && actionParam.containsKey("jobId")) {
-            Long jobId = actionParam.getLong("jobId");
-            if (jobId != null) {
-                AutoexecJobVo jobVoTmp = autoexecJobMapper.getJobInfo(jobId);
-                if (jobVoTmp == null) {
-                    throw new AutoexecJobNotFoundException(jobId.toString());
-                }
-                jobVo.setStatus(jobVoTmp.getStatus());
-            }
-        }*/
         jobVo.setCurrentPhaseId(actionParam.getLong("jobPhaseId"));
         jobVo.setCurrentNodeResourceId(actionParam.getLong("resourceId"));
         if (isNeedExecuteAuthCheck()) {
@@ -114,11 +104,15 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 }
             } else {
                 if (JobAction.FIRE.getValue().equals(jobVo.getAction()) || JobAction.ABORT.getValue().equals(jobVo.getAction())
-                        || JobAction.DELETE.getValue().equals(jobVo.getAction()) || JobAction.REFIRE.getValue().equals(jobVo.getAction())
+                        || JobAction.DELETE.getValue().equals(jobVo.getAction()) || JobAction.REFIRE.getValue().equals(jobVo.getAction()) || JobAction.RESET_REFIRE.getValue().equals(jobVo.getAction())
                         || JobAction.RESET_NODE.getValue().equals(jobVo.getAction()) || JobAction.REFIRE_NODE.getValue().equals(jobVo.getAction())
                         || JobAction.IGNORE_NODE.getValue().equals(jobVo.getAction()) || JobAction.SUBMIT_NODE_WAIT_INPUT.getValue().equals(jobVo.getAction())) {
-                    //TODO 自动化和发布的权限
-                    //executeAuthCheck(jobVo);
+                    AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
+                    if (jobSourceVo == null) {
+                        throw new AutoexecJobSourceInvalidException(jobVo.getSource());
+                    }
+                    IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSourceVo.getType());
+                    autoexecJobSourceActionHandler.executeAuthCheck(jobVo.getId(), jobVo.getOperationId(), jobVo.getOperationType(), Objects.equals(jobVo.getIsTakeOver(), 1), jobVo.getExecUser());
                 }
             }
         }
@@ -201,18 +195,6 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
 
     public abstract JSONObject doMyService(AutoexecJobVo jobVo) throws Exception;
 
-
-    /**
-     * 检查执行权限
-     *
-     * @param jobVo
-     */
-    public void executeAuthCheck(AutoexecJobVo jobVo) {
-        if (!UserContext.get().getUserUuid().equals(jobVo.getExecUser())) {
-            throw new AutoexecJobExecutePermissionDeinedExcpetion(jobVo.getId());
-        }
-    }
-
     /**
      * 检查runner联通性
      */
@@ -230,7 +212,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             url = runner.getUrl() + "api/rest/health/check";
             HttpRequestUtil requestUtil = HttpRequestUtil.post(url).setConnectTimeout(5000).setReadTimeout(5000).setPayload(new JSONObject().toJSONString()).setAuthType(AuthenticateType.BUILDIN).sendRequest();
             if (StringUtils.isNotBlank(requestUtil.getError())) {
-                throw new AutoexecJobRunnerConnectRefusedException(url,requestUtil.getError());
+                throw new AutoexecJobRunnerConnectRefusedException(url, requestUtil.getError());
             }
             JSONObject resultJson = requestUtil.getResultJson();
             if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
@@ -306,7 +288,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         checkRunnerHealth(runnerVos);
         try {
             for (RunnerMapVo runner : runnerVos) {
-                jobVo.getEnvironment().put("RUNNER_ID",runner.getRunnerMapId());
+                jobVo.getEnvironment().put("RUNNER_ID", runner.getRunnerMapId());
                 url = runner.getUrl() + "api/rest/job/exec";
                 paramJson.put("passThroughEnv", new JSONObject() {{
                     put("runnerId", runner.getRunnerMapId());
@@ -318,7 +300,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     }
                     put("isFirstFire", jobVo.getIsFirstFire());
                 }});
-                paramJson.put("environment",jobVo.getEnvironment());
+                paramJson.put("environment", jobVo.getEnvironment());
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);
                 JSONObject resultJson = JSONObject.parseObject(result);

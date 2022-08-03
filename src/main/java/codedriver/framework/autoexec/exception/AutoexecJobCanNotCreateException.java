@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobExecutePermissionDeinedExcpetion extends ApiRuntimeException {
+public class AutoexecJobCanNotCreateException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 4744487624323943559L;
+    private static final long serialVersionUID = -6572745414524965140L;
 
-    public AutoexecJobExecutePermissionDeinedExcpetion(Long jobId) {
-        super("无作业" + jobId + "的执行权限,请先接管作业");
+    public AutoexecJobCanNotCreateException(String combopName) {
+        super("无法创建作业，没有组合工具: '" + combopName + "' 执行权限");
     }
 
 
