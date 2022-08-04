@@ -449,6 +449,7 @@
                aj.`param_hash`      as paramHash,
                aj.`config_hash`     as configHash,
                aj.`lncd`,
+               aj.`parent_id`        as parentId,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value}
