@@ -290,16 +290,16 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             for (RunnerMapVo runner : runnerVos) {
                 jobVo.getEnvironment().put("RUNNER_ID", runner.getRunnerMapId());
                 url = runner.getUrl() + "api/rest/job/exec";
-                paramJson.put("passThroughEnv", new JSONObject() {{
-                    put("runnerId", runner.getRunnerMapId());
-                    if (jobVo.getExecuteJobGroupVo() != null) {
-                        put("groupSort", jobVo.getExecuteJobGroupVo().getSort());
-                    }
-                    if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
-                        put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
-                    }
-                    put("isFirstFire", jobVo.getIsFirstFire());
-                }});
+                JSONObject passThroughEnv = jobVo.getPassThroughEnv();
+                passThroughEnv.put("runnerId", runner.getRunnerMapId());
+                if (jobVo.getExecuteJobGroupVo() != null) {
+                    passThroughEnv.put("groupSort", jobVo.getExecuteJobGroupVo().getSort());
+                }
+                if (CollectionUtils.isNotEmpty(jobVo.getExecuteJobPhaseList())) {
+                    passThroughEnv.put("phaseSort", jobVo.getExecuteJobPhaseList().get(0).getSort());
+                }
+                passThroughEnv.put("isFirstFire", jobVo.getIsFirstFire());
+                paramJson.put("passThroughEnv", passThroughEnv);
                 paramJson.put("environment", jobVo.getEnvironment());
                 restVo = new RestVo.Builder(url, AuthenticateType.BUILDIN.getValue()).setPayload(paramJson).build();
                 result = RestUtil.sendPostRequest(restVo);
