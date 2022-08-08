@@ -195,6 +195,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "审核时间", type = ApiParamType.LONG)
     private Date reviewTime;
 
+    @JSONField(serialize = false)
+    @EntityField(name = "贯穿作业的参数", type = ApiParamType.STRING)
+    private JSONObject passThroughEnv = new JSONObject();
+
     public AutoexecJobVo() {
     }
 
@@ -864,5 +868,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setIsTakeOver(Integer isTakeOver) {
         this.isTakeOver = isTakeOver;
+    }
+
+    public JSONObject getPassThroughEnv() {
+        return passThroughEnv;
+    }
+
+    public void setPassThroughEnv(JSONObject passThroughEnv) {
+        this.passThroughEnv = passThroughEnv;
     }
 }
