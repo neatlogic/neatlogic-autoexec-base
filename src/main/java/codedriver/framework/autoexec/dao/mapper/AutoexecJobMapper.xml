@@ -1819,7 +1819,7 @@
                 now(3),
                 #{groupId},
                 #{executePolicy},
-                #{sort});
+                #{sort})
     </insert>
 
     <insert id="insertJobPhaseNode"
@@ -1847,7 +1847,7 @@
                 #{userName},
                 #{resourceId},
                 #{lcd},
-                #{status});
+                #{status})
     </insert>
 
     <insert id="insertJobPhaseOperation"
@@ -1895,19 +1895,19 @@
         <if test="parentOperationType != null">
             #{parentOperationType},
         </if>
-        #{paramHash});
+        #{paramHash})
     </insert>
 
     <insert id="insertIgnoreJobContent"
             parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobContentVo">
         INSERT IGNORE INTO `autoexec_job_content` (`hash`, `content`)
-        VALUES (#{hash}, #{content});
+        VALUES (#{hash}, #{content})
     </insert>
 
     <insert id="insertIgnoreJobPhaseNodeRunner"
             parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeRunnerVo">
         INSERT ignore INTO `autoexec_job_phase_node_runner` (`job_id`, `job_phase_id`, `node_id`, `runner_map_id`)
-        VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId});
+        VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId})
     </insert>
 
     <insert id="insertJobPhaseRunner">
@@ -1918,7 +1918,7 @@
                    `job_group_id`  = #{jobGroupId},
                    `job_phase_id`  = #{jobPhaseId},
                    `runner_map_id` = #{runnerMapId},
-                   `lcd`           = #{lcd};
+                   `lcd`           = #{lcd}
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
@@ -1927,11 +1927,11 @@
         ON DUPLICATE KEY
             UPDATE `job_id` = #{jobId},
                    `name`   = #{name},
-                   `value`  = #{value};
+                   `value`  = #{value}
     </insert>
     <insert id="insertIgnoreIntoJobInvoke">
         INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`)
-        VALUES (#{jobId}, #{invokeId}, #{source}, #{type});
+        VALUES (#{jobId}, #{invokeId}, #{source}, #{type})
     </insert>
     <insert id="insertDuplicateJobResourceInspect">
         INSERT INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`, `phase_id`, `lcd`)
@@ -1940,7 +1940,7 @@
             UPDATE `job_id`      = #{jobId},
                    `resource_id` = #{resourceId},
                    `phase_id`    = #{phaseId},
-                   `lcd`         = #{lcd};
+                   `lcd`         = #{lcd}
     </insert>
     <insert id="insertJobGroup">
         INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`)
@@ -2169,14 +2169,14 @@
         <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}
         </foreach>
-        AND `runner_map_id` = #{runnerId};
+        AND `runner_map_id` = #{runnerId}
     </update>
     <update id="updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus">
         UPDATE
             `autoexec_job_phase_runner`
         SET `status` = #{status}
         WHERE `job_id` = #{jobId}
-          AND `runner_map_id` = #{runnerId};
+          AND `runner_map_id` = #{runnerId}
     </update>
     <update id="updateBatchJobPhaseRunnerStatus">
         UPDATE
@@ -2401,7 +2401,7 @@
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE
         FROM `autoexec_job_content`
-        WHERE `hash` = #{value};
+        WHERE `hash` = #{value}
     </delete>
 
     <delete id="deleteJobPhaseOperationByJobId" parameterType="java.lang.Long">
@@ -2413,19 +2413,19 @@
     <delete id="deleteJobPhaseNodeByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job_phase_node`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
 
     <delete id="deleteJobPhaseByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job_phase`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
 
     <delete id="deleteJobByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job`
-        WHERE `id` = #{value};
+        WHERE `id` = #{value}
     </delete>
 
     <delete id="deleteJobPhaseNodeByJobPhaseIdList">
@@ -2439,13 +2439,13 @@
     <delete id="deleteJobPhaseRunnerByJobId">
         DELETE
         FROM `autoexec_job_phase_runner`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobPhaseNodeRunnerByJobId">
         DELETE ajpnr
         FROM `autoexec_job_phase_node_runner` ajpnr
                  LEFT JOIN `autoexec_job_phase_node` ajpn ON ajpnr.`node_id` = ajpn.`id`
-        WHERE ajpn.`job_id` = #{value};
+        WHERE ajpn.`job_id` = #{value}
     </delete>
     <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcd">
         DELETE
@@ -2471,17 +2471,17 @@
     <delete id="deleteJobEvnByJobId">
         DELETE
         FROM `autoexec_job_env`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobInvokeByJobId">
         DELETE
         FROM `autoexec_job_invoke`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobResourceInspectByJobId">
         DELETE
         FROM `autoexec_job_resource_inspect`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId">
         DELETE
