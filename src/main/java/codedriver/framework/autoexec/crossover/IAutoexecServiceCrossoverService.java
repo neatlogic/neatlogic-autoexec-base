@@ -21,7 +21,7 @@ public interface IAutoexecServiceCrossoverService extends ICrossoverService {
      * @param autoexecCombopPhaseOperationVo
      * @return
      */
-    AutoexecOperationBaseVo getAutoexecOperationBaseVoByIdAndType(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, boolean throwException);
+    AutoexecOperationBaseVo getAutoexecOperationBaseVoByIdAndType(String phaseName, AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, boolean throwException);
 
     void mergeConfig(AutoexecParamVo autoexecParamVo);
 
