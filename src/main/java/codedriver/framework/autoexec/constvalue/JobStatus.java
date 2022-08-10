@@ -23,6 +23,7 @@ public enum JobStatus implements IEnum {
     FAILED("failed", "已失败"),
     READY("ready", "已就绪"),
     WAIT_INPUT("waitInput", "待输入"),
+    CHECKED("checked", "已验证"),
     REVOKED("revoked", "已撤销");
     private final String status;
     private final String text;
