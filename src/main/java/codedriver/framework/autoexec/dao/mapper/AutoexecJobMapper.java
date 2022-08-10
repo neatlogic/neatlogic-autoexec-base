@@ -38,6 +38,8 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobLockByJobId(Long jobId);
 
+    List<AutoexecJobVo> getJobListLockByParentIdAndStatus(@Param("parentId") Long id, @Param("status") String status);
+
     AutoexecJobContentVo getJobContentLock(String hash);
 
     AutoexecJobContentVo getJobContent(String hash);
