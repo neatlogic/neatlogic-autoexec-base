@@ -8,6 +8,7 @@ public enum JobAction {
     FIRE("fire", "执行"),
     PAUSE("pause", "暂停"),
     ABORT("abort", "中止"),
+    CHECK("check", "验证"),
     RESET_NODE("resetNode", "重置节点"),
     IGNORE_NODE("ignoreNode", "重置节点"),
     GOON("goon", "继续"),
