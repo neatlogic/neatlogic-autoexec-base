@@ -1771,9 +1771,28 @@
                aj.`config_hash`     as configHash,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
-        WHERE (aj.`parent_id` = #{parentId} and aj.`status` = #{status})
-           or aj.id = #{parentId} for
+        WHERE aj.`parent_id` = #{parentId} and aj.`status` = #{status} for
         update
+    </select>
+    <select id="getJobListByParentIdAndNotInStatus"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT aj.`id`,
+               aj.`name`,
+               aj.`status`,
+               aj.`error_msg`       as errorMsg,
+               aj.`plan_start_time` as planStartTime,
+               aj.`start_time`      as startTime,
+               aj.`end_time`        as endTime,
+               aj.`operation_id`    as operationId,
+               aj.`operation_type`  as operationType,
+               aj.`exec_user`       as execUser,
+               aj.`source`,
+               aj.`round_count`     as roundCount,
+               aj.`param_hash`      as paramHash,
+               aj.`config_hash`     as configHash,
+               aj.`trigger_type`    as triggerType
+        FROM `autoexec_job` aj
+        WHERE aj.`parent_id` = #{parentId} and aj.`status` != #{status}
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
