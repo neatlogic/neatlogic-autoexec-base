@@ -20,6 +20,8 @@ import java.util.List;
 
 public interface AutoexecJobMapper {
     //job
+    List<Long> getJobIdListByParentId(Long parentId);
+
     List<Long> searchJobId(AutoexecJobVo jobVo);
 
     List<AutoexecJobVo> searchJob(@Param("jobIdList") List<Long> jobIdList);

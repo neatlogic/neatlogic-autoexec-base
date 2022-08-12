@@ -5,6 +5,12 @@
   -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper">
+    <select id="getJobIdListByParentId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT id
+        FROM autoexec_job
+        WHERE parent_id = #{value}
+    </select>
+
     <select id="searchJobId" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo"
             resultType="java.lang.Long">
         SELECT
@@ -32,6 +38,7 @@
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         SELECT
         aj.`id`,
+        aj.`parent_id` AS parentId,
         aj.`name`,
         aj.`status`,
         aj.`error_msg` as errorMsg,
@@ -126,6 +133,16 @@
             <foreach collection="execUserList" item="execUser" open="(" close=")" separator=",">
                 #{execUser}
             </foreach>
+        </if>
+        <if test="hasParent != null">
+            <choose>
+                <when test="hasParent == true">
+                    AND aj.parent_id is not null
+                </when>
+                <otherwise>
+                    AND aj.parent_id is null
+                </otherwise>
+            </choose>
         </if>
         <if test="idList != null and idList.size() > 0">
             and aj.`id` in
@@ -1771,7 +1788,8 @@
                aj.`config_hash`     as configHash,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
-        WHERE aj.`parent_id` = #{parentId} and aj.`status` = #{status} for
+        WHERE aj.`parent_id` = #{parentId}
+          and aj.`status` = #{status} for
         update
     </select>
     <select id="getJobListByParentIdAndNotInStatus"
@@ -1792,7 +1810,8 @@
                aj.`config_hash`     as configHash,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
-        WHERE aj.`parent_id` = #{parentId} and aj.`status` != #{status}
+        WHERE aj.`parent_id` = #{parentId}
+          and aj.`status` != #{status}
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
