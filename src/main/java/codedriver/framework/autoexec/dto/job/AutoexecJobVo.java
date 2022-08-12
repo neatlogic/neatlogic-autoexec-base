@@ -120,6 +120,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer isCanEdit = 0;
     @EntityField(name = "是否拥有接管权限", type = ApiParamType.INTEGER)
     private Integer isCanTakeOver = 0;
+    @EntityField(name = "是否拥有验证权限", type = ApiParamType.INTEGER)
+    private Integer isCanCheck = 0;
     @EntityField(name = "是否接管", type = ApiParamType.INTEGER)
     private Integer isTakeOver = 0;
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
@@ -876,5 +878,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setPassThroughEnv(JSONObject passThroughEnv) {
         this.passThroughEnv = passThroughEnv;
+    }
+
+    public Integer getIsCanCheck() {
+        return isCanCheck;
+    }
+
+    public void setIsCanCheck(Integer isCanCheck) {
+        this.isCanCheck = isCanCheck;
     }
 }
