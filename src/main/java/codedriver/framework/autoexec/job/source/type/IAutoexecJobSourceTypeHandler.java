@@ -134,6 +134,7 @@ public interface IAutoexecJobSourceTypeHandler {
 
     /**
      * 获取 sqlId 对应的node节点List
+     *
      * @param sqlIdList sqlId列表
      * @return node节点List
      */
@@ -142,23 +143,31 @@ public interface IAutoexecJobSourceTypeHandler {
 
     /**
      * 是否可以更新阶段runner
-     * @param jobPhaseVo 作业阶段
+     *
+     * @param jobPhaseVo  作业阶段
      * @param runnerMapId 执行器id
      * @return 是｜否
      */
-    boolean getIsCanUpdatePhaseRunner(AutoexecJobPhaseVo jobPhaseVo,Long runnerMapId);
+    boolean getIsCanUpdatePhaseRunner(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId);
 
     /**
      * 执行用户是否可以执行作业
-     * @param jobId 作业id
-     * @param isTakeOver 如果执行人和数据库的执行用户不一样，是否接管
-     * @param execUser 当前执行用户
+     *
+     * @param jobVo      作业
      */
-    void executeAuthCheck(Long jobId, Long operationId,String operationType, boolean isTakeOver, String execUser);
+    void executeAuthCheck(AutoexecJobVo jobVo);
 
     /**
      * 获取对应管理员权限
+     *
      * @return 管理员权限列表
      */
     List<String> getModifyAuthList();
+
+    /**
+     * 补充作业权限 目前用于前端控制按钮
+     *
+     * @param jobVo 作业
+     */
+    void getJobActionAuth(AutoexecJobVo jobVo);
 }

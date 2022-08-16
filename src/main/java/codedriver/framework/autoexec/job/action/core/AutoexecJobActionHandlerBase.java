@@ -115,7 +115,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                         throw new AutoexecJobSourceInvalidException(jobVo.getSource());
                     }
                     IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSourceVo.getType());
-                    autoexecJobSourceActionHandler.executeAuthCheck(jobVo.getId(), jobVo.getOperationId(), jobVo.getOperationType(), Objects.equals(jobVo.getIsTakeOver(), 1), jobVo.getExecUser());
+                    autoexecJobSourceActionHandler.executeAuthCheck(jobVo);
                 }
             }
         }

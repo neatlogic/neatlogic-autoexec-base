@@ -201,6 +201,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "贯穿作业的参数", type = ApiParamType.STRING)
     private JSONObject passThroughEnv = new JSONObject();
 
+    @EntityField(name = "指定执行用户", type = ApiParamType.STRING)
+    @JSONField(serialize = false)
+    private String assignExecUser;
+
     public AutoexecJobVo() {
     }
 
@@ -391,6 +395,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getExecUser() {
+        //优先使用指定执行用户
+        if (StringUtils.isNotBlank(assignExecUser)) {
+            return assignExecUser;
+        }
         if (StringUtils.isBlank(execUser)) {
             return UserContext.get().getUserUuid();
         }
@@ -886,5 +894,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setIsCanCheck(Integer isCanCheck) {
         this.isCanCheck = isCanCheck;
+    }
+
+    public String getAssignExecUser() {
+        return assignExecUser;
+    }
+
+    public void setAssignExecUser(String assignExecUser) {
+        this.assignExecUser = assignExecUser;
     }
 }

@@ -2369,7 +2369,7 @@
     <update id="updateJobExecUser" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         UPDATE `autoexec_job`
         SET `exec_user` = #{execUser}
-        WHERE `id` = #{id}
+        WHERE `id` = #{jobId}
     </update>
 
     <update id="updateSqlIsDeleteByIdList">

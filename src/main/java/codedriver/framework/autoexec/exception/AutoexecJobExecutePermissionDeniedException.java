@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobExecutePermissionDeinedExcpetion extends ApiRuntimeException {
+public class AutoexecJobExecutePermissionDeniedException extends ApiRuntimeException {
 
     private static final long serialVersionUID = 4744487624323943559L;
 
-    public AutoexecJobExecutePermissionDeinedExcpetion(Long jobId) {
-        super("无作业" + jobId + "的执行权限,请先接管作业");
+    public AutoexecJobExecutePermissionDeniedException(Long jobId) {
+        super("无作业 '" + jobId + "' 的执行权限,请刷新页面，重新接管作业");
     }
 
 

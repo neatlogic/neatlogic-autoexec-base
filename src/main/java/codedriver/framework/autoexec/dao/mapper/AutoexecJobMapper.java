@@ -315,7 +315,7 @@ public interface AutoexecJobMapper {
 
     int updateJobPlanStartTimeAndTriggerTypeById(AutoexecJobVo vo);
 
-    int updateJobExecUser(AutoexecJobVo vo);
+    int updateJobExecUser(@Param("jobId") Long jobId, @Param("execUser") String execUser);
 
     void updateSqlIsDeleteByIdList(@Param("idList") List<Long> idList);
 
