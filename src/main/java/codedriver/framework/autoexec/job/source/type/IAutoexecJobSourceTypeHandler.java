@@ -155,7 +155,7 @@ public interface IAutoexecJobSourceTypeHandler {
      *
      * @param jobVo      作业
      */
-    void executeAuthCheck(AutoexecJobVo jobVo);
+    void executeAuthCheck(AutoexecJobVo jobVo,boolean isNeedCheckTakeOver);
 
     /**
      * 获取对应管理员权限

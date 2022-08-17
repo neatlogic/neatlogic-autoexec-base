@@ -33,18 +33,20 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
 
 
     @Override
-    public void executeAuthCheck(AutoexecJobVo jobParam) {
+    public void executeAuthCheck(AutoexecJobVo jobParam, boolean isNeedCheckTakeOver) {
         Long jobId = jobParam.getId();
-        String execUser = StringUtils.isNotBlank(jobParam.getAssignExecUser())?jobParam.getAssignExecUser():UserContext.get().getUserUuid(true);
+        String execUser = StringUtils.isNotBlank(jobParam.getAssignExecUser()) ? jobParam.getAssignExecUser() : UserContext.get().getUserUuid(true);
         jobParam.setExecUser(execUser);
-        AutoexecJobVo originJob = autoexecJobMapper.getJobInfo(jobId);
-        //作业存在 且 执行人不相等，则需要先接管作业
-        if (originJob != null && !execUser.equals(originJob.getExecUser())) {
-            //是否需要替换execUser
-            if (jobParam.getIsTakeOver() == 1) {
-                autoexecJobMapper.updateJobExecUser(jobId, jobParam.getExecUser());
-            } else {
-                throw new AutoexecJobExecutePermissionDeniedException(jobId);
+        if (isNeedCheckTakeOver) {
+            AutoexecJobVo originJob = autoexecJobMapper.getJobInfo(jobId);
+            //作业存在 且 执行人不相等，则需要先接管作业
+            if (originJob != null && !execUser.equals(originJob.getExecUser())) {
+                //是否需要替换execUser
+                if (jobParam.getIsTakeOver() == 1) {
+                    autoexecJobMapper.updateJobExecUser(jobId, jobParam.getExecUser());
+                } else {
+                    throw new AutoexecJobExecutePermissionDeniedException(jobId);
+                }
             }
         }
         myExecuteAuthCheck(jobParam);
