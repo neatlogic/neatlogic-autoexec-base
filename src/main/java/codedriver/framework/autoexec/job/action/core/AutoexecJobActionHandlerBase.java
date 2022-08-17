@@ -111,15 +111,8 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     throw new AutoexecJobSourceInvalidException(jobVo.getSource());
                 }
                 IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSourceVo.getType());
-                if (Arrays.asList(JobAction.FIRE.getValue(), JobAction.ABORT.getValue(),
-                        JobAction.DELETE.getValue(), JobAction.REFIRE.getValue(), JobAction.RESET_REFIRE.getValue().equals(jobVo.getAction())
-                        , JobAction.RESET_NODE.getValue(), JobAction.REFIRE_NODE.getValue().equals(jobVo.getAction())
-                        , JobAction.IGNORE_NODE.getValue(), JobAction.SUBMIT_NODE_WAIT_INPUT.getValue()).contains(jobVo.getAction())) {
-                    autoexecJobSourceActionHandler.executeAuthCheck(jobVo, true);
-                }
-                if (Arrays.asList(JobAction.CHECK.getValue(), JobAction.TAKE_OVER.getValue()).contains(jobVo.getAction())) {
-                    autoexecJobSourceActionHandler.executeAuthCheck(jobVo, false);
-                }
+                boolean isNeedCheckTakeOver = !Arrays.asList(JobAction.CHECK.getValue(), JobAction.TAKE_OVER.getValue()).contains(jobVo.getAction());
+                autoexecJobSourceActionHandler.executeAuthCheck(jobVo, isNeedCheckTakeOver);
             }
         }
         return myValidate(jobVo);
