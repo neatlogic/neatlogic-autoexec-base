@@ -127,8 +127,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
     @EntityField(name = "场景id", type = ApiParamType.LONG)
-    @JSONField(serialize = false)
     private Long scenarioId;
+    @EntityField(name = "场景名", type = ApiParamType.STRING)
+    private String scenarioName;
     @JSONField(serialize = false)
     private JSONObject actionParam;
     @JSONField(serialize = false)
@@ -219,7 +220,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.triggerType = triggerType;
     }
 
-    public AutoexecJobVo(Long jobId, Long operationId,String operationType) {
+    public AutoexecJobVo(Long jobId, Long operationId, String operationType) {
         this.id = jobId;
         this.operationId = operationId;
         this.operationType = operationType;
@@ -585,7 +586,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public Integer getCompletionRate() {
-        if (StringUtils.isNotBlank(status) && Objects.equals(JobStatus.COMPLETED.getValue(), status)) {
+        if (StringUtils.isNotBlank(status) && Arrays.asList(JobStatus.COMPLETED.getValue(), JobStatus.CHECKED.getValue()).contains(status)) {
             return 100;
         }
         return completionRate;
@@ -816,6 +817,14 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setScenarioId(Long scenarioId) {
         this.scenarioId = scenarioId;
+    }
+
+    public String getScenarioName() {
+        return scenarioName;
+    }
+
+    public void setScenarioName(String scenarioName) {
+        this.scenarioName = scenarioName;
     }
 
     public JSONObject getEnvironment() {
