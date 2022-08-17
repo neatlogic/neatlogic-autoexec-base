@@ -5,7 +5,7 @@
 
 package codedriver.framework.autoexec.dto.script;
 
-import codedriver.framework.autoexec.constvalue.ChangeType;
+import codedriver.framework.lcs.constvalue.ChangeType;
 import codedriver.framework.autoexec.constvalue.ParamType;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;

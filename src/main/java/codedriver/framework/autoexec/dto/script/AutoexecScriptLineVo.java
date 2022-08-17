@@ -5,14 +5,14 @@
 
 package codedriver.framework.autoexec.dto.script;
 
-import codedriver.framework.autoexec.constvalue.ChangeType;
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.lcs.BaseLineVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 
 import java.io.Serializable;
 
-public class AutoexecScriptLineVo implements Serializable {
+public class AutoexecScriptLineVo extends BaseLineVo implements Serializable {
 
     private static final long serialVersionUID = 8790853531134615524L;
     @EntityField(name = "id", type = ApiParamType.LONG)
@@ -23,14 +23,14 @@ public class AutoexecScriptLineVo implements Serializable {
     private Long scriptVersionId;
     @EntityField(name = "脚本内容hash", type = ApiParamType.STRING)
     private String contentHash;
-    @EntityField(name = "脚本内容行号", type = ApiParamType.INTEGER)
-    private Integer lineNumber;
-
-    @EntityField(name = "脚本内容", type = ApiParamType.STRING)
-    private String content;
-
-    @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
-    private String changeType;
+//    @EntityField(name = "脚本内容行号", type = ApiParamType.INTEGER)
+//    private Integer lineNumber;
+//
+//    @EntityField(name = "脚本内容", type = ApiParamType.STRING)
+//    private String content;
+//
+//    @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
+//    private String changeType;
 
     private Integer isAnnotation; // 是否是注释行
 
@@ -40,10 +40,10 @@ public class AutoexecScriptLineVo implements Serializable {
     public AutoexecScriptLineVo() {
     }
 
-    public AutoexecScriptLineVo(String content, Integer lineNumber) {
-        this.content = content;
-        this.lineNumber = lineNumber;
-    }
+//    public AutoexecScriptLineVo(String content, Integer lineNumber) {
+//        this.content = content;
+//        this.lineNumber = lineNumber;
+//    }
 
     public Long getId() {
         if (id == null) {
@@ -80,29 +80,29 @@ public class AutoexecScriptLineVo implements Serializable {
         this.contentHash = contentHash;
     }
 
-    public Integer getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(Integer lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getChangeType() {
-        return changeType;
-    }
-
-    public void setChangeType(String changeType) {
-        this.changeType = changeType;
-    }
+//    public Integer getLineNumber() {
+//        return lineNumber;
+//    }
+//
+//    public void setLineNumber(Integer lineNumber) {
+//        this.lineNumber = lineNumber;
+//    }
+//
+//    public String getContent() {
+//        return content;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
+//
+//    public String getChangeType() {
+//        return changeType;
+//    }
+//
+//    public void setChangeType(String changeType) {
+//        this.changeType = changeType;
+//    }
 
     public Integer getIsAnnotation() {
         return isAnnotation;
