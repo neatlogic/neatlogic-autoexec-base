@@ -205,6 +205,10 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "指定执行用户", type = ApiParamType.STRING)
     @JSONField(serialize = false)
     private String assignExecUser;
+    @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
+    private Integer warnCount = 0;
+    @EntityField(name = "是否含有已忽略节点", type = ApiParamType.INTEGER)
+    private Integer isHasIgnored = 0;
 
     public AutoexecJobVo() {
     }
@@ -911,5 +915,21 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setAssignExecUser(String assignExecUser) {
         this.assignExecUser = assignExecUser;
+    }
+
+    public Integer getWarnCount() {
+        return warnCount;
+    }
+
+    public void setWarnCount(Integer warnCount) {
+        this.warnCount = warnCount;
+    }
+
+    public Integer getIsHasIgnored() {
+        return isHasIgnored;
+    }
+
+    public void setIsHasIgnored(Integer isHasIgnored) {
+        this.isHasIgnored = isHasIgnored;
     }
 }

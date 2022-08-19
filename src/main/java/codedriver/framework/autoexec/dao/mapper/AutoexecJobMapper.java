@@ -32,6 +32,8 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobDetailByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 
+    List<AutoexecJobVo> getJobWarnCountAndStatus(List<Long> idList);
+
     Integer searchJobCount(AutoexecJobVo jobVo);
 
     List<AutoexecCombopVo> searchJobWithCombopView(AutoexecJobVo jobVo);

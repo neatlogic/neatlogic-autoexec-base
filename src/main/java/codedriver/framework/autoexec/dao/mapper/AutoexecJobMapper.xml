@@ -380,6 +380,7 @@
         <result column="name" property="name"/>
         <result column="groupId" property="groupId"/>
         <result column="sort" property="sort"/>
+        <result column="warnCount" property="warnCount"/>
         <result column="uk" property="uk"/>
         <collection property="jobGroupVo" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
             <result column="groupId" property="id"/>
@@ -1812,6 +1813,21 @@
         FROM `autoexec_job` aj
         WHERE aj.`parent_id` = #{parentId}
           and aj.`status` != #{status}
+    </select>
+    <select id="getJobWarnCountAndStatus" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT
+        job_id as id,
+        SUM( warn_count ) AS warnCount,
+        GROUP_CONCAT(DISTINCT STATUS) as `status`
+        FROM
+        autoexec_job_phase_node
+        WHERE
+        job_id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        GROUP BY
+        job_id
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
