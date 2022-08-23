@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.crossover;
 
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.crossover.ICrossoverService;
 
@@ -17,4 +18,6 @@ import java.util.List;
 public interface IAutoexecJobCrossoverService extends ICrossoverService {
 
     List<AutoexecJobVo> searchJob(AutoexecJobVo jobVo);
+
+    void saveAutoexecCombopJob(AutoexecCombopVo combopVo, AutoexecJobVo jobVo);
 }
