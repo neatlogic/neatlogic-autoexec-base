@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.constvalue.ParamMappingMode;
 import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
@@ -190,7 +191,11 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                     if (phaseVoOptional.isPresent()) {
                         Optional<AutoexecJobPhaseOperationVo> operationVoOptional = phaseVoOptional.get().getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).findFirst();
                         if (operationVoOptional.isPresent()) {
-                            paramMappingVo.setValue(String.format("${%s.%s_%d.%s}", phaseVoOptional.get().getName(), opName, operationVoOptional.get().getId(), value));
+                            String valueFormat = "${%s.%s_%d.%s}";
+                            if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.PRE_NODE_OUTPUT_PARAM_KEY.getValue())) {
+                                valueFormat = "#{%s.%s_%d.%s}";
+                            }
+                            paramMappingVo.setValue(String.format(valueFormat, phaseVoOptional.get().getName(), opName, operationVoOptional.get().getId(), value));
                         } else {
                             throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
                         }
