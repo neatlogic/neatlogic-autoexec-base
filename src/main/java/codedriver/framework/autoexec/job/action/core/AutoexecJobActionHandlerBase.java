@@ -27,6 +27,10 @@ import codedriver.framework.autoexec.util.AutoexecUtil;
 import codedriver.framework.dao.mapper.runner.RunnerMapper;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
+import codedriver.framework.exception.runner.RunnerConnectRefusedException;
+import codedriver.framework.exception.runner.RunnerHttpRequestException;
+import codedriver.framework.exception.runner.RunnerMapNotMatchRunnerException;
+import codedriver.framework.exception.runner.RunnerNotMatchException;
 import codedriver.framework.exception.type.ParamIrregularException;
 import codedriver.framework.integration.authentication.enums.AuthenticateType;
 import codedriver.framework.util.HttpRequestUtil;
@@ -203,7 +207,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         String url;
         for (RunnerMapVo runner : runnerVos) {
             if (runner.getRunnerMapId() == null) {
-                throw new AutoexecJobRunnerMapNotMatchRunnerException(runner.getRunnerMapId());
+                throw new RunnerMapNotMatchRunnerException(runner.getRunnerMapId());
             }
             if (StringUtils.isBlank(runner.getUrl())) {
                 throw new AutoexecJobRunnerNotFoundException(runner.getRunnerMapId().toString());
@@ -211,11 +215,11 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             url = runner.getUrl() + "api/rest/health/check";
             HttpRequestUtil requestUtil = HttpRequestUtil.post(url).setConnectTimeout(5000).setReadTimeout(5000).setPayload(new JSONObject().toJSONString()).setAuthType(AuthenticateType.BUILDIN).sendRequest();
             if (StringUtils.isNotBlank(requestUtil.getError())) {
-                throw new AutoexecJobRunnerConnectRefusedException(url, requestUtil.getError());
+                throw new RunnerConnectRefusedException(url, requestUtil.getError());
             }
             JSONObject resultJson = requestUtil.getResultJson();
             if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-                throw new AutoexecJobRunnerHttpRequestException(url + ":" + requestUtil.getError());
+                throw new RunnerHttpRequestException(url + ":" + requestUtil.getError());
             }
 
         }
@@ -256,7 +260,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
      */
     private void execute(AutoexecJobVo jobVo, List<RunnerMapVo> runnerVos) {
         if (CollectionUtils.isEmpty(runnerVos)) {
-            throw new AutoexecJobRunnerNotMatchException();
+            throw new RunnerNotMatchException();
         }
         //如果作业第一次或重跑，更新作业状态为running 和 作业开始时间
         if (Objects.equals(jobVo.getIsFirstFire(), 1)) {
@@ -304,11 +308,11 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 result = RestUtil.sendPostRequest(restVo);
                 JSONObject resultJson = JSONObject.parseObject(result);
                 if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-                    throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
+                    throw new RunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
                 }
             }
         } catch (Exception ex) {
-            throw new AutoexecJobRunnerConnectRefusedException(url + " " + result);
+            throw new RunnerConnectRefusedException(url + " " + result);
         }
     }
 
@@ -389,13 +393,13 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 result = RestUtil.sendPostRequest(restVo);
                 JSONObject resultJson = JSONObject.parseObject(result);
                 if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-                    throw new AutoexecJobRunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
+                    throw new RunnerHttpRequestException(restVo.getUrl() + ":" + resultJson.getString("Message"));
                 }
             }
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
             assert restVo != null;
-            throw new AutoexecJobRunnerConnectRefusedException(restVo.getUrl() + " " + result);
+            throw new RunnerConnectRefusedException(restVo.getUrl() + " " + result);
         }
     }
 }
