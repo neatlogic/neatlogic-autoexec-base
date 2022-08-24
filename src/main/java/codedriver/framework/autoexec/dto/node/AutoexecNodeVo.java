@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.dto.node;
 
+import codedriver.framework.cmdb.dto.resourcecenter.ResourceVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
  * @since: 2021/4/22 14:58
  **/
 public class AutoexecNodeVo implements Serializable {
+    private static final long serialVersionUID = -4533004514694610443L;
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "名称", type = ApiParamType.STRING)
@@ -23,6 +25,16 @@ public class AutoexecNodeVo implements Serializable {
     private String ip;
     @EntityField(name = "端口号", type = ApiParamType.INTEGER)
     private Integer port;
+
+    public AutoexecNodeVo() {
+    }
+
+    public AutoexecNodeVo(ResourceVo resourceVo) {
+        this.id = resourceVo.getId();
+        this.name = resourceVo.getName();
+        this.ip = resourceVo.getIp();
+        this.port = resourceVo.getPort();
+    }
 
     public Long getId() {
         return id;

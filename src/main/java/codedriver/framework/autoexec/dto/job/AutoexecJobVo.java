@@ -11,6 +11,8 @@ import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.constvalue.JobTriggerType;
 import codedriver.framework.autoexec.constvalue.ReviewStatus;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
@@ -89,12 +91,12 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "来源名", type = ApiParamType.STRING)
     private String sourceName;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
-    private Integer roundCount = 64;
+    private Integer roundCount = 3;
     @JSONField(serialize = false)
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
     @JSONField(serialize = false)
-    private JSONObject config;
+    private AutoexecCombopConfigVo config;
     @EntityField(name = "触发方式", type = ApiParamType.STRING)
     private String triggerType = JobTriggerType.AUTO.getValue();
     @EntityField(name = "触发方式Vo", type = ApiParamType.JSONOBJECT)
@@ -209,6 +211,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Integer warnCount = 0;
     @EntityField(name = "是否含有已忽略节点", type = ApiParamType.INTEGER)
     private Integer isHasIgnored = 0;
+    @JSONField(serialize = false)
+    @EntityField(name = "作业执行参数", type = ApiParamType.JSONOBJECT)
+    private AutoexecCombopExecuteConfigVo executeConfig;
 
     public AutoexecJobVo() {
     }
@@ -441,11 +446,11 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.configStr = configStr;
     }
 
-    public JSONObject getConfig() {
+    public AutoexecCombopConfigVo getConfig() {
         if (StringUtils.isNotBlank(configStr)) {
-            return JSONObject.parseObject(configStr);
+            config = JSONObject.parseObject(configStr, AutoexecCombopConfigVo.class);
         }
-        return null;
+        return config;
     }
 
     public String getSource() {
@@ -931,5 +936,17 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setIsHasIgnored(Integer isHasIgnored) {
         this.isHasIgnored = isHasIgnored;
+    }
+
+    public AutoexecCombopExecuteConfigVo getExecuteConfig() {
+        return executeConfig;
+    }
+
+    public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
+        this.executeConfig = executeConfig;
+    }
+
+    public void setCombopId(Long combopId){
+        this.operationId = combopId;
     }
 }

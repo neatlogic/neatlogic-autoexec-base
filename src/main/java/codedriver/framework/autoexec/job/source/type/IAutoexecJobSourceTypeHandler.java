@@ -107,10 +107,10 @@ public interface IAutoexecJobSourceTypeHandler {
     /**
      * 获取组合工具｜流水线
      *
-     * @param paramJson 入参
+     * @param autoexecJobParam 入参
      * @return 组合工具｜流水线
      */
-    AutoexecCombopVo getAutoexecCombop(JSONObject paramJson);
+    AutoexecCombopVo getAutoexecCombop(AutoexecJobVo autoexecJobParam);
 
     /**
      * 更新作业关系表，如：发布作业表
@@ -118,7 +118,7 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param paramJson 入参
      * @param jobVo     作业
      */
-    default void updateInvokeJob(JSONObject paramJson, AutoexecJobVo jobVo) {
+    default void updateInvokeJob(AutoexecJobVo jobVo) {
     }
 
     ;

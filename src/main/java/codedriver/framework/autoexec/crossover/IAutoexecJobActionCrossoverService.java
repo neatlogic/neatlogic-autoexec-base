@@ -7,7 +7,6 @@ package codedriver.framework.autoexec.crossover;
 
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.crossover.ICrossoverService;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author laiwt
@@ -17,9 +16,8 @@ public interface IAutoexecJobActionCrossoverService extends ICrossoverService {
     /**
      * 校验根据组合工具创建的作业
      *
-     * @param isNeedAuth 是否需要鉴权
      */
-    AutoexecJobVo validateAndCreateJobFromCombop(JSONObject param, boolean isNeedAuth);
+    void validateAndCreateJobFromCombop(AutoexecJobVo autoexecJobParam);
 
 
     /**
