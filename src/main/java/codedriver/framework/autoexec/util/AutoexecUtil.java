@@ -1,7 +1,7 @@
 package codedriver.framework.autoexec.util;
 
-import codedriver.framework.autoexec.exception.AutoexecJobRunnerConnectRefusedException;
-import codedriver.framework.autoexec.exception.AutoexecJobRunnerHttpRequestException;
+import codedriver.framework.exception.runner.RunnerConnectRefusedException;
+import codedriver.framework.exception.runner.RunnerHttpRequestException;
 import codedriver.framework.dto.RestVo;
 import codedriver.framework.integration.authentication.enums.AuthenticateType;
 import codedriver.framework.util.RestUtil;
@@ -32,10 +32,10 @@ public class AutoexecUtil {
             resultJson = JSONObject.parseObject(restResult);
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
-            throw new AutoexecJobRunnerConnectRefusedException(restVo.getUrl() + " " + restResult);
+            throw new RunnerConnectRefusedException(restVo.getUrl() + " " + restResult);
         }
         if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-            throw new AutoexecJobRunnerHttpRequestException(resultJson.getString("Message"));
+            throw new RunnerHttpRequestException(resultJson.getString("Message"));
         }
         return resultJson.getString("Return");
     }
