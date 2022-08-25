@@ -2005,10 +2005,12 @@
                    `name`   = #{name},
                    `value`  = #{value}
     </insert>
-    <insert id="insertIgnoreIntoJobInvoke">
+
+    <insert id="insertJobInvoke">
         INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`)
         VALUES (#{jobId}, #{invokeId}, #{source}, #{type})
     </insert>
+
     <insert id="insertDuplicateJobResourceInspect">
         INSERT INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`, `phase_id`, `lcd`)
         VALUES (#{jobId}, #{resourceId}, #{phaseId}, #{lcd})

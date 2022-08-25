@@ -253,7 +253,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseNameAndExceptStatusAndRunnerMapId(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("exceptStatusList") List<String> exceptStatusList, @Param("runnerMapId") Long runnerMapId);
 
-    int insertIgnoreIntoJobInvoke(AutoexecJobInvokeVo invokeVo);
+    int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
 
