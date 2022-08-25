@@ -1,5 +1,5 @@
 /*
- * Copyright(c) 2021 TechSureCo.,Ltd.AllRightsReserved.
+ * Copyright(c) 2022 TechSure Co., Ltd. All Rights Reserved.
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
 
@@ -8,9 +8,10 @@ package codedriver.framework.autoexec.dto.combop;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AutoexecCombopScenarioVo {
+public class AutoexecCombopScenarioVo implements Serializable {
     @EntityField(name = "场景id", type = ApiParamType.LONG)
     private Long scenarioId;
     @EntityField(name = "场景名", type = ApiParamType.STRING)
