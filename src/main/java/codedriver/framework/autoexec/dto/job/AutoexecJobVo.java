@@ -855,6 +855,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.invokeIdList = invokeIdList;
     }
 
+    public void addInvokeId(Long invokeId) {
+        if (this.invokeIdList == null) {
+            this.invokeIdList = new HashSet<>();
+        }
+        this.invokeIdList.add(invokeId);
+    }
+
     public String getConfigHash() {
         if (StringUtils.isBlank(configHash) && StringUtils.isNotBlank(configStr)) {
             configHash = DigestUtils.md5DigestAsHex(configStr.getBytes(StandardCharsets.UTF_8));
@@ -946,7 +953,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
         this.executeConfig = executeConfig;
     }
 
-    public void setCombopId(Long combopId){
+    public void setCombopId(Long combopId) {
         this.operationId = combopId;
     }
 }
