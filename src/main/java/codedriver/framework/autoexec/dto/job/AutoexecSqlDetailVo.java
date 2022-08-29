@@ -1,6 +1,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
+import codedriver.framework.autoexec.dto.ISqlDetail;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -16,7 +17,7 @@ import java.util.Objects;
  * @author longrf
  * @date 2022/4/25 6:02 下午
  */
-public class AutoexecSqlDetailVo extends BaseEditorVo {
+public class AutoexecSqlDetailVo extends BaseEditorVo implements ISqlDetail {
 
     private static final long serialVersionUID = -3975625036032471623L;
 
@@ -73,7 +74,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     @EntityField(name = "序号", type = ApiParamType.INTEGER)
     private Integer sort;
     @EntityField(name = "是否改动", type = ApiParamType.INTEGER)
-    private Integer isModified ;
+    private Integer isModified;
     @EntityField(name = "告警个数", type = ApiParamType.INTEGER)
     private Integer warnCount;
 
