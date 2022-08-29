@@ -13,6 +13,7 @@ import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.List;
 
@@ -153,9 +154,9 @@ public interface IAutoexecJobSourceTypeHandler {
     /**
      * 执行用户是否可以执行作业
      *
-     * @param jobVo      作业
+     * @param jobVo 作业
      */
-    void executeAuthCheck(AutoexecJobVo jobVo,boolean isNeedCheckTakeOver);
+    void executeAuthCheck(AutoexecJobVo jobVo, boolean isNeedCheckTakeOver);
 
     /**
      * 获取对应管理员权限
@@ -170,4 +171,6 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobVo 作业
      */
     void getJobActionAuth(AutoexecJobVo jobVo);
+
+    Workbook exportJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList);
 }

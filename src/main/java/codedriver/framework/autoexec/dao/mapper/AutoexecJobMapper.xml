@@ -1479,6 +1479,7 @@
         ajsd.`end_time` AS endTime,
         r.`host` AS runnerHost,
         r.`port` AS runnerPort,
+        r.`url` AS runnerUrl,
         ajsd.resource_id AS resourceId,
         ajsd.`host`,
         ajsd.`port`,

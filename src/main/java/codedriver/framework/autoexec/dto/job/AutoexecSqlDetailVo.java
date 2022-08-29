@@ -50,6 +50,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String runnerHost;
     @EntityField(name = "runner 端口", type = ApiParamType.INTEGER)
     private Integer runnerPort;
+    @EntityField(name = "runner url", type = ApiParamType.STRING)
+    private String runnerUrl;
     @EntityField(name = "状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "状态名", type = ApiParamType.STRING)
@@ -223,6 +225,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     public void setRunnerPort(Integer runnerPort) {
         this.runnerPort = runnerPort;
+    }
+
+    public String getRunnerUrl() {
+        return runnerUrl;
+    }
+
+    public void setRunnerUrl(String runnerUrl) {
+        this.runnerUrl = runnerUrl;
     }
 
     public String getStatus() {
