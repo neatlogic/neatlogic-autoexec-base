@@ -60,10 +60,6 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     void resetSqlStatus(JSONObject paramObj, AutoexecJobVo jobVo);
 
-    int searchJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
-
-    List<? extends INodeDetail> searchJobPhaseNodeForExport(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
-
     int searchJobPhaseSqlCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     /**

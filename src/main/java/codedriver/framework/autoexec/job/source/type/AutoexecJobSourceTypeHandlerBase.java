@@ -2,8 +2,6 @@ package codedriver.framework.autoexec.job.source.type;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper;
-import codedriver.framework.autoexec.dto.INodeDetail;
-import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.autoexec.exception.AutoexecJobExecutePermissionDeniedException;
 import com.alibaba.fastjson.JSONObject;
@@ -11,9 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author longrf
@@ -60,18 +55,4 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
     protected void myExecuteAuthCheck(AutoexecJobVo jobParam) {
     }
 
-    @Override
-    public int searchJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo) {
-        return autoexecJobMapper.searchJobPhaseNodeCount(jobPhaseNodeVo);
-    }
-
-    @Override
-    public List<? extends INodeDetail> searchJobPhaseNodeForExport(AutoexecJobPhaseNodeVo jobPhaseNodeVo) {
-        List<INodeDetail> result = new ArrayList<>();
-        List<AutoexecJobPhaseNodeVo> list = autoexecJobMapper.searchJobPhaseNodeWithResource(jobPhaseNodeVo);
-        if (list.size() > 0) {
-            list.forEach(o -> result.add(o));
-        }
-        return result;
-    }
 }
