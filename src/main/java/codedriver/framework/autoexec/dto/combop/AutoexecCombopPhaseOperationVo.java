@@ -5,14 +5,24 @@
 
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.constvalue.CombopOperationType;
+import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.constvalue.ParamMappingMode;
 import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
+import codedriver.framework.autoexec.dto.AutoexecPhaseOperationParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.exception.type.ParamIrregularException;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 组合工具阶段操作Vo类
@@ -51,6 +61,44 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
 
     @EntityField(name = "指定脚本版本Id", type = ApiParamType.LONG)
     private Long scriptVersionId;
+
+    public AutoexecCombopPhaseOperationVo() {
+    }
+
+    //目前用于工具测试，构造组合工具
+    public AutoexecCombopPhaseOperationVo(AutoexecPhaseOperationParamVo phaseOperationParamVo) {
+        this.operationName = phaseOperationParamVo.getName().replaceAll("//", "_");
+        if (Objects.equals(phaseOperationParamVo.getOperationType(), CombopOperationType.SCRIPT.getValue())) {
+            this.setScriptVersionId(phaseOperationParamVo.getOperationId());
+        } else {
+            this.setOperationId(phaseOperationParamVo.getOperationId());
+        }
+        this.operationType = phaseOperationParamVo.getOperationType();
+        this.operation = new AutoexecOperationBaseVo();
+        this.operation.setExecMode(phaseOperationParamVo.getExecMode());
+        this.failPolicy = FailPolicy.STOP.getValue();
+        this.operation.setParser(phaseOperationParamVo.getParser());
+        this.sort = 0;
+        AutoexecCombopPhaseOperationConfigVo operationConfigVo = new AutoexecCombopPhaseOperationConfigVo();
+        this.setConfig(operationConfigVo);
+        List<ParamMappingVo> paramMappingVoList = new ArrayList<>();
+        operationConfigVo.setParamMappingList(paramMappingVoList);
+        if (CollectionUtils.isNotEmpty(phaseOperationParamVo.getInputParamList())) {
+            for (AutoexecParamVo paramVo : phaseOperationParamVo.getInputParamList()) {
+                ParamMappingVo paramMappingVo = new ParamMappingVo();
+                paramMappingVo.setKey(paramVo.getKey());
+                paramMappingVo.setMappingMode(ParamMappingMode.RUNTIME_PARAM.getValue());
+                paramMappingVo.setValue(paramVo.getKey());
+                paramMappingVoList.add(paramMappingVo);
+            }
+            this.operation.setInputParamList(phaseOperationParamVo.getInputParamList());
+            this.operation.setOutputParamList(phaseOperationParamVo.getOutputParamList());
+        }
+        if (phaseOperationParamVo.getArgumentVo() != null && CollectionUtils.isEmpty(phaseOperationParamVo.getArgumentMappingList())) {
+            throw new ParamIrregularException("argumentMappingList");
+        }
+        operationConfigVo.setArgumentMappingList(phaseOperationParamVo.getArgumentMappingList());
+    }
 
     public Long getOperationId() {
         return operationId;

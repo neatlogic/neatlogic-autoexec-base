@@ -6,13 +6,14 @@
 package codedriver.framework.autoexec.dto;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
+import codedriver.framework.autoexec.dto.combop.ParamMappingVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
+import codedriver.framework.common.constvalue.ApiParamType;
+import codedriver.framework.restful.annotation.EntityField;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,14 +23,27 @@ import java.util.stream.Collectors;
  **/
 public class AutoexecPhaseOperationParamVo implements Serializable {
     private static final long serialVersionUID = 4715534326975961852L;
+    @EntityField(name = "参数名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "工具id", type = ApiParamType.STRING)
     private Long operationId;
+    @EntityField(name = "工具名", type = ApiParamType.STRING)
     private String operationName;
+    @EntityField(name = "工具类型", type = ApiParamType.STRING)
     private String operationType;
+    @EntityField(name = "解析器", type = ApiParamType.STRING)
     private String parser;
+    @EntityField(name = "执行方式", type = ApiParamType.STRING)
     private String execMode;
+    @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> inputParamList;
+    @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> outputParamList;
+    @EntityField(name = "自由参数映射列表", type = ApiParamType.JSONARRAY)
+    private List<ParamMappingVo> argumentMappingList;
+    @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
+    private AutoexecParamVo argumentVo;
+
 
     public AutoexecPhaseOperationParamVo() {
     }
@@ -43,6 +57,7 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
         this.inputParamList = toolVo.getInputParamList();
         this.outputParamList = toolVo.getOutputParamList();
         this.execMode = toolVo.getExecMode();
+        this.argumentVo = toolVo.getArgument();
     }
 
     public AutoexecPhaseOperationParamVo(AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo) {
@@ -58,6 +73,7 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
             this.outputParamList = scriptVersionVo.getOutputParamList().stream().map(o -> (AutoexecParamVo) o).collect(Collectors.toList());
         }
         this.execMode = scriptVo.getExecMode();
+        this.argumentVo = scriptVo.getArgument();
     }
 
     public String getName() {
@@ -124,8 +140,19 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
         this.execMode = execMode;
     }
 
-    public static void main(String[] args) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        sdf.parse("2020/10/01");
+    public List<ParamMappingVo> getArgumentMappingList() {
+        return argumentMappingList;
+    }
+
+    public void setArgumentMappingList(List<ParamMappingVo> argumentMappingList) {
+        this.argumentMappingList = argumentMappingList;
+    }
+
+    public AutoexecParamVo getArgumentVo() {
+        return argumentVo;
+    }
+
+    public void setArgumentVo(AutoexecParamVo argumentVo) {
+        this.argumentVo = argumentVo;
     }
 }
