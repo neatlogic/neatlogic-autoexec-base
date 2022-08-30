@@ -24,10 +24,6 @@ public class AutoexecJobPhaseNodeExportHandlerFactory extends ModuleInitializedL
         return handlerMap.get(name);
     }
 
-    public static Map<String, IAutoexecJobPhaseNodeExportHandler> getHandlerMap() {
-        return handlerMap;
-    }
-
     @Override
     protected void onInitialized(CodedriverWebApplicationContext context) {
         Map<String, IAutoexecJobPhaseNodeExportHandler> myMap = context.getBeansOfType(IAutoexecJobPhaseNodeExportHandler.class);
