@@ -54,4 +54,5 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
 
     protected void myExecuteAuthCheck(AutoexecJobVo jobParam) {
     }
+
 }

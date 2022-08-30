@@ -11,6 +11,7 @@ import codedriver.framework.util.excel.SheetBuilder;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -55,7 +56,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                 for (Map.Entry<String, List<Long>> entry : runnerNodeMap.entrySet()) {
                     String url = entry.getKey() + "api/binary/job/phase/batchnode/log/tail";
                     List<Long> value = entry.getValue();
-                    if (org.apache.commons.collections4.CollectionUtils.isNotEmpty(value)) {
+                    if (CollectionUtils.isNotEmpty(value)) {
                         JSONArray nodeList = new JSONArray();
                         value.forEach(o -> nodeList.add(nodeLogTailParamMap.get(o)));
                         JSONObject paramJson = new JSONObject();

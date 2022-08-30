@@ -170,5 +170,4 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobVo 作业
      */
     void getJobActionAuth(AutoexecJobVo jobVo);
-
 }
