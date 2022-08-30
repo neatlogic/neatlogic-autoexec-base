@@ -157,7 +157,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 throw new AutoexecJobSourceInvalidException(jobVo.getSource());
             }
             IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSourceVo.getType());
-            AutoexecSqlDetailVo sqlDetailVo = autoexecJobSourceActionHandler.getSqlDetail(jobVo);
+            AutoexecSqlNodeDetailVo sqlDetailVo = autoexecJobSourceActionHandler.getSqlDetail(jobVo);
             if (sqlDetailVo == null) {
                 throw new AutoexecJobSqlDetailNotFoundException();
             }

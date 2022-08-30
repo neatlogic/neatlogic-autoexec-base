@@ -233,25 +233,25 @@ public interface AutoexecJobMapper {
 
     //jobSql
 
-    List<AutoexecSqlDetailVo> searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+    List<AutoexecSqlNodeDetailVo> searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
-    List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("sqlFileList") JSONArray sqlFileList);
+    List<AutoexecSqlNodeDetailVo> getJobSqlDetailListByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("sqlFileList") JSONArray sqlFileList);
 
-    AutoexecSqlDetailVo getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile(@Param("resourceId") Long resourceId, @Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("sqlFile") String sqlFile);
+    AutoexecSqlNodeDetailVo getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile(@Param("resourceId") Long resourceId, @Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("sqlFile") String sqlFile);
 
-    AutoexecSqlDetailVo getJobSqlById(Long id);
+    AutoexecSqlNodeDetailVo getJobSqlById(Long id);
 
-    AutoexecSqlDetailVo getJobSqlByJobPhaseIdAndResourceIdAndSqlName(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceId") Long resourceId, @Param("sqlName") String sqlName);
+    AutoexecSqlNodeDetailVo getJobSqlByJobPhaseIdAndResourceIdAndSqlName(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceId") Long resourceId, @Param("sqlName") String sqlName);
 
     List<Long> getSqlDetailIdListByJobIdAndPhaseNameAndResourceIdAndLcd(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
 
     List<Long> getJobSqlIdListByJobIdAndJobPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 
-    List<AutoexecSqlDetailVo> getJobSqlListByJobIdAndJobPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
+    List<AutoexecSqlNodeDetailVo> getJobSqlListByJobIdAndJobPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 
     List<Long> getJobSqlIdListByJobIdAndJobPhaseNameList(@Param("jobId") Long jobId, @Param("jobPhaseNameList") List<String> jobPhaseNameList);
 
-    List<AutoexecSqlDetailVo> getJobSqlDetailListByJobIdAndPhaseNameAndExceptStatusAndRunnerMapId(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("exceptStatusList") List<String> exceptStatusList, @Param("runnerMapId") Long runnerMapId);
+    List<AutoexecSqlNodeDetailVo> getJobSqlDetailListByJobIdAndPhaseNameAndExceptStatusAndRunnerMapId(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("exceptStatusList") List<String> exceptStatusList, @Param("runnerMapId") Long runnerMapId);
 
     int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 
@@ -321,7 +321,7 @@ public interface AutoexecJobMapper {
 
     void updateSqlIsDeleteByIdList(@Param("idList") List<Long> idList);
 
-    void updateSqlDetailById(AutoexecSqlDetailVo paramSqlVo);
+    void updateSqlDetailById(AutoexecSqlNodeDetailVo paramSqlVo);
 
     void resetJobSqlStatusBySqlIdList(@Param("idList") List<Long> idList);
 
@@ -329,9 +329,9 @@ public interface AutoexecJobMapper {
 
     int insertDuplicateJobResourceInspect(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseId") Long phaseId, @Param("lcd") Date lcd);
 
-    void insertSqlDetail(AutoexecSqlDetailVo sqlFileDetailVo);
+    void insertSqlDetail(AutoexecSqlNodeDetailVo sqlFileDetailVo);
 
-    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("phaseId") Long phaseId, @Param("runnerId") Long runnerId, @Param("lcd") Date lcd);
+    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlNodeDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("phaseId") Long phaseId, @Param("runnerId") Long runnerId, @Param("lcd") Date lcd);
 
     void deleteJobContentByHash(String paramHash);
 

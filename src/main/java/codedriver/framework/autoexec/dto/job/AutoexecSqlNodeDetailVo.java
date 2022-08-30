@@ -1,6 +1,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
+import codedriver.framework.autoexec.dto.ISqlNodeDetail;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -16,7 +17,7 @@ import java.util.Objects;
  * @author longrf
  * @date 2022/4/25 6:02 下午
  */
-public class AutoexecSqlDetailVo extends BaseEditorVo {
+public class AutoexecSqlNodeDetailVo extends BaseEditorVo implements ISqlNodeDetail {
 
     private static final long serialVersionUID = -3975625036032471623L;
 
@@ -50,6 +51,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String runnerHost;
     @EntityField(name = "runner 端口", type = ApiParamType.INTEGER)
     private Integer runnerPort;
+    @EntityField(name = "runner url", type = ApiParamType.STRING)
+    private String runnerUrl;
     @EntityField(name = "状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "状态名", type = ApiParamType.STRING)
@@ -71,11 +74,11 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     @EntityField(name = "序号", type = ApiParamType.INTEGER)
     private Integer sort;
     @EntityField(name = "是否改动", type = ApiParamType.INTEGER)
-    private Integer isModified ;
+    private Integer isModified;
     @EntityField(name = "告警个数", type = ApiParamType.INTEGER)
     private Integer warnCount;
 
-    public AutoexecSqlDetailVo(JSONObject paramObj) {
+    public AutoexecSqlNodeDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
         this.nodeId = (paramObj.getLong("nodeId"));
         this.resourceId = (paramObj.getLong("resourceId"));
@@ -99,7 +102,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         }
     }
 
-    public AutoexecSqlDetailVo() {
+    public AutoexecSqlNodeDetailVo() {
     }
 
     public Long getId() {
@@ -223,6 +226,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     public void setRunnerPort(Integer runnerPort) {
         this.runnerPort = runnerPort;
+    }
+
+    public String getRunnerUrl() {
+        return runnerUrl;
+    }
+
+    public void setRunnerUrl(String runnerUrl) {
+        this.runnerUrl = runnerUrl;
     }
 
     public String getStatus() {

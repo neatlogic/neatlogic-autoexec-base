@@ -5,12 +5,13 @@
 
 package codedriver.framework.autoexec.job.source.type;
 
+import codedriver.framework.autoexec.dto.INodeDetail;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
-import codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo;
+import codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import com.alibaba.fastjson.JSONObject;
 
@@ -59,6 +60,8 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     void resetSqlStatus(JSONObject paramObj, AutoexecJobVo jobVo);
 
+    int searchJobPhaseSqlCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
     /**
      * 查询作业剧本sql（管理页）
      *
@@ -66,6 +69,8 @@ public interface IAutoexecJobSourceTypeHandler {
      * @return sql列表和分页数据
      */
     JSONObject searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    List<? extends INodeDetail> searchJobPhaseSqlForExport(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     /**
      * 检查作业执行sql文件状态(多删少补，不更新状态)
@@ -88,7 +93,7 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobVo 作业入参
      * @return sql详情
      */
-    AutoexecSqlDetailVo getSqlDetail(AutoexecJobVo jobVo);
+    AutoexecSqlNodeDetailVo getSqlDetail(AutoexecJobVo jobVo);
 
     /**
      * 获取runnerMapList
@@ -153,9 +158,9 @@ public interface IAutoexecJobSourceTypeHandler {
     /**
      * 执行用户是否可以执行作业
      *
-     * @param jobVo      作业
+     * @param jobVo 作业
      */
-    void executeAuthCheck(AutoexecJobVo jobVo,boolean isNeedCheckTakeOver);
+    void executeAuthCheck(AutoexecJobVo jobVo, boolean isNeedCheckTakeOver);
 
     /**
      * 获取对应管理员权限
