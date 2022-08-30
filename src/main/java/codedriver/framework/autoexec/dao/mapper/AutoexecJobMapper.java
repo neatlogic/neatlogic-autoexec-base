@@ -34,6 +34,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobVo> getJobWarnCountAndStatus(List<Long> idList);
 
+    List<AutoexecJobVo> getJobListByIdList(List<Long> idList);
+
     Integer searchJobCount(AutoexecJobVo jobVo);
 
     List<AutoexecCombopVo> searchJobWithCombopView(AutoexecJobVo jobVo);
