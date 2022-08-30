@@ -10,10 +10,9 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
-import codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo;
+import codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.List;
 
@@ -89,7 +88,7 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobVo 作业入参
      * @return sql详情
      */
-    AutoexecSqlDetailVo getSqlDetail(AutoexecJobVo jobVo);
+    AutoexecSqlNodeDetailVo getSqlDetail(AutoexecJobVo jobVo);
 
     /**
      * 获取runnerMapList
@@ -172,5 +171,4 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     void getJobActionAuth(AutoexecJobVo jobVo);
 
-    Workbook exportJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList);
 }

@@ -1470,7 +1470,7 @@
         <include refid="searchJobPhaseSql"></include>
     </select>
 
-    <select id="searchJobPhaseSql" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+    <select id="searchJobPhaseSql" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         SELECT
         ajsd.`id`,
         ajsd.`status`,
@@ -1554,7 +1554,7 @@
     </select>
 
     <select id="getJobSqlListByJobIdAndJobPhaseName"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1618,7 +1618,7 @@
     </select>
 
     <select id="getJobSqlDetailListByJobIdAndPhaseName"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         SELECT ajsd.`id`,
         ajsd.`md5`,
         ajsd.`status`,
@@ -1643,7 +1643,7 @@
     </select>
 
     <select id="getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1658,7 +1658,7 @@
     </select>
 
     <select id="getJobSqlById"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1673,7 +1673,7 @@
         where ajsd.id = #{id}
     </select>
     <select id="getJobSqlByJobPhaseIdAndResourceIdAndSqlName"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1756,7 +1756,7 @@
         </foreach>
     </select>
     <select id="getJobSqlDetailListByJobIdAndPhaseNameAndExceptStatusAndRunnerMapId"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
         ajsd.`md5`,
         ajsd.`status`,
@@ -2026,7 +2026,7 @@
         values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr})
     </insert>
 
-    <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+    <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         insert into `autoexec_job_sql_detail`(`id`,
         `job_id`,
         `host`,

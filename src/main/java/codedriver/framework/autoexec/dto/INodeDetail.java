@@ -2,13 +2,11 @@ package codedriver.framework.autoexec.dto;
 
 import java.util.Date;
 
-public interface ISqlDetail {
+public interface INodeDetail {
 
     Long getId();
 
     Long getResourceId();
-
-    String getSqlFile();
 
     String getRunnerUrl();
 

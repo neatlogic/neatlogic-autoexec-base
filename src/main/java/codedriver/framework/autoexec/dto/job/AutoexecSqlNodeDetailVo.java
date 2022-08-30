@@ -1,7 +1,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
-import codedriver.framework.autoexec.dto.ISqlDetail;
+import codedriver.framework.autoexec.dto.ISqlNodeDetail;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -17,7 +17,7 @@ import java.util.Objects;
  * @author longrf
  * @date 2022/4/25 6:02 下午
  */
-public class AutoexecSqlDetailVo extends BaseEditorVo implements ISqlDetail {
+public class AutoexecSqlNodeDetailVo extends BaseEditorVo implements ISqlNodeDetail {
 
     private static final long serialVersionUID = -3975625036032471623L;
 
@@ -78,7 +78,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo implements ISqlDetail {
     @EntityField(name = "告警个数", type = ApiParamType.INTEGER)
     private Integer warnCount;
 
-    public AutoexecSqlDetailVo(JSONObject paramObj) {
+    public AutoexecSqlNodeDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
         this.nodeId = (paramObj.getLong("nodeId"));
         this.resourceId = (paramObj.getLong("resourceId"));
@@ -102,7 +102,7 @@ public class AutoexecSqlDetailVo extends BaseEditorVo implements ISqlDetail {
         }
     }
 
-    public AutoexecSqlDetailVo() {
+    public AutoexecSqlNodeDetailVo() {
     }
 
     public Long getId() {
