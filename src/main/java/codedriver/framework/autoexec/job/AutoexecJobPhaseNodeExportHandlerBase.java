@@ -101,9 +101,31 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
         return workbook;
     }
 
-    protected abstract void assembleData(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<? extends INodeDetail> list, Map<Long, Map<String, Object>> nodeDataMap, Map<String, List<Long>> runnerNodeMap, Map<Long, JSONObject> nodeLogTailParamMap);
-
+    /**
+     * 查询节点总数
+     *
+     * @param jobPhaseNodeVo 用于查询的vo
+     * @return
+     */
     protected abstract int getJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
+    /**
+     * 分页查询节点
+     *
+     * @param jobPhaseNodeVo 用于查询的vo
+     * @return
+     */
     protected abstract List<? extends INodeDetail> searchJobPhaseNode(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    /**
+     * 组装一些必要的数据
+     *
+     * @param jobVo               作业
+     * @param phaseVo             阶段
+     * @param nodeList            节点列表
+     * @param nodeDataMap         除去日志的表格数据
+     * @param runnerNodeMap       runner地址与节点列表的map
+     * @param nodeLogTailParamMap 请求runner获取日志的参数map
+     */
+    protected abstract void assembleData(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<? extends INodeDetail> nodeList, Map<Long, Map<String, Object>> nodeDataMap, Map<String, List<Long>> runnerNodeMap, Map<Long, JSONObject> nodeLogTailParamMap);
 }
