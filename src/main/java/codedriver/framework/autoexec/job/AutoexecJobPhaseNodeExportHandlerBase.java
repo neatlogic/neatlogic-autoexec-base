@@ -1,9 +1,12 @@
 package codedriver.framework.autoexec.job;
 
+import codedriver.framework.autoexec.dto.AutoexecJobSourceVo;
 import codedriver.framework.autoexec.dto.INodeDetail;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
+import codedriver.framework.autoexec.exception.AutoexecJobSourceInvalidException;
+import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.integration.authentication.enums.AuthenticateType;
 import codedriver.framework.util.HttpRequestUtil;
 import codedriver.framework.util.excel.ExcelBuilder;
@@ -31,7 +34,11 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
     @Override
     final public Workbook exportJobPhaseNode(AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList) {
         Workbook workbook = null;
-        int count = getJobPhaseNodeCount(jobPhaseNodeVo);
+        AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
+        if (jobSourceVo == null) {
+            throw new AutoexecJobSourceInvalidException(jobVo.getSource());
+        }
+        int count = getJobPhaseNodeCount(jobPhaseNodeVo, jobSourceVo.getType());
         if (count > 0) {
             List<? extends INodeDetail> list;
             jobPhaseNodeVo.setRowNum(count);
@@ -48,7 +55,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
             Integer pageCount = jobPhaseNodeVo.getPageCount();
             for (int i = 1; i <= pageCount; i++) {
                 jobPhaseNodeVo.setCurrentPage(i);
-                list = searchJobPhaseNode(jobPhaseNodeVo);
+                list = searchJobPhaseNode(jobPhaseNodeVo, jobSourceVo.getType());
                 Map<Long, Map<String, Object>> nodeDataMap = new LinkedHashMap<>();
                 Map<String, List<Long>> runnerNodeMap = new HashMap<>();
                 Map<Long, JSONObject> nodeLogTailParamMap = new HashMap<>();
@@ -106,17 +113,19 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
      * 查询节点总数
      *
      * @param jobPhaseNodeVo 用于查询的vo
+     * @param source         作业来源
      * @return
      */
-    protected abstract int getJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+    protected abstract int getJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo, String source);
 
     /**
      * 分页查询节点
      *
      * @param jobPhaseNodeVo 用于查询的vo
+     * @param source         作业来源
      * @return
      */
-    protected abstract List<? extends INodeDetail> searchJobPhaseNode(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+    protected abstract List<? extends INodeDetail> searchJobPhaseNode(AutoexecJobPhaseNodeVo jobPhaseNodeVo, String source);
 
     /**
      * 组装一些必要的数据

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RootComponent
 public class AutoexecJobPhaseNodeExportHandlerFactory extends ModuleInitializedListenerBase {
@@ -21,7 +22,8 @@ public class AutoexecJobPhaseNodeExportHandlerFactory extends ModuleInitializedL
     private static final Map<String, IAutoexecJobPhaseNodeExportHandler> handlerMap = new HashMap<>();
 
     public static IAutoexecJobPhaseNodeExportHandler getHandler(String name) {
-        return handlerMap.get(name);
+        Optional<String> first = handlerMap.keySet().stream().filter(o -> o.contains(name)).findFirst();
+        return first.map(handlerMap::get).orElse(null);
     }
 
     @Override

@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.job.source.type;
 
+import codedriver.framework.autoexec.dto.INodeDetail;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
@@ -59,6 +60,12 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     void resetSqlStatus(JSONObject paramObj, AutoexecJobVo jobVo);
 
+    int searchJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    List<? extends INodeDetail> searchJobPhaseNodeForExport(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    int searchJobPhaseSqlCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
     /**
      * 查询作业剧本sql（管理页）
      *
@@ -66,6 +73,8 @@ public interface IAutoexecJobSourceTypeHandler {
      * @return sql列表和分页数据
      */
     JSONObject searchJobPhaseSql(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
+
+    List<? extends INodeDetail> searchJobPhaseSqlForExport(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     /**
      * 检查作业执行sql文件状态(多删少补，不更新状态)
