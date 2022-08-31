@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.job;
 import codedriver.framework.applicationlistener.core.ModuleInitializedListenerBase;
 import codedriver.framework.bootstrap.CodedriverWebApplicationContext;
 import codedriver.framework.common.RootComponent;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +23,11 @@ public class AutoexecJobPhaseNodeExportHandlerFactory extends ModuleInitializedL
     private static final Map<String, IAutoexecJobPhaseNodeExportHandler> handlerMap = new HashMap<>();
 
     public static IAutoexecJobPhaseNodeExportHandler getHandler(String name) {
-        Optional<String> first = handlerMap.keySet().stream().filter(o -> o.contains(name)).findFirst();
-        return first.map(handlerMap::get).orElse(null);
+        if (StringUtils.isNotBlank(name)) {
+            Optional<String> first = handlerMap.keySet().stream().filter(name::contains).findFirst();
+            return first.map(handlerMap::get).orElse(null);
+        }
+        return null;
     }
 
     @Override
