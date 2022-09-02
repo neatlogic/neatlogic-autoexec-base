@@ -7,6 +7,8 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.CombopOperationType;
 import codedriver.framework.autoexec.constvalue.FailPolicy;
+import codedriver.framework.autoexec.constvalue.ParamMappingMode;
+import codedriver.framework.autoexec.dto.AutoexecOperationBaseVo;
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.AutoexecToolVo;
@@ -30,7 +32,7 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * @author lvzk
@@ -68,7 +70,10 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private JSONArray outputParamList;
     @EntityField(name = "顺序", type = ApiParamType.INTEGER)
     private Integer sort;
-    @EntityField(name = "操作id", type = ApiParamType.LONG)
+    @EntityField(name = "父工具id", type = ApiParamType.LONG)
+    private Long parentOperationId;
+    @EntityField(name = "父工具类型", type = ApiParamType.LONG)
+    private String parentOperationType;
     private Long operationId;
     private Long versionId;
     private String paramHash;
@@ -77,6 +82,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private String script;
     private Long scriptId;
     private String scriptHash;
+    @EntityField(name = "预制参数集id", type = ApiParamType.LONG)
+    private Long profileId;
 
     public AutoexecJobPhaseOperationVo() {
     }
@@ -92,13 +99,6 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.parser = scriptVersionVo.getParser();
         //拼接操作脚本到config
         JSONObject operationConfigJson = operationJson.getJSONObject("config");
-        /*StringBuilder scriptSb = new StringBuilder();
-        for (AutoexecScriptLineVo lineVo : scriptLineVoList) {
-            scriptSb.append(lineVo.getContent());
-        }
-        String script = scriptSb.toString();
-        operationConfigJson.put("script", script);
-        this.script = script;*/
         this.paramStr = operationConfigJson.toString();
         this.scriptId = scriptVo.getId();
 
@@ -127,20 +127,24 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.execMode = operationVo.getExecMode();
         this.failPolicy = autoexecCombopPhaseOperationVo.getFailPolicy();
         this.parser = operationVo.getParser();
-        this.sort = autoexecCombopPhaseOperationVo.getSort();
-        this.operationId = autoexecCombopPhaseOperationVo.getId();
+        this.sort = autoexecCombopPhaseOperationVo.getSort() == null ? 0 : autoexecCombopPhaseOperationVo.getSort();//兼容operation sort 为null bug
+        this.operationId = autoexecCombopPhaseOperationVo.getOperationId();
+        this.setParentOperationId(autoexecCombopPhaseOperationVo.getParentOperationId());
+        this.setParentOperationType(autoexecCombopPhaseOperationVo.getParentOperationType());
         //拼接操作脚本到config
         JSONObject paramObj = new JSONObject();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = autoexecCombopPhaseOperationVo.getConfig();
         List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
         List<ParamMappingVo> argumentMappingVos = operationConfigVo.getArgumentMappingList();
-
-        List<AutoexecParamVo> inputParamList = autoexecCombopPhaseOperationVo.getInputParamList();
-        AutoexecParamVo argumentParam = autoexecCombopPhaseOperationVo.getArgument();
+        AutoexecOperationBaseVo autoexecOperationBaseVo = autoexecCombopPhaseOperationVo.getOperation();
+        List<AutoexecParamVo> inputParamList = autoexecOperationBaseVo.getInputParamList();
+        AutoexecParamVo argumentParam = autoexecOperationBaseVo.getArgument();
         //替换输入参数（上游参数）
-        for (ParamMappingVo paramMappingVo : paramMappingVos) {
-            for (AutoexecParamVo input : inputParamList) {
-                exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
+        if (CollectionUtils.isNotEmpty(paramMappingVos)) {
+            for (ParamMappingVo paramMappingVo : paramMappingVos) {
+                for (AutoexecParamVo input : inputParamList) {
+                    exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo);
+                }
             }
         }
         //替换自由参数（上游参数）
@@ -151,17 +155,14 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                 }
             }
         }
-        paramObj.put("outputParamList", autoexecCombopPhaseOperationVo.getOutputParamList());
+        paramObj.put("outputParamList", autoexecOperationBaseVo.getOutputParamList());
         paramObj.put("inputParamList", paramMappingVos);
-        if (argumentParam != null) {
-            paramObj.put("argument", new JSONObject() {{
-                put("type", argumentParam.getMode());
-                put("values", argumentMappingVos.stream().map(ParamMappingVo::getValue).collect(Collectors.toList()));
-            }});
-        }
+        paramObj.put("argumentList", argumentMappingVos);
         this.paramStr = paramObj.toString();
         this.scriptId = operationVo.getId();
         this.uuid = autoexecCombopPhaseOperationVo.getUuid();
+        //profileId
+        this.profileId = autoexecCombopPhaseOperationVo.getConfig().getProfileId();
     }
 
     /**
@@ -186,16 +187,20 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                     String opName = values[1];
                     String opUuid = values[2];
                     value = values[3];
-                    List<AutoexecJobPhaseVo> tmpPhaseList = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).collect(Collectors.toList());
-                    if (tmpPhaseList.size() == 1) {
-                        List<AutoexecJobPhaseOperationVo> tmpOperationList = tmpPhaseList.get(0).getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).collect(Collectors.toList());
-                        if (tmpOperationList.size() == 1) {
-                            paramMappingVo.setValue(String.format("${%s.%s_%d.%s}", tmpPhaseList.get(0).getName(), opName, tmpOperationList.get(0).getId(), value));
+                    Optional<AutoexecJobPhaseVo> phaseVoOptional = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).findFirst();
+                    if (phaseVoOptional.isPresent()) {
+                        Optional<AutoexecJobPhaseOperationVo> operationVoOptional = phaseVoOptional.get().getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).findFirst();
+                        if (operationVoOptional.isPresent()) {
+                            String valueFormat = "${%s.%s_%d.%s}";
+                            if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.PRE_NODE_OUTPUT_PARAM_KEY.getValue())) {
+                                valueFormat = "#{%s.%s_%d.%s}";
+                            }
+                            paramMappingVo.setValue(String.format(valueFormat, phaseVoOptional.get().getName(), opName, operationVoOptional.get().getId(), value));
                         } else {
-                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
+                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
                         }
                     } else {
-                        throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
+                        throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
                     }
                 } else {
                     throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
@@ -373,5 +378,29 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setOperationId(Long operationId) {
         this.operationId = operationId;
+    }
+
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
+    }
+
+    public Long getParentOperationId() {
+        return parentOperationId;
+    }
+
+    public void setParentOperationId(Long parentOperationId) {
+        this.parentOperationId = parentOperationId;
+    }
+
+    public String getParentOperationType() {
+        return parentOperationType;
+    }
+
+    public void setParentOperationType(String parentOperationType) {
+        this.parentOperationType = parentOperationType;
     }
 }

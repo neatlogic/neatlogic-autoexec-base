@@ -8,6 +8,7 @@ public enum JobAction {
     FIRE("fire", "执行"),
     PAUSE("pause", "暂停"),
     ABORT("abort", "中止"),
+    CHECK("check", "验证"),
     RESET_NODE("resetNode", "重置节点"),
     IGNORE_NODE("ignoreNode", "重置节点"),
     GOON("goon", "继续"),
@@ -31,7 +32,8 @@ public enum JobAction {
     DELETE("delete", "删除作业"),
     TAIL_NODE_LOG("tailNodeLog", "获取节点日志"),
     GET_NODE_OPERATION_LIST("getNodeOperationList","获取节点操作列表"),
-    INFORM_PHASE_ROUND("informPhaseRound", "通知下一个phase round");
+    INFORM_PHASE_ROUND("informPhaseRound", "通知下一个phase round"),
+    TAKE_OVER("takeOver", "接管");
 
     private final String value;
     private final String text;

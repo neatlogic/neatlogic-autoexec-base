@@ -5,6 +5,12 @@
   -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecJobMapper">
+    <select id="getJobIdListByParentId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT id
+        FROM autoexec_job
+        WHERE parent_id = #{value}
+    </select>
+
     <select id="searchJobId" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo"
             resultType="java.lang.Long">
         SELECT
@@ -14,9 +20,12 @@
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '' )">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
-        <if test="invokeId != null">
+        <if test="invokeIdList != null and invokeIdList.size() > 0">
             JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
-            aji.`invoke_id` = #{invokeId}
+            aji.`invoke_id` in
+            <foreach collection="invokeIdList" open="(" item="invokeId" close=")" separator=",">
+                #{invokeId}
+            </foreach>
         </if>
         <where>
             <include refid="searchJobSql"/>
@@ -29,6 +38,7 @@
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         SELECT
         aj.`id`,
+        aj.`parent_id` AS parentId,
         aj.`name`,
         aj.`status`,
         aj.`error_msg` as errorMsg,
@@ -40,7 +50,7 @@
         aj.`exec_user` as execUser,
         aj.`exec_user_type` as execUserType,
         aj.`source`,
-        aj.`thread_count` as threadCount,
+        aj.`round_count` as roundCount,
         aj.`trigger_type` as triggerType
         FROM
         `autoexec_job` aj
@@ -60,9 +70,12 @@
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '') ">
             LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         </if>
-        <if test="invokeId != null">
+        <if test="invokeIdList != null and invokeIdList.size() > 0">
             JOIN `autoexec_job_invoke` aji ON aj.`id` = aji.`job_id` AND
-            aji.`invoke_id` = #{invokeId}
+            aji.`invoke_id` in
+            <foreach collection="invokeIdList" open="(" item="invokeId" close=")" separator=",">
+                #{invokeId}
+            </foreach>
         </if>
         <where>
             <include refid="searchJobSql"/>
@@ -85,6 +98,10 @@
     <sql id="searchJobSql">
         <if test="combopName != null and combopName != ''">
             ac.name like concat('%', #{combopName}, '%')
+        </if>
+        <if test="excludeIdList != null and excludeIdList.size() > 0">
+            AND aj.id not in
+            <foreach collection="excludeIdList" item="item" open="(" close=")" separator=",">#{item}</foreach>
         </if>
         <if test="keyword != null and keyword != ''">
             and (aj.name like concat('%', #{keyword}, '%') OR aj.id like concat('%', #{keyword}, '%'))
@@ -116,6 +133,16 @@
             <foreach collection="execUserList" item="execUser" open="(" close=")" separator=",">
                 #{execUser}
             </foreach>
+        </if>
+        <if test="hasParent != null">
+            <choose>
+                <when test="hasParent == true">
+                    AND aj.parent_id is not null
+                </when>
+                <otherwise>
+                    AND aj.parent_id is null
+                </otherwise>
+            </choose>
         </if>
         <if test="idList != null and idList.size() > 0">
             and aj.`id` in
@@ -353,6 +380,7 @@
         <result column="name" property="name"/>
         <result column="groupId" property="groupId"/>
         <result column="sort" property="sort"/>
+        <result column="warnCount" property="warnCount"/>
         <result column="uk" property="uk"/>
         <collection property="jobGroupVo" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
             <result column="groupId" property="id"/>
@@ -435,10 +463,11 @@
                aj.`exec_user`       as execUser,
                aj.`exec_user_type`  as execUserType,
                aj.`source`,
-               aj.`thread_count`    as threadCount,
+               aj.`round_count`     as roundCount,
                aj.`param_hash`      as paramHash,
-               aj.`config`          as configStr,
+               aj.`config_hash`     as configHash,
                aj.`lncd`,
+               aj.`parent_id`       as parentId,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value}
@@ -514,10 +543,10 @@
                ajpo.`fail_policy` AS failPolicy,
                ajpc1.`content`    AS operationParam
         FROM `autoexec_job` aj
-                 LEFT JOIN `autoexec_job_param_content` ajpc ON aj.`param_hash` = ajpc.`hash`
+                 LEFT JOIN `autoexec_job_content` ajpc ON aj.`param_hash` = ajpc.`hash`
                  LEFT JOIN `autoexec_job_phase` ajp ON aj.`id` = ajp.`job_id`
                  LEFT JOIN `autoexec_job_phase_operation` ajpo ON ajp.`id` = ajpo.`job_phase_id`
-                 LEFT JOIN `autoexec_job_param_content` ajpc1 ON ajpo.`param_hash` = ajpc1.`hash`
+                 LEFT JOIN `autoexec_job_content` ajpc1 ON ajpo.`param_hash` = ajpc1.`hash`
         where aj.`id` = #{jobId}
           and ajp.`name` = #{phaseName}
 
@@ -535,9 +564,9 @@
                aj.`operation_type`  as operationType,
                aj.`exec_user`       as execUser,
                aj.`source`,
-               aj.`thread_count`    as threadCount,
+               aj.`round_count`     as roundCount,
                aj.`param_hash`      as paramHash,
-               aj.`config`          as configStr,
+               aj.`config_hash`     as configHash,
                aj.`trigger_type`    as triggerType
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value} for
@@ -551,20 +580,20 @@
           AND aj.`trigger_type` = #{triggerType}
     </select>
 
-    <select id="getJobParamContentLock"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobParamContentVo">
+    <select id="getJobContentLock"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobContentVo">
         SELECT `hash`,
                `content`
-        FROM `autoexec_job_param_content`
+        FROM `autoexec_job_content`
         where `hash` = #{value} for
         update
     </select>
 
-    <select id="getJobParamContent"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobParamContentVo">
+    <select id="getJobContent"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobContentVo">
         SELECT `hash`,
                `content`
-        FROM `autoexec_job_param_content`
+        FROM `autoexec_job_content`
         where `hash` = #{value}
     </select>
 
@@ -597,10 +626,12 @@
                `sort`,
                `fail_policy`  as failPolicy,
                version_id     as versionId,
-               `param_hash`   as paramHash
+               `param_hash`   as paramHash,
+               `profile_id`   as profileId
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
+          and `parent_operation_id` is null
     </select>
 
     <select id="checkIsJobParamReference" resultType="java.lang.Integer">
@@ -816,6 +847,27 @@
         </foreach>
     </select>
 
+    <select id="getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatusAndRunnerMapId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`status`
+        FROM `autoexec_job_phase_node` ajpn
+        left join autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
+        where ajpn.`job_id` = #{jobId} and ajpn.`job_phase_id` = #{phaseId}
+        and ajpnr.runner_map_id = #{runnerMapId}
+        and
+        ajpn.`status` not in
+        <foreach collection="exceptStatus" item="status" separator="," open="(" close=")">
+            #{status}
+        </foreach>
+    </select>
+
     <select id="getJobPhaseNodeListByJobIdAndPhaseId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT ajpn.`id`,
@@ -865,18 +917,18 @@
         WHERE `job_id` = #{value}
           and `status` = 'running'
     </select>
-    <select id="getJobParamContentList"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobParamContentVo">
+    <select id="getJobContentList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobContentVo">
         SELECT `hash`,
         `content`
-        FROM `autoexec_job_param_content`
+        FROM `autoexec_job_content`
         where `hash` in
         <foreach collection="hashList" separator="," open="(" close=")" item="hash">
             #{hash}
         </foreach>
     </select>
 
-    <select id="getJobPhaseRunnerByNotStatusCount" resultType="java.lang.Integer">
+    <select id="getJobPhaseRunnerCountByPhaseIdListAndRunnerNotStatus" resultType="java.lang.Integer">
         SELECT
         COUNT(1)
         FROM
@@ -887,7 +939,13 @@
         </foreach>
         and `status` != #{status}
     </select>
-    <select id="getJobPhaseRunnerCountByJobIdAndStatus"
+    <select id="getJobPhaseRunnerCountByJobIdAndRunnerStatus" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `autoexec_job_phase_runner`
+        WHERE `job_id` = #{jobId}
+          and `status` = #{status}
+    </select>
+    <select id="getJobPhaseByJobIdAndRunnerStatus"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT ajpr.job_phase_id,
                COUNT(1) as `count`
@@ -897,7 +955,7 @@
           AND ajpr.`status` = #{status}
         GROUP BY ajpr.job_phase_id
     </select>
-    <select id="getJobPhaseRunnerByStatusCount" resultType="java.lang.Integer">
+    <select id="getJobPhaseRunnerByPhaseListAndStatusCount" resultType="java.lang.Integer">
         SELECT
         COUNT(1)
         FROM
@@ -1075,9 +1133,9 @@
                aj.`operation_type`  as operationType,
                aj.`exec_user`       as execUser,
                aj.`source`,
-               aj.`thread_count`    as threadCount,
+               aj.`round_count`     as roundCount,
                aj.`param_hash`      as paramHash,
-               aj.`config`          as configStr
+               aj.`config_hash`     as configHash
         FROM `autoexec_job` aj
         WHERE aj.`operation_id` = #{value} for
         update
@@ -1282,7 +1340,7 @@
                aj.`exec_user`       as execUser,
                aj.`exec_user_type`  as execUserType,
                aj.`source`,
-               aj.`thread_count`    as threadCount
+               aj.`round_count`     as roundCount
         FROM `autoexec_job` aj
         WHERE aj.`start_time` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY)
     </select>
@@ -1412,7 +1470,7 @@
         <include refid="searchJobPhaseSql"></include>
     </select>
 
-    <select id="searchJobPhaseSql" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+    <select id="searchJobPhaseSql" resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         SELECT
         ajsd.`id`,
         ajsd.`status`,
@@ -1421,15 +1479,19 @@
         ajsd.`end_time` AS endTime,
         r.`host` AS runnerHost,
         r.`port` AS runnerPort,
+        r.`url` AS runnerUrl,
         ajsd.resource_id AS resourceId,
         ajsd.`host`,
         ajsd.`port`,
-        ajsd.`node_name` AS nodeName
+        ajsd.`node_name` AS nodeName,
+        ajsd.`is_modified` AS isModified,
+        ajsd.`warn_count` AS warnCount,
+        ajsd.`is_delete` AS isDelete
         FROM autoexec_job_sql_detail ajsd
         JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
         LEFT JOIN runner r ON r.id = ajsd.runner_id
         <include refid="searchJobPhaseSql"></include>
-        ORDER BY ajsd.`start_time` DESC
+        order by ajsd.`sort` asc, CONVERT( ajsd.sql_file USING gbk) COLLATE gbk_chinese_ci ASC
         <if test="needPage">
             LIMIT #{startNum}, #{pageSize}
         </if>
@@ -1492,7 +1554,7 @@
     </select>
 
     <select id="getJobSqlListByJobIdAndJobPhaseName"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1531,17 +1593,24 @@
     </select>
     <select id="getJobPhaseNodeListBySqlIdList"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
-        SELECT ajpn.`id`,
-        ajpn.`job_id` AS jobId,
-        ajpn.`job_phase_id` AS jobPhaseId,
-        ajpn.`host`,
-        ajpn.`port`,
-        ajpn.`start_time` AS startTime,
-        ajpn.`end_time` AS endTime,
-        ajpn.`resource_id` as resourceId,
-        ajpn.`status`
+        SELECT ajsd.`id`,
+        ajsd.`job_id` AS jobId,
+        ajsd.`job_phase_id` AS jobPhaseId,
+        ajsd.`host`,
+        ajsd.`port`,
+        ajsd.`node_name`as nodeName,
+        ajsd.`node_type` as nodeType,
+        ajsd.`start_time` AS startTime,
+        ajsd.`end_time` AS endTime,
+        ajsd.`resource_id` as resourceId,
+        ajsd.`user_name` as userName,
+        ajsd.`status`,
+        ajsd.runner_id as runnerMapId,
+        ajsd.sql_file as sqlFile,
+        r.url as runnerUrl
         from autoexec_job_sql_detail ajsd
-        LEFT JOIN autoexec_job_phase_node ajpn on ajsd.job_id = ajpn.job_id and ajsd.job_phase_id = ajpn.job_phase_id
+        left join runner_map rm on rm.id = ajsd.runner_id
+        left join runner r on r.id = rm.runner_id
         where ajsd.id in
         <foreach collection="sqlIdList" item="sqlId" close=")" open="(" separator=",">
             #{sqlId}
@@ -1549,26 +1618,32 @@
     </select>
 
     <select id="getJobSqlDetailListByJobIdAndPhaseName"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         SELECT ajsd.`id`,
-               ajsd.`md5`,
-               ajsd.`status`,
-               ajsd.`sql_file`    as sqlFile,
-               ajsd.`runner_id`   as runnerId,
-               ajsd.`resource_id` as resourceId,
-               ajsd.`host`,
-               ajsd.`port`,
-               ajsd.`node_name`   as nodeName,
-               ajsd.`node_type`   as nodeType,
-               ajsd.`user_name`   as username
+        ajsd.`md5`,
+        ajsd.`status`,
+        ajsd.`sql_file` as sqlFile,
+        ajsd.`runner_id` as runnerId,
+        ajsd.`resource_id` as resourceId,
+        ajsd.`host`,
+        ajsd.`port`,
+        ajsd.`node_name` as nodeName,
+        ajsd.`node_type` as nodeType,
+        ajsd.`user_name` as username
         FROM autoexec_job_sql_detail ajsd
-                 JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
+        JOIN autoexec_job_phase ajp ON ajp.job_id = ajsd.job_id AND ajsd.job_phase_name = ajp.name
         where ajsd.job_id = #{jobId}
-          and ajsd.job_phase_name = #{phaseName}
+        and ajsd.job_phase_name = #{phaseName}
+        <if test="sqlFileList != null and sqlFileList.size() > 0">
+            AND ajsd.`sql_file` IN
+            <foreach collection="sqlFileList" item="sqlFile" open="(" separator="," close=")">
+                #{sqlFile}
+            </foreach>
+        </if>
     </select>
 
     <select id="getJobSqlByResourceIdAndJobIdAndJobPhaseNameAndSqlFile"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1583,7 +1658,7 @@
     </select>
 
     <select id="getJobSqlById"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1598,7 +1673,7 @@
         where ajsd.id = #{id}
     </select>
     <select id="getJobSqlByJobPhaseIdAndResourceIdAndSqlName"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         select ajsd.`id`,
                ajsd.`md5`,
                ajsd.`status`,
@@ -1652,6 +1727,134 @@
         </where>
     </sql>
 
+    <select id="getAutoexecJobNodeListByResourceIdList" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT
+        a.`id`,
+        a.`job_id` AS jobId,
+        a.`status`,
+        a.`resource_id` as resourceId
+        from autoexec_job_phase_node a
+        join autoexec_job_resource_inspect b on b.`phase_id` = a.`job_phase_id` and b.`resource_id` = a.`resource_id`
+        where a.`resource_id` in
+        <foreach collection="list" item="resourceId" open="(" separator="," close=")">
+            #{resourceId}
+        </foreach>
+    </select>
+
+    <select id="getAutoexecJobNodeListByJobIdAndResourceIdList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT
+        a.`id`,
+        a.`job_id` AS jobId,
+        a.`status`,
+        a.`resource_id` as resourceId
+        FROM autoexec_job_phase_node a
+        WHERE a.`job_id` = #{jobId} AND a.`resource_id` IN
+        <foreach collection="resourceIdList" item="resourceId" open="(" separator="," close=")">
+            #{resourceId}
+        </foreach>
+    </select>
+    <select id="getJobSqlDetailListByJobIdAndPhaseNameAndExceptStatusAndRunnerMapId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
+        select ajsd.`id`,
+        ajsd.`md5`,
+        ajsd.`status`,
+        ajsd.`sql_file` as sqlFile,
+        ajsd.`runner_id` as runnerId,
+        ajsd.`resource_id` as resourceId
+        from autoexec_job_sql_detail ajsd
+        where ajsd.job_id = #{jobId}
+        and ajsd.job_phase_name = #{jobPhaseName}
+        and ajsd.`runner_id` = #{runnerMapId}
+        and ajsd.`status` not in
+        <foreach collection="exceptStatusList" item="status" separator="," close=")" open="(">
+            #{status}
+        </foreach>
+    </select>
+    <select id="getJobListLockByParentIdAndStatus"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT aj.`id`,
+               aj.`name`,
+               aj.`status`,
+               aj.`error_msg`       as errorMsg,
+               aj.`plan_start_time` as planStartTime,
+               aj.`start_time`      as startTime,
+               aj.`end_time`        as endTime,
+               aj.`operation_id`    as operationId,
+               aj.`operation_type`  as operationType,
+               aj.`exec_user`       as execUser,
+               aj.`source`,
+               aj.`round_count`     as roundCount,
+               aj.`param_hash`      as paramHash,
+               aj.`config_hash`     as configHash,
+               aj.`trigger_type`    as triggerType
+        FROM `autoexec_job` aj
+        WHERE aj.`parent_id` = #{parentId}
+          and aj.`status` = #{status} for
+        update
+    </select>
+    <select id="getJobListByParentIdAndNotInStatus"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT aj.`id`,
+               aj.`name`,
+               aj.`status`,
+               aj.`error_msg`       as errorMsg,
+               aj.`plan_start_time` as planStartTime,
+               aj.`start_time`      as startTime,
+               aj.`end_time`        as endTime,
+               aj.`operation_id`    as operationId,
+               aj.`operation_type`  as operationType,
+               aj.`exec_user`       as execUser,
+               aj.`source`,
+               aj.`round_count`     as roundCount,
+               aj.`param_hash`      as paramHash,
+               aj.`config_hash`     as configHash,
+               aj.`trigger_type`    as triggerType
+        FROM `autoexec_job` aj
+        WHERE aj.`parent_id` = #{parentId}
+          and aj.`status` != #{status}
+    </select>
+    <select id="getJobWarnCountAndStatus" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT
+        job_id as id,
+        SUM( warn_count ) AS warnCount,
+        GROUP_CONCAT(DISTINCT STATUS) as `status`
+        FROM
+        autoexec_job_phase_node
+        WHERE
+        job_id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        GROUP BY
+        job_id
+    </select>
+    <select id="getJobListByIdList" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT aj.`id`,
+        aj.`name`,
+        aj.`status`,
+        aj.`error_msg` as errorMsg,
+        aj.`plan_start_time` as planStartTime,
+        aj.`start_time` as startTime,
+        aj.`end_time` as endTime,
+        aj.`operation_id` as operationId,
+        aj.`operation_type` as operationType,
+        aj.`exec_user` as execUser,
+        aj.`exec_user_type` as execUserType,
+        aj.`source`,
+        aj.`round_count` as roundCount,
+        aj.`param_hash` as paramHash,
+        aj.`config_hash` as configHash,
+        aj.`lncd`,
+        aj.`parent_id` as parentId,
+        aj.`trigger_type` as triggerType
+        FROM `autoexec_job` aj
+        WHERE aj.`id` in
+        <foreach collection="list" item="id" close=")" open="(" separator=",">
+            #{id}
+        </foreach>
+    </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
@@ -1662,13 +1865,16 @@
         </if>
         `operation_id`,
         `operation_type`,
-        `thread_count`,
+        `round_count`,
         `param_hash`,
         `exec_user`,
         `exec_user_type`,
-        `config`,
+        `config_hash`,
         <if test="triggerType != null and triggerType !='' ">
             `trigger_type`,
+        </if>
+        <if test="parentId != null">
+            `parent_id`,
         </if>
         `source`
         )
@@ -1680,16 +1886,19 @@
         </if>
         #{operationId},
         #{operationType},
-        #{threadCount},
+        #{roundCount},
         #{paramHash},
         #{execUser},
         #{execUserType},
-        #{configStr},
+        #{configHash},
         <if test="triggerType != null and triggerType !='' ">
             #{triggerType},
         </if>
+        <if test="parentId != null">
+            #{parentId},
+        </if>
         #{source}
-        );
+        )
     </insert>
 
     <insert id="insertJobPhase" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1712,7 +1921,7 @@
                 now(3),
                 #{groupId},
                 #{executePolicy},
-                #{sort});
+                #{sort})
     </insert>
 
     <insert id="insertJobPhaseNode"
@@ -1740,7 +1949,7 @@
                 #{userName},
                 #{resourceId},
                 #{lcd},
-                #{status});
+                #{status})
     </insert>
 
     <insert id="insertJobPhaseOperation"
@@ -1759,6 +1968,13 @@
         </if>
         `sort`,
         `operation_id`,
+        `profile_id`,
+        <if test="parentOperationId != null">
+            `parent_operation_id`,
+        </if>
+        <if test="parentOperationType != null">
+            `parent_operation_type`,
+        </if>
         `param_hash`)
         VALUES (#{id},
         #{jobId},
@@ -1774,19 +1990,26 @@
         </if>
         #{sort},
         #{operationId},
-        #{paramHash});
+        #{profileId},
+        <if test="parentOperationId != null">
+            #{parentOperationId},
+        </if>
+        <if test="parentOperationType != null">
+            #{parentOperationType},
+        </if>
+        #{paramHash})
     </insert>
 
-    <insert id="insertIgnoreJobParamContent"
-            parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobParamContentVo">
-        INSERT IGNORE INTO `autoexec_job_param_content` (`hash`, `content`)
-        VALUES (#{hash}, #{content});
+    <insert id="insertIgnoreJobContent"
+            parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobContentVo">
+        INSERT IGNORE INTO `autoexec_job_content` (`hash`, `content`)
+        VALUES (#{hash}, #{content})
     </insert>
 
     <insert id="insertIgnoreJobPhaseNodeRunner"
             parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeRunnerVo">
         INSERT ignore INTO `autoexec_job_phase_node_runner` (`job_id`, `job_phase_id`, `node_id`, `runner_map_id`)
-        VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId});
+        VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId})
     </insert>
 
     <insert id="insertJobPhaseRunner">
@@ -1797,7 +2020,7 @@
                    `job_group_id`  = #{jobGroupId},
                    `job_phase_id`  = #{jobPhaseId},
                    `runner_map_id` = #{runnerMapId},
-                   `lcd`           = #{lcd};
+                   `lcd`           = #{lcd}
     </insert>
 
     <insert id="insertDuplicateJobEnv" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobEnvVo">
@@ -1806,12 +2029,14 @@
         ON DUPLICATE KEY
             UPDATE `job_id` = #{jobId},
                    `name`   = #{name},
-                   `value`  = #{value};
+                   `value`  = #{value}
     </insert>
-    <insert id="insertIgnoreIntoJobInvoke">
-        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`)
-        VALUES (#{jobId}, #{invokeId}, #{source});
+
+    <insert id="insertJobInvoke">
+        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`)
+        VALUES (#{jobId}, #{invokeId}, #{source}, #{type})
     </insert>
+
     <insert id="insertDuplicateJobResourceInspect">
         INSERT INTO `autoexec_job_resource_inspect` (`job_id`, `resource_id`, `phase_id`, `lcd`)
         VALUES (#{jobId}, #{resourceId}, #{phaseId}, #{lcd})
@@ -1819,14 +2044,14 @@
             UPDATE `job_id`      = #{jobId},
                    `resource_id` = #{resourceId},
                    `phase_id`    = #{phaseId},
-                   `lcd`         = #{lcd};
+                   `lcd`         = #{lcd}
     </insert>
     <insert id="insertJobGroup">
         INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`)
         values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr})
     </insert>
 
-    <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlDetailVo">
+    <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
         insert into `autoexec_job_sql_detail`(`id`,
         `job_id`,
         `host`,
@@ -1839,6 +2064,8 @@
         `sql_file`,
         `status`,
         `md5`,
+        `is_modified`,
+        `warn_count`,
         <choose>
             <when test="status == 'pending'">
             </when>
@@ -1860,8 +2087,31 @@
         #{phaseId},
         #{phaseName},
         #{sqlFile},
-        #{status},
+        <choose>
+            <when test="status != null">
+                #{status},
+            </when>
+            <otherwise>
+                'pending',
+            </otherwise>
+        </choose>
         #{md5},
+        <choose>
+            <when test="isModified != null">
+                #{isModified},
+            </when>
+            <otherwise>
+                0,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="warnCount != null">
+                #{warnCount},
+            </when>
+            <otherwise>
+                0,
+            </otherwise>
+        </choose>
         <choose>
             <when test="status == 'pending'">
             </when>
@@ -1879,9 +2129,9 @@
         insert into `autoexec_job_sql_detail`(`id`, `job_id`,`host`,`port`,
         `resource_id`,`node_name`,`node_type`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
         `sql_file`, `status`, `md5`,`lcd`,
-        `is_delete`)
+        `is_delete`,`is_modified`,`warn_count`,`sort`)
         values
-        <foreach collection="sqlList" item="vo" separator=",">
+        <foreach collection="sqlList" item="vo" separator="," index="index">
             (#{vo.id},
             #{vo.jobId},
             #{vo.host},
@@ -1894,14 +2144,42 @@
             #{phaseId},
             #{phaseName},
             #{vo.sqlFile},
-            #{vo.status},
+            <choose>
+                <when test="vo.status != null">
+                    #{vo.status},
+                </when>
+                <otherwise>
+                    'pending',
+                </otherwise>
+            </choose>
             #{vo.md5},
             #{lcd},
-            #{vo.isDelete})
+            #{vo.isDelete},
+            <choose>
+                <when test="vo.isModified != null">
+                    #{vo.isModified},
+                </when>
+                <otherwise>
+                    0,
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="vo.warnCount != null">
+                    #{vo.warnCount},
+                </when>
+                <otherwise>
+                    0,
+                </otherwise>
+            </choose>
+            #{index})
         </foreach>
         ON DUPLICATE KEY
         UPDATE `lcd`=#{lcd},
-        `is_delete`= 0
+        `is_delete`= 0,
+        `sort` = VALUES(`sort`),
+        `md5` = VALUES(`md5`),
+        `is_modified` = VALUES(`is_modified`),
+        `warn_count` = VALUES(`warn_count`)
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -1995,7 +2273,14 @@
         <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}
         </foreach>
-        AND `runner_map_id` = #{runnerId};
+        AND `runner_map_id` = #{runnerId}
+    </update>
+    <update id="updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus">
+        UPDATE
+            `autoexec_job_phase_runner`
+        SET `status` = #{status}
+        WHERE `job_id` = #{jobId}
+          AND `runner_map_id` = #{runnerId}
     </update>
     <update id="updateBatchJobPhaseRunnerStatus">
         UPDATE
@@ -2128,12 +2413,13 @@
     <update id="updateJobExecUser" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         UPDATE `autoexec_job`
         SET `exec_user` = #{execUser}
-        WHERE `id` = #{id}
+        WHERE `id` = #{jobId}
     </update>
 
     <update id="updateSqlIsDeleteByIdList">
         UPDATE autoexec_job_sql_detail
-        SET `is_delete` = 1
+        SET `is_delete` = 1,
+        sort = 999999
         WHERE `id` IN
         <foreach collection="idList" item="id" open="(" close=")" separator=",">
             #{id}
@@ -2143,10 +2429,18 @@
     <update id="updateSqlDetailById">
         UPDATE autoexec_job_sql_detail
         SET `md5` = #{md5},
-        `status` = #{status},
+        <if test="status != null">
+            `status` = #{status},
+        </if>
         `node_name` = #{nodeName},
         `host` = #{host},
         `port` = #{port},
+        <if test="isModified != null">
+            `is_modified` = #{isModified},
+        </if>
+        <if test="warnCount != null">
+            `warn_count` = #{warnCount},
+        </if>
         <choose>
             <when test="status == 'pending'">
             </when>
@@ -2200,11 +2494,18 @@
         where `job_id` = #{jobId}
           and `operation_id` = #{operationId}
     </update>
+    <update id="updateJobPhaseStatusByJobIdAndPhaseStatus">
+        UPDATE
+            `autoexec_job_phase`
+        SET `status` = #{status}
+        WHERE `job_id` = #{jobId}
+          and `status` = #{whereStatus}
+    </update>
 
-    <delete id="deleteJobParamContentByHash" parameterType="java.lang.String">
+    <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE
-        FROM `autoexec_job_param_content`
-        WHERE `hash` = #{value};
+        FROM `autoexec_job_content`
+        WHERE `hash` = #{value}
     </delete>
 
     <delete id="deleteJobPhaseOperationByJobId" parameterType="java.lang.Long">
@@ -2216,19 +2517,19 @@
     <delete id="deleteJobPhaseNodeByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job_phase_node`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
 
     <delete id="deleteJobPhaseByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job_phase`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
 
     <delete id="deleteJobByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job`
-        WHERE `id` = #{value};
+        WHERE `id` = #{value}
     </delete>
 
     <delete id="deleteJobPhaseNodeByJobPhaseIdList">
@@ -2242,13 +2543,13 @@
     <delete id="deleteJobPhaseRunnerByJobId">
         DELETE
         FROM `autoexec_job_phase_runner`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobPhaseNodeRunnerByJobId">
         DELETE ajpnr
         FROM `autoexec_job_phase_node_runner` ajpnr
                  LEFT JOIN `autoexec_job_phase_node` ajpn ON ajpnr.`node_id` = ajpn.`id`
-        WHERE ajpn.`job_id` = #{value};
+        WHERE ajpn.`job_id` = #{value}
     </delete>
     <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcd">
         DELETE
@@ -2274,17 +2575,17 @@
     <delete id="deleteJobEvnByJobId">
         DELETE
         FROM `autoexec_job_env`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobInvokeByJobId">
         DELETE
         FROM `autoexec_job_invoke`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobResourceInspectByJobId">
         DELETE
         FROM `autoexec_job_resource_inspect`
-        WHERE `job_id` = #{value};
+        WHERE `job_id` = #{value}
     </delete>
     <delete id="deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId">
         DELETE

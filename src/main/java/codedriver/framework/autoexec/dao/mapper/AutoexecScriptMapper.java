@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface AutoexecScriptMapper {
+public interface AutoexecScriptMapper{
 
     AutoexecScriptVo getScriptBaseInfoById(Long id);
 
@@ -75,6 +75,8 @@ public interface AutoexecScriptMapper {
 
     List<AutoexecScriptVersionParamVo> getParamListByVersionId(Long versionId);
 
+    List<AutoexecScriptVersionParamVo> getAllPasswordScriptParam();
+
     List<AutoexecParamVo> getAutoexecParamVoListByVersionId(Long versionId);
 
     List<AutoexecScriptVersionParamVo> getParamListByVersionIdAndMode(@Param("versionId") Long versionId, @Param("mode") String mode);
@@ -119,10 +121,6 @@ public interface AutoexecScriptMapper {
      */
     List<AutoexecOperationVo> getAutoexecOperationOutputParamListByIdList(List<Long> idList);
 
-    int getReferenceCountByScriptId(Long scriptId);
-
-    List<AutoexecCombopVo> getReferenceListByScriptId(Long scriptId);
-
     List<Long> getVersionIdListByScriptId(Long scriptId);
 
     AutoexecScriptAuditVo getScriptAuditByScriptVersionIdAndOperate(@Param("versionId") Long versionId, @Param("operate") String operate);
@@ -137,9 +135,7 @@ public interface AutoexecScriptMapper {
      */
     int checkScriptHasBeenGeneratedToCombop(Long scriptId);
 
-    List<AutoexecScriptVo> checkScriptListHasBeenGeneratedToCombop(List<Long> scriptIdList);
-
-    List<AutoexecScriptVo> getReferenceCountListByScriptIdList(List<Long> scriptIdList);
+    List<Long> checkScriptListHasBeenGeneratedToCombop(List<Long> scriptIdList);
 
     int checkScriptHasSubmittedVersionByScriptId(Long scriptId);
 
@@ -177,6 +173,8 @@ public interface AutoexecScriptMapper {
     int updateScriptBaseInfo(AutoexecScriptVo scriptVo);
 
     int updateScriptVersion(AutoexecScriptVersionVo versionVo);
+
+    int updateScriptVersionParamPassword(@Param("param") AutoexecScriptVersionParamVo param, @Param("password") String password);
 
     int insertScript(AutoexecScriptVo vo);
 

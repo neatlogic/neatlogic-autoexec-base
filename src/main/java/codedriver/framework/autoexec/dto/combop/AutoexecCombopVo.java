@@ -6,12 +6,12 @@
 package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
@@ -49,8 +49,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
-    @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
-    private int referenceCount;
+//    @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
+//    private int referenceCount;
     //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
 //    private Integer viewable;
     @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
@@ -62,7 +62,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
     private Integer ownerEditable;
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
-    private List<AutoexecCombopParamVo> runtimeParamList;
+    private List<AutoexecParamVo> runtimeParamList;
     @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
     private boolean needExecuteUser = false;
     @EntityField(name = "执行页面是否需要设置连接协议", type = ApiParamType.BOOLEAN)
@@ -175,21 +175,26 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     }
 
     public AutoexecCombopConfigVo getConfig() {
+        if (config == null && configStr != null) {
+            config = JSONObject.parseObject(configStr, AutoexecCombopConfigVo.class);
+        }
         return config;
     }
 
-    public void setConfig(String config) {
-        this.config = JSONObject.parseObject(config, new TypeReference<AutoexecCombopConfigVo>() {
-        });
+    public void setConfig(AutoexecCombopConfigVo config) {
+        if (config != null) {
+            this.configStr = null;
+        }
+        this.config = config;
     }
 
-    public int getReferenceCount() {
-        return referenceCount;
-    }
-
-    public void setReferenceCount(int referenceCount) {
-        this.referenceCount = referenceCount;
-    }
+//    public int getReferenceCount() {
+//        return referenceCount;
+//    }
+//
+//    public void setReferenceCount(int referenceCount) {
+//        this.referenceCount = referenceCount;
+//    }
 
 //    public Integer getViewable() {
 //        return viewable;
@@ -231,11 +236,11 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.ownerEditable = ownerEditable;
     }
 
-    public List<AutoexecCombopParamVo> getRuntimeParamList() {
+    public List<AutoexecParamVo> getRuntimeParamList() {
         return runtimeParamList;
     }
 
-    public void setRuntimeParamList(List<AutoexecCombopParamVo> runtimeParamList) {
+    public void setRuntimeParamList(List<AutoexecParamVo> runtimeParamList) {
         this.runtimeParamList = runtimeParamList;
     }
 
@@ -264,9 +269,16 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     }
 
     public String getConfigStr() {
-        if (this.config == null) {
-            return null;
+        if (configStr == null && config != null) {
+            configStr = JSONObject.toJSONString(config);
         }
-        return JSONObject.toJSONString(config);
+        return configStr;
+    }
+
+    public void setConfigStr(String configStr) {
+        if (configStr != null) {
+            this.config = null;
+        }
+        this.configStr = configStr;
     }
 }

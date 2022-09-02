@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
+import codedriver.framework.autoexec.dto.INodeDetail;
 import codedriver.framework.dto.runner.RunnerVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import codedriver.framework.cmdb.dto.resourcecenter.ResourceVo;
@@ -28,7 +29,7 @@ import java.util.Objects;
  * @author lvzk
  * @since 2021/4/12 16:12
  **/
-public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Serializable {
+public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDetail, Serializable {
     private static final long serialVersionUID = -3975625036282871623L;
     @EntityField(name = "作业剧本节点id", type = ApiParamType.LONG)
     private Long id;
@@ -85,6 +86,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
     private List<Long> nodeIdList;
     @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
     private Integer warnCount = 0;
+    @EntityField(name = "sql名", type = ApiParamType.STRING)
+    private String sqlFile;
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -102,7 +105,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
         this.isDelete = isDelete;
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Integer isDelete,String nodeFrom) {
+    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Integer isDelete, String nodeFrom) {
         this.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
         this.isDelete = isDelete;
@@ -151,7 +154,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     }
 
-    public AutoexecJobPhaseNodeVo(Long jobId, String phaseName, String host, Integer port, Long resourceId,String runnerUrl,Long runnerMapId) {
+    public AutoexecJobPhaseNodeVo(Long jobId, String phaseName, String host, Integer port, Long resourceId, String runnerUrl, Long runnerMapId) {
         this.setJobId(jobId);
         this.jobPhaseName = phaseName;
         this.setHost(host);
@@ -280,7 +283,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public String getStatusName() {
         if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
-           statusName = JobNodeStatus.getText(status);
+            statusName = JobNodeStatus.getText(status);
         }
         return statusName;
     }
@@ -390,5 +393,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements Seriali
 
     public void setWarnCount(Integer warnCount) {
         this.warnCount = warnCount;
+    }
+
+    public String getSqlFile() {
+        return sqlFile;
+    }
+
+    public void setSqlFile(String sqlFile) {
+        this.sqlFile = sqlFile;
     }
 }

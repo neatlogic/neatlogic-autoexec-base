@@ -1,6 +1,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
+import codedriver.framework.autoexec.dto.ISqlNodeDetail;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
@@ -16,7 +17,7 @@ import java.util.Objects;
  * @author longrf
  * @date 2022/4/25 6:02 下午
  */
-public class AutoexecSqlDetailVo extends BaseEditorVo {
+public class AutoexecSqlNodeDetailVo extends BaseEditorVo implements ISqlNodeDetail {
 
     private static final long serialVersionUID = -3975625036032471623L;
 
@@ -36,8 +37,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String sqlFile;
     @EntityField(name = "用户名", type = ApiParamType.STRING)
     private String username;
-    @EntityField(name = "访问地址", type = ApiParamType.STRING)
-    private String accessEndPoint;
+    @EntityField(name = "服务地址", type = ApiParamType.STRING)
+    private String serviceAddr;
     @EntityField(name = "节点类型", type = ApiParamType.STRING)
     private String nodeType;
     @EntityField(name = "ip", type = ApiParamType.STRING)
@@ -50,6 +51,8 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private String runnerHost;
     @EntityField(name = "runner 端口", type = ApiParamType.INTEGER)
     private Integer runnerPort;
+    @EntityField(name = "runner url", type = ApiParamType.STRING)
+    private String runnerUrl;
     @EntityField(name = "状态", type = ApiParamType.STRING)
     private String status;
     @EntityField(name = "状态名", type = ApiParamType.STRING)
@@ -68,22 +71,38 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
     private Date endTime;
     @EntityField(name = "耗时", type = ApiParamType.STRING)
     private String costTime;
+    @EntityField(name = "序号", type = ApiParamType.INTEGER)
+    private Integer sort;
+    @EntityField(name = "是否改动", type = ApiParamType.INTEGER)
+    private Integer isModified;
+    @EntityField(name = "告警个数", type = ApiParamType.INTEGER)
+    private Integer warnCount;
 
-    public AutoexecSqlDetailVo(JSONObject paramObj) {
+    public AutoexecSqlNodeDetailVo(JSONObject paramObj) {
         this.jobId = (paramObj.getLong("jobId"));
         this.nodeId = (paramObj.getLong("nodeId"));
         this.resourceId = (paramObj.getLong("resourceId"));
         this.nodeName = (paramObj.getString("nodeName"));
         this.phaseName = (paramObj.getString("phaseName"));
         this.username = (paramObj.getString("username"));
-        this.status = (paramObj.getString("status"));
+        if (StringUtils.isNotBlank(paramObj.getString("status"))) {
+            this.status = (paramObj.getString("status"));
+        }
         this.sqlFile = (paramObj.getString("sqlFile"));
         this.md5 = (paramObj.getString("md5"));
         this.host = (paramObj.getString("host"));
         this.port = (paramObj.getInteger("port"));
+        if (!Objects.isNull(paramObj.getInteger("isModified"))) {
+            this.isModified = (paramObj.getInteger("isModified"));
+
+        }
+        if (!Objects.isNull(paramObj.getInteger("warnCount"))) {
+            this.warnCount = (paramObj.getInteger("warnCount"));
+
+        }
     }
 
-    public AutoexecSqlDetailVo() {
+    public AutoexecSqlNodeDetailVo() {
     }
 
     public Long getId() {
@@ -145,12 +164,12 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
         this.username = username;
     }
 
-    public String getAccessEndPoint() {
-        return accessEndPoint;
+    public String getServiceAddr() {
+        return serviceAddr;
     }
 
-    public void setAccessEndPoint(String accessEndPoint) {
-        this.accessEndPoint = accessEndPoint;
+    public void setServiceAddr(String serviceAddr) {
+        this.serviceAddr = serviceAddr;
     }
 
     public String getNodeType() {
@@ -207,6 +226,14 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
 
     public void setRunnerPort(Integer runnerPort) {
         this.runnerPort = runnerPort;
+    }
+
+    public String getRunnerUrl() {
+        return runnerUrl;
+    }
+
+    public void setRunnerUrl(String runnerUrl) {
+        this.runnerUrl = runnerUrl;
     }
 
     public String getStatus() {
@@ -284,5 +311,29 @@ public class AutoexecSqlDetailVo extends BaseEditorVo {
             }
         }
         return costTime;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getIsModified() {
+        return isModified;
+    }
+
+    public void setIsModified(Integer isModified) {
+        this.isModified = isModified;
+    }
+
+    public Integer getWarnCount() {
+        return warnCount;
+    }
+
+    public void setWarnCount(Integer warnCount) {
+        this.warnCount = warnCount;
     }
 }

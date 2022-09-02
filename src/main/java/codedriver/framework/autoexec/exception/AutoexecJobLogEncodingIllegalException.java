@@ -7,13 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobRunnerConnectRefusedException extends ApiRuntimeException {
+public class AutoexecJobLogEncodingIllegalException extends ApiRuntimeException {
 
+    private static final long serialVersionUID = -1640145007212453847L;
 
-    private static final long serialVersionUID = 1799177301356468646L;
-
-    public AutoexecJobRunnerConnectRefusedException(String uk) {
-        super("Runner url：'" + uk + "'connect failed");
+    public AutoexecJobLogEncodingIllegalException(String encoding) {
+        super("非法的字符编码：" + encoding);
     }
 
 

@@ -13,6 +13,7 @@ import codedriver.framework.dto.OperateVo;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,9 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     private Long defaultProfileId; // 当前工具关联的profileId
     @EntityField(name = "默认默认profile名称", type = ApiParamType.STRING)
     private String defaultProfileName; // 当前工具关联的默认profile名称
+
+    @JSONField(serialize = false)
+    private List<Long> excludeList;
 
     public AutoexecOperationVo() {
 
@@ -167,5 +171,13 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
 
     public void setDefaultProfileName(String defaultProfileName) {
         this.defaultProfileName = defaultProfileName;
+    }
+
+    public List<Long> getExcludeList() {
+        return excludeList;
+    }
+
+    public void setExcludeList(List<Long> excludeList) {
+        this.excludeList = excludeList;
     }
 }

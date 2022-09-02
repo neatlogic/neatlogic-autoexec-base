@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobRunnerHttpRequestException extends ApiRuntimeException {
+public class AutoexecJobCanNotCreateException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 4590305514313505323L;
+    private static final long serialVersionUID = -6572745414524965140L;
 
-    public AutoexecJobRunnerHttpRequestException(String msg) {
-        super(msg);
+    public AutoexecJobCanNotCreateException(String combopName) {
+        super("无法创建作业，没有组合工具: '" + combopName + "' 执行权限");
     }
 
 

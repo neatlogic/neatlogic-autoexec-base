@@ -11,8 +11,8 @@ public class AutoexecCombopOperationNotFoundException extends ApiRuntimeExceptio
 
     private static final long serialVersionUID = 8558127374403255939L;
 
-    public AutoexecCombopOperationNotFoundException(String uk) {
-        super("组合工具：'" + uk + "'不存在");
+    public AutoexecCombopOperationNotFoundException(String phaseName, String operationName) {
+        super("阶段[" + phaseName + "]工具[" + operationName+ "]已被删除，请在组合工具中清理该工具并保存");
     }
 
 

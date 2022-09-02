@@ -5,11 +5,12 @@
 
 package codedriver.framework.autoexec.dao.mapper;
 
+import codedriver.framework.autoexec.crossover.IAutoexecCombopCrossoverMapper;
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.autoexec.dto.combop.*;
 import codedriver.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import java.util.Set;
  * @author: linbq
  * @since: 2021/4/13 11:05
  **/
-public interface AutoexecCombopMapper {
+public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
     int checkAutoexecCombopIsExists(Long id);
 
     Long checkAutoexecCombopNameIsRepeat(AutoexecCombopVo autoexecCombopVo);
@@ -42,7 +43,9 @@ public interface AutoexecCombopMapper {
 
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopIdAndAction(@Param("combopId") Long combopId, @Param("action") String action);
 
-    List<AutoexecCombopParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
+    List<AutoexecParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
+
+    List<AutoexecCombopParamVo> getAllAutoexecCombopPasswordParamList();
 
     AutoexecCombopParamVo getAutoexecCombopParamByCombopIdAndKey(@Param("combopId") Long combopId, @Param("key") String key);
 
@@ -59,8 +62,6 @@ public interface AutoexecCombopMapper {
             @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 
-    List<Long> getCombopPhaseIdListByCombopId(Long combopId);
-
     List<Long> checkAutoexecCombopIdListIsExists(List<Long> idList);
 
     Long checkItHasBeenGeneratedToCombopByOperationId(Long operationId);
@@ -71,11 +72,7 @@ public interface AutoexecCombopMapper {
 
     int insertAutoexecCombopParamVoList(List<AutoexecCombopParamVo> autoexecCombopParamVoList);
 
-    int insertAutoexecCombopPhase(AutoexecCombopPhaseVo autoexecCombopPhaseVo);
-
-    int insertAutoexecCombopPhaseOperation(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo);
-
-    int insertAutoexecCombopGroup(AutoexecCombopGroupVo autoexecCombopGroupVo);
+    int insertAutoexecOperationGenerateCombop(@Param("combopId") Long combopId, @Param("operationType") String operationType, @Param("operationId") Long operationId);
 
     int updateAutoexecCombopById(AutoexecCombopVo autoexecCombopVo);
 
@@ -83,15 +80,15 @@ public interface AutoexecCombopMapper {
 
     int updateAutoexecCombopConfigById(AutoexecCombopVo autoexecCombopVo);
 
+    int updateAutoexecCombopPasswordParam(@Param("param") AutoexecCombopParamVo autoexecCombopParamVo, @Param("password") String password);
+
     int deleteAutoexecCombopById(Long id);
 
     int deleteAutoexecCombopAuthorityByCombopId(Long combopId);
 
     int deleteAutoexecCombopParamByCombopId(Long combopId);
 
-    int deleteAutoexecCombopPhaseByCombopId(Long combopId);
-
     int deleteAutoexecCombopGroupByCombopId(Long combopId);
 
-    int deleteAutoexecCombopPhaseOperationByCombopPhaseIdList(List<Long> combopPhaseIdList);
+    int deleteAutoexecOperationGenerateCombop(Long combopId);
 }

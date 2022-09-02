@@ -7,12 +7,12 @@ package codedriver.framework.autoexec.exception;
 
 import codedriver.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobRunnerGroupRunnerNotFoundException extends ApiRuntimeException {
+public class AutoexecJobCheckedException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = -4324826681772207554L;
+    private static final long serialVersionUID = -117494411614528544L;
 
-    public AutoexecJobRunnerGroupRunnerNotFoundException(String name) {
-        super("runnerGroup: " + name + "未配置runner");
+    public AutoexecJobCheckedException(String jobId) {
+        super("作业 '" + jobId + "' 已验证");
     }
 
 
