@@ -247,7 +247,7 @@ public interface AutoexecJobMapper {
 
     AutoexecSqlNodeDetailVo getJobSqlByJobPhaseIdAndResourceIdAndSqlName(@Param("jobPhaseId") Long jobPhaseId, @Param("resourceId") Long resourceId, @Param("sqlName") String sqlName);
 
-    List<Long> getSqlDetailIdListByJobIdAndPhaseNameAndResourceIdAndLcd(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseName") String phaseName, @Param("lcd") Date lcd);
+    List<Long> getSqlDetailIdListByJobIdAndPhaseNameAndResourceIdAndLcd(@Param("jobId") Long jobId, @Param("resourceId") Long resourceId, @Param("phaseName") String phaseName, @Param("updateTag") Long updateTag);
 
     List<Long> getJobSqlIdListByJobIdAndJobPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
 
@@ -335,7 +335,7 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetail(AutoexecSqlNodeDetailVo sqlFileDetailVo);
 
-    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlNodeDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("phaseId") Long phaseId, @Param("runnerId") Long runnerId, @Param("lcd") Date lcd);
+    void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlNodeDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("phaseId") Long phaseId, @Param("runnerId") Long runnerId, @Param("updateTag") Long updateTag);
 
     void deleteJobContentByHash(String paramHash);
 

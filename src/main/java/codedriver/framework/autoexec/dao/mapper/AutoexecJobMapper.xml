@@ -1512,7 +1512,7 @@
         WHERE ajsd.job_id = #{jobId}
           and ajsd.job_phase_name = #{phaseName}
           and ajsd.resource_id = #{resourceId}
-          and ajsd.lcd != #{lcd}
+          and ajsd.update_tag != #{updateTag}
           and is_delete = 0
     </select>
     <select id="searchJobPhaseNodeByDistinctResourceIdCount" resultType="java.lang.Integer">
@@ -2137,7 +2137,7 @@
     <insert id="insertSqlDetailList">
         insert into `autoexec_job_sql_detail`(`id`, `job_id`,`host`,`port`,
         `resource_id`,`node_name`,`node_type`,`user_name`,`runner_id`,`job_phase_id`,`job_phase_name`,
-        `sql_file`, `status`, `md5`,`lcd`,
+        `sql_file`, `status`, `md5`,`update_tag`,
         `is_delete`,`is_modified`,`warn_count`,`sort`)
         values
         <foreach collection="sqlList" item="vo" separator="," index="index">
@@ -2162,7 +2162,7 @@
                 </otherwise>
             </choose>
             #{vo.md5},
-            #{lcd},
+            #{updateTag},
             #{vo.isDelete},
             <choose>
                 <when test="vo.isModified != null">
@@ -2183,7 +2183,7 @@
             #{index})
         </foreach>
         ON DUPLICATE KEY
-        UPDATE `lcd`=#{lcd},
+        UPDATE `update_tag`=#{updateTag},
         `is_delete`= 0,
         `sort` = VALUES(`sort`),
         `md5` = VALUES(`md5`),
