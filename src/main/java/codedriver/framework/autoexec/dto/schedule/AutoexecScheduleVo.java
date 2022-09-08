@@ -15,7 +15,6 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -24,7 +23,7 @@ import java.util.UUID;
  **/
 public class AutoexecScheduleVo extends BaseEditorVo {
 
-    @EntityField(name = "定时作业id", type = ApiParamType.STRING)
+    @EntityField(name = "定时作业id", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "定时作业uuid", type = ApiParamType.STRING)
     private String uuid;

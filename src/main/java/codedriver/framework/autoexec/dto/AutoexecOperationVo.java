@@ -54,10 +54,14 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
 
     public AutoexecOperationVo(AutoexecToolVo autoexecToolVo) {
         super(autoexecToolVo);
+        this.defaultProfileId = autoexecToolVo.getDefaultProfileId();
+        this.defaultProfileName = autoexecToolVo.getDefaultProfileName();
     }
 
     public AutoexecOperationVo(AutoexecScriptVo autoexecScriptVo) {
         super(autoexecScriptVo);
+        this.defaultProfileId = autoexecScriptVo.getDefaultProfileId();
+        this.defaultProfileName = autoexecScriptVo.getDefaultProfileName();
     }
 
     public String getOperationType() {
