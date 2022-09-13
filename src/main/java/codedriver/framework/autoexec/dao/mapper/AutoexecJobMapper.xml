@@ -27,6 +27,8 @@
                 #{invokeId}
             </foreach>
         </if>
+        left join autoexec_job ajj on ajj.parent_id = aj.id
+        left join`autoexec_combop` acc ON ajj.`operation_id` = acc.`id`
         <where>
             <include refid="searchJobSql"/>
         </where>
@@ -77,6 +79,8 @@
                 #{invokeId}
             </foreach>
         </if>
+        left join autoexec_job ajj on ajj.parent_id = aj.id
+        left join`autoexec_combop` acc ON ajj.`operation_id` = acc.`id`
         <where>
             <include refid="searchJobSql"/>
         </where>
@@ -87,6 +91,8 @@
         SELECT ac.`name`, ac.`uk`, COUNT(1) as referenceCount
         FROM `autoexec_job` aj
         LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
+        left join autoexec_job ajj on ajj.parent_id = aj.id
+        left join`autoexec_combop` acc ON ajj.`operation_id` = acc.`id`
         <where>
             <include refid="searchJobSql"/>
         </where>
@@ -97,42 +103,60 @@
 
     <sql id="searchJobSql">
         <if test="combopName != null and combopName != ''">
-            ac.name like concat('%', #{combopName}, '%')
+            (ac.name like concat('%', #{combopName}, '%')
+            or acc.name like concat('%', #{combopName}, '%'))
         </if>
         <if test="excludeIdList != null and excludeIdList.size() > 0">
             AND aj.id not in
             <foreach collection="excludeIdList" item="item" open="(" close=")" separator=",">#{item}</foreach>
         </if>
         <if test="keyword != null and keyword != ''">
-            and (aj.name like concat('%', #{keyword}, '%') OR aj.id like concat('%', #{keyword}, '%'))
+            and (aj.name like concat('%', #{keyword}, '%') OR aj.id = #{keyword} OR ajj.name like concat('%', #{keyword}, '%'))
         </if>
         <if test="operationId != null">
             and aj.operation_id = #{operationId}
         </if>
         <if test="statusList != null and statusList.size() > 0 ">
-            and aj.`status` in
+            and (aj.`status` in
             <foreach collection="statusList" item="status" open="(" close=")" separator=",">
                 #{status}
             </foreach>
+            or ajj.`status` in
+            <foreach collection="statusList" item="status" open="(" close=")" separator=",">
+                #{status}
+            </foreach>)
         </if>
         <if test="sourceList != null and sourceList.size() > 0 ">
-            and aj.`source` in
+            and (aj.`source` in
             <foreach collection="sourceList" item="source" open="(" close=")" separator=",">
                 #{source}
             </foreach>
+            or ajj.`source` in
+            <foreach collection="sourceList" item="source" open="(" close=")" separator=",">
+                #{source}
+            </foreach>)
         </if>
         <if test="typeIdList != null and typeIdList.size() > 0 ">
-            and ac.`type_id` in
+            and (ac.`type_id` in
             <foreach collection="typeIdList" item="typeId" open="(" close=")"
                      separator=",">
                 #{typeId}
             </foreach>
+            or acc.`type_id` in
+            <foreach collection="typeIdList" item="typeId" open="(" close=")"
+                     separator=",">
+                #{typeId}
+            </foreach>)
         </if>
         <if test="execUserList != null and execUserList.size() > 0 ">
-            and aj.`exec_user` in
+            and (aj.`exec_user` in
             <foreach collection="execUserList" item="execUser" open="(" close=")" separator=",">
                 #{execUser}
             </foreach>
+            or ajj.`exec_user` in
+            <foreach collection="execUserList" item="execUser" open="(" close=")" separator=",">
+                #{execUser}
+            </foreach>)
         </if>
         <if test="hasParent != null">
             <choose>
@@ -151,10 +175,10 @@
             </foreach>
         </if>
         <if test="startTime != null">
-            and aj.start_time &gt;= #{startTime}
+            and (aj.start_time &gt;= #{startTime} or ajj.start_time &gt;= #{startTime} )
         </if>
         <if test="endTime != null ">
-            and aj.start_time &lt;= #{endTime}
+            and (aj.start_time &lt;= #{endTime} or ajj.start_time &lt;= #{startTime} )
         </if>
     </sql>
 
