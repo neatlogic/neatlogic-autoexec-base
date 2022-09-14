@@ -48,6 +48,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobVo> getJobListByParentIdAndNotInStatus(@Param("parentId") Long id, @Param("status") String status);
 
+    List<AutoexecJobVo> getParentDeployJobListIdList(List<Long> idList);
+
     AutoexecJobContentVo getJobContentLock(String hash);
 
     AutoexecJobContentVo getJobContent(String hash);

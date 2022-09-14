@@ -215,6 +215,9 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     @EntityField(name = "作业执行参数", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
+    @EntityField(name = "子作业列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecJobVo> children;
+
     public AutoexecJobVo() {
     }
 
@@ -955,5 +958,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setCombopId(Long combopId) {
         this.operationId = combopId;
+    }
+
+    public List<AutoexecJobVo> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<AutoexecJobVo> children) {
+        this.children = children;
     }
 }
