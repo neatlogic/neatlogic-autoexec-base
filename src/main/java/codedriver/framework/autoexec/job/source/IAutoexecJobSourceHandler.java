@@ -28,4 +28,12 @@ public interface IAutoexecJobSourceHandler {
      */
     JSONObject getExtraJobInfo(AutoexecJobVo jobVo);
 
+
+    /**
+     * 获取作业额外的信息 用于定时刷新
+     * @param jobVo 作业
+     * @return 作业额外信息
+     */
+    JSONObject getExtraRefreshJobInfo(AutoexecJobVo jobVo);
+
 }
