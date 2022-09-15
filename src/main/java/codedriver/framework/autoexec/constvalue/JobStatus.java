@@ -5,6 +5,7 @@
 
 package codedriver.framework.autoexec.constvalue;
 
+import codedriver.framework.autoexec.dto.job.AutoexecJobStatusVo;
 import codedriver.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -48,6 +49,18 @@ public enum JobStatus implements IEnum {
             }
         }
         return "";
+    }
+
+    public static AutoexecJobStatusVo getStatus(String _status) {
+        for (JobStatus s : JobStatus.values()) {
+            if (s.getValue().equals(_status)) {
+                AutoexecJobStatusVo jobStatus = new AutoexecJobStatusVo();
+                jobStatus.setName(s.getValue());
+                jobStatus.setText(s.getText());
+                return jobStatus;
+            }
+        }
+        return null;
     }
 
     @Override

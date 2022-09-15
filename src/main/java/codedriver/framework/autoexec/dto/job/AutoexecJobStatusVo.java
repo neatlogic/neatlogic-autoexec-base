@@ -17,16 +17,13 @@ public class AutoexecJobStatusVo {
     private String name;
     @EntityField(name = "作业状态名", type = ApiParamType.STRING)
     private String text;
-    @EntityField(name = "作业状态颜色", type = ApiParamType.STRING)
-    private String color;
 
     public AutoexecJobStatusVo() {
     }
 
-    public AutoexecJobStatusVo(String name, String text, String color) {
+    public AutoexecJobStatusVo(String name, String text) {
         this.name = name;
         this.text = text;
-        this.color = color;
     }
 
     public String getName() {
@@ -45,11 +42,4 @@ public class AutoexecJobStatusVo {
         this.text = text;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 }

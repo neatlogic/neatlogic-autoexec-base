@@ -7,24 +7,22 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 public enum JobPhaseStatus implements IEnum {
-    PENDING("pending", "待运行", "#8E949F"),
-    WAITING("waiting", "排队中", "#8E949F"),
-    RUNNING("running", "运行中", "#2d84fb"),
-    PAUSING("pausing", "暂停中", "#2d84fb"),
-    PAUSED("paused", "已暂停", "#8E949F"),
-    ABORTING("aborting", "中止中", "#2d84fb"),
-    ABORTED("aborted", "已中止", "#8E949F"),
-    COMPLETED("completed", "已完成", "#25b865"),
-    FAILED("failed", "已失败", "#f71010"),
-    WAIT_INPUT("waitInput", "待输入", "#8E949F");
+    PENDING("pending", "待运行"),
+    WAITING("waiting", "排队中"),
+    RUNNING("running", "运行中"),
+    PAUSING("pausing", "暂停中"),
+    PAUSED("paused", "已暂停"),
+    ABORTING("aborting", "中止中"),
+    ABORTED("aborted", "已中止"),
+    COMPLETED("completed", "已完成"),
+    FAILED("failed", "已失败"),
+    WAIT_INPUT("waitInput", "待输入");
     private final String status;
     private final String text;
-    private final String color;
 
-    private JobPhaseStatus(String _status, String _text, String _color) {
+    JobPhaseStatus(String _status, String _text) {
         this.status = _status;
         this.text = _text;
-        this.color = _color;
     }
 
     public String getValue() {
@@ -35,23 +33,10 @@ public enum JobPhaseStatus implements IEnum {
         return text;
     }
 
-    public String getColor() {
-        return color;
-    }
-
     public static String getText(String _status) {
         for (JobPhaseStatus s : JobPhaseStatus.values()) {
             if (s.getValue().equals(_status)) {
                 return s.getText();
-            }
-        }
-        return "";
-    }
-
-    public static String getColor(String _status) {
-        for (JobPhaseStatus s : JobPhaseStatus.values()) {
-            if (s.getValue().equals(_status)) {
-                return s.getColor();
             }
         }
         return "";

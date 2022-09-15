@@ -44,7 +44,7 @@ public class AutoexecJobPhaseNodeStatusCountVo extends BasePageVo {
 
     public AutoexecJobStatusVo getStatusVo() {
         if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status), JobNodeStatus.getColor(status));
+            return new AutoexecJobStatusVo(status, JobNodeStatus.getText(status));
         }
         return statusVo;
     }

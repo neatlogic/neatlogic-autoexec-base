@@ -247,7 +247,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public AutoexecJobStatusVo getStatusVo() {
         if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status), JobPhaseStatus.getColor(status));
+            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status));
         }
         return statusVo;
     }
