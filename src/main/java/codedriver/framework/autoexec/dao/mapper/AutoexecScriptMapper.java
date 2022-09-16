@@ -7,7 +7,6 @@ package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
-import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.script.*;
 import codedriver.framework.common.dto.ValueTextVo;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface AutoexecScriptMapper{
+public interface AutoexecScriptMapper {
 
     AutoexecScriptVo getScriptBaseInfoById(Long id);
 
@@ -82,6 +81,8 @@ public interface AutoexecScriptMapper{
     List<AutoexecScriptVersionParamVo> getParamListByVersionIdAndMode(@Param("versionId") Long versionId, @Param("mode") String mode);
 
     List<AutoexecScriptVersionParamVo> getParamListByScriptId(Long operationId);
+
+    List<AutoexecScriptVersionParamVo> getParamListByScriptVersionId(@Param("versionId") Long versionId);
 
     List<AutoexecScriptLineVo> getLineListByVersionId(Long versionId);
 
