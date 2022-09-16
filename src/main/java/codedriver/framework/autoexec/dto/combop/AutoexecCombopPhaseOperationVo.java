@@ -89,6 +89,7 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
                 paramMappingVo.setKey(paramVo.getKey());
                 paramMappingVo.setMappingMode(ParamMappingMode.RUNTIME_PARAM.getValue());
                 paramMappingVo.setValue(paramVo.getKey());
+                paramMappingVo.setType(paramVo.getType());
                 paramMappingVoList.add(paramMappingVo);
             }
             this.operation.setInputParamList(phaseOperationParamVo.getInputParamList());
