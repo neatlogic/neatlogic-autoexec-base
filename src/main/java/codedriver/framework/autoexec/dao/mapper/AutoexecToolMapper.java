@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dao.mapper;
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecToolVo;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -35,6 +36,8 @@ public interface AutoexecToolMapper {
 
     List<AutoexecToolVo> getAllTool();
 
+    List<Long> getToolIdListByIdListAndTypeId(@Param("idList") List<Long> idList, @Param("typeId") Long typeId);
+
     int updateActiveStatus(AutoexecToolVo toolVo);
 
     int updateConfig(AutoexecToolVo toolVo);
@@ -42,5 +45,4 @@ public interface AutoexecToolMapper {
     int insertTool(AutoexecToolVo toolVo);
 
     int deleteToolByIdList(List<Long> list);
-
 }
