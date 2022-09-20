@@ -45,7 +45,7 @@
         FROM
             `autoexec_catalog`
         WHERE
-            `name` = #{name} AND `id` != #{id}
+            `name` = #{name} AND `id` != #{id} and `parent_id` = #{parentId}
     </select>
 
     <select id="searchAutoexecCatalogCount" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo" resultType="int">
