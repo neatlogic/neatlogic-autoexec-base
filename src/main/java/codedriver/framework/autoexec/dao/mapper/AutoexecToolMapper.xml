@@ -185,36 +185,43 @@
 
     <select id="getToolById" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.AutoexecToolVo">
         SELECT
-            `id`,
-            `name`,
-            `is_active` AS isActive,
-            `exec_mode` AS execMode,
-            `type_id` AS typeId,
-            (select `name` from `autoexec_type` where `id` = `type_id`) as typeName,
-            `risk_id` AS riskId,
-            (select `name` from `autoexec_risk` where `id` = `risk_id`) as riskName,
-            `description`,
-            `default_profile_id` as defaultProfileId,
-            (select `name` from `autoexec_profile` where `id` = `default_profile_id`) as defaultProfileName,
-            `parser`,
-            `config` AS configStr
-        FROM `autoexec_tool`
-        WHERE `id` = #{value}
+            ato.`id`,
+            ato.`name`,
+            ato.`is_active` AS isActive,
+            ato.`exec_mode` AS execMode,
+            ato.`type_id` AS typeId,
+            aty.`name` as typeName,
+            aty.`description` as typeDescription,
+            ato.`risk_id` AS riskId,
+            ar.`name` as riskName,
+            ato.`description`,
+            ato.`default_profile_id` as defaultProfileId,
+            ap.`name` as defaultProfileName,
+            ato.`parser`,
+            ato.`config` AS configStr
+        FROM `autoexec_tool` ato
+        left join `autoexec_type` aty on ato.`type_id` = aty.`id`
+        left join `autoexec_risk` ar on ato.`risk_id` = ar.`id`
+        left join `autoexec_profile` ap on ato.`default_profile_id` = ap.`id`
+        WHERE ato.`id` = #{value}
     </select>
 
     <select id="getAllTool" resultType="codedriver.framework.autoexec.dto.AutoexecToolVo">
         SELECT
-            `id`,
-            `name`,
-            `is_active` AS isActive,
-            `exec_mode` AS execMode,
-            `type_id` AS typeId,
-            `risk_id` AS riskId,
-            `description`,
-            `default_profile_id` AS defaultProfileId,
-            `parser`,
-            `config` AS configStr
-        FROM `autoexec_tool`
+            ato.`id`,
+            ato. `name`,
+            ato. `is_active` AS isActive,
+            ato. `exec_mode` AS execMode,
+            ato. `type_id` AS typeId,
+            aty.`name` as typeName,
+            aty.`description` as typeDescription,
+            ato. `risk_id` AS riskId,
+            ato. `description`,
+            ato. `default_profile_id` AS defaultProfileId,
+            ato. `parser`,
+            ato. `config` AS configStr
+        FROM `autoexec_tool` ato
+                 left join `autoexec_type` aty on ato.`type_id` = aty.`id`
     </select>
 
     <update id="updateActiveStatus" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo">
