@@ -224,6 +224,17 @@
                  left join `autoexec_type` aty on ato.`type_id` = aty.`id`
     </select>
 
+    <select id="getToolIdListByIdListAndTypeId" resultType="java.lang.Long">
+        SELECT
+            `id`
+        FROM `autoexec_tool`
+        WHERE `type_id` = #{typeId}
+        AND `id` IN
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <update id="updateActiveStatus" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo">
         update `autoexec_tool`
         set `is_active` = #{isActive}

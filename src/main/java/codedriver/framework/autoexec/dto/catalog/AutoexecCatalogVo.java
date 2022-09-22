@@ -45,6 +45,12 @@ public class AutoexecCatalogVo extends BasePageVo {
     public AutoexecCatalogVo() {
     }
 
+    public AutoexecCatalogVo(Long id, String name, Long parentId) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();

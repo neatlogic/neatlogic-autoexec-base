@@ -20,6 +20,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.annotation.Annotation;
@@ -35,6 +37,7 @@ import java.util.Map;
 @Aspect
 @RootComponent
 public class JobCallbackAspect {
+    private final static Logger logger = LoggerFactory.getLogger(JobCallbackAspect.class);
     private static AutoexecJobMapper jobMapper;
 
     @Autowired
@@ -95,8 +98,12 @@ public class JobCallbackAspect {
         @Override
         protected void execute() {
             for (IAutoexecJobCallback callback : callbackList) {
-                AutoexecJobInvokeVo invokeVo = jobMapper.getJobInvokeByJobId(jobVo.getId());
-                callback.doService(invokeVo.getInvokeId(), jobVo);
+                try {
+                    AutoexecJobInvokeVo invokeVo = jobMapper.getJobInvokeByJobId(jobVo.getId());
+                    callback.doService(invokeVo.getInvokeId(), jobVo);
+                }catch (Exception ex){
+                    logger.error(ex.getMessage(),ex);
+                }
             }
         }
 
