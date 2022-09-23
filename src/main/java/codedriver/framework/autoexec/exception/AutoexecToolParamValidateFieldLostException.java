@@ -12,11 +12,11 @@ public class AutoexecToolParamValidateFieldLostException extends ApiRuntimeExcep
     private static final long serialVersionUID = 5190517136889826388L;
 
     public AutoexecToolParamValidateFieldLostException(String param, String field, String lostField) {
-        super("参数：'" + param + "'的validate配置中，名称为：" + field + "的规则缺少：" + lostField + "字段");
+        super("参数“" + param + "”的validate配置中，名称为“" + field + "”的规则缺少“" + lostField + "”字段");
     }
 
     public AutoexecToolParamValidateFieldLostException(String param, int fieldIndex, String lostField) {
-        super("参数：'" + param + "'的validate配置中，第：" + fieldIndex + " 个的规则缺少：" + lostField + "字段");
+        super("参数“" + param + "”的validate配置中，第：" + fieldIndex + " 个的规则缺少“" + lostField + "”字段");
     }
 
 
