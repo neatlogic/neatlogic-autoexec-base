@@ -5,7 +5,6 @@
 
 package codedriver.framework.autoexec.dto.job;
 
-import codedriver.framework.asynchronization.threadlocal.TenantContext;
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
 import codedriver.framework.autoexec.dto.INodeDetail;
 import codedriver.framework.dto.runner.RunnerVo;
@@ -78,8 +77,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     private Long resourceId;
     @EntityField(name = "执行目标配置来源", type = ApiParamType.STRING)
     private String nodeFrom;
-    @JSONField(serialize = false)
-    private String schemaName;
     @JSONField(serialize = false)
     private Integer groupSort;//组排序用于节点过滤
     @JSONField(serialize = false)
@@ -286,10 +283,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
             statusName = JobNodeStatus.getText(status);
         }
         return statusName;
-    }
-
-    public String getSchemaName() {
-        return TenantContext.get().getDataDbName();
     }
 
     public Long getRunnerId() {
