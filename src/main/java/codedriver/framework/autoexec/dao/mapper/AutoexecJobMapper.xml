@@ -254,7 +254,7 @@
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
-        LEFT JOIN ${schemaName}.`resource_ipobject` ri ON ajpn.resource_id = ri.`id`
+        LEFT JOIN @{DATA_SCHEMA}.`scence_ipobject_id` ri ON ajpn.resource_id = ri.`id`
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
@@ -346,7 +346,7 @@
         FROM
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN ${schemaName}.`resource_ipobject` ri ON ajpn.resource_id = ri.`id`
+        LEFT JOIN @{DATA_SCHEMA}.`scence_ipobject_id` ri ON ajpn.resource_id = ri.`id`
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         <where>
