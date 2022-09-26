@@ -16,6 +16,8 @@ public interface AutoexecCatalogMapper {
 
     AutoexecCatalogVo getAutoexecCatalogByName(String name);
 
+    AutoexecCatalogVo getAutoexecCatalogByNameAndParentId(@Param("name") String name, @Param("parentId") Long parentId);
+
     int checkAutoexecCatalogIsExists(Long id);
 
     int checkAutoexecCatalogNameIsRepeat(AutoexecCatalogVo vo);

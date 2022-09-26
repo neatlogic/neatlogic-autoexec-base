@@ -30,6 +30,20 @@
             `name` = #{value}
     </select>
 
+    <select id="getAutoexecCatalogByNameAndParentId"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            `id`,
+            `name`,
+            `parent_id` AS parentId,
+            `lft`,
+            `rht`
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `name` = #{name} and `parent_id` = #{parentId}
+    </select>
+
     <select id="checkAutoexecCatalogIsExists" parameterType="java.lang.Long" resultType="int">
         SELECT
             count(1)
