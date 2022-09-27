@@ -34,6 +34,8 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
+    @EntityField(name = "描述", type = ApiParamType.STRING)
+    private String description;
     @EntityField(name = "操作id", type = ApiParamType.LONG)
     private Long operationId;
     @EntityField(name = "工具名", type = ApiParamType.STRING)
@@ -126,6 +128,14 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getOperationName() {

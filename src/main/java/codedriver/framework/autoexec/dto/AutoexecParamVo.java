@@ -59,6 +59,9 @@ public class AutoexecParamVo implements Serializable {
     @EntityField(name = "参数映射模式中文名", type = ApiParamType.STRING)
     private String mappingModeText;
 
+    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+    private Integer editable;
+
     @JSONField(serialize = false)
     private String defaultValueStr;
 
@@ -80,6 +83,7 @@ public class AutoexecParamVo implements Serializable {
         this.description = autoexecParamVo.description;
         this.sort = autoexecParamVo.sort;
         this.config = autoexecParamVo.config;
+        this.editable = autoexecParamVo.editable;
     }
 
     public AutoexecParamVo(JSONObject argumentJson) {
@@ -293,5 +297,13 @@ public class AutoexecParamVo implements Serializable {
             }
         }
         return mappingModeText;
+    }
+
+    public Integer getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Integer editable) {
+        this.editable = editable;
     }
 }
