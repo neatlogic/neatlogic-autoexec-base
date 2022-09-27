@@ -16,9 +16,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,8 +29,7 @@ import java.util.Map;
 public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexecJobPhaseNodeExportHandler {
 
     @Override
-    final public Workbook exportJobPhaseNode(AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList) {
-        Workbook workbook = null;
+    final public void exportJobPhaseNode(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList) {
         AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
         if (jobSourceVo == null) {
             throw new AutoexecJobSourceInvalidException(jobVo.getSource());
@@ -42,15 +38,9 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
         if (count > 0) {
             List<? extends INodeDetail> list;
             jobPhaseNodeVo.setRowNum(count);
-            ExcelBuilder builder = new ExcelBuilder(SXSSFWorkbook.class);
-            SheetBuilder sheetBuilder = builder.withBorderColor(HSSFColor.HSSFColorPredefined.GREY_40_PERCENT)
-                    .withHeadFontColor(HSSFColor.HSSFColorPredefined.WHITE)
-                    .withHeadBgColor(HSSFColor.HSSFColorPredefined.DARK_BLUE)
-                    .withColumnWidth(30)
-                    .addSheet("数据")
+            SheetBuilder sheetBuilder = excelBuilder.addSheet(phaseVo.getName())
                     .withHeaderList(headList)
                     .withColumnList(columnList);
-            workbook = builder.build();
             jobPhaseNodeVo.setPageSize(20);
             Integer pageCount = jobPhaseNodeVo.getPageCount();
             for (int i = 1; i <= pageCount; i++) {
@@ -106,7 +96,6 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                 nodeDataMap.values().forEach(sheetBuilder::addData);
             }
         }
-        return workbook;
     }
 
     /**
