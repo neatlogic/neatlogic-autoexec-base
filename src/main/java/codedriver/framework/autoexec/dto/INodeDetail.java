@@ -24,6 +24,8 @@ public interface INodeDetail {
 
     Date getEndTime();
 
+    Long getRunnerId();
+
     String getRunnerHost();
 
     Integer getRunnerPort();
