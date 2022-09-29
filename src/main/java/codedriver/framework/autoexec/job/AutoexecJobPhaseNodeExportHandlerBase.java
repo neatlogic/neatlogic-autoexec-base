@@ -113,7 +113,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
             Long resourceId = object.getLong("resourceId");
             JSONObject data = object.getJSONObject("data");
             if (MapUtils.isNotEmpty(data)) {
-                JSONObject param = new JSONObject();
+                StringBuilder sb = new StringBuilder();
                 for (Map.Entry<String, Object> entry : data.entrySet()) {
                     List<String> outputParamKey = outputParamMap.get(entry.getKey());
                     if (CollectionUtils.isNotEmpty(outputParamKey)) {
@@ -121,13 +121,13 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                         if (value instanceof LinkedHashMap) {
                             ((LinkedHashMap<String, Object>) value).forEach((paramKey, paramValue) -> {
                                 if (outputParamKey.contains(paramKey)) {
-                                    param.put(paramKey, paramValue);
+                                    sb.append(paramKey).append(":").append(paramValue).append(";");
                                 }
                             });
                         }
                     }
                 }
-                String content = param.toJSONString();
+                String content = sb.toString();
                 if (content.length() > 2048) {
                     content = content.substring(0, 2048) + "\n更多内容请前往系统查看";
                 }
