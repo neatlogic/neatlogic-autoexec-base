@@ -6,6 +6,7 @@ import codedriver.framework.autoexec.dto.job.AutoexecJobVo;
 import codedriver.framework.util.excel.ExcelBuilder;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IAutoexecJobPhaseNodeExportHandler {
 
@@ -21,5 +22,7 @@ public interface IAutoexecJobPhaseNodeExportHandler {
      * @param headList       表头中文名
      * @param columnList     表头英文名
      */
-    void exportJobPhaseNode(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList);
+    void exportJobPhaseNodeWithNodeOutputParam(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, Map<String, List<String>> outputParamMap, List<String> headList, List<String> columnList);
+
+    void exportJobPhaseNodeWithNodeLog(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList);
 }
