@@ -47,6 +47,19 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
         exportJobPhaseNode(excelBuilder, jobPhaseNodeVo, jobVo, phaseVo, headList, columnList, false, true, null);
     }
 
+    /**
+     * 导出节点
+     *
+     * @param excelBuilder    ExcelBuilder
+     * @param jobPhaseNodeVo  用于查询的vo
+     * @param jobVo           作业
+     * @param phaseVo         阶段
+     * @param headList        表头中文名
+     * @param columnList      表头英文名
+     * @param withOutputParam 是否需要导出节点输出参数
+     * @param withNodeLog     是否需要导出节点日志
+     * @param outputParamMap  工具与输出参数名称的映射
+     */
     private void exportJobPhaseNode(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList, boolean withOutputParam, boolean withNodeLog, Map<String, List<String>> outputParamMap) {
         AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
         if (jobSourceVo == null) {
@@ -70,7 +83,9 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                 Map<Long, String> nodeOutputParamMap = null;
                 if (withOutputParam) {
                     if (MapUtils.isNotEmpty(outputParamMap)) {
-                        List<JSONObject> nodeOutputList = mongoTemplate.find(new Query(Criteria.where("jobId").is(jobVo.getId().toString()).and("resourceId").in(list.stream().map(INodeDetail::getResourceId).collect(Collectors.toList()))), JSONObject.class, "_node_output");
+                        List<JSONObject> nodeOutputList = mongoTemplate.find(new Query(Criteria.where("jobId").is(jobVo.getId().toString())
+                                        .and("resourceId").in(list.stream().map(INodeDetail::getResourceId).collect(Collectors.toList())))
+                                , JSONObject.class, "_node_output");
                         if (CollectionUtils.isNotEmpty(nodeOutputList)) {
                             nodeOutputParamMap = getNodeOutputParamMap(outputParamMap, nodeOutputList);
                         }
@@ -85,6 +100,13 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
         }
     }
 
+    /**
+     * 获取节点输出参数
+     *
+     * @param outputParamMap 工具与输出参数名称的映射
+     * @param nodeOutputList 从mongodb查询的节点输出参数值
+     * @return 节点resourceId与输出参数的映射
+     */
     private Map<Long, String> getNodeOutputParamMap(Map<String, List<String>> outputParamMap, List<JSONObject> nodeOutputList) {
         Map<Long, String> nodeOutputParamMap = new HashMap<>();
         for (JSONObject object : nodeOutputList) {
@@ -115,6 +137,13 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
         return nodeOutputParamMap;
     }
 
+    /**
+     * 获取节点日志
+     *
+     * @param nodeDataMap         节点数据map
+     * @param runnerNodeMap       runner地址与节点的映射
+     * @param nodeLogTailParamMap 节点与日志请求参数的映射
+     */
     private void getNodeLog(Map<Long, Map<String, Object>> nodeDataMap, Map<String, List<Long>> runnerNodeMap, Map<Long, JSONObject> nodeLogTailParamMap) {
         for (Map.Entry<String, List<Long>> entry : runnerNodeMap.entrySet()) {
             String url = entry.getKey() + "api/binary/job/phase/batchnode/log/tail";
