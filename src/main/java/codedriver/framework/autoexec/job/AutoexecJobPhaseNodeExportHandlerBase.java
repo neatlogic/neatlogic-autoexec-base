@@ -87,7 +87,6 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
 
     private Map<Long, String> getNodeOutputParamMap(Map<String, List<String>> outputParamMap, List<JSONObject> nodeOutputList) {
         Map<Long, String> nodeOutputParamMap = new HashMap<>();
-//            List<JSONObject> nodeOutputList = mongoTemplate.find(new Query(Criteria.where("jobId").is("725123329744896").and("resourceId").in(722231667515396L, 722231105478660L, 722190294900740L, 497544614174720L, 497544396070912L)), JSONObject.class, "_node_output");
         for (JSONObject object : nodeOutputList) {
             Long resourceId = object.getLong("resourceId");
             JSONObject data = object.getJSONObject("data");
@@ -106,7 +105,11 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                         }
                     }
                 }
-                nodeOutputParamMap.put(resourceId, param.toJSONString());
+                String content = param.toJSONString();
+                if (content.length() > 2048) {
+                    content = content.substring(0, 2048) + "\n更多内容请前往系统查看";
+                }
+                nodeOutputParamMap.put(resourceId, content);
             }
         }
         return nodeOutputParamMap;
