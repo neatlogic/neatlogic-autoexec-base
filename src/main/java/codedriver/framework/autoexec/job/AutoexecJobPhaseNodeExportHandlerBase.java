@@ -38,45 +38,45 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
     MongoTemplate mongoTemplate;
 
     @Override
-    final public void exportJobPhaseNodeWithNodeOutputParam(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, Map<String, List<String>> outputParamMap, List<String> headList, List<String> columnList) {
-        exportJobPhaseNode(excelBuilder, jobPhaseNodeVo, jobVo, phaseVo, headList, columnList, true, false, outputParamMap);
+    final public void exportJobPhaseNodeWithNodeOutputParam(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, Map<String, List<String>> outputParamMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
+        exportJobPhaseNode(jobVo, phaseVo, true, false, outputParamMap, excelBuilder, headList, columnList);
     }
 
     @Override
-    public void exportJobPhaseNodeWithNodeLog(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList) {
-        exportJobPhaseNode(excelBuilder, jobPhaseNodeVo, jobVo, phaseVo, headList, columnList, false, true, null);
+    public void exportJobPhaseNodeWithNodeLog(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
+        exportJobPhaseNode(jobVo, phaseVo, false, true, null, excelBuilder, headList, columnList);
     }
 
     /**
      * 导出节点
      *
-     * @param excelBuilder    ExcelBuilder
-     * @param jobPhaseNodeVo  用于查询的vo
      * @param jobVo           作业
      * @param phaseVo         阶段
-     * @param headList        表头中文名
-     * @param columnList      表头英文名
      * @param withOutputParam 是否需要导出节点输出参数
      * @param withNodeLog     是否需要导出节点日志
      * @param outputParamMap  工具与输出参数名称的映射
+     * @param excelBuilder    ExcelBuilder
+     * @param headList        表头中文名
+     * @param columnList      表头英文名
      */
-    private void exportJobPhaseNode(ExcelBuilder excelBuilder, AutoexecJobPhaseNodeVo jobPhaseNodeVo, AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, List<String> headList, List<String> columnList, boolean withOutputParam, boolean withNodeLog, Map<String, List<String>> outputParamMap) {
+    private void exportJobPhaseNode(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, boolean withOutputParam, boolean withNodeLog, Map<String, List<String>> outputParamMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
         AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
         if (jobSourceVo == null) {
             throw new AutoexecJobSourceInvalidException(jobVo.getSource());
         }
-        int count = getJobPhaseNodeCount(jobPhaseNodeVo, jobSourceVo.getType());
+        AutoexecJobPhaseNodeVo searchVo = new AutoexecJobPhaseNodeVo(jobVo.getId(), phaseVo.getId());
+        int count = getJobPhaseNodeCount(searchVo, jobSourceVo.getType());
         if (count > 0) {
             List<? extends INodeDetail> list;
-            jobPhaseNodeVo.setRowNum(count);
+            searchVo.setRowNum(count);
             SheetBuilder sheetBuilder = excelBuilder.addSheet(phaseVo.getName())
                     .withHeaderList(headList)
                     .withColumnList(columnList);
-            jobPhaseNodeVo.setPageSize(20);
-            Integer pageCount = jobPhaseNodeVo.getPageCount();
+            searchVo.setPageSize(20);
+            Integer pageCount = searchVo.getPageCount();
             for (int i = 1; i <= pageCount; i++) {
-                jobPhaseNodeVo.setCurrentPage(i);
-                list = searchJobPhaseNode(jobPhaseNodeVo, jobSourceVo.getType());
+                searchVo.setCurrentPage(i);
+                list = searchJobPhaseNode(searchVo, jobSourceVo.getType());
                 Map<Long, Map<String, Object>> nodeDataMap = new LinkedHashMap<>();
                 Map<String, List<Long>> runnerNodeMap = new HashMap<>();
                 Map<Long, JSONObject> nodeLogTailParamMap = new HashMap<>();
