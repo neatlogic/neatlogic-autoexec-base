@@ -55,7 +55,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
      * @param withOutputParam 是否需要导出节点输出参数
      * @param withNodeLog     是否需要导出节点日志
      * @param outputParamMap  工具与输出参数名称的映射
-     * @param excelBuilder    ExcelBuilder
+     * @param excelBuilder    excelBuilder
      * @param headList        表头中文名
      * @param columnList      表头英文名
      */
@@ -118,10 +118,14 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                     List<String> outputParamKey = outputParamMap.get(entry.getKey());
                     if (CollectionUtils.isNotEmpty(outputParamKey)) {
                         Object value = entry.getValue();
-                        if (value instanceof LinkedHashMap) {
-                            ((LinkedHashMap<String, Object>) value).forEach((paramKey, paramValue) -> {
+                        if (value instanceof Map) {
+                            ((Map<String, Object>) value).forEach((paramKey, paramValue) -> {
                                 if (outputParamKey.contains(paramKey)) {
-                                    sb.append(paramKey).append(":").append(paramValue).append(";");
+                                    sb.append((new JSONObject() {
+                                        {
+                                            this.put(paramKey, paramValue);
+                                        }
+                                    }).toJSONString()).append(";");
                                 }
                             });
                         }
