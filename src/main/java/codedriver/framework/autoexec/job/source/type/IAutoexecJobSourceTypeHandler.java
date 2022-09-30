@@ -175,4 +175,11 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobVo 作业
      */
     void getJobActionAuth(AutoexecJobVo jobVo);
+
+    /**
+     * 获取 组合工具｜流水线快照
+     * @param autoexecJobParam 作业
+     * @return 快照
+     */
+    AutoexecCombopVo getSnapshotAutoexecCombop(AutoexecJobVo autoexecJobParam);
 }
