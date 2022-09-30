@@ -43,7 +43,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
     }
 
     @Override
-    public void exportJobPhaseNodeWithNodeLog(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
+    final public void exportJobPhaseNodeWithNodeLog(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
         exportJobPhaseNode(jobVo, phaseVo, false, true, null, excelBuilder, headList, columnList);
     }
 
