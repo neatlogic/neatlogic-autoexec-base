@@ -111,7 +111,8 @@
             <foreach collection="excludeIdList" item="item" open="(" close=")" separator=",">#{item}</foreach>
         </if>
         <if test="keyword != null and keyword != ''">
-            and (aj.name like concat('%', #{keyword}, '%') OR aj.id = #{keyword} OR ajj.name like concat('%', #{keyword}, '%'))
+            and (aj.name like concat('%', #{keyword}, '%') OR aj.id = #{keyword} OR ajj.name like concat('%',
+            #{keyword}, '%'))
         </if>
         <if test="operationId != null">
             and aj.operation_id = #{operationId}
@@ -597,12 +598,13 @@
         update
     </select>
 
-    <select id="getJobIdListByStatusAndTriggerTypeWithoutBatch" parameterType="java.lang.String" resultType="java.lang.Long">
+    <select id="getJobIdListByStatusAndTriggerTypeWithoutBatch" parameterType="java.lang.String"
+            resultType="java.lang.Long">
         SELECT aj.`id`
         FROM `autoexec_job` aj
         WHERE aj.`status` = #{status}
           AND aj.`trigger_type` = #{triggerType}
-            and aj.`source` != 'batchdeploy'
+          and aj.`source` != 'batchdeploy'
     </select>
 
     <select id="getBatchJobIdListByStatusAndTriggerType" parameterType="java.lang.String" resultType="java.lang.Long">
@@ -610,7 +612,7 @@
         FROM `autoexec_job` aj
         WHERE aj.`status` = #{status}
           AND aj.`trigger_type` = #{triggerType}
-            and aj.`source` = 'batchdeploy'
+          and aj.`source` = 'batchdeploy'
     </select>
 
     <select id="getJobContentLock"
@@ -2591,6 +2593,14 @@
         SET `status` = #{status}
         WHERE `job_id` = #{jobId}
           and `status` = #{whereStatus}
+    </update>
+    <update id="updateSqlStatusByIdList">
+        UPDATE autoexec_job_sql_detail
+        set `status` = #{status}
+        where id in
+        <foreach collection="idList" item="id" close=")" open="(" separator=",">
+            #{id}
+        </foreach>
     </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">

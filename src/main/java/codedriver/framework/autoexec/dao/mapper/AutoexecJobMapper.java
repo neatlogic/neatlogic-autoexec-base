@@ -329,6 +329,8 @@ public interface AutoexecJobMapper {
 
     void updateSqlDetailById(AutoexecSqlNodeDetailVo paramSqlVo);
 
+    void updateSqlStatusByIdList(@Param("idList")List<Long> sqlIdList,@Param("status") String status);
+
     void resetJobSqlStatusBySqlIdList(@Param("idList") List<Long> idList);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);

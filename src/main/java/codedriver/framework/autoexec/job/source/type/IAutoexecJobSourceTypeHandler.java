@@ -60,6 +60,14 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     void resetSqlStatus(JSONObject paramObj, AutoexecJobVo jobVo);
 
+    /**
+     * 获取作业sqlIdList 和 执行节点list
+     * @param paramObj 入参
+     * @param jobVo 作业
+     * @return sqlIdList
+     */
+    List<Long> getSqlIdsAndExecuteJobNodes(JSONObject paramObj, AutoexecJobVo jobVo);
+
     int searchJobPhaseSqlCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     /**
@@ -182,4 +190,11 @@ public interface IAutoexecJobSourceTypeHandler {
      * @return 快照
      */
     AutoexecCombopVo getSnapshotAutoexecCombop(AutoexecJobVo autoexecJobParam);
+
+    /**
+     * 更新sql状态
+     * @param sqlIdList sqlId
+     * @param status 状态
+     */
+    void updateSqlStatus(List<Long> sqlIdList, String status);
 }
