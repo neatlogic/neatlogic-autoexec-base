@@ -62,8 +62,9 @@ public interface IAutoexecJobSourceTypeHandler {
 
     /**
      * 获取作业sqlIdList 和 执行节点list
+     *
      * @param paramObj 入参
-     * @param jobVo 作业
+     * @param jobVo    作业
      * @return sqlIdList
      */
     List<Long> getSqlIdsAndExecuteJobNodes(JSONObject paramObj, AutoexecJobVo jobVo);
@@ -186,6 +187,7 @@ public interface IAutoexecJobSourceTypeHandler {
 
     /**
      * 获取 组合工具｜流水线快照
+     *
      * @param autoexecJobParam 作业
      * @return 快照
      */
@@ -193,8 +195,17 @@ public interface IAutoexecJobSourceTypeHandler {
 
     /**
      * 更新sql状态
+     *
      * @param sqlIdList sqlId
-     * @param status 状态
+     * @param status    状态
      */
     void updateSqlStatus(List<Long> sqlIdList, String status);
+
+    /**
+     * 获取创建作业的payload
+     *
+     * @param jobVo  作业
+     * @param result payload
+     */
+    void getCreatePayload(AutoexecJobVo jobVo, JSONObject result);
 }

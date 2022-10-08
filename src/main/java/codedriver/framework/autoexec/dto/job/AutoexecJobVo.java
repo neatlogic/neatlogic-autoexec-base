@@ -538,7 +538,7 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     }
 
     public String getParamArrayStr() {
-        if (StringUtils.isBlank(paramArrayStr) && this.param != null) {
+        if (CollectionUtils.isEmpty(getParamArray()) && this.param != null) {
             JSONArray combopParamsResult = new JSONArray();
             if (MapUtils.isNotEmpty(this.param)) {
                 JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(this.runTimeParamList));
