@@ -47,6 +47,8 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private String riskName;
     @EntityField(name = "分类名称", type = ApiParamType.STRING)
     private String typeName;
+    @EntityField(name = "分类描述", type = ApiParamType.STRING)
+    private String typeDescription;
     @EntityField(name = "操作级别")
     private AutoexecRiskVo riskVo;
     @EntityField(name = "脚本编码", type = ApiParamType.STRING)
@@ -197,6 +199,14 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getTypeDescription() {
+        return typeDescription;
+    }
+
+    public void setTypeDescription(String typeDescription) {
+        this.typeDescription = typeDescription;
     }
 
     public AutoexecRiskVo getRiskVo() {
