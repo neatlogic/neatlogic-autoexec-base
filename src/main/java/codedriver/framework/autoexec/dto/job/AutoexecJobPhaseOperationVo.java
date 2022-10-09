@@ -180,8 +180,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
             paramMappingVo.setDescription(param.getDescription());
             Object value = paramMappingVo.getValue();
             if (Arrays.asList(ParamMappingMode.PRE_NODE_OUTPUT_PARAM.getValue(), ParamMappingMode.PRE_NODE_OUTPUT_PARAM_KEY.getValue()).contains(paramMappingVo.getMappingMode())) {
-                try {
-                    JSONArray values = JSONArray.parseArray(JSONArray.toJSONString(value));
+                if (value instanceof JSONArray) {
+                    JSONArray values = (JSONArray) value;
                     if (values.size() == 3) {
                         String phaseUuid = values.getString(0);
                         String opUuid = values.getString(1);
@@ -204,7 +204,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                     } else {
                         throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
                     }
-                } catch (Exception ex) {
+                } else {
                     throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
                 }
             }
