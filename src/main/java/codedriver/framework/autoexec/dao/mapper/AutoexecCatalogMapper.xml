@@ -181,7 +181,7 @@
         `catalog_id`
     </select>
 
-    <select id="getParentListAndSelfByLftRht" parameterType="java.lang.Integer"
+    <select id="getParentListAndSelfByLR" parameterType="java.lang.Integer"
             resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         SELECT
         `id`,
