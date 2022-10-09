@@ -18,6 +18,7 @@ import java.util.List;
  * @since: 2021/4/23 11:57
  **/
 public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
+    private static final long serialVersionUID = 2910089979265665028L;
     @EntityField(name = "标签列表", type = ApiParamType.STRING)
     private List<Long> tagList;
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
@@ -28,6 +29,8 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
     private List<AutoexecNodeVo> inputNodeList;
     @EntityField(name = "过滤器选择条件", type = ApiParamType.JSONOBJECT)
     private JSONObject filter; // 过滤器
+    @EntityField(name = "上游出参列表", type = ApiParamType.JSONARRAY)
+    private List<String> preOutputList;
 
     public List<Long> getTagList() {
         return tagList;
@@ -67,5 +70,13 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
 
     public void setFilter(JSONObject filter) {
         this.filter = filter;
+    }
+
+    public List<String> getPreOutputList() {
+        return preOutputList;
+    }
+
+    public void setPreOutputList(List<String> preOutputList) {
+        this.preOutputList = preOutputList;
     }
 }
