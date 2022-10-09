@@ -40,7 +40,7 @@ public interface AutoexecCatalogMapper {
 
     List<AutoexecCatalogVo> getReferenceCountForScriptListByIdList(List<Long> idList);
 
-    List<AutoexecCatalogVo> getAncestorsAndSelfByLR(@Param("lft") Integer lft, @Param("rht") Integer rht);
+    List<AutoexecCatalogVo> getParentListAndSelfByLftRht(@Param("lft") Integer lft, @Param("rht") Integer rht);
 
     int getReferenceCountForScriptOfSelfAndChildrenByLR(@Param("lft") Integer lft, @Param("rht") Integer rht);
 
@@ -56,5 +56,4 @@ public interface AutoexecCatalogMapper {
 
     AutoexecCatalogVo getAutoexecCatalogByScriptId(Long scriptId);
 
-    List<AutoexecCatalogVo> getParentListByLftRht(@Param("lft") Integer lft, @Param("rht") Integer rht);
 }

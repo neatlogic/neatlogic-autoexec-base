@@ -181,7 +181,7 @@
         `catalog_id`
     </select>
 
-    <select id="getAncestorsAndSelfByLR" parameterType="java.lang.Integer"
+    <select id="getParentListAndSelfByLftRht" parameterType="java.lang.Integer"
             resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         SELECT
         `id`,
@@ -252,18 +252,6 @@
         WHERE `lft` >= #{lft}
           AND `rht` &lt;= #{rht}
 
-    </select>
-
-    <select id="getParentListByLftRht"
-            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
-        SELECT `id`,
-               `name`,
-               `parent_id` as parentId,
-               `lft`,
-               `rht`
-        FROM `autoexec_catalog`
-        WHERE `lft` &lt;= #{lft}
-          AND `rht` >= #{rht}
     </select>
 
     <select id="getAutoexecCatalogByScriptId"
