@@ -181,7 +181,7 @@
         `catalog_id`
     </select>
 
-    <select id="getAncestorsAndSelfByLR" parameterType="java.lang.Integer"
+    <select id="getParentListAndSelfByLR" parameterType="java.lang.Integer"
             resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         SELECT
         `id`,
@@ -254,6 +254,17 @@
 
     </select>
 
+    <select id="getAutoexecCatalogByScriptId"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT ac.`id`,
+               ac.`name`,
+               ac.`parent_id` as parentId,
+               ac.`lft`,
+               ac.`rht`
+        FROM `autoexec_catalog` ac
+                 left join `autoexec_script` ass on ass.catalog_id = ac.id
+        WHERE ass.id = #{value}
+    </select>
 
 </mapper>
 
