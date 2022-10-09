@@ -30,10 +30,7 @@ import org.springframework.util.DigestUtils;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author lvzk
@@ -182,26 +179,30 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
             paramMappingVo.setName(param.getName());
             paramMappingVo.setDescription(param.getDescription());
             Object value = paramMappingVo.getValue();
-            if (value instanceof String && value.toString().contains("&&")) {
-                String[] values = value.toString().split("&&");
-                if (values.length == 3) {
-                    String phaseUuid = values[0];
-                    String opUuid = values[1];
-                    value = values[2];
-                    Optional<AutoexecJobPhaseVo> phaseVoOptional = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).findFirst();
-                    if (phaseVoOptional.isPresent()) {
-                        Optional<AutoexecJobPhaseOperationVo> operationVoOptional = phaseVoOptional.get().getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).findFirst();
-                        if (operationVoOptional.isPresent()) {
-                            String valueFormat = "${%s.%s_%d.%s}";
-                            if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.PRE_NODE_OUTPUT_PARAM_KEY.getValue())) {
-                                valueFormat = "#{%s.%s_%d.%s}";
+            if (Arrays.asList(ParamMappingMode.PRE_NODE_OUTPUT_PARAM.getValue(), ParamMappingMode.PRE_NODE_OUTPUT_PARAM_KEY.getValue()).contains(paramMappingVo.getMappingMode())) {
+                if (value instanceof JSONArray) {
+                    JSONArray values = (JSONArray) value;
+                    if (values.size() == 3) {
+                        String phaseUuid = values.getString(0);
+                        String opUuid = values.getString(1);
+                        value = values.getString(2);
+                        Optional<AutoexecJobPhaseVo> phaseVoOptional = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).findFirst();
+                        if (phaseVoOptional.isPresent()) {
+                            Optional<AutoexecJobPhaseOperationVo> operationVoOptional = phaseVoOptional.get().getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).findFirst();
+                            if (operationVoOptional.isPresent()) {
+                                String valueFormat = "${%s.%s_%d.%s}";
+                                if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.PRE_NODE_OUTPUT_PARAM_KEY.getValue())) {
+                                    valueFormat = "#{%s.%s_%d.%s}";
+                                }
+                                paramMappingVo.setValue(String.format(valueFormat, phaseVoOptional.get().getName(), preOperationNameMap.get(opUuid), operationVoOptional.get().getId(), value));
+                            } else {
+                                throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
                             }
-                            paramMappingVo.setValue(String.format(valueFormat, phaseVoOptional.get().getName(), preOperationNameMap.get(opUuid), operationVoOptional.get().getId(), value));
                         } else {
-                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
+                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
                         }
                     } else {
-                        throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
+                        throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
                     }
                 } else {
                     throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
