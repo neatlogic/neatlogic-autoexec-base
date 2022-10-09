@@ -54,5 +54,7 @@ public interface AutoexecCatalogMapper {
 
     List<AutoexecCatalogVo> getChildrenByLftRht(AutoexecCatalogVo catalogVo);
 
+    AutoexecCatalogVo getAutoexecCatalogByScriptId(Long scriptId);
 
+    List<AutoexecCatalogVo> getAutoexecParentCatalogListByCatalogId(@Param("lft") Integer lft, @Param("rht") Integer rht);
 }

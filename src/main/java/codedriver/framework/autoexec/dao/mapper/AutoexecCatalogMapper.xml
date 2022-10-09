@@ -254,6 +254,29 @@
 
     </select>
 
+    <select id="getAutoexecParentCatalogListByCatalogId"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT `id`,
+               `name`,
+               `parent_id` as parentId,
+               `lft`,
+               `rht`
+        FROM `autoexec_catalog`
+        WHERE `lft` &lt;= #{lft}
+          AND `rht` >= #{rht}
+    </select>
+
+    <select id="getAutoexecCatalogByScriptId"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT ac.`id`,
+               ac.`name`,
+               ac.`parent_id` as parentId,
+               ac.`lft`,
+               ac.`rht`
+        FROM `autoexec_catalog` ac
+                 left join `autoexec_script` ass on ass.catalog_id = ac.id
+        WHERE ass.id = #{value}
+    </select>
 
 </mapper>
 
