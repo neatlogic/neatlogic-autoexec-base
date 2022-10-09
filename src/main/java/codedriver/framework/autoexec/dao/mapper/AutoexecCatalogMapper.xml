@@ -254,7 +254,7 @@
 
     </select>
 
-    <select id="getAutoexecParentCatalogListByCatalogId"
+    <select id="getParentListByLftRht"
             resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         SELECT `id`,
                `name`,
