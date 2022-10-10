@@ -669,6 +669,29 @@
           and `parent_operation_id` is null
     </select>
 
+    <select id="getJobPhaseOperationByJobIdAndPhaseNameAndUuid"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+        SELECT ajpn.`job_id`       as jobId,
+               ajpn.`job_phase_id` as jobPhaseId,
+               ajpn.`id`,
+               ajpn.`name`,
+               ajpn.`uk`,
+               ajpn.`type`,
+               ajpn.`parser`,
+               ajpn.`exec_mode`    as execMode,
+               ajpn.`sort`,
+               ajpn.`fail_policy`  as failPolicy,
+               ajpn.version_id     as versionId,
+               ajpn.`param_hash`   as paramHash,
+               ajpn.`profile_id`   as profileId
+        FROM `autoexec_job_phase_operation` ajpn
+        left join `autoexec_job_phase` ajp on ajpn.job_id = ajp.job_id and ajpn.job_phase_id = ajp.id
+        where ajpn.`job_id` = #{jobId}
+          and ajp.`name` = #{phaseName}
+          and ajpn.`uuid` = #{uuid}
+          and `parent_operation_id` is null
+    </select>
+
     <select id="checkIsJobParamReference" resultType="java.lang.Integer">
         SELECT COUNT(1)
         FROM `autoexec_job` aj
@@ -2062,6 +2085,7 @@
         `sort`,
         `operation_id`,
         `profile_id`,
+        `uuid`,
         <if test="parentOperationId != null">
             `parent_operation_id`,
         </if>
@@ -2084,6 +2108,7 @@
         #{sort},
         #{operationId},
         #{profileId},
+        #{uuid},
         <if test="parentOperationId != null">
             #{parentOperationId},
         </if>

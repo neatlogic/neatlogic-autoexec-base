@@ -17,6 +17,7 @@ import java.util.List;
  * @since: 2021/4/21 18:41
  **/
 public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
+    private static final long serialVersionUID = 5926053553385616019L;
     @EntityField(name = "参数映射列表", type = ApiParamType.JSONARRAY)
     private List<ParamMappingVo> paramMappingList;
     @EntityField(name = "自由参数映射列表", type = ApiParamType.JSONARRAY)

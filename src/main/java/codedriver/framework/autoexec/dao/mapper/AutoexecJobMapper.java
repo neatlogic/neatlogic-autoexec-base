@@ -182,6 +182,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseOperationVo> getJobPhaseOperationByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
+    AutoexecJobPhaseOperationVo getJobPhaseOperationByJobIdAndPhaseNameAndUuid(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("uuid") String uuid);
+
     AutoexecJobPhaseOperationVo getJobPhaseOperationByJobIdAndPhaseIdAndOperationId(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId, @Param("jobPhaseOperationId") Long operationId);
 
     AutoexecJobPhaseOperationVo getJobPhaseOperationByOperationId(@Param("jobPhaseOperationId") Long operationId);
@@ -329,7 +331,7 @@ public interface AutoexecJobMapper {
 
     void updateSqlDetailById(AutoexecSqlNodeDetailVo paramSqlVo);
 
-    void updateSqlStatusByIdList(@Param("idList")List<Long> sqlIdList,@Param("status") String status);
+    void updateSqlStatusByIdList(@Param("idList") List<Long> sqlIdList, @Param("status") String status);
 
     void resetJobSqlStatusBySqlIdList(@Param("idList") List<Long> idList);
 
