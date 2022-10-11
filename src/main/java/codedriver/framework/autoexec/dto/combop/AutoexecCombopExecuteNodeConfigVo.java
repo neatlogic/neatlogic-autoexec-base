@@ -32,10 +32,16 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
     @EntityField(name = "上游出参列表", type = ApiParamType.JSONARRAY)
     private List<String> preOutputList;
 
+    /**
+     * 标签方式已经弃用
+     * @return
+     */
+    @Deprecated
     public List<Long> getTagList() {
         return tagList;
     }
 
+    @Deprecated
     public void setTagList(List<Long> tagList) {
         this.tagList = tagList;
     }
