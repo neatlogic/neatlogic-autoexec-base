@@ -669,7 +669,7 @@
           and `parent_operation_id` is null
     </select>
 
-    <select id="getJobPhaseOperationByJobIdAndPhaseNameAndUuid"
+    <select id="getJobPhaseOperationByJobIdAndPhaseUuidAndUuid"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
         SELECT ajpn.`job_id`       as jobId,
                ajpn.`job_phase_id` as jobPhaseId,
@@ -687,7 +687,7 @@
         FROM `autoexec_job_phase_operation` ajpn
         left join `autoexec_job_phase` ajp on ajpn.job_id = ajp.job_id and ajpn.job_phase_id = ajp.id
         where ajpn.`job_id` = #{jobId}
-          and ajp.`name` = #{phaseName}
+          and ajp.`uuid` = #{phaseUuid}
           and ajpn.`uuid` = #{uuid}
           and `parent_operation_id` is null
     </select>
@@ -724,7 +724,9 @@
                exec_mode  as execMode,
                `group_id` as groupId,
                `sort`,
-               `status`
+               `status`,
+               `uuid`,
+               `is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase`
         WHERE `job_id` = #{jobId}
           and `name` = #{jobPhaseName}
@@ -2027,6 +2029,8 @@
                                           `lcd`,
                                           `group_id`,
                                           `execute_policy`,
+                                          `uuid`,
+                                          `is_pre_output_update_node`,
                                           `sort`)
         VALUES (#{id},
                 #{jobId},
@@ -2037,6 +2041,8 @@
                 now(3),
                 #{groupId},
                 #{executePolicy},
+                #{uuid},
+                #{isPreOutputUpdateNode},
                 #{sort})
     </insert>
 

@@ -12,7 +12,7 @@ public class AutoexecJobPhaseOperationNotFoundException extends ApiRuntimeExcept
     private static final long serialVersionUID = -4721821148252863936L;
 
     public AutoexecJobPhaseOperationNotFoundException(String operation) {
-        super("作业剧本节点'"+operation+"'不存在");
+        super("作业阶段工具'"+operation+"'不存在");
     }
 
 
