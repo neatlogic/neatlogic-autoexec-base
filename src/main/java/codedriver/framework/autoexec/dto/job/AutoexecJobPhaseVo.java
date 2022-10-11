@@ -69,7 +69,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private String executePolicy;
     @EntityField(name = "是否当前步骤", type = ApiParamType.INTEGER)
     private Integer isActive;
-    @EntityField(name = "是否需要通过上游出差作为执行节点", type = ApiParamType.INTEGER)
+    @EntityField(name = "当前阶段是否存在根据出参更新其他阶段执行节点", type = ApiParamType.INTEGER)
     private Integer isPreOutputUpdateNode = 0;
     @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
     private Integer warnCount = 0;

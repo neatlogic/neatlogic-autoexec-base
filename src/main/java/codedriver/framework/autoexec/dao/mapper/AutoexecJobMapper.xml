@@ -407,6 +407,8 @@
         <result column="sort" property="sort"/>
         <result column="warnCount" property="warnCount"/>
         <result column="uk" property="uk"/>
+        <result column="uuid" property="uuid"/>
+        <result column="isPreOutputUpdateNode" property="isPreOutputUpdateNode"/>
         <collection property="jobGroupVo" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
             <result column="groupId" property="id"/>
             <result column="groupSort" property="sort"/>
@@ -685,7 +687,7 @@
                ajpn.`param_hash`   as paramHash,
                ajpn.`profile_id`   as profileId
         FROM `autoexec_job_phase_operation` ajpn
-        left join `autoexec_job_phase` ajp on ajpn.job_id = ajp.job_id and ajpn.job_phase_id = ajp.id
+                 left join `autoexec_job_phase` ajp on ajpn.job_id = ajp.job_id and ajpn.job_phase_id = ajp.id
         where ajpn.`job_id` = #{jobId}
           and ajp.`uuid` = #{phaseUuid}
           and ajpn.`uuid` = #{uuid}
@@ -720,9 +722,9 @@
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT id,
                `name`,
-               job_id     as jobId,
-               exec_mode  as execMode,
-               `group_id` as groupId,
+               job_id                      as jobId,
+               exec_mode                   as execMode,
+               `group_id`                  as groupId,
                `sort`,
                `status`,
                `uuid`,
@@ -731,6 +733,30 @@
         WHERE `job_id` = #{jobId}
           and `name` = #{jobPhaseName}
     </select>
+
+    <select id="getJobPhaseByJobIdAndPhaseNameWithGroup" resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+               ajp.`job_id`     as jobId,
+               ajp.`status`,
+               ajp.`start_time` as startTime,
+               ajp.`end_time`   as endTime,
+               ajp.`exec_user`  as execUser,
+               ajp.`exec_mode`  as execMode,
+               ajp.`name`       as name,
+               ajp.`sort`,
+               ajp.`uk`         as uk,
+               ajp.`uuid`,
+               ajg.id           as groupId,
+               ajg.sort         as groupSort,
+               ajg.config,
+               ajg.policy       as groupPolicy,
+               ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
+        FROM `autoexec_job_phase` ajp
+                 left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        WHERE ajp.`job_id` = #{jobId}
+          and ajp.`name` = #{jobPhaseName}
+    </select>
+
     <select id="getJobPhaseOperationByJobIdAndPhaseIdAndOperationId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
         SELECT `job_id`       as jobId,
@@ -1971,6 +1997,29 @@
         WHERE aj.`id` in
         <foreach collection="list" item="id" close=")" open="(" separator=",">
             #{id}
+        </foreach>
+    </select>
+    <select id="getJobPhaseListByJobIdAndPhaseUuidList" resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+        ajp.`job_id` as jobId,
+        ajp.`status`,
+        ajp.`start_time` as startTime,
+        ajp.`end_time` as endTime,
+        ajp.`exec_user` as execUser,
+        ajp.`exec_mode` as execMode,
+        ajp.`name` as name,
+        ajp.`sort`,
+        ajp.`uk` as uk,
+        ajp.`uuid`,
+        ajg.id as groupId,
+        ajg.sort as groupSort,
+        ajg.config,
+        ajg.policy as groupPolicy
+        FROM `autoexec_job_phase` ajp
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        where ajp.job_id = #{jobId} and ajp.`uuid` in
+        <foreach collection="phaseUuidList" item="phaseUuid" separator="," open="(" close=")">
+            #{phaseUuid}
         </foreach>
     </select>
 

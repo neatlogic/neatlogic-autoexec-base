@@ -86,6 +86,8 @@ public interface AutoexecJobMapper {
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName);
 
+    AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseNameWithGroup(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName);
+
     Integer getJobPhaseNotCompletedCountByJobIdAndGroupSort(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort);
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndGroupSort(@Param("jobId") Long jobId, @Param("sort") Integer sort);
@@ -107,6 +109,8 @@ public interface AutoexecJobMapper {
     AutoexecJobPhaseVo getJobPhaseByJobIdAndGroupSortAndSort(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort, @Param("sort") int sort);
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList);
+
+    List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndPhaseUuidList(@Param("jobId")Long id, @Param("phaseUuidList")List<String> phaseUuidList);
 
     //jobPhaseRunner
     List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
