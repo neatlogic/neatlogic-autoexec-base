@@ -15,6 +15,6 @@ public class AutoexecJobNodePreParamValueNotInvalidException extends ApiRuntimeE
     }
 
     public AutoexecJobNodePreParamValueNotInvalidException(Long id, String phaseName) {
-        super("作业'"+id+"'-阶段'"+phaseName+"' 根据上游参数初始化执行目标失败，上游出参不合法");
+        super("作业'"+id+"'-阶段'"+phaseName+"' 根据上游参数初始化执行目标失败，上游出参的值不存在或不合法");
     }
 }
