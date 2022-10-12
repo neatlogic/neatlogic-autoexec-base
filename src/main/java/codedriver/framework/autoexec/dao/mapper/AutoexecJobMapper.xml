@@ -736,20 +736,20 @@
 
     <select id="getJobPhaseByJobIdAndPhaseNameWithGroup" resultMap="AutoexecJobPhaseMap">
         SELECT ajp.`id`,
-               ajp.`job_id`     as jobId,
+               ajp.`job_id`                    as jobId,
                ajp.`status`,
-               ajp.`start_time` as startTime,
-               ajp.`end_time`   as endTime,
-               ajp.`exec_user`  as execUser,
-               ajp.`exec_mode`  as execMode,
-               ajp.`name`       as name,
+               ajp.`start_time`                as startTime,
+               ajp.`end_time`                  as endTime,
+               ajp.`exec_user`                 as execUser,
+               ajp.`exec_mode`                 as execMode,
+               ajp.`name`                      as name,
                ajp.`sort`,
-               ajp.`uk`         as uk,
+               ajp.`uk`                        as uk,
                ajp.`uuid`,
-               ajg.id           as groupId,
-               ajg.sort         as groupSort,
+               ajg.id                          as groupId,
+               ajg.sort                        as groupSort,
                ajg.config,
-               ajg.policy       as groupPolicy,
+               ajg.policy                      as groupPolicy,
                ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase` ajp
                  left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
@@ -952,6 +952,7 @@
         <foreach collection="exceptStatus" item="status" separator="," open="(" close=")">
             #{status}
         </foreach>
+        and ajpn.`is_delete` = 0
     </select>
 
     <select id="getJobPhaseNodeListByJobIdAndPhaseId"
@@ -968,6 +969,23 @@
         FROM `autoexec_job_phase_node` ajpn
         where ajpn.`job_id` = #{jobId}
           and ajpn.`job_phase_id` = #{phaseId}
+    </select>
+
+    <select id="getJobPhaseNodeListWithoutDeleteByJobIdAndPhaseId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+               ajpn.`job_id`       AS jobId,
+               ajpn.`job_phase_id` AS jobPhaseId,
+               ajpn.`host`,
+               ajpn.`port`,
+               ajpn.`start_time`   AS startTime,
+               ajpn.`end_time`     AS endTime,
+               ajpn.`resource_id`  as resourceId,
+               ajpn.`status`
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_id` = #{jobId}
+          and ajpn.`job_phase_id` = #{phaseId}
+          and ajpn.`is_delete` = 0
     </select>
 
     <select id="getJobRunnerListByJobId" resultType="codedriver.framework.dto.runner.RunnerVo">
@@ -1175,6 +1193,34 @@
             #{nodeId}
         </foreach>
     </select>
+
+    <select id="getJobPhaseNodeListWithRunnerByJobPhaseIdAndExceptStatusList"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+        ajpn.`job_id` AS jobId,
+        ajpn.`job_phase_id` AS jobPhaseId,
+        ajpn.`host`,
+        ajpn.`port`,
+        ajpn.`start_time` AS startTime,
+        ajpn.`end_time` AS endTime,
+        ajpn.`resource_id` AS resourceId,
+        ajpn.`user_name` as userName,
+        ajpn.`name` as nodeName,
+        ajpn.`type` as nodeType,
+        ajpn.`protocol_id` as protocolId,
+        ajpn.`status`,
+        ajpnr.runner_map_id as runnerMapId,
+        r.url as runnerUrl
+        FROM `autoexec_job_phase_node` ajpn
+        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpnr.`node_id` = ajpn.`id`
+        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner` r on arm.runner_id = r.id
+        where ajpn.`job_phase_id` = #{jobPhaseId} and ajpn.`is_delete` = 0 and ajpn.`status` not in
+        <foreach collection="statusList" item="status" separator="," open="(" close=")">
+            #{status}
+        </foreach>
+    </select>
+
     <select id="getJobRunnerById" resultType="codedriver.framework.dto.runner.RunnerVo">
         SELECT ar.`id`, ar.`name`, ar.`url`, ar.`host`, ar.`port`
         FROM `runner` ar
@@ -2416,6 +2462,9 @@
         <if test="warnCount != null">
             `warn_count` = #{warnCount},
         </if>
+        <if test="isExecuted != null">
+            `is_executed` = #{isExecuted},
+        </if>
         `status` = #{status}
         WHERE `job_id` = #{jobId}
         AND `job_phase_id` = #{jobPhaseId}
@@ -2478,6 +2527,7 @@
         <foreach collection="nodeIdList" item="nodeId" open="(" close=")" separator=",">
             #{nodeId}
         </foreach>
+        and `is_delete` = 0
     </update>
     <update id="updateJobPhaseStatusByPhaseIdList">
         UPDATE
@@ -2700,7 +2750,7 @@
     <delete id="deleteJobPhaseNodeByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job_phase_node`
-        WHERE `job_id` = #{value}
+        WHERE `job_id` = #{value} and `is_executed` = 0
     </delete>
 
     <delete id="deleteJobPhaseByJobId" parameterType="java.lang.Long">
@@ -2722,6 +2772,7 @@
         <foreach collection="jobPhaseIdList" item="phaseId" open="(" close=")" separator=",">
             #{phaseId}
         </foreach>
+        and `is_executed` = 0
     </delete>
     <delete id="deleteJobPhaseRunnerByJobId">
         DELETE
@@ -2732,13 +2783,14 @@
         DELETE ajpnr
         FROM `autoexec_job_phase_node_runner` ajpnr
                  LEFT JOIN `autoexec_job_phase_node` ajpn ON ajpnr.`node_id` = ajpn.`id`
-        WHERE ajpn.`job_id` = #{value}
+        WHERE ajpn.`job_id` = #{value} and ajpn.`is_executed` = 0
     </delete>
     <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcd">
         DELETE
         FROM `autoexec_job_phase_node`
         where `job_phase_id` = #{jobPhaseId}
           and (`lcd` != #{lcd} OR `lcd` IS NULL)
+          and `is_executed` = 0
     </delete>
     <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus">
         DELETE
@@ -2746,6 +2798,8 @@
         where `job_phase_id` = #{jobPhaseId}
           and (`lcd` != #{lcd} OR `lcd` IS NULL)
           and `status` = #{status}
+          and `is_delete` = 0
+          and `is_executed` = 0
     </delete>
     <delete id="deleteJobPhaseNodeRunnerByJobPhaseIdAndLcdAndStatus">
         DELETE ajpnr
@@ -2754,6 +2808,7 @@
         WHERE ajpn.`job_phase_id` = #{jobPhaseId}
           and (ajpn.`lcd` != #{lcd} OR ajpn.`lcd` IS NULL)
           and ajpn.`status` = #{status}
+          and ajpn.`is_executed` = 0
     </delete>
     <delete id="deleteJobEvnByJobId">
         DELETE
