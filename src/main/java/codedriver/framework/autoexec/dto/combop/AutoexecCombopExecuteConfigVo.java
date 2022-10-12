@@ -35,6 +35,8 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     private List<AutoexecNodeVo> blacklist;
     @EntityField(name = "是否预设执行目标", type = ApiParamType.INTEGER)
     private Integer isPresetExecuteConfig;
+    @EntityField(name = "分批数量", type = ApiParamType.INTEGER)
+    private Integer roundCount;
 
     public String getProtocol() {
         return protocol;
@@ -106,5 +108,13 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setIsPresetExecuteConfig(Integer isPresetExecuteConfig) {
         this.isPresetExecuteConfig = isPresetExecuteConfig;
+    }
+
+    public Integer getRoundCount() {
+        return roundCount;
+    }
+
+    public void setRoundCount(Integer roundCount) {
+        this.roundCount = roundCount;
     }
 }

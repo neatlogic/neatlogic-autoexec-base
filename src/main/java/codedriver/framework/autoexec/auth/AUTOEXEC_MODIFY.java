@@ -7,7 +7,7 @@ package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +36,12 @@ public class AUTOEXEC_MODIFY extends AuthBase {
     }
 
     @Override
-    public List<Class<? extends AuthBase>> getIncludeAuths(){
-        return Collections.singletonList(AUTOEXEC_BASE.class);
+    public List<Class<? extends AuthBase>> getIncludeAuths() {
+        List<Class<? extends AuthBase>> list = new ArrayList<>();
+        list.add(AUTOEXEC_COMBOP_ADD.class);
+        list.add(AUTOEXEC_CUSTOMTEMPLATE_MODIFY.class);
+        list.add(AUTOEXEC_JOB_MODIFY.class);
+        list.add(AUTOEXEC_SCRIPT_MANAGE.class);
+        return list;
     }
 }
