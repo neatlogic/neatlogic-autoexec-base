@@ -367,7 +367,7 @@
         </where>
     </select>
 
-    <select id="getJobPhaseListByJobId" parameterType="java.lang.Long"
+    <select id="getJobPhaseListWithGroupByJobId" parameterType="java.lang.Long"
             resultMap="AutoexecJobPhaseMap">
         SELECT ajp.`id`,
                ajp.`job_id`         as jobId,
@@ -386,7 +386,9 @@
                ajg.id               as groupId,
                ajg.sort             as groupSort,
                ajg.config,
-               ajg.policy           as groupPolicy
+               ajg.policy           as groupPolicy,
+               ajp.`uuid`,
+               ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase` ajp
                  left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where ajp.`job_id` = #{value}
@@ -1578,16 +1580,28 @@
                  LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpnr.`job_phase_id` = #{value}
     </select>
-    <select id="getJobPhaseListByJobIdAndPhaseIdList"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        SELECT ajp.id,
-        ajp.job_id as jobId,
-        ajp.`name`,
-        ajp.`exec_mode` as execMode,
-        ajp.`group_id` as groupId,
+    <select id="getJobPhaseListWithGroupByJobIdAndPhaseIdList"
+            resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+        ajp.`job_id`         as jobId,
+        ajp.`status`,
+        ajp.`start_time`     as startTime,
+        ajp.`end_time`       as endTime,
+        ajp.`exec_user`      as execUser,
+        ajp.`exec_mode`      as execMode,
+        ajp.`name`           as name,
+        ajp.`error_msg`      as errorMsg,
+        ajp.`group_id`       as groupId,
+        ajp.`execute_policy` as executePolicy,
         ajp.`sort`,
-        ajp.`warn_count` as warnCount,
-        ajp.`status`
+        ajp.`warn_count`     as warnCount,
+        ajp.`uk`             as uk,
+        ajg.id               as groupId,
+        ajg.sort             as groupSort,
+        ajg.config,
+        ajg.policy           as groupPolicy,
+        ajp.`uuid`,
+        ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase` ajp
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         WHERE ajp.job_id = #{jobId} and ajp.id in
