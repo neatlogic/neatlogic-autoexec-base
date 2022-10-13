@@ -21,6 +21,8 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     private Long id;
     @EntityField(name = "作业剧本操作名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "作业剧本操作后缀", type = ApiParamType.STRING)
+    private String letter;
     @EntityField(name = "作业剧本节点操作类型 script|tool", type = ApiParamType.STRING)
     private String type;
     @EntityField(name = "解析器 python|perl等", type = ApiParamType.STRING)
@@ -47,6 +49,7 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         this.sort = operationVo.getSort();
         this.failIgnore = operationVo.getFailIgnore();
         this.description = description;
+        this.letter = operationVo.getLetter();
     }
 
     public Long getId() {
@@ -110,5 +113,13 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
 }

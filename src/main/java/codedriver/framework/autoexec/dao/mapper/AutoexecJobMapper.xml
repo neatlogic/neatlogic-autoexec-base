@@ -667,7 +667,8 @@
                version_id     as versionId,
                `param_hash`   as paramHash,
                `profile_id`   as profileId,
-               `uuid`
+               `uuid`,
+               `letter`
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
