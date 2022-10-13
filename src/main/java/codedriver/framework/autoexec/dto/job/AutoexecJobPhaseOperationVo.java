@@ -119,7 +119,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
         this.uk = operationVo.getUk();
-        this.name = operationVo.getName();
+        this.name = autoexecCombopPhaseOperationVo.getOperationName() + (StringUtils.isBlank(autoexecCombopPhaseOperationVo.getLetter()) ? StringUtils.EMPTY : "_" + autoexecCombopPhaseOperationVo.getLetter());
         this.jobPhaseId = phaseVo.getId();
         this.type = operationVo.getOperationType();
         this.execMode = operationVo.getExecMode();

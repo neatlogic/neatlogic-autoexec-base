@@ -9,6 +9,8 @@ import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,8 +21,6 @@ import java.util.List;
  **/
 public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
     private static final long serialVersionUID = 2910089979265665028L;
-    @EntityField(name = "标签列表", type = ApiParamType.STRING)
-    private List<Long> tagList;
     @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
     private List<String> paramList;
     @EntityField(name = "选择节点列表", type = ApiParamType.JSONARRAY)
@@ -31,20 +31,6 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
     private JSONObject filter; // 过滤器
     @EntityField(name = "上游出参列表", type = ApiParamType.JSONARRAY)
     private List<String> preOutputList;
-
-    /**
-     * 标签方式已经弃用
-     * @return
-     */
-    @Deprecated
-    public List<Long> getTagList() {
-        return tagList;
-    }
-
-    @Deprecated
-    public void setTagList(List<Long> tagList) {
-        this.tagList = tagList;
-    }
 
     public List<String> getParamList() {
         return paramList;
@@ -84,5 +70,9 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
 
     public void setPreOutputList(List<String> preOutputList) {
         this.preOutputList = preOutputList;
+    }
+
+    public boolean isNull(){
+        return CollectionUtils.isEmpty(paramList) && CollectionUtils.isEmpty(selectNodeList) && CollectionUtils.isEmpty(inputNodeList) && MapUtils.isEmpty(filter) && CollectionUtils.isEmpty(preOutputList);
     }
 }
