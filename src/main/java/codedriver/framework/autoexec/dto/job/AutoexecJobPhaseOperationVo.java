@@ -48,6 +48,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private String uk;
     @EntityField(name = "作业剧本操作名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "作业剧本操作名后缀", type = ApiParamType.STRING)
+    private String letter;
     @EntityField(name = "工具描述", type = ApiParamType.STRING)
     private String description;
     @EntityField(name = "作业剧本节点操作类型 script|tool", type = ApiParamType.STRING)
@@ -121,7 +123,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
         this.uk = operationVo.getUk();
-        this.name = autoexecCombopPhaseOperationVo.getOperationName() + (StringUtils.isBlank(autoexecCombopPhaseOperationVo.getLetter()) ? StringUtils.EMPTY : "_" + autoexecCombopPhaseOperationVo.getLetter());
+        this.name = autoexecCombopPhaseOperationVo.getOperationName();
         this.jobPhaseId = phaseVo.getId();
         this.type = operationVo.getOperationType();
         this.execMode = operationVo.getExecMode();
@@ -129,6 +131,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         this.parser = operationVo.getParser();
         this.sort = autoexecCombopPhaseOperationVo.getSort() == null ? 0 : autoexecCombopPhaseOperationVo.getSort();//兼容operation sort 为null bug
         this.operationId = autoexecCombopPhaseOperationVo.getOperationId();
+        this.letter = autoexecCombopPhaseOperationVo.getLetter();
         this.setParentOperationId(autoexecCombopPhaseOperationVo.getParentOperationId());
         this.setParentOperationType(autoexecCombopPhaseOperationVo.getParentOperationType());
         //拼接操作脚本到config
@@ -414,5 +417,13 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
 }

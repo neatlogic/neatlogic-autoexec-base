@@ -370,23 +370,23 @@
     <select id="getJobPhaseListWithGroupByJobId" parameterType="java.lang.Long"
             resultMap="AutoexecJobPhaseMap">
         SELECT ajp.`id`,
-               ajp.`job_id`         as jobId,
+               ajp.`job_id`                    as jobId,
                ajp.`status`,
-               ajp.`start_time`     as startTime,
-               ajp.`end_time`       as endTime,
-               ajp.`exec_user`      as execUser,
-               ajp.`exec_mode`      as execMode,
-               ajp.`name`           as name,
-               ajp.`error_msg`      as errorMsg,
-               ajp.`group_id`       as groupId,
-               ajp.`execute_policy` as executePolicy,
+               ajp.`start_time`                as startTime,
+               ajp.`end_time`                  as endTime,
+               ajp.`exec_user`                 as execUser,
+               ajp.`exec_mode`                 as execMode,
+               ajp.`name`                      as name,
+               ajp.`error_msg`                 as errorMsg,
+               ajp.`group_id`                  as groupId,
+               ajp.`execute_policy`            as executePolicy,
                ajp.`sort`,
-               ajp.`warn_count`     as warnCount,
-               ajp.`uk`             as uk,
-               ajg.id               as groupId,
-               ajg.sort             as groupSort,
+               ajp.`warn_count`                as warnCount,
+               ajp.`uk`                        as uk,
+               ajg.id                          as groupId,
+               ajg.sort                        as groupSort,
                ajg.config,
-               ajg.policy           as groupPolicy,
+               ajg.policy                      as groupPolicy,
                ajp.`uuid`,
                ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase` ajp
@@ -1247,11 +1247,11 @@
     </select>
     <select id="getJobPhaseByPhaseId" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT id,
-               job_id      as jobId,
+               job_id                      as jobId,
                `name`,
-               `exec_mode` as execMode,
+               `exec_mode`                 as execMode,
                `sort`,
-               `group_id`  as groupId,
+               `group_id`                  as groupId,
                `status`,
                `uuid`,
                `is_pre_output_update_node` as isPreOutputUpdateNode
@@ -1583,23 +1583,23 @@
     <select id="getJobPhaseListWithGroupByJobIdAndPhaseIdList"
             resultMap="AutoexecJobPhaseMap">
         SELECT ajp.`id`,
-        ajp.`job_id`         as jobId,
+        ajp.`job_id` as jobId,
         ajp.`status`,
-        ajp.`start_time`     as startTime,
-        ajp.`end_time`       as endTime,
-        ajp.`exec_user`      as execUser,
-        ajp.`exec_mode`      as execMode,
-        ajp.`name`           as name,
-        ajp.`error_msg`      as errorMsg,
-        ajp.`group_id`       as groupId,
+        ajp.`start_time` as startTime,
+        ajp.`end_time` as endTime,
+        ajp.`exec_user` as execUser,
+        ajp.`exec_mode` as execMode,
+        ajp.`name` as name,
+        ajp.`error_msg` as errorMsg,
+        ajp.`group_id` as groupId,
         ajp.`execute_policy` as executePolicy,
         ajp.`sort`,
-        ajp.`warn_count`     as warnCount,
-        ajp.`uk`             as uk,
-        ajg.id               as groupId,
-        ajg.sort             as groupSort,
+        ajp.`warn_count` as warnCount,
+        ajp.`uk` as uk,
+        ajg.id as groupId,
+        ajg.sort as groupSort,
         ajg.config,
-        ajg.policy           as groupPolicy,
+        ajg.policy as groupPolicy,
         ajp.`uuid`,
         ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase` ajp
@@ -2204,6 +2204,7 @@
         `operation_id`,
         `profile_id`,
         `uuid`,
+        `letter`,
         <if test="parentOperationId != null">
             `parent_operation_id`,
         </if>
@@ -2227,6 +2228,7 @@
         #{operationId},
         #{profileId},
         #{uuid},
+        #{letter},
         <if test="parentOperationId != null">
             #{parentOperationId},
         </if>
@@ -2767,7 +2769,8 @@
     <delete id="deleteJobPhaseNodeByJobId" parameterType="java.lang.Long">
         DELETE
         FROM `autoexec_job_phase_node`
-        WHERE `job_id` = #{value} and `is_executed` = 0
+        WHERE `job_id` = #{value}
+          and `is_executed` = 0
     </delete>
 
     <delete id="deleteJobPhaseByJobId" parameterType="java.lang.Long">
@@ -2800,7 +2803,8 @@
         DELETE ajpnr
         FROM `autoexec_job_phase_node_runner` ajpnr
                  LEFT JOIN `autoexec_job_phase_node` ajpn ON ajpnr.`node_id` = ajpn.`id`
-        WHERE ajpn.`job_id` = #{value} and ajpn.`is_executed` = 0
+        WHERE ajpn.`job_id` = #{value}
+          and ajpn.`is_executed` = 0
     </delete>
     <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcd">
         DELETE
