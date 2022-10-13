@@ -43,6 +43,8 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
     private List<ParamMappingVo> argumentMappingList;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
     private AutoexecParamVo argumentVo;
+    @EntityField(name = "描述说明", type = ApiParamType.STRING)
+    private String description;
 
 
     public AutoexecPhaseOperationParamVo() {
@@ -58,6 +60,7 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
         this.outputParamList = toolVo.getOutputParamList();
         this.execMode = toolVo.getExecMode();
         this.argumentVo = toolVo.getArgument();
+        this.description = toolVo.getDescription();
     }
 
     public AutoexecPhaseOperationParamVo(AutoexecScriptVo scriptVo, AutoexecScriptVersionVo scriptVersionVo) {
@@ -74,6 +77,7 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
         }
         this.execMode = scriptVo.getExecMode();
         this.argumentVo = scriptVo.getArgument();
+        this.description = scriptVo.getDescription();
     }
 
     public String getName() {
@@ -154,5 +158,13 @@ public class AutoexecPhaseOperationParamVo implements Serializable {
 
     public void setArgumentVo(AutoexecParamVo argumentVo) {
         this.argumentVo = argumentVo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -82,6 +82,7 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
         this.operation.setParser(phaseOperationParamVo.getParser());
         this.operation.setName(this.operationName);
         this.sort = 0;
+        this.description = phaseOperationParamVo.getDescription();
         AutoexecCombopPhaseOperationConfigVo operationConfigVo = new AutoexecCombopPhaseOperationConfigVo();
         this.setConfig(operationConfigVo);
         List<ParamMappingVo> paramMappingVoList = new ArrayList<>();
