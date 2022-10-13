@@ -48,6 +48,8 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private String uk;
     @EntityField(name = "作业剧本操作名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "工具描述", type = ApiParamType.STRING)
+    private String description;
     @EntityField(name = "作业剧本节点操作类型 script|tool", type = ApiParamType.STRING)
     private String type;
     @EntityField(name = "执行方式 local|remote", type = ApiParamType.STRING)
@@ -404,5 +406,13 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setParentOperationType(String parentOperationType) {
         this.parentOperationType = parentOperationType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

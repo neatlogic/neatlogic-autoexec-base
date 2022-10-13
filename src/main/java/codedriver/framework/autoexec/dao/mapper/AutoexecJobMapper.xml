@@ -664,7 +664,8 @@
                `fail_policy`  as failPolicy,
                version_id     as versionId,
                `param_hash`   as paramHash,
-               `profile_id`   as profileId
+               `profile_id`   as profileId,
+               `uuid`
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
@@ -1249,7 +1250,9 @@
                `exec_mode` as execMode,
                `sort`,
                `group_id`  as groupId,
-               `status`
+               `status`,
+               `uuid`,
+               `is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase`
         WHERE id = #{value}
     </select>
