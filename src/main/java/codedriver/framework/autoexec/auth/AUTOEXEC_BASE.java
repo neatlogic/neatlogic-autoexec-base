@@ -6,6 +6,10 @@
 package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
+import codedriver.framework.cmdb.auth.label.CMDB;
+
+import java.util.Collections;
+import java.util.List;
 
 public class AUTOEXEC_BASE extends AuthBase {
 
@@ -27,5 +31,10 @@ public class AUTOEXEC_BASE extends AuthBase {
     @Override
     public Integer getSort() {
         return 1;
+    }
+
+    @Override
+    public List<Class<? extends AuthBase>> getIncludeAuths() {
+        return Collections.singletonList(CMDB.class);
     }
 }
