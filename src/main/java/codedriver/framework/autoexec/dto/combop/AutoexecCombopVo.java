@@ -69,7 +69,7 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private boolean needProtocol = false;
     @EntityField(name = "执行页面是否需要设置执行目标", type = ApiParamType.BOOLEAN)
     private boolean needExecuteNode = false;
-    @EntityField(name = "执行页面是否需要设置执行目标", type = ApiParamType.BOOLEAN)
+    @EntityField(name = "执行页面是否需要设置分批数量", type = ApiParamType.BOOLEAN)
     private boolean needRoundCount = false;
 
     @JSONField(serialize = false)
