@@ -1,26 +1,25 @@
 /*
- * Copyright(c) 2021. TechSure Co., Ltd. All Rights Reserved.
+ * Copyright(c) 2022 TechSure Co., Ltd. All Rights Reserved.
  * 本内容仅限于深圳市赞悦科技有限公司内部传阅，禁止外泄以及用于其他的商业项目。
  */
-
 package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
-import codedriver.framework.cmdb.auth.label.CMDB;
 
-import java.util.Arrays;
-import java.util.List;
+/**
+ * @author longrf
+ * @date 2022/10/14 12:15
+ */
 
-public class AUTOEXEC_BASE extends AuthBase {
-
+public class AUTOEXEC extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "自动化基础权限";
+        return "自动化数据消费权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "查看组合工具";
+        return "查询工具库、自定义工具库相关数据";
     }
 
     @Override
@@ -30,11 +29,6 @@ public class AUTOEXEC_BASE extends AuthBase {
 
     @Override
     public Integer getSort() {
-        return 1;
-    }
-
-    @Override
-    public List<Class<? extends AuthBase>> getIncludeAuths() {
-        return Arrays.asList(AUTOEXEC.class, CMDB.class);
+        return 12;
     }
 }
