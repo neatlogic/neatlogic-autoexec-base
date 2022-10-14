@@ -383,6 +383,7 @@
                ajp.`sort`,
                ajp.`warn_count`                as warnCount,
                ajp.`uk`                        as uk,
+               ajp.`round_count`               as roundCount,
                ajg.id                          as groupId,
                ajg.sort                        as groupSort,
                ajg.config,
@@ -411,6 +412,7 @@
         <result column="uk" property="uk"/>
         <result column="uuid" property="uuid"/>
         <result column="isPreOutputUpdateNode" property="isPreOutputUpdateNode"/>
+        <result column="roundCount" property="roundCount"/>
         <collection property="jobGroupVo" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
             <result column="groupId" property="id"/>
             <result column="groupSort" property="sort"/>
@@ -732,7 +734,8 @@
                `sort`,
                `status`,
                `uuid`,
-               `is_pre_output_update_node` as isPreOutputUpdateNode
+               `is_pre_output_update_node` as isPreOutputUpdateNode,
+               `round_count`               as roundCount
         FROM `autoexec_job_phase`
         WHERE `job_id` = #{jobId}
           and `name` = #{jobPhaseName}
@@ -830,6 +833,7 @@
         ajp.`id`, ajp.`status`,
         ajp.`execute_policy` as executePolicy,
         ajp.`status`,
+        ajp.`round_count` as roundCount,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.config,
@@ -1503,7 +1507,7 @@
     </select>
     <select id="getJobGroupByJobIdAndSort"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
-        select id, policy, job_id, sort, lncd
+        select id, policy, job_id, sort, lncd, round_count as roundCount
         from autoexec_job_group
         where job_id = #{jobId}
           and `sort` = #{sort}
@@ -1511,7 +1515,7 @@
 
     <select id="getJobGroupByJobId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobGroupVo">
-        select id, policy, job_id, sort
+        select id, policy, job_id, sort, round_count as roundCount
         from autoexec_job_group
         where job_id = #{jobId}
     </select>
@@ -2144,6 +2148,7 @@
                                           `execute_policy`,
                                           `uuid`,
                                           `is_pre_output_update_node`,
+                                          `round_count`,
                                           `sort`)
         VALUES (#{id},
                 #{jobId},
@@ -2156,6 +2161,7 @@
                 #{executePolicy},
                 #{uuid},
                 #{isPreOutputUpdateNode},
+                #{roundCount},
                 #{sort})
     </insert>
 
@@ -2286,8 +2292,8 @@
                    `lcd`         = #{lcd}
     </insert>
     <insert id="insertJobGroup">
-        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`)
-        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr})
+        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`, `round_count`)
+        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount})
     </insert>
 
     <insert id="insertSqlDetail" parameterType="codedriver.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
@@ -2315,7 +2321,8 @@
                 `end_time`,
             </otherwise>
         </choose>
-        `is_delete`)
+        `is_delete`,
+        `round_count`)
         values (#{id},
         #{jobId},
         #{host},
@@ -2361,7 +2368,8 @@
                 now(3),
             </otherwise>
         </choose>
-        #{isDelete})
+        #{isDelete},
+        #{roundCount})
     </insert>
 
     <insert id="insertSqlDetailList">

@@ -73,6 +73,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer isPreOutputUpdateNode = 0;
     @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
     private Integer warnCount = 0;
+    @EntityField(name = "分批数", type = ApiParamType.INTEGER)
+    private Integer roundCount;
 
     @JSONField(serialize = false)
     private AutoexecJobNodeVo currentNode;
@@ -105,12 +107,15 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.sort = autoexecCombopPhaseVo.getSort();
         this.execUser = UserContext.get().getUserUuid(true);
         this.uuid = autoexecCombopPhaseVo.getUuid();
-        if(autoexecCombopPhaseVo.getGroupId() == null){
+        if (autoexecCombopPhaseVo.getGroupId() == null) {
             throw new AutoexecCombopPhaseGroupIdIsNullException(autoexecCombopPhaseVo.getName());
         }
         this.jobGroupVo = combopGroupJobMap.get(autoexecCombopPhaseVo.getGroupId());
         this.groupId = jobGroupVo.getId();
         this.executePolicy = Arrays.stream(AutoexecJobPhaseExecutePolicy.values()).map(AutoexecJobPhaseExecutePolicy::getValue).collect(Collectors.toList()).contains(autoexecCombopPhaseVo.getPolicy()) ? autoexecCombopPhaseVo.getPolicy() : null;
+        if (autoexecCombopPhaseVo.getConfig() != null && autoexecCombopPhaseVo.getConfig().getExecuteConfig() != null) {
+            this.roundCount = autoexecCombopPhaseVo.getConfig().getExecuteConfig().getRoundCount();
+        }
     }
 
     public AutoexecJobPhaseVo(Long _id, String _status, Integer _warnCount) {
@@ -340,5 +345,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setIsPreOutputUpdateNode(Integer isPreOutputUpdateNode) {
         this.isPreOutputUpdateNode = isPreOutputUpdateNode;
+    }
+
+    public Integer getRoundCount() {
+        return roundCount;
+    }
+
+    public void setRoundCount(Integer roundCount) {
+        this.roundCount = roundCount;
     }
 }

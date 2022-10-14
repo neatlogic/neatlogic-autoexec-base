@@ -34,6 +34,8 @@ public class AutoexecJobGroupVo implements Serializable {
     private AutoexecCombopGroupConfigVo config;
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
+    @EntityField(name = "分批数", type = ApiParamType.INTEGER)
+    private Integer roundCount;
     @JSONField(serialize = false)
     private String configStr;
 
@@ -51,6 +53,9 @@ public class AutoexecJobGroupVo implements Serializable {
         this.sort = combopGroupVo.getSort();
         this.policy = combopGroupVo.getPolicy();
         this.config = combopGroupVo.getConfig();
+        if (combopGroupVo.getConfig() != null && combopGroupVo.getConfig().getExecuteConfig() != null) {
+            this.roundCount = combopGroupVo.getConfig().getExecuteConfig().getRoundCount();
+        }
     }
 
     public void setId(Long id) {
@@ -105,5 +110,13 @@ public class AutoexecJobGroupVo implements Serializable {
 
     public void setLncd(Date lncd) {
         this.lncd = lncd;
+    }
+
+    public Integer getRoundCount() {
+        return roundCount;
+    }
+
+    public void setRoundCount(Integer roundCount) {
+        this.roundCount = roundCount;
     }
 }
