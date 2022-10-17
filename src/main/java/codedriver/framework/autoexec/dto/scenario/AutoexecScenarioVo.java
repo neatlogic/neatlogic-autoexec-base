@@ -18,7 +18,7 @@ public class AutoexecScenarioVo extends BaseEditorVo {
     @EntityField(name = "描述", type = ApiParamType.STRING)
     private String description;
     @EntityField(name = "被应用引用个数", type = ApiParamType.INTEGER)
-    private Integer ciEntityReferredCount;
+    private Integer referredCount;
 
     public Long getId() {
         if (id == null) {
@@ -47,11 +47,11 @@ public class AutoexecScenarioVo extends BaseEditorVo {
         this.description = description;
     }
 
-    public Integer getCiEntityReferredCount() {
-        return ciEntityReferredCount;
+    public Integer getReferredCount() {
+        return referredCount;
     }
 
-    public void setCiEntityReferredCount(Integer ciEntityReferredCount) {
-        this.ciEntityReferredCount = ciEntityReferredCount;
+    public void setReferredCount(Integer referredCount) {
+        this.referredCount = referredCount;
     }
 }
