@@ -12,7 +12,9 @@ public enum AutoexecFromType implements IFromType {
     PROFILE("profile","预置参数集"),
     SCRIPT("script","自定义工具"),
     TOOL("tool","工具"),
-    GLOBAL_PARAM("globalparam","全局参数");
+    GLOBAL_PARAM("globalparam","全局参数"),
+    SCENARIO("scenario","场景")
+    ;
 
     private String value;
     private String text;
