@@ -499,7 +499,8 @@
                aj.`config_hash`     as configHash,
                aj.`lncd`,
                aj.`parent_id`       as parentId,
-               aj.`trigger_type`    as triggerType
+               aj.`trigger_type`    as triggerType,
+               aj.`scenario_id`     as scenarioId
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value}
     </select>
@@ -2111,7 +2112,8 @@
         <if test="parentId != null">
             `parent_id`,
         </if>
-        `source`
+        `source`,
+        `scenario_id`
         )
         VALUES (#{id},
         #{name},
@@ -2132,7 +2134,8 @@
         <if test="parentId != null">
             #{parentId},
         </if>
-        #{source}
+        #{source},
+        #{scenarioId}
         )
     </insert>
 
