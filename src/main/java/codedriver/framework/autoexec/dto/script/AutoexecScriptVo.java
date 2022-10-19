@@ -56,7 +56,10 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     private List<AutoexecScriptVersionVo> versionList;
 
-    private String catalogPath;// 所属工具目录完整路径
+    @EntityField(name = "所属工具目录名称", type = ApiParamType.STRING)
+    private String catalogName;
+    @EntityField(name = "所属工具目录完整路径", type = ApiParamType.STRING)
+    private String catalogPath;
 
 
     public AutoexecScriptVo() {
@@ -175,6 +178,16 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     public void setVersionList(List<AutoexecScriptVersionVo> versionList) {
         this.versionList = versionList;
+    }
+
+    @Override
+    public String getCatalogName() {
+        return catalogName;
+    }
+
+    @Override
+    public void setCatalogName(String catalogName) {
+        this.catalogName = catalogName;
     }
 
     public String getCatalogPath() {
