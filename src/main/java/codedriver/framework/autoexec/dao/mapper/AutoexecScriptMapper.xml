@@ -12,6 +12,8 @@
                a.`catalog_id`         AS catalogId,
                b.`name`               AS catalogName,
                d.`name`               AS riskName,
+               a.`customtemplate_id`  AS customTemplateId,
+               f.`name`               AS customTemplateName,
                a.`description`,
                a.`default_profile_id` AS defaultProfileId,
                e.`name`               AS defaultProfileName,
@@ -22,6 +24,7 @@
                  LEFT JOIN `autoexec_type` c ON a.`type_id` = c.`id`
                  LEFT JOIN `autoexec_risk` d ON a.`risk_id` = d.`id`
                  LEFT JOIN `autoexec_profile` e ON a.`default_profile_id` = e.`id`
+                 LEFT JOIN `autoexec_customtemplate` f ON a.`customtemplate_id` = f.`id`
     </sql>
 
     <select id="getScriptBaseInfoById" parameterType="java.lang.Long"
@@ -1189,6 +1192,7 @@
             `type_id`            = #{typeId},
             `catalog_id`         = #{catalogId},
             `risk_id`            = #{riskId},
+            `customtemplate_id`  = #{customTemplateId},
             `description`        = #{description},
             `default_profile_id` = #{defaultProfileId}
         where `id` = #{id}
@@ -1235,6 +1239,7 @@
                                        `type_id`,
                                        `catalog_id`,
                                        `risk_id`,
+                                       `customtemplate_id`,
                                        `exec_mode`,
                                        `description`,
                                        `default_profile_id`,
@@ -1245,6 +1250,7 @@
                 #{typeId},
                 #{catalogId},
                 #{riskId},
+                #{customTemplateId},
                 #{execMode},
                 #{description},
                 #{defaultProfileId},

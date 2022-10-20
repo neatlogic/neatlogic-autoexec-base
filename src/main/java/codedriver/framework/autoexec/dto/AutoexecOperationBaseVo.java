@@ -55,6 +55,10 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private String encoding;
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
     private String parser;
+    @EntityField(name = "自定义模版ID", type = ApiParamType.LONG)
+    private Long customTemplateId;
+    @EntityField(name = "自定义模版名称", type = ApiParamType.STRING)
+    private String customTemplateName;
     @EntityField(name = "描述说明", type = ApiParamType.STRING)
     private String description;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
@@ -239,6 +243,22 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public void setParser(String parser) {
         this.parser = parser;
+    }
+
+    public Long getCustomTemplateId() {
+        return customTemplateId;
+    }
+
+    public void setCustomTemplateId(Long customTemplateId) {
+        this.customTemplateId = customTemplateId;
+    }
+
+    public String getCustomTemplateName() {
+        return customTemplateName;
+    }
+
+    public void setCustomTemplateName(String customTemplateName) {
+        this.customTemplateName = customTemplateName;
     }
 
     public AutoexecParamVo getArgument() {
