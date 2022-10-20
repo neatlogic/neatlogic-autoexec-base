@@ -55,6 +55,10 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private String encoding;
     @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
     private String parser;
+    @EntityField(name = "自定义模版ID", type = ApiParamType.LONG)
+    private Long customTemplateId;
+    @EntityField(name = "自定义模版名称", type = ApiParamType.STRING)
+    private String customTemplateName;
     @EntityField(name = "描述说明", type = ApiParamType.STRING)
     private String description;
     @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
@@ -76,6 +80,8 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private List<Long> catalogIdList;
     @JSONField(serialize = false)
     private List<Long> riskIdList;
+    @JSONField(serialize = false)
+    private List<Long> customTemplateIdList;
 
     public AutoexecOperationBaseVo() {
 
@@ -241,6 +247,22 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
         this.parser = parser;
     }
 
+    public Long getCustomTemplateId() {
+        return customTemplateId;
+    }
+
+    public void setCustomTemplateId(Long customTemplateId) {
+        this.customTemplateId = customTemplateId;
+    }
+
+    public String getCustomTemplateName() {
+        return customTemplateName;
+    }
+
+    public void setCustomTemplateName(String customTemplateName) {
+        this.customTemplateName = customTemplateName;
+    }
+
     public AutoexecParamVo getArgument() {
         return argument;
     }
@@ -311,5 +333,13 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public void setRiskIdList(List<Long> riskIdList) {
         this.riskIdList = riskIdList;
+    }
+
+    public List<Long> getCustomTemplateIdList() {
+        return customTemplateIdList;
+    }
+
+    public void setCustomTemplateIdList(List<Long> customTemplateIdList) {
+        this.customTemplateIdList = customTemplateIdList;
     }
 }

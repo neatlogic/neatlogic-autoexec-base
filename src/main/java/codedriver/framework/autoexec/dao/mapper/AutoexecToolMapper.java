@@ -42,6 +42,8 @@ public interface AutoexecToolMapper {
 
     int updateConfig(AutoexecToolVo toolVo);
 
+    int updateCustomTemplate(AutoexecToolVo toolVo);
+
     int insertTool(AutoexecToolVo toolVo);
 
     int deleteToolByIdList(List<Long> list);

@@ -94,6 +94,19 @@
                     #{item}
                 </foreach>
             </if>
+            <choose>
+                <when test="customTemplateId != null and customTemplateId == 0">
+                    and `customtemplate_id` is not null
+                </when>
+                <otherwise>
+                    <if test="customTemplateIdList != null and customTemplateIdList.size() > 0">
+                        and `customtemplate_id` in
+                        <foreach collection="customTemplateIdList" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </if>
+                </otherwise>
+            </choose>
             <if test="isActive != null">
                 and `is_active` = #{isActive}
             </if>
@@ -194,6 +207,8 @@
             aty.`description` as typeDescription,
             ato.`risk_id` AS riskId,
             ar.`name` as riskName,
+            ato.`customtemplate_id` as customTemplateId,
+            act.`name` as customTemplateName,
             ato.`description`,
             ato.`default_profile_id` as defaultProfileId,
             ap.`name` as defaultProfileName,
@@ -203,6 +218,7 @@
         left join `autoexec_type` aty on ato.`type_id` = aty.`id`
         left join `autoexec_risk` ar on ato.`risk_id` = ar.`id`
         left join `autoexec_profile` ap on ato.`default_profile_id` = ap.`id`
+        left join `autoexec_customtemplate` act ON ato.`customtemplate_id` = act.`id`
         WHERE ato.`id` = #{value}
     </select>
 
@@ -244,6 +260,12 @@
     <update id="updateConfig" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo">
         update `autoexec_tool`
         set `config` = #{configStr}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateCustomTemplate" parameterType="codedriver.framework.autoexec.dto.AutoexecToolVo">
+        update `autoexec_tool`
+        set `customtemplate_id` = #{customTemplateId}
         where `id` = #{id}
     </update>
 
