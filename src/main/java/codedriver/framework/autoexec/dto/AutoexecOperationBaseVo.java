@@ -80,6 +80,8 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private List<Long> catalogIdList;
     @JSONField(serialize = false)
     private List<Long> riskIdList;
+    @JSONField(serialize = false)
+    private List<Long> customTemplateIdList;
 
     public AutoexecOperationBaseVo() {
 
@@ -331,5 +333,13 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public void setRiskIdList(List<Long> riskIdList) {
         this.riskIdList = riskIdList;
+    }
+
+    public List<Long> getCustomTemplateIdList() {
+        return customTemplateIdList;
+    }
+
+    public void setCustomTemplateIdList(List<Long> customTemplateIdList) {
+        this.customTemplateIdList = customTemplateIdList;
     }
 }

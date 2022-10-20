@@ -94,6 +94,19 @@
                     #{item}
                 </foreach>
             </if>
+            <choose>
+                <when test="customTemplateId != null and customTemplateId == 0">
+                    and `customtemplate_id` is not null
+                </when>
+                <otherwise>
+                    <if test="customTemplateIdList != null and customTemplateIdList.size() > 0">
+                        and `customtemplate_id` in
+                        <foreach collection="customTemplateIdList" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </if>
+                </otherwise>
+            </choose>
             <if test="isActive != null">
                 and `is_active` = #{isActive}
             </if>
