@@ -9,6 +9,7 @@ import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class CustomTemplateVo extends BaseEditorVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
@@ -21,6 +22,12 @@ public class CustomTemplateVo extends BaseEditorVo {
     private String config;
     @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
     private Integer isActive;
+    @EntityField(name = "关联的工具数", type = ApiParamType.INTEGER)
+    private Integer referenceCount = 0;
+    @JSONField(serialize = false)
+    private Integer referenceCountForTool = 0;//关联的工具数
+    @JSONField(serialize = false)
+    private Integer referenceCountForScript = 0;//关联的自定义工具数
 
     public Long getId() {
         if (id == null) {
@@ -63,5 +70,26 @@ public class CustomTemplateVo extends BaseEditorVo {
 
     public void setTemplate(String template) {
         this.template = template;
+    }
+
+    public Integer getReferenceCount() {
+        referenceCount += (referenceCountForTool + referenceCountForScript);
+        return referenceCount;
+    }
+
+    public Integer getReferenceCountForTool() {
+        return referenceCountForTool;
+    }
+
+    public void setReferenceCountForTool(Integer referenceCountForTool) {
+        this.referenceCountForTool = referenceCountForTool;
+    }
+
+    public Integer getReferenceCountForScript() {
+        return referenceCountForScript;
+    }
+
+    public void setReferenceCountForScript(Integer referenceCountForScript) {
+        this.referenceCountForScript = referenceCountForScript;
     }
 }
