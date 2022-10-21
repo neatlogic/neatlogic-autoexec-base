@@ -16,7 +16,7 @@ import codedriver.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import codedriver.framework.autoexec.source.AutoexecJobSourceFactory;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.constvalue.GroupSearch;
-import codedriver.framework.common.dto.BasePageVo;
+import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.dto.RoleVo;
 import codedriver.framework.dto.TeamVo;
 import codedriver.framework.dto.UserVo;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
  * @author lvzk
  * @since 2021/4/12 11:48
  **/
-public class AutoexecJobVo extends BasePageVo implements Serializable {
+public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private static final long serialVersionUID = -1382188874082154509L;
     @EntityField(name = "作业id(如果是人工发起则id正常生成，其它情况存放来源id)", type = ApiParamType.LONG)
     private Long id;
@@ -88,6 +88,8 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
     private Long invokeId;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
+    @EntityField(name = "来源类型", type = ApiParamType.STRING)
+    private String sourceType;
     @EntityField(name = "来源名", type = ApiParamType.STRING)
     private String sourceName;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
@@ -966,5 +968,13 @@ public class AutoexecJobVo extends BasePageVo implements Serializable {
 
     public void setChildren(List<AutoexecJobVo> children) {
         this.children = children;
+    }
+
+    public String getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
     }
 }

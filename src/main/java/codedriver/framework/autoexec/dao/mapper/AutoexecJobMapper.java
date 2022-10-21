@@ -36,6 +36,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobVo> getJobListByIdList(List<Long> idList);
 
+    AutoexecJobVo getLatestJobByInvokeId(Long invokeId);
+
     Integer searchJobCount(AutoexecJobVo jobVo);
 
     List<AutoexecCombopVo> searchJobWithCombopView(AutoexecJobVo jobVo);
