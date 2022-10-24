@@ -2119,6 +2119,27 @@
         limit 1
     </select>
 
+    <select id="getJobPhaseOperationCustomTemplateListByJobPhaseId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.customtemplate.CustomTemplateVo">
+        SELECT
+            id, `name`, template, config
+        FROM
+            autoexec_customtemplate
+        WHERE
+            is_active = 1 AND
+            id IN (
+            SELECT
+                customtemplate_id FROM autoexec_script
+            WHERE
+                id IN ( SELECT operation_id FROM `autoexec_job_phase_operation` WHERE job_phase_id = #{value} AND type = 'script' )
+            UNION
+            SELECT
+                customtemplate_id FROM autoexec_tool
+            WHERE
+                id IN ( SELECT operation_id FROM `autoexec_job_phase_operation` WHERE job_phase_id = #{value} AND type = 'tool' )
+            )
+    </select>
+
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
         `name`,

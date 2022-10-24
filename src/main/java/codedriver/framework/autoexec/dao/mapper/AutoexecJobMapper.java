@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dao.mapper;
 import codedriver.framework.autoexec.annotation.AutoexecJobCallback;
 import codedriver.framework.autoexec.annotation.AutoexecJobCallbackParam;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
+import codedriver.framework.autoexec.dto.customtemplate.CustomTemplateVo;
 import codedriver.framework.autoexec.dto.job.*;
 import codedriver.framework.dto.runner.RunnerMapVo;
 import codedriver.framework.dto.runner.RunnerVo;
@@ -136,6 +137,8 @@ public interface AutoexecJobMapper {
 
     int checkIsJobPhaseNodeExist(AutoexecJobPhaseNodeVo nodeVo);
 
+    List<CustomTemplateVo> getJobPhaseOperationCustomTemplateListByJobPhaseId(Long jobPhaseId);
+
     @AutoexecJobCallback
     int updateJobStatus(@AutoexecJobCallbackParam() AutoexecJobVo jobVo);
 
@@ -173,7 +176,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeRunnerListByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
-    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListWithRunnerByJobPhaseIdAndExceptStatusList(@Param("jobPhaseId") Long jobPhaseId, @Param("statusList") List<String>statusList);
+    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListWithRunnerByJobPhaseIdAndExceptStatusList(@Param("jobPhaseId") Long jobPhaseId, @Param("statusList") List<String> statusList);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndNodeStatusList(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
 
