@@ -19,7 +19,7 @@ public class AUTOEXEC_JOB_MODIFY extends AuthBase {
 
     @Override
     public String getAuthIntroduction() {
-        return "对作业进行新增、编辑、查看、删除、启用/禁用";
+        return "拥有作业删除权限";
     }
 
     @Override

@@ -2895,5 +2895,15 @@
         where `job_phase_id` = #{jobPhaseId}
           and `runner_map_id` = #{runnerMapId}
     </delete>
+    <delete id="deleteJobGroupByJobId">
+        DELETE
+        FROM `autoexec_job_group`
+        WHERE `job_id` = #{value}
+    </delete>
+    <delete id="deleteJobSqlDetailByJobId">
+        DELETE
+        FROM `autoexec_job_sql_detail`
+        WHERE `job_id` = #{value}
+    </delete>
 </mapper>
 

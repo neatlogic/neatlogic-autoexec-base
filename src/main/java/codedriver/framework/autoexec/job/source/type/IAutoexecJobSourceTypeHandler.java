@@ -129,7 +129,7 @@ public interface IAutoexecJobSourceTypeHandler {
     /**
      * 更新作业关系表，如：发布作业表
      *
-     * @param jobVo     作业
+     * @param jobVo 作业
      */
     default void updateInvokeJob(AutoexecJobVo jobVo) {
     }
@@ -210,19 +210,28 @@ public interface IAutoexecJobSourceTypeHandler {
 
     /**
      * 获取作业额外的信息 用于定时刷新
+     *
      * @param jobVo 作业
      * @return 作业额外信息
      */
-    default JSONObject getExtraRefreshJobInfo(AutoexecJobVo jobVo){
+    default JSONObject getExtraRefreshJobInfo(AutoexecJobVo jobVo) {
         return null;
     };
 
     /**
      * 获取作业额外的信息
+     *
      * @param jobVo 作业
      * @return 作业额外信息
      */
-    default JSONObject getExtraJobInfo(AutoexecJobVo jobVo){
+    default JSONObject getExtraJobInfo(AutoexecJobVo jobVo) {
         return null;
     };
+
+    /**
+     * 删除作业
+     *
+     * @param jobVo 作业
+     */
+    void deleteJob(AutoexecJobVo jobVo);
 }

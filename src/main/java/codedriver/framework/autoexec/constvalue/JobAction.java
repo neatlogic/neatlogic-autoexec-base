@@ -29,7 +29,6 @@ public enum JobAction {
     DOWNLOAD_CONSOLE_LOG("downloadConsoleLog", "下载控制台日志"),
     DOWNLOAD_NODE_LOG("downloadNodeLog", "下载节点日志"),
     DOWNLOAD_NODE_OUT_PUT("downloadNodeOutPut", "下载节点输出参数"),
-    DELETE("delete", "删除作业"),
     TAIL_NODE_LOG("tailNodeLog", "获取节点日志"),
     GET_NODE_OPERATION_LIST("getNodeOperationList","获取节点操作列表"),
     INFORM_PHASE_ROUND("informPhaseRound", "通知下一个phase round"),

@@ -383,4 +383,7 @@ public interface AutoexecJobMapper {
 
     void deleteJobPhaseRunnerByJobPhaseIdAndRunnerMapId(@Param("jobPhaseId") Long id, @Param("runnerMapId") Long runnerMapId);
 
+    void deleteJobGroupByJobId(Long jobId);
+
+    void deleteJobSqlDetailByJobId(Long jobId);
 }
