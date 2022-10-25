@@ -28,6 +28,8 @@ public class CustomTemplateVo extends BaseEditorVo {
     private Integer referenceCountForTool = 0;//关联的工具数
     @JSONField(serialize = false)
     private Integer referenceCountForScript = 0;//关联的自定义工具数
+    @EntityField(name = "工具ID", type = ApiParamType.LONG)
+    private Long operationId;
 
     public Long getId() {
         if (id == null) {
@@ -91,5 +93,13 @@ public class CustomTemplateVo extends BaseEditorVo {
 
     public void setReferenceCountForScript(Integer referenceCountForScript) {
         this.referenceCountForScript = referenceCountForScript;
+    }
+
+    public Long getOperationId() {
+        return operationId;
+    }
+
+    public void setOperationId(Long operationId) {
+        this.operationId = operationId;
     }
 }

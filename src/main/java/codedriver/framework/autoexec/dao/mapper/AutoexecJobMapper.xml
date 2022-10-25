@@ -2122,22 +2122,50 @@
     <select id="getJobPhaseOperationCustomTemplateListByJobPhaseId" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.customtemplate.CustomTemplateVo">
         SELECT
-            id, `name`, template, config
+            a.id,
+            a.`name`,
+            a.template,
+            a.config,
+            b.id AS operationId
         FROM
-            autoexec_customtemplate
+            autoexec_customtemplate a JOIN autoexec_script b ON a.id = b.customtemplate_id
         WHERE
-            is_active = 1 AND
-            id IN (
-            SELECT
-                customtemplate_id FROM autoexec_script
-            WHERE
-                id IN ( SELECT operation_id FROM `autoexec_job_phase_operation` WHERE job_phase_id = #{value} AND type = 'script' )
-            UNION
-            SELECT
-                customtemplate_id FROM autoexec_tool
-            WHERE
-                id IN ( SELECT operation_id FROM `autoexec_job_phase_operation` WHERE job_phase_id = #{value} AND type = 'tool' )
+            a.is_active = 1
+            AND b.id IN (
+                SELECT
+                    operation_id
+                FROM
+                    `autoexec_job_phase_operation`
+                WHERE
+                    job_phase_id = #{value}
+                    AND `type` = 'script'
             )
+        UNION
+        SELECT
+            a.id,
+            a.`name`,
+            a.template,
+            a.config,
+            b.id AS operationId
+        FROM
+            autoexec_customtemplate a JOIN autoexec_tool b ON a.id = b.customtemplate_id
+        WHERE
+            a.is_active = 1
+            AND b.id IN (
+                SELECT
+                    operation_id
+                FROM
+                    `autoexec_job_phase_operation`
+                WHERE
+                    job_phase_id = #{value}
+                AND `type` = 'tool'
+            )
+    </select>
+
+    <select id="getJobPhaseOpertionIdListByJobPhaseId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT operation_id FROM `autoexec_job_phase_operation`
+        WHERE job_phase_id = #{value}
+        ORDER BY sort
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">

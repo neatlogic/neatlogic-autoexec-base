@@ -139,6 +139,8 @@ public interface AutoexecJobMapper {
 
     List<CustomTemplateVo> getJobPhaseOperationCustomTemplateListByJobPhaseId(Long jobPhaseId);
 
+    List<Long> getJobPhaseOpertionIdListByJobPhaseId(Long jobPhaseId);
+
     @AutoexecJobCallback
     int updateJobStatus(@AutoexecJobCallbackParam() AutoexecJobVo jobVo);
 
