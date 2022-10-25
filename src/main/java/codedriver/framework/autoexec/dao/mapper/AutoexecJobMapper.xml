@@ -676,6 +676,7 @@
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
           and `parent_operation_id` is null
+            order by `sort` asc
     </select>
 
     <select id="getJobPhaseOperationByJobIdAndPhaseUuidAndUuid"
