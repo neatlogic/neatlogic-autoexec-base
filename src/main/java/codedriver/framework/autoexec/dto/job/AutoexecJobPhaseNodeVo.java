@@ -96,6 +96,12 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
         this.jobPhaseId = jobPhaseId;
     }
 
+    public AutoexecJobPhaseNodeVo(String host,Integer port , Long resourceId){
+        this.setHost(host);
+        this.setPort(port);
+        this.setResourceId(resourceId);
+    }
+
     public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Long runnerId, Integer isDelete) {
         this.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;

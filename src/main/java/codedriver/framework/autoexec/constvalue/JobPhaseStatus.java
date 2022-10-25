@@ -16,6 +16,7 @@ public enum JobPhaseStatus implements IEnum {
     ABORTED("aborted", "已中止"),
     COMPLETED("completed", "已完成"),
     FAILED("failed", "已失败"),
+    IGNORED("ignored", "已忽略"),
     WAIT_INPUT("waitInput", "待输入");
     private final String status;
     private final String text;
