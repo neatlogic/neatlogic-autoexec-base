@@ -31,9 +31,11 @@ public enum JobAction {
     DOWNLOAD_NODE_LOG("downloadNodeLog", "下载节点日志"),
     DOWNLOAD_NODE_OUT_PUT("downloadNodeOutPut", "下载节点输出参数"),
     TAIL_NODE_LOG("tailNodeLog", "获取节点日志"),
-    GET_NODE_OPERATION_LIST("getNodeOperationList","获取节点操作列表"),
+    GET_NODE_OPERATION_LIST("getNodeOperationList", "获取节点操作列表"),
     INFORM_PHASE_ROUND("informPhaseRound", "通知下一个phase round"),
-    TAKE_OVER("takeOver", "接管");
+    TAKE_OVER("takeOver", "接管"),
+    GET_OPERATION_CUSTOM_DATA("getOperationCustomData", "获取工具个性化数据"),
+    ;
 
     private final String value;
     private final String text;
