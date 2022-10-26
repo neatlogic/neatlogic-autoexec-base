@@ -190,7 +190,9 @@ public interface AutoexecJobMapper {
     //jobPhaseOperation
     List<AutoexecJobPhaseOperationVo> getJobPhaseOperationByJobId(Long jobId);
 
-    List<AutoexecJobPhaseOperationVo> getJobPhaseOperationByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
+    List<AutoexecJobPhaseOperationVo> getJobPhaseOperationListWithoutParentByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
+
+    List<AutoexecJobPhaseOperationVo> getJobPhaseOperationListWithParentByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
     AutoexecJobPhaseOperationVo getJobPhaseOperationByJobIdAndPhaseUuidAndUuid(@Param("jobId") Long jobId, @Param("phaseUuid") String phaseUuid, @Param("uuid") String uuid);
 

@@ -92,10 +92,10 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         JSONObject actionParam = jobVo.getActionParam();
         jobVo.setCurrentPhaseId(actionParam.getLong("jobPhaseId"));
         jobVo.setCurrentNodeResourceId(actionParam.getLong("resourceId"));
-        if (Objects.equals(JobStatus.CHECKED.getValue(), jobVo.getStatus())) {
-            throw new AutoexecJobCheckedException(jobVo.getId().toString());
-        }
         if (isNeedExecuteAuthCheck()) {
+            if (Objects.equals(JobStatus.CHECKED.getValue(), jobVo.getStatus())) {
+                throw new AutoexecJobCheckedException(jobVo.getId().toString());
+            }
             if (Objects.equals(jobVo.getSource(), JobSource.TEST.getValue())) {//测试仅需判断是否有脚本维护权限即可
                 if (!AuthActionChecker.check(AUTOEXEC_SCRIPT_MODIFY.class)) {
                     throw new AutoexecOperationHasNoModifyAuthException();

@@ -655,7 +655,7 @@
         where `job_id` = #{value}
     </select>
 
-    <select id="getJobPhaseOperationByJobIdAndPhaseId"
+    <select id="getJobPhaseOperationListWithoutParentByJobIdAndPhaseId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
         SELECT `job_id`       as jobId,
                `job_phase_id` as jobPhaseId,
@@ -677,6 +677,32 @@
           and `job_phase_id` = #{phaseId}
           and `parent_operation_id` is null
             order by `sort` asc
+    </select>
+
+    <select id="getJobPhaseOperationListWithParentByJobIdAndPhaseId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+        SELECT `job_id`       as jobId,
+               `job_phase_id` as jobPhaseId,
+               `id`,
+               `name`,
+               `uk`,
+               `type`,
+               `parser`,
+               `exec_mode`    as execMode,
+               `sort`,
+               `fail_policy`  as failPolicy,
+               version_id     as versionId,
+               `param_hash`   as paramHash,
+               `profile_id`   as profileId,
+               `parent_operation_id` as parentOperationId,
+               `parent_operation_type` as parentOperationType,
+               `uuid`,
+               `letter`
+        FROM `autoexec_job_phase_operation`
+        where `job_id` = #{jobId}
+          and `job_phase_id` = #{phaseId}
+          and `parent_operation_id` is not null
+        order by `sort` asc
     </select>
 
     <select id="getJobPhaseOperationByJobIdAndPhaseUuidAndUuid"

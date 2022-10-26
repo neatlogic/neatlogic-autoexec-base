@@ -6,11 +6,20 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.constvalue.JobNodeStatus;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationConfigVo;
+import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseOperationVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toMap;
+
 
 /**
  * @author lvzk
@@ -32,23 +41,86 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     @EntityField(name = "执行状态名", type = ApiParamType.STRING)
     private String statusName;
     @EntityField(name = "是否失败忽略", type = ApiParamType.INTEGER)
-    private final Integer failIgnore;
+    private Integer failIgnore;
     @EntityField(name = "描述说明", type = ApiParamType.STRING)
     private String description;
     private final Integer sort;
+    @EntityField(name = "ifBlock条件", type = ApiParamType.STRING)
+    private String condition;
+    @EntityField(name = "ifBlock if 工具别表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecJobPhaseNodeOperationStatusVo> ifList;
+    @EntityField(name = "ifBlock else 工具列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecJobPhaseNodeOperationStatusVo> elseList;
 
-    public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson,String description) {
+    public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson, String description, List<AutoexecJobPhaseOperationVo> jobSonOperationList, Map<String, AutoexecCombopPhaseOperationVo> combopOperationUuidMap) {
         this.id = operationVo.getId();
         this.name = operationVo.getName();
         this.type = operationVo.getType();
         this.parser = operationVo.getParser();
         this.status = JobNodeStatus.PENDING.getValue();
-        if(MapUtils.isNotEmpty(statusJson)) {
+        if (MapUtils.isNotEmpty(statusJson)) {
             this.status = statusJson.getString(this.name + "_" + this.id);
         }
         this.sort = operationVo.getSort();
         this.failIgnore = operationVo.getFailIgnore();
-        this.description = description;
+        this.description = StringUtils.isBlank(description) ? StringUtils.EMPTY : description;
+        this.letter = operationVo.getLetter();
+
+        //condition
+        AutoexecCombopPhaseOperationVo combopOperation = combopOperationUuidMap.get(operationVo.getUuid());
+        if (combopOperation != null) {
+            AutoexecCombopPhaseOperationConfigVo combopPhaseOperationConfig = combopOperation.getConfig();
+            if (combopPhaseOperationConfig != null) {
+                String condition = combopPhaseOperationConfig.getCondition();
+                if (StringUtils.isNotBlank(condition)) {
+                    this.condition = condition;
+                    List<AutoexecCombopPhaseOperationVo> combopIfOperationList = combopPhaseOperationConfig.getIfList();
+                    List<AutoexecCombopPhaseOperationVo> combopElseOperationList = combopPhaseOperationConfig.getElseList();
+                    Map<String, AutoexecCombopPhaseOperationVo> combopSonOperationUuidMap = new HashMap<>();
+                    if (CollectionUtils.isNotEmpty(combopIfOperationList)) {
+                        combopSonOperationUuidMap.putAll(combopIfOperationList.stream().collect(toMap(AutoexecCombopPhaseOperationVo::getUuid, o -> o)));
+                    }
+                    if (CollectionUtils.isNotEmpty(combopElseOperationList)) {
+                        combopSonOperationUuidMap.putAll(combopElseOperationList.stream().collect(toMap(AutoexecCombopPhaseOperationVo::getUuid, o -> o)));
+                    }
+                    Map<Long, List<AutoexecJobPhaseOperationVo>> jobSonOperationMap = null;
+                    if (CollectionUtils.isNotEmpty(jobSonOperationList)) {
+                        jobSonOperationMap = jobSonOperationList.stream().collect(Collectors.groupingBy(AutoexecJobPhaseOperationVo::getParentOperationId));
+                        if (MapUtils.isNotEmpty(jobSonOperationMap)) {
+                            List<AutoexecJobPhaseOperationVo> jobPhaseSonOperationList = jobSonOperationMap.get(operationVo.getId());
+                            if (CollectionUtils.isNotEmpty(jobPhaseSonOperationList)) {
+                                ifList = new ArrayList<>();
+                                elseList = new ArrayList<>();
+                                for (AutoexecJobPhaseOperationVo jobPhaseSonOperation : jobPhaseSonOperationList) {
+                                    AutoexecCombopPhaseOperationVo combopSonOperation = combopSonOperationUuidMap.get(jobPhaseSonOperation.getUuid());
+                                    if (Objects.equals(jobPhaseSonOperation.getParentOperationType(), "if")) {
+                                        ifList.add(new AutoexecJobPhaseNodeOperationStatusVo(statusJson, jobPhaseSonOperation, combopSonOperation == null ? StringUtils.EMPTY : combopSonOperation.getDescription()));
+                                    } else {
+                                        elseList.add(new AutoexecJobPhaseNodeOperationStatusVo(statusJson, jobPhaseSonOperation, combopSonOperation == null ? StringUtils.EMPTY : combopSonOperation.getDescription()));
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    public AutoexecJobPhaseNodeOperationStatusVo(JSONObject statusJson, AutoexecJobPhaseOperationVo operationVo, String description) {
+        this.id = operationVo.getId();
+        this.name = operationVo.getName();
+        this.type = operationVo.getType();
+        this.parser = operationVo.getParser();
+        this.status = JobNodeStatus.PENDING.getValue();
+        if (MapUtils.isNotEmpty(statusJson)) {
+            this.status = statusJson.getString(this.name + "_" + this.id);
+        }
+        this.sort = operationVo.getSort();
+        this.failIgnore = operationVo.getFailIgnore();
+        this.description = StringUtils.isBlank(description) ? StringUtils.EMPTY : description;
         this.letter = operationVo.getLetter();
     }
 
@@ -93,7 +165,7 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     }
 
     public String getStatusName() {
-        if(StringUtils.isBlank(statusName)&&StringUtils.isNotBlank(status)){
+        if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
             statusName = JobNodeStatus.getText(status);
         }
         return statusName;
@@ -121,5 +193,29 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
 
     public void setLetter(String letter) {
         this.letter = letter;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public List<AutoexecJobPhaseNodeOperationStatusVo> getIfList() {
+        return ifList;
+    }
+
+    public void setIfList(List<AutoexecJobPhaseNodeOperationStatusVo> ifList) {
+        this.ifList = ifList;
+    }
+
+    public List<AutoexecJobPhaseNodeOperationStatusVo> getElseList() {
+        return elseList;
+    }
+
+    public void setElseList(List<AutoexecJobPhaseNodeOperationStatusVo> elseList) {
+        this.elseList = elseList;
     }
 }
