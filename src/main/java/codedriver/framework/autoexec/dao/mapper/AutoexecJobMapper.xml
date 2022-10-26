@@ -676,6 +676,7 @@
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
           and `parent_operation_id` is null
+            order by `sort` asc
     </select>
 
     <select id="getJobPhaseOperationByJobIdAndPhaseUuidAndUuid"
@@ -2606,12 +2607,33 @@
         WHERE `job_id` = #{jobId}
           and `is_delete` = #{isDelete}
     </update>
+    <update id="updateJobPhaseNodeStatusByJobPhaseIdAndIsDelete">
+        UPDATE `autoexec_job_phase_node`
+        SET `status`     = #{status}
+          , `start_time` = NULL
+          , `end_time`   = NULL
+        WHERE `job_phase_id` = #{jobPhaseId}
+          and `is_delete` = #{isDelete}
+    </update>
     <update id="updateJobPhaseRunnerStatus">
         UPDATE
         `autoexec_job_phase_runner`
         SET
-        `status` = #{status},
-        `warn_count` = #{warnCount}
+        `status` = #{status}
+        WHERE `job_phase_id` in
+        <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
+            #{phaseId}
+        </foreach>
+        AND `runner_map_id` = #{runnerId}
+    </update>
+    <update id="updateJobPhaseRunnerStatusAndWarnCount">
+        UPDATE
+        `autoexec_job_phase_runner`
+        SET
+        `status` = #{status}
+        <if test="warnCount != null">
+            ,`warn_count` = #{warnCount}
+        </if>
         WHERE `job_phase_id` in
         <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}
