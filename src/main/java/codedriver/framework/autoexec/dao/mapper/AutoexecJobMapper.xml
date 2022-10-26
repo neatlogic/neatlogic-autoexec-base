@@ -2168,6 +2168,14 @@
         ORDER BY sort
     </select>
 
+    <select id="getMaxSortJobPhaseOperationByPhaseIdAndOperationId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+        SELECT id, `name`, `type` FROM `autoexec_job_phase_operation`
+        WHERE job_phase_id = #{jobPhaseId} AND operation_id = #{operationId}
+        ORDER BY sort desc
+        LIMIT 1
+    </select>
+
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
         `name`,

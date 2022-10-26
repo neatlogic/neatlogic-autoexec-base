@@ -141,6 +141,8 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobPhaseOpertionIdListByJobPhaseId(Long jobPhaseId);
 
+    AutoexecJobPhaseOperationVo getMaxSortJobPhaseOperationByPhaseIdAndOperationId(@Param("jobPhaseId") Long jobPhaseId, @Param("operationId") Long operationId);
+
     @AutoexecJobCallback
     int updateJobStatus(@AutoexecJobCallbackParam() AutoexecJobVo jobVo);
 
