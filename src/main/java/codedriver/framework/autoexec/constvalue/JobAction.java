@@ -34,7 +34,7 @@ public enum JobAction {
     GET_NODE_OPERATION_LIST("getNodeOperationList", "获取节点操作列表"),
     INFORM_PHASE_ROUND("informPhaseRound", "通知下一个phase round"),
     TAKE_OVER("takeOver", "接管"),
-    GET_OPERATION_LIVE_DATA("getOperationLiveData", "获取工具个性化数据"),
+    GET_OPERATION_CUSTOM_DATA("getOperationCustomData", "获取工具个性化数据"),
     ;
 
     private final String value;
