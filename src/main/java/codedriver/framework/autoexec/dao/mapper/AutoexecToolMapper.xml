@@ -77,7 +77,7 @@
     <sql id="searchToolCondition">
         <where>
             <if test="keyword != null and keyword != ''">
-                and `name` like CONCAT('%', #{keyword}, '%')
+                and (`name` like CONCAT('%', #{keyword}, '%') or `description` like CONCAT('%', #{keyword}, '%'))
             </if>
             <if test="execMode != null and execMode != ''">
                 and `exec_mode` = #{execMode}
