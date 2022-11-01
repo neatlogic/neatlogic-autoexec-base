@@ -1159,11 +1159,10 @@
         `script_id` as scriptId,
         `parser`
         FROM
-        `autoexec_script_version`
-        WHERE
-        `id` IN (
+        `autoexec_script_version` a
+        JOIN (
         SELECT
-        SUBSTRING_INDEX( GROUP_CONCAT( `id` ORDER BY `lcd` DESC ), ',', 1 )
+        SUBSTRING_INDEX( GROUP_CONCAT( `id` ORDER BY `lcd` DESC ), ',', 1 ) as `id`
         FROM
         `autoexec_script_version`
         WHERE
@@ -1179,7 +1178,8 @@
         </foreach>
         GROUP BY
         `script_id`
-        )
+        ) b
+        on a.`id` = b.`id`
 
     </select>
     <select id="getAllPasswordScriptParam"
