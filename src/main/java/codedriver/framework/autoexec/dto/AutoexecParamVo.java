@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class AutoexecParamVo implements Serializable {
+
+    private static final long serialVersionUID = 3196317808541689056L;
     @EntityField(name = "唯一标识", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "参数名", type = ApiParamType.STRING)
@@ -29,6 +31,8 @@ public class AutoexecParamVo implements Serializable {
     //TODO defaultValue 与 BasePageVo的defaultValue冲突，类型不一致，现无法继承 BasePageVo
     @EntityField(name = "参数默认值", type = ApiParamType.NOAUTH)
     private Object defaultValue;
+    @EntityField(name = "参数值", type = ApiParamType.NOAUTH)
+    private Object value;
     @EntityField(name = "参数类型(出参、入参)", type = ApiParamType.STRING)
     private String mode;
     @EntityField(name = "表单类型", type = ApiParamType.STRING)
@@ -78,6 +82,7 @@ public class AutoexecParamVo implements Serializable {
         this.key = autoexecParamVo.key;
         this.name = autoexecParamVo.name;
         this.defaultValue = autoexecParamVo.defaultValue;
+        this.value = autoexecParamVo.value;
         this.mode = autoexecParamVo.mode;
         this.mappingMode = autoexecParamVo.mappingMode;
         this.type = autoexecParamVo.type;
@@ -91,6 +96,7 @@ public class AutoexecParamVo implements Serializable {
     public AutoexecParamVo(JSONObject argumentJson) {
         this.name = argumentJson.getString("name");
         this.defaultValue = argumentJson.getString("defaultValue");
+        this.value = argumentJson.getString("value");
         this.mode = ParamMode.INPUT.getValue();
         this.type = argumentJson.getString("type");
         this.isRequired = 0;
@@ -166,6 +172,44 @@ public class AutoexecParamVo implements Serializable {
 
     public void setDefaultValue(Object defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public Object getValue() {
+        if (value != null && type != null) {
+            if (value instanceof String) {
+                switch (type) {
+                    case "multiselect":
+                    case "checkbox":
+                    case "node":
+                        value = JSONObject.parseArray((String) value);
+                        break;
+                    case "file":
+                        try {
+                            value = JSONObject.parseObject((String) value);
+                            break;
+                        } catch (JSONException ex) {
+                            break;
+                        }
+                    case "json":
+                        String valueStr = (String) value;
+                        if (valueStr.startsWith("[") && valueStr.endsWith("]")) {
+                            value = JSONObject.parseArray(valueStr);
+                        } else if (valueStr.startsWith("{") && valueStr.endsWith("}")) {
+                            value = JSONObject.parseObject(valueStr);
+                        }
+                        break;
+                    case "switch":
+                        value = Boolean.valueOf(value.toString());
+                    default:
+                        break;
+                }
+            }
+        }
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
     }
 
     public String getType() {
