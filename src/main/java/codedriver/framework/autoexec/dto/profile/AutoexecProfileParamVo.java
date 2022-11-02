@@ -5,6 +5,7 @@ import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class AutoexecProfileParamVo extends AutoexecParamVo {
         super.setOperationId(operationParamVo.getOperationId());
         super.setOperationType(operationParamVo.getOperationType());
         if (operationParamVo.getConfig() != null) {
-            super.setConfig(operationParamVo.getConfig().toJSONString());
+            super.setConfig(JSONObject.toJSONString(operationParamVo.getConfig()));
         }
         super.setArgumentCount(operationParamVo.getArgumentCount());
     }

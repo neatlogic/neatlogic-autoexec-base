@@ -9,8 +9,10 @@ import codedriver.framework.autoexec.constvalue.*;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,7 +50,7 @@ public class AutoexecParamVo implements Serializable {
     private String operationType;
 
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
-    private JSONObject config;
+    private AutoexecParamConfigVo config;
 
     @EntityField(name = "自由参数数量", type = ApiParamType.INTEGER)
     private Integer argumentCount = 0;
@@ -219,13 +221,13 @@ public class AutoexecParamVo implements Serializable {
         this.sort = sort;
     }
 
-    public JSONObject getConfig() {
+    public AutoexecParamConfigVo getConfig() {
         return config;
     }
 
     public void setConfig(String configStr) {
         if (StringUtils.isNotBlank(configStr)) {
-            this.config = JSONObject.parseObject(configStr);
+            this.config = JSONObject.parseObject(configStr, AutoexecParamConfigVo.class);
         } else {
             this.config = null;
         }
@@ -244,7 +246,7 @@ public class AutoexecParamVo implements Serializable {
 
     public String getConfigStr() {
         if (config != null) {
-            return config.toJSONString();
+            return JSONObject.toJSONString(config);
         }
         return null;
     }
