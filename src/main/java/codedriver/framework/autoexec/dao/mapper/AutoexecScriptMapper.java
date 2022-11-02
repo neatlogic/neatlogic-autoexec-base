@@ -74,6 +74,8 @@ public interface AutoexecScriptMapper {
 
     List<AutoexecScriptVersionParamVo> getParamListByVersionId(Long versionId);
 
+    List<AutoexecScriptVersionParamVo> getOutputParamListByVersionId(Long versionId);
+
     List<AutoexecScriptVersionParamVo> getAllPasswordScriptParam();
 
     List<AutoexecParamVo> getAutoexecParamVoListByVersionId(Long versionId);

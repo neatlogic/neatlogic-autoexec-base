@@ -425,6 +425,24 @@
         order by `sort`
     </select>
 
+    <select id="getOutputParamListByVersionId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo">
+        select `script_version_id` as scriptVersionId,
+               `key`,
+               `name`,
+               `default_value`     as defaultValue,
+               `type`,
+               `mode`,
+               `mapping_mode`      as mappingMode,
+               `is_required`       as isRequired,
+               `description`,
+               `sort`,
+               `config`
+        from `autoexec_script_version_param`
+        where `script_version_id` = #{value} and `mode` = "output"
+        order by `sort`
+    </select>
+
     <select id="getAutoexecParamVoListByVersionId" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.AutoexecParamVo">
         select `key`,

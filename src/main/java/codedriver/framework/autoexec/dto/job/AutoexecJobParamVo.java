@@ -6,6 +6,7 @@
 package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopParamVo;
+import codedriver.framework.autoexec.dto.script.AutoexecScriptVersionParamVo;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -18,12 +19,23 @@ public class AutoexecJobParamVo extends AutoexecCombopParamVo {
 
     private String value;
 
+    public AutoexecJobParamVo() {
+    }
+
     public AutoexecJobParamVo(JSONObject parseObject) {
         this.setName(parseObject.getString("name"));
         this.setKey(parseObject.getString("key"));
         this.setSort(parseObject.getInteger("sort"));
         this.setType(parseObject.getString("type"));
         this.setDescription(parseObject.getString("description"));
+    }
+
+    public AutoexecJobParamVo(AutoexecScriptVersionParamVo scriptVersionParamVo) {
+        this.setName(scriptVersionParamVo.getName());
+        this.setKey(scriptVersionParamVo.getKey());
+        this.setSort(scriptVersionParamVo.getSort());
+        this.setType(scriptVersionParamVo.getType());
+        this.setDescription(scriptVersionParamVo.getDescription());
     }
 
     public String getValue() {
