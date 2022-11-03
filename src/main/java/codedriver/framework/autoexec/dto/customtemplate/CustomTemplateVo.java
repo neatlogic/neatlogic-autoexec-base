@@ -75,7 +75,7 @@ public class CustomTemplateVo extends BaseEditorVo {
     }
 
     public Integer getReferenceCount() {
-        referenceCount += (referenceCountForTool + referenceCountForScript);
+        referenceCount = (referenceCountForTool + referenceCountForScript);
         return referenceCount;
     }
 
