@@ -113,8 +113,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private List<String> phaseNameList;
     @EntityField(name = "作业耗时", type = ApiParamType.STRING)
     private String costTime;
-    @EntityField(name = "运行参数Str", type = ApiParamType.STRING)
-    private String paramArrayStr;
+    @EntityField(name = "运行参数hash", type = ApiParamType.STRING)
     private String paramHash;
     @EntityField(name = "完成率", type = ApiParamType.INTEGER)
     private Integer completionRate = 0;
@@ -167,6 +166,8 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private List<AutoexecJobPhaseVo> executeJobPhaseList;
     @JSONField(serialize = false)
     List<AutoexecParamVo> runTimeParamList;
+    @JSONField(serialize = false)
+    String runTimeParamListStr;
     //param
     @JSONField(serialize = false)
     private String combopName;
@@ -539,44 +540,29 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         this.costTime = costTime;
     }
 
-    public String getParamArrayStr() {
-        if (CollectionUtils.isEmpty(getParamArray()) && this.param != null) {
-            JSONArray combopParamsResult = new JSONArray();
-            if (MapUtils.isNotEmpty(this.param)) {
-                JSONArray combopParams = JSONArray.parseArray(JSONArray.toJSONString(this.runTimeParamList));
-                if (CollectionUtils.isNotEmpty(combopParams)) {
-                    for (Object combopParam : combopParams) {
-                        JSONObject combopParamJson = JSONObject.parseObject(combopParam.toString());
-                        if (MapUtils.isNotEmpty(combopParamJson)) {
-                            String key = combopParamJson.getString("key");
-                            if (StringUtils.isNotBlank(key)) {
-                                Object value = this.param.get(key);
-                                combopParamJson.put("value", value);
-                                combopParamsResult.add(combopParamJson);
-                            }
-                        }
-                    }
-                }
-            }
-            paramArrayStr = combopParamsResult.toJSONString();
-        }
-        return paramArrayStr;
+    public List<AutoexecParamVo> getRunTimeParamList() {
+        return runTimeParamList;
     }
 
-    public void setParamArrayStr(String paramArrayStr) {
-        this.paramArrayStr = paramArrayStr;
+    public void setRunTimeParamList(List<AutoexecParamVo> runTimeParamList) {
+        this.runTimeParamList = runTimeParamList;
     }
 
-    public JSONArray getParamArray() {
-        if (StringUtils.isNotBlank(paramArrayStr)) {
-            return JSONObject.parseArray(paramArrayStr);
+
+    public String getRunTimeParamListStr() {
+        if (CollectionUtils.isNotEmpty(runTimeParamList)) {
+            runTimeParamListStr = JSONArray.toJSONString(runTimeParamList);
         }
-        return new JSONArray();
+        return runTimeParamListStr;
+    }
+
+    public void setParamHash(String paramHash) {
+        this.paramHash = paramHash;
     }
 
     public String getParamHash() {
-        if (StringUtils.isNotBlank(getParamArrayStr())) {
-            paramHash = DigestUtils.md5DigestAsHex(paramArrayStr.getBytes(StandardCharsets.UTF_8));
+        if (StringUtils.isBlank(paramHash) && StringUtils.isNotBlank(getRunTimeParamListStr())) {
+            paramHash = DigestUtils.md5DigestAsHex(runTimeParamListStr.getBytes(StandardCharsets.UTF_8));
         }
         return paramHash;
     }
@@ -819,10 +805,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setParam(JSONObject param) {
         this.param = param;
-    }
-
-    public void setRunTimeParamList(List<AutoexecParamVo> runTimeParamList) {
-        this.runTimeParamList = runTimeParamList;
     }
 
     public Long getScenarioId() {

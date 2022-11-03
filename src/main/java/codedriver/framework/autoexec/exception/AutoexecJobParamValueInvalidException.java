@@ -5,8 +5,8 @@
 
 package codedriver.framework.autoexec.exception;
 
+import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.exception.core.ApiRuntimeException;
-import com.alibaba.fastjson.JSONObject;
 
 public class AutoexecJobParamValueInvalidException extends ApiRuntimeException {
 
@@ -15,7 +15,7 @@ public class AutoexecJobParamValueInvalidException extends ApiRuntimeException {
     public AutoexecJobParamValueInvalidException() {
     }
 
-    public AutoexecJobParamValueInvalidException(JSONObject value) {
-        super("参数'" + value.getString("name") + "'值 '" + value.getString("value") + "' 不合法");
+    public AutoexecJobParamValueInvalidException(AutoexecParamVo paramVo) {
+        super("参数'" + paramVo.getName() + "'值 '" + paramVo.getValue() + "' 不合法");
     }
 }
