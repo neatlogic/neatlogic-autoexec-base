@@ -14,4 +14,8 @@ public class AutoexecParamValueIrregularException extends ApiRuntimeException {
     public AutoexecParamValueIrregularException(String paramSource, String paramName, String paramKey, String paramValue) {
         super(paramSource + "：'" + paramName + "（" + paramKey + "）'的值：'" + paramValue + "'不符合格式要求");
     }
+
+    public AutoexecParamValueIrregularException(String paramName, String paramKey, String paramValue) {
+        super("参数“" + paramName + "（" + paramKey + "）”的值“" + paramValue + "”不符合格式要求");
+    }
 }
