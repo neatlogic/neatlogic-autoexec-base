@@ -165,7 +165,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @JSONField(serialize = false)
     private List<AutoexecJobPhaseVo> executeJobPhaseList;
     @JSONField(serialize = false)
-    List<AutoexecParamVo> runTimeParamList;
+    List<AutoexecParamVo> runTimeParamList = new ArrayList<>();
     @JSONField(serialize = false)
     String runTimeParamListStr;
     //param
