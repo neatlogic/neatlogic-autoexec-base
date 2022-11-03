@@ -2157,8 +2157,7 @@
         FROM
             autoexec_customtemplate a JOIN autoexec_script b ON a.id = b.customtemplate_id
         WHERE
-            a.is_active = 1
-            AND b.id IN (
+            b.id IN (
                 SELECT
                     operation_id
                 FROM
@@ -2177,8 +2176,7 @@
         FROM
             autoexec_customtemplate a JOIN autoexec_tool b ON a.id = b.customtemplate_id
         WHERE
-            a.is_active = 1
-            AND b.id IN (
+            b.id IN (
                 SELECT
                     operation_id
                 FROM
