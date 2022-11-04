@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.AutoexecJobPhaseExecutePolicy;
+import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.exception.AutoexecCombopPhaseGroupIdIsNullException;
@@ -34,6 +35,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Long jobId;
     @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String status;
+    @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobStatusVo statusVo;
     @EntityField(name = "作业剧本开始时间", type = ApiParamType.STRING)
     private Date startTime;
     @EntityField(name = "作业剧本结束时间", type = ApiParamType.STRING)
@@ -322,5 +325,12 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setRoundCount(Integer roundCount) {
         this.roundCount = roundCount;
+    }
+
+    public AutoexecJobStatusVo getStatusVo() {
+        if (statusVo == null && StringUtils.isNotBlank(status)) {
+            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status));
+        }
+        return statusVo;
     }
 }
