@@ -55,8 +55,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private String status;
     @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
     private String statusName;
-    @EntityField(name = "作业错误信息", type = ApiParamType.STRING)
-    private String errorMsg;
     @EntityField(name = "作业计划开始时间", type = ApiParamType.LONG)
     private Date planStartTime;
     @EntityField(name = "开始时间", type = ApiParamType.LONG)
@@ -359,14 +357,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         return statusName;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-    }
-
     public Date getPlanStartTime() {
         if (planStartTime == null && startTime == null) {
             planStartTime = new Date();
@@ -586,9 +576,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     }
 
     public Integer getCompletionRate() {
-        if (StringUtils.isNotBlank(status) && Arrays.asList(JobStatus.COMPLETED.getValue(), JobStatus.CHECKED.getValue()).contains(status)) {
-            return 100;
-        }
         return completionRate;
     }
 

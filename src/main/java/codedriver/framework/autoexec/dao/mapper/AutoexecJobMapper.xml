@@ -36,14 +36,36 @@
         limit #{startNum}, #{pageSize}
     </select>
 
-    <select id="searchJob"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+    <resultMap id="jobMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
+        <id column="id" property="id"/>
+        <result column="parentId" property="parentId"/>
+        <result column="name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="planStartTime" property="planStartTime"/>
+        <result column="startTime" property="startTime"/>
+        <result column="endTime" property="endTime"/>
+        <result column="operationId" property="operationId"/>
+        <result column="operationType" property="operationType"/>
+        <result column="execUser" property="execUser"/>
+        <result column="execUserType" property="execUserType"/>
+        <result column="source" property="source"/>
+        <result column="roundCount" property="roundCount"/>
+        <result column="triggerType" property="triggerType"/>
+        <collection property="phaseList" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+            <id column="phaseId" property="id"/>
+            <result column="phaseName" property="name"/>
+            <result column="lncd" property="lncd"/>
+            <result column="lcd" property="lcd"/>
+            <result column="phaseStatus" property="status"/>
+        </collection>
+    </resultMap>
+
+    <select id="searchJob" resultMap="jobMap">
         SELECT
         aj.`id`,
         aj.`parent_id` AS parentId,
         aj.`name`,
         aj.`status`,
-        aj.`error_msg` as errorMsg,
         aj.`plan_start_time` as planStartTime,
         aj.`start_time` as startTime,
         aj.`end_time` as endTime,
@@ -53,9 +75,15 @@
         aj.`exec_user_type` as execUserType,
         aj.`source`,
         aj.`round_count` as roundCount,
-        aj.`trigger_type` as triggerType
+        aj.`trigger_type` as triggerType,
+        ajp.id as phaseId,
+        ajp.name as phaseName,
+        ajp.lcd,
+        ajp.lncd,
+        ajp.status as phaseStatus
         FROM
         `autoexec_job` aj
+        left join `autoexec_job_phase` ajp on aj.id = ajp.job_id
         WHERE aj.`id` in
         <foreach collection="jobIdList" item="jobId" open="(" close=")" separator=",">
             #{jobId}
@@ -88,7 +116,7 @@
 
     <select id="searchJobWithCombopView" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo"
             resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
-        SELECT ac.`name`, ac.`uk`, COUNT(1) as referenceCount
+        SELECT ac.`name`, COUNT(1) as referenceCount
         FROM `autoexec_job` aj
         LEFT JOIN `autoexec_combop` ac ON aj.`operation_id` = ac.`id`
         left join autoexec_job ajj on ajj.parent_id = aj.id
@@ -97,7 +125,6 @@
             <include refid="searchJobSql"/>
         </where>
         GROUP BY ac.id
-        order by ac.`uk` desc
         limit #{startNum}, #{pageSize}
     </select>
 
@@ -377,12 +404,10 @@
                ajp.`exec_user`                 as execUser,
                ajp.`exec_mode`                 as execMode,
                ajp.`name`                      as name,
-               ajp.`error_msg`                 as errorMsg,
                ajp.`group_id`                  as groupId,
                ajp.`execute_policy`            as executePolicy,
                ajp.`sort`,
                ajp.`warn_count`                as warnCount,
-               ajp.`uk`                        as uk,
                ajp.`round_count`               as roundCount,
                ajg.id                          as groupId,
                ajg.sort                        as groupSort,
@@ -409,7 +434,6 @@
         <result column="groupId" property="groupId"/>
         <result column="sort" property="sort"/>
         <result column="warnCount" property="warnCount"/>
-        <result column="uk" property="uk"/>
         <result column="uuid" property="uuid"/>
         <result column="isPreOutputUpdateNode" property="isPreOutputUpdateNode"/>
         <result column="roundCount" property="roundCount"/>
@@ -431,7 +455,6 @@
         ajp.`exec_mode` as execMode,
         ajp.`name` as name,
         ajp.`sort`,
-        ajp.`uk` as uk,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.config,
@@ -458,7 +481,6 @@
         ajp.`exec_mode` AS execMode,
         ajp.`name` AS NAME,
         ajp.`sort`,
-        ajp.`uk` AS uk,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.policy as groupPolicy
@@ -485,7 +507,6 @@
         SELECT aj.`id`,
                aj.`name`,
                aj.`status`,
-               aj.`error_msg`       as errorMsg,
                aj.`plan_start_time` as planStartTime,
                aj.`start_time`      as startTime,
                aj.`end_time`        as endTime,
@@ -533,62 +554,10 @@
         limit 1
     </select>
 
-    <resultMap id="jobMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="paramStr" property="paramArrayStr"/>
-        <collection property="phaseList" ofType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-            <id column="phaseId" property="id"/>
-            <result column="phaseName" property="name"/>
-            <result column="lncd" property="lncd"/>
-            <result column="lcd" property="lcd"/>
-            <result column="phaseUk" property="uk"/>
-            <collection property="operationList"
-                        ofType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
-                <id column="operationId" property="id"/>
-                <result column="operationUk" property="uk"/>
-                <result column="operationName" property="name"/>
-                <result column="operationType" property="type"/>
-                <result column="parser" property="parser"/>
-                <result column="execMode" property="execMode"/>
-                <result column="failPolicy" property="failPolicy"/>
-                <result column="operationParam" property="paramStr"/>
-            </collection>
-        </collection>
-    </resultMap>
-
-    <select id="getJobDetailByJobIdAndPhaseName" resultMap="jobMap">
-        SELECT aj.`id`,
-               aj.`name`,
-               ajpc.`content`     AS paramStr,
-               ajp.`id`           AS phaseId,
-               ajp.`name`         AS phaseName,
-               ajp.`uk`           AS phaseUk,
-               ajp.`lncd`,
-               ajp.`lcd`,
-               ajpo.`id`          AS operationId,
-               ajpo.`uk`          AS operationUk,
-               ajpo.`name`        AS operationName,
-               ajpo.type          AS operationType,
-               ajpo.parser,
-               ajpo.`exec_mode`   AS execMode,
-               ajpo.`fail_policy` AS failPolicy,
-               ajpc1.`content`    AS operationParam
-        FROM `autoexec_job` aj
-                 LEFT JOIN `autoexec_job_content` ajpc ON aj.`param_hash` = ajpc.`hash`
-                 LEFT JOIN `autoexec_job_phase` ajp ON aj.`id` = ajp.`job_id`
-                 LEFT JOIN `autoexec_job_phase_operation` ajpo ON ajp.`id` = ajpo.`job_phase_id`
-                 LEFT JOIN `autoexec_job_content` ajpc1 ON ajpo.`param_hash` = ajpc1.`hash`
-        where aj.`id` = #{jobId}
-          and ajp.`name` = #{phaseName}
-
-    </select>
-
     <select id="getJobLockByJobId" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         SELECT aj.`id`,
                aj.`name`,
                aj.`status`,
-               aj.`error_msg`       as errorMsg,
                aj.`plan_start_time` as planStartTime,
                aj.`start_time`      as startTime,
                aj.`end_time`        as endTime,
@@ -645,7 +614,6 @@
                `job_phase_id` as jobPhaseId,
                `id`,
                `name`,
-               `uk`,
                `type`,
                `parser`,
                `exec_mode`    as execMode,
@@ -661,7 +629,6 @@
                `job_phase_id` as jobPhaseId,
                `id`,
                `name`,
-               `uk`,
                `type`,
                `parser`,
                `exec_mode`    as execMode,
@@ -676,25 +643,24 @@
         where `job_id` = #{jobId}
           and `job_phase_id` = #{phaseId}
           and `parent_operation_id` is null
-            order by `sort` asc
+        order by `sort` asc
     </select>
 
     <select id="getJobPhaseOperationListWithParentByJobIdAndPhaseId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
-        SELECT `job_id`       as jobId,
-               `job_phase_id` as jobPhaseId,
+        SELECT `job_id`                as jobId,
+               `job_phase_id`          as jobPhaseId,
                `id`,
                `name`,
-               `uk`,
                `type`,
                `parser`,
-               `exec_mode`    as execMode,
+               `exec_mode`             as execMode,
                `sort`,
-               `fail_policy`  as failPolicy,
-               version_id     as versionId,
-               `param_hash`   as paramHash,
-               `profile_id`   as profileId,
-               `parent_operation_id` as parentOperationId,
+               `fail_policy`           as failPolicy,
+               version_id              as versionId,
+               `param_hash`            as paramHash,
+               `profile_id`            as profileId,
+               `parent_operation_id`   as parentOperationId,
                `parent_operation_type` as parentOperationType,
                `uuid`,
                `letter`
@@ -711,7 +677,6 @@
                ajpn.`job_phase_id` as jobPhaseId,
                ajpn.`id`,
                ajpn.`name`,
-               ajpn.`uk`,
                ajpn.`type`,
                ajpn.`parser`,
                ajpn.`exec_mode`    as execMode,
@@ -779,7 +744,6 @@
                ajp.`exec_mode`                 as execMode,
                ajp.`name`                      as name,
                ajp.`sort`,
-               ajp.`uk`                        as uk,
                ajp.`uuid`,
                ajg.id                          as groupId,
                ajg.sort                        as groupSort,
@@ -798,7 +762,6 @@
                `job_phase_id` as jobPhaseId,
                `id`,
                `name`,
-               `uk`,
                `type`,
                `parser`,
                `exec_mode`    as execMode,
@@ -816,7 +779,6 @@
                `job_phase_id` as jobPhaseId,
                `id`,
                `name`,
-               `uk`,
                `type`,
                `parser`,
                `exec_mode`    as execMode,
@@ -1116,9 +1078,7 @@
                `exec_user`  as execUser,
                `exec_mode`  as execMode,
                `name`       as name,
-               `error_msg`  as errorMsg,
                `sort`,
-               `uk`         as uk
         FROM `autoexec_job_phase`
         where `job_id` = #{jobId}
           and `status` = #{status}
@@ -1295,7 +1255,6 @@
         SELECT aj.`id`,
                aj.`name`,
                aj.`status`,
-               aj.`error_msg`       as errorMsg,
                aj.`plan_start_time` as planStartTime,
                aj.`start_time`      as startTime,
                aj.`end_time`        as endTime,
@@ -1502,7 +1461,6 @@
         SELECT aj.`id`,
                aj.`name`,
                aj.`status`,
-               aj.`error_msg`       as errorMsg,
                aj.`plan_start_time` as planStartTime,
                aj.`start_time`      as startTime,
                aj.`end_time`        as endTime,
@@ -1581,26 +1539,6 @@
         </foreach>
 
     </select>
-    <select id="getJobPhaseByJobIdAndGroupSortAndSort"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        SELECT ajp.`id`,
-               ajp.`job_id`     as jobId,
-               ajp.`status`,
-               ajp.`start_time` as startTime,
-               ajp.`end_time`   as endTime,
-               ajp.`exec_user`  as execUser,
-               ajp.`exec_mode`  as execMode,
-               ajp.`name`       as name,
-               ajp.`error_msg`  as errorMsg,
-               ajp.`sort`,
-               ajp.`uk`         as uk
-        FROM `autoexec_job_phase` ajp
-                 join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
-        where ajp.`job_id` = #{jobId}
-          and ajg.`sort` = #{groupSort}
-          and ajp.`sort` = #{sort} FROM `autoexec_job_phase`
-        where `node_from` = 'job'
-    </select>
     <select id="getJobPhaseNodeRunnerListByJobPhaseId"
             resultType="codedriver.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
@@ -1624,12 +1562,10 @@
         ajp.`exec_user` as execUser,
         ajp.`exec_mode` as execMode,
         ajp.`name` as name,
-        ajp.`error_msg` as errorMsg,
         ajp.`group_id` as groupId,
         ajp.`execute_policy` as executePolicy,
         ajp.`sort`,
         ajp.`warn_count` as warnCount,
-        ajp.`uk` as uk,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.config,
@@ -1960,7 +1896,6 @@
         SELECT aj.`id`,
                aj.`name`,
                aj.`status`,
-               aj.`error_msg`       as errorMsg,
                aj.`plan_start_time` as planStartTime,
                aj.`start_time`      as startTime,
                aj.`end_time`        as endTime,
@@ -1982,7 +1917,6 @@
         SELECT aj.`id`,
                aj.`name`,
                aj.`status`,
-               aj.`error_msg`       as errorMsg,
                aj.`plan_start_time` as planStartTime,
                aj.`start_time`      as startTime,
                aj.`end_time`        as endTime,
@@ -2031,7 +1965,6 @@
         ajj.`id` as id,
         ajj.`name` as name,
         ajj.`status` as status,
-        ajj.`error_msg` as errorMsg,
         ajj.`plan_start_time` as planStartTime,
         ajj.`start_time` as startTime,
         ajj.`end_time` as endTime,
@@ -2075,7 +2008,6 @@
         SELECT aj.`id`,
         aj.`name`,
         aj.`status`,
-        aj.`error_msg` as errorMsg,
         aj.`plan_start_time` as planStartTime,
         aj.`start_time` as startTime,
         aj.`end_time` as endTime,
@@ -2106,7 +2038,6 @@
         ajp.`exec_mode` as execMode,
         ajp.`name` as name,
         ajp.`sort`,
-        ajp.`uk` as uk,
         ajp.`uuid`,
         ajg.id as groupId,
         ajg.sort as groupSort,
@@ -2123,7 +2054,6 @@
         SELECT aj.`id`,
                aj.`name`,
                aj.`status`,
-               aj.`error_msg`       as errorMsg,
                aj.`plan_start_time` as planStartTime,
                aj.`start_time`      as startTime,
                aj.`end_time`        as endTime,
@@ -2148,55 +2078,48 @@
 
     <select id="getJobPhaseOperationCustomTemplateListByJobPhaseId" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.customtemplate.CustomTemplateVo">
-        SELECT
-            a.id,
-            a.`name`,
-            a.template,
-            a.config,
-            b.id AS operationId
-        FROM
-            autoexec_customtemplate a JOIN autoexec_script b ON a.id = b.customtemplate_id
-        WHERE
-            b.id IN (
-                SELECT
-                    operation_id
-                FROM
-                    `autoexec_job_phase_operation`
-                WHERE
-                    job_phase_id = #{value}
-                    AND `type` = 'script'
-            )
+        SELECT a.id,
+               a.`name`,
+               a.template,
+               a.config,
+               b.id AS operationId
+        FROM autoexec_customtemplate a
+                 JOIN autoexec_script b ON a.id = b.customtemplate_id
+        WHERE b.id IN (
+            SELECT operation_id
+            FROM `autoexec_job_phase_operation`
+            WHERE job_phase_id = #{value}
+              AND `type` = 'script'
+        )
         UNION
-        SELECT
-            a.id,
-            a.`name`,
-            a.template,
-            a.config,
-            b.id AS operationId
-        FROM
-            autoexec_customtemplate a JOIN autoexec_tool b ON a.id = b.customtemplate_id
-        WHERE
-            b.id IN (
-                SELECT
-                    operation_id
-                FROM
-                    `autoexec_job_phase_operation`
-                WHERE
-                    job_phase_id = #{value}
-                AND `type` = 'tool'
-            )
+        SELECT a.id,
+               a.`name`,
+               a.template,
+               a.config,
+               b.id AS operationId
+        FROM autoexec_customtemplate a
+                 JOIN autoexec_tool b ON a.id = b.customtemplate_id
+        WHERE b.id IN (
+            SELECT operation_id
+            FROM `autoexec_job_phase_operation`
+            WHERE job_phase_id = #{value}
+              AND `type` = 'tool'
+        )
     </select>
 
     <select id="getJobPhaseOpertionIdListByJobPhaseId" parameterType="java.lang.Long" resultType="java.lang.Long">
-        SELECT operation_id FROM `autoexec_job_phase_operation`
+        SELECT operation_id
+        FROM `autoexec_job_phase_operation`
         WHERE job_phase_id = #{value}
         ORDER BY sort
     </select>
 
     <select id="getMaxSortJobPhaseOperationByPhaseIdAndOperationId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
-        SELECT id, `name`, `type` FROM `autoexec_job_phase_operation`
-        WHERE job_phase_id = #{jobPhaseId} AND operation_id = #{operationId}
+        SELECT id, `name`, `type`
+        FROM `autoexec_job_phase_operation`
+        WHERE job_phase_id = #{jobPhaseId}
+          AND operation_id = #{operationId}
         ORDER BY sort desc
         LIMIT 1
     </select>
@@ -2314,7 +2237,6 @@
         INSERT INTO `autoexec_job_phase_operation` (`id`,
         `job_id`,
         `job_phase_id`,
-        `uk`,
         `name`,
         `type`,
         `parser`,
@@ -2338,7 +2260,6 @@
         VALUES (#{id},
         #{jobId},
         #{jobPhaseId},
-        #{uk},
         #{name},
         #{type},
         #{parser},
@@ -2552,9 +2473,6 @@
             ,`start_time` = NOW(3)
             ,`end_time` = NULL
         </if>
-        <if test="errorMsg != null and errorMsg != ''">
-            ,`error_msg` = #{errorMsg}
-        </if>
         <if test="status == 'completed' or status == 'failed'">
             ,`end_time` = NOW(3)
         </if>
@@ -2570,9 +2488,6 @@
         <if test="status == 'running' and isFirstFire == 1">
             ,`start_time` = NOW(3)
             ,`end_time` = NULL
-        </if>
-        <if test="errorMsg != null and errorMsg != ''">
-            ,`error_msg` = #{errorMsg}
         </if>
         <if test="status == 'completed' or status == 'failed'">
             ,`end_time` = NOW(3)

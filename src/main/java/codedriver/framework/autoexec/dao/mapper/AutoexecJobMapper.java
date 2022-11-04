@@ -31,8 +31,6 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobInfo(Long jobId);
 
-    AutoexecJobVo getJobDetailByJobIdAndPhaseName(@Param("jobId") Long jobId, @Param("phaseName") String phaseName);
-
     List<AutoexecJobVo> getJobWarnCountAndStatus(List<Long> idList);
 
     List<AutoexecJobVo> getJobListByIdList(List<Long> idList);
@@ -108,8 +106,6 @@ public interface AutoexecJobMapper {
     AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseStatus(@Param("jobId") Long id, @Param("status") String status);
 
     AutoexecJobPhaseVo getJobActivePhase(Long jobId);
-
-    AutoexecJobPhaseVo getJobPhaseByJobIdAndGroupSortAndSort(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort, @Param("sort") int sort);
 
     List<AutoexecJobPhaseVo> getJobPhaseListWithGroupByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList);
 

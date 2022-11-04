@@ -7,7 +7,6 @@ package codedriver.framework.autoexec.dto.job;
 
 import codedriver.framework.asynchronization.threadlocal.UserContext;
 import codedriver.framework.autoexec.constvalue.AutoexecJobPhaseExecutePolicy;
-import codedriver.framework.autoexec.constvalue.JobPhaseStatus;
 import codedriver.framework.autoexec.constvalue.JobStatus;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import codedriver.framework.autoexec.exception.AutoexecCombopPhaseGroupIdIsNullException;
@@ -35,10 +34,6 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Long jobId;
     @EntityField(name = "作业剧本状态", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "作业状态Vo", type = ApiParamType.JSONOBJECT)
-    private AutoexecJobStatusVo statusVo;
-    @EntityField(name = "失败原因", type = ApiParamType.STRING)
-    private String errorMsg;
     @EntityField(name = "作业剧本开始时间", type = ApiParamType.STRING)
     private Date startTime;
     @EntityField(name = "作业剧本结束时间", type = ApiParamType.STRING)
@@ -89,7 +84,6 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     }
 
     public AutoexecJobPhaseVo(JSONObject phaseJson, Integer index, Long jobId) {
-        this.uk = phaseJson.getString("uk");
         this.name = phaseJson.getString("name");
         this.execMode = phaseJson.getString("execMode");
         this.status = JobStatus.PENDING.getValue();
@@ -99,7 +93,6 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     }
 
     public AutoexecJobPhaseVo(AutoexecCombopPhaseVo autoexecCombopPhaseVo, Long jobId, Map<Long, AutoexecJobGroupVo> combopGroupJobMap) {
-        this.uk = autoexecCombopPhaseVo.getUk();
         this.name = autoexecCombopPhaseVo.getName();
         this.execMode = autoexecCombopPhaseVo.getExecMode();
         this.status = JobStatus.PENDING.getValue();
@@ -124,10 +117,9 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.warnCount = _warnCount;
     }
 
-    public AutoexecJobPhaseVo(Long _id, String _status, String _errorMsg) {
+    public AutoexecJobPhaseVo(Long _id, String _status) {
         this.id = _id;
         this.status = _status;
-        this.errorMsg = _errorMsg;
     }
 
     public Long getId() {
@@ -155,14 +147,6 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
     }
 
     public Date getStartTime() {
@@ -205,14 +189,6 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.name = name;
     }
 
-    public String getUk() {
-        return uk;
-    }
-
-    public void setUk(String uk) {
-        this.uk = uk;
-    }
-
     public List<AutoexecJobPhaseNodeStatusCountVo> getStatusCountVoList() {
         return statusCountVoList;
     }
@@ -250,13 +226,6 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setCompletionRate(Integer completionRate) {
         this.completionRate = completionRate;
-    }
-
-    public AutoexecJobStatusVo getStatusVo() {
-        if (statusVo == null && StringUtils.isNotBlank(status)) {
-            return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status));
-        }
-        return statusVo;
     }
 
     public String getUuid() {
