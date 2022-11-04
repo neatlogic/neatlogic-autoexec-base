@@ -9,6 +9,7 @@ import codedriver.framework.autoexec.dto.node.AutoexecNodeVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
@@ -72,6 +73,7 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
         this.preOutputList = preOutputList;
     }
 
+    @JSONField(serialize = false)
     public boolean isNull(){
         return CollectionUtils.isEmpty(paramList) && CollectionUtils.isEmpty(selectNodeList) && CollectionUtils.isEmpty(inputNodeList) && MapUtils.isEmpty(filter) && CollectionUtils.isEmpty(preOutputList);
     }
