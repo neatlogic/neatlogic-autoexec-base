@@ -21,6 +21,8 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     @EntityField(name = "协议", type = ApiParamType.STRING)
     private String protocol;
+    @EntityField(name = "协议端口", type = ApiParamType.INTEGER)
+    private Integer protocolPort;
     @EntityField(name = "协议id", type = ApiParamType.LONG)
     private Long protocolId;
     @EntityField(name = "执行用户", type = ApiParamType.STRING)
@@ -44,6 +46,14 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+    public Integer getProtocolPort() {
+        return protocolPort;
+    }
+
+    public void setProtocolPort(Integer protocolPort) {
+        this.protocolPort = protocolPort;
     }
 
     public Long getProtocolId() {
