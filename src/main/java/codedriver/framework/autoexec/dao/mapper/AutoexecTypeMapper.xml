@@ -15,7 +15,8 @@
             resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         select
         `id`,
-        `name`
+        `name`,
+        `description`
         from
         `autoexec_type`
         where `id` IN
