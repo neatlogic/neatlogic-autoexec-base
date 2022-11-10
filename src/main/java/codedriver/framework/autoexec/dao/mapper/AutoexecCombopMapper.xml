@@ -275,7 +275,7 @@
         )
     </select>
 
-    <select id="getExecutableAutoexecCombopIdListByKeywordAndAuthenticationInfo" resultType="java.lang.Long">
+    <sql id="getExecutableAutoexecCombopIdListSql">
         SELECT
         a.`id`
         FROM `autoexec_combop` a
@@ -299,6 +299,10 @@
             )
         </if>
         )
+    </sql>
+
+    <select id="getExecutableAutoexecCombopIdListByKeywordAndAuthenticationInfo" resultType="java.lang.Long">
+        <include refid="getExecutableAutoexecCombopIdListSql"/>
         <if test="keyword != null and keyword != ''">
             AND (a.`name` LIKE CONCAT('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%') OR `description`
             LIKE concat('%', #{keyword}, '%'))
@@ -306,6 +310,10 @@
         <if test="typeId != null">
             AND a.`type_id` = #{typeId}
         </if>
+    </select>
+
+    <select id="getExecutableAutoexecCombopIdListByAuthenticationInfo" resultType="java.lang.Long">
+        <include refid="getExecutableAutoexecCombopIdListSql"/>
     </select>
 
     <select id="checkAutoexecCombopIdListIsExists" parameterType="java.util.List" resultType="java.lang.Long">
@@ -320,6 +328,34 @@
         SELECT `combop_id`
         FROM `autoexec_operation_generate_combop`
         WHERE `operation_id` = #{value}
+    </select>
+
+    <select id="getAutoexecTypeListByCombopIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
+        select id
+        `name`,
+        `description`
+        from autoexec_type
+        where id in (
+            select type_id from autoexec_combop
+            <where>
+                <if test="combopIdList != null and combopIdList.size() > 0">
+                    id in
+                    <foreach collection="combopIdList" item="id" open="(" separator="," close=")">
+                        #{id}
+                    </foreach>
+                </if>
+            </where>
+        )
+    </select>
+
+    <select id="getAllAutoexecTypeListUsedByCombop"
+            resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
+        select id
+        `name`,
+        `description`
+        from autoexec_type
+        where id in ( select distinct type_id from autoexec_combop )
     </select>
 
     <insert id="insertAutoexecCombop" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
