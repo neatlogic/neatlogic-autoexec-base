@@ -322,6 +322,25 @@
         WHERE `operation_id` = #{value}
     </select>
 
+    <select id="getAutoexecTypeListByCombopIdList" parameterType="java.util.List"
+            resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
+        select id
+        `name`,
+        `description`
+        from autoexec_type
+        where id in (
+            select type_id from autoexec_combop
+            <where>
+                <if test="combopIdList != null and combopIdList.size() > 0">
+                    id in
+                    <foreach collection="combopIdList" item="id" open="(" separator="," close=")">
+                        #{id}
+                    </foreach>
+                </if>
+            </where>
+        )
+    </select>
+
     <insert id="insertAutoexecCombop" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         INSERT INTO `autoexec_combop` (`id`,
                                        `uk`,
