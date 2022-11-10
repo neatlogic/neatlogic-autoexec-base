@@ -63,7 +63,7 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
             @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 
-    Set<Long> getExecutableAutoexecCombopIdListByAndAuthenticationInfo(
+    Set<Long> getExecutableAutoexecCombopIdListByAuthenticationInfo(
             @Param("authenticationInfoVo") AuthenticationInfoVo authenticationInfoVo
     );
 
