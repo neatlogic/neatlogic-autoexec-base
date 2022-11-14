@@ -2124,6 +2124,25 @@
         LIMIT 1
     </select>
 
+    <select id="getJobPhaseListByJobId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        SELECT ajp.`id`,
+               ajp.`job_id`                    as jobId,
+               ajp.`status`,
+               ajp.`start_time`                as startTime,
+               ajp.`end_time`                  as endTime,
+               ajp.`exec_user`                 as execUser,
+               ajp.`exec_mode`                 as execMode,
+               ajp.`name`                      as name,
+               ajp.`group_id`                  as groupId,
+               ajp.`execute_policy`            as executePolicy,
+               ajp.`sort`,
+               ajp.`warn_count`                as warnCount,
+               ajp.`round_count`               as roundCount
+        FROM `autoexec_job_phase` ajp
+        where ajp.`job_id` = #{value}
+        ORDER BY ajp.`sort`
+    </select>
+
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
         `name`,
