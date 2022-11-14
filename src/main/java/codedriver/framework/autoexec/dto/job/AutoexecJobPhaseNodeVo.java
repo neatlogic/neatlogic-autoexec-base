@@ -174,6 +174,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
         this.runnerUrl = runnerUrl;
     }
 
+    public AutoexecJobPhaseNodeVo(Long jobPhaseId, int isDelete) {
+        this.jobPhaseId = jobPhaseId;
+        this.isDelete = isDelete;
+    }
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();
