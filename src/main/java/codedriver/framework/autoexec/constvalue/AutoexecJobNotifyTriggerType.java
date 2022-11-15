@@ -10,7 +10,7 @@ import codedriver.framework.notify.core.INotifyTriggerType;
 public enum AutoexecJobNotifyTriggerType implements INotifyTriggerType {
 
     FAILED("failed", "作业失败", "作业失败时触发通知"),
-    ABORTED("aborted", "作业已中止", "作业已中止时触发通知");
+    ;
 
     private final String trigger;
     private final String text;
