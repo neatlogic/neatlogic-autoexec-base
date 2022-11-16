@@ -15,8 +15,8 @@ public class AutoexecParamMappingTargetNotFoundException extends ApiRuntimeExcep
 
     private static final long serialVersionUID = -977868375722886184L;
 
-    public AutoexecParamMappingTargetNotFoundException(String operationName, String key, String target) {
-        super(operationName + "的参数：'" + key + "'映射目标'" + target + "'不存在");
+    public AutoexecParamMappingTargetNotFoundException(String phaseName, String operationName, String key, String target) {
+        super("阶段[" + phaseName + "]工具[" + operationName + "]的参数：'" + key + "'映射目标'" + target + "'不存在");
     }
 
 }

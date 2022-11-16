@@ -15,8 +15,8 @@ public class AutoexecParamMappingArgumentCountMismatchException extends ApiRunti
 
     private static final long serialVersionUID = -977868375722886187L;
 
-    public AutoexecParamMappingArgumentCountMismatchException(String operationName, String key, int count) {
-        super(operationName + "的自由参数：'" + key + "'映射个数不匹配，设置数量为" + count);
+    public AutoexecParamMappingArgumentCountMismatchException(String phaseName, String operationName, String key, int count) {
+        super("阶段[" + phaseName + "]工具[" + operationName + "]的自由参数：'" + key + "'映射个数不匹配，设置数量为" + count);
     }
 
 }
