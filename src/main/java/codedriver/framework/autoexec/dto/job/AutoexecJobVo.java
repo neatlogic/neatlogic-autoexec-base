@@ -144,6 +144,8 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @JSONField(serialize = false)
     private AutoexecJobPhaseVo currentPhase;
     @JSONField(serialize = false)
+    private AutoexecJobPhaseVo preOutputPhase;
+    @JSONField(serialize = false)
     private Long currentNodeResourceId;
     @JSONField(serialize = false)
     private AutoexecJobPhaseNodeVo currentNode;
@@ -945,5 +947,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setSourceType(String sourceType) {
         this.sourceType = sourceType;
+    }
+
+    public AutoexecJobPhaseVo getPreOutputPhase() {
+        return preOutputPhase;
+    }
+
+    public void setPreOutputPhase(AutoexecJobPhaseVo preOutputPhase) {
+        this.preOutputPhase = preOutputPhase;
     }
 }
