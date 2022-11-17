@@ -77,8 +77,6 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndNodeStatusList(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
 
-    AutoexecJobPhaseVo getJobPhaseLockByPhaseId(Long jobPhaseId);
-
     AutoexecJobPhaseVo getJobPhaseByPhaseId(Long jobPhaseId);
 
     AutoexecJobPhaseVo getJobPhaseByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("jobPhaseId") Long jobPhaseId);

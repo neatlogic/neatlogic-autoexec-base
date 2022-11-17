@@ -536,16 +536,6 @@
         </foreach>
     </select>
 
-    <select id="getJobPhaseLockByPhaseId" parameterType="java.lang.Long"
-            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
-        SELECT id,
-               job_id as jobId,
-               `status`
-        FROM `autoexec_job_phase`
-        WHERE id = #{value} FOR
-        UPDATE
-    </select>
-
     <select id="getFirstJobPhase" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         select id, job_id as jobId, `name`
         from `autoexec_job_phase`
