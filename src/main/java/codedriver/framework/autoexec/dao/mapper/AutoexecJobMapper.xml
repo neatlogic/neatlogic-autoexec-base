@@ -418,7 +418,7 @@
         FROM `autoexec_job_phase` ajp
                  left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where ajp.`job_id` = #{value}
-        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name`
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
     </select>
 
     <resultMap id="AutoexecJobPhaseMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -468,7 +468,7 @@
                 #{status}
             </foreach>
         </if>
-        ORDER BY ajg.sort,`sort`, `name` ASC
+        ORDER BY ajg.sort, ajp.`sort`, ajp.`id` ASC
     </select>
 
     <select id="getJobPhaseListByJobIdAndNodeStatusList" resultMap="AutoexecJobPhaseMap">
@@ -491,7 +491,7 @@
         <foreach collection="statusList" open="(" separator="," close=")" item="status">
             #{status}
         </foreach>
-        ORDER BY ajg.`sort`,ajp.sort,ajp.`name`
+        ORDER BY ajg.`sort`,ajp.sort,ajp.`id`
     </select>
 
     <select id="getJobPhaseNodeStatusCount" parameterType="java.lang.Long"
@@ -1568,7 +1568,7 @@
         <foreach collection="jobPhaseIdList" item="value" separator="," open="(" close=")">
             #{value}
         </foreach>
-        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name`
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
     </select>
 
     <select id="searchJobPhaseSqlCount" resultType="int">
