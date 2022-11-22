@@ -14,7 +14,7 @@
     <select id="searchJobId" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo"
             resultType="java.lang.Long">
         SELECT
-        distinct aj.`id`
+        aj.`id`
         FROM
         `autoexec_job` aj
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '' )">
@@ -32,7 +32,13 @@
         <where>
             <include refid="searchJobSql"/>
         </where>
-        order by aj.`id` desc
+        GROUP BY aj.`id`
+        <if test="sortOrder != null">
+            order by aj.${sortOrder.key} ${sortOrder.type}
+        </if>
+        <if test="sortOrder == null">
+            order by aj.`plan_start_time` desc
+        </if>
         limit #{startNum}, #{pageSize}
     </select>
 
@@ -88,7 +94,12 @@
         <foreach collection="jobIdList" item="jobId" open="(" close=")" separator=",">
             #{jobId}
         </foreach>
-        order by aj.`id` desc
+        <if test="jobVo.sortOrder != null">
+            order by aj.${jobVo.sortOrder.key} ${jobVo.sortOrder.type}
+        </if>
+        <if test="jobVo.sortOrder == null">
+            order by aj.`plan_start_time` desc
+        </if>
     </select>
 
     <select id="searchJobCount" resultType="java.lang.Integer"
@@ -2114,20 +2125,21 @@
         LIMIT 1
     </select>
 
-    <select id="getJobPhaseListByJobId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+    <select id="getJobPhaseListByJobId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT ajp.`id`,
-               ajp.`job_id`                    as jobId,
+               ajp.`job_id`         as jobId,
                ajp.`status`,
-               ajp.`start_time`                as startTime,
-               ajp.`end_time`                  as endTime,
-               ajp.`exec_user`                 as execUser,
-               ajp.`exec_mode`                 as execMode,
-               ajp.`name`                      as name,
-               ajp.`group_id`                  as groupId,
-               ajp.`execute_policy`            as executePolicy,
+               ajp.`start_time`     as startTime,
+               ajp.`end_time`       as endTime,
+               ajp.`exec_user`      as execUser,
+               ajp.`exec_mode`      as execMode,
+               ajp.`name`           as name,
+               ajp.`group_id`       as groupId,
+               ajp.`execute_policy` as executePolicy,
                ajp.`sort`,
-               ajp.`warn_count`                as warnCount,
-               ajp.`round_count`               as roundCount
+               ajp.`warn_count`     as warnCount,
+               ajp.`round_count`    as roundCount
         FROM `autoexec_job_phase` ajp
         where ajp.`job_id` = #{value}
         ORDER BY ajp.`sort`

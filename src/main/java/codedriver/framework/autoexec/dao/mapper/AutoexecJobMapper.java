@@ -25,7 +25,7 @@ public interface AutoexecJobMapper {
 
     List<Long> searchJobId(AutoexecJobVo jobVo);
 
-    List<AutoexecJobVo> searchJob(@Param("jobIdList") List<Long> jobIdList);
+    List<AutoexecJobVo> searchJob(@Param("jobIdList") List<Long> jobIdList, @Param("jobVo") AutoexecJobVo jobVo);
 
     List<AutoexecJobVo> getJobByExpiredDays(int expiredDays);
 
