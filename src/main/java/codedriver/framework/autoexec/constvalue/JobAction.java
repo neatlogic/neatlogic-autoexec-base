@@ -21,6 +21,7 @@ public enum JobAction {
     GET_NODE_SQL_CONTENT("getNodeSqlContent", "获取节点sql内容"),
     DOWNLOAD_NODE_SQL_FILE("downloadNodeSqlFile", "下载节点sql文件"),
     GET_NODE_OUTPUT_PARAM("getNodeOutputParam", "获取节点出参"),
+    GET_NODE_OPERATION_INPUT_PARAM("getNodeOperationInputParam", "获取节点工具入参"),
     SUBMIT_NODE_WAIT_INPUT("submitNodeWaitInput", "获取节点出参"),
     DOWNLOAD_NODE_AUDIT("downloadNodeAudit", "下载节点记录"),
     NODE_AUDIT_LIST("nodeAuditList", "获取节点记录"),

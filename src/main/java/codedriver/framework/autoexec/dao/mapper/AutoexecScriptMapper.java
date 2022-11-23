@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.dao.mapper;
 
 import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
+import codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo;
 import codedriver.framework.autoexec.dto.script.*;
 import codedriver.framework.common.dto.ValueTextVo;
 import org.apache.ibatis.annotations.Param;
@@ -115,6 +116,8 @@ public interface AutoexecScriptMapper {
      * @return
      */
     List<AutoexecOperationVo> getAutoexecOperationInputParamListByIdList(List<Long> idList);
+
+    List<AutoexecOperationVo> getAutoexecOperationInputParamList(@Param("operationVos") List<AutoexecJobPhaseOperationVo> operationVos);
 
     /**
      * 根据idList查找AutoexecOperationVoList（仅含OperationId和对应的输入参数）

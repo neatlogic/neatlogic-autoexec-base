@@ -634,6 +634,7 @@
                `parser`,
                `exec_mode`    as execMode,
                `sort`,
+               `operation_id` as operationId,
                `fail_policy`  as failPolicy,
                version_id     as versionId,
                `param_hash`   as paramHash,
@@ -774,6 +775,24 @@
           and `id` = #{jobPhaseOperationId}
     </select>
 
+    <select id="getJobPhaseOperationByJobIdAndPhaseId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+        SELECT `job_id`       as jobId,
+               `job_phase_id` as jobPhaseId,
+               `id`,
+               `name`,
+               `type`,
+               `parser`,
+               `operation_id` as operationId,
+               `version_id`   as versionId,
+               `exec_mode`    as execMode,
+               `fail_policy`  as failPolicy,
+               `param_hash`   as paramHash
+        FROM `autoexec_job_phase_operation`
+        where `job_id` = #{jobId}
+          and `job_phase_id` = #{jobPhaseId}
+    </select>
+
     <select id="getJobPhaseOperationByOperationId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
         SELECT `job_id`       as jobId,
@@ -782,6 +801,7 @@
                `name`,
                `type`,
                `parser`,
+               `operation_id` as operationId,
                `exec_mode`    as execMode,
                `fail_policy`  as failPolicy,
                `param_hash`   as paramHash,
@@ -2510,7 +2530,7 @@
             ,`start_time` = NOW(3)
             ,`end_time` = NULL
         </if>
-        <if test="status == 'completed' or status == 'failed'">
+        <if test="status == 'completed' or status == 'failed' or status == 'aborted' or status == 'paused'">
             ,`end_time` = NOW(3)
         </if>
         WHERE id = #{id}

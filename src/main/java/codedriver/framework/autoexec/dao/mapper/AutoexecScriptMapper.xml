@@ -439,7 +439,8 @@
                `sort`,
                `config`
         from `autoexec_script_version_param`
-        where `script_version_id` = #{value} and `mode` = "output"
+        where `script_version_id` = #{value}
+          and `mode` = "output"
         order by `sort`
     </select>
 
@@ -978,6 +979,34 @@
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </select>
+
+    <select id="getAutoexecOperationInputParamList" parameterType="java.util.List"
+            resultMap="autoexecOperationInputParamListMap">
+        SELECT
+        a.`id`,
+        c.`key`,
+        c.`name` AS paramName,
+        c.`default_value` AS defaultValue,
+        c.`type` AS paramType,
+        c.`mode`,
+        c.`mapping_mode` AS mappingMode,
+        c.`is_required` AS isRequired,
+        c.`description` AS paramDescription,
+        c.`sort`,
+        c.`config`
+        FROM
+        `autoexec_script` a
+        JOIN `autoexec_script_version` b ON a.`id` = b.`script_id`
+        LEFT JOIN `autoexec_script_version_param` c ON b.`id` = c.`script_version_id` and c.mode='input'
+        LEFT JOIN autoexec_type ate ON a.`type_id` = ate.`id`
+        LEFT JOIN autoexec_risk ar ON a.`risk_id` = ar.`id`
+        WHERE b.`is_active` = 1
+        and (
+        <foreach collection="operationVos" item="operation" open="(" separator=")or(" close=")">
+            a.`id` = #{operation.operationId} and b.`id` = #{operation.versionId}
+        </foreach>
+        )
     </select>
 
     <select id="getAutoexecOperationOutputParamListByIdList" parameterType="java.util.List"
