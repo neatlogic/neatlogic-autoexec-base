@@ -51,10 +51,8 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     private List<AutoexecJobPhaseNodeOperationStatusVo> ifList;
     @EntityField(name = "ifBlock else 工具列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseNodeOperationStatusVo> elseList;
-    @EntityField(name = "是否含有入参", type = ApiParamType.INTEGER)
-    private Integer isHasInputParam = 0;
 
-    public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson, String description, List<AutoexecJobPhaseOperationVo> jobSonOperationList, Map<String, AutoexecCombopPhaseOperationVo> combopOperationUuidMap, Boolean isHasInputParam) {
+    public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson, String description, List<AutoexecJobPhaseOperationVo> jobSonOperationList, Map<String, AutoexecCombopPhaseOperationVo> combopOperationUuidMap) {
         this.id = operationVo.getId();
         this.name = operationVo.getName();
         this.type = operationVo.getType();
@@ -67,7 +65,6 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         this.failIgnore = operationVo.getFailIgnore();
         this.description = StringUtils.isBlank(description) ? StringUtils.EMPTY : description;
         this.letter = operationVo.getLetter();
-        this.isHasInputParam = isHasInputParam ? 1 : 0;
 
         //condition
         AutoexecCombopPhaseOperationVo combopOperation = combopOperationUuidMap.get(operationVo.getUuid());
@@ -220,13 +217,5 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
 
     public void setElseList(List<AutoexecJobPhaseNodeOperationStatusVo> elseList) {
         this.elseList = elseList;
-    }
-
-    public Integer getIsHasInputParam() {
-        return isHasInputParam;
-    }
-
-    public void setIsHasInputParam(Integer isHasInputParam) {
-        this.isHasInputParam = isHasInputParam;
     }
 }
