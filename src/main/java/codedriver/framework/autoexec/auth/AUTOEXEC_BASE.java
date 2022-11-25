@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
 import codedriver.framework.cmdb.auth.label.CMDB;
+import codedriver.framework.cmdb.auth.label.CMDB_BASE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,6 @@ public class AUTOEXEC_BASE extends AuthBase {
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths() {
-        return Arrays.asList(AUTOEXEC.class, CMDB.class);
+        return Arrays.asList(AUTOEXEC.class, CMDB_BASE.class, CMDB.class);
     }
 }
