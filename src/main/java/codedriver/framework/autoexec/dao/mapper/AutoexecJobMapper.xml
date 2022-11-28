@@ -2164,6 +2164,13 @@
         where ajp.`job_id` = #{value}
         ORDER BY ajp.`sort`
     </select>
+    <select id="getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseId" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_id` = #{jobId}
+          and ajpn.`job_phase_id` = #{phaseId}
+          and ajpn.`is_delete` = 0
+    </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
