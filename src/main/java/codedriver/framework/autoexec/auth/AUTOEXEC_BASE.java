@@ -36,6 +36,6 @@ public class AUTOEXEC_BASE extends AuthBase {
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths() {
-        return Arrays.asList(AUTOEXEC.class, CMDB_BASE.class, CMDB.class);
+        return Arrays.asList(AUTOEXEC.class, CMDB.class);
     }
 }
