@@ -42,28 +42,36 @@
     <select id="searchTypeCount" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo" resultType="int">
         select
         count(1)
-        from `autoexec_type`
+        <include refid="searchType"></include>
+    </select>
+
+    <sql id="searchType">
+        from `autoexec_type` a
+        <if test="isNeedCheckDataAuth == 1">
+            join autoexec_type_authority b on a.id = b.type_id
+        </if>
         <where>
             <if test="keyword != null and keyword != ''">
-                `name` LIKE CONCAT('%', #{keyword}, '%')
+                a.`name` LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="isNeedCheckDataAuth == 1 and authUuidList != null and authUuidList.size() > 0">
+                and b.auth_uuid in
+                <foreach collection="authUuidList" separator="," item="authUuid" open="(" close=")">
+                    #{authUuid}
+                </foreach>
             </if>
         </where>
-    </select>
+    </sql>
 
     <select id="searchType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo"
             resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         select
-        `id`,
-        `name`,
-        `description`,
-        `lcu`,
-        `lcd`
-        from `autoexec_type`
-        <where>
-            <if test="keyword != null and keyword != ''">
-                `name` LIKE CONCAT('%', #{keyword}, '%')
-            </if>
-        </where>
+        a.`id`,
+        a.`name`,
+        a.`description`,
+        a.`lcu`,
+        a.`lcd`
+      <include refid="searchType"></include>
         order by `lcd` desc
         <if test="needPage == true">
             LIMIT #{startNum}, #{pageSize}
@@ -132,7 +140,7 @@
              ) a
     </select>
 
-    <insert id="replaceType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
+    <insert id="insertType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         insert into `autoexec_type`(`id`,
                                     `name`,
                                     `description`,
@@ -153,6 +161,18 @@
                    `lcd`         = now(3);
     </insert>
 
+    <insert id="insertTypeAuth">
+        insert into `autoexec_type_authority`(`type_id`,
+        `auth_type`,
+        `auth_uuid`)
+        values
+        <foreach collection="list" separator="," item="authVo">
+            (#{authVo.typeId},
+            #{authVo.authType},
+            #{authVo.authUuid})
+        </foreach>
+    </insert>
+
     <update id="updateType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         update `autoexec_type`
         set `name`        = #{name},
@@ -166,6 +186,12 @@
         delete
         from `autoexec_type`
         where `id` = #{value}
+    </delete>
+
+    <delete id="deleteTypeAuthByTypeId">
+        delete
+        from `autoexec_type_authority`
+        where `type_id` = #{value}
     </delete>
 </mapper>
 
