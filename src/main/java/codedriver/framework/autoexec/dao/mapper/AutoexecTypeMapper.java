@@ -5,9 +5,9 @@
 
 package codedriver.framework.autoexec.dao.mapper;
 
+import codedriver.framework.autoexec.dto.AutoexecTypeAuthVo;
 import codedriver.framework.autoexec.dto.AutoexecTypeVo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface AutoexecTypeMapper {
@@ -40,9 +40,14 @@ public interface AutoexecTypeMapper {
 
     List<AutoexecTypeVo> getReferenceCountListForCombop(List<Long> idList);
 
-    int replaceType(AutoexecTypeVo vo);
+    int insertType(AutoexecTypeVo vo);
+
+    void insertTypeAuth(List<AutoexecTypeAuthVo> autoexecTypeAuthList);
 
     int updateType(AutoexecTypeVo vo);
 
     int deleteTypeById(Long id);
+
+    void deleteTypeAuthByTypeId(Long id);
+
 }
