@@ -791,6 +791,7 @@
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
           and `job_phase_id` = #{jobPhaseId}
+        order by `sort` asc
     </select>
 
     <select id="getJobPhaseOperationByOperationId"
@@ -2170,6 +2171,30 @@
         where ajpn.`job_id` = #{jobId}
           and ajpn.`job_phase_id` = #{phaseId}
           and ajpn.`is_delete` = 0
+    </select>
+    <select id="getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseIdAndExceptStatusList"
+            resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_id` = #{jobId}
+        and ajpn.`job_phase_id` = #{phaseId}
+        and ajpn.`is_delete` = 0
+        and ajpn.`status` not in
+        <foreach collection="statusList" item="status" separator="," open="(" close=")">
+            #{status}
+        </foreach>
+    </select>
+    <select id="getJobPhaseRunnerStatusByJobIdAndPhaseId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
+        select ajpn.job_id                          as jobId,
+               ajpn.job_phase_id                    as jobPhaseId,
+               GROUP_CONCAT(DISTINCT ajpn.`status`) as status,
+               ajpnr.runner_map_id                  as runnerMapId
+        from autoexec_job_phase_node ajpn
+                 JOIN autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
+        where ajpn.job_id = #{jobId}
+          and ajpn.job_phase_id = #{jobPhaseId}
+        group by ajpn.job_id, ajpn.job_phase_id, ajpnr.runner_map_id
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
