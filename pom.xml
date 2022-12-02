@@ -31,13 +31,13 @@
     <dependency>
       <groupId>com.techsure</groupId>
       <artifactId>codedriver-framework</artifactId>
-      <version>[1.0.0,)</version>
+      <version>${codedriver.framework}</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>com.techsure</groupId>
       <artifactId>codedriver-cmdb-base</artifactId>
-      <version>[1.0.0,)</version>
+      <version>${codedriver.cmdb.base}</version>
     </dependency>
   </dependencies>
 </project>
