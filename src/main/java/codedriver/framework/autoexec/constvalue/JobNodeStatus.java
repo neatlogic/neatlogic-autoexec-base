@@ -9,6 +9,8 @@ import java.util.List;
 public enum JobNodeStatus implements IEnum {
     PENDING("pending", "待运行"),
     RUNNING("running", "运行中"),
+    PAUSING("pausing","暂停中"),
+    PAUSED("paused","已暂停"),
     ABORTING("aborting", "中止中"),
     ABORTED("aborted", "已中止"),
     SUCCEED("succeed", "已成功"),

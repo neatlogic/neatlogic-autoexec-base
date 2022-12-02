@@ -221,6 +221,10 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "子作业列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobVo> children;
 
+    @JSONField(serialize = false)
+    @EntityField(name = "排序", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobSortVo sortOrder;
+
     public AutoexecJobVo() {
     }
 
@@ -955,5 +959,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setPreOutputPhase(AutoexecJobPhaseVo preOutputPhase) {
         this.preOutputPhase = preOutputPhase;
+    }
+
+    public AutoexecJobSortVo getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(AutoexecJobSortVo sortOrder) {
+        this.sortOrder = sortOrder;
     }
 }

@@ -14,7 +14,7 @@
     <select id="searchJobId" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo"
             resultType="java.lang.Long">
         SELECT
-        distinct aj.`id`
+        aj.`id`
         FROM
         `autoexec_job` aj
         <if test="(typeIdList != null and typeIdList.size() > 0) or (combopName != null and combopName != '' )">
@@ -32,7 +32,13 @@
         <where>
             <include refid="searchJobSql"/>
         </where>
-        order by aj.`id` desc
+        GROUP BY aj.`id`
+        <if test="sortOrder != null">
+            order by aj.${sortOrder.key} ${sortOrder.type}
+        </if>
+        <if test="sortOrder == null">
+            order by aj.`plan_start_time` desc
+        </if>
         limit #{startNum}, #{pageSize}
     </select>
 
@@ -88,7 +94,12 @@
         <foreach collection="jobIdList" item="jobId" open="(" close=")" separator=",">
             #{jobId}
         </foreach>
-        order by aj.`id` desc
+        <if test="jobVo.sortOrder != null">
+            order by aj.${jobVo.sortOrder.key} ${jobVo.sortOrder.type}
+        </if>
+        <if test="jobVo.sortOrder == null">
+            order by aj.`plan_start_time` desc
+        </if>
     </select>
 
     <select id="searchJobCount" resultType="java.lang.Integer"
@@ -418,7 +429,7 @@
         FROM `autoexec_job_phase` ajp
                  left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         where ajp.`job_id` = #{value}
-        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name`
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
     </select>
 
     <resultMap id="AutoexecJobPhaseMap" type="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -468,7 +479,7 @@
                 #{status}
             </foreach>
         </if>
-        ORDER BY ajg.sort,`sort`, `name` ASC
+        ORDER BY ajg.sort, ajp.`sort`, ajp.`id` ASC
     </select>
 
     <select id="getJobPhaseListByJobIdAndNodeStatusList" resultMap="AutoexecJobPhaseMap">
@@ -491,7 +502,7 @@
         <foreach collection="statusList" open="(" separator="," close=")" item="status">
             #{status}
         </foreach>
-        ORDER BY ajg.`sort`,ajp.sort,ajp.`name`
+        ORDER BY ajg.`sort`,ajp.sort,ajp.`id`
     </select>
 
     <select id="getJobPhaseNodeStatusCount" parameterType="java.lang.Long"
@@ -623,6 +634,7 @@
                `parser`,
                `exec_mode`    as execMode,
                `sort`,
+               `operation_id` as operationId,
                `fail_policy`  as failPolicy,
                version_id     as versionId,
                `param_hash`   as paramHash,
@@ -763,6 +775,25 @@
           and `id` = #{jobPhaseOperationId}
     </select>
 
+    <select id="getJobPhaseOperationByJobIdAndPhaseId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+        SELECT `job_id`       as jobId,
+               `job_phase_id` as jobPhaseId,
+               `id`,
+               `name`,
+               `type`,
+               `parser`,
+               `operation_id` as operationId,
+               `version_id`   as versionId,
+               `exec_mode`    as execMode,
+               `fail_policy`  as failPolicy,
+               `param_hash`   as paramHash
+        FROM `autoexec_job_phase_operation`
+        where `job_id` = #{jobId}
+          and `job_phase_id` = #{jobPhaseId}
+        order by `sort` asc
+    </select>
+
     <select id="getJobPhaseOperationByOperationId"
             resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
         SELECT `job_id`       as jobId,
@@ -771,6 +802,7 @@
                `name`,
                `type`,
                `parser`,
+               `operation_id` as operationId,
                `exec_mode`    as execMode,
                `fail_policy`  as failPolicy,
                `param_hash`   as paramHash,
@@ -1568,7 +1600,7 @@
         <foreach collection="jobPhaseIdList" item="value" separator="," open="(" close=")">
             #{value}
         </foreach>
-        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`name`
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
     </select>
 
     <select id="searchJobPhaseSqlCount" resultType="int">
@@ -2114,23 +2146,55 @@
         LIMIT 1
     </select>
 
-    <select id="getJobPhaseListByJobId" parameterType="java.lang.Long" resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+    <select id="getJobPhaseListByJobId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT ajp.`id`,
-               ajp.`job_id`                    as jobId,
+               ajp.`job_id`         as jobId,
                ajp.`status`,
-               ajp.`start_time`                as startTime,
-               ajp.`end_time`                  as endTime,
-               ajp.`exec_user`                 as execUser,
-               ajp.`exec_mode`                 as execMode,
-               ajp.`name`                      as name,
-               ajp.`group_id`                  as groupId,
-               ajp.`execute_policy`            as executePolicy,
+               ajp.`start_time`     as startTime,
+               ajp.`end_time`       as endTime,
+               ajp.`exec_user`      as execUser,
+               ajp.`exec_mode`      as execMode,
+               ajp.`name`           as name,
+               ajp.`group_id`       as groupId,
+               ajp.`execute_policy` as executePolicy,
                ajp.`sort`,
-               ajp.`warn_count`                as warnCount,
-               ajp.`round_count`               as roundCount
+               ajp.`warn_count`     as warnCount,
+               ajp.`round_count`    as roundCount
         FROM `autoexec_job_phase` ajp
         where ajp.`job_id` = #{value}
         ORDER BY ajp.`sort`
+    </select>
+    <select id="getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseId" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_id` = #{jobId}
+          and ajpn.`job_phase_id` = #{phaseId}
+          and ajpn.`is_delete` = 0
+    </select>
+    <select id="getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseIdAndExceptStatusList"
+            resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_id` = #{jobId}
+        and ajpn.`job_phase_id` = #{phaseId}
+        and ajpn.`is_delete` = 0
+        and ajpn.`status` not in
+        <foreach collection="statusList" item="status" separator="," open="(" close=")">
+            #{status}
+        </foreach>
+    </select>
+    <select id="getJobPhaseRunnerStatusByJobIdAndPhaseId"
+            resultType="codedriver.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
+        select ajpn.job_id                          as jobId,
+               ajpn.job_phase_id                    as jobPhaseId,
+               GROUP_CONCAT(DISTINCT ajpn.`status`) as status,
+               ajpnr.runner_map_id                  as runnerMapId
+        from autoexec_job_phase_node ajpn
+                 JOIN autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
+        where ajpn.job_id = #{jobId}
+          and ajpn.job_phase_id = #{jobPhaseId}
+        group by ajpn.job_id, ajpn.job_phase_id, ajpnr.runner_map_id
     </select>
 
     <insert id="insertJob" parameterType="codedriver.framework.autoexec.dto.job.AutoexecJobVo">
@@ -2498,7 +2562,7 @@
             ,`start_time` = NOW(3)
             ,`end_time` = NULL
         </if>
-        <if test="status == 'completed' or status == 'failed'">
+        <if test="status == 'completed' or status == 'failed' or status == 'aborted' or status == 'paused'">
             ,`end_time` = NOW(3)
         </if>
         WHERE id = #{id}

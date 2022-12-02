@@ -7,6 +7,7 @@ package codedriver.framework.autoexec.auth;
 
 import codedriver.framework.auth.core.AuthBase;
 import codedriver.framework.cmdb.auth.label.CMDB;
+import codedriver.framework.cmdb.auth.label.CMDB_BASE;
 
 import java.util.Arrays;
 import java.util.List;
