@@ -686,18 +686,18 @@
                 #{item}
             </foreach>
         </if>
-            <if test="isNeedCheckDataAuth == 1">
-                and d.auth_uuid IN
-                (
-                'alluser'
-                <if test="authUuidList != null and authUuidList.size() > 0">
-                    ,
-                    <foreach collection="authUuidList" item="item" separator=",">
-                        #{item}
-                    </foreach>
-                </if>
-                )
+        <if test="isNeedCheckDataAuth == 1">
+            and d.auth_uuid IN
+            (
+            'alluser'
+            <if test="authUuidList != null and authUuidList.size() > 0">
+                ,
+                <foreach collection="authUuidList" item="item" separator=",">
+                    #{item}
+                </foreach>
             </if>
+            )
+        </if>
     </sql>
 
     <sql id="searchToolAndScriptConditionForScript">
@@ -743,18 +743,18 @@
                 #{item}
             </foreach>
         </if>
-            <if test="isNeedCheckDataAuth == 1">
-                and e.auth_uuid IN
-                (
-                'alluser'
-                <if test="authUuidList != null and authUuidList.size() > 0">
-                    ,
-                    <foreach collection="authUuidList" item="item" separator=",">
-                        #{item}
-                    </foreach>
-                </if>
-                )
+        <if test="isNeedCheckDataAuth == 1">
+            and e.auth_uuid IN
+            (
+            'alluser'
+            <if test="authUuidList != null and authUuidList.size() > 0">
+                ,
+                <foreach collection="authUuidList" item="item" separator=",">
+                    #{item}
+                </foreach>
             </if>
+            )
+        </if>
         group by a.`id`
     </sql>
 
