@@ -687,7 +687,7 @@
             </foreach>
         </if>
         <if test="isNeedCheckDataAuth == 1">
-            and auth_uuid IN
+            and d.auth_uuid IN
             (
             'alluser'
             <if test="authUuidList != null and authUuidList.size() > 0">
@@ -744,7 +744,7 @@
             </foreach>
         </if>
         <if test="isNeedCheckDataAuth == 1">
-            and auth_uuid IN
+            and e.auth_uuid IN
             (
             'alluser'
             <if test="authUuidList != null and authUuidList.size() > 0">
