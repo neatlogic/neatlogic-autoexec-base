@@ -55,7 +55,7 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     @JSONField(serialize = false)
     private Integer isNeedCheckDataAuth = 0; //是否校验数据权限（1：校验，0：不校验）
     @JSONField(serialize = false)
-    private List<String> authUuidList; //用户、分组、角色的uuid列表
+    private List<String> authUuidList; //用户、分组、角色的uuid列表 search时校验权限用
 
     public AutoexecOperationVo() {
 

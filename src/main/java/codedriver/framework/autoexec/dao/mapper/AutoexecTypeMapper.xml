@@ -66,11 +66,17 @@
             <if test="keyword != null and keyword != ''">
                 a.`name` LIKE CONCAT('%', #{keyword}, '%')
             </if>
-            <if test="isNeedCheckDataAuth == 1 and authUuidList != null and authUuidList.size() > 0">
-                and b.auth_uuid in
-                <foreach collection="authUuidList" separator="," item="authUuid" open="(" close=")">
-                    #{authUuid}
-                </foreach>
+            <if test="isNeedCheckDataAuth == 1">
+                and auth_uuid IN
+                (
+                'alluser'
+                <if test="authUuidList != null and authUuidList.size() > 0">
+                    ,
+                    <foreach collection="authUuidList" item="item" separator=",">
+                        #{item}
+                    </foreach>
+                </if>
+                )
             </if>
         </where>
     </sql>
