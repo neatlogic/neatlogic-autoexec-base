@@ -67,7 +67,7 @@
                 a.`name` LIKE CONCAT('%', #{keyword}, '%')
             </if>
             <if test="isNeedCheckDataAuth == 1">
-                and auth_uuid IN
+                and b.auth_uuid IN
                 (
                 'alluser'
                 <if test="authUuidList != null and authUuidList.size() > 0">
