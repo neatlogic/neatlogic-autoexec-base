@@ -12,7 +12,6 @@ import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.dto.AuthenticationInfoVo;
 import codedriver.framework.dto.OperateVo;
 import codedriver.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONArray;
@@ -22,7 +21,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -207,15 +205,7 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
 
     public List<String> getAuthUuidList() {
         if (CollectionUtils.isEmpty(authUuidList)) {
-            authUuidList = new ArrayList<>();
-            AuthenticationInfoVo authInfo = UserContext.get().getAuthenticationInfoVo();
-            authUuidList.add(authInfo.getUserUuid());
-            if (CollectionUtils.isNotEmpty(authInfo.getTeamUuidList())) {
-                authUuidList.addAll(authInfo.getTeamUuidList());
-            }
-            if (CollectionUtils.isNotEmpty(authInfo.getRoleUuidList())) {
-                authUuidList.addAll(authInfo.getRoleUuidList());
-            }
+            authUuidList = UserContext.get().getUuidList();
         }
         return authUuidList;
     }
