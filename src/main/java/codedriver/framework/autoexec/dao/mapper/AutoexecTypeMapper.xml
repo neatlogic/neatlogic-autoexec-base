@@ -2,14 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="codedriver.framework.autoexec.dao.mapper.AutoexecTypeMapper">
 
-    <select id="getTypeById" parameterType="java.lang.Long"
-            resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
-        select `id`,
-               `name`,
-               `description`
-        from `autoexec_type`
-        where `id` = #{value}
+    <select id="getTypeById" parameterType="java.lang.Long" resultMap="typeMap">
+        select a.`id`,
+               a.`name`,
+               a.`description`,
+               b.auth_type as authType,
+               b.auth_uuid as authUuid
+        from `autoexec_type` a
+                 join autoexec_type_authority b on b.type_id = a.id
+        where a.`id` = #{value}
     </select>
+
+    <resultMap id="typeMap" type="codedriver.framework.autoexec.dto.AutoexecTypeVo">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <collection property="autoexecTypeAuthList" ofType="codedriver.framework.autoexec.dto.AutoexecTypeAuthVo">
+            <result column="authType" property="authType"/>
+            <result column="authUuid" property="authUuid"/>
+        </collection>
+    </resultMap>
 
     <select id="getTypeListByIdList" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
