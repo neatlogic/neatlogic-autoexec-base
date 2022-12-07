@@ -9,7 +9,7 @@
                b.auth_type as authType,
                b.auth_uuid as authUuid
         from `autoexec_type` a
-                 join autoexec_type_authority b on b.type_id = a.id
+                 left join autoexec_type_authority b on b.type_id = a.id
         where a.`id` = #{value}
     </select>
 
