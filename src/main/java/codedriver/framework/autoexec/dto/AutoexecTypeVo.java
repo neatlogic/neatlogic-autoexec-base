@@ -44,8 +44,6 @@ public class AutoexecTypeVo extends BaseEditorVo {
     private List<AutoexecTypeAuthVo> autoexecTypeAuthList; //授权列表 insertAuth时用
     @EntityField(name = "授权字符串列表", type = ApiParamType.INTEGER)
     private List<String> authList; //前端入参出参用
-    @JSONField(serialize = false)
-    private List<String> authUuidList; //用户、分组、角色的uuid列表 search时校验权限用
 
     public AutoexecTypeVo() {
     }
@@ -149,13 +147,6 @@ public class AutoexecTypeVo extends BaseEditorVo {
     }
 
     public List<String> getAuthUuidList() {
-        if (CollectionUtils.isEmpty(authUuidList)) {
-            authUuidList = UserContext.get().getUuidList();
-        }
-        return authUuidList;
-    }
-
-    public void setAuthUuidList(List<String> authUuidList) {
-        this.authUuidList = authUuidList;
+        return UserContext.get().getUuidList();
     }
 }
