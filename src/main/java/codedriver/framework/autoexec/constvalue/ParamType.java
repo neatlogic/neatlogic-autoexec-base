@@ -35,7 +35,8 @@ public enum ParamType implements IEnum {
     ACCOUNT("account", "账号", "服务的连接协议、帐号，用户连接主机上的数据库，中间件等服务"),
     TEXTAREA("textarea", "文本域", "可输入字符串、数字"),
     PHASE("phase", "阶段", "可选择阶段"),
-    SWITCH("switch", "开关", "开关");
+    SWITCH("switch", "开关", "开关"),
+    FILEPATH("filepath", "文件路径", "可输出文件路径参数");
 
     private final String value;
     private final String text;
