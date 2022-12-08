@@ -42,7 +42,9 @@ public interface AutoexecTypeMapper {
 
     int insertType(AutoexecTypeVo vo);
 
-    void insertTypeAuth(List<AutoexecTypeAuthVo> autoexecTypeAuthList);
+    void insertTypeAuthList(List<AutoexecTypeAuthVo> autoexecTypeAuthList);
+
+    void insertTypeAuth(AutoexecTypeAuthVo autoexecTypeAuthVo);
 
     int updateType(AutoexecTypeVo vo);
 

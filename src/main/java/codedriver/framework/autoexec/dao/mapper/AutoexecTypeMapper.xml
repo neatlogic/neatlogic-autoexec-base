@@ -179,7 +179,7 @@
                    `lcd`         = now(3);
     </insert>
 
-    <insert id="insertTypeAuth">
+    <insert id="insertTypeAuthList">
         insert into `autoexec_type_authority`(`type_id`,
         `auth_type`,
         `auth_uuid`)
@@ -189,6 +189,15 @@
             #{authVo.authType},
             #{authVo.authUuid})
         </foreach>
+    </insert>
+
+    <insert id="insertTypeAuth">
+        insert ignore into `autoexec_type_authority`(`type_id`,
+                                              `auth_type`,
+                                              `auth_uuid`)
+        values (#{typeId},
+                #{authType},
+                #{authUuid})
     </insert>
 
     <update id="updateType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
