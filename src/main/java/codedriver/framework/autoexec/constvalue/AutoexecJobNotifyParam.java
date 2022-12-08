@@ -13,10 +13,10 @@ import codedriver.framework.notify.core.INotifyParam;
  * @since 2022/11/14 14:02
  **/
 public enum AutoexecJobNotifyParam implements INotifyParam {
-    ID("id", "作业ID", ParamType.NUMBER),
-    NAME("name", "作业名称", ParamType.STRING),
-    STATUS("status", "作业状态", ParamType.STRING),
-    PHASELIST("phaseList", "阶段列表", ParamType.ARRAY),
+    ID("jobId", "作业ID", ParamType.NUMBER),
+    NAME("jobName", "作业名称", ParamType.STRING),
+    STATUS("jobStatus", "作业状态", ParamType.STRING),
+    PHASELIST("jobPhaseList", "阶段列表", ParamType.ARRAY),
     ;
     private final String value;
     private final String text;
