@@ -158,6 +158,16 @@
              ) a
     </select>
 
+    <select id="getHasAuthTypeIdListByTypeIdList" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select distinct
+        type_id
+        from `autoexec_type_authority`
+        where type_id in
+        <foreach collection="list" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </select>
+
     <insert id="insertType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         insert into `autoexec_type`(`id`,
                                     `name`,
@@ -179,6 +189,30 @@
                    `lcd`         = now(3);
     </insert>
 
+    <insert id="insertTypeList">
+        insert into `autoexec_type`(`id`,
+        `name`,
+        `description`,
+        `type`,
+        `lcu`,
+        `lcd`)
+        values
+        <foreach collection="list" item="param" separator=",">
+            (#{param.id},
+            #{param.name},
+            #{param.description},
+            #{param.type},
+            #{param.lcu},
+            #{param.lcd})
+        </foreach>
+        ON DUPLICATE KEY
+        UPDATE `name` =VALUES(name),
+        `description` =VALUES(description),
+        `type` =VALUES(type),
+        `lcu` =VALUES(lcu),
+        `lcd` =now(3)
+    </insert>
+
     <insert id="insertTypeAuthList">
         insert into `autoexec_type_authority`(`type_id`,
         `auth_type`,
@@ -188,6 +222,18 @@
             (#{authVo.typeId},
             #{authVo.authType},
             #{authVo.authUuid})
+        </foreach>
+    </insert>
+
+    <insert id="insertBatchTypeAuth">
+        insert into `autoexec_type_authority`(`type_id`,
+        `auth_type`,
+        `auth_uuid`)
+        values
+        <foreach collection="typeIdList" separator="," item="typeId">
+            (#{typeId},
+            #{authType},
+            #{authUuid})
         </foreach>
     </insert>
 
