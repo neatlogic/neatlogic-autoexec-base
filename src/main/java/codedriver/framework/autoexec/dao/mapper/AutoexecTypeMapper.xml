@@ -64,7 +64,8 @@
         </if>
         <where>
             <if test="keyword != null and keyword != ''">
-                a.`name` LIKE CONCAT('%', #{keyword}, '%')
+                and (a.`name` LIKE CONCAT('%', #{keyword}, '%')
+                OR a.`description` LIKE CONCAT('%',#{keyword}, '%'))
             </if>
             <if test="isNeedCheckDataAuth == 1">
                 and b.auth_uuid IN
@@ -165,6 +166,20 @@
         where type_id in
         <foreach collection="list" open="(" close=")" separator="," item="id">
             #{id}
+        </foreach>
+    </select>
+
+    <select id="getTypeListByNameList" resultMap="typeMap">
+        select a.`id`,
+        a.`name`,
+        a.`description`,
+        b.auth_type as authType,
+        b.auth_uuid as authUuid
+        from `autoexec_type` a
+        left join autoexec_type_authority b on b.type_id = a.id
+        where a.`name` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
         </foreach>
     </select>
 

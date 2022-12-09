@@ -41,6 +41,8 @@ public interface AutoexecTypeMapper {
 
     List<AutoexecTypeVo> getReferenceCountListForCombop(List<Long> idList);
 
+    List<AutoexecTypeVo> getTypeListByNameList(List<String> nameList);
+
     List<Long> getHasAuthTypeIdListByTypeIdList(List<Long> idList);
 
     int insertType(AutoexecTypeVo vo);
