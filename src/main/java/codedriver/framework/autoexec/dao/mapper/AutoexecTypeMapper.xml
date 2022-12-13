@@ -183,6 +183,15 @@
         </foreach>
     </select>
 
+    <select id="getTypeIdListByNameList" resultType="java.lang.Long">
+        select a.`id`
+        from `autoexec_type` a
+        where a.`name` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <insert id="insertType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         insert into `autoexec_type`(`id`,
                                     `name`,
@@ -250,15 +259,6 @@
             #{authType},
             #{authUuid})
         </foreach>
-    </insert>
-
-    <insert id="insertTypeAuth">
-        insert ignore into `autoexec_type_authority`(`type_id`,
-                                              `auth_type`,
-                                              `auth_uuid`)
-        values (#{typeId},
-                #{authType},
-                #{authUuid})
     </insert>
 
     <update id="updateType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">

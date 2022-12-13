@@ -45,6 +45,8 @@ public interface AutoexecTypeMapper {
 
     List<Long> getHasAuthTypeIdListByTypeIdList(List<Long> idList);
 
+    List<Long> getTypeIdListByNameList(List<String> typeNameList);
+
     int insertType(AutoexecTypeVo vo);
 
     void insertTypeList(List<AutoexecTypeVo> typeList);
@@ -52,8 +54,6 @@ public interface AutoexecTypeMapper {
     void insertTypeAuthList(List<AutoexecTypeAuthVo> autoexecTypeAuthList);
 
     void insertBatchTypeAuth(@Param("typeIdList") List<Long> typeIdList, @Param("authType") String authType, @Param("authUuid") String authUuid);
-
-    void insertTypeAuth(AutoexecTypeAuthVo autoexecTypeAuthVo);
 
     int updateType(AutoexecTypeVo vo);
 
