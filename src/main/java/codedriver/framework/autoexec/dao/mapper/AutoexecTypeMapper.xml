@@ -263,6 +263,15 @@
         </foreach>
     </insert>
 
+    <insert id="insertDeployActiveList">
+        insert into deploy_type_status(type_id,is_active)values
+        <foreach collection="typeIdList" item="typeId" separator=",">
+            (#{typeId},#{isActive})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        is_active = #{isActive}
+    </insert>
+
     <update id="updateType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         update `autoexec_type`
         set `name`        = #{name},

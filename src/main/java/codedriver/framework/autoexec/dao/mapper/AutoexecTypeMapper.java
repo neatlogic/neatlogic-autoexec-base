@@ -55,6 +55,8 @@ public interface AutoexecTypeMapper {
 
     void insertBatchTypeAuth(@Param("typeIdList") List<Long> typeIdList, @Param("authType") String authType, @Param("authUuid") String authUuid);
 
+    void insertDeployActiveList(@Param("typeIdList") List<Long> typeIdList, @Param("isActive") int isActive);
+
     int updateType(AutoexecTypeVo vo);
 
     int deleteTypeById(Long id);
