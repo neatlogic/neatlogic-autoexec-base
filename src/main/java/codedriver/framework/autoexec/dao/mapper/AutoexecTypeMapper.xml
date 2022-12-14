@@ -6,6 +6,7 @@
         select a.`id`,
                a.`name`,
                a.`description`,
+               a.`type`,
                b.auth_type as authType,
                b.auth_uuid as authUuid
         from `autoexec_type` a
@@ -17,6 +18,7 @@
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
+        <result column="type" property="type"/>
         <collection property="autoexecTypeAuthList" ofType="codedriver.framework.autoexec.dto.AutoexecTypeAuthVo">
             <result column="authType" property="authType"/>
             <result column="authUuid" property="authUuid"/>
@@ -64,7 +66,8 @@
         </if>
         <where>
             <if test="keyword != null and keyword != ''">
-                a.`name` LIKE CONCAT('%', #{keyword}, '%')
+                and (a.`name` LIKE CONCAT('%', #{keyword}, '%')
+                OR a.`description` LIKE CONCAT('%',#{keyword}, '%'))
             </if>
             <if test="isNeedCheckDataAuth == 1">
                 and b.auth_uuid IN
@@ -168,6 +171,29 @@
         </foreach>
     </select>
 
+    <select id="getTypeListByNameList" resultMap="typeMap">
+        select a.`id`,
+        a.`name`,
+        a.`description`,
+        b.auth_type as authType,
+        b.auth_uuid as authUuid
+        from `autoexec_type` a
+        left join autoexec_type_authority b on b.type_id = a.id
+        where a.`name` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getTypeIdListByNameList" resultType="java.lang.Long">
+        select a.`id`
+        from `autoexec_type` a
+        where a.`name` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <insert id="insertType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">
         insert into `autoexec_type`(`id`,
                                     `name`,
@@ -237,13 +263,13 @@
         </foreach>
     </insert>
 
-    <insert id="insertTypeAuth">
-        insert ignore into `autoexec_type_authority`(`type_id`,
-                                              `auth_type`,
-                                              `auth_uuid`)
-        values (#{typeId},
-                #{authType},
-                #{authUuid})
+    <insert id="insertDeployActiveList">
+        insert into deploy_type_status(type_id,is_active)values
+        <foreach collection="typeIdList" item="typeId" separator=",">
+            (#{typeId},#{isActive})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        is_active = #{isActive}
     </insert>
 
     <update id="updateType" parameterType="codedriver.framework.autoexec.dto.AutoexecTypeVo">

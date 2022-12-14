@@ -41,7 +41,11 @@ public interface AutoexecTypeMapper {
 
     List<AutoexecTypeVo> getReferenceCountListForCombop(List<Long> idList);
 
+    List<AutoexecTypeVo> getTypeListByNameList(List<String> nameList);
+
     List<Long> getHasAuthTypeIdListByTypeIdList(List<Long> idList);
+
+    List<Long> getTypeIdListByNameList(List<String> typeNameList);
 
     int insertType(AutoexecTypeVo vo);
 
@@ -51,7 +55,7 @@ public interface AutoexecTypeMapper {
 
     void insertBatchTypeAuth(@Param("typeIdList") List<Long> typeIdList, @Param("authType") String authType, @Param("authUuid") String authUuid);
 
-    void insertTypeAuth(AutoexecTypeAuthVo autoexecTypeAuthVo);
+    void insertDeployActiveList(@Param("typeIdList") List<Long> typeIdList, @Param("isActive") int isActive);
 
     int updateType(AutoexecTypeVo vo);
 
