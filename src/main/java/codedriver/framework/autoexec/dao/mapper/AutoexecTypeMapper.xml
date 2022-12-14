@@ -6,6 +6,7 @@
         select a.`id`,
                a.`name`,
                a.`description`,
+               a.`type`,
                b.auth_type as authType,
                b.auth_uuid as authUuid
         from `autoexec_type` a
@@ -17,6 +18,7 @@
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
+        <result column="type" property="type"/>
         <collection property="autoexecTypeAuthList" ofType="codedriver.framework.autoexec.dto.AutoexecTypeAuthVo">
             <result column="authType" property="authType"/>
             <result column="authUuid" property="authUuid"/>
