@@ -70,35 +70,70 @@
         </where>
     </select>
 
+    <resultMap id="jobDetailMap" type="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
+        <id column="id" property="id"/>
+        <result column="uuid" property="uuid"/>
+        <result column="name" property="name"/>
+        <result column="autoexecCombopId" property="autoexecCombopId"/>
+        <result column="beginTime" property="beginTime"/>
+        <result column="endTime" property="endTime"/>
+        <result column="cron" property="cron"/>
+        <result column="isActive" property="isActive"/>
+        <result column="config" property="configStr"/>
+        <result column="fcd" property="fcd"/>
+        <result column="fcu" property="fcu"/>
+        <result column="lcd" property="lcd"/>
+        <result column="lcu" property="lcu"/>
+        <association property="jobStatus" resultMap="jobStatusMap"/>
+    </resultMap>
+
+    <resultMap id="jobStatusMap" type="codedriver.framework.scheduler.dto.JobStatusVo">
+        <result column="job_name" property="jobName"/>
+        <result column="job_group" property="jobGroup"/>
+        <result column="handler" property="handler"/>
+        <result column="nextFireTime" property="nextFireTime"/>
+        <result column="lastFireTime" property="lastFireTime"/>
+        <result column="lastFinishTime" property="lastFinishTime"/>
+        <result column="execCount" property="execCount"/>
+    </resultMap>
+
     <select id="getAutoexecScheduleList" parameterType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo"
-            resultType="codedriver.framework.autoexec.dto.schedule.AutoexecScheduleVo">
+            resultMap="jobDetailMap">
         SELECT
-        `id`,
-        `uuid`,
-        `name`,
-        `autoexec_combop_id` AS autoexecCombopId,
-        `begin_time` AS beginTime,
-        `end_time` AS endTime,
-        `cron`,
-        `is_active` AS isActive,
-        `config` AS configStr,
-        `fcd`,
-        `fcu`,
-        `lcd`,
-        `lcu`
-        FROM `autoexec_schedule`
+        a.`id`,
+        a.`uuid`,
+        a.`name`,
+        a.`autoexec_combop_id` AS autoexecCombopId,
+        a.`begin_time` AS beginTime,
+        a.`end_time` AS endTime,
+        a.`cron`,
+        a.`is_active` AS isActive,
+        a.`config` AS configStr,
+        a.`fcd`,
+        a.`fcu`,
+        a.`lcd`,
+        a.`lcu`,
+        b.job_name as jobName,
+        b.job_group as jobGroup,
+        b.handler,
+        b.last_finish_time as lastFinishTime,
+        b.last_fire_time as lastFireTime,
+        b.next_fire_time as nextFireTime,
+        b.exec_count as execCount
+        FROM `autoexec_schedule` a
+        LEFT JOIN schedule_job_status b ON a.uuid = b.job_name
         <where>
             <if test="keyword != null and keyword != ''">
-                AND `name` LIKE concat('%', #{keyword}, '%')
+                AND a.`name` LIKE concat('%', #{keyword}, '%')
             </if>
             <if test="isActive != null">
-                AND `is_active` = #{isActive}
+                AND a.`is_active` = #{isActive}
             </if>
             <if test="autoexecCombopId != null">
-                AND `autoexec_combop_id` = #{autoexecCombopId}
+                AND a.`autoexec_combop_id` = #{autoexecCombopId}
             </if>
         </where>
-        ORDER BY `lcd` DESC
+        ORDER BY a.`lcd` DESC
         LIMIT #{startNum}, #{pageSize}
     </select>
 
