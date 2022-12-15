@@ -89,6 +89,7 @@
         select
         a.`id`,
         a.`name`,
+        a.`type`,
         a.`description`,
         a.`lcu`,
         a.`lcd`
