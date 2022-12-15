@@ -13,6 +13,6 @@ import codedriver.framework.exception.core.ApiRuntimeException;
 
 public class AutoexecTypeIsFactoryException extends ApiRuntimeException {
     public AutoexecTypeIsFactoryException(Long id, String name) {
-        super("工具分类:“" + name + "”（id:“" + id + "”）是出厂自带分类，不可删除");
+        super("工具分类:“" + name + "”（id:“" + id + "”）是出厂默认分类，不可删除");
     }
 }
