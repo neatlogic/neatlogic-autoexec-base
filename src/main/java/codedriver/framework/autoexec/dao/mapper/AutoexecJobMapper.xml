@@ -786,6 +786,7 @@
                `operation_id` as operationId,
                `version_id`   as versionId,
                `exec_mode`    as execMode,
+               `letter`,
                `fail_policy`  as failPolicy,
                `param_hash`   as paramHash
         FROM `autoexec_job_phase_operation`

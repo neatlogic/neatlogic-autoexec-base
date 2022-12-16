@@ -651,48 +651,61 @@
     </select>
 
     <sql id="searchToolAndScriptConditionForTool">
-        from
-        `autoexec_tool`
-        where `is_active` = 1
+        <if test="isNeedCheckDataAuth == 1">
+            join autoexec_type_authority d on b.id = d.type_id
+        </if>
+        where a.`is_active` = 1
         <if test="keyword != null and keyword != ''">
-            and (`name` like CONCAT('%', #{keyword}, '%') or `description` like CONCAT('%', #{keyword}, '%'))
+            and (a.`name` like CONCAT('%', #{keyword}, '%') or a.`description` like CONCAT('%', #{keyword}, '%'))
         </if>
         <if test="execMode != null and execMode != ''">
             <choose>
                 <when test="execMode == 'target' or execMode == 'runner_target'">
-                    and `exec_mode` in ('target','runner_target','native')
+                    and a.`exec_mode` in ('target','runner_target','native')
                 </when>
                 <otherwise>
-                    and `exec_mode` in (#{execMode},'native')
+                    and a.`exec_mode` in (#{execMode},'native')
                 </otherwise>
             </choose>
         </if>
         <if test="typeIdList != null and typeIdList.size() != 0">
-            and `type_id` in
+            and a.`type_id` in
             <foreach collection="typeIdList" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
         <if test="riskIdList != null and riskIdList.size() != 0">
-            and `risk_id` in
+            and a.`risk_id` in
             <foreach collection="riskIdList" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
         <if test="excludeList != null and excludeList.size() != 0">
-            and `id` not in
+            and a.`id` not in
             <foreach collection="excludeList" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
+        <if test="isNeedCheckDataAuth == 1">
+            and d.auth_uuid IN
+            (
+            'alluser'
+            <if test="authUuidList != null and authUuidList.size() > 0">
+                ,
+                <foreach collection="authUuidList" item="item" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            )
+        </if>
     </sql>
 
     <sql id="searchToolAndScriptConditionForScript">
-        from
-        `autoexec_script` a
-        join `autoexec_script_version` b
-        on a.`id` = b.`script_id`
-        where b.`is_active` = 1
+        join `autoexec_script_version` d on a.`id` = d.`script_id`
+        <if test="isNeedCheckDataAuth == 1">
+            join autoexec_type_authority e on b.id = e.type_id
+        </if>
+        where d.`is_active` = 1
         <if test="keyword != null and keyword != ''">
             and (a.`name` like CONCAT('%', #{keyword}, '%') or a.`description` like CONCAT('%', #{keyword}, '%'))
         </if>
@@ -730,6 +743,18 @@
                 #{item}
             </foreach>
         </if>
+        <if test="isNeedCheckDataAuth == 1">
+            and e.auth_uuid IN
+            (
+            'alluser'
+            <if test="authUuidList != null and authUuidList.size() > 0">
+                ,
+                <foreach collection="authUuidList" item="item" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            )
+        </if>
         group by a.`id`
     </sql>
 
@@ -741,7 +766,10 @@
         (
         <if test="(type == null or type == '') or (type != null and type != '' and type == 'tool')">
             select
-            `id`
+            a.`id`
+            from
+            `autoexec_tool` a
+            join autoexec_type b on b.id = a.type_id
             <include refid="searchToolAndScriptConditionForTool"/>
         </if>
         <if test="type == null or type == ''">
@@ -750,6 +778,9 @@
         <if test="(type == null or type == '') or (type != null and type != '' and type == 'script')">
             select
             a.`id`
+            from
+            `autoexec_script` a
+            join autoexec_type b on b.id = a.type_id
             <include refid="searchToolAndScriptConditionForScript"/>
         </if>
         ) a
@@ -767,23 +798,29 @@
         a.`riskId`,
         a.`riskName`,
         a.`riskColor`,
+        a.catalogId,
         a.`description`,
         a.`defaultProfileId`
         from
         (
         <if test="(type == null or type == '') or (type != null and type != '' and type == 'tool')">
             select
-            `id`,
-            `name`,
+            a.`id`,
+            a.`name`,
             'tool' as `type`,
-            `exec_mode` as execMode,
-            `type_id` as typeId,
-            (select `name` from `autoexec_type` where `id` = `type_id`) as typeName,
-            `risk_id` as riskId,
-            (select `name` from `autoexec_risk` where `id` = `risk_id`) as riskName,
-            (select `color` from `autoexec_risk` where `id` = `risk_id`) as riskColor,
-            `description`,
-            `default_profile_id` as defaultProfileId
+            a.`exec_mode` as execMode,
+            a.`type_id` as typeId,
+            b.`name` as typeName,
+            a.`risk_id` as riskId,
+            c.`name` as riskName,
+            c.`color` as riskColor,
+            null as catalogId,
+            a.`description`,
+            a.`default_profile_id` as defaultProfileId
+            from
+            `autoexec_tool` a
+            join autoexec_type b on b.id = a.type_id
+            join autoexec_risk c on c.id = a.risk_id
             <include refid="searchToolAndScriptConditionForTool"/>
         </if>
         <if test="type == null or type == ''">
@@ -792,16 +829,21 @@
         <if test="(type == null or type == '') or (type != null and type != '' and type == 'script')">
             select
             a.`id`,
-            `name`,
+            a.`name`,
             'script' as `type`,
-            `exec_mode` as execMode,
-            `type_id` as typeId,
-            (select `name` from `autoexec_type` where `id` = `type_id`) as typeName,
-            `risk_id` as riskId,
-            (select `name` from `autoexec_risk` where `id` = `risk_id`) as riskName,
-            (select `color` from `autoexec_risk` where `id` = `risk_id`) as riskColor,
+            a.`exec_mode` as execMode,
+            a.`type_id` as typeId,
+            b.`name` as typeName,
+            a.`risk_id` as riskId,
+            c.`name` as riskName,
+            c.`color` as riskColor,
+            a.catalog_id as catalogId,
             a.`description`,
             a.`default_profile_id` as defaultProfileId
+            from
+            `autoexec_script` a
+            join autoexec_type b on b.id = a.type_id
+            join autoexec_risk c on c.id = a.risk_id
             <include refid="searchToolAndScriptConditionForScript"/>
         </if>
         ) a
@@ -821,6 +863,7 @@
         <result column="description" property="description"/>
         <result column="defaultProfileId" property="defaultProfileId"/>
         <result column="configStr" property="configStr"/>
+        <result column="catalogId" property="catalogId"/>
         <association property="riskVo" javaType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
             <result column="riskId" property="id"/>
             <result column="riskName" property="name"/>

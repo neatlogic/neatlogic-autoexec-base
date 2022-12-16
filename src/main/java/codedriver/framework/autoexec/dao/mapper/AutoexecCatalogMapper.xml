@@ -203,6 +203,18 @@
         `catalog_id` IN ( SELECT `id` FROM `autoexec_catalog` WHERE `lft` &gt;= #{lft} AND `rht` &lt;= #{rht} )
     </select>
 
+    <select id="getAutoexecFullCatalogByIdList"
+            resultType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT b.`id` AS `id`, GROUP_CONCAT(a.`name` ORDER BY a.`lft` SEPARATOR '/') AS fullCatalogName
+        FROM `autoexec_catalog` a
+        JOIN `autoexec_catalog` b ON a.`lft` &lt;= b.`lft` AND a.`rht` &gt;= b.`rht`
+        where b.id in
+        <foreach collection="list" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+        GROUP BY b.`id`
+    </select>
+
     <update id="updateAutoexecCatalogNameById" parameterType="codedriver.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         UPDATE `autoexec_catalog`
         SET `name` = #{name}
