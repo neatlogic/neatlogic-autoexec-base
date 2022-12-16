@@ -5,6 +5,9 @@
 
 package codedriver.framework.autoexec.dto;
 
+import codedriver.framework.asynchronization.threadlocal.UserContext;
+import codedriver.framework.auth.core.AuthActionChecker;
+import codedriver.framework.autoexec.auth.AUTOEXEC_MODIFY;
 import codedriver.framework.autoexec.constvalue.ParamMode;
 import codedriver.framework.autoexec.dto.combop.AutoexecCombopVo;
 import codedriver.framework.autoexec.dto.script.AutoexecScriptVo;
@@ -47,6 +50,8 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
 
     @JSONField(serialize = false)
     private List<Long> excludeList;
+    @JSONField(serialize = false)
+    private Integer isNeedCheckDataAuth = 0; //是否校验数据权限（1：校验，0：不校验）
 
     public AutoexecOperationVo() {
 
@@ -183,5 +188,20 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
 
     public void setExcludeList(List<Long> excludeList) {
         this.excludeList = excludeList;
+    }
+
+    public Integer getIsNeedCheckDataAuth() {
+        if (isNeedCheckDataAuth == 1 && AuthActionChecker.check(AUTOEXEC_MODIFY.class)) {
+            isNeedCheckDataAuth = 0;
+        }
+        return isNeedCheckDataAuth;
+    }
+
+    public void setIsNeedCheckDataAuth(Integer isNeedCheckDataAuth) {
+        this.isNeedCheckDataAuth = isNeedCheckDataAuth;
+    }
+
+    public List<String> getAuthUuidList() {
+        return UserContext.get().getUuidList();
     }
 }

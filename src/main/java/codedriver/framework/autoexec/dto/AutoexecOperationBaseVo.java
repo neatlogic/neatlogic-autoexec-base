@@ -41,6 +41,8 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
     private Long catalogId;
     @EntityField(name = "工具目录名称", type = ApiParamType.STRING)
     private String catalogName;
+    @EntityField(name = "工具完整目录名称", type = ApiParamType.STRING)
+    private String fullCatalogName;
     @EntityField(name = "操作级别ID", type = ApiParamType.LONG)
     private Long riskId;
     @EntityField(name = "操作级别名称", type = ApiParamType.STRING)
@@ -341,5 +343,13 @@ public class AutoexecOperationBaseVo extends BaseEditorVo {
 
     public void setCustomTemplateIdList(List<Long> customTemplateIdList) {
         this.customTemplateIdList = customTemplateIdList;
+    }
+
+    public String getFullCatalogName() {
+        return fullCatalogName;
+    }
+
+    public void setFullCatalogName(String fullCatalogName) {
+        this.fullCatalogName = fullCatalogName;
     }
 }

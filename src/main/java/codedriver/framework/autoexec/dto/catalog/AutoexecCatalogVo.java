@@ -36,6 +36,8 @@ public class AutoexecCatalogVo extends BasePageVo {
     private List<AutoexecCatalogVo> children = new ArrayList<>();
     @EntityField(name = "关联的自定义工具数量", type = ApiParamType.INTEGER)
     private Integer referenceCountForScript;
+    @EntityField(name = "工具完整目录名称", type = ApiParamType.STRING)
+    private String fullCatalogName;
 
     private Integer referenceCountOfSelfAndChildren;// 目录自身与子目录关联的工具数量
 
@@ -140,5 +142,13 @@ public class AutoexecCatalogVo extends BasePageVo {
 
     public void setReferenceCountOfSelfAndChildren(Integer referenceCountOfSelfAndChildren) {
         this.referenceCountOfSelfAndChildren = referenceCountOfSelfAndChildren;
+    }
+
+    public String getFullCatalogName() {
+        return fullCatalogName;
+    }
+
+    public void setFullCatalogName(String fullCatalogName) {
+        this.fullCatalogName = fullCatalogName;
     }
 }

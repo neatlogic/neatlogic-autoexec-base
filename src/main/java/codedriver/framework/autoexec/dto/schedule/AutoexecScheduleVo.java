@@ -8,6 +8,7 @@ package codedriver.framework.autoexec.dto.schedule;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.restful.annotation.EntityField;
+import codedriver.framework.scheduler.dto.JobStatusVo;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -51,6 +52,8 @@ public class AutoexecScheduleVo extends BaseEditorVo {
     private Integer editable;
     @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
     private Integer deletable;
+    @EntityField(name = "执行情况", type = ApiParamType.JSONOBJECT)
+    private JobStatusVo jobStatus;
 
     public Long getId() {
         if (id == null) {
@@ -177,5 +180,13 @@ public class AutoexecScheduleVo extends BaseEditorVo {
 
     public void setDeletable(Integer deletable) {
         this.deletable = deletable;
+    }
+
+    public JobStatusVo getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(JobStatusVo jobStatus) {
+        this.jobStatus = jobStatus;
     }
 }
