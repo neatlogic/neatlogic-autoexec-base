@@ -798,6 +798,7 @@
         a.`riskId`,
         a.`riskName`,
         a.`riskColor`,
+        a.catalogId,
         a.`description`,
         a.`defaultProfileId`
         from
@@ -813,6 +814,7 @@
             a.`risk_id` as riskId,
             c.`name` as riskName,
             c.`color` as riskColor,
+            null as catalogId,
             a.`description`,
             a.`default_profile_id` as defaultProfileId
             from
@@ -835,6 +837,7 @@
             a.`risk_id` as riskId,
             c.`name` as riskName,
             c.`color` as riskColor,
+            a.catalog_id as catalogId,
             a.`description`,
             a.`default_profile_id` as defaultProfileId
             from
@@ -860,6 +863,7 @@
         <result column="description" property="description"/>
         <result column="defaultProfileId" property="defaultProfileId"/>
         <result column="configStr" property="configStr"/>
+        <result column="catalogId" property="catalogId"/>
         <association property="riskVo" javaType="codedriver.framework.autoexec.dto.AutoexecRiskVo">
             <result column="riskId" property="id"/>
             <result column="riskName" property="name"/>
