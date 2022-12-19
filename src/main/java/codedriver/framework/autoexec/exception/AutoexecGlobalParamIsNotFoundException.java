@@ -10,4 +10,8 @@ public class AutoexecGlobalParamIsNotFoundException extends ApiRuntimeException 
     public AutoexecGlobalParamIsNotFoundException(Long paramId) {
         super("全局参数 id“" + paramId + "”不存在");
     }
+
+    public AutoexecGlobalParamIsNotFoundException(String key) {
+        super("全局参数 key“" + key + "”不存在");
+    }
 }
