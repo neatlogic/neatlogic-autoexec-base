@@ -35,6 +35,12 @@ public class AutoexecParamConfigVo implements Serializable {
     @EntityField(name = "校验规则列表", type = ApiParamType.JSONARRAY)
     private JSONArray validateList;
 
+    @EntityField(name = "用户、组、角色列表", type = ApiParamType.JSONARRAY)
+    private JSONArray groupList;
+
+    @EntityField(name = "是否多选", type = ApiParamType.INTEGER)
+    private Integer isMultiple;
+
     public Boolean getIsRequired() {
         return isRequired;
     }
@@ -113,5 +119,21 @@ public class AutoexecParamConfigVo implements Serializable {
 
     public void setValidateList(JSONArray validateList) {
         this.validateList = validateList;
+    }
+
+    public JSONArray getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(JSONArray groupList) {
+        this.groupList = groupList;
+    }
+
+    public Integer getIsMultiple() {
+        return isMultiple;
+    }
+
+    public void setIsMultiple(Integer isMultiple) {
+        this.isMultiple = isMultiple;
     }
 }
