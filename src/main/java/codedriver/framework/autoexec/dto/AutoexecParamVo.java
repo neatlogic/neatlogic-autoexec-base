@@ -9,10 +9,8 @@ import codedriver.framework.autoexec.constvalue.*;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.StringUtils;
 
@@ -162,6 +160,13 @@ public class AutoexecParamVo implements Serializable {
                         break;
                     case "switch":
                         defaultValue = Boolean.valueOf(defaultValue.toString());
+                        break;
+                    case "userselect":
+                        String valueString = (String) defaultValue;
+                        if (valueString.startsWith("[") && valueString.endsWith("]")) {
+                            defaultValue = JSONObject.parseArray(valueString);
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -200,6 +205,13 @@ public class AutoexecParamVo implements Serializable {
                         break;
                     case "switch":
                         value = Boolean.valueOf(value.toString());
+                        break;
+                    case "userselect":
+                        String valueString = (String) defaultValue;
+                        if (valueString.startsWith("[") && valueString.endsWith("]")) {
+                            defaultValue = JSONObject.parseArray(valueString);
+                        }
+                        break;
                     default:
                         break;
                 }
