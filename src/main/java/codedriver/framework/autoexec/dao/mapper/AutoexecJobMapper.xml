@@ -1494,7 +1494,7 @@
                aj.`source`,
                aj.`round_count`     as roundCount
         FROM `autoexec_job` aj
-        WHERE aj.`start_time` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY)
+        WHERE aj.`fcd` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY) or aj.`fcd` is null
     </select>
 
     <select id="getJobPhaseRunnerMapIdListByJobIdList" resultType="java.lang.Long">
