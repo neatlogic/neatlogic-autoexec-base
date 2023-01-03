@@ -92,11 +92,11 @@ public class AutoexecSqlNodeDetailVo extends BaseEditorVo implements ISqlNodeDet
         this.md5 = (paramObj.getString("md5"));
         this.host = (paramObj.getString("host"));
         this.port = (paramObj.getInteger("port"));
-        if (!Objects.isNull(paramObj.getInteger("isModified"))) {
+        if (paramObj.getInteger("isModified") != null) {
             this.isModified = (paramObj.getInteger("isModified"));
 
         }
-        if (!Objects.isNull(paramObj.getInteger("warnCount"))) {
+        if (paramObj.getInteger("warnCount") != null) {
             this.warnCount = (paramObj.getInteger("warnCount"));
 
         }
