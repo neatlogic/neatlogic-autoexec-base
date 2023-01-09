@@ -24,8 +24,6 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
 
     Long checkAutoexecCombopNameIsRepeat(AutoexecCombopVo autoexecCombopVo);
 
-    Long checkAutoexecCombopUkIsRepeat(AutoexecCombopVo autoexecCombopVo);
-
     Integer getAutoexecCombopIsActiveByIdForUpdate(Long id);
 
     AutoexecCombopVo getAutoexecCombopById(Long id);
@@ -43,6 +41,8 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
     List<AutoexecCombopVo> getAutoexecCombopListByIdList(List<Long> idList);
 
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopIdAndAction(@Param("combopId") Long combopId, @Param("action") String action);
+
+    List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopId(Long combopId);
 
     List<AutoexecParamVo> getAutoexecCombopParamListByCombopId(Long combopId);
 
