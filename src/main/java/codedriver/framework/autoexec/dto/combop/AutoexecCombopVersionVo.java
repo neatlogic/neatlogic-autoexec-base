@@ -1,5 +1,6 @@
 package codedriver.framework.autoexec.dto.combop;
 
+import codedriver.framework.autoexec.constvalue.ScriptVersionStatus;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
 import codedriver.framework.common.dto.ValueTextVo;
@@ -9,6 +10,8 @@ import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.Objects;
+
 public class AutoexecCombopVersionVo extends BaseEditorVo {
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
@@ -16,6 +19,8 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
     private Long combopId;
     @EntityField(name = "显示名", type = ApiParamType.STRING)
     private String name;
+    @EntityField(name = "状态", type = ApiParamType.INTEGER)
+    private Integer isActive;
     @EntityField(name = "版本号", type = ApiParamType.INTEGER)
     private Integer version;
     @EntityField(name = "状态(draft:草稿、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
@@ -66,6 +71,14 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
         this.name = name;
     }
 
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
+    }
+
     public Integer getVersion() {
         return version;
     }
@@ -83,6 +96,17 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
     }
 
     public ValueTextVo getStatusVo() {
+        if (status != null) {
+            if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
+                if (Objects.equals(getIsActive(), 1)) {
+                    statusVo = new ValueTextVo(ScriptVersionStatus.CURRENT.getValue(), ScriptVersionStatus.CURRENT.getText());
+                } else {
+                    statusVo = new ValueTextVo(ScriptVersionStatus.HISTORY.getValue(), ScriptVersionStatus.HISTORY.getText());
+                }
+            } else {
+                statusVo = new ValueTextVo(status, ScriptVersionStatus.getText(status));
+            }
+        }
         return statusVo;
     }
 

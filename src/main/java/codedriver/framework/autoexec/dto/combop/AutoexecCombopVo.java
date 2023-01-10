@@ -78,8 +78,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "执行权限列表", type = ApiParamType.JSONARRAY)
     private List<String> executeAuthorityList;
 
-    @EntityField(name = "当前版本ID", type = ApiParamType.LONG)
-    private Long currentVersionId;
+    @EntityField(name = "激活版本ID", type = ApiParamType.LONG)
+    private Long activeVersionId;
 
     @JSONField(serialize = false)
     private String configStr;
@@ -316,11 +316,11 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.executeAuthorityList = executeAuthorityList;
     }
 
-    public Long getCurrentVersionId() {
-        return currentVersionId;
+    public Long getActiveVersionId() {
+        return activeVersionId;
     }
 
-    public void setCurrentVersionId(Long currentVersionId) {
-        this.currentVersionId = currentVersionId;
+    public void setActiveVersionId(Long activeVersionId) {
+        this.activeVersionId = activeVersionId;
     }
 }
