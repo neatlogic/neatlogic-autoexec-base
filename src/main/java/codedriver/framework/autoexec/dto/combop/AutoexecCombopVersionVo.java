@@ -44,6 +44,19 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
     @EntityField(name = "执行页面是否需要设置分批数量", type = ApiParamType.BOOLEAN)
     private boolean needRoundCount = false;
 
+//    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
+//    private Integer viewable;
+//    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+//    private Integer editable;
+//    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
+//    private Integer deletable;
+//    @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
+//    private Integer executable;
+//    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
+//    private Integer ownerEditable;
+//    @EntityField(name = "是否可审核", type = ApiParamType.INTEGER)
+//    private Integer reviewable;
+
     public Long getId() {
         if (id == null) {
             id = SnowflakeUtil.uniqueLong();

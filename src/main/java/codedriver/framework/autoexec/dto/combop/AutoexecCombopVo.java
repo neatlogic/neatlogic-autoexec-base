@@ -49,8 +49,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
 
-    //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
-//    private Integer viewable;
+    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
+    private Integer viewable;
     @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
     private Integer editable;
     @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
@@ -59,6 +59,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private Integer executable;
     @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
     private Integer ownerEditable;
+    @EntityField(name = "是否可审核", type = ApiParamType.INTEGER)
+    private Integer reviewable;
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
     private List<AutoexecParamVo> runtimeParamList;
     @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
@@ -190,13 +192,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.config = config;
     }
 
-//    public Integer getViewable() {
-//        return viewable;
-//    }
-//
-//    public void setViewable(Integer viewable) {
-//        this.viewable = viewable;
-//    }
+    public Integer getViewable() {
+        return viewable;
+    }
+
+    public void setViewable(Integer viewable) {
+        this.viewable = viewable;
+    }
 
     public Integer getEditable() {
         return editable;
@@ -228,6 +230,14 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setOwnerEditable(Integer ownerEditable) {
         this.ownerEditable = ownerEditable;
+    }
+
+    public Integer getReviewable() {
+        return reviewable;
+    }
+
+    public void setReviewable(Integer reviewable) {
+        this.reviewable = reviewable;
     }
 
     public List<AutoexecParamVo> getRuntimeParamList() {
