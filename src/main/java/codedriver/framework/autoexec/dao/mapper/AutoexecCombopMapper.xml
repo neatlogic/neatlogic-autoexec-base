@@ -86,6 +86,12 @@
         COUNT(`id`)
         FROM `autoexec_combop`
         <where>
+            <if test="defaultValue != null and defaultValue.size() > 0">
+                AND `id` IN
+                <foreach collection="defaultValue" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
             <if test="keyword != null and keyword != ''">
                 AND (`name` LIKE concat('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
             </if>
@@ -113,6 +119,12 @@
         `fcu`
         FROM `autoexec_combop`
         <where>
+            <if test="defaultValue != null and defaultValue.size() > 0">
+                AND `id` IN
+                <foreach collection="defaultValue" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
             <if test="keyword != null and keyword != ''">
                 AND (`name` LIKE concat('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
             </if>

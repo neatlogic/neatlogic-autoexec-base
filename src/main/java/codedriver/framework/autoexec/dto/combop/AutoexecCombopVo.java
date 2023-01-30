@@ -82,6 +82,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "激活版本ID", type = ApiParamType.LONG)
     private Long activeVersionId;
+    @EntityField(name = "指定版本ID", type = ApiParamType.LONG)
+    private Long specifyVersionId;
 
     @JSONField(serialize = false)
     private String configStr;
@@ -332,5 +334,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setActiveVersionId(Long activeVersionId) {
         this.activeVersionId = activeVersionId;
+    }
+
+    public Long getSpecifyVersionId() {
+        return specifyVersionId;
+    }
+
+    public void setSpecifyVersionId(Long specifyVersionId) {
+        this.specifyVersionId = specifyVersionId;
     }
 }
