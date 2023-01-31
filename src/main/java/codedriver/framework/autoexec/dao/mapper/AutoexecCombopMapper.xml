@@ -20,14 +20,6 @@
           AND `id` != #{id} LIMIT 1
     </select>
 
-    <select id="checkAutoexecCombopUkIsRepeat" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo"
-            resultType="java.lang.Long">
-        SELECT `id`
-        FROM `autoexec_combop`
-        WHERE `uk` = #{uk}
-          AND `id` != #{id} LIMIT 1
-    </select>
-
     <select id="getAutoexecCombopIsActiveByIdForUpdate" parameterType="java.lang.Long" resultType="java.lang.Integer">
         SELECT `is_active`
         FROM `autoexec_combop`
@@ -37,7 +29,6 @@
     <select id="getAutoexecCombopById" parameterType="java.lang.Long"
             resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT `id`,
-               `uk`,
                `name`,
                `description`,
                `type_id`          AS typeId,
@@ -47,9 +38,7 @@
                `owner`,
                `config`           AS configStr,
                `fcd`,
-               `fcu`,
-               `lcd`,
-               `lcu`
+               `fcu`
         FROM `autoexec_combop`
         WHERE `id` = #{value}
     </select>
@@ -57,7 +46,6 @@
     <select id="getAutoexecCombopByName" parameterType="java.lang.String"
             resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT `id`,
-               `uk`,
                `name`,
                `description`,
                `type_id`          AS typeId,
@@ -67,9 +55,7 @@
                `owner`,
                `config`           AS configStr,
                `fcd`,
-               `fcu`,
-               `lcd`,
-               `lcu`
+               `fcu`
         FROM `autoexec_combop`
         WHERE `name` = #{value}
     </select>
@@ -78,7 +64,6 @@
             resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT
         `id`,
-        `uk`,
         `name`,
         `description`,
         `type_id` AS typeId,
@@ -87,9 +72,7 @@
         `notify_policy_id` AS notifyPolicyId,
         `owner`,
         `fcd`,
-        `fcu`,
-        `lcd`,
-        `lcu`
+        `fcu`
         FROM `autoexec_combop`
         WHERE `id` in
         <foreach collection="list" item="id" separator="," open="(" close=")">
@@ -103,9 +86,14 @@
         COUNT(`id`)
         FROM `autoexec_combop`
         <where>
+            <if test="defaultValue != null and defaultValue.size() > 0">
+                AND `id` IN
+                <foreach collection="defaultValue" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
             <if test="keyword != null and keyword != ''">
-                AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%') OR `description`
-                LIKE concat('%', #{keyword}, '%'))
+                AND (`name` LIKE concat('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
             </if>
             <if test="typeId != null">
                 AND `type_id` = #{typeId}
@@ -120,7 +108,6 @@
             resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT
         `id`,
-        `uk`,
         `name`,
         `description`,
         `type_id` AS typeId,
@@ -129,14 +116,17 @@
         `notify_policy_id` AS notifyPolicyId,
         `owner`,
         `fcd`,
-        `fcu`,
-        `lcd`,
-        `lcu`
+        `fcu`
         FROM `autoexec_combop`
         <where>
+            <if test="defaultValue != null and defaultValue.size() > 0">
+                AND `id` IN
+                <foreach collection="defaultValue" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
             <if test="keyword != null and keyword != ''">
-                AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%') OR `description`
-                LIKE concat('%', #{keyword}, '%'))
+                AND (`name` LIKE concat('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
             </if>
             <if test="typeId != null">
                 AND `type_id` = #{typeId}
@@ -156,7 +146,7 @@
         FROM `autoexec_combop`
         <where>
             <if test="keyword != null and keyword != ''">
-                AND (`name` LIKE concat('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%'))
+                AND `name` LIKE concat('%', #{keyword}, '%')
             </if>
             <if test="typeId != null">
                 AND `type_id` = #{typeId}
@@ -173,7 +163,6 @@
             resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT
         `id`,
-        `uk`,
         `name`,
         `description`,
         `type_id` AS typeId,
@@ -182,9 +171,7 @@
         `notify_policy_id` AS notifyPolicyId,
         `owner`,
         `fcd`,
-        `fcu`,
-        `lcd`,
-        `lcu`
+        `fcu`
         FROM `autoexec_combop`
         WHERE `id` IN
         <foreach collection="list" item="id" open="(" separator="," close=")">
@@ -199,6 +186,15 @@
         FROM `autoexec_combop_authority`
         WHERE `combop_id` = #{combopId}
           AND `action` = #{action}
+    </select>
+
+    <select id="getAutoexecCombopAuthorityListByCombopId" parameterType="java.lang.Long"
+            resultType="codedriver.framework.autoexec.dto.combop.AutoexecCombopAuthorityVo">
+        SELECT `type`,
+               `uuid`,
+               `action`
+        FROM `autoexec_combop_authority`
+        WHERE `combop_id` = #{value}
     </select>
 
     <select id="getAutoexecCombopParamListByCombopId" parameterType="java.lang.Long"
@@ -304,8 +300,7 @@
     <select id="getExecutableAutoexecCombopIdListByKeywordAndAuthenticationInfo" resultType="java.lang.Long">
         <include refid="getExecutableAutoexecCombopIdListSql"/>
         <if test="keyword != null and keyword != ''">
-            AND (a.`name` LIKE CONCAT('%', #{keyword}, '%') OR `uk` LIKE concat('%', #{keyword}, '%') OR `description`
-            LIKE concat('%', #{keyword}, '%'))
+            AND (a.`name` LIKE CONCAT('%', #{keyword}, '%') OR `description` LIKE concat('%', #{keyword}, '%'))
         </if>
         <if test="typeId != null">
             AND a.`type_id` = #{typeId}
@@ -360,7 +355,6 @@
 
     <insert id="insertAutoexecCombop" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         INSERT INTO `autoexec_combop` (`id`,
-                                       `uk`,
                                        `name`,
                                        `description`,
                                        `type_id`,
@@ -369,11 +363,8 @@
                                        `owner`,
                                        `config`,
                                        `fcd`,
-                                       `fcu`,
-                                       `lcd`,
-                                       `lcu`)
+                                       `fcu`)
         VALUES (#{id},
-                #{uk},
                 #{name},
                 #{description},
                 #{typeId},
@@ -381,8 +372,6 @@
                 #{notifyPolicyId},
                 #{owner},
                 #{configStr},
-                NOW(3),
-                #{fcu},
                 NOW(3),
                 #{fcu})
     </insert>
@@ -448,33 +437,26 @@
 
     <update id="updateAutoexecCombopById" parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         UPDATE `autoexec_combop`
-        SET `uk`               = #{uk},
-            `name`             = #{name},
+        SET `name`             = #{name},
             `description`      = #{description},
             `type_id`          = #{typeId},
             `notify_policy_id` = #{notifyPolicyId},
             `owner`            = #{owner},
-            `config`           = #{configStr},
-            `lcd`              = NOW(3),
-            `lcu`              = #{lcu}
+            `config`           = #{configStr}
         WHERE `id` = #{id}
     </update>
 
     <update id="updateAutoexecCombopIsActiveById"
             parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         UPDATE `autoexec_combop`
-        SET `is_active` = !`is_active`,
-            `lcd` = NOW(3),
-            `lcu` = #{lcu}
+        SET `is_active` = !`is_active`
         WHERE `id` = #{id}
     </update>
 
     <update id="updateAutoexecCombopConfigById"
             parameterType="codedriver.framework.autoexec.dto.combop.AutoexecCombopVo">
         UPDATE `autoexec_combop`
-        SET `config` = #{configStr},
-            `lcd`    = NOW(3),
-            `lcu`    = #{lcu}
+        SET `config` = #{configStr}
         WHERE `id` = #{id}
     </update>
 

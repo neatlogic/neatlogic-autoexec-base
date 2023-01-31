@@ -7,7 +7,6 @@ package codedriver.framework.autoexec.dto.combop;
 
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
-import codedriver.framework.notify.dto.InvokeNotifyPolicyConfigVo;
 import codedriver.framework.restful.annotation.EntityField;
 
 import java.io.Serializable;
@@ -17,10 +16,7 @@ import java.util.List;
  * @author: linbq
  * @since: 2021/4/21 18:06
  **/
-public class AutoexecCombopConfigVo implements Serializable {
-
-    @EntityField(name = "通知策略配置", type = ApiParamType.STRING)
-    private InvokeNotifyPolicyConfigVo invokeNotifyPolicyConfig;
+public class AutoexecCombopVersionConfigVo implements Serializable {
 
     @EntityField(name = "阶段列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopPhaseVo> combopPhaseList;
@@ -39,14 +35,6 @@ public class AutoexecCombopConfigVo implements Serializable {
 
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
     private List<AutoexecParamVo> runtimeParamList;
-
-    public InvokeNotifyPolicyConfigVo getInvokeNotifyPolicyConfig() {
-        return invokeNotifyPolicyConfig;
-    }
-
-    public void setInvokeNotifyPolicyConfig(InvokeNotifyPolicyConfigVo invokeNotifyPolicyConfig) {
-        this.invokeNotifyPolicyConfig = invokeNotifyPolicyConfig;
-    }
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {
         return combopPhaseList;

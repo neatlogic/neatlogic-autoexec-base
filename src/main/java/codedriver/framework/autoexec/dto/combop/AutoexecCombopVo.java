@@ -9,6 +9,7 @@ import codedriver.framework.autoexec.dto.AutoexecOperationVo;
 import codedriver.framework.autoexec.dto.AutoexecParamVo;
 import codedriver.framework.common.constvalue.ApiParamType;
 import codedriver.framework.common.dto.BaseEditorVo;
+import codedriver.framework.notify.dto.InvokeNotifyPolicyConfigVo;
 import codedriver.framework.restful.annotation.EntityField;
 import codedriver.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -27,8 +28,6 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "主键id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "唯一标识", type = ApiParamType.STRING)
-    private String uk;
     @EntityField(name = "显示名", type = ApiParamType.STRING)
     private String name;
     @EntityField(name = "描述", type = ApiParamType.STRING)
@@ -49,10 +48,9 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String owner;
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
-//    @EntityField(name = "被引用次数", type = ApiParamType.INTEGER)
-//    private int referenceCount;
-    //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
-//    private Integer viewable;
+
+    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
+    private Integer viewable;
     @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
     private Integer editable;
     @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
@@ -61,6 +59,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private Integer executable;
     @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
     private Integer ownerEditable;
+    @EntityField(name = "是否可审核", type = ApiParamType.INTEGER)
+    private Integer reviewable;
     @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
     private List<AutoexecParamVo> runtimeParamList;
     @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
@@ -71,6 +71,19 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private boolean needExecuteNode = false;
     @EntityField(name = "执行页面是否需要设置分批数量", type = ApiParamType.BOOLEAN)
     private boolean needRoundCount = false;
+    @EntityField(name = "版本数量", type = ApiParamType.INTEGER)
+    private Integer versionCount;
+    @EntityField(name = "查看权限列表", type = ApiParamType.JSONARRAY)
+    private List<String> viewAuthorityList;
+    @EntityField(name = "编辑权限列表", type = ApiParamType.JSONARRAY)
+    private List<String> editAuthorityList;
+    @EntityField(name = "执行权限列表", type = ApiParamType.JSONARRAY)
+    private List<String> executeAuthorityList;
+
+    @EntityField(name = "激活版本ID", type = ApiParamType.LONG)
+    private Long activeVersionId;
+    @EntityField(name = "指定版本ID", type = ApiParamType.LONG)
+    private Long specifyVersionId;
 
     @JSONField(serialize = false)
     private String configStr;
@@ -79,7 +92,6 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     }
 
     public AutoexecCombopVo(AutoexecOperationVo autoexecToolAndScriptVo) {
-        this.uk = autoexecToolAndScriptVo.getUk();
         this.name = autoexecToolAndScriptVo.getName();
         this.typeId = autoexecToolAndScriptVo.getTypeId();
         this.operationType = autoexecToolAndScriptVo.getType();
@@ -94,14 +106,6 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUk() {
-        return uk;
-    }
-
-    public void setUk(String uk) {
-        this.uk = uk;
     }
 
     public String getName() {
@@ -190,21 +194,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.config = config;
     }
 
-//    public int getReferenceCount() {
-//        return referenceCount;
-//    }
-//
-//    public void setReferenceCount(int referenceCount) {
-//        this.referenceCount = referenceCount;
-//    }
+    public Integer getViewable() {
+        return viewable;
+    }
 
-//    public Integer getViewable() {
-//        return viewable;
-//    }
-//
-//    public void setViewable(Integer viewable) {
-//        this.viewable = viewable;
-//    }
+    public void setViewable(Integer viewable) {
+        this.viewable = viewable;
+    }
 
     public Integer getEditable() {
         return editable;
@@ -236,6 +232,14 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setOwnerEditable(Integer ownerEditable) {
         this.ownerEditable = ownerEditable;
+    }
+
+    public Integer getReviewable() {
+        return reviewable;
+    }
+
+    public void setReviewable(Integer reviewable) {
+        this.reviewable = reviewable;
     }
 
     public List<AutoexecParamVo> getRuntimeParamList() {
@@ -290,5 +294,53 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
             this.config = null;
         }
         this.configStr = configStr;
+    }
+
+    public Integer getVersionCount() {
+        return versionCount;
+    }
+
+    public void setVersionCount(Integer versionCount) {
+        this.versionCount = versionCount;
+    }
+
+    public List<String> getViewAuthorityList() {
+        return viewAuthorityList;
+    }
+
+    public void setViewAuthorityList(List<String> viewAuthorityList) {
+        this.viewAuthorityList = viewAuthorityList;
+    }
+
+    public List<String> getEditAuthorityList() {
+        return editAuthorityList;
+    }
+
+    public void setEditAuthorityList(List<String> editAuthorityList) {
+        this.editAuthorityList = editAuthorityList;
+    }
+
+    public List<String> getExecuteAuthorityList() {
+        return executeAuthorityList;
+    }
+
+    public void setExecuteAuthorityList(List<String> executeAuthorityList) {
+        this.executeAuthorityList = executeAuthorityList;
+    }
+
+    public Long getActiveVersionId() {
+        return activeVersionId;
+    }
+
+    public void setActiveVersionId(Long activeVersionId) {
+        this.activeVersionId = activeVersionId;
+    }
+
+    public Long getSpecifyVersionId() {
+        return specifyVersionId;
+    }
+
+    public void setSpecifyVersionId(Long specifyVersionId) {
+        this.specifyVersionId = specifyVersionId;
     }
 }
