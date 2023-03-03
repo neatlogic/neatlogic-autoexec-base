@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="neatlogic.framework.autoexec.dao.mapper.AutoexecToolMapper">
+
+    <select id="checkToolExistsById" parameterType="java.lang.Long" resultType="int">
+        select count(`id`)
+        from `autoexec_tool`
+        where `id` = #{value}
+    </select>
+
+    <resultMap id="autoexecToolAndScriptMap" type="neatlogic.framework.autoexec.dto.AutoexecOperationVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="execMode" property="execMode"/>
+        <result column="typeId" property="typeId"/>
+        <result column="typeName" property="typeName"/>
+        <result column="description" property="description"/>
+        <result column="defaultProfileId" property="defaultProfileId"/>
+        <result column="configStr" property="configStr"/>
+        <association property="riskVo" javaType="neatlogic.framework.autoexec.dto.AutoexecRiskVo">
+            <result column="riskId" property="id"/>
+            <result column="riskName" property="name"/>
+            <result column="riskColor" property="color"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="autoexecOperationMap" type="neatlogic.framework.autoexec.dto.AutoexecOperationVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="execMode" property="execMode"/>
+        <result column="typeId" property="typeId"/>
+        <result column="typeName" property="typeName"/>
+        <result column="description" property="description"/>
+        <result column="defaultProfileId" property="defaultProfileId"/>
+        <result column="configStr" property="configStr"/>
+        <association property="riskVo" javaType="neatlogic.framework.autoexec.dto.AutoexecRiskVo">
+            <result column="riskId" property="id"/>
+            <result column="riskName" property="name"/>
+            <result column="riskColor" property="color"/>
+        </association>
+    </resultMap>
+
+    <select id="getToolListByIdList" parameterType="java.lang.Long" resultMap="autoexecToolAndScriptMap">
+        <include refid="getToolListByIdList"></include>
+    </select>
+
+    <sql id="getToolListByIdList">
+        select
+        a.`id`,
+        a.`name`,
+        'tool' as `type`,
+        a.`exec_mode` as execMode,
+        a.`type_id` as typeId,
+        ate.`name` as typeName,
+        a.`risk_id` as riskId,
+        ar.`name` as riskName,
+        ar.`color` as riskColor,
+        a.`description`,
+        a.`default_profile_id` as defaultProfileId,
+        a.`config` as configStr
+        from `autoexec_tool` a
+        LEFT JOIN autoexec_type ate ON a.`type_id` = ate.`id`
+        LEFT JOIN autoexec_risk ar ON a.`risk_id` = ar.`id`
+        where a.`is_active` = 1
+        and a.`id` in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </sql>
+
+    <select id="getAutoexecOperationListByIdList" parameterType="java.lang.Long" resultMap="autoexecOperationMap">
+        <include refid="getToolListByIdList"></include>
+    </select>
+
+    <sql id="searchToolCondition">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (`name` like CONCAT('%', #{keyword}, '%') or `description` like CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="execMode != null and execMode != ''">
+                and `exec_mode` = #{execMode}
+            </if>
+            <if test="typeIdList != null and typeIdList.size() != 0">
+                and `type_id` in
+                <foreach collection="typeIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="riskIdList != null and riskIdList.size() != 0">
+                and `risk_id` in
+                <foreach collection="riskIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <choose>
+                <when test="customTemplateId != null and customTemplateId == 0">
+                    and `customtemplate_id` is not null
+                </when>
+                <otherwise>
+                    <if test="customTemplateIdList != null and customTemplateIdList.size() > 0">
+                        and `customtemplate_id` in
+                        <foreach collection="customTemplateIdList" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </if>
+                </otherwise>
+            </choose>
+            <if test="isActive != null">
+                and `is_active` = #{isActive}
+            </if>
+        </where>
+    </sql>
+
+    <select id="searchToolCount" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo" resultType="int">
+        select count(`id`)
+        from `autoexec_tool`
+        <include refid="searchToolCondition"/>
+    </select>
+
+    <resultMap id="AutoexecToolMap" type="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="execMode" property="execMode"/>
+        <result column="parser" property="parser"/>
+        <result column="description" property="description"/>
+        <result column="typeId" property="typeId"/>
+        <result column="typeName" property="typeName"/>
+        <result column="isActive" property="isActive"/>
+        <association property="riskVo" javaType="neatlogic.framework.autoexec.dto.AutoexecRiskVo">
+            <result column="riskId" property="id"/>
+            <result column="riskName" property="name"/>
+            <result column="riskColor" property="color"/>
+        </association>
+    </resultMap>
+
+    <select id="searchTool" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo"
+            resultMap="AutoexecToolMap">
+        select
+        `id`,
+        `name`,
+        `exec_mode` as execMode,
+        `parser`,
+        `description`,
+        `type_id` as typeId,
+        (select `name` from `autoexec_type` where `type_id` = `id`) as typeName,
+        `risk_id` as riskId,
+        (select `name` from `autoexec_risk` where `risk_id` = `id`) as riskName,
+        (select `color` from `autoexec_risk` where `risk_id` = `id`) as riskColor,
+        `is_active` as isActive
+        from `autoexec_tool`
+        <include refid="searchToolCondition"/>
+        order by `lcd` desc
+        <if test="needPage == true">
+            LIMIT #{startNum}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getToolByName" parameterType="java.lang.String" resultType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        select
+        `id`,
+        `name`,
+        `is_active`
+        from `autoexec_tool`
+        where `name` = #{value}
+    </select>
+
+    <select id="getToolBaseInfoListByIdList" parameterType="java.lang.Long" resultType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        select
+            `id`,
+            `name`,
+            description,
+            `is_active`
+        from `autoexec_tool`
+        where `id` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getToolByNameList" parameterType="java.lang.String" resultType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        select
+            `id`,
+            `name`,
+            description,
+            `is_active`
+        from `autoexec_tool`
+        where `name` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="checkToolHasBeenGeneratedToCombop" parameterType="java.lang.Long" resultType="int">
+        select
+        count(1)
+        from `autoexec_operation_generate_combop`
+        where `operation_id` = #{value}
+    </select>
+
+    <select id="checkToolListHasBeenGeneratedToCombop" parameterType="java.util.List" resultType="java.lang.Long">
+        select
+        `operation_id`
+        from `autoexec_operation_generate_combop`
+        where `operation_id` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getToolById" parameterType="java.lang.Long" resultType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        SELECT
+            ato.`id`,
+            ato.`name`,
+            ato.`is_active` AS isActive,
+            ato.`exec_mode` AS execMode,
+            ato.`type_id` AS typeId,
+            aty.`name` as typeName,
+            aty.`description` as typeDescription,
+            ato.`risk_id` AS riskId,
+            ar.`name` as riskName,
+            ato.`customtemplate_id` as customTemplateId,
+            act.`name` as customTemplateName,
+            ato.`description`,
+            ato.`default_profile_id` as defaultProfileId,
+            ap.`name` as defaultProfileName,
+            ato.`parser`,
+            ato.`config` AS configStr
+        FROM `autoexec_tool` ato
+        left join `autoexec_type` aty on ato.`type_id` = aty.`id`
+        left join `autoexec_risk` ar on ato.`risk_id` = ar.`id`
+        left join `autoexec_profile` ap on ato.`default_profile_id` = ap.`id`
+        left join `autoexec_customtemplate` act ON ato.`customtemplate_id` = act.`id`
+        WHERE ato.`id` = #{value}
+    </select>
+
+    <select id="getAllTool" resultType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        SELECT
+            ato.`id`,
+            ato. `name`,
+            ato. `is_active` AS isActive,
+            ato. `exec_mode` AS execMode,
+            ato. `type_id` AS typeId,
+            aty.`name` as typeName,
+            aty.`description` as typeDescription,
+            ato. `risk_id` AS riskId,
+            ato. `description`,
+            ato. `default_profile_id` AS defaultProfileId,
+            ato. `parser`,
+            ato. `config` AS configStr
+        FROM `autoexec_tool` ato
+                 left join `autoexec_type` aty on ato.`type_id` = aty.`id`
+    </select>
+
+    <select id="getToolIdListByIdListAndTypeId" resultType="java.lang.Long">
+        SELECT
+            `id`
+        FROM `autoexec_tool`
+        WHERE `type_id` = #{typeId}
+        AND `id` IN
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="updateActiveStatus" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        update `autoexec_tool`
+        set `is_active` = #{isActive}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateConfig" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        update `autoexec_tool`
+        set `config` = #{configStr}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateCustomTemplate" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        update `autoexec_tool`
+        set `customtemplate_id` = #{customTemplateId}
+        where `id` = #{id}
+    </update>
+
+    <update id="insertTool" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
+        insert into `autoexec_tool`(
+        `id`,
+        `name`,
+        `exec_mode`,
+        `parser`,
+        `type_id`,
+        `risk_id`,
+        `is_active`,
+        `description`,
+        `default_profile_id`,
+        `config`,
+        `lcd`
+        ) values (
+        #{id},
+        #{name},
+        #{execMode},
+        #{parser},
+        #{typeId},
+        #{riskId},
+        #{isActive},
+        #{description},
+        #{defaultProfileId},
+        #{configStr},
+        now(3)
+        )
+        ON DUPLICATE KEY UPDATE
+        `exec_mode` = #{execMode},
+        `parser` = #{parser},
+        `type_id` = #{typeId},
+        `risk_id` = #{riskId},
+        `is_active` = #{isActive},
+        `description` = #{description},
+        `default_profile_id` = #{defaultProfileId},
+        `config` = #{configStr},
+        `lcd` = now( 3 );
+    </update>
+
+    <delete id="deleteToolByIdList" parameterType="java.util.List">
+        delete from `autoexec_tool` where `id` in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>
+
