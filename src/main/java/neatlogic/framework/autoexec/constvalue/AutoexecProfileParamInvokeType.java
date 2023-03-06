@@ -3,6 +3,7 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,8 +13,8 @@ import java.util.Objects;
  * @date 2022/5/19 4:48 下午
  */
 public enum AutoexecProfileParamInvokeType implements IEnum {
-    GLOBAL_PARAM("globalparam", "全局参数"),
-    CONSTANT("constant", "常量");
+    GLOBAL_PARAM("globalparam", "enum.autoexec.autoexecprofileparaminvoketype.global_param"),
+    CONSTANT("constant", "enum.autoexec.autoexecprofileparaminvoketype.constant");
 
     private final String value;
     private final String text;
@@ -29,7 +30,7 @@ public enum AutoexecProfileParamInvokeType implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
 

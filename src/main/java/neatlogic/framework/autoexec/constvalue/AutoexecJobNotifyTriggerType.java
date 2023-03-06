@@ -17,10 +17,11 @@
 package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.notify.core.INotifyTriggerType;
+import neatlogic.framework.util.I18nUtils;
 
 public enum AutoexecJobNotifyTriggerType implements INotifyTriggerType {
 
-    FAILED("failed", "作业失败", "作业失败时触发通知"),
+    FAILED("failed", "enum.autoexec.autoexecjobnotifytriggertype.failed", "enum.autoexec.autoexecjobnotifytriggertype.failed.1"),
     ;
 
     private final String trigger;
@@ -40,12 +41,12 @@ public enum AutoexecJobNotifyTriggerType implements INotifyTriggerType {
 
     @Override
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     @Override
     public String getDescription() {
-        return description;
+        return I18nUtils.getMessage(description);
     }
 
     public static String getText(String trigger) {
