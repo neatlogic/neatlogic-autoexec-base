@@ -18,16 +18,17 @@ package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.common.constvalue.ParamType;
 import neatlogic.framework.notify.core.INotifyParam;
+import neatlogic.framework.util.I18nUtils;
 
 /**
  * @author laiwt
  * @since 2022/11/14 14:02
  **/
 public enum AutoexecJobNotifyParam implements INotifyParam {
-    ID("jobId", "作业ID", ParamType.NUMBER),
-    NAME("jobName", "作业名称", ParamType.STRING),
-    STATUS("jobStatus", "作业状态", ParamType.STRING),
-    PHASELIST("jobPhaseList", "阶段列表", ParamType.ARRAY),
+    ID("jobId", "enum.autoexec.autoexecjobnotifyparam.id", ParamType.NUMBER),
+    NAME("jobName", "enum.autoexec.autoexecjobnotifyparam.name", ParamType.STRING),
+    STATUS("jobStatus", "enum.autoexec.autoexecjobnotifyparam.status", ParamType.STRING),
+    PHASELIST("jobPhaseList", "enum.autoexec.autoexecjobnotifyparam.phaselist", ParamType.ARRAY),
     ;
     private final String value;
     private final String text;
@@ -46,7 +47,7 @@ public enum AutoexecJobNotifyParam implements INotifyParam {
 
     @Override
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     @Override

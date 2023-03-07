@@ -16,9 +16,11 @@
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 public enum AutoexecTypeAuthorityAction {
-    ADD("add", "添加分类下的自定义工具或工具库工具"),
-    REVIEW("review", "审核分类下的组合工具");
+    ADD("add", "enum.autoexec.autoexectypeauthorityaction.add"),
+    REVIEW("review", "enum.autoexec.autoexectypeauthorityaction.review");
 
     private final String value;
     private final String text;
@@ -33,6 +35,6 @@ public enum AutoexecTypeAuthorityAction {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 }

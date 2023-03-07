@@ -1,15 +1,16 @@
 package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.dependency.core.IFromType;
+import neatlogic.framework.util.I18nUtils;
 
 /**
  * @author longrf
  * @date 2021/12/16 4:16 下午
  */
 public enum AutoexecJobPhaseNodeFrom implements IFromType {
-    JOB("job","作业全局"),
-    GROUP("group","组"),
-    PHASE("phase","阶段")
+    JOB("job","enum.autoexec.autoexecjobphasenodefrom.job"),
+    GROUP("group","enum.autoexec.autoexecjobphasenodefrom.group"),
+    PHASE("phase","enum.autoexec.autoexecjobphasenodefrom.phase")
     ;
 
 
@@ -38,6 +39,6 @@ public enum AutoexecJobPhaseNodeFrom implements IFromType {
      */
     @Override
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 }

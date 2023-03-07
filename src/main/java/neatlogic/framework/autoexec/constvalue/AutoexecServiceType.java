@@ -18,6 +18,7 @@ package neatlogic.framework.autoexec.constvalue;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.common.constvalue.IEnum;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 
@@ -27,8 +28,8 @@ import java.util.List;
  */
 
 public enum AutoexecServiceType implements IEnum {
-    SERVICE("service", "服务"),
-    CATALOG("catalog", "目录"),
+    SERVICE("service", "enum.autoexec.autoexecservicetype.service"),
+    CATALOG("catalog", "enum.autoexec.autoexecservicetype.catalog"),
     ;
 
     private final String value;
@@ -44,7 +45,7 @@ public enum AutoexecServiceType implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     @Override
