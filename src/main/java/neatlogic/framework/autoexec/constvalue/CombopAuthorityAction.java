@@ -16,6 +16,8 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 /**
  * 组合工具授权类型
  *
@@ -23,7 +25,9 @@ package neatlogic.framework.autoexec.constvalue;
  * @since: 2021/4/14 7:38
  **/
 public enum CombopAuthorityAction {
-    EDIT("edit", "编辑"), EXECUTE("execute", "执行"), VIEW("view", "查看");
+    EDIT("edit", "enum.autoexec.combopauthorityaction.edit"),
+    EXECUTE("execute", "enum.autoexec.combopauthorityaction.execute"),
+    VIEW("view", "enum.autoexec.combopauthorityaction.view");
     private String value;
     private String text;
 
@@ -37,6 +41,6 @@ public enum CombopAuthorityAction {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 }
