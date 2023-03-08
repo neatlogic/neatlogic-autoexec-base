@@ -17,6 +17,7 @@ limitations under the License.
 package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.common.constvalue.ApiParamType;
+import neatlogic.framework.util.I18nUtils;
 
 /**
  * 组合工具操作类型
@@ -24,9 +25,9 @@ import neatlogic.framework.common.constvalue.ApiParamType;
  * @since: 2021/4/13 14:43
  **/
 public enum CombopOperationType {
-    COMBOP("combop", "组合"),
-    SCRIPT("script", "脚本"),
-    TOOL("tool", "工具");
+    COMBOP("combop", "enum.autoexec.combopoperationtype.combop"),
+    SCRIPT("script", "enum.autoexec.combopoperationtype.script"),
+    TOOL("tool", "enum.autoexec.combopoperationtype.tool");
 
     private CombopOperationType(String value, String text) {
         this.value = value;
@@ -41,7 +42,7 @@ public enum CombopOperationType {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static String getText(String name) {

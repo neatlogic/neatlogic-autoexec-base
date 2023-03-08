@@ -16,8 +16,11 @@
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 public enum AutoexecTypeType {
-    FACTORY("factory", "默认出厂"), CUSTOM("custom", "自定义");
+    FACTORY("factory", "enum.autoexec.autoexectypetype.factory"),
+    CUSTOM("custom", "enum.autoexec.autoexectypetype.custom");
     private final String value;
     private final String name;
 
@@ -31,7 +34,7 @@ public enum AutoexecTypeType {
     }
 
     public String getName() {
-        return name;
+        return I18nUtils.getMessage(name);
     }
 
     public static String getValue(String _value) {

@@ -20,13 +20,14 @@ import neatlogic.framework.common.constvalue.IEnum;
 import neatlogic.framework.common.dto.ValueTextVo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public enum FailPolicy implements IEnum {
-    STOP("stop", "失败停止"),
-    GOON("goon", "失败继续");
+    STOP("stop", "enum.autoexec.failpolicy.stop"),
+    GOON("goon", "enum.autoexec.failpolicy.goon");
     private final String value;
     private final String text;
 
@@ -40,7 +41,7 @@ public enum FailPolicy implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     /**
