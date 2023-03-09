@@ -40,7 +40,7 @@ public enum JobTriggerType implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static String getText(String _status) {

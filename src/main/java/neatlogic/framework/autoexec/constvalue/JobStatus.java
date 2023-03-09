@@ -20,23 +20,24 @@ import neatlogic.framework.autoexec.dto.job.AutoexecJobStatusVo;
 import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 
 public enum JobStatus implements IEnum {
-    SAVED("saved", "待提交"),
-    PENDING("pending", "待运行"),
-    RUNNING("running", "运行中 "),
-    PAUSING("pausing", "暂停中"),
-    PAUSED("paused", "已暂停"),
-    ABORTING("aborting", "中止中"),
-    ABORTED("aborted", "已中止"),
-    COMPLETED("completed", "已完成"),
-    FAILED("failed", "已失败"),
-    READY("ready", "已就绪"),
-    WAIT_INPUT("waitInput", "待输入"),
-    CHECKED("checked", "已验证"),
-    REVOKED("revoked", "已撤销");
+    SAVED("saved", "enum.autoexec.jobstatus.saved"),
+    PENDING("pending", "enum.autoexec.jobstatus.pending"),
+    RUNNING("running", "enum.autoexec.jobstatus.running"),
+    PAUSING("pausing", "enum.autoexec.jobstatus.pausing"),
+    PAUSED("paused", "enum.autoexec.jobstatus.paused"),
+    ABORTING("aborting", "enum.autoexec.jobstatus.aborting"),
+    ABORTED("aborted", "enum.autoexec.jobstatus.aborted"),
+    COMPLETED("completed", "enum.autoexec.jobstatus.completed"),
+    FAILED("failed", "enum.autoexec.jobstatus.failed"),
+    READY("ready", "enum.autoexec.jobstatus.ready"),
+    WAIT_INPUT("waitInput", "enum.autoexec.jobstatus.wait_input"),
+    CHECKED("checked", "enum.autoexec.jobstatus.checked"),
+    REVOKED("revoked", "enum.autoexec.jobstatus.revoked");
     private final String status;
     private final String text;
 
@@ -50,7 +51,7 @@ public enum JobStatus implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static String getText(String _status) {

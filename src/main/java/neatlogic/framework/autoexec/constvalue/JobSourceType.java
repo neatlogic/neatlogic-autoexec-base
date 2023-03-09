@@ -1,11 +1,13 @@
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 /**
  * @author lvzk
  * @date 2022/04/28 4:16 下午
  */
 public enum JobSourceType {
-    AUTOEXEC("auto","自动化");
+    AUTOEXEC("auto","enum.autoexec.jobsourcetype.autoexec");
 
     private final String value;
     private final String text;
@@ -20,6 +22,6 @@ public enum JobSourceType {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 }

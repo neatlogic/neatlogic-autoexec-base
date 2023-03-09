@@ -16,14 +16,16 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 /**
  * @author: linbq
  * @since: 2021/4/23 14:28
  **/
 public enum NodeStatus {
-    NORMAL("normal", "正常", "#25b865"),
-    USER_NOT_FOUND("user_not_found", "执行用户不存在","#ffff66"),
-    NODE_NOT_FOUND("node_not_found", "执行目标不存在","#f71010");
+    NORMAL("normal", "enum.autoexec.nodestatus.normal", "#25b865"),
+    USER_NOT_FOUND("user_not_found", "enum.autoexec.nodestatus.user_not_found","#ffff66"),
+    NODE_NOT_FOUND("node_not_found", "enum.autoexec.nodestatus.node_not_found","#f71010");
     private final String value;
     private final String text;
     private final String color;
@@ -38,7 +40,7 @@ public enum NodeStatus {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public String getColor() {
