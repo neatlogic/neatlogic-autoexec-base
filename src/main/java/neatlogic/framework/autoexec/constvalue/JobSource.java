@@ -18,15 +18,16 @@ package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.autoexec.dto.AutoexecJobSourceVo;
 import neatlogic.framework.autoexec.source.IAutoexecJobSource;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public enum JobSource implements IAutoexecJobSource {
-    HUMAN("人工", "human"),
-    SERVICE("快捷服务", "service"),
-    AUTOEXEC_SCHEDULE("定时任务", "autoexecschedule"),
-    TEST("测试", "test");
+    HUMAN("enum.autoexec.jobsource.human", "human"),
+    SERVICE("enum.autoexec.jobsource.service", "service"),
+    AUTOEXEC_SCHEDULE("enum.autoexec.jobsource.autoexec_schedule", "autoexecschedule"),
+    TEST("enum.autoexec.jobsource.test", "test");
     private final String text;
     private final String value;
 
@@ -41,7 +42,7 @@ public enum JobSource implements IAutoexecJobSource {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static String getText(String _status) {

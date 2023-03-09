@@ -31,22 +31,22 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum OutputParamType implements IEnum {
-    TEXT("text", "文本", "可输出字符串、数字"),
-    PASSWORD("password", "密码", "可输出数字或字符串，页面显示为密文"),
-    FILE("file", "文件", "支持多个文件同时上传，执行时，自动上传文件到目标主机特定目录下，保留原文件名"),
-    DATE("date", "日期", "日期选择器"),
-    DATETIME("datetime", "日期时间", "日期时间选择器"),
-    TIME("time", "时间", "时间选择器"),
-    JSON("json", "json对象", "支持json对象和json数组，输出内容需是合法Json格式"),
-    SELECT("select", "单选下拉", "单选下拉选择器"),
-    MULTISELECT("multiselect", "多选下拉", "多选下拉选择器"),
-    RADIO("radio", "单选", "单选选择器"),
-    CHECKBOX("checkbox", "复选", "复选选择器"),
-    NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
-    ACCOUNT("account", "帐号", "服务的连接协议、帐号，用户连接主机上的数据库，中间件等服务"),
-    FILEPATH("filepath", "文件路径", "可输出文件路径参数"),
-    TEXTAREA("textarea", "文本域", "可输出字符串、数字"),
-    PHASE("phase", "阶段", "可输出阶段");
+    TEXT("text", "enum.autoexec.outputparamtype.text", "enum.autoexec.outputparamtype.text.1"),
+    PASSWORD("password", "enum.autoexec.outputparamtype.password", "enum.autoexec.outputparamtype.password.1"),
+    FILE("file", "enum.autoexec.outputparamtype.file", "enum.autoexec.outputparamtype.file.1"),
+    DATE("date", "enum.autoexec.outputparamtype.date", "enum.autoexec.outputparamtype.date.1"),
+    DATETIME("datetime", "enum.autoexec.outputparamtype.datetime", "enum.autoexec.outputparamtype.datetime.1"),
+    TIME("time", "enum.autoexec.outputparamtype.time", "enum.autoexec.outputparamtype.time.1"),
+    JSON("json", "enum.autoexec.outputparamtype.json", "enum.autoexec.outputparamtype.json.1"),
+    SELECT("select", "enum.autoexec.outputparamtype.select", "enum.autoexec.outputparamtype.select.1"),
+    MULTISELECT("multiselect", "enum.autoexec.outputparamtype.multiselect", "enum.autoexec.outputparamtype.multiselect.1"),
+    RADIO("radio", "enum.autoexec.outputparamtype.radio", "enum.autoexec.outputparamtype.radio.1"),
+    CHECKBOX("checkbox", "enum.autoexec.outputparamtype.checkbox", "enum.autoexec.outputparamtype.checkbox.1"),
+    NODE("node", "enum.autoexec.outputparamtype.node", "enum.autoexec.outputparamtype.node.1"),
+    ACCOUNT("account", "enum.autoexec.outputparamtype.account", "enum.autoexec.outputparamtype.account.1"),
+    FILEPATH("filepath", "enum.autoexec.outputparamtype.filepath", "enum.autoexec.outputparamtype.filepath.1"),
+    TEXTAREA("textarea", "enum.autoexec.outputparamtype.textarea", "enum.autoexec.outputparamtype.textarea.1"),
+    PHASE("phase", "enum.autoexec.outputparamtype.phase", "enum.autoexec.outputparamtype.phase.1");
 
     private final String value;
     private final String text;

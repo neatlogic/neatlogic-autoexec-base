@@ -3,21 +3,22 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 
 public enum JobPhaseStatus implements IEnum {
-    PENDING("pending", "待运行"),
-    WAITING("waiting", "排队中"),
-    RUNNING("running", "运行中"),
-    PAUSING("pausing", "暂停中"),
-    PAUSED("paused", "已暂停"),
-    ABORTING("aborting", "中止中"),
-    ABORTED("aborted", "已中止"),
-    COMPLETED("completed", "已完成"),
-    FAILED("failed", "已失败"),
-    IGNORED("ignored", "已忽略"),
-    WAIT_INPUT("waitInput", "待输入");
+    PENDING("pending", "enum.autoexec.jobphasestatus.pending"),
+    WAITING("waiting", "enum.autoexec.jobphasestatus.waiting"),
+    RUNNING("running", "enum.autoexec.jobphasestatus.running"),
+    PAUSING("pausing", "enum.autoexec.jobphasestatus.pausing"),
+    PAUSED("paused", "enum.autoexec.jobphasestatus.paused"),
+    ABORTING("aborting", "enum.autoexec.jobphasestatus.aborting"),
+    ABORTED("aborted", "enum.autoexec.jobphasestatus.aborted"),
+    COMPLETED("completed", "enum.autoexec.jobphasestatus.completed"),
+    FAILED("failed", "enum.autoexec.jobphasestatus.failed"),
+    IGNORED("ignored", "enum.autoexec.jobphasestatus.ignored"),
+    WAIT_INPUT("waitInput", "enum.autoexec.jobphasestatus.wait_input");
     private final String status;
     private final String text;
 
@@ -31,7 +32,7 @@ public enum JobPhaseStatus implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static String getText(String _status) {
