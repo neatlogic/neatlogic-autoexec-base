@@ -19,6 +19,7 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 
@@ -29,13 +30,13 @@ import java.util.List;
  * @since: 2021/4/14 17:47
  **/
 public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量"),
-    RUNTIME_PARAM("runtimeparam", "作业参数"),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数值"),
-    PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "上游节点输出参数名"),
-    IS_EMPTY("isempty", "为空"),
-    PROFILE("profile", "预置参数集"),
-    GLOBAL_PARAM("globalparam", "全局参数");
+    CONSTANT("constant", "enum.autoexec.parammappingmode.constant"),
+    RUNTIME_PARAM("runtimeparam", "enum.autoexec.parammappingmode.runtime_param"),
+    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "enum.autoexec.parammappingmode.pre_node_output_param"),
+    PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "enum.autoexec.parammappingmode.pre_node_output_param_key"),
+    IS_EMPTY("isempty", "enum.autoexec.parammappingmode.is_empty"),
+    PROFILE("profile", "enum.autoexec.parammappingmode.profile"),
+    GLOBAL_PARAM("globalparam", "enum.autoexec.parammappingmode.global_param");
 
     private final String value;
     private final String text;
@@ -50,7 +51,7 @@ public enum ParamMappingMode implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     /**

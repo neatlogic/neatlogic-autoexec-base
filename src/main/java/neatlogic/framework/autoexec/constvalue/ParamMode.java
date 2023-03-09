@@ -16,11 +16,13 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 import java.util.Objects;
 
 public enum ParamMode {
-    INPUT("input", "入参"),
-    OUTPUT("output", "出参");
+    INPUT("input", "enum.autoexec.parammode.input"),
+    OUTPUT("output", "enum.autoexec.parammode.output");
     private String value;
     private String text;
 
@@ -34,7 +36,7 @@ public enum ParamMode {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static ParamMode getParamMode(String _value) {

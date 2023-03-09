@@ -16,14 +16,16 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 public enum ScriptAction {
-    SWITCH_VERSION("switchversion", "切换版本", "从版本${DATA.oldVersion}切换到版本${DATA.newVersion}", true),
-    DISABLE("disable", "禁用", "禁用了版本${DATA.version}", true),
-    DELETE("delete", "删除版本", "删除了版本${DATA.version}", true),
-    SUBMIT("submit", "提交", "提交了版本${DATA.version}", true),
-    PASS("pass", "通过", "通过了版本${DATA.version}", true),
-    REJECT("reject", "驳回", "驳回了版本${DATA.version}", true),
-    REVOKE("revoke", "撤回", "撤回了提交版本${DATA.version}", true);
+    SWITCH_VERSION("switchversion", "enum.autoexec.scriptaction.switch_version", "enum.autoexec.scriptaction.switch_version.1", true),
+    DISABLE("disable", "enum.autoexec.scriptaction.disable", "enum.autoexec.scriptaction.disable.1", true),
+    DELETE("delete", "enum.autoexec.scriptaction.delete", "enum.autoexec.scriptaction.delete.1", true),
+    SUBMIT("submit", "enum.autoexec.scriptaction.submit", "enum.autoexec.scriptaction.submit.1", true),
+    PASS("pass", "enum.autoexec.scriptaction.pass", "enum.autoexec.scriptaction.pass.1", true),
+    REJECT("reject", "enum.autoexec.scriptaction.reject", "enum.autoexec.scriptaction.reject.1", true),
+    REVOKE("revoke", "enum.autoexec.scriptaction.revoke", "enum.autoexec.scriptaction.revoke.1", true);
     private String value;
     private String text;
     private String title;
@@ -41,11 +43,11 @@ public enum ScriptAction {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public String getTitle() {
-        return title;
+        return I18nUtils.getMessage(title);
     }
 
     public static boolean isNeedReplaceParam(String _value) {
@@ -60,7 +62,7 @@ public enum ScriptAction {
     public static String getTitle(String _value) {
         for (ScriptAction operate : values()) {
             if (operate.value.equals(_value)) {
-                return operate.title;
+                return operate.getTitle();
             }
         }
         return "";
