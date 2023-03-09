@@ -23,8 +23,8 @@ import neatlogic.framework.common.constvalue.IEnum;
 import java.util.List;
 
 public enum ServiceParamMappingMode implements IEnum  {
-    CONSTANT("constant", "常量"),
-    FORMATTR("formattr", "常量"),
+    CONSTANT("constant", "enum.autoexec.serviceparammappingmode.constant"),
+    FORMATTR("formattr", "enum.autoexec.serviceparammappingmode.formattr"),
     ;
 
     private final String value;

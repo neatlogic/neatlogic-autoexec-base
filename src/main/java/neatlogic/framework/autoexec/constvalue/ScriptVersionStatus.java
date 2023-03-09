@@ -16,13 +16,15 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 public enum ScriptVersionStatus {
-    DRAFT("draft", "草稿"),
-    SUBMITTED("submitted", "待审核"),
-    PASSED("passed", "已通过"),
-    REJECTED("rejected", "已驳回"),
-    CURRENT("current", "激活"),
-    HISTORY("history", "历史");
+    DRAFT("draft", "enum.autoexec.scriptversionstatus.draft"),
+    SUBMITTED("submitted", "enum.autoexec.scriptversionstatus.submitted"),
+    PASSED("passed", "enum.autoexec.scriptversionstatus.passed"),
+    REJECTED("rejected", "enum.autoexec.scriptversionstatus.rejected"),
+    CURRENT("current", "enum.autoexec.scriptversionstatus.current"),
+    HISTORY("history", "enum.autoexec.scriptversionstatus.history");
     private String value;
     private String text;
 
@@ -36,7 +38,7 @@ public enum ScriptVersionStatus {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static String getText(String _value) {

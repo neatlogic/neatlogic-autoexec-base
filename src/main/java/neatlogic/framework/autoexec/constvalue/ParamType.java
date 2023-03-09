@@ -20,6 +20,7 @@ import neatlogic.framework.autoexec.script.paramtype.ScriptParamTypeFactory;
 import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,24 +32,24 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum ParamType implements IEnum {
-    TEXT("text", "文本", "文本参数，可输入字符串、数字"),
-    PASSWORD("password", "密码", "可输入数字或字符串，页面显示为密文"),
-    FILE("file", "文件", "支持多个文件同时上传，执行时，自动上传文件到目标主机特定目录下，保留原文件名"),
-    DATE("date", "日期", "日期选择器"),
-    DATETIME("datetime", "日期时间", "日期时间选择器"),
-    TIME("time", "时间", "时间选择器"),
-    JSON("json", "json对象", "支持json对象和json数组，输入内容需是合法Json格式"),
-    SELECT("select", "单选下拉", "单选下拉选择器"),
-    MULTISELECT("multiselect", "多选下拉", "多选下拉选择器"),
-    RADIO("radio", "单选", "单选选择器"),
-    CHECKBOX("checkbox", "复选", "复选选择器"),
-    NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
-    ACCOUNT("account", "帐号", "服务的连接协议、帐号，用户连接主机上的数据库，中间件等服务"),
-    USERSELECT("userselect", "用户选择器", "用于选择系统用户、分组、角色"),
-    TEXTAREA("textarea", "文本域", "可输入字符串、数字"),
-    PHASE("phase", "阶段", "可选择阶段"),
-    SWITCH("switch", "开关", "开关"),
-    FILEPATH("filepath", "文件路径", "可输出文件路径参数");
+    TEXT("text", "enum.autoexec.paramtype.text", "enum.autoexec.paramtype.text.1"),
+    PASSWORD("password", "enum.autoexec.paramtype.password", "enum.autoexec.paramtype.password.1"),
+    FILE("file", "enum.autoexec.paramtype.file", "enum.autoexec.paramtype.file.1"),
+    DATE("date", "enum.autoexec.paramtype.date", "enum.autoexec.paramtype.date.1"),
+    DATETIME("datetime", "enum.autoexec.paramtype.datetime", "enum.autoexec.paramtype.datetime.1"),
+    TIME("time", "enum.autoexec.paramtype.time", "enum.autoexec.paramtype.time.1"),
+    JSON("json", "enum.autoexec.paramtype.json", "enum.autoexec.paramtype.json.1"),
+    SELECT("select", "enum.autoexec.paramtype.select", "enum.autoexec.paramtype.select.1"),
+    MULTISELECT("multiselect", "enum.autoexec.paramtype.multiselect", "enum.autoexec.paramtype.multiselect.1"),
+    RADIO("radio", "enum.autoexec.paramtype.radio", "enum.autoexec.paramtype.radio.1"),
+    CHECKBOX("checkbox", "enum.autoexec.paramtype.checkbox", "enum.autoexec.paramtype.checkbox.1"),
+    NODE("node", "enum.autoexec.paramtype.node", "enum.autoexec.paramtype.node.1"),
+    ACCOUNT("account", "enum.autoexec.paramtype.account", "enum.autoexec.paramtype.account.1"),
+    USERSELECT("userselect", "enum.autoexec.paramtype.userselect", "enum.autoexec.paramtype.userselect.1"),
+    TEXTAREA("textarea", "enum.autoexec.paramtype.textarea", "enum.autoexec.paramtype.textarea.1"),
+    PHASE("phase", "enum.autoexec.paramtype.phase", "enum.autoexec.paramtype.phase.1"),
+    SWITCH("switch", "enum.autoexec.paramtype.switch", "enum.autoexec.paramtype.switch"),
+    FILEPATH("filepath", "enum.autoexec.paramtype.filepath", "enum.autoexec.paramtype.filepath.1");
 
     private final String value;
     private final String text;
@@ -65,11 +66,11 @@ public enum ParamType implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public String getDescription() {
-        return description;
+        return I18nUtils.getMessage(description);
     }
 
     public static ParamType getParamType(String _value) {

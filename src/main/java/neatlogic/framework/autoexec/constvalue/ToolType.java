@@ -16,9 +16,11 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 public enum ToolType {
-    TOOL("tool", "工具"),
-    SCRIPT("script", "脚本");
+    TOOL("tool", "enum.autoexec.tooltype.tool"),
+    SCRIPT("script", "enum.autoexec.tooltype.script");
     private String value;
     private String text;
 
@@ -32,6 +34,6 @@ public enum ToolType {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 }

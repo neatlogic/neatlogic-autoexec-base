@@ -19,11 +19,14 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 
 public enum ReviewStatus implements IEnum {
-    WAITING("waiting", "待审核"), PASSED("passed", "已通过"), FAILED("failed", "审批未通过 ");
+    WAITING("waiting", "enum.autoexec.reviewstatus.waiting"),
+    PASSED("passed", "enum.autoexec.reviewstatus.passed"),
+    FAILED("failed", "enum.autoexec.reviewstatus.failed ");
     private final String value;
     private final String text;
 
@@ -37,7 +40,7 @@ public enum ReviewStatus implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
 

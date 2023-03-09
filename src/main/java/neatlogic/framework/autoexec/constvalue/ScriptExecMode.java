@@ -19,16 +19,17 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
 import java.util.Objects;
 
 public enum ScriptExecMode implements IEnum {
-    RUNNER("runner", "runner执行", "无需指定执行目标，工具在runner执行，适用于数据汇总处理等"),
-    TARGET("target", "target执行", "需指定执行目标，工具在指定的远程主机上执行，只适用于主机信息采集或命令下发"),
-    RUNNER_TARGET("runner_target", "runner->target执行", "需指定执行目标，工具在runner上执行，适用于网络设备、存储设备、软件系统等的信息采集或命令下发"),
-    SQL("sqlfile", "sql文件执行", "需选定DB执行目标，工具在runner上执行，适用于SQL文件的检查、执行等操作"),
-    NATIVE("native", "native执行", "");
+    RUNNER("runner", "enum.autoexec.scriptexecmode.runner", "enum.autoexec.scriptexecmode.runner.1"),
+    TARGET("target", "enum.autoexec.scriptexecmode.target", "enum.autoexec.scriptexecmode.target.1"),
+    RUNNER_TARGET("runner_target", "enum.autoexec.scriptexecmode.runner_target", "enum.autoexec.scriptexecmode.runner_target.1"),
+    SQL("sqlfile", "enum.autoexec.scriptexecmode.sql", "enum.autoexec.scriptexecmode.sql.1"),
+    NATIVE("native", "enum.autoexec.scriptexecmode.native", "");
     private final String value;
     private final String text;
     private final String description;
@@ -44,7 +45,7 @@ public enum ScriptExecMode implements IEnum {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
     public static ScriptExecMode getExecMode(String _value) {
@@ -57,7 +58,7 @@ public enum ScriptExecMode implements IEnum {
     }
 
     public String getDescription() {
-        return description;
+        return I18nUtils.getMessage(description);
     }
 
     public static String getText(String _value) {

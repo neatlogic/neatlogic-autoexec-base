@@ -16,27 +16,29 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 /**
  * @author: laiwt
  * @since: 2021/5/27 11:15
  **/
 public enum ScriptAndToolOperate {
-    EDIT("edit", "编辑"),
-    DELETE("delete", "删除"),
-    VERSION_DELETE("delete", "删除"),
-    COPY("copy", "复制"),
-    TEST("test", "测试"),
-    COMPARE("compare", "对比"),
-    VALIDATE("validate", "校验"),
-    SAVE("save", "存为草稿"),
-    SUBMIT("submit", "提交审核"),
-    PASS("pass", "通过"),
-    REJECT("reject", "驳回"),
-    GENERATETOCOMBOP("generateToCombop", "发布为组合工具"),
-    EXPORT("export", "导出"),
-    ACTIVE("active", "启用/禁用"),
-    SWITCH_VERSION("switchversion", "回退"),
-    REVOKE("revoke", "撤回");
+    EDIT("edit", "enum.autoexec.scriptandtooloperate.edit"),
+    DELETE("delete", "enum.autoexec.scriptandtooloperate.delete"),
+    VERSION_DELETE("delete", "enum.autoexec.scriptandtooloperate.version_delete"),
+    COPY("copy", "enum.autoexec.scriptandtooloperate.copy"),
+    TEST("test", "enum.autoexec.scriptandtooloperate.test"),
+    COMPARE("compare", "enum.autoexec.scriptandtooloperate.compare"),
+    VALIDATE("validate", "enum.autoexec.scriptandtooloperate.validate"),
+    SAVE("save", "enum.autoexec.scriptandtooloperate.save"),
+    SUBMIT("submit", "enum.autoexec.scriptandtooloperate.submit"),
+    PASS("pass", "enum.autoexec.scriptandtooloperate.pass"),
+    REJECT("reject", "enum.autoexec.scriptandtooloperate.reject"),
+    GENERATETOCOMBOP("generateToCombop", "enum.autoexec.scriptandtooloperate.generatetocombop"),
+    EXPORT("export", "enum.autoexec.scriptandtooloperate.export"),
+    ACTIVE("active", "enum.autoexec.scriptandtooloperate.active"),
+    SWITCH_VERSION("switchversion", "enum.autoexec.scriptandtooloperate.switch_version"),
+    REVOKE("revoke", "enum.autoexec.scriptandtooloperate.revoke");
     private final String value;
     private final String text;
 
@@ -50,7 +52,7 @@ public enum ScriptAndToolOperate {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
 }

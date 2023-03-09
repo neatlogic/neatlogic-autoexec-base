@@ -16,9 +16,11 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
+import neatlogic.framework.util.I18nUtils;
+
 public enum ParamDataSource {
-    STATIC("static", "静态数据源"),
-    MATRIX("matrix", "矩阵数据源");
+    STATIC("static", "enum.autoexec.paramdatasource.static"),
+    MATRIX("matrix", "enum.autoexec.paramdatasource.matrix");
     private final String value;
     private final String text;
 
@@ -32,7 +34,7 @@ public enum ParamDataSource {
     }
 
     public String getText() {
-        return text;
+        return I18nUtils.getMessage(text);
     }
 
 }
