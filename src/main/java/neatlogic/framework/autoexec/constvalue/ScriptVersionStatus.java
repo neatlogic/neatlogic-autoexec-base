@@ -44,7 +44,7 @@ public enum ScriptVersionStatus {
     public static String getText(String _value) {
         for (ScriptVersionStatus status : values()) {
             if (status.value.equals(_value)) {
-                return status.text;
+                return status.getText();
             }
         }
         return "";
