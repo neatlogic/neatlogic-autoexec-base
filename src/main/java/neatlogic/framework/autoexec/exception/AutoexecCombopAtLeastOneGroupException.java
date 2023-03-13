@@ -18,12 +18,6 @@ package neatlogic.framework.autoexec.exception;
 
 import neatlogic.framework.exception.core.ApiRuntimeException;
 
-/**
- * 组合工具没有阶段异常
- *
- * @author: linbq
- * @since: 2021/4/16 11:42
- **/
 public class AutoexecCombopAtLeastOneGroupException extends ApiRuntimeException {
 
     private static final long serialVersionUID = -977867274723886193L;
