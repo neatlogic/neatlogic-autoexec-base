@@ -1686,7 +1686,9 @@ limitations under the License.
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         <where>
-            ajp.node_from != "0"
+            <if test="nodeFrom != null and nodeFrom == 'group'">
+                ajp.node_from != "0"
+            </if>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
     </select>
@@ -1708,7 +1710,9 @@ limitations under the License.
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         <where>
-            ajp.node_from != "0"
+            <if test="nodeFrom != null and nodeFrom == 'group'">
+                ajp.node_from != "0"
+            </if>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
         ORDER BY ajpn.`host`,ajpn.`port`
