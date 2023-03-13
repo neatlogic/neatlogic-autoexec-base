@@ -27,4 +27,7 @@ public class AutoexecJobPhaseNotFoundException extends ApiRuntimeException {
     }
 
 
+    public AutoexecJobPhaseNotFoundException(Long jobId, Integer groupSort) {
+        super("exception.autoexec.autoexecjobphasenotfoundexception.1", jobId, groupSort);
+    }
 }

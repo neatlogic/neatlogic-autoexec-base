@@ -355,7 +355,7 @@ public interface AutoexecJobMapper {
 
     Integer updateJobParamHashById(@Param("jobId") Long jobId, @Param("paramHash") String paramHash);
 
-    Integer updateJobPhaseNodeFrom(@Param("jobPhaseId") Long id, @Param("nodeFrom") String nodeFrom);
+    Integer updateJobPhaseFrom(AutoexecJobVo jobVo);
 
     Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 

@@ -169,8 +169,11 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @JSONField(serialize = false)
     private String action;//fire|refire|goon
     @JSONField(serialize = false)
-    private String nodeFrom;//job|group|phase
-
+    private String nodeFrom = "0";//job|group|phase
+    @JSONField(serialize = false)
+    private String userNameFrom = "0";//node 协议来源 job|group|phase
+    @JSONField(serialize = false)
+    private String protocolFrom = "0";//node 协议来源 job|group|phase
     @JSONField(serialize = false)
     private List<AutoexecJobPhaseNodeVo> executeJobNodeVoList;//场景：工具库测试|重跑节点
     @JSONField(serialize = false)
@@ -779,6 +782,22 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setNodeFrom(String nodeFrom) {
         this.nodeFrom = nodeFrom;
+    }
+
+    public String getUserNameFrom() {
+        return userNameFrom;
+    }
+
+    public void setUserNameFrom(String userNameFrom) {
+        this.userNameFrom = userNameFrom;
+    }
+
+    public String getProtocolFrom() {
+        return protocolFrom;
+    }
+
+    public void setProtocolFrom(String protocolFrom) {
+        this.protocolFrom = protocolFrom;
     }
 
     public Integer getIsCanTakeOver() {

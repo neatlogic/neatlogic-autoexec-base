@@ -88,6 +88,10 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     private Long resourceId;
     @EntityField(name = "执行目标配置来源", type = ApiParamType.STRING)
     private String nodeFrom;
+    @EntityField(name = "执行用户来源", type = ApiParamType.STRING)
+    private String userNameFrom;//node 协议来源 job|group|phase
+    @EntityField(name = "执行协议来源", type = ApiParamType.STRING)
+    private String protocolFrom;//node 协议来源 job|group|phase
     @JSONField(serialize = false)
     private Integer groupSort;//组排序用于节点过滤
     @JSONField(serialize = false)
@@ -124,13 +128,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
         this.setJobId(jobId);
         this.jobPhaseName = jobPhaseName;
         this.isDelete = isDelete;
-    }
-
-    public AutoexecJobPhaseNodeVo(Long jobId, String jobPhaseName, Integer isDelete, String nodeFrom) {
-        this.setJobId(jobId);
-        this.jobPhaseName = jobPhaseName;
-        this.isDelete = isDelete;
-        this.setNodeFrom(nodeFrom);
     }
 
     public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status, String userName, Long protocolId) {
@@ -431,5 +428,21 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
 
     public void setIsExecuted(Integer isExecuted) {
         this.isExecuted = isExecuted;
+    }
+
+    public String getUserNameFrom() {
+        return userNameFrom;
+    }
+
+    public void setUserNameFrom(String userNameFrom) {
+        this.userNameFrom = userNameFrom;
+    }
+
+    public String getProtocolFrom() {
+        return protocolFrom;
+    }
+
+    public void setProtocolFrom(String protocolFrom) {
+        this.protocolFrom = protocolFrom;
     }
 }

@@ -84,6 +84,12 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer warnCount = 0;
     @EntityField(name = "分批数", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "执行目标配置来源", type = ApiParamType.STRING)
+    private String nodeFrom;
+    @EntityField(name = "执行用户来源", type = ApiParamType.STRING)
+    private String userNameFrom;//node 协议来源 job|group|phase
+    @EntityField(name = "执行协议来源", type = ApiParamType.STRING)
+    private String protocolFrom;//node 协议来源 job|group|phase
 
     @JSONField(serialize = false)
     private AutoexecJobNodeVo currentNode;
@@ -343,5 +349,29 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
             return new AutoexecJobStatusVo(status, JobPhaseStatus.getText(status));
         }
         return statusVo;
+    }
+
+    public String getNodeFrom() {
+        return nodeFrom;
+    }
+
+    public void setNodeFrom(String nodeFrom) {
+        this.nodeFrom = nodeFrom;
+    }
+
+    public String getUserNameFrom() {
+        return userNameFrom;
+    }
+
+    public void setUserNameFrom(String userNameFrom) {
+        this.userNameFrom = userNameFrom;
+    }
+
+    public String getProtocolFrom() {
+        return protocolFrom;
+    }
+
+    public void setProtocolFrom(String protocolFrom) {
+        this.protocolFrom = protocolFrom;
     }
 }

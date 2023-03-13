@@ -234,7 +234,7 @@ limitations under the License.
 
     <sql id="searchJobPhaseNodeSql">
         <if test="jobId != null">
-            ajp.`job_id` = #{jobId}
+            and ajp.`job_id` = #{jobId}
         </if>
         <if test="jobPhaseName != null and jobPhaseName != ''">
             and ajp.`name` = #{jobPhaseName}
@@ -268,6 +268,15 @@ limitations under the License.
         </if>
         <if test="isDelete != null">
             and ajpn.`is_delete` = #{isDelete}
+        </if>
+        <if test="nodeFrom != null and nodeFrom != ''">
+            and ajp.`node_from` = #{nodeFrom}
+        </if>
+        <if test="userNameFrom != null and userNameFrom != ''">
+            and ajp.`user_name_from` = #{userNameFrom}
+        </if>
+        <if test="protocolFrom != null and protocolFrom != ''">
+            and ajp.`protocol_from` = #{protocolFrom}
         </if>
         <if test="nodeFrom != null and nodeFrom != ''">
             and ajp.`node_from` = #{nodeFrom}
@@ -459,6 +468,9 @@ limitations under the License.
         <result column="uuid" property="uuid"/>
         <result column="isPreOutputUpdateNode" property="isPreOutputUpdateNode"/>
         <result column="roundCount" property="roundCount"/>
+        <result column="nodeFrom" property="nodeFrom"/>
+        <result column="protocolFrom" property="protocolFrom"/>
+        <result column="userNameFrom" property="userNameFrom"/>
         <collection property="jobGroupVo" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobGroupVo">
             <result column="groupId" property="id"/>
             <result column="groupSort" property="sort"/>
@@ -740,6 +752,9 @@ limitations under the License.
                `sort`,
                `status`,
                `uuid`,
+               `node_from`                 as nodeFrom,
+               `user_name_from`            as userNameFrom,
+               `protocol_from`             as protocolFrom,
                `is_pre_output_update_node` as isPreOutputUpdateNode,
                `round_count`               as roundCount
         FROM `autoexec_job_phase`
@@ -858,6 +873,9 @@ limitations under the License.
         ajp.`execute_policy` as executePolicy,
         ajp.`status`,
         ajp.`round_count` as roundCount,
+        ajp.`node_from`                 as nodeFrom,
+        ajp.`user_name_from`            as userNameFrom,
+        ajp.`protocol_from`             as protocolFrom,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.config,
@@ -1505,7 +1523,8 @@ limitations under the License.
                aj.`source`,
                aj.`round_count`     as roundCount
         FROM `autoexec_job` aj
-        WHERE aj.`fcd` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY) or aj.`fcd` is null
+        WHERE aj.`fcd` &lt;= DATE_SUB(CURDATE(), INTERVAL #{value} DAY)
+           or aj.`fcd` is null
     </select>
 
     <select id="getJobPhaseRunnerMapIdListByJobIdList" resultType="java.lang.Long">
@@ -1667,6 +1686,7 @@ limitations under the License.
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         <where>
+            ajp.node_from != "0"
             <include refid="searchJobPhaseNodeSql"/>
         </where>
     </select>
@@ -1688,6 +1708,7 @@ limitations under the License.
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         <where>
+            ajp.node_from != "0"
             <include refid="searchJobPhaseNodeSql"/>
         </where>
         ORDER BY ajpn.`host`,ajpn.`port`
@@ -2773,10 +2794,12 @@ limitations under the License.
         where `id` = #{jobId}
     </update>
 
-    <update id="updateJobPhaseNodeFrom">
+    <update id="updateJobPhaseFrom">
         update `autoexec_job_phase`
-        set `node_from` = #{nodeFrom}
-        where id = #{jobPhaseId}
+        set `node_from`      = #{nodeFrom},
+            `user_name_from` = #{userNameFrom},
+            `protocol_from`  = #{protocolFrom}
+        where id = #{currentPhase.id}
     </update>
     <update id="updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList">
         update `autoexec_job_phase_node`
