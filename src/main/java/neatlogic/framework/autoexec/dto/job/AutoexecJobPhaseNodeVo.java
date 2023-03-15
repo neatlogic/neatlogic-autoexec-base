@@ -16,17 +16,17 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.dto.job;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.autoexec.constvalue.JobNodeStatus;
 import neatlogic.framework.autoexec.dto.INodeDetail;
-import neatlogic.framework.dto.runner.RunnerVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import neatlogic.framework.cmdb.dto.resourcecenter.ResourceVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
+import neatlogic.framework.dto.runner.RunnerVo;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
 import neatlogic.framework.util.TimeUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -102,6 +102,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     private String sqlFile;
     @JSONField(serialize = false)
     private Integer isExecuted;//是否执行过，用于标识执行过的节点不能删除
+    @JSONField(serialize = false)
+    private Integer isDownloadGroup;//是否下载组节点，用于下载节点接口
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -154,6 +156,7 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     }
 
     public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, AutoexecJobPhaseVo jobPhaseVo, String status, String userName, Long protocolId) {
+        this.setResourceId(resourceVo.getId());
         this.setHost(resourceVo.getIp());
         this.setNodeName(resourceVo.getName());
         this.setPort(resourceVo.getPort());
@@ -445,4 +448,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     public void setProtocolFrom(String protocolFrom) {
         this.protocolFrom = protocolFrom;
     }
+
+    public Integer getIsDownloadGroup() {
+        return isDownloadGroup;
+    }
+
+    public void setIsDownloadGroup(Integer isDownloadGroup) {
+        this.isDownloadGroup = isDownloadGroup;
+    }
+
 }

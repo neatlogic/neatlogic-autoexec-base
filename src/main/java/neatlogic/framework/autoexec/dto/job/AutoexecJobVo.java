@@ -16,6 +16,9 @@
 
 package neatlogic.framework.autoexec.dto.job;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
 import neatlogic.framework.autoexec.constvalue.CombopOperationType;
 import neatlogic.framework.autoexec.constvalue.JobStatus;
@@ -34,9 +37,6 @@ import neatlogic.framework.dto.UserVo;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
 import neatlogic.framework.util.TimeUtil;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -240,6 +240,9 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @JSONField(serialize = false)
     @EntityField(name = "排序", type = ApiParamType.JSONOBJECT)
     private AutoexecJobSortVo sortOrder;
+
+    @JSONField(serialize = false)
+    private Map<Long, Long> nodeResourceIdRunnerIdMap = new HashMap<>();//用于缓存节点对应的runner，确保同一个节点用的是同一个runner
 
     public AutoexecJobVo() {
     }
@@ -1007,5 +1010,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setSortOrder(AutoexecJobSortVo sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public Map<Long, Long> getNodeResourceIdRunnerIdMap() {
+        return nodeResourceIdRunnerIdMap;
+    }
+
+    public void setNodeResourceIdRunnerIdMap(Map<Long, Long> nodeResourceIdRunnerIdMap) {
+        this.nodeResourceIdRunnerIdMap = nodeResourceIdRunnerIdMap;
     }
 }

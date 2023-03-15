@@ -873,9 +873,9 @@ limitations under the License.
         ajp.`execute_policy` as executePolicy,
         ajp.`status`,
         ajp.`round_count` as roundCount,
-        ajp.`node_from`                 as nodeFrom,
-        ajp.`user_name_from`            as userNameFrom,
-        ajp.`protocol_from`             as protocolFrom,
+        ajp.`node_from` as nodeFrom,
+        ajp.`user_name_from` as userNameFrom,
+        ajp.`protocol_from` as protocolFrom,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.config,
@@ -1019,6 +1019,23 @@ limitations under the License.
         FROM `autoexec_job_phase_node` ajpn
         where ajpn.`job_id` = #{jobId}
           and ajpn.`job_phase_id` = #{phaseId}
+    </select>
+
+    <select id="getJobPhaseNodeListWithRunnerByJobId"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT ajpn.`id`,
+               ajpn.`job_id`       AS jobId,
+               ajpn.`job_phase_id` AS jobPhaseId,
+               ajpn.`host`,
+               ajpn.`port`,
+               ajpn.`start_time`   AS startTime,
+               ajpn.`end_time`     AS endTime,
+               ajpn.`status`,
+               ajpn.`resource_id` as resourceId,
+               ajpnr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node` ajpn
+                 left join autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
+        where ajpn.`job_id` = #{jobId}
     </select>
 
     <select id="getJobPhaseNodeListWithoutDeleteByJobIdAndPhaseId"
@@ -1686,7 +1703,7 @@ limitations under the License.
         LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
         <where>
-            <if test="nodeFrom != null and nodeFrom == 'group'">
+            <if test="isDownloadGroup != null and isDownloadGroup == 1">
                 ajp.node_from != "0"
             </if>
             <include refid="searchJobPhaseNodeSql"/>
@@ -1710,7 +1727,7 @@ limitations under the License.
         LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         <where>
-            <if test="nodeFrom != null and nodeFrom == 'group'">
+            <if test="isDownloadGroup != null and isDownloadGroup == 1">
                 ajp.node_from != "0"
             </if>
             <include refid="searchJobPhaseNodeSql"/>
@@ -2925,6 +2942,11 @@ limitations under the License.
         <foreach collection="idList" item="id" close=")" open="(" separator=",">
             #{id}
         </foreach>
+    </update>
+    <update id="updateJobLocalRunnerId">
+        UPDATE autoexec_job
+        set `runner_map_id` = #{runnerId}
+        where id = #{jobId}
     </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">

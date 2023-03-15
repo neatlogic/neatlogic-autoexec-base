@@ -173,6 +173,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
+    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListWithRunnerByJobId(@Param("jobId") Long jobId);
+
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListWithoutDeleteByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
     int getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
@@ -372,6 +374,8 @@ public interface AutoexecJobMapper {
     void updateSqlStatusByIdList(@Param("idList") List<Long> sqlIdList, @Param("status") String status);
 
     void resetJobSqlStatusBySqlIdList(@Param("idList") List<Long> idList);
+
+    Integer updateJobLocalRunnerId(@Param("jobId") Long jobId,@Param("runnerId") Long runnerId);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
