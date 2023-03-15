@@ -363,6 +363,9 @@ limitations under the License.
         LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
         <where>
+            <if test="isDownloadGroup != null and isDownloadGroup == 1">
+                ajp.node_from != "0"
+            </if>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
     </select>
