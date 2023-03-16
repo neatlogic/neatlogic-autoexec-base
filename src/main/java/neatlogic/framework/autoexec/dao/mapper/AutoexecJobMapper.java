@@ -16,6 +16,7 @@
 
 package neatlogic.framework.autoexec.dao.mapper;
 
+import com.alibaba.fastjson.JSONArray;
 import neatlogic.framework.autoexec.annotation.AutoexecJobCallback;
 import neatlogic.framework.autoexec.annotation.AutoexecJobCallbackParam;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
@@ -23,7 +24,6 @@ import neatlogic.framework.autoexec.dto.customtemplate.CustomTemplateVo;
 import neatlogic.framework.autoexec.dto.job.*;
 import neatlogic.framework.dto.runner.RunnerMapVo;
 import neatlogic.framework.dto.runner.RunnerVo;
-import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -244,6 +244,7 @@ public interface AutoexecJobMapper {
 
     List<RunnerMapVo> getJobRunnerListByJobIdAndJobNodeIdList(@Param("jobId") Long jobId, @Param("nodeIdList") List<Long> nodeIdList);
 
+    List<Long> getJobRunnerMapIdListByJobId(@Param("jobId") Long jobId);
 
     List<RunnerMapVo> getJobPhaseNodeRunnerListByJobPhaseId(Long jobPhaseId);
 

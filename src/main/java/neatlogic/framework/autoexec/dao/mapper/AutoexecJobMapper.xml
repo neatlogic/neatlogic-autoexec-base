@@ -1610,8 +1610,15 @@ limitations under the License.
         <foreach collection="nodeIdList" item="nodeId" close=")" separator="," open="(">
             #{nodeId}
         </foreach>
-
     </select>
+
+    <select id="getJobRunnerMapIdListByJobId" resultType="java.lang.Long">
+        SELECT DISTINCT
+        ajpr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node_runner` ajpr
+        WHERE ajpr.`job_id` = #{jobId}
+    </select>
+
     <select id="getJobPhaseNodeRunnerListByJobPhaseId"
             resultType="neatlogic.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
