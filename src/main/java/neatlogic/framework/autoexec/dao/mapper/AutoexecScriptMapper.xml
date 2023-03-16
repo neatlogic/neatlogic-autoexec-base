@@ -1715,9 +1715,10 @@
     <resultMap id="scriptVersionIncludeFileMap" type="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         <result property="id" column="id"/>
         <result property="scriptId" column="scriptId"/>
-        <collection property="useLibName" ofType="neatlogic.framework.file.dto.FileVo">
+        <collection property="packageFile" ofType="neatlogic.framework.file.dto.FileVo">
             <result property="id" column="id"/>
             <result property="name" column="name"/>
+            <result property="type" column="type"/>
             <result property="path" column="path"/>
             <result property="size" column="size"/>
         </collection>
@@ -1729,6 +1730,7 @@
         a.`id`,
         a.`script_id` as scriptId,
         f.`id`,
+        f.`type`,
         f.`name`,
         f.`path`,
         f.`size`
