@@ -243,6 +243,8 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     @JSONField(serialize = false)
     private Map<Long, Long> nodeResourceIdRunnerIdMap = new HashMap<>();//用于缓存节点对应的runner，确保同一个节点用的是同一个runner
+    @EntityField(name = "作业local 的runnerMapId", type = ApiParamType.LONG)
+    private Long runnerMapId;
 
     public AutoexecJobVo() {
     }
@@ -1018,5 +1020,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setNodeResourceIdRunnerIdMap(Map<Long, Long> nodeResourceIdRunnerIdMap) {
         this.nodeResourceIdRunnerIdMap = nodeResourceIdRunnerIdMap;
+    }
+
+    public Long getRunnerMapId() {
+        return runnerMapId;
+    }
+
+    public void setRunnerMapId(Long runnerMapId) {
+        this.runnerMapId = runnerMapId;
     }
 }

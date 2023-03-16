@@ -558,7 +558,8 @@ limitations under the License.
                aj.`lncd`,
                aj.`parent_id`       as parentId,
                aj.`trigger_type`    as triggerType,
-               aj.`scenario_id`     as scenarioId
+               aj.`scenario_id`     as scenarioId,
+               aj.`runner_map_id`   as runnerMapId
         FROM `autoexec_job` aj
         WHERE aj.`id` = #{value}
     </select>
