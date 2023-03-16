@@ -83,6 +83,8 @@ public interface AutoexecScriptMapper {
 
     List<AutoexecScriptVersionVo> getActiveVersionIncludeUseLibAndNameByScriptIdList(List<Long> idList);
 
+    List<AutoexecScriptVersionVo> getActiveVersionIncludeFileByScriptIdList(List<Long> idList);
+
     int searchVersionCountForSelect(AutoexecScriptVersionVo vo);
 
     List<AutoexecScriptVersionVo> searchVersionListForSelect(AutoexecScriptVersionVo vo);
