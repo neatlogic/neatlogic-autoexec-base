@@ -125,7 +125,6 @@ limitations under the License.
         `is_active` AS isActive,
         `operation_type` AS operationType,
         `notify_policy_id` AS notifyPolicyId,
-        `config` AS configStr,
         `owner`,
         `fcd`,
         `fcu`
