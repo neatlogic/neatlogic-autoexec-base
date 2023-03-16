@@ -46,6 +46,9 @@ public class AutoexecJobNodeVo  extends BaseEditorVo {
     private String nodeName;
     @EntityField(name = "节点类型", type = ApiParamType.STRING)
     private String nodeType;
+    @EntityField(name = "资产id", type = ApiParamType.LONG)
+    private Long resourceId;
+
 
     public AutoexecJobNodeVo() {
     }
@@ -138,5 +141,13 @@ public class AutoexecJobNodeVo  extends BaseEditorVo {
 
     public void setNodeType(String nodeType) {
         this.nodeType = nodeType;
+    }
+
+    public Long getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
     }
 }
