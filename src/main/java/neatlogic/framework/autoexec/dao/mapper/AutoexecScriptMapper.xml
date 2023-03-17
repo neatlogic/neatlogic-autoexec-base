@@ -631,6 +631,7 @@
                `version`,
                `encoding`,
                `parser`,
+               `package_file_id` as packageFileId,
                `status`,
                `reviewer`,
                `is_active` as isActive,
