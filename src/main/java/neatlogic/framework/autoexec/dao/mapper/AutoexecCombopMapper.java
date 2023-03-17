@@ -20,10 +20,12 @@ import neatlogic.framework.autoexec.crossover.IAutoexecCombopCrossoverMapper;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.AutoexecTypeVo;
 import neatlogic.framework.autoexec.dto.combop.*;
+import neatlogic.framework.common.dto.BasePageVo;
 import neatlogic.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -86,6 +88,10 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
 
     List<AutoexecTypeVo> getAllAutoexecTypeListUsedByCombop();
 
+    int getAutoexecCombopCountForUpdateConfig();
+
+    List<Map<String, Object>> getAutoexecCombopListForUpdateConfig(BasePageVo searchVo);
+
     int insertAutoexecCombop(AutoexecCombopVo autoexecCombopVo);
 
     int insertAutoexecCombopAuthorityVoList(List<AutoexecCombopAuthorityVo> autoexecCombopAuthorityVoList);
@@ -99,6 +105,8 @@ public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
     int updateAutoexecCombopIsActiveById(AutoexecCombopVo autoexecCombopVo);
 
     int updateAutoexecCombopConfigById(AutoexecCombopVo autoexecCombopVo);
+
+    int updateAutoexecCombopConfigByIdAndConfigStr(@Param("id") Long id, @Param("configStr") String configStr);
 
 //    int updateAutoexecCombopPasswordParam(@Param("param") AutoexecCombopParamVo autoexecCombopParamVo, @Param("password") String password);
 
