@@ -150,6 +150,7 @@
                `version`,
                `encoding`,
                `parser`,
+               `package_file_id` as packageFileId,
                `status`,
                `reviewer`,
                `is_active` as isActive,
@@ -266,6 +267,7 @@
         <id column="scriptId" property="scriptId"/>
         <result column="encoding" property="encoding"/>
         <result column="parser" property="parser"/>
+        <result column="packageFileId" property="packageFileId"/>
         <result column="version" property="version"/>
         <result column="status" property="status"/>
         <result column="reviewer" property="reviewer"/>
@@ -471,6 +473,7 @@
                `version`,
                `encoding`,
                `parser`,
+               `package_file_id` as packageFileId,
                `status`,
                `reviewer`,
                `is_active` as isActive,
@@ -507,6 +510,7 @@
         <result column="version" property="version"/>
         <result column="encoding" property="encoding"/>
         <result column="parser" property="parser"/>
+        <result column="packageFileId" property="packageFileId"/>
         <result column="status" property="status"/>
         <result column="reviewer" property="reviewer"/>
         <result column="isActive" property="isActive"/>
@@ -522,6 +526,7 @@
                asv.`version`,
                asv.`encoding`,
                asv.`parser`,
+               asv.`package_file_id` as packageFileId,
                asv.`status`,
                asv.`reviewer`,
                asv.`is_active` as isActive,
@@ -626,6 +631,7 @@
                `version`,
                `encoding`,
                `parser`,
+               `package_file_id` as packageFileId,
                `status`,
                `reviewer`,
                `is_active` as isActive,
@@ -1609,6 +1615,7 @@
         a.`id`,
         a.`script_id` as scriptId,
         a.`parser`,
+        a.`package_file_id` as packageFileId,
         c.`id` AS lineId,
         c.`script_id` AS lineScriptId,
         c.`script_version_id` AS lineScriptVersionId,
@@ -1706,6 +1713,39 @@
         and a.is_active =1
     </select>
 
+    <resultMap id="scriptVersionIncludeFileMap" type="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
+        <result property="id" column="id"/>
+        <result property="scriptId" column="scriptId"/>
+        <collection property="packageFile" ofType="neatlogic.framework.file.dto.FileVo">
+            <result property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="type" column="type"/>
+            <result property="path" column="path"/>
+            <result property="size" column="size"/>
+        </collection>
+    </resultMap>
+
+    <select id="getActiveVersionIncludeFileByScriptIdList"
+            resultMap="scriptVersionIncludeFileMap">
+        select
+        a.`id`,
+        a.`script_id` as scriptId,
+        f.`id`,
+        f.`type`,
+        f.`name`,
+        f.`path`,
+        f.`size`
+        FROM
+        `autoexec_script_version` a
+        LEFT JOIN `file` f ON f.id = a.package_file_id
+        where a.`script_id` in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        and a.is_active = 1
+        and a.parser = 'package'
+    </select>
+
     <update id="updateScriptBaseInfo" parameterType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script`
         set `name`               = #{name},
@@ -1730,6 +1770,9 @@
         </if>
         <if test="parser != null">
             `parser` = #{parser},
+        </if>
+        <if test="packageFileId != null">
+            `package_file_id` = #{packageFileId},
         </if>
         <if test="status != null">
             `status` = #{status},
@@ -1789,6 +1832,7 @@
                                                `version`,
                                                `encoding`,
                                                `parser`,
+                                               `package_file_id`,
                                                `status`,
                                                `is_active`,
                                                `lcu`,
@@ -1799,6 +1843,7 @@
                 #{version},
                 #{encoding},
                 #{parser},
+                #{packageFileId},
                 #{status},
                 #{isActive},
                 #{lcu},
@@ -1895,6 +1940,7 @@
         `version`,
         `encoding`,
         `parser`,
+        `package_file_id`,
         `status`,
         `is_active`,
         `reviewer`,
@@ -1908,6 +1954,7 @@
             #{item.version},
             #{item.encoding},
             #{item.parser},
+            #{item.packageFileId},
             #{item.status},
             #{item.isActive},
             #{item.reviewer},

@@ -20,6 +20,7 @@ import neatlogic.framework.autoexec.constvalue.ScriptVersionStatus;
 import neatlogic.framework.autoexec.dto.AutoexecOperationVo;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
+import neatlogic.framework.file.dto.FileVo;
 import neatlogic.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
@@ -83,6 +84,12 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
     private List<Long> useLib = new ArrayList<>();
     @EntityField(name = "依赖工具名", type = ApiParamType.JSONARRAY)
     private List<String> useLibName;
+    @EntityField(name = "包文件id", type = ApiParamType.LONG)
+    private Long packageFileId;
+    @EntityField(name = "包文件名", type = ApiParamType.STRING)
+    private String packageFileName;
+    @EntityField(name = "包文件", type = ApiParamType.JSONOBJECT)
+    private FileVo packageFile;
 
 
     public AutoexecScriptVo() {
@@ -262,5 +269,29 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     public void setUseLibName(List<String> useLibName) {
         this.useLibName = useLibName;
+    }
+
+    public Long getPackageFileId() {
+        return packageFileId;
+    }
+
+    public void setPackageFileId(Long packageFileId) {
+        this.packageFileId = packageFileId;
+    }
+
+    public String getPackageFileName() {
+        return packageFileName;
+    }
+
+    public void setPackageFileName(String packageFileName) {
+        this.packageFileName = packageFileName;
+    }
+
+    public FileVo getPackageFile() {
+        return packageFile;
+    }
+
+    public void setPackageFile(FileVo packageFile) {
+        this.packageFile = packageFile;
     }
 }

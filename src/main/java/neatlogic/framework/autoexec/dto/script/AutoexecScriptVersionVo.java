@@ -24,6 +24,7 @@ import neatlogic.framework.common.dto.ValueTextVo;
 import neatlogic.framework.dto.OperateVo;
 import neatlogic.framework.dto.UserVo;
 import neatlogic.framework.dto.WorkAssignmentUnitVo;
+import neatlogic.framework.file.dto.FileVo;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -94,6 +95,10 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private List<Long> useLib = new ArrayList<>();
     @EntityField(name = "依赖工具名", type = ApiParamType.JSONARRAY)
     private List<String> useLibName = new ArrayList<>();
+    @EntityField(name = "包文件id", type = ApiParamType.LONG)
+    private Long packageFileId;
+    @EntityField(name = "包文件", type = ApiParamType.JSONOBJECT)
+    private FileVo packageFile;
 
     @JSONField(serialize = false)
     private List<Long> excludeList;
@@ -324,5 +329,21 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
 
     public void setUseLibName(List<String> useLibName) {
         this.useLibName = useLibName;
+    }
+
+    public Long getPackageFileId() {
+        return packageFileId;
+    }
+
+    public void setPackageFileId(Long packageFileId) {
+        this.packageFileId = packageFileId;
+    }
+
+    public FileVo getPackageFile() {
+        return packageFile;
+    }
+
+    public void setPackageFile(FileVo packageFile) {
+        this.packageFile = packageFile;
     }
 }
