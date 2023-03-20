@@ -33,7 +33,8 @@ public enum ScriptParser implements IEnum {
     KSH("ksh"),
     CSH("csh"),
     SH("sh"),
-    JAVASCRIPT("javascript");
+    JAVASCRIPT("javascript"),
+    PACKAGE("package");
     private final String value;
 
     private ScriptParser(String value) {
