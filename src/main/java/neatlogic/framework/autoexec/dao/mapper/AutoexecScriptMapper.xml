@@ -293,6 +293,7 @@
         a.`version`,
         a.`encoding`,
         a.`parser`,
+        a.`package_file_id` as packageFileId,
         a.`status`,
         a.`reviewer`,
         a.`is_active` as isActive,
