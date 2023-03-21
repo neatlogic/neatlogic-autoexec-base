@@ -29,4 +29,7 @@ public class AutoexecParamMappingNotMappedException extends ApiRuntimeException 
     public AutoexecParamMappingNotMappedException(String phaseName, String operationName, String key) {
         super("exception.autoexec.autoexecparammappingnotmappedexception", phaseName, operationName, key);
     }
+    public AutoexecParamMappingNotMappedException(String key) {
+        super("exception.autoexec.autoexecparammappingnotmappedexception.1", key);
+    }
 }
