@@ -171,6 +171,7 @@
                asv.`status`,
                asv.`reviewer`,
                asv.`is_active` as isActive,
+               asv.`package_file_id` as packageFileId,
                asv.`lcd`,
                asv.`lcu`,
                asvl.`lib_script_id`
