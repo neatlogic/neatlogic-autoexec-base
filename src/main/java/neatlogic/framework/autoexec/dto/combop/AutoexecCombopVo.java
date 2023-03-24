@@ -254,10 +254,11 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         this.reviewable = reviewable;
     }
 
+    @Deprecated
     public List<AutoexecParamVo> getRuntimeParamList() {
         return runtimeParamList;
     }
-
+    @Deprecated
     public void setRuntimeParamList(List<AutoexecParamVo> runtimeParamList) {
         this.runtimeParamList = runtimeParamList;
     }

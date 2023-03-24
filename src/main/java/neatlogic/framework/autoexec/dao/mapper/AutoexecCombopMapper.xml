@@ -125,7 +125,6 @@ limitations under the License.
         `is_active` AS isActive,
         `operation_type` AS operationType,
         `notify_policy_id` AS notifyPolicyId,
-        `config` AS configStr,
         `owner`,
         `fcd`,
         `fcu`
@@ -365,6 +364,19 @@ limitations under the License.
         where id in ( select distinct type_id from autoexec_combop )
     </select>
 
+    <select id="getAutoexecCombopCountForUpdateConfig" resultType="int">
+        SELECT COUNT(1) FROM `autoexec_combop`
+    </select>
+
+    <select id="getAutoexecCombopListForUpdateConfig" parameterType="neatlogic.framework.common.dto.BasePageVo" resultType="java.util.HashMap">
+        SELECT
+            `id`,
+            `name`,
+            `config`
+        FROM `autoexec_combop`
+        LIMIT #{startNum}, #{pageSize}
+    </select>
+
     <insert id="insertAutoexecCombop" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo">
         INSERT INTO `autoexec_combop` (`id`,
                                        `name`,
@@ -482,6 +494,10 @@ limitations under the License.
             `lcu`    = #{lcu},
             `lcd`    = NOW(3)
         WHERE `id` = #{id}
+    </update>
+
+    <update id="updateAutoexecCombopConfigByIdAndConfigStr" parameterType="java.util.Map">
+        UPDATE `autoexec_combop` SET `config` = #{configStr} WHERE `id` = #{id}
     </update>
 
     <!--<update id="updateAutoexecCombopPasswordParam">

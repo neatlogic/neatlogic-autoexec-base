@@ -30,4 +30,14 @@ public class AutoexecParamMappingTargetNotFoundException extends ApiRuntimeExcep
         super("exception.autoexec.autoexecparammappingtargetnotfoundexception", phaseName, operationName, key, target);
     }
 
+    public AutoexecParamMappingTargetNotFoundException(String phaseName, String target) {
+        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.1", phaseName, target);
+    }
+    public AutoexecParamMappingTargetNotFoundException(Integer groupSort, String target) {
+        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.2", groupSort, target);
+    }
+    public AutoexecParamMappingTargetNotFoundException(String target) {
+        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.3", target);
+    }
+
 }

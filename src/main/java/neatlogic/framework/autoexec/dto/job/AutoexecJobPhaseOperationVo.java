@@ -212,10 +212,10 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                                 }
                                 paramMappingVo.setValue(String.format(valueFormat, phaseVoOptional.get().getName(), preOperationNameMap.get(opUuid), operationVoOptional.get().getId(), value));
                             } else {
-                                throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operationUuid");
+                                throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operation");
                             }
                         } else {
-                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phaseUuid");
+                            throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " phase");
                         }
                     } else {
                         throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName());
