@@ -1,28 +1,34 @@
 package neatlogic.framework.autoexec.source;
 
-import neatlogic.framework.autoexec.dto.AutoexecJobSourceVo;
+import neatlogic.framework.applicationlistener.core.ModuleInitializedListenerBase;
+import neatlogic.framework.bootstrap.NeatLogicWebApplicationContext;
+import neatlogic.framework.common.RootComponent;
 import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class AutoexecJobSourceFactory {
-    private static final Map<String, AutoexecJobSourceVo> sourceMap = new HashMap<String, AutoexecJobSourceVo>();
-    private static final Map<String, String> sourceValueMap = new HashMap<String, String>();
+@RootComponent
+public class AutoexecJobSourceFactory extends ModuleInitializedListenerBase {
+    Logger logger = LoggerFactory.getLogger(AutoexecJobSourceFactory.class);
+    private static final List<IAutoexecJobSource> enumInstanceList = new ArrayList<>();
+    private static final Map<String, IAutoexecJobSource> enumInstanceMap = new HashMap<>();
+    private static final Map<String, IAutoexecJobSource> handlerMap = new HashMap<>();
 
     static {
         Reflections reflections = new Reflections("neatlogic");
         Set<Class<? extends IAutoexecJobSource>> sourceClass = reflections.getSubTypesOf(IAutoexecJobSource.class);
         for (Class<? extends IAutoexecJobSource> c : sourceClass) {
             try {
-                Object[] objects = c.getEnumConstants();
-                @SuppressWarnings("unchecked")
-                List<AutoexecJobSourceVo> sourceList = (List<AutoexecJobSourceVo>) c.getMethod("getSource").invoke(objects[0]);
-                for (AutoexecJobSourceVo sourceVo : sourceList) {
-                    sourceMap.put(sourceVo.getSource(), sourceVo);
-                    sourceValueMap.put(sourceVo.getSource(), sourceVo.getSourceName());
+                if (!c.isEnum()) {
+                    continue;
+                }
+                IAutoexecJobSource[] jobSourceList = c.getEnumConstants();
+                for (IAutoexecJobSource jobSource : jobSourceList) {
+                    enumInstanceMap.put(jobSource.getValue(), jobSource);
+                    enumInstanceList.add(jobSource);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -30,12 +36,37 @@ public class AutoexecJobSourceFactory {
         }
     }
 
-    public static Map<String, AutoexecJobSourceVo> getSourceMap() {
-        return sourceMap;
+    public static IAutoexecJobSource getHandler(String handler) {
+        return handlerMap.get(handler);
     }
 
-    public static Map<String, String> getSourceValueMap() {
-        return sourceValueMap;
+    public static IAutoexecJobSource getEnumInstance(String value) {
+        return enumInstanceMap.get(value);
     }
 
+    public static List<IAutoexecJobSource> getEnumInstanceList() {
+        return enumInstanceList.stream().collect(Collectors.toList());
+    }
+
+    @Override
+    protected void onInitialized(NeatLogicWebApplicationContext context) {
+        Map<String, IAutoexecJobSource> myMap = context.getBeansOfType(IAutoexecJobSource.class);
+        for (Map.Entry<String, IAutoexecJobSource> entry : myMap.entrySet()) {
+            try {
+                IAutoexecJobSource handler = entry.getValue();
+                if (handlerMap.containsKey(handler.getValue())) {
+                    logger.error("IAutoexecJobSource '" + handler.getClass().getSimpleName()+ "(" + handler.getValue() + ")' repeat");
+                    System.exit(1);
+                }
+                handlerMap.put(handler.getValue(), handler);
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    @Override
+    protected void myInit() {
+
+    }
 }

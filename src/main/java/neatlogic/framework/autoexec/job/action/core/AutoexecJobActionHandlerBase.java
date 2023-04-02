@@ -26,7 +26,6 @@ import neatlogic.framework.autoexec.dao.mapper.AutoexecCombopMapper;
 import neatlogic.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import neatlogic.framework.autoexec.dao.mapper.AutoexecScriptMapper;
 import neatlogic.framework.autoexec.dao.mapper.AutoexecToolMapper;
-import neatlogic.framework.autoexec.dto.AutoexecJobSourceVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
@@ -35,6 +34,7 @@ import neatlogic.framework.autoexec.exception.*;
 import neatlogic.framework.autoexec.job.source.type.AutoexecJobSourceTypeHandlerFactory;
 import neatlogic.framework.autoexec.job.source.type.IAutoexecJobSourceTypeHandler;
 import neatlogic.framework.autoexec.source.AutoexecJobSourceFactory;
+import neatlogic.framework.autoexec.source.IAutoexecJobSource;
 import neatlogic.framework.dao.mapper.runner.RunnerMapper;
 import neatlogic.framework.dto.runner.RunnerMapVo;
 import neatlogic.framework.exception.type.ParamIrregularException;
@@ -107,16 +107,18 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (Objects.equals(JobStatus.CHECKED.getValue(), jobVo.getStatus())) {
                 throw new AutoexecJobCheckedException(jobVo.getId().toString());
             }
-            if (Objects.equals(jobVo.getSource(), JobSource.TEST.getValue())) {//测试仅需判断是否有脚本维护权限即可
+            if (Objects.equals(jobVo.getSource(), JobSource.TEST.getValue())
+                    || Objects.equals(jobVo.getSource(), JobSource.SCRIPT_TEST.getValue())
+                    || Objects.equals(jobVo.getSource(), JobSource.TOOL_TEST.getValue())) {//测试仅需判断是否有脚本维护权限即可
                 if (!AuthActionChecker.check(AUTOEXEC_SCRIPT_MODIFY.class)) {
                     throw new AutoexecOperationHasNoModifyAuthException();
                 }
             } else {
-                AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
-                if (jobSourceVo == null) {
+                IAutoexecJobSource jobSource = AutoexecJobSourceFactory.getEnumInstance(jobVo.getSource());
+                if (jobSource == null) {
                     throw new AutoexecJobSourceInvalidException(jobVo.getSource());
                 }
-                IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSourceVo.getType());
+                IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSource.getType());
                 boolean isNeedCheckTakeOver = !Arrays.asList(JobAction.CHECK.getValue(), JobAction.TAKE_OVER.getValue()).contains(jobVo.getAction());
                 autoexecJobSourceActionHandler.executeAuthCheck(jobVo, isNeedCheckTakeOver);
             }
@@ -154,11 +156,11 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (StringUtils.isBlank(jobVo.getActionParam().getString("sqlName"))) {
                 throw new ParamIrregularException("sqlName");
             }
-            AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
-            if (jobSourceVo == null) {
+            IAutoexecJobSource jobSource = AutoexecJobSourceFactory.getEnumInstance(jobVo.getSource());
+            if (jobSource == null) {
                 throw new AutoexecJobSourceInvalidException(jobVo.getSource());
             }
-            IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSourceVo.getType());
+            IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSource.getType());
             AutoexecSqlNodeDetailVo sqlDetailVo = autoexecJobSourceActionHandler.getSqlDetail(jobVo);
             if (sqlDetailVo == null) {
                 throw new AutoexecJobSqlDetailNotFoundException();

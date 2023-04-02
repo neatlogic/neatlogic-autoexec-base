@@ -46,13 +46,6 @@ public class AutoexecJobInvokeVo {
         this.type = type;
     }
 
-    public AutoexecJobInvokeVo(String source) {
-        if (StringUtils.isBlank(source)) {
-            this.source = JobSource.HUMAN.getValue();
-        }
-        this.source = source;
-    }
-
     public Long getJobId() {
         return jobId;
     }
