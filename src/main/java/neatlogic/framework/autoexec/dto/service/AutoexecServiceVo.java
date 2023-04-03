@@ -71,14 +71,17 @@ public class AutoexecServiceVo implements Serializable {
     @EntityField(name = "配置已失效", type = ApiParamType.INTEGER)
     private Integer configExpired;
 
-    @EntityField(name = "配置失效原因", type = ApiParamType.STRING)
-    private String configExpiredReason;
+    @EntityField(name = "配置失效原因", type = ApiParamType.JSONOBJECT)
+    private JSONObject configExpiredReason;
 
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecServiceConfigVo config;
 
     @JSONField(serialize = false)
     private String configStr;
+
+    @JSONField(serialize = false)
+    private String configExpiredReasonStr;
 
     public Long getId() {
         if (id == null) {
@@ -187,12 +190,31 @@ public class AutoexecServiceVo implements Serializable {
         this.configExpired = configExpired;
     }
 
-    public String getConfigExpiredReason() {
+    public JSONObject getConfigExpiredReason() {
+        if (configExpiredReason == null && StringUtils.isNotBlank(configExpiredReasonStr)) {
+            try {
+                configExpiredReason = JSONObject.parseObject(configExpiredReasonStr);
+            } catch (Exception ignored) {
+
+            }
+        }
         return configExpiredReason;
     }
 
-    public void setConfigExpiredReason(String configExpiredReason) {
+    public void setConfigExpiredReason(JSONObject configExpiredReason) {
+        this.configExpiredReasonStr = null;
         this.configExpiredReason = configExpiredReason;
+    }
+
+    public String getConfigExpiredReasonStr() {
+        if (StringUtils.isBlank(configExpiredReasonStr) && configExpiredReason != null) {
+            configExpiredReasonStr = JSONObject.toJSONString(configExpiredReason);
+        }
+        return configExpiredReasonStr;
+    }
+
+    public void setConfigExpiredReasonStr(String configExpiredReasonStr) {
+        this.configExpiredReasonStr = configExpiredReasonStr;
     }
 
     public AutoexecServiceConfigVo getConfig() {
