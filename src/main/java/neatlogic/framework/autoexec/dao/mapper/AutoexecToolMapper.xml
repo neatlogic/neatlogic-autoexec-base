@@ -293,6 +293,7 @@
         `is_active`,
         `description`,
         `default_profile_id`,
+        `is_lib`,
         `config`,
         `lcd`
         ) values (
@@ -305,6 +306,7 @@
         #{isActive},
         #{description},
         #{defaultProfileId},
+        #{isLib},
         #{configStr},
         now(3)
         )
@@ -316,6 +318,7 @@
         `is_active` = #{isActive},
         `description` = #{description},
         `default_profile_id` = #{defaultProfileId},
+        `is_lib` = #{isLib},
         `config` = #{configStr},
         `lcd` = now( 3 );
     </update>
