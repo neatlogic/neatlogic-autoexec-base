@@ -11,25 +11,20 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.
+limitations under the License. 
  */
 
 package neatlogic.framework.autoexec.exception;
 
 import neatlogic.framework.exception.core.ApiRuntimeException;
 
-/**
- * @author: linbq
- * @since: 2021/4/19 14:14
- **/
-public class AutoexecParamMappingNotMappedException extends ApiRuntimeException {
+public class AutoexecJobParamNotFoundException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = -977878375722886383L;
+    private static final long serialVersionUID = 3718741083995150835L;
 
-    public AutoexecParamMappingNotMappedException(String phaseName, String operationName, String key) {
-        super("exception.autoexec.autoexecparammappingnotmappedexception", phaseName, operationName, key);
+    public AutoexecJobParamNotFoundException(String combopName, String keyName) {
+        super("exception.autoexec.autoexecjobparamnotfoundexception", combopName, keyName);
     }
-    public AutoexecParamMappingNotMappedException(String key) {
-        super("exception.autoexec.autoexecparammappingnotmappedexception.1", key);
-    }
+
+
 }

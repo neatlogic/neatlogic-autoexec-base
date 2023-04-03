@@ -25,6 +25,8 @@ import java.util.List;
 public enum ServiceParamMappingMode implements IEnum  {
     CONSTANT("constant", "enum.autoexec.serviceparammappingmode.constant"),
     FORMATTR("formattr", "enum.autoexec.serviceparammappingmode.formattr"),
+    IS_EMPTY("isempty", "enum.autoexec.serviceparammappingmode.is_empty"),
+    NOT_SET_UP("notsetup", "enum.autoexec.serviceparammappingmode.not_set_up"),
     ;
 
     private final String value;
