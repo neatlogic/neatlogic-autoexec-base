@@ -59,6 +59,9 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     @EntityField(name = "默认默认profile名称", type = ApiParamType.STRING)
     private String defaultProfileName; // 当前工具关联的默认profile名称
 
+    @EntityField(name = "是否库文件", type = ApiParamType.INTEGER)
+    private Integer isLib = 0;
+
     @JSONField(serialize = false)
     private List<Long> excludeList;
     @JSONField(serialize = false)
@@ -214,6 +217,14 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
 
     public List<String> getAuthUuidList() {
         return UserContext.get().getUuidList();
+    }
+
+    public Integer getIsLib() {
+        return isLib;
+    }
+
+    public void setIsLib(Integer isLib) {
+        this.isLib = isLib;
     }
 
 }
