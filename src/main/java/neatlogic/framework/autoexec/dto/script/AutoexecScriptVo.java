@@ -74,8 +74,6 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
     @EntityField(name = "所属工具目录完整路径", type = ApiParamType.STRING)
     private String catalogPath;
 
-    @EntityField(name = "是否库文件 名", type = ApiParamType.STRING)
-    private String isLibName;
     @EntityField(name = "是否作为库文件被依赖", type = ApiParamType.INTEGER)
     private Integer isLibReference = 0;
     @EntityField(name = "依赖工具", type = ApiParamType.JSONARRAY)
@@ -226,23 +224,12 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
         this.catalogPath = catalogPath;
     }
 
-    public String getIsLibName() {
-        if (StringUtils.isBlank(isLibName)) {
-            return super.getIsLib() == 1 ? "是" : "否";
-        }
-        return isLibName;
-    }
-
     public Integer getIsLibReference() {
         return isLibReference;
     }
 
     public void setIsLibReference(Integer isLibReference) {
         this.isLibReference = isLibReference;
-    }
-
-    public void setIsLibName(String isLibName) {
-        this.isLibName = isLibName;
     }
 
     public List<Long> getUseLib() {

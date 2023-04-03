@@ -61,6 +61,8 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
 
     @EntityField(name = "是否库文件", type = ApiParamType.INTEGER)
     private Integer isLib = 0;
+    @EntityField(name = "是否库文件 名", type = ApiParamType.STRING)
+    private String isLibName;
 
     @JSONField(serialize = false)
     private List<Long> excludeList;
@@ -227,4 +229,14 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
         this.isLib = isLib;
     }
 
+    public void setIsLibName(String isLibName) {
+        this.isLibName = isLibName;
+    }
+
+    public String getIsLibName() {
+        if (StringUtils.isBlank(isLibName)) {
+            return isLib == 1 ? "是" : "否";
+        }
+        return isLibName;
+    }
 }
