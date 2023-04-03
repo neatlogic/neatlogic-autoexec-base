@@ -68,6 +68,12 @@ public class AutoexecServiceVo implements Serializable {
     @EntityField(name = "右编码", type = ApiParamType.INTEGER)
     private Integer rht;
 
+    @EntityField(name = "配置已失效", type = ApiParamType.INTEGER)
+    private Integer configExpired;
+
+    @EntityField(name = "配置失效原因", type = ApiParamType.STRING)
+    private String configExpiredReason;
+
     @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
     private AutoexecServiceConfigVo config;
 
@@ -171,6 +177,22 @@ public class AutoexecServiceVo implements Serializable {
 
     public void setRht(Integer rht) {
         this.rht = rht;
+    }
+
+    public Integer getConfigExpired() {
+        return configExpired;
+    }
+
+    public void setConfigExpired(Integer configExpired) {
+        this.configExpired = configExpired;
+    }
+
+    public String getConfigExpiredReason() {
+        return configExpiredReason;
+    }
+
+    public void setConfigExpiredReason(String configExpiredReason) {
+        this.configExpiredReason = configExpiredReason;
     }
 
     public AutoexecServiceConfigVo getConfig() {
