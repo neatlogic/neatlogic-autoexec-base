@@ -30,6 +30,12 @@ public interface IAutoexecJobActionCrossoverService extends ICrossoverService {
      */
     void validateAndCreateJobFromCombop(AutoexecJobVo autoexecJobParam);
 
+    /**
+     * 校验创建并激活作业
+     *
+     */
+    void validateCreateJob(AutoexecJobVo autoexecJobParam) throws Exception;
+
 
     /**
      * 获取作业详细并激活作业

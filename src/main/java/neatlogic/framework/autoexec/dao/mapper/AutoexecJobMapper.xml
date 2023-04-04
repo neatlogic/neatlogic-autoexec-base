@@ -2465,8 +2465,8 @@ limitations under the License.
     </insert>
 
     <insert id="insertJobInvoke">
-        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`)
-        VALUES (#{jobId}, #{invokeId}, #{source}, #{type})
+        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`, `route_id`)
+        VALUES (#{jobId}, #{invokeId}, #{source}, #{type}, #{routeId})
     </insert>
 
     <insert id="insertDuplicateJobResourceInspect">
