@@ -97,8 +97,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private UserVo execUserVo;
     @EntityField(name = "来源id", type = ApiParamType.LONG)
     private Long invokeId;
-    @EntityField(name = "来源名称", type = ApiParamType.STRING)
-    private String invokeName;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
     @EntityField(name = "来源类型", type = ApiParamType.STRING)
@@ -690,14 +688,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setInvokeId(Long invokeId) {
         this.invokeId = invokeId;
-    }
-
-    public String getInvokeName() {
-        return invokeName;
-    }
-
-    public void setInvokeName(String invokeName) {
-        this.invokeName = invokeName;
     }
 
     public Integer getIsNoFireNext() {
