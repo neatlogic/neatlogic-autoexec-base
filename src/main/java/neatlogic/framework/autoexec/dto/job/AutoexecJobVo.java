@@ -28,6 +28,7 @@ import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import neatlogic.framework.autoexec.source.AutoexecJobSourceFactory;
+import neatlogic.framework.autoexec.source.IAutoexecJobSource;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.common.constvalue.GroupSearch;
 import neatlogic.framework.common.dto.BaseEditorVo;
@@ -498,7 +499,10 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public String getSourceName() {
         if (StringUtils.isNotBlank(source)) {
-            return AutoexecJobSourceFactory.getEnumInstance(this.source).getText();
+            IAutoexecJobSource autoexecJobSource = AutoexecJobSourceFactory.getEnumInstance(this.source);
+            if (autoexecJobSource != null) {
+                return autoexecJobSource.getText();
+            }
         }
         return sourceName;
     }
