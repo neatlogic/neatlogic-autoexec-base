@@ -1,12 +1,12 @@
 package neatlogic.framework.autoexec.job;
 
-import neatlogic.framework.autoexec.dto.AutoexecJobSourceVo;
 import neatlogic.framework.autoexec.dto.INodeDetail;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.autoexec.exception.AutoexecJobSourceInvalidException;
 import neatlogic.framework.autoexec.source.AutoexecJobSourceFactory;
+import neatlogic.framework.autoexec.source.IAutoexecJobSource;
 import neatlogic.framework.integration.authentication.enums.AuthenticateType;
 import neatlogic.framework.util.HttpRequestUtil;
 import neatlogic.framework.util.excel.ExcelBuilder;
@@ -60,12 +60,12 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
      * @param columnList      表头英文名
      */
     private void exportJobPhaseNode(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, boolean withOutputParam, boolean withNodeLog, Map<String, List<String>> outputParamMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
-        AutoexecJobSourceVo jobSourceVo = AutoexecJobSourceFactory.getSourceMap().get(jobVo.getSource());
-        if (jobSourceVo == null) {
+        IAutoexecJobSource jobSource = AutoexecJobSourceFactory.getEnumInstance(jobVo.getSource());
+        if (jobSource == null) {
             throw new AutoexecJobSourceInvalidException(jobVo.getSource());
         }
         AutoexecJobPhaseNodeVo searchVo = new AutoexecJobPhaseNodeVo(jobVo.getId(), phaseVo.getId());
-        int count = getJobPhaseNodeCount(searchVo, jobSourceVo.getType());
+        int count = getJobPhaseNodeCount(searchVo, jobSource.getType());
         if (count > 0) {
             List<? extends INodeDetail> list;
             searchVo.setRowNum(count);
@@ -76,7 +76,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
             Integer pageCount = searchVo.getPageCount();
             for (int i = 1; i <= pageCount; i++) {
                 searchVo.setCurrentPage(i);
-                list = searchJobPhaseNode(searchVo, jobSourceVo.getType());
+                list = searchJobPhaseNode(searchVo, jobSource.getType());
                 Map<Long, Map<String, Object>> nodeDataMap = new LinkedHashMap<>();
                 Map<String, List<Long>> runnerNodeMap = new HashMap<>();
                 Map<Long, JSONObject> nodeLogTailParamMap = new HashMap<>();

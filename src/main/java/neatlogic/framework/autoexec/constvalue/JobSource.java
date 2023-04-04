@@ -16,17 +16,17 @@
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.autoexec.dto.AutoexecJobSourceVo;
 import neatlogic.framework.autoexec.source.IAutoexecJobSource;
 import neatlogic.framework.util.I18nUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public enum JobSource implements IAutoexecJobSource {
     HUMAN("enum.autoexec.jobsource.human", "human"),
     SERVICE("enum.autoexec.jobsource.service", "service"),
     AUTOEXEC_SCHEDULE("enum.autoexec.jobsource.autoexec_schedule", "autoexecschedule"),
+    COMBOP("enum.autoexec.jobsource.combop", "combop"),
+    COMBOP_TEST("enum.autoexec.jobsource.combop_test", "comboptest"),
+    SCRIPT_TEST("enum.autoexec.jobsource.script_test", "scripttest"),
+    TOOL_TEST("enum.autoexec.jobsource.tool_test", "tooltest"),
     TEST("enum.autoexec.jobsource.test", "test");
     private final String text;
     private final String value;
@@ -56,22 +56,6 @@ public enum JobSource implements IAutoexecJobSource {
 
     public String getType(){
         return JobSourceType.AUTOEXEC.getValue();
-    }
-
-    /**
-     * @return 返回对应的来源
-     */
-    @Override
-    public List<AutoexecJobSourceVo> getSource() {
-        List<AutoexecJobSourceVo> list = new ArrayList<>();
-        for (JobSource s : JobSource.values()) {
-            AutoexecJobSourceVo source = new AutoexecJobSourceVo();
-            source.setSource(s.value);
-            source.setSourceName(s.getText());
-            source.setType(s.getType());
-            list.add(source);
-        }
-        return list;
     }
 
 }

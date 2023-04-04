@@ -35,6 +35,8 @@ public interface AutoexecScheduleMapper {
 
     List<AutoexecScheduleVo> getAutoexecScheduleList(AutoexecScheduleVo autoexecScheduleVo);
 
+    List<AutoexecScheduleVo> getAutoexecScheduleListByIdList(List<Long> idList);
+
     int insertAutoexecSchedule(AutoexecScheduleVo autoexecScheduleVo);
 
     int updateAutoexecSchedule(AutoexecScheduleVo autoexecScheduleVo);

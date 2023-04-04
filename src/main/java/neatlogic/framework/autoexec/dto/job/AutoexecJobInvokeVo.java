@@ -16,10 +16,8 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.dto.job;
 
-import neatlogic.framework.autoexec.constvalue.JobSource;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author lvzk
@@ -44,13 +42,6 @@ public class AutoexecJobInvokeVo {
         this.invokeId = invokeId;
         this.source = source;
         this.type = type;
-    }
-
-    public AutoexecJobInvokeVo(String source) {
-        if (StringUtils.isBlank(source)) {
-            this.source = JobSource.HUMAN.getValue();
-        }
-        this.source = source;
     }
 
     public Long getJobId() {

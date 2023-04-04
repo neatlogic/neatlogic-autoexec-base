@@ -1415,6 +1415,18 @@ limitations under the License.
         where `job_id` = #{value}
     </select>
 
+    <select id="getJobInvokeListByJobIdList" parameterType="java.util.List" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobInvokeVo">
+        SELECT `job_id`    as jobId,
+               `invoke_id` as invokeId,
+               `source`,
+               `type`
+        FROM `autoexec_job_invoke`
+        WHERE `job_id` IN
+        <foreach collection="list" item="jobId" open="(" separator="," close=")">
+            #{jobId}
+        </foreach>
+    </select>
+
     <select id="getJobIdByInvokeIdLimitOne" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT `job_id`
         FROM `autoexec_job_invoke`
