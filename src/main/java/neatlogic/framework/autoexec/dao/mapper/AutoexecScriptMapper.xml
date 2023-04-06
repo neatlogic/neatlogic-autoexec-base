@@ -1748,13 +1748,6 @@
         and a.parser = 'package'
     </select>
 
-    <select id="getVersionUseLibNameByVersionId" resultType="java.lang.String">
-        select b.name
-        from autoexec_script_version_lib a
-                 join autoexec_script b on a.lib_script_id = b.id
-        where a.script_version_id = #{value}
-    </select>
-
     <update id="updateScriptBaseInfo" parameterType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo">
         update `autoexec_script`
         set `name`               = #{name},
