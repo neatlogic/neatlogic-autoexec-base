@@ -16,7 +16,7 @@ limitations under the License.
 package neatlogic.framework.autoexec.source;
 
 import neatlogic.framework.autoexec.constvalue.JobSourceType;
-import neatlogic.framework.autoexec.dto.AutoexecJobSourceVo;
+import neatlogic.framework.common.dto.ValueTextVo;
 
 import java.util.List;
 
@@ -25,11 +25,19 @@ import java.util.List;
  * @since 2021/4/30 17:19
  **/
 public interface IAutoexecJobSource {
+
+	String getValue();
+
+	String getText();
+
 	/**
-	 *
-	 * @return 返回对应的来源
+	 * 根据id列表获取id和名称列表
+	 * @param idList
+	 * @return
 	 */
-	 List<AutoexecJobSourceVo> getSource();
+	default List<ValueTextVo> getListByIdList(List<Long> idList) {
+		return null;
+	}
 
 	default String getType(){
 		return JobSourceType.AUTOEXEC.getValue();

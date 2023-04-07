@@ -28,6 +28,7 @@ import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import neatlogic.framework.autoexec.source.AutoexecJobSourceFactory;
+import neatlogic.framework.autoexec.source.IAutoexecJobSource;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.common.constvalue.GroupSearch;
 import neatlogic.framework.common.dto.BaseEditorVo;
@@ -95,7 +96,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private String execUserType;
     @EntityField(name = "执行用户对象", type = ApiParamType.JSONOBJECT)
     private UserVo execUserVo;
-    @EntityField(name = "来源id", type = ApiParamType.STRING)
+    @EntityField(name = "来源id", type = ApiParamType.LONG)
     private Long invokeId;
     @EntityField(name = "来源", type = ApiParamType.STRING)
     private String source;
@@ -498,7 +499,10 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public String getSourceName() {
         if (StringUtils.isNotBlank(source)) {
-            return AutoexecJobSourceFactory.getSourceValueMap().get(this.source);
+            IAutoexecJobSource autoexecJobSource = AutoexecJobSourceFactory.getEnumInstance(this.source);
+            if (autoexecJobSource != null) {
+                return autoexecJobSource.getText();
+            }
         }
         return sourceName;
     }

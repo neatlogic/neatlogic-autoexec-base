@@ -148,6 +148,27 @@ limitations under the License.
         LIMIT #{startNum}, #{pageSize}
     </select>
 
+    <select id="getAutoexecScheduleListByIdList" parameterType="java.util.List" resultType="neatlogic.framework.autoexec.dto.schedule.AutoexecScheduleVo">
+        SELECT `id`,
+               `uuid`,
+               `name`,
+               `autoexec_combop_id` AS autoexecCombopId,
+               `begin_time`         AS beginTime,
+               `end_time`           AS endTime,
+               `cron`,
+               `is_active`          AS isActive,
+               `config`             AS configStr,
+               `fcd`,
+               `fcu`,
+               `lcd`,
+               `lcu`
+        FROM `autoexec_schedule`
+        WHERE `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <insert id="insertAutoexecSchedule" parameterType="neatlogic.framework.autoexec.dto.schedule.AutoexecScheduleVo">
         INSERT INTO `autoexec_schedule` (`id`,
                                          `uuid`,

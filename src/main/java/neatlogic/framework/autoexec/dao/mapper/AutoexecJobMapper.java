@@ -251,6 +251,8 @@ public interface AutoexecJobMapper {
     //invoke
     AutoexecJobInvokeVo getJobInvokeByJobId(Long id);
 
+    List<AutoexecJobInvokeVo> getJobInvokeListByJobIdList(List<Long> jobIdList);
+
     Long getJobIdByInvokeIdLimitOne(Long invokeId);
 
     List<AutoexecJobInvokeVo> getJobIdCountListByInvokeIdList(List<Long> invokeIdList);
