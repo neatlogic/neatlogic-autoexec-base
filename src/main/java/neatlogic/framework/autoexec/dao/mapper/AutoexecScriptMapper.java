@@ -129,6 +129,8 @@ public interface AutoexecScriptMapper {
 
     List<AutoexecScriptLineVo> getLineListByVersionId(Long versionId);
 
+    List<String> getVersionUseLibNameByVersionId(Long versionId);
+
     int searchScriptCount(AutoexecScriptVo scriptVo);
 
     List<AutoexecScriptVo> searchScript(AutoexecScriptVo scriptVo);
