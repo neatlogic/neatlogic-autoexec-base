@@ -608,7 +608,7 @@ limitations under the License.
         FROM `autoexec_job` aj
         WHERE aj.`status` = #{status}
           AND aj.`trigger_type` = #{triggerType}
-          and aj.`source` != 'batchdeploy'
+          and aj.`parent_id` != -1
     </select>
 
     <select id="getBatchJobIdListByStatusAndTriggerType" parameterType="java.lang.String" resultType="java.lang.Long">
@@ -616,7 +616,7 @@ limitations under the License.
         FROM `autoexec_job` aj
         WHERE aj.`status` = #{status}
           AND aj.`trigger_type` = #{triggerType}
-          and aj.`source` = 'batchdeploy'
+          and aj.`parent_id` = -1
     </select>
 
     <select id="getJobContentLock"
