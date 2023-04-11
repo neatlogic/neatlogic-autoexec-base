@@ -1418,6 +1418,7 @@ limitations under the License.
     <select id="getJobInvokeListByJobIdList" parameterType="java.util.List" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobInvokeVo">
         SELECT `job_id`    as jobId,
                `invoke_id` as invokeId,
+               `route_id`  as routeId,
                `source`,
                `type`
         FROM `autoexec_job_invoke`
