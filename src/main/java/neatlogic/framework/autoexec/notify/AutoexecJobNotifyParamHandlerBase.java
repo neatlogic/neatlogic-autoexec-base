@@ -16,8 +16,10 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.notify;
 
+import neatlogic.framework.autoexec.constvalue.AutoexecJobNotifyTriggerType;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.notify.core.INotifyParamHandler;
+import neatlogic.framework.notify.core.INotifyTriggerType;
 
 /**
  * @author laiwt
@@ -26,8 +28,8 @@ import neatlogic.framework.notify.core.INotifyParamHandler;
 public abstract class AutoexecJobNotifyParamHandlerBase implements INotifyParamHandler {
 
     @Override
-    public Object getText(Object object) {
-        if (object instanceof AutoexecJobVo) {
+    public Object getText(Object object, INotifyTriggerType notifyTriggerType) {
+        if (notifyTriggerType instanceof AutoexecJobNotifyTriggerType && object instanceof AutoexecJobVo) {
             return getMyText((AutoexecJobVo) object);
         }
         return null;
