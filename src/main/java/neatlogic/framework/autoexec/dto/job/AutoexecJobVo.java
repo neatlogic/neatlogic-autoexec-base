@@ -96,6 +96,10 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private String execUserType;
     @EntityField(name = "执行用户对象", type = ApiParamType.JSONOBJECT)
     private UserVo execUserVo;
+    @EntityField(name = "配置路由id", type = ApiParamType.STRING)
+    private String routeId;
+    @EntityField(name = "配置路由", type = ApiParamType.JSONOBJECT)
+    private AutoexecJobRouteVo route;
     @EntityField(name = "来源id", type = ApiParamType.LONG)
     private Long invokeId;
     @EntityField(name = "来源", type = ApiParamType.STRING)
@@ -684,6 +688,22 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
             phaseNodeIdList = executeJobNodeVoList.stream().map(AutoexecJobPhaseNodeVo::getId).collect(Collectors.toList());
         }
         return phaseNodeIdList;
+    }
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
+    }
+
+    public AutoexecJobRouteVo getRoute() {
+        return route;
+    }
+
+    public void setRoute(AutoexecJobRouteVo route) {
+        this.route = route;
     }
 
     public Long getInvokeId() {

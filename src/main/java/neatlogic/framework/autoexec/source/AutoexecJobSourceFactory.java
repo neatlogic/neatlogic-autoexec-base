@@ -55,7 +55,7 @@ public class AutoexecJobSourceFactory extends ModuleInitializedListenerBase {
             try {
                 IAutoexecJobSource handler = entry.getValue();
                 if (handlerMap.containsKey(handler.getValue())) {
-                    logger.error("IAutoexecJobSource '" + handler.getClass().getSimpleName()+ "(" + handler.getValue() + ")' repeat");
+                    logger.error("IAutoexecJobSource '" + handler.getClass().getSimpleName() + "(" + handler.getValue() + ")' repeat");
                     System.exit(1);
                 }
                 handlerMap.put(handler.getValue(), handler);

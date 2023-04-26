@@ -211,10 +211,10 @@ limitations under the License.
         <if test="hasParent != null">
             <choose>
                 <when test="hasParent == true">
-                    AND aj.parent_id is not null
+                    AND (aj.parent_id is not null AND aj.parent_id != -1)
                 </when>
                 <otherwise>
-                    AND aj.parent_id is null
+                    AND (aj.parent_id is null OR aj.parent_id = -1)
                 </otherwise>
             </choose>
         </if>
@@ -608,7 +608,7 @@ limitations under the License.
         FROM `autoexec_job` aj
         WHERE aj.`status` = #{status}
           AND aj.`trigger_type` = #{triggerType}
-          and aj.`source` != 'batchdeploy'
+          and aj.`parent_id` != -1
     </select>
 
     <select id="getBatchJobIdListByStatusAndTriggerType" parameterType="java.lang.String" resultType="java.lang.Long">
@@ -616,7 +616,7 @@ limitations under the License.
         FROM `autoexec_job` aj
         WHERE aj.`status` = #{status}
           AND aj.`trigger_type` = #{triggerType}
-          and aj.`source` = 'batchdeploy'
+          and aj.`parent_id` = -1
     </select>
 
     <select id="getJobContentLock"
@@ -1418,6 +1418,7 @@ limitations under the License.
     <select id="getJobInvokeListByJobIdList" parameterType="java.util.List" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobInvokeVo">
         SELECT `job_id`    as jobId,
                `invoke_id` as invokeId,
+               `route_id`  as routeId,
                `source`,
                `type`
         FROM `autoexec_job_invoke`
@@ -2465,8 +2466,8 @@ limitations under the License.
     </insert>
 
     <insert id="insertJobInvoke">
-        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`)
-        VALUES (#{jobId}, #{invokeId}, #{source}, #{type})
+        INSERT INTO `autoexec_job_invoke` (`job_id`, `invoke_id`, `source`, `type`, `route_id`)
+        VALUES (#{jobId}, #{invokeId}, #{source}, #{type}, #{routeId})
     </insert>
 
     <insert id="insertDuplicateJobResourceInspect">

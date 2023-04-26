@@ -32,16 +32,19 @@ public class AutoexecJobInvokeVo {
     private String source;
     @EntityField(name = "来源类型", type = ApiParamType.STRING)
     private String type;
+    @EntityField(name = "配置路由id", type = ApiParamType.STRING)
+    private String routeId;
     private int count;
 
     public AutoexecJobInvokeVo() {
     }
 
-    public AutoexecJobInvokeVo(Long jobId,Long invokeId, String source, String type) {
+    public AutoexecJobInvokeVo(Long jobId,Long invokeId, String source, String type, String routeId) {
         this.jobId = jobId;
         this.invokeId = invokeId;
         this.source = source;
         this.type = type;
+        this.routeId = routeId;
     }
 
     public Long getJobId() {
@@ -82,5 +85,13 @@ public class AutoexecJobInvokeVo {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 }
