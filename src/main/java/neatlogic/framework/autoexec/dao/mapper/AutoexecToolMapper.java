@@ -1,5 +1,5 @@
 /*
-Copyright(c) $today.year NeatLogic Co., Ltd. All Rights Reserved.
+Copyright(c) 2023 NeatLogic Co., Ltd. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package neatlogic.framework.autoexec.dao.mapper;
 
 import neatlogic.framework.autoexec.dto.AutoexecOperationVo;
 import neatlogic.framework.autoexec.dto.AutoexecToolVo;
-import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
