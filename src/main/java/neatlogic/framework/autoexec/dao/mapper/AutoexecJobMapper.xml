@@ -1435,6 +1435,12 @@ limitations under the License.
         LIMIT 1
     </select>
 
+    <select id="getJobIdListByInvokeId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT `job_id`
+        FROM `autoexec_job_invoke`
+        WHERE `invoke_id` = #{value}
+    </select>
+
     <select id="getJobIdCountListByInvokeIdList" parameterType="java.lang.Long"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobInvokeVo">
         SELECT
@@ -2121,7 +2127,9 @@ limitations under the License.
         aj.`config_hash` as configHash,
         aj.`lncd`,
         aj.`parent_id` as parentId,
-        aj.`trigger_type` as triggerType
+        aj.`trigger_type` as triggerType,
+        aj.`scenario_id`     as scenarioId,
+        aj.`runner_map_id`   as runnerMapId
         FROM `autoexec_job` aj
         WHERE aj.`id` in
         <foreach collection="list" item="id" close=")" open="(" separator=",">
