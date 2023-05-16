@@ -455,6 +455,36 @@ limitations under the License.
         ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
     </select>
 
+    <select id="getJobPhaseListWithGroupByJobIdList" parameterType="java.lang.Long"
+            resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+               ajp.`job_id`                    as jobId,
+               ajp.`status`,
+               ajp.`start_time`                as startTime,
+               ajp.`end_time`                  as endTime,
+               ajp.`exec_user`                 as execUser,
+               ajp.`exec_mode`                 as execMode,
+               ajp.`name`                      as name,
+               ajp.`group_id`                  as groupId,
+               ajp.`execute_policy`            as executePolicy,
+               ajp.`sort`,
+               ajp.`warn_count`                as warnCount,
+               ajp.`round_count`               as roundCount,
+               ajg.id                          as groupId,
+               ajg.sort                        as groupSort,
+               ajg.config,
+               ajg.policy                      as groupPolicy,
+               ajp.`uuid`,
+               ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
+        FROM `autoexec_job_phase` ajp
+                 left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        where ajp.`job_id` in
+        <foreach collection="list" item="jobId" open="(" separator="," close=")">
+            #{jobId}
+        </foreach>
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
+    </select>
+
     <resultMap id="AutoexecJobPhaseMap" type="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         <id column="id" property="id"/>
         <result column="jobId" property="jobId"/>
@@ -1435,6 +1465,12 @@ limitations under the License.
         LIMIT 1
     </select>
 
+    <select id="getJobIdListByInvokeId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT `job_id`
+        FROM `autoexec_job_invoke`
+        WHERE `invoke_id` = #{value}
+    </select>
+
     <select id="getJobIdCountListByInvokeIdList" parameterType="java.lang.Long"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobInvokeVo">
         SELECT
@@ -2121,7 +2157,9 @@ limitations under the License.
         aj.`config_hash` as configHash,
         aj.`lncd`,
         aj.`parent_id` as parentId,
-        aj.`trigger_type` as triggerType
+        aj.`trigger_type` as triggerType,
+        aj.`scenario_id`     as scenarioId,
+        aj.`runner_map_id`   as runnerMapId
         FROM `autoexec_job` aj
         WHERE aj.`id` in
         <foreach collection="list" item="id" close=")" open="(" separator=",">

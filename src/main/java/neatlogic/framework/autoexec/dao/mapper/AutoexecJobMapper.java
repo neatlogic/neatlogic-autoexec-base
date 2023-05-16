@@ -84,6 +84,8 @@ public interface AutoexecJobMapper {
     //jobPhase
     List<AutoexecJobPhaseVo> getJobPhaseListWithGroupByJobId(Long jobId);
 
+    List<AutoexecJobPhaseVo> getJobPhaseListWithGroupByJobIdList(List<Long> jobIdList);
+
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndPhaseStatus(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobIdAndNodeStatusList(@Param("jobId") Long jobId, @Param("statusList") List<String> statusList);
@@ -254,6 +256,8 @@ public interface AutoexecJobMapper {
     List<AutoexecJobInvokeVo> getJobInvokeListByJobIdList(List<Long> jobIdList);
 
     Long getJobIdByInvokeIdLimitOne(Long invokeId);
+
+    List<Long> getJobIdListByInvokeId(Long invokeId);
 
     List<AutoexecJobInvokeVo> getJobIdCountListByInvokeIdList(List<Long> invokeIdList);
 

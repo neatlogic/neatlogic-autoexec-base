@@ -40,6 +40,22 @@ public class AutoexecNodeVo implements Serializable {
     public AutoexecNodeVo() {
     }
 
+    public AutoexecNodeVo(String inputStr) {
+        if (inputStr.contains(":")) {
+            String[] ipAndportSplit = inputStr.split(":", 2);
+            this.ip = ipAndportSplit[0];
+            if (ipAndportSplit[1].contains("/")) {
+                String[] portAndNameSplit = ipAndportSplit[1].split("/", 2);
+                this.port = Integer.valueOf(portAndNameSplit[0]);
+                this.name = portAndNameSplit[1];
+            } else {
+                this.port = Integer.valueOf(ipAndportSplit[1]);
+            }
+        } else {
+            this.ip = inputStr;
+        }
+    }
+
     public AutoexecNodeVo(ResourceVo resourceVo) {
         this.id = resourceVo.getId();
         this.name = resourceVo.getName();
