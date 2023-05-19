@@ -43,6 +43,8 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
     private boolean needExecuteNode = false;
     @EntityField(name = "执行页面是否需要设置分批数量", type = ApiParamType.BOOLEAN)
     private boolean needRoundCount = false;
+    @EntityField(name = "所有阶段都是Runner或SQL执行方式", type = ApiParamType.BOOLEAN)
+    private Boolean allPhasesAreRunnerOrSqlExecMode;
 
 //    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
 //    private Integer viewable;
@@ -201,5 +203,13 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
 
     public void setNeedRoundCount(boolean needRoundCount) {
         this.needRoundCount = needRoundCount;
+    }
+
+    public Boolean getAllPhasesAreRunnerOrSqlExecMode() {
+        return allPhasesAreRunnerOrSqlExecMode;
+    }
+
+    public void setAllPhasesAreRunnerOrSqlExecMode(Boolean allPhasesAreRunnerOrSqlExecMode) {
+        this.allPhasesAreRunnerOrSqlExecMode = allPhasesAreRunnerOrSqlExecMode;
     }
 }
