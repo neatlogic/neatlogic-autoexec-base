@@ -94,6 +94,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private List<AutoexecCombopVersionVo> versionList;
     @JSONField(serialize = false)
     private String configStr;
+    @EntityField(name = "所有阶段都是Runner或SQL执行方式", type = ApiParamType.BOOLEAN)
+    private Boolean allPhasesAreRunnerOrSqlExecMode;
 
     public AutoexecCombopVo() {
     }
@@ -347,5 +349,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setVersionList(List<AutoexecCombopVersionVo> versionList) {
         this.versionList = versionList;
+    }
+
+    public Boolean getAllPhasesAreRunnerOrSqlExecMode() {
+        return allPhasesAreRunnerOrSqlExecMode;
+    }
+
+    public void setAllPhasesAreRunnerOrSqlExecMode(Boolean allPhasesAreRunnerOrSqlExecMode) {
+        this.allPhasesAreRunnerOrSqlExecMode = allPhasesAreRunnerOrSqlExecMode;
     }
 }
