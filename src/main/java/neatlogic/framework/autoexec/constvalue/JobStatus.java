@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.util.I18nUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 public enum JobStatus implements IEnum {
     SAVED("saved", "enum.autoexec.jobstatus.saved"),
@@ -89,6 +90,47 @@ public enum JobStatus implements IEnum {
             });
         }
         return array;
+    }
+
+    public static boolean isRunningStatus(String status) {
+        if (Objects.equals(JobStatus.PAUSED.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.PAUSING.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.PENDING.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.READY.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.RUNNING.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.SAVED.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.WAIT_INPUT.getValue(), status)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isCompletedStatus(String status) {
+        if (Objects.equals(JobStatus.COMPLETED.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.CHECKED.getValue(), status)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isFailedStatus(String status) {
+        if (Objects.equals(JobStatus.ABORTED.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.ABORTING.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.FAILED.getValue(), status)) {
+            return true;
+        } else if (Objects.equals(JobStatus.REVOKED.getValue(), status)) {
+            return true;
+        }
+        return false;
     }
 
 }
