@@ -22,7 +22,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.util.I18nUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public enum JobStatus implements IEnum {
     SAVED("saved", "enum.autoexec.jobstatus.saved"),
@@ -40,6 +42,10 @@ public enum JobStatus implements IEnum {
     REVOKED("revoked", "enum.autoexec.jobstatus.revoked");
     private final String status;
     private final String text;
+
+    private static List<String> completedStatusList = Arrays.asList(JobStatus.COMPLETED.getValue(), JobStatus.CHECKED.getValue());
+    private static List<String> runningStatusList = Arrays.asList(JobStatus.PAUSED.getValue(), JobStatus.PAUSING.getValue(), JobStatus.PENDING.getValue(), JobStatus.READY.getValue(), JobStatus.RUNNING.getValue(), JobStatus.SAVED.getValue(), JobStatus.WAIT_INPUT.getValue());
+    private static List<String> failedStatusList = Arrays.asList(JobStatus.ABORTED.getValue(), JobStatus.ABORTING.getValue(), JobStatus.FAILED.getValue(), JobStatus.REVOKED.getValue());
 
     private JobStatus(String _status, String _text) {
         this.status = _status;
@@ -89,6 +95,18 @@ public enum JobStatus implements IEnum {
             });
         }
         return array;
+    }
+
+    public static boolean isRunningStatus(String status) {
+        return runningStatusList.contains(status);
+    }
+
+    public static boolean isCompletedStatus(String status) {
+        return completedStatusList.contains(status);
+    }
+
+    public static boolean isFailedStatus(String status) {
+        return failedStatusList.contains(status);
     }
 
 }
