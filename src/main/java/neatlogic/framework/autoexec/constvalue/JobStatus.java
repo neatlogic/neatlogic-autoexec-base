@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.util.I18nUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,6 +42,10 @@ public enum JobStatus implements IEnum {
     REVOKED("revoked", "enum.autoexec.jobstatus.revoked");
     private final String status;
     private final String text;
+
+    private static List<String> completedStatusList = Arrays.asList(JobStatus.COMPLETED.getValue(), JobStatus.CHECKED.getValue());
+    private static List<String> runningStatusList = Arrays.asList(JobStatus.PAUSED.getValue(), JobStatus.PAUSING.getValue(), JobStatus.PENDING.getValue(), JobStatus.READY.getValue(), JobStatus.RUNNING.getValue(), JobStatus.SAVED.getValue(), JobStatus.WAIT_INPUT.getValue());
+    private static List<String> failedStatusList = Arrays.asList(JobStatus.ABORTED.getValue(), JobStatus.ABORTING.getValue(), JobStatus.FAILED.getValue(), JobStatus.REVOKED.getValue());
 
     private JobStatus(String _status, String _text) {
         this.status = _status;
@@ -93,44 +98,15 @@ public enum JobStatus implements IEnum {
     }
 
     public static boolean isRunningStatus(String status) {
-        if (Objects.equals(JobStatus.PAUSED.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.PAUSING.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.PENDING.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.READY.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.RUNNING.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.SAVED.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.WAIT_INPUT.getValue(), status)) {
-            return true;
-        }
-        return false;
+        return runningStatusList.contains(status);
     }
 
     public static boolean isCompletedStatus(String status) {
-        if (Objects.equals(JobStatus.COMPLETED.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.CHECKED.getValue(), status)) {
-            return true;
-        }
-        return false;
+        return completedStatusList.contains(status);
     }
 
     public static boolean isFailedStatus(String status) {
-        if (Objects.equals(JobStatus.ABORTED.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.ABORTING.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.FAILED.getValue(), status)) {
-            return true;
-        } else if (Objects.equals(JobStatus.REVOKED.getValue(), status)) {
-            return true;
-        }
-        return false;
+        return failedStatusList.contains(status);
     }
 
 }
