@@ -26,7 +26,7 @@ public class AutoexecJobPhaseRunnerNotFoundException extends ApiRuntimeException
     }
 
     public AutoexecJobPhaseRunnerNotFoundException(String phaseNames) {
-        super("exception.autoexec.autoexecjobphaserunnernotfoundexception.1" + phaseNames);
+        super("exception.autoexec.autoexecjobphaserunnernotfoundexception.1", phaseNames);
     }
 }
 
