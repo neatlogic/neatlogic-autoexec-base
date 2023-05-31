@@ -14,11 +14,11 @@ import java.util.Objects;
  * @date 2022/4/20 2:29 下午
  */
 public enum AutoexecGlobalParamType implements IEnum {
-    TEXT("text", "enum.autoexec.autoexecglobalparamtype.text", "enum.autoexec.autoexecglobalparamtype.text.1"),
-    PASSWORD("password", "enum.autoexec.autoexecglobalparamtype.password", "enum.autoexec.autoexecglobalparamtype.password.1"),
-    DATE("date", "enum.autoexec.autoexecglobalparamtype.date", "enum.autoexec.autoexecglobalparamtype.date.1"),
-    DATETIME("datetime", "enum.autoexec.autoexecglobalparamtype.datetime", "enum.autoexec.autoexecglobalparamtype.datetime.1"),
-    TIME("time", "enum.autoexec.autoexecglobalparamtype.time", "enum.autoexec.autoexecglobalparamtype.time.1"),
+    TEXT("text", "enum.autoexec.autoexecglobalparamtype.text.a", "enum.autoexec.autoexecglobalparamtype.text.b"),
+    PASSWORD("password", "enum.autoexec.autoexecglobalparamtype.password.a", "enum.autoexec.autoexecglobalparamtype.password.b"),
+    DATE("date", "enum.autoexec.autoexecglobalparamtype.date.a", "enum.autoexec.autoexecglobalparamtype.date.b"),
+    DATETIME("datetime", "enum.autoexec.autoexecglobalparamtype.datetime.a", "enum.autoexec.autoexecglobalparamtype.datetime.b"),
+    TIME("time", "enum.autoexec.autoexecglobalparamtype.time.a", "enum.autoexec.autoexecglobalparamtype.time.b"),
     TEXTAREA("textarea", "enum.autoexec.autoexecglobalparamtype.textarea", "enum.autoexec.autoexecglobalparamtype.textarea"),
     ;
 

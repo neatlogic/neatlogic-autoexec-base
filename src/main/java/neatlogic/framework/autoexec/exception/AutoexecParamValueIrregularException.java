@@ -23,14 +23,14 @@ public class AutoexecParamValueIrregularException extends ApiRuntimeException {
     private static final long serialVersionUID = -977869375722886183L;
 
     public AutoexecParamValueIrregularException(String phaseName, String operationName, String paramName, String paramKey, String paramValue) {
-        super("exception.autoexec.autoexecparamvalueirregularexception", phaseName, operationName, paramName, paramKey, paramValue);
+        super("exception.autoexec.autoexecparamvalueirregularexception.a", phaseName, operationName, paramName, paramKey, paramValue);
     }
 
     public AutoexecParamValueIrregularException(String operationName, String paramName, String paramKey, String paramValue) {
-        super("exception.autoexec.autoexecparamvalueirregularexception.1", operationName, paramName, paramKey, paramValue);
+        super("exception.autoexec.autoexecparamvalueirregularexception.b", operationName, paramName, paramKey, paramValue);
     }
 
     public AutoexecParamValueIrregularException(String paramName, String paramKey, String paramValue) {
-        super("exception.autoexec.autoexecparamvalueirregularexception.2", paramName, paramKey, paramValue);
+        super("exception.autoexec.autoexecparamvalueirregularexception.c", paramName, paramKey, paramValue);
     }
 }

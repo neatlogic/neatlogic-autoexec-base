@@ -19,13 +19,13 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.I18nUtils;
 
 public enum ScriptAction {
-    SWITCH_VERSION("switchversion", "enum.autoexec.scriptaction.switch_version", "enum.autoexec.scriptaction.switch_version.1", true),
-    DISABLE("disable", "enum.autoexec.scriptaction.disable", "enum.autoexec.scriptaction.disable.1", true),
-    DELETE("delete", "enum.autoexec.scriptaction.delete", "enum.autoexec.scriptaction.delete.1", true),
-    SUBMIT("submit", "enum.autoexec.scriptaction.submit", "enum.autoexec.scriptaction.submit.1", true),
-    PASS("pass", "enum.autoexec.scriptaction.pass", "enum.autoexec.scriptaction.pass.1", true),
-    REJECT("reject", "enum.autoexec.scriptaction.reject", "enum.autoexec.scriptaction.reject.1", true),
-    REVOKE("revoke", "enum.autoexec.scriptaction.revoke", "enum.autoexec.scriptaction.revoke.1", true);
+    SWITCH_VERSION("switchversion", "enum.autoexec.scriptaction.switch_version.a", "enum.autoexec.scriptaction.switch_version.b", true),
+    DISABLE("disable", "enum.autoexec.scriptaction.disable.a", "enum.autoexec.scriptaction.disable.b", true),
+    DELETE("delete", "enum.autoexec.scriptaction.delete.a", "enum.autoexec.scriptaction.delete.b", true),
+    SUBMIT("submit", "enum.autoexec.scriptaction.submit.a", "enum.autoexec.scriptaction.submit.b", true),
+    PASS("pass", "enum.autoexec.scriptaction.pass.a", "enum.autoexec.scriptaction.pass.b", true),
+    REJECT("reject", "enum.autoexec.scriptaction.reject.a", "enum.autoexec.scriptaction.reject.b", true),
+    REVOKE("revoke", "enum.autoexec.scriptaction.revoke.a", "enum.autoexec.scriptaction.revoke.b", true);
     private String value;
     private String text;
     private String title;

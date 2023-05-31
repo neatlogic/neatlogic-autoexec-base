@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Objects;
 
 public enum ScriptExecMode implements IEnum {
-    RUNNER("runner", "enum.autoexec.scriptexecmode.runner", "enum.autoexec.scriptexecmode.runner.1"),
-    TARGET("target", "enum.autoexec.scriptexecmode.target", "enum.autoexec.scriptexecmode.target.1"),
-    RUNNER_TARGET("runner_target", "enum.autoexec.scriptexecmode.runner_target", "enum.autoexec.scriptexecmode.runner_target.1"),
-    SQL("sqlfile", "enum.autoexec.scriptexecmode.sql", "enum.autoexec.scriptexecmode.sql.1"),
+    RUNNER("runner", "enum.autoexec.scriptexecmode.runner.a", "enum.autoexec.scriptexecmode.runner.b"),
+    TARGET("target", "enum.autoexec.scriptexecmode.target.a", "enum.autoexec.scriptexecmode.target.b"),
+    RUNNER_TARGET("runner_target", "enum.autoexec.scriptexecmode.runner_target.a", "enum.autoexec.scriptexecmode.runner_target.b"),
+    SQL("sqlfile", "enum.autoexec.scriptexecmode.sql.a", "enum.autoexec.scriptexecmode.sql.b"),
     NATIVE("native", "enum.autoexec.scriptexecmode.native", "");
     private final String value;
     private final String text;

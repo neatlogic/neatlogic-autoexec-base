@@ -29,7 +29,7 @@ import java.util.List;
  **/
 public enum CombopNodeSpecify implements IEnum {
     NOW("now", "enum.autoexec.combopnodespecify.now"),
-    RUNTIME("runtime", "enum.autoexec.combopnodespecify.runtime"),
+    RUNTIME("runtime", "enum.autoexec.combopnodespecify.runtime.a"),
     RUNTIMEPARAM("runtimeparam", "enum.autoexec.combopnodespecify.runtimeparam");
     private final String value;
     private final String text;

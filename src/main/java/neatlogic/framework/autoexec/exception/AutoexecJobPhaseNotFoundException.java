@@ -23,11 +23,11 @@ public class AutoexecJobPhaseNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 4522850144891547590L;
 
     public AutoexecJobPhaseNotFoundException(String uk) {
-        super("exception.autoexec.autoexecjobphasenotfoundexception", uk);
+        super("exception.autoexec.autoexecjobphasenotfoundexception.a", uk);
     }
 
 
     public AutoexecJobPhaseNotFoundException(Long jobId, Integer groupSort) {
-        super("exception.autoexec.autoexecjobphasenotfoundexception.1", jobId, groupSort);
+        super("exception.autoexec.autoexecjobphasenotfoundexception.b", jobId, groupSort);
     }
 }

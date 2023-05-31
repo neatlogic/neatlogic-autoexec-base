@@ -23,11 +23,11 @@ public class AutoexecToolParamValidateFieldLostException extends ApiRuntimeExcep
     private static final long serialVersionUID = 5190517136889826388L;
 
     public AutoexecToolParamValidateFieldLostException(String param, String field, String lostField) {
-        super("exception.autoexec.autoexectoolparamvalidatefieldlostexception", param, field, lostField);
+        super("exception.autoexec.autoexectoolparamvalidatefieldlostexception.a", param, field, lostField);
     }
 
     public AutoexecToolParamValidateFieldLostException(String param, int fieldIndex, String lostField) {
-        super("exception.autoexec.autoexectoolparamvalidatefieldlostexception.1", param, fieldIndex, lostField);
+        super("exception.autoexec.autoexectoolparamvalidatefieldlostexception.b", param, fieldIndex, lostField);
     }
 
 

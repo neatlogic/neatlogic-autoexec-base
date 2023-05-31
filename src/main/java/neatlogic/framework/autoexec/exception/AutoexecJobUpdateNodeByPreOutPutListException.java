@@ -28,10 +28,10 @@ public class AutoexecJobUpdateNodeByPreOutPutListException extends ApiRuntimeExc
     private static final long serialVersionUID = 4165697641029305057L;
 
     public AutoexecJobUpdateNodeByPreOutPutListException(AutoexecJobVo jobVo) {
-        super("exception.autoexec.autoexecjobupdatenodebypreoutputlistexception", jobVo.getId());
+        super("exception.autoexec.autoexecjobupdatenodebypreoutputlistexception.a", jobVo.getId());
     }
 
     public AutoexecJobUpdateNodeByPreOutPutListException(AutoexecJobPhaseVo currentJobPhaseVo, List<AutoexecCombopPhaseVo> autoexecCombopPhaseVos) {
-        super("exception.autoexec.autoexecjobupdatenodebypreoutputlistexception.1", autoexecCombopPhaseVos.stream().map(AutoexecCombopPhaseVo::getName).collect(Collectors.joining(",")), currentJobPhaseVo.getName());
+        super("exception.autoexec.autoexecjobupdatenodebypreoutputlistexception.b", autoexecCombopPhaseVos.stream().map(AutoexecCombopPhaseVo::getName).collect(Collectors.joining(",")), currentJobPhaseVo.getName());
     }
 }

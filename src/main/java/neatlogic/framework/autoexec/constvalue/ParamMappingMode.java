@@ -32,7 +32,7 @@ import java.util.List;
 public enum ParamMappingMode implements IEnum {
     CONSTANT("constant", "enum.autoexec.parammappingmode.constant"),
     RUNTIME_PARAM("runtimeparam", "enum.autoexec.parammappingmode.runtime_param"),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "enum.autoexec.parammappingmode.pre_node_output_param"),
+    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "enum.autoexec.parammappingmode.pre_node_output_param.a"),
     PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "enum.autoexec.parammappingmode.pre_node_output_param_key"),
     IS_EMPTY("isempty", "enum.autoexec.parammappingmode.is_empty"),
     PROFILE("profile", "enum.autoexec.parammappingmode.profile"),

@@ -27,17 +27,17 @@ public class AutoexecParamMappingTargetNotFoundException extends ApiRuntimeExcep
     private static final long serialVersionUID = -977868375722886184L;
 
     public AutoexecParamMappingTargetNotFoundException(String phaseName, String operationName, String key, String target) {
-        super("exception.autoexec.autoexecparammappingtargetnotfoundexception", phaseName, operationName, key, target);
+        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.a", phaseName, operationName, key, target);
     }
 
     public AutoexecParamMappingTargetNotFoundException(String phaseName, String target) {
-        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.1", phaseName, target);
+        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.b", phaseName, target);
     }
     public AutoexecParamMappingTargetNotFoundException(Integer groupSort, String target) {
-        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.2", groupSort, target);
+        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.c", groupSort, target);
     }
     public AutoexecParamMappingTargetNotFoundException(String target) {
-        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.3", target);
+        super("exception.autoexec.autoexecparammappingtargetnotfoundexception.d", target);
     }
 
 }

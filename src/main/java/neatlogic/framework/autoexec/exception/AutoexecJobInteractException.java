@@ -7,10 +7,10 @@ public class AutoexecJobInteractException extends ApiRuntimeException {
     private static final long serialVersionUID = 3024745064863084481L;
 
     public AutoexecJobInteractException() {
-        super("exception.autoexec.autoexecjobinteractexception");
+        super("exception.autoexec.autoexecjobinteractexception.a");
     }
 
     public AutoexecJobInteractException(String msg) {
-        super("exception.autoexec.autoexecjobinteractexception.1", msg);
+        super("exception.autoexec.autoexecjobinteractexception.b", msg);
     }
 }

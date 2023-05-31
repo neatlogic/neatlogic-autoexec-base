@@ -23,7 +23,7 @@ public enum JobSource implements IAutoexecJobSource {
     HUMAN("enum.autoexec.jobsource.human", "human"),
     SERVICE("enum.autoexec.jobsource.service", "service"),
     AUTOEXEC_SCHEDULE("enum.autoexec.jobsource.autoexec_schedule", "autoexecschedule"),
-    COMBOP("enum.autoexec.jobsource.combop", "combop"),
+    COMBOP("enum.autoexec.jobsource.combop.a", "combop"),
     COMBOP_TEST("enum.autoexec.jobsource.combop_test", "comboptest"),
     SCRIPT_TEST("enum.autoexec.jobsource.script_test", "scripttest"),
     TOOL_TEST("enum.autoexec.jobsource.tool_test", "tooltest"),
