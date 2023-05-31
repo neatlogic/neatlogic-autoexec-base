@@ -20,7 +20,7 @@ import neatlogic.framework.util.I18nUtils;
 
 public enum AutoexecTypeType {
     FACTORY("factory", "enum.autoexec.autoexectypetype.factory"),
-    CUSTOM("custom", "enum.autoexec.autoexectypetype.custom");
+    CUSTOM("custom", "common.custom");
     private final String value;
     private final String name;
 

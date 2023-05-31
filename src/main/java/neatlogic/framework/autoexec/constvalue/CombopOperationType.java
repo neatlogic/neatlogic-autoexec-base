@@ -26,8 +26,8 @@ import neatlogic.framework.util.I18nUtils;
  **/
 public enum CombopOperationType {
     COMBOP("combop", "enum.autoexec.combopoperationtype.combop"),
-    SCRIPT("script", "enum.autoexec.combopoperationtype.script"),
-    TOOL("tool", "enum.autoexec.combopoperationtype.tool");
+    SCRIPT("script", "common.script"),
+    TOOL("tool", "common.tool");
 
     private CombopOperationType(String value, String text) {
         this.value = value;

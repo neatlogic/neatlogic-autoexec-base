@@ -8,16 +8,16 @@ import neatlogic.framework.util.I18nUtils;
 import java.util.List;
 
 public enum JobNodeStatus implements IEnum {
-    PENDING("pending", "enum.autoexec.jobnodestatus.pending"),
-    RUNNING("running", "enum.autoexec.jobnodestatus.running"),
-    PAUSING("pausing","enum.autoexec.jobnodestatus.pausing"),
-    PAUSED("paused","enum.autoexec.jobnodestatus.paused"),
-    ABORTING("aborting", "enum.autoexec.jobnodestatus.aborting"),
-    ABORTED("aborted", "enum.autoexec.jobnodestatus.aborted"),
-    SUCCEED("succeed", "enum.autoexec.jobnodestatus.succeed"),
-    FAILED("failed", "enum.autoexec.jobnodestatus.failed"),
-    IGNORED("ignored", "enum.autoexec.jobnodestatus.ignored"),
-    WAIT_INPUT("waitInput", "enum.autoexec.jobnodestatus.wait_input");
+    PENDING("pending", "common.pending"),
+    RUNNING("running", "common.running"),
+    PAUSING("pausing","common.pausing"),
+    PAUSED("paused","common.paused"),
+    ABORTING("aborting", "common.aborting"),
+    ABORTED("aborted", "common.aborted"),
+    SUCCEED("succeed", "common.succeed"),
+    FAILED("failed", "common.failed"),
+    IGNORED("ignored", "common.ignored"),
+    WAIT_INPUT("waitInput", "common.waitinput");
     private final String status;
     private final String text;
 

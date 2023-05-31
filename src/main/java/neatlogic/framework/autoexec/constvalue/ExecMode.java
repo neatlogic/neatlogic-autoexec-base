@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Objects;
 
 public enum ExecMode implements IEnum {
-    RUNNER("runner", "enum.autoexec.execmode.runner.a", "enum.autoexec.execmode.runner.b"),
-    TARGET("target", "enum.autoexec.execmode.target.a", "enum.autoexec.execmode.target.b"),
-    RUNNER_TARGET("runner_target", "enum.autoexec.execmode.runner_target.a", "enum.autoexec.execmode.runner_target.b"),
-    SQL("sqlfile", "enum.autoexec.execmode.sql.a", "enum.autoexec.execmode.sql.b");
+    RUNNER("runner", "common.runnerexecution", "common.noneed"),
+    TARGET("target", "common.targetexecution", "common.needtospecifyexecu"),
+    RUNNER_TARGET("runner_target", "common.runnerarget", "common.needtospec"),
+    SQL("sqlfile", "common.sqlfileexecution", "common.sqltarget");
     private final String value;
     private final String text;
     private final String description;

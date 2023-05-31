@@ -23,7 +23,7 @@ public class AutoexecScriptVersionHasBeenActivedException extends ApiRuntimeExce
     private static final long serialVersionUID = -7762115095407337956L;
 
     public AutoexecScriptVersionHasBeenActivedException() {
-        super("exception.autoexec.autoexecscriptversionhasbeenactivedexception");
+        super("exception.currentversionisactivatedandcannotbedeleted");
     }
 
 

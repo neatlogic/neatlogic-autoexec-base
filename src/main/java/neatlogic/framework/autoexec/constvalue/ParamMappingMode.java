@@ -30,13 +30,13 @@ import java.util.List;
  * @since: 2021/4/14 17:47
  **/
 public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "enum.autoexec.parammappingmode.constant"),
+    CONSTANT("constant", "common.constant"),
     RUNTIME_PARAM("runtimeparam", "enum.autoexec.parammappingmode.runtime_param"),
     PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "enum.autoexec.parammappingmode.pre_node_output_param.a"),
     PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "enum.autoexec.parammappingmode.pre_node_output_param_key"),
-    IS_EMPTY("isempty", "enum.autoexec.parammappingmode.is_empty"),
-    PROFILE("profile", "enum.autoexec.parammappingmode.profile"),
-    GLOBAL_PARAM("globalparam", "enum.autoexec.parammappingmode.global_param");
+    IS_EMPTY("isempty", "common.null"),
+    PROFILE("profile", "common.presetparameterset"),
+    GLOBAL_PARAM("globalparam", "common.globalparameter");
 
     private final String value;
     private final String text;

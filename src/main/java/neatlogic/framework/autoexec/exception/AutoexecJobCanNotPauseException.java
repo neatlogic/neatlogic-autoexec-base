@@ -23,7 +23,7 @@ public class AutoexecJobCanNotPauseException extends ApiRuntimeException {
     private static final long serialVersionUID = 3401067630822603011L;
 
     public AutoexecJobCanNotPauseException(String jobId) {
-        super("exception.autoexec.autoexecjobcannotpauseexception", jobId);
+        super("common.unabl", jobId);
     }
 
 

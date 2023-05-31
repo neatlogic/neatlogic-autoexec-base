@@ -23,7 +23,7 @@ import neatlogic.framework.util.I18nUtils;
  * @since: 2021/4/23 14:28
  **/
 public enum NodeStatus {
-    NORMAL("normal", "enum.autoexec.nodestatus.normal", "#25b865"),
+    NORMAL("normal", "common.normal", "#25b865"),
     USER_NOT_FOUND("user_not_found", "enum.autoexec.nodestatus.user_not_found","#ffff66"),
     NODE_NOT_FOUND("node_not_found", "enum.autoexec.nodestatus.node_not_found","#f71010");
     private final String value;

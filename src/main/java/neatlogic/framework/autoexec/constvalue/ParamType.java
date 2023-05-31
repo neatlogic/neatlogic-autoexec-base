@@ -32,24 +32,24 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum ParamType implements IEnum {
-    TEXT("text", "enum.autoexec.paramtype.text.a", "enum.autoexec.paramtype.text.b"),
-    PASSWORD("password", "enum.autoexec.paramtype.password.a", "enum.autoexec.paramtype.password.b"),
-    FILE("file", "enum.autoexec.paramtype.file.a", "enum.autoexec.paramtype.file.b"),
-    DATE("date", "enum.autoexec.paramtype.date.a", "enum.autoexec.paramtype.date.b"),
-    DATETIME("datetime", "enum.autoexec.paramtype.datetime.a", "enum.autoexec.paramtype.datetime.b"),
-    TIME("time", "enum.autoexec.paramtype.time.a", "enum.autoexec.paramtype.time.b"),
-    JSON("json", "enum.autoexec.paramtype.json.a", "enum.autoexec.paramtype.json.b"),
-    SELECT("select", "enum.autoexec.paramtype.select.a", "enum.autoexec.paramtype.select.b"),
-    MULTISELECT("multiselect", "enum.autoexec.paramtype.multiselect.a", "enum.autoexec.paramtype.multiselect.b"),
-    RADIO("radio", "enum.autoexec.paramtype.radio.a", "enum.autoexec.paramtype.radio.b"),
-    CHECKBOX("checkbox", "enum.autoexec.paramtype.checkbox.a", "enum.autoexec.paramtype.checkbox.b"),
-    NODE("node", "enum.autoexec.paramtype.node.a", "enum.autoexec.paramtype.node.b"),
-    ACCOUNT("account", "enum.autoexec.paramtype.account.a", "enum.autoexec.paramtype.account.b"),
-    USERSELECT("userselect", "enum.autoexec.paramtype.userselect.a", "enum.autoexec.paramtype.userselect.b"),
-    TEXTAREA("textarea", "enum.autoexec.paramtype.textarea.a", "enum.autoexec.paramtype.textarea.b"),
-    PHASE("phase", "enum.autoexec.paramtype.phase.a", "enum.autoexec.paramtype.phase.b"),
+    TEXT("text", "common.text", "common.textparameter,caninputstrings,numbers"),
+    PASSWORD("password", "common.password", "common.passworddesc"),
+    FILE("file", "common.file", "common.autoexec.file"),
+    DATE("date", "common.date", "common.dateform"),
+    DATETIME("datetime", "common.datatime", "common.datetimeform"),
+    TIME("time", "common.time", "common.timeform"),
+    JSON("json", "common.jsonobject", "enum.autoexec.paramtype.json.b"),
+    SELECT("select", "common.single-selectdropdown", "common.selectform"),
+    MULTISELECT("multiselect", "common.multiselect", "enum.autoexec.paramtype.multiselect.b"),
+    RADIO("radio", "common.single-select", "common.single-selectselector"),
+    CHECKBOX("checkbox", "enum.autoexec.paramtype.checkbox.a", "common.checkboxselector"),
+    NODE("node", "common.nodeinformation", "common.outputnode"),
+    ACCOUNT("account", "common.account", "common.autoexec.account"),
+    USERSELECT("userselect", "common.userselector", "enum.autoexec.paramtype.userselect.b"),
+    TEXTAREA("textarea", "common.textarea", "enum.autoexec.paramtype.textarea.b"),
+    PHASE("phase", "common.phase", "enum.autoexec.paramtype.phase.b"),
     SWITCH("switch", "enum.autoexec.paramtype.switch", "enum.autoexec.paramtype.switch"),
-    FILEPATH("filepath", "enum.autoexec.paramtype.filepath.a", "enum.autoexec.paramtype.filepath.b");
+    FILEPATH("filepath", "common.filepath", "common.canoutputfilepathparameter");
 
     private final String value;
     private final String text;

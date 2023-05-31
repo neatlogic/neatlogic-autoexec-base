@@ -28,8 +28,8 @@ import java.util.List;
  */
 
 public enum AutoexecServiceType implements IEnum {
-    SERVICE("service", "enum.autoexec.autoexecservicetype.service"),
-    CATALOG("catalog", "enum.autoexec.autoexecservicetype.catalog"),
+    SERVICE("service", "common.service"),
+    CATALOG("catalog", "common.directory"),
     ;
 
     private final String value;

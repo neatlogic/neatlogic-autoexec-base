@@ -14,12 +14,12 @@ import java.util.Objects;
  * @date 2022/4/20 2:29 下午
  */
 public enum AutoexecGlobalParamType implements IEnum {
-    TEXT("text", "enum.autoexec.autoexecglobalparamtype.text.a", "enum.autoexec.autoexecglobalparamtype.text.b"),
-    PASSWORD("password", "enum.autoexec.autoexecglobalparamtype.password.a", "enum.autoexec.autoexecglobalparamtype.password.b"),
-    DATE("date", "enum.autoexec.autoexecglobalparamtype.date.a", "enum.autoexec.autoexecglobalparamtype.date.b"),
-    DATETIME("datetime", "enum.autoexec.autoexecglobalparamtype.datetime.a", "enum.autoexec.autoexecglobalparamtype.datetime.b"),
-    TIME("time", "enum.autoexec.autoexecglobalparamtype.time.a", "enum.autoexec.autoexecglobalparamtype.time.b"),
-    TEXTAREA("textarea", "enum.autoexec.autoexecglobalparamtype.textarea", "enum.autoexec.autoexecglobalparamtype.textarea"),
+    TEXT("text", "common.text", "common.textparameter,caninputstrings,numbers"),
+    PASSWORD("password", "common.password", "common.passworddesc"),
+    DATE("date", "common.date", "common.dateform"),
+    DATETIME("datetime", "common.datatime", "common.datetimeform"),
+    TIME("time", "common.time", "common.timeform"),
+    TEXTAREA("textarea", "common.textarea", "common.textarea"),
     ;
 
     private final String value;

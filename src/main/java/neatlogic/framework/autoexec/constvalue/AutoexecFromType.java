@@ -10,13 +10,13 @@ import neatlogic.framework.util.I18nUtils;
 public enum AutoexecFromType implements IFromType {
     AUTOEXEC_CATALOG("autoexeccatalog", "enum.autoexec.autoexecfromtype.autoexec_catalog"),
     AUTOEXEC_PROFILE_OPERATION("autoexecprofileoperation", "enum.autoexec.autoexecfromtype.autoexec_profile_operation"),
-    PROFILE("profile", "enum.autoexec.autoexecfromtype.profile"),
+    PROFILE("profile", "common.presetparameterset"),
     SCRIPT("script", "enum.autoexec.autoexecfromtype.script"),
-    TOOL("tool", "enum.autoexec.autoexecfromtype.tool"),
-    GLOBAL_PARAM("globalparam", "enum.autoexec.autoexecfromtype.global_param"),
-    SCENARIO("scenario", "enum.autoexec.autoexecfromtype.scenario"),
-    CUSTOM_TEMPLATE("customtemplate", "enum.autoexec.autoexecfromtype.custom_template"),
-    COMBOP("combop", "enum.autoexec.autoexecfromtype.combop"),
+    TOOL("tool", "common.tool"),
+    GLOBAL_PARAM("globalparam", "common.globalparameter"),
+    SCENARIO("scenario", "common.scene"),
+    CUSTOM_TEMPLATE("customtemplate", "common.customtemplate"),
+    COMBOP("combop", "common.combop"),
     ;
 
     private String value;

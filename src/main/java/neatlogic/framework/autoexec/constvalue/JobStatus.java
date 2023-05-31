@@ -28,16 +28,16 @@ import java.util.Objects;
 
 public enum JobStatus implements IEnum {
     SAVED("saved", "enum.autoexec.jobstatus.saved"),
-    PENDING("pending", "enum.autoexec.jobstatus.pending"),
-    RUNNING("running", "enum.autoexec.jobstatus.running"),
-    PAUSING("pausing", "enum.autoexec.jobstatus.pausing"),
-    PAUSED("paused", "enum.autoexec.jobstatus.paused"),
-    ABORTING("aborting", "enum.autoexec.jobstatus.aborting"),
-    ABORTED("aborted", "enum.autoexec.jobstatus.aborted"),
-    COMPLETED("completed", "enum.autoexec.jobstatus.completed"),
-    FAILED("failed", "enum.autoexec.jobstatus.failed"),
-    READY("ready", "enum.autoexec.jobstatus.ready"),
-    WAIT_INPUT("waitInput", "enum.autoexec.jobstatus.wait_input"),
+    PENDING("pending", "common.pending"),
+    RUNNING("running", "common.running"),
+    PAUSING("pausing", "common.pausing"),
+    PAUSED("paused", "common.paused"),
+    ABORTING("aborting", "common.aborting"),
+    ABORTED("aborted", "common.aborted"),
+    COMPLETED("completed", "common.completed"),
+    FAILED("failed", "common.failed"),
+    READY("ready", "common.ready"),
+    WAIT_INPUT("waitInput", "common.waitinput"),
     CHECKED("checked", "enum.autoexec.jobstatus.checked"),
     REVOKED("revoked", "enum.autoexec.jobstatus.revoked");
     private final String status;

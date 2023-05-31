@@ -13,8 +13,8 @@ import java.util.Objects;
  * @date 2022/5/19 4:48 下午
  */
 public enum AutoexecProfileParamInvokeType implements IEnum {
-    GLOBAL_PARAM("globalparam", "enum.autoexec.autoexecprofileparaminvoketype.global_param"),
-    CONSTANT("constant", "enum.autoexec.autoexecprofileparaminvoketype.constant");
+    GLOBAL_PARAM("globalparam", "common.globalparameter"),
+    CONSTANT("constant", "common.constant");
 
     private final String value;
     private final String text;

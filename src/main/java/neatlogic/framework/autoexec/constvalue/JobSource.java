@@ -22,12 +22,12 @@ import neatlogic.framework.util.I18nUtils;
 public enum JobSource implements IAutoexecJobSource {
     HUMAN("enum.autoexec.jobsource.human", "human"),
     SERVICE("enum.autoexec.jobsource.service", "service"),
-    AUTOEXEC_SCHEDULE("enum.autoexec.jobsource.autoexec_schedule", "autoexecschedule"),
-    COMBOP("enum.autoexec.jobsource.combop.a", "combop"),
+    AUTOEXEC_SCHEDULE("common.scheduledtask", "autoexecschedule"),
+    COMBOP("common.combop", "combop"),
     COMBOP_TEST("enum.autoexec.jobsource.combop_test", "comboptest"),
     SCRIPT_TEST("enum.autoexec.jobsource.script_test", "scripttest"),
     TOOL_TEST("enum.autoexec.jobsource.tool_test", "tooltest"),
-    TEST("enum.autoexec.jobsource.test", "test");
+    TEST("common.test", "test");
     private final String text;
     private final String value;
 
