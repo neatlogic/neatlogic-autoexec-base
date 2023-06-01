@@ -1500,6 +1500,19 @@ limitations under the License.
         FROM `autoexec_job_env`
         WHERE `job_id` = #{value}
     </select>
+
+    <select id="getAutoexecJobEnvListByJobIdList" parameterType="java.util.List"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobEnvVo">
+        SELECT `job_id` AS jobId,
+               `name`,
+               `value`
+        FROM `autoexec_job_env`
+        WHERE `job_id` IN
+        <foreach collection="list" item="jobId" open="(" separator="," close=")">
+            #{jobId}
+        </foreach>
+    </select>
+
     <select id="getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNextAndGroupSort" resultType="java.lang.Integer">
         SELECT COUNT(1)
         FROM `autoexec_job_phase_runner` ajpr
@@ -2159,7 +2172,9 @@ limitations under the License.
         aj.`parent_id` as parentId,
         aj.`trigger_type` as triggerType,
         aj.`scenario_id`     as scenarioId,
-        aj.`runner_map_id`   as runnerMapId
+        aj.`runner_map_id`   as runnerMapId,
+        aj.`fcu`,
+        aj.`fcd`
         FROM `autoexec_job` aj
         WHERE aj.`id` in
         <foreach collection="list" item="id" close=")" open="(" separator=",">
@@ -2311,6 +2326,13 @@ limitations under the License.
         where ajpn.job_id = #{jobId}
           and ajpn.job_phase_id = #{jobPhaseId}
         group by ajpn.job_id, ajpn.job_phase_id, ajpnr.runner_map_id
+    </select>
+
+    <select id="getJobIdListByProcessTaskStepId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT
+            `job_id`
+        FROM `autoexec_job_processtask_step`
+        WHERE `processtask_step_id` = #{value}
     </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
@@ -2653,6 +2675,11 @@ limitations under the License.
         `md5` = VALUES(`md5`),
         `is_modified` = VALUES(`is_modified`),
         `warn_count` = VALUES(`warn_count`)
+    </insert>
+
+    <insert id="insertAutoexecJobProcessTaskStep">
+        INSERT INTO `autoexec_job_processtask_step` (`processtask_step_id`, `job_id`)
+        VALUES (#{processTaskStepId}, #{jobId})
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -3118,6 +3145,11 @@ limitations under the License.
         DELETE
         FROM `autoexec_job_sql_detail`
         WHERE `job_id` = #{value}
+    </delete>
+    <delete id="deleteAutoexecJobByProcessTaskStepId">
+        DELETE
+        FROM `autoexec_job_processtask_step`
+        WHERE `processtask_step_id` = #{value}
     </delete>
 </mapper>
 
