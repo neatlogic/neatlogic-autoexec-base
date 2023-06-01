@@ -23,7 +23,7 @@ public class AutoexecScriptHasNoRejectedVersionException extends ApiRuntimeExcep
     private static final long serialVersionUID = 2800421302639213462L;
 
     public AutoexecScriptHasNoRejectedVersionException() {
-        super("exception.autoexec.autoexecscripthasnorejectedversionexception");
+        super("当前自定义工具没有已驳回版本");
     }
 
 

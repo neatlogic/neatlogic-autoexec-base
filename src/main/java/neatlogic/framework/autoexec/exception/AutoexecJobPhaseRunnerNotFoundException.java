@@ -22,11 +22,11 @@ public class AutoexecJobPhaseRunnerNotFoundException extends ApiRuntimeException
     private static final long serialVersionUID = 2559211960167897973L;
 
     public AutoexecJobPhaseRunnerNotFoundException(Long jobId, String phaseName, Long phaseId) {
-        super("exception.autoexec.autoexecjobphaserunnernotfoundexception.a", jobId, phaseName, phaseId);
+        super("作业（{0}）阶段{1}（{2}） 找不到runner", jobId, phaseName, phaseId);
     }
 
     public AutoexecJobPhaseRunnerNotFoundException(String phaseNames) {
-        super("exception.autoexec.autoexecjobphaserunnernotfoundexception.b", phaseNames);
+        super("匹配不到可执行runner,执行phaseName :{0}", phaseNames);
     }
 }
 

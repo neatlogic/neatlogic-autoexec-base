@@ -10,6 +10,6 @@ public class AutoexecScenarioRepeatException extends ApiRuntimeException {
     private static final long serialVersionUID = -8003494867526185700L;
 
     public AutoexecScenarioRepeatException(String name) {
-        super("exception.autoexec.autoexecscenariorepeatexception", name);
+        super("场景名称：“{0}”已存在", name);
     }
 }

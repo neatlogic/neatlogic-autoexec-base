@@ -23,11 +23,11 @@ public class AutoexecRiskNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 3718741083995150834L;
 
     public AutoexecRiskNotFoundException(Long id) {
-        super("exception.autoexec.autoexecrisknotfoundexception", id);
+        super("操作级别：“{0}”不存在", id);
     }
 
     public AutoexecRiskNotFoundException(String name) {
-        super("exception.autoexec.autoexecrisknotfoundexception", name);
+        super("操作级别：“{0}”不存在", name);
     }
 
 

@@ -23,7 +23,7 @@ public class AutoexecCombopVersionHasBeenActiveException extends ApiRuntimeExcep
     private static final long serialVersionUID = -7762115095407337957L;
 
     public AutoexecCombopVersionHasBeenActiveException() {
-        super("exception.currentversionisactivatedandcannotbedeleted");
+        super("当前版本已激活，不可删除");
     }
 }
 

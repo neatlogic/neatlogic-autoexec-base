@@ -10,6 +10,6 @@ public class AutoexecProfileIsNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -5868227422405940239L;
 
     public AutoexecProfileIsNotFoundException(Long id) {
-        super("exception.autoexec.autoexecprofileisnotfoundexception", id);
+        super("profile id“{0}”不存在", id);
     }
 }

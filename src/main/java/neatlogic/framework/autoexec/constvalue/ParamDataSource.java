@@ -19,8 +19,8 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.I18nUtils;
 
 public enum ParamDataSource {
-    STATIC("static", "enum.autoexec.paramdatasource.static"),
-    MATRIX("matrix", "enum.autoexec.paramdatasource.matrix");
+    STATIC("static", "静态数据源"),
+    MATRIX("matrix", "矩阵数据源");
     private final String value;
     private final String text;
 

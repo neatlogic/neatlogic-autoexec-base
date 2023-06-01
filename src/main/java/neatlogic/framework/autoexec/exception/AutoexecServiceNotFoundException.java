@@ -27,6 +27,6 @@ public class AutoexecServiceNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -923453159471839786L;
 
     public AutoexecServiceNotFoundException(Long id) {
-        super("exception.catalognotfound", id);
+        super("服务目录：“{0}”不存在", id);
     }
 }

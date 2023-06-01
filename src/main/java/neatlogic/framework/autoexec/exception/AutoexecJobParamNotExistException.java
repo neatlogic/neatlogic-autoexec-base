@@ -24,6 +24,6 @@ import neatlogic.framework.exception.core.ApiRuntimeException;
 
 public class AutoexecJobParamNotExistException extends ApiRuntimeException {
     public AutoexecJobParamNotExistException(String name, String key) {
-        super("exception.autoexec.autoexecjobparamnotexistexception", name, key);
+        super("参数：“作业参数[{0}]（{1}）”不能为空", name, key);
     }
 }

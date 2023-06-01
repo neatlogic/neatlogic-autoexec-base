@@ -22,6 +22,6 @@ public class AutoexecJobConfigNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 7835389708160437229L;
 
     public AutoexecJobConfigNotFoundException(Long jobId) {
-        super("exception.autoexec.autoexecjobconfignotfoundexception", jobId);
+        super("作业：“{0}” 配置快照不存在", jobId);
     }
 }

@@ -23,10 +23,10 @@ public class AutoexecCombopActiveVersionNotFoundException extends ApiRuntimeExce
     private static final long serialVersionUID = -977868275722896185L;
 
     public AutoexecCombopActiveVersionNotFoundException(Long id) {
-        super("exception.autoexec.autoexeccombopactiveversionnotfoundexception", id);
+        super("组合工具：“{0}”没有激活版本", id);
     }
 
     public AutoexecCombopActiveVersionNotFoundException(String name) {
-        super("exception.autoexec.autoexeccombopactiveversionnotfoundexception", name);
+        super("组合工具：“{0}”没有激活版本", name);
     }
 }

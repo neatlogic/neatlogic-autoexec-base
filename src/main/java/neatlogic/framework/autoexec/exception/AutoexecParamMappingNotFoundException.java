@@ -27,6 +27,6 @@ public class AutoexecParamMappingNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 1133160768855803018L;
 
     public AutoexecParamMappingNotFoundException(String paramName, String paramMappingMode) {
-        super("exception.autoexec.autoexecparammappingnotfoundexception", paramName, paramMappingMode);
+        super("参数：“{0}”的映射模式：{1}不存在", paramName, paramMappingMode);
     }
 }

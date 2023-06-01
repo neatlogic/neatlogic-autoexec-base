@@ -23,6 +23,6 @@ public class AutoexecJobRunnerNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 3593220313941443951L;
 
     public AutoexecJobRunnerNotFoundException(String msg) {
-        super("exception.autoexec.autoexecjobrunnernotfoundexception", msg);
+        super("Runner map id:{0}不存在", msg);
     }
 }

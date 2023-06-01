@@ -21,7 +21,7 @@ import neatlogic.framework.util.I18n;
 
 public enum AutoexecJobNotifyTriggerType implements INotifyTriggerType {
 
-    FAILED("failed", new I18n("common.jobfailed"), new I18n("common.jobfailedtriggernotify")),
+    FAILED("failed", new I18n("作业失败"), new I18n("作业失败时触发通知")),
     ;
 
     private final String trigger;

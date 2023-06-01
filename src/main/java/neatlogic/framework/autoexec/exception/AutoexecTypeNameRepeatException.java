@@ -23,7 +23,7 @@ public class AutoexecTypeNameRepeatException extends ApiRuntimeException {
     private static final long serialVersionUID = -1572163939800475589L;
 
     public AutoexecTypeNameRepeatException(String name) {
-        super("exception.autoexec.autoexectypenamerepeatexception",name);
+        super("插件类型：“{0}”已存在",name);
     }
 
 

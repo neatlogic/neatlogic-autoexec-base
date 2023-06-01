@@ -26,6 +26,6 @@ public class AutoexecScheduleNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -977863275722446183L;
 
     public AutoexecScheduleNotFoundException(Long id) {
-        super("exception.schedulenotfound", id);
+        super("定时作业：“{0}”不存在", id);
     }
 }

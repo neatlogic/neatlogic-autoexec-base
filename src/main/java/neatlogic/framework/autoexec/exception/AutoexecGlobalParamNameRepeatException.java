@@ -10,6 +10,6 @@ public class AutoexecGlobalParamNameRepeatException extends ApiRuntimeException 
     private static final long serialVersionUID = 2811695475637054791L;
 
     public AutoexecGlobalParamNameRepeatException(String name) {
-        super("exception.autoexec.autoexecglobalparamnamerepeatexception", name);
+        super("全局参数显示名：“{0}”已存在", name);
     }
 }

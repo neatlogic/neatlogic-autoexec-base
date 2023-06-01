@@ -27,6 +27,6 @@ public class AutoexecServiceHasBeenReferredException extends ApiRuntimeException
     private static final long serialVersionUID = -928903159471839786L;
 
     public AutoexecServiceHasBeenReferredException(String name) {
-        super("exception.autoexec.autoexecservicehasbeenreferredexception", name);
+        super("目录：“{0}”或其子目录中还有服务，不可删除", name);
     }
 }

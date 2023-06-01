@@ -19,12 +19,12 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.I18nUtils;
 
 public enum ScriptVersionStatus {
-    DRAFT("draft", "common.draft"),
-    SUBMITTED("submitted", "common.submitted"),
-    PASSED("passed", "common.passed"),
-    REJECTED("rejected", "enum.autoexec.scriptversionstatus.rejected"),
-    CURRENT("current", "common.active"),
-    HISTORY("history", "enum.autoexec.scriptversionstatus.history");
+    DRAFT("draft", "草稿"),
+    SUBMITTED("submitted", "待审核"),
+    PASSED("passed", "已通过"),
+    REJECTED("rejected", "已驳回"),
+    CURRENT("current", "激活"),
+    HISTORY("history", "历史");
     private String value;
     private String text;
 

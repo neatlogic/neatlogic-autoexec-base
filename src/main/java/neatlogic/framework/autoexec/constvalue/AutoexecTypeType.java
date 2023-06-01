@@ -19,8 +19,8 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.I18nUtils;
 
 public enum AutoexecTypeType {
-    FACTORY("factory", "enum.autoexec.autoexectypetype.factory"),
-    CUSTOM("custom", "common.custom");
+    FACTORY("factory", "默认出厂"),
+    CUSTOM("custom", "自定义");
     private final String value;
     private final String name;
 

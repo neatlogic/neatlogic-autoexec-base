@@ -23,7 +23,7 @@ public class AutoexecScriptHasNotAnyVersionException extends ApiRuntimeException
     private static final long serialVersionUID = -577160769530099576L;
 
     public AutoexecScriptHasNotAnyVersionException() {
-        super("exception.autoexec.autoexecscripthasnotanyversionexception");
+        super("当前脚本没有任何版本");
     }
 
 

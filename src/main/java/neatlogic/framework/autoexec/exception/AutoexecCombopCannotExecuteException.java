@@ -28,6 +28,6 @@ public class AutoexecCombopCannotExecuteException extends ApiRuntimeException {
     private static final long serialVersionUID = 8178730734144911652L;
 
     public AutoexecCombopCannotExecuteException(String name) {
-        super("exception.autoexec.autoexeccombopcannotexecuteexception", name);
+        super("组合工具：“{0}”没执行权限", name);
     }
 }

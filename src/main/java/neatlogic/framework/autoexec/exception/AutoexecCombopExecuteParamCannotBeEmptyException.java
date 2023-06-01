@@ -23,6 +23,6 @@ public class AutoexecCombopExecuteParamCannotBeEmptyException extends ApiRuntime
     private static final long serialVersionUID = -8957247474043452349L;
 
     public AutoexecCombopExecuteParamCannotBeEmptyException() {
-        super("exception.autoexec.autoexeccombopexecuteparamcannotbeemptyexception");
+        super("选择运行参数作为执行目标时，运行参数不能为空");
     }
 }

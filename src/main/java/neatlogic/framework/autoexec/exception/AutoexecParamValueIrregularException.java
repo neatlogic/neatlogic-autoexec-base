@@ -23,14 +23,14 @@ public class AutoexecParamValueIrregularException extends ApiRuntimeException {
     private static final long serialVersionUID = -977869375722886183L;
 
     public AutoexecParamValueIrregularException(String phaseName, String operationName, String paramName, String paramKey, String paramValue) {
-        super("exception.autoexec.autoexecparamvalueirregularexception.a", phaseName, operationName, paramName, paramKey, paramValue);
+        super("阶段[{0}]工具[{1}]的参数：{2}（{3}）的值：“{4}”不符合格式要求", phaseName, operationName, paramName, paramKey, paramValue);
     }
 
     public AutoexecParamValueIrregularException(String operationName, String paramName, String paramKey, String paramValue) {
-        super("exception.autoexec.autoexecparamvalueirregularexception.b", operationName, paramName, paramKey, paramValue);
+        super("{0}的参数：{1}（{2}）的值：“{3}”不符合格式要求", operationName, paramName, paramKey, paramValue);
     }
 
     public AutoexecParamValueIrregularException(String paramName, String paramKey, String paramValue) {
-        super("exception.autoexec.autoexecparamvalueirregularexception.c", paramName, paramKey, paramValue);
+        super("参数“{0}（{1}）”的值“{2}”不符合格式要求", paramName, paramKey, paramValue);
     }
 }

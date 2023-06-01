@@ -27,6 +27,6 @@ public class AutoexecGlobalParamTypeNotFoundException extends ApiRuntimeExceptio
     private static final long serialVersionUID = -4583004866563097713L;
 
     public AutoexecGlobalParamTypeNotFoundException(String paramKey, String paramType) {
-        super("exception.autoexec.autoexecglobalparamtypenotfoundexception", paramKey, paramType);
+        super("参数：{0}的参数映射不正确，不存在“{1}”类型的全局参数", paramKey, paramType);
     }
 }

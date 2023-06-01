@@ -25,12 +25,12 @@ public class AUTOEXEC_CUSTOMTEMPLATE_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexeccustomtemplatemodify.name";
+        return "自定义模板管理权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexeccustomtemplatemodify.introduction";
+        return "对自定义模板进行新增、编辑、查看、删除";
     }
 
     @Override

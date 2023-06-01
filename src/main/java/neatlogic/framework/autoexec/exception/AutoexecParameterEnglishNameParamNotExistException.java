@@ -24,6 +24,6 @@ import neatlogic.framework.exception.core.ApiRuntimeException;
 
 public class AutoexecParameterEnglishNameParamNotExistException extends ApiRuntimeException {
     public AutoexecParameterEnglishNameParamNotExistException(int index) {
-        super("exception.autoexec.autoexecparameterenglishnameparamnotexistexception", index);
+        super("第：{0}个参数英文名不能为空", index);
     }
 }

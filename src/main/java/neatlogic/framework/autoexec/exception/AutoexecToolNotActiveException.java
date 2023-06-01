@@ -23,7 +23,7 @@ public class AutoexecToolNotActiveException extends ApiRuntimeException {
     private static final long serialVersionUID = 1615696881289351556L;
 
     public AutoexecToolNotActiveException(String name) {
-        super("exception.autoexec.autoexectoolinactivatedexception", name);
+        super("工具：“{0}”未激活", name);
     }
 
 }

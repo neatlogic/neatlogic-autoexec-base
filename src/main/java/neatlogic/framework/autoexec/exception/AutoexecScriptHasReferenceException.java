@@ -23,7 +23,7 @@ public class AutoexecScriptHasReferenceException extends ApiRuntimeException {
     private static final long serialVersionUID = 3538560927410813515L;
 
     public AutoexecScriptHasReferenceException() {
-        super("exception.autoexec.autoexecscripthasreferenceexception");
+        super("当前自定义工具已经被引用，不可删除或无激活版本，如需切换激活版本，请激活其他版本");
     }
 
 

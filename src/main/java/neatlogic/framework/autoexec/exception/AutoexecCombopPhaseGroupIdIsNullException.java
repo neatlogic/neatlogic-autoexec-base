@@ -27,6 +27,6 @@ public class AutoexecCombopPhaseGroupIdIsNullException extends ApiRuntimeExcepti
     private static final long serialVersionUID = 553543046178336220L;
 
     public AutoexecCombopPhaseGroupIdIsNullException(String name) {
-        super("exception.autoexec.autoexeccombopphasegroupidisnullexception", name);
+        super("阶段：“{0}” GroupId 为 null", name);
     }
 }

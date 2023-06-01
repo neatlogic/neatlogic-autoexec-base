@@ -25,12 +25,12 @@ public class AUTOEXEC_JOB_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexecjobmodify.name";
+        return "作业维护权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexecjobmodify.introduction";
+        return "拥有作业删除权限";
     }
 
     @Override

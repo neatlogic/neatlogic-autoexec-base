@@ -24,6 +24,6 @@ public class CustomTemplateNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 8024807490324912541L;
 
     public CustomTemplateNotFoundException(Long id) {
-        super("exception.autoexec.customtemplatenotfoundexception", id);
+        super("自定义模板“{0}”不存在", id);
     }
 }

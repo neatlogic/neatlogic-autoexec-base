@@ -25,9 +25,9 @@ import neatlogic.framework.util.I18nUtils;
  * @since: 2021/4/14 7:38
  **/
 public enum CombopAuthorityAction {
-    EDIT("edit", "common.edit"),
-    EXECUTE("execute", "common.execute"),
-    VIEW("view", "common.view");
+    EDIT("edit", "编辑"),
+    EXECUTE("execute", "执行"),
+    VIEW("view", "查看");
     private String value;
     private String text;
 

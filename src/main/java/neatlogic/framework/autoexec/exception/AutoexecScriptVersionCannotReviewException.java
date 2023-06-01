@@ -23,7 +23,7 @@ public class AutoexecScriptVersionCannotReviewException extends ApiRuntimeExcept
     private static final long serialVersionUID = -7842912242678302148L;
 
     public AutoexecScriptVersionCannotReviewException() {
-        super("exception.autoexec.autoexecscriptversioncannotreviewexception");
+        super("当前版本不可审核");
     }
 
 

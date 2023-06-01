@@ -23,7 +23,7 @@ public class AutoexecJobCanNotCreateException extends ApiRuntimeException {
     private static final long serialVersionUID = -6572745414524965140L;
 
     public AutoexecJobCanNotCreateException(String combopName) {
-        super("exception.autoexec.autoexecjobcannotcreateexception", combopName);
+        super("无法创建作业，没有组合工具: “{0}” 执行权限", combopName);
     }
 
 

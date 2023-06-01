@@ -23,6 +23,6 @@ public class AutoexecProtocolIsRequiredException extends ApiRuntimeException {
     private static final long serialVersionUID = -6179270634867916139L;
 
     public AutoexecProtocolIsRequiredException() {
-        super("exception.autoexec.autoexecprotocolisrequiredexception");
+        super("连接协议必须设置");
     }
 }

@@ -28,12 +28,12 @@ import java.util.List;
 public class AUTOEXEC_MODIFY extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexecmodify.name";
+        return "自动化管理员权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexecmodify.introduction";
+        return "自动化菜单下，【配置】子菜单下的所有功能";
     }
 
     @Override

@@ -10,10 +10,10 @@ public class AutoexecProfileNotReferencedByOperationException extends ApiRuntime
     private static final long serialVersionUID = -6188997839410484037L;
 
     public AutoexecProfileNotReferencedByOperationException(Long profileId, Long operationId) {
-        super("exception.autoexec.autoexecprofilenotreferencedbyoperationexception", profileId, operationId);
+        super("profile：“{0}”未关联工具：{1}", profileId, operationId);
     }
 
     public AutoexecProfileNotReferencedByOperationException(String profileName, String operationName) {
-        super("exception.autoexec.autoexecprofilenotreferencedbyoperationexception", profileName, operationName);
+        super("profile：“{0}”未关联工具：{1}", profileName, operationName);
     }
 }

@@ -27,6 +27,6 @@ public class AutoexecCombopPhaseNameRepeatException extends ApiRuntimeException 
     private static final long serialVersionUID = -977867274723886183L;
 
     public AutoexecCombopPhaseNameRepeatException(String name) {
-        super("exception.autoexec.autoexeccombopphasenamerepeatexception", name);
+        super("组合工具阶段名称“{0}”已存在", name);
     }
 }

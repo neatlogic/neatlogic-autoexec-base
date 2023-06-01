@@ -23,7 +23,7 @@ public class AutoexecJobHostPortRunnerNotFoundException extends ApiRuntimeExcept
     private static final long serialVersionUID = 3593220313941443951L;
 
     public AutoexecJobHostPortRunnerNotFoundException(String msg) {
-        super("exception.autoexec.autoexecjobhostportrunnernotfoundexception", msg);
+        super("{0} 没有分配 Runner", msg);
     }
 
 

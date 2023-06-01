@@ -23,7 +23,7 @@ public class AutoexecToolParamValidateFieldFormatIllegalException extends ApiRun
     private static final long serialVersionUID = 5118560220174183144L;
 
     public AutoexecToolParamValidateFieldFormatIllegalException(String param, String fieldContent) {
-        super("exception.autoexec.autoexectoolparamvalidatefieldformatillegalexception", param, fieldContent);
+        super("参数“{0}”的validate配置中，“{1}”的格式不正确，应该为JSON对象", param, fieldContent);
     }
 
 

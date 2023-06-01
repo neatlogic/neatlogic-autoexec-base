@@ -24,11 +24,11 @@ public class AutoexecScriptVersionHasNoActivedException extends ApiRuntimeExcept
     private static final long serialVersionUID = -4515396010627822363L;
 
     public AutoexecScriptVersionHasNoActivedException(String name) {
-        super("exception.autoexec.autoexecscriptversionhasnoactivedexception.a", name);
+        super("自定义工具“{0}”未设置激活版本", name);
     }
 
     public AutoexecScriptVersionHasNoActivedException() {
-        super("exception.autoexec.autoexecscriptversionhasnoactivedexception.b");
+        super("当前自定义工具没有激活版本");
     }
 
 

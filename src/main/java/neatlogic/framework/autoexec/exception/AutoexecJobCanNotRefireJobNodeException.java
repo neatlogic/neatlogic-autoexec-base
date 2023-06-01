@@ -23,7 +23,7 @@ public class AutoexecJobCanNotRefireJobNodeException extends ApiRuntimeException
     private static final long serialVersionUID = -7415281983559639745L;
 
     public AutoexecJobCanNotRefireJobNodeException(String jobId) {
-        super("exception.autoexec.autoexecjobcannotrefirejobnodeexception", jobId);
+        super("无法重跑作业: {0}，请确保作业存于'运行中（running）'状态", jobId);
     }
 
 

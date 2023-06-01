@@ -23,11 +23,11 @@ public class AutoexecToolNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 1615596881289051556L;
 
     public AutoexecToolNotFoundException(Long id) {
-        super("exception.autoexec.autoexectoolnotfoundexception", id);
+        super("工具：“{0}”不存在", id);
     }
 
     public AutoexecToolNotFoundException(String name) {
-        super("exception.autoexec.autoexectoolnotfoundexception", name);
+        super("工具：“{0}”不存在", name);
     }
 
 

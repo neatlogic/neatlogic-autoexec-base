@@ -23,7 +23,7 @@ public class AutoexecJobCanNotTestException extends ApiRuntimeException {
     private static final long serialVersionUID = -8770787702818369798L;
 
     public AutoexecJobCanNotTestException(String jobId) {
-        super("exception.autoexec.autoexecjobcannottestexception", jobId);
+        super("无法测试工具库: {0}，存在正在测试该工具库的作业", jobId);
     }
 
 }

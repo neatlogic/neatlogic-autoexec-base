@@ -24,11 +24,11 @@ public class AutoexecJobNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 8277880771507304406L;
 
     public AutoexecJobNotFoundException(String uk) {
-        super("exception.autoexec.autoexecjobnotfoundexception", uk);
+        super("作业：“{0}”不存在", uk);
     }
 
     public AutoexecJobNotFoundException(Long id) {
-        super("exception.autoexec.autoexecjobnotfoundexception", id);
+        super("作业：“{0}”不存在", id);
     }
 
 

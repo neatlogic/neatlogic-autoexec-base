@@ -23,7 +23,7 @@ public class AutoexecRiskNameRepeatException extends ApiRuntimeException {
     private static final long serialVersionUID = 3740861453261424156L;
 
     public AutoexecRiskNameRepeatException(String name) {
-        super("exception.autoexec.autoexecrisknamerepeatexception", name);
+        super("操作级别：“{0}”已存在", name);
     }
 
 

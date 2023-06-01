@@ -25,12 +25,12 @@ import neatlogic.framework.auth.core.AuthBase;
 public class AUTOEXEC extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexec.name";
+        return "自动化数据消费权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexec.introduction";
+        return "查询工具库、自定义工具库相关数据";
     }
 
     @Override

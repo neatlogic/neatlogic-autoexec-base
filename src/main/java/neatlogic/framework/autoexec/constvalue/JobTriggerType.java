@@ -25,8 +25,8 @@ import org.springframework.context.NoSuchMessageException;
 import java.util.List;
 
 public enum JobTriggerType implements IEnum {
-    AUTO("enum.autoexec.jobtriggertype.auto", "auto"),
-    MANUAL("enum.autoexec.jobtriggertype.manual", "manual");
+    AUTO("自动", "auto"),
+    MANUAL("手动", "manual");
     private final String text;
     private final String value;
 

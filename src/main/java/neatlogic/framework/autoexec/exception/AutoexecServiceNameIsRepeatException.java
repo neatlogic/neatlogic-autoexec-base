@@ -26,6 +26,6 @@ public class AutoexecServiceNameIsRepeatException extends ApiRuntimeException {
     private static final long serialVersionUID = -6647236703748951156L;
 
     public AutoexecServiceNameIsRepeatException(String name) {
-        super("exception.autoexec.autoexecservicenameisrepeatexception",name);
+        super("服务目录名称“{0}”重复",name);
     }
 }

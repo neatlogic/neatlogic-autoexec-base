@@ -23,7 +23,7 @@ public class AutoexecScriptJobCanNotExecuteException extends ApiRuntimeException
     private static final long serialVersionUID = -918734863398597862L;
 
     public AutoexecScriptJobCanNotExecuteException(Long jobId) {
-        super("exception.autoexec.autoexecscriptjobcannotexecuteexception", jobId);
+        super("无法执行作业: {0}，当前用户没有'工具、自定义工具管理权限'", jobId);
     }
 
 

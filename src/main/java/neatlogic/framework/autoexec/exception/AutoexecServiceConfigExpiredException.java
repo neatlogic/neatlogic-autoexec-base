@@ -27,6 +27,6 @@ public class AutoexecServiceConfigExpiredException extends ApiRuntimeException {
     private static final long serialVersionUID = -923453159471839788L;
 
     public AutoexecServiceConfigExpiredException(String name) {
-        super("exception.autoexec.autoexecserviceconfigexpiredexception", name);
+        super("服务：“{0}”配置已失效", name);
     }
 }

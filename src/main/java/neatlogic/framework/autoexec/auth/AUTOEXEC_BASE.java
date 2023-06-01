@@ -26,12 +26,12 @@ public class AUTOEXEC_BASE extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexecbase.name";
+        return "自动化基础权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexecbase.introduction";
+        return "查看组合工具";
     }
 
     @Override

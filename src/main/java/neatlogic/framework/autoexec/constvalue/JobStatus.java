@@ -27,19 +27,19 @@ import java.util.List;
 import java.util.Objects;
 
 public enum JobStatus implements IEnum {
-    SAVED("saved", "enum.autoexec.jobstatus.saved"),
-    PENDING("pending", "common.pending"),
-    RUNNING("running", "common.running"),
-    PAUSING("pausing", "common.pausing"),
-    PAUSED("paused", "common.paused"),
-    ABORTING("aborting", "common.aborting"),
-    ABORTED("aborted", "common.aborted"),
-    COMPLETED("completed", "common.completed"),
-    FAILED("failed", "common.failed"),
-    READY("ready", "common.ready"),
-    WAIT_INPUT("waitInput", "common.waitinput"),
-    CHECKED("checked", "enum.autoexec.jobstatus.checked"),
-    REVOKED("revoked", "enum.autoexec.jobstatus.revoked");
+    SAVED("saved", "待提交"),
+    PENDING("pending", "待运行"),
+    RUNNING("running", "运行中"),
+    PAUSING("pausing", "暂停中"),
+    PAUSED("paused", "已暂停"),
+    ABORTING("aborting", "中止中"),
+    ABORTED("aborted", "已中止"),
+    COMPLETED("completed", "已完成"),
+    FAILED("failed", "已失败"),
+    READY("ready", "已就绪"),
+    WAIT_INPUT("waitInput", "待输入"),
+    CHECKED("checked", "已验证"),
+    REVOKED("revoked", "已撤销");
     private final String status;
     private final String text;
 

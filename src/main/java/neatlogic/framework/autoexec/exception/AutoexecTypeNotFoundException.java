@@ -23,11 +23,11 @@ public class AutoexecTypeNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -7666866845075372241L;
 
     public AutoexecTypeNotFoundException(Long id) {
-        super("exception.autoexec.autoexectypenotfoundexception", id);
+        super("工具类型：“{0}”不存在", id);
     }
 
     public AutoexecTypeNotFoundException(String name) {
-        super("exception.autoexec.autoexectypenotfoundexception", name);
+        super("工具类型：“{0}”不存在", name);
     }
 
 

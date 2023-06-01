@@ -23,6 +23,6 @@ public class AutoexecExecuteNodeIsRequiredException extends ApiRuntimeException 
     private static final long serialVersionUID = -6179270634867916141L;
 
     public AutoexecExecuteNodeIsRequiredException() {
-        super("exception.autoexec.autoexecexecutenodeisrequiredexception");
+        super("执行目标必须设置");
     }
 }

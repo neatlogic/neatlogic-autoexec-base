@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum FailPolicy implements IEnum {
-    STOP("stop", "enum.autoexec.failpolicy.stop"),
-    GOON("goon", "enum.autoexec.failpolicy.goon");
+    STOP("stop", "失败停止"),
+    GOON("goon", "失败继续");
     private final String value;
     private final String text;
 

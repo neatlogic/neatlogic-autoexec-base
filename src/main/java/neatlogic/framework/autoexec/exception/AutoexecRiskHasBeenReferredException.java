@@ -23,7 +23,7 @@ public class AutoexecRiskHasBeenReferredException extends ApiRuntimeException {
     private static final long serialVersionUID = -5799704411927086048L;
 
     public AutoexecRiskHasBeenReferredException(String name) {
-        super("exception.autoexec.autoexecriskhasbeenreferredexception", name);
+        super("操作级别：“{0}”被引用", name);
     }
 
 

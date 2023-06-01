@@ -23,6 +23,6 @@ public class AutoexecExecuteUserIsRequiredException extends ApiRuntimeException 
     private static final long serialVersionUID = -6179270634867916140L;
 
     public AutoexecExecuteUserIsRequiredException() {
-        super("exception.autoexec.autoexecexecuteuserisrequiredexception");
+        super("执行用户必须设置");
     }
 }

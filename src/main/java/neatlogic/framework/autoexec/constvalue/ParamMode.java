@@ -21,8 +21,8 @@ import neatlogic.framework.util.I18nUtils;
 import java.util.Objects;
 
 public enum ParamMode {
-    INPUT("input", "enum.autoexec.parammode.input"),
-    OUTPUT("output", "enum.autoexec.parammode.output");
+    INPUT("input", "入参"),
+    OUTPUT("output", "出参");
     private String value;
     private String text;
 

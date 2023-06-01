@@ -23,7 +23,7 @@ public class AutoexecScriptHasNoDraftVersionException extends ApiRuntimeExceptio
     private static final long serialVersionUID = -3600015974650442016L;
 
     public AutoexecScriptHasNoDraftVersionException() {
-        super("exception.autoexec.autoexecscripthasnodraftversionexception");
+        super("当前自定义工具没有草稿");
     }
 
 

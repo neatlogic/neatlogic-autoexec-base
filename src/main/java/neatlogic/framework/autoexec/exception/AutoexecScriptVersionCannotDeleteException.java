@@ -23,7 +23,7 @@ public class AutoexecScriptVersionCannotDeleteException extends ApiRuntimeExcept
     private static final long serialVersionUID = -1077319266146492200L;
 
     public AutoexecScriptVersionCannotDeleteException() {
-        super("exception.autoexec.autoexecscriptversioncannotdeleteexception");
+        super("当前自定义工具仅有一个版本，删除此版本将导致删除当前自定义工具。");
     }
 
 

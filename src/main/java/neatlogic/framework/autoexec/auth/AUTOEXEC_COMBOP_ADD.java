@@ -25,12 +25,12 @@ public class AUTOEXEC_COMBOP_ADD extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexeccombopadd.name";
+        return "组合工具新建权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexeccombopadd.introduction";
+        return "对组合工具进行新增、复制、导入/导出";
     }
 
     @Override

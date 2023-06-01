@@ -23,7 +23,7 @@ public class AutoexecToolParamDatasourceIllegalException extends ApiRuntimeExcep
     private static final long serialVersionUID = -7415182960002285047L;
 
     public AutoexecToolParamDatasourceIllegalException(String param) {
-        super("exception.autoexec.autoexectoolparamdatasourceillegalexception", param);
+        super("参数：“{0}”的数据源格式不正确，正确格式为：{\"dataList\":[{\"text\":\"是\",\"value\":\"1\"},{\"text\":\"否\",\"value\":\"0\"}]}，其中(text的key和value)与(value的key)不能为空", param);
     }
 
 

@@ -23,7 +23,7 @@ public class AutoexecJobCanNotFireException extends ApiRuntimeException {
     private static final long serialVersionUID = 2079904496159378555L;
 
     public AutoexecJobCanNotFireException(String jobId) {
-        super("exception.autoexec.autoexecjobcannotfireexception", jobId);
+        super("无法激活作业: {0}，请确保作业以及作业所有阶段处于'未开始（pending）'状态", jobId);
     }
 
 

@@ -22,6 +22,6 @@ public class AutoexecCombopRejectedVersionNotFoundException extends ApiRuntimeEx
     private static final long serialVersionUID = 8178730734144911653L;
 
     public AutoexecCombopRejectedVersionNotFoundException(String combopName) {
-        super("exception.autoexec.autoexeccomboprejectedversionnotfoundexception", combopName);
+        super("组合工具：“{0}”没有待审核版本", combopName);
     }
 }

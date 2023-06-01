@@ -23,7 +23,7 @@ public class AutoexecJobGroupNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -5368775087067460035L;
 
     public AutoexecJobGroupNotFoundException(Long jobId, Integer groupSort) {
-        super("exception.autoexec.autoexecjobgroupnotfoundexception", jobId, groupSort);
+        super("作业({0}) 组（{1}）不存在", jobId, groupSort);
     }
 
 

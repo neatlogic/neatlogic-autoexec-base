@@ -32,24 +32,24 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum ParamType implements IEnum {
-    TEXT("text", "common.text", "common.textparameter,caninputstrings,numbers"),
-    PASSWORD("password", "common.password", "common.passworddesc"),
-    FILE("file", "common.file", "common.autoexec.file"),
-    DATE("date", "common.date", "common.dateform"),
-    DATETIME("datetime", "common.datatime", "common.datetimeform"),
-    TIME("time", "common.time", "common.timeform"),
-    JSON("json", "common.jsonobject", "enum.autoexec.paramtype.json.b"),
-    SELECT("select", "common.single-selectdropdown", "common.selectform"),
-    MULTISELECT("multiselect", "common.multiselect", "enum.autoexec.paramtype.multiselect.b"),
-    RADIO("radio", "common.single-select", "common.single-selectselector"),
-    CHECKBOX("checkbox", "enum.autoexec.paramtype.checkbox.a", "common.checkboxselector"),
-    NODE("node", "common.nodeinformation", "common.outputnode"),
-    ACCOUNT("account", "common.account", "common.autoexec.account"),
-    USERSELECT("userselect", "common.userselector", "enum.autoexec.paramtype.userselect.b"),
-    TEXTAREA("textarea", "common.textarea", "enum.autoexec.paramtype.textarea.b"),
-    PHASE("phase", "common.phase", "enum.autoexec.paramtype.phase.b"),
-    SWITCH("switch", "enum.autoexec.paramtype.switch", "enum.autoexec.paramtype.switch"),
-    FILEPATH("filepath", "common.filepath", "common.canoutputfilepathparameter");
+    TEXT("text", "文本", "文本参数，可输入字符串、数字"),
+    PASSWORD("password", "密码", "可输入数字或字符串，页面显示为密文"),
+    FILE("file", "文件", "common.autoexec.file"),
+    DATE("date", "日期", "日期选择器"),
+    DATETIME("datetime", "日期时间", "日期时间选择器"),
+    TIME("time", "时间", "时间选择器"),
+    JSON("json", "json对象", "支持json对象和json数组，输入内容需是合法Json格式"),
+    SELECT("select", "单选下拉", "单选下拉选择器"),
+    MULTISELECT("multiselect", "多选下拉", "多选下拉选择器"),
+    RADIO("radio", "单选", "单选选择器"),
+    CHECKBOX("checkbox", "复选", "复选选择器"),
+    NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
+    ACCOUNT("account", "帐号", "common.autoexec.account"),
+    USERSELECT("userselect", "用户选择器", "用于选择系统用户、分组、角色"),
+    TEXTAREA("textarea", "文本域", "可输入字符串、数字"),
+    PHASE("phase", "阶段", "可选择阶段"),
+    SWITCH("switch", "开关", "开关"),
+    FILEPATH("filepath", "文件路径", "可输出文件路径参数");
 
     private final String value;
     private final String text;

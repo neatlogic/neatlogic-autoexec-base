@@ -23,7 +23,7 @@ public class AutoexecJobCanNotIgnoreJobNodeException extends ApiRuntimeException
     private static final long serialVersionUID = 2153466880058895866L;
 
     public AutoexecJobCanNotIgnoreJobNodeException(String jobId) {
-        super("common.unabl", jobId);
+        super("无法暂停作业: {0}，请确保作业存于'运行中（running）'状态", jobId);
     }
 
 

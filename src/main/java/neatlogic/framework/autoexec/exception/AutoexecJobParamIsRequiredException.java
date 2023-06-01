@@ -23,6 +23,6 @@ public class AutoexecJobParamIsRequiredException extends ApiRuntimeException {
     private static final long serialVersionUID = -6179270634867916142L;
 
     public AutoexecJobParamIsRequiredException(String combopName, String keyName) {
-        super("exception.autoexec.autoexecjobparamisrequiredexception", combopName, keyName);
+        super("组合工具“{0}”的作业参数“{1}“必须设置", combopName, keyName);
     }
 }

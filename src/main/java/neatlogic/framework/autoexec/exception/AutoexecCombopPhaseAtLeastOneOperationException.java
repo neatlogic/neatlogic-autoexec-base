@@ -28,6 +28,6 @@ public class AutoexecCombopPhaseAtLeastOneOperationException extends ApiRuntimeE
     private static final long serialVersionUID = -978867274723886183L;
 
     public AutoexecCombopPhaseAtLeastOneOperationException(){
-        super("exception.autoexec.autoexeccombopphaseatleastoneoperationexception");
+        super("组合工具的每一个阶段至少要有一个操作工具");
     }
 }

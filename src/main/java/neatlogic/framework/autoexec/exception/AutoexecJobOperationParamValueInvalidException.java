@@ -22,6 +22,6 @@ public class AutoexecJobOperationParamValueInvalidException extends ApiRuntimeEx
     private static final long serialVersionUID = -3996827366716041804L;
 
     public AutoexecJobOperationParamValueInvalidException(String phaseName, String operationName, String valueName, String value) {
-        super("exception.autoexec.autoexecjoboperationparamvalueinvalidexception", phaseName, operationName, valueName, value);
+        super("阶段“{0}” 工具“{1}” 参数“{2}” 的值 “{3}” 不合法", phaseName, operationName, valueName, value);
     }
 }

@@ -23,7 +23,7 @@ public class AutoexecJobCannotUpdateException extends ApiRuntimeException {
     private static final long serialVersionUID = -8489927575933257393L;
 
     public AutoexecJobCannotUpdateException(Long jobId) {
-        super("exception.autoexec.autoexecjobcannotupdateexception", jobId);
+        super("无法修改作业计划时间与触发方式: {0}，作业处于'已就绪'状态且执行用户才能修改", jobId);
     }
 
 

@@ -7,7 +7,7 @@ import neatlogic.framework.util.I18nUtils;
  * @date 2022/04/28 4:16 下午
  */
 public enum JobSourceType {
-    AUTOEXEC("auto","common.autoexec");
+    AUTOEXEC("auto","自动化");
 
     private final String value;
     private final String text;

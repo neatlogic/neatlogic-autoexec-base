@@ -10,6 +10,6 @@ public class AutoexecProfileNameRepeatsException extends ApiRuntimeException {
     private static final long serialVersionUID = 449283302399568001L;
 
     public AutoexecProfileNameRepeatsException(String name) {
-        super("exception.autoexec.autoexecprofilenamerepeatsexception", name);
+        super("profile名称：“{0}”已存在", name);
     }
 }

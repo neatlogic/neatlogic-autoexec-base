@@ -23,6 +23,6 @@ public class AutoexecCombopVersionNotPassedException extends ApiRuntimeException
     private static final long serialVersionUID = -977868275722896188L;
 
     public AutoexecCombopVersionNotPassedException(String name) {
-        super("exception.autoexec.autoexeccombopversionnotpassedexception", name);
+        super("组合工具版本：“{0}”未审核，不能激活", name);
     }
 }

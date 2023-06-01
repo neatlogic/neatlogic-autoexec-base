@@ -32,22 +32,22 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum OutputParamType implements IEnum {
-    TEXT("text", "common.text", "common.textdesc"),
-    PASSWORD("password", "common.password", "enum.autoexec.outputparamtype.password.b"),
-    FILE("file", "common.file", "common.autoexec.file"),
-    DATE("date", "common.date", "common.dateform"),
-    DATETIME("datetime", "common.datatime", "common.datetimeform"),
-    TIME("time", "common.time", "common.timeform"),
-    JSON("json", "common.jsonobject", "enum.autoexec.outputparamtype.json.b"),
-    SELECT("select", "common.single-selectdropdown", "common.selectform"),
-    MULTISELECT("multiselect", "enum.autoexec.outputparamtype.multiselect.a", "common.multiselect"),
-    RADIO("radio", "common.single-select", "common.single-selectselector"),
-    CHECKBOX("checkbox", "common.checkbox", "common.checkboxselector"),
-    NODE("node", "common.nodeinformation", "common.outputnode"),
-    ACCOUNT("account", "common.account", "common.autoexec.account"),
-    FILEPATH("filepath", "common.filepath", "common.canoutputfilepathparameter"),
-    TEXTAREA("textarea", "common.textarea", "common.textdesc"),
-    PHASE("phase", "common.phase", "enum.autoexec.outputparamtype.phase.b");
+    TEXT("text", "文本", "可输出字符串、数字"),
+    PASSWORD("password", "密码", "可输出数字或字符串，页面显示为密文"),
+    FILE("file", "文件", "common.autoexec.file"),
+    DATE("date", "日期", "日期选择器"),
+    DATETIME("datetime", "日期时间", "日期时间选择器"),
+    TIME("time", "时间", "时间选择器"),
+    JSON("json", "json对象", "支持json对象和json数组，输出内容需是合法Json格式"),
+    SELECT("select", "单选下拉", "单选下拉选择器"),
+    MULTISELECT("multiselect", "多选下拉器", "多选下拉"),
+    RADIO("radio", "单选", "单选选择器"),
+    CHECKBOX("checkbox", "复选框", "复选选择器"),
+    NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
+    ACCOUNT("account", "帐号", "common.autoexec.account"),
+    FILEPATH("filepath", "文件路径", "可输出文件路径参数"),
+    TEXTAREA("textarea", "文本域", "可输出字符串、数字"),
+    PHASE("phase", "阶段", "可输出阶段");
 
     private final String value;
     private final String text;

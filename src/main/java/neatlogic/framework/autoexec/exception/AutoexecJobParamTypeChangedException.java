@@ -23,6 +23,6 @@ public class AutoexecJobParamTypeChangedException extends ApiRuntimeException {
     private static final long serialVersionUID = 3718741083995150836L;
 
     public AutoexecJobParamTypeChangedException(String combopName, String keyName, String oldType, String newType) {
-        super("exception.autoexec.autoexecjobparamtypechangedexception", combopName, keyName, oldType, newType);
+        super("组合工具“{0}”的作业参数“{1}“类型发生变化，由“{2}”变成“{3}”类型", combopName, keyName, oldType, newType);
     }
 }

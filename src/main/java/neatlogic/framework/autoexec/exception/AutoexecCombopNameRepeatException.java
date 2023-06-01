@@ -27,6 +27,6 @@ public class AutoexecCombopNameRepeatException extends ApiRuntimeException {
     private static final long serialVersionUID = -977867274722886183L;
 
     public AutoexecCombopNameRepeatException(String name) {
-        super("exception.autoexec.autoexeccombopnamerepeatexception", name);
+        super("组合工具：“{0}”已存在", name);
     }
 }

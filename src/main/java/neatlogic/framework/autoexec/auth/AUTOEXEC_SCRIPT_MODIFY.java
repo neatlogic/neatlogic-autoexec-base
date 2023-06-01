@@ -25,12 +25,12 @@ public class AUTOEXEC_SCRIPT_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexecscriptmodify.name";
+        return "工具、自定义工具维护权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexecscriptmodify.introduction";
+        return "对工具和自定义工具进行查看、编辑、复制和测试";
     }
 
     @Override

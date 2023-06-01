@@ -23,7 +23,7 @@ public class AutoexecToolParamDatasourceEmptyException extends ApiRuntimeExcepti
     private static final long serialVersionUID = 303408573049451956L;
 
     public AutoexecToolParamDatasourceEmptyException(String param) {
-        super("exception.autoexec.autoexectoolparamdatasourceemptyexception", param);
+        super("参数：“{0}”未配置数据源", param);
     }
 
 

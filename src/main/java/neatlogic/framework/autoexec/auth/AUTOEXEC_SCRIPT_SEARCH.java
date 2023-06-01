@@ -25,12 +25,12 @@ public class AUTOEXEC_SCRIPT_SEARCH extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexecscriptsearch.name";
+        return "工具、自定义工具查看权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexecscriptsearch.introduction";
+        return "查看工具、自定义工具";
     }
 
     @Override

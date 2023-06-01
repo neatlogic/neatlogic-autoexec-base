@@ -25,12 +25,12 @@ public class AUTOEXEC_SCRIPT_MANAGE extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "auth.autoexec.autoexecscriptmanage.name";
+        return "工具、自定义工具管理权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "auth.autoexec.autoexecscriptmanage.introduction";
+        return "对工具和自定义工具进行查看、编辑、复制、测试、审核、激活和删除";
     }
 
     @Override

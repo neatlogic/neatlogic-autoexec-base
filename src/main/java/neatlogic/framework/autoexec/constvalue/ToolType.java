@@ -19,8 +19,8 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.I18nUtils;
 
 public enum ToolType {
-    TOOL("tool", "common.tool"),
-    SCRIPT("script", "common.script");
+    TOOL("tool", "工具"),
+    SCRIPT("script", "脚本");
     private String value;
     private String text;
 

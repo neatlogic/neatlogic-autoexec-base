@@ -23,7 +23,7 @@ public class AutoexecScriptVersionIsNotSubmittedException extends ApiRuntimeExce
     private static final long serialVersionUID = -7705222964284763945L;
 
     public AutoexecScriptVersionIsNotSubmittedException() {
-        super("exception.autoexec.autoexecscriptversionisnotsubmittedexception");
+        super("当前版本不是待审批状态");
     }
 
 

@@ -23,7 +23,7 @@ public class AutoexecScriptVersionCannotActiveException extends ApiRuntimeExcept
     private static final long serialVersionUID = 1883400105716529730L;
 
     public AutoexecScriptVersionCannotActiveException() {
-        super("exception.autoexec.autoexecscriptversioncannotactiveexception");
+        super("当前版本不可激活");
     }
 
 

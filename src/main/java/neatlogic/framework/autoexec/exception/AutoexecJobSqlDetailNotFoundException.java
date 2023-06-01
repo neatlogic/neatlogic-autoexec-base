@@ -7,6 +7,6 @@ public class AutoexecJobSqlDetailNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 2660806067089897612L;
 
     public AutoexecJobSqlDetailNotFoundException(){
-        super("exception.autoexec.autoexecjobsqldetailnotfoundexception");
+        super("sql详情不存在");
     }
 }

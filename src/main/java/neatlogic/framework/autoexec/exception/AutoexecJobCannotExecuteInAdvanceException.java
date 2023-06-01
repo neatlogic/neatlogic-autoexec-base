@@ -23,7 +23,7 @@ public class AutoexecJobCannotExecuteInAdvanceException extends ApiRuntimeExcept
     private static final long serialVersionUID = -2757981184174705825L;
 
     public AutoexecJobCannotExecuteInAdvanceException() {
-        super("exception.autoexec.autoexecjobcannotexecuteinadvanceexception");
+        super("禁止提前执行作业");
     }
 
 

@@ -23,7 +23,7 @@ public class AutoexecTypeHasBeenReferredException extends ApiRuntimeException {
     private static final long serialVersionUID = -977868274722886183L;
 
     public AutoexecTypeHasBeenReferredException(String name) {
-        super("exception.autoexec.autoexectypehasbeenreferredexception", name);
+        super("工具类型：“{0}”已经被工具、自定义工具或组合工具引用", name);
     }
 
 

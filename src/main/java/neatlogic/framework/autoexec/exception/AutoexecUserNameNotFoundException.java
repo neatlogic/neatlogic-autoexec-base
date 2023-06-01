@@ -22,6 +22,6 @@ public class AutoexecUserNameNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 3019057001931465815L;
 
     public AutoexecUserNameNotFoundException() {
-        super("exception.autoexec.autoexecusernamenotfoundexception");
+        super("执行用户不能为空");
     }
 }

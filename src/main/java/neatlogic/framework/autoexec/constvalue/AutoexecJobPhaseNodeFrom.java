@@ -8,9 +8,9 @@ import neatlogic.framework.util.I18nUtils;
  * @date 2021/12/16 4:16 下午
  */
 public enum AutoexecJobPhaseNodeFrom implements IFromType {
-    JOB("job","enum.autoexec.autoexecjobphasenodefrom.job"),
-    GROUP("group","common.group"),
-    PHASE("phase","common.phase")
+    JOB("job","作业全局"),
+    GROUP("group","组"),
+    PHASE("phase","阶段")
     ;
 
 

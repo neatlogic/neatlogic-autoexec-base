@@ -10,10 +10,10 @@ public class AutoexecScenarioIsNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -6179270634867916136L;
 
     public AutoexecScenarioIsNotFoundException(Long id) {
-        super("exception.autoexec.autoexecscenarioisnotfoundexception", id);
+        super("场景 “{0}”不存在", id);
     }
 
     public AutoexecScenarioIsNotFoundException(String name) {
-        super("exception.autoexec.autoexecscenarioisnotfoundexception", name);
+        super("场景 “{0}”不存在", name);
     }
 }
