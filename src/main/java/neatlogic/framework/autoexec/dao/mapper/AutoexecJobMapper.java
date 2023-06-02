@@ -265,6 +265,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobEnvVo> getAutoexecJobEnvListByJobId(Long jobId);
 
+    List<AutoexecJobEnvVo> getAutoexecJobEnvListByJobIdList(List<Long> jobIdList);
+
     Integer getJobPhaseRunnerNotCompletedCountByJobIdAndIsFireNextAndGroupSort(@Param("jobId") Long jobId, @Param("isFireNext") int isFireNext, @Param("groupSort") int groupSort);
 
     List<HashMap<String, String>> getJobPhaseRunnerAbortingCountMapCountByJobId(@Param("jobId") Long jobId);
@@ -303,6 +305,8 @@ public interface AutoexecJobMapper {
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
     List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long id, @Param("jobPhaseId") Long id1);
+
+    List<Long> getJobIdListByProcessTaskStepId(Long processTaskStepId);
 
     int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 
@@ -392,6 +396,8 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlNodeDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("phaseId") Long phaseId, @Param("runnerId") Long runnerId, @Param("updateTag") Long updateTag);
 
+    void insertAutoexecJobProcessTaskStep(@Param("jobId")Long jobId, @Param("processTaskStepId")Long processTaskStepId);
+
     void deleteJobContentByHash(String paramHash);
 
     void deleteJobPhaseOperationByJobId(Long jobId);
@@ -426,4 +432,5 @@ public interface AutoexecJobMapper {
 
     void deleteJobSqlDetailByJobId(Long jobId);
 
+    void deleteAutoexecJobByProcessTaskStepId(Long processTaskStepId);
 }
