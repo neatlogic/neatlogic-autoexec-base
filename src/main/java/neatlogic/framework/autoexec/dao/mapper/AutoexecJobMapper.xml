@@ -2172,9 +2172,7 @@ limitations under the License.
         aj.`parent_id` as parentId,
         aj.`trigger_type` as triggerType,
         aj.`scenario_id`     as scenarioId,
-        aj.`runner_map_id`   as runnerMapId,
-        aj.`fcu`,
-        aj.`fcd`
+        aj.`runner_map_id`   as runnerMapId
         FROM `autoexec_job` aj
         WHERE aj.`id` in
         <foreach collection="list" item="id" close=")" open="(" separator=",">
