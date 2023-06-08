@@ -16,7 +16,7 @@
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 public enum AutoexecTypeAuthorityAction {
     ADD("add", "添加分类下的自定义工具或工具库工具"),
@@ -35,6 +35,6 @@ public enum AutoexecTypeAuthorityAction {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 }

@@ -16,7 +16,7 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 public enum ScriptVersionStatus {
     DRAFT("draft", "草稿"),
@@ -38,7 +38,7 @@ public enum ScriptVersionStatus {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     public static String getText(String _value) {

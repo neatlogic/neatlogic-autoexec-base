@@ -16,15 +16,14 @@
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.autoexec.dto.job.AutoexecJobStatusVo;
-import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.autoexec.dto.job.AutoexecJobStatusVo;
+import neatlogic.framework.common.constvalue.IEnum;
+import neatlogic.framework.util.$;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public enum JobStatus implements IEnum {
     SAVED("saved", "待提交"),
@@ -57,7 +56,7 @@ public enum JobStatus implements IEnum {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     public static String getText(String _status) {

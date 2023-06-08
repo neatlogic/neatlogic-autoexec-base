@@ -18,7 +18,7 @@ package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.common.constvalue.ParamType;
 import neatlogic.framework.notify.core.INotifyParam;
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 /**
  * @author laiwt
@@ -47,7 +47,7 @@ public enum AutoexecJobNotifyParam implements INotifyParam {
 
     @Override
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     @Override

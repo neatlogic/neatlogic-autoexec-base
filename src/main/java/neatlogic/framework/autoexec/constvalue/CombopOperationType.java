@@ -16,8 +16,7 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.common.constvalue.ApiParamType;
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 /**
  * 组合工具操作类型
@@ -42,7 +41,7 @@ public enum CombopOperationType {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     public static String getText(String name) {

@@ -1,6 +1,6 @@
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 /**
  * @author lvzk
@@ -22,6 +22,6 @@ public enum JobSourceType {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 }

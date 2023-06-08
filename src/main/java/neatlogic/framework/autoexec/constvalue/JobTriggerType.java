@@ -19,7 +19,7 @@ package neatlogic.framework.autoexec.constvalue;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.common.constvalue.IEnum;
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 import org.springframework.context.NoSuchMessageException;
 
 import java.util.List;
@@ -40,14 +40,14 @@ public enum JobTriggerType implements IEnum {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     public static String getText(String _status) {
         for (JobTriggerType s : JobTriggerType.values()) {
             if (s.getValue().equals(_status)) {
                 try {
-                    return I18nUtils.getMessage(s.getText());
+                    return $.t(s.getText());
                 } catch (NoSuchMessageException ignored) {
                     return s.getText();
                 }
@@ -65,7 +65,7 @@ public enum JobTriggerType implements IEnum {
                 {
                     this.put("value", value.getValue());
                     try {
-                        this.put("text", I18nUtils.getMessage(value.getText()));
+                        this.put("text", $.t(value.getText()));
                     } catch (NoSuchMessageException ignored) {
                         this.put("text", value.getText());
                     }

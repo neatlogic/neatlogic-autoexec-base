@@ -16,7 +16,7 @@
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 public enum AutoexecTypeType {
     FACTORY("factory", "默认出厂"),
@@ -34,7 +34,7 @@ public enum AutoexecTypeType {
     }
 
     public String getName() {
-        return I18nUtils.getMessage(name);
+        return $.t(name);
     }
 
     public static String getValue(String _value) {

@@ -16,7 +16,7 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 public enum ScriptAction {
     SWITCH_VERSION("switchversion", "切换版本", "从版本${DATA.oldVersion}切换到版本${DATA.newVersion}", true),
@@ -43,11 +43,11 @@ public enum ScriptAction {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     public String getTitle() {
-        return I18nUtils.getMessage(title);
+        return $.t(title);
     }
 
     public static boolean isNeedReplaceParam(String _value) {

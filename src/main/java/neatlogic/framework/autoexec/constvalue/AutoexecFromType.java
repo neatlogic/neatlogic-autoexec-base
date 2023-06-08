@@ -1,7 +1,7 @@
 package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.dependency.core.IFromType;
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 /**
  * @author longrf
@@ -44,6 +44,6 @@ public enum AutoexecFromType implements IFromType {
      */
     @Override
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 }

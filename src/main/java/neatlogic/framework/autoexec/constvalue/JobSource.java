@@ -17,7 +17,7 @@
 package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.autoexec.source.IAutoexecJobSource;
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.util.$;
 
 public enum JobSource implements IAutoexecJobSource {
     HUMAN("人工", "human"),
@@ -42,7 +42,7 @@ public enum JobSource implements IAutoexecJobSource {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     public static String getText(String _status) {

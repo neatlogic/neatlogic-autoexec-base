@@ -16,10 +16,10 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.constvalue;
 
-import neatlogic.framework.common.constvalue.IEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import neatlogic.framework.util.I18nUtils;
+import neatlogic.framework.common.constvalue.IEnum;
+import neatlogic.framework.util.$;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +45,7 @@ public enum ScriptExecMode implements IEnum {
     }
 
     public String getText() {
-        return I18nUtils.getMessage(text);
+        return $.t(text);
     }
 
     public static ScriptExecMode getExecMode(String _value) {
@@ -58,7 +58,7 @@ public enum ScriptExecMode implements IEnum {
     }
 
     public String getDescription() {
-        return I18nUtils.getMessage(description);
+        return $.t(description);
     }
 
     public static String getText(String _value) {
