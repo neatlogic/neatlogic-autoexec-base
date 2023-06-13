@@ -19,6 +19,7 @@ package neatlogic.framework.autoexec.dto.node;
 import neatlogic.framework.cmdb.dto.resourcecenter.ResourceVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 
@@ -95,4 +96,15 @@ public class AutoexecNodeVo implements Serializable {
         this.port = port;
     }
 
+    @Override
+    public String toString() {
+        String str = ip;
+        if (port != null) {
+            str = str + ":" + port;
+            if (StringUtils.isNotBlank(name)) {
+                str = str + "/" + name;
+            }
+        }
+        return str;
+    }
 }
