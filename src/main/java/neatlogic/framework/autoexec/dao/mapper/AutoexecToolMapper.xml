@@ -264,12 +264,16 @@
         </foreach>
     </select>
 
-    <select id="getToolCountByLcd" parameterType="java.util.Date" resultType="int">
-        SELECT COUNT(1) FROM `autoexec_tool` WHERE `lcd` = #{value}
+    <select id="getToolCountByModifyTimeMilliseconds" parameterType="java.lang.Long" resultType="int">
+        SELECT COUNT(1) FROM `autoexec_tool` WHERE `modify_time_milliseconds` = #{value}
     </select>
 
-    <select id="getToolIdListByExcludeLcd" parameterType="java.util.Date" resultType="java.lang.Long">
-        SELECT `id` FROM `autoexec_tool` WHERE `lcd` != #{value}
+    <select id="getToolIdListByExcludeModifyTimeMilliseconds" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT
+            `id`
+        FROM `autoexec_tool`
+        WHERE `modify_time_milliseconds` != #{value}
+        OR `modify_time_milliseconds` IS NULL
     </select>
 
     <update id="updateActiveStatus" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
@@ -303,6 +307,7 @@
         `default_profile_id`,
         `is_lib`,
         `config`,
+        `modify_time_milliseconds`,
         `lcd`
         ) values (
         #{id},
@@ -316,7 +321,8 @@
         #{defaultProfileId},
         #{isLib},
         #{configStr},
-        #{lcd}
+        #{modifyTimeMilliseconds},
+        NOW(3)
         )
         ON DUPLICATE KEY UPDATE
         `exec_mode` = #{execMode},
@@ -328,7 +334,8 @@
         `default_profile_id` = #{defaultProfileId},
         `is_lib` = #{isLib},
         `config` = #{configStr},
-        `lcd` = #{lcd};
+        `modify_time_milliseconds` = #{modifyTimeMilliseconds},
+        `lcd` = NOW(3);
     </update>
 
     <delete id="deleteToolByIdList" parameterType="java.util.List">

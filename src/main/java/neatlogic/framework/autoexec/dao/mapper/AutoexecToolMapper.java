@@ -51,9 +51,9 @@ public interface AutoexecToolMapper {
 
     List<Long> getToolIdListByIdListAndTypeId(@Param("idList") List<Long> idList, @Param("typeId") Long typeId);
 
-    int getToolCountByLcd(Date lcd);
+    int getToolCountByModifyTimeMilliseconds(Long modifyTimeMilliseconds);
 
-    List<Long> getToolIdListByExcludeLcd(Date lcd);
+    List<Long> getToolIdListByExcludeModifyTimeMilliseconds(Long modifyTimeMilliseconds);
 
     int updateActiveStatus(AutoexecToolVo toolVo);
 
