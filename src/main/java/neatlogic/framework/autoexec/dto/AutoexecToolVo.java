@@ -21,8 +21,11 @@ import neatlogic.framework.restful.annotation.EntityField;
 import com.alibaba.fastjson.JSONObject;
 
 public class AutoexecToolVo extends AutoexecOperationVo {
-    @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.isactive", type = ApiParamType.INTEGER)
     private Integer isActive;
+
+    @EntityField(name = "common.modifytimemilliseconds", type = ApiParamType.LONG)
+    private Long modifyTimeMilliseconds;
 
     public AutoexecToolVo() {
     }
@@ -32,6 +35,7 @@ public class AutoexecToolVo extends AutoexecOperationVo {
         setExecMode(object.getString("opType"));
         setParser(object.getString("interpreter"));
         setDescription(object.getString("description"));
+        this.modifyTimeMilliseconds = object.getLong("modifyTimeMilliseconds");
     }
 
     public Integer getIsActive() {
@@ -42,4 +46,11 @@ public class AutoexecToolVo extends AutoexecOperationVo {
         this.isActive = isActive;
     }
 
+    public Long getModifyTimeMilliseconds() {
+        return modifyTimeMilliseconds;
+    }
+
+    public void setModifyTimeMilliseconds(Long modifyTimeMilliseconds) {
+        this.modifyTimeMilliseconds = modifyTimeMilliseconds;
+    }
 }
