@@ -264,6 +264,14 @@
         </foreach>
     </select>
 
+    <select id="getToolCountByLcd" parameterType="java.util.Date" resultType="int">
+        SELECT COUNT(1) FROM `autoexec_tool` WHERE `lcd` = #{value}
+    </select>
+
+    <select id="getToolIdListByExcludeLcd" parameterType="java.util.Date" resultType="java.lang.Long">
+        SELECT `id` FROM `autoexec_tool` WHERE `lcd` != #{value}
+    </select>
+
     <update id="updateActiveStatus" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
         update `autoexec_tool`
         set `is_active` = #{isActive}
@@ -308,7 +316,7 @@
         #{defaultProfileId},
         #{isLib},
         #{configStr},
-        now(3)
+        #{lcd}
         )
         ON DUPLICATE KEY UPDATE
         `exec_mode` = #{execMode},
@@ -320,7 +328,7 @@
         `default_profile_id` = #{defaultProfileId},
         `is_lib` = #{isLib},
         `config` = #{configStr},
-        `lcd` = now( 3 );
+        `lcd` = #{lcd};
     </update>
 
     <delete id="deleteToolByIdList" parameterType="java.util.List">
@@ -329,6 +337,5 @@
             #{item}
         </foreach>
     </delete>
-
 </mapper>
 

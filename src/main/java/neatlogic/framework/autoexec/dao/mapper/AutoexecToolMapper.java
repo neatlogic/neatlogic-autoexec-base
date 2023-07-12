@@ -20,6 +20,7 @@ import neatlogic.framework.autoexec.dto.AutoexecOperationVo;
 import neatlogic.framework.autoexec.dto.AutoexecToolVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface AutoexecToolMapper {
@@ -49,6 +50,10 @@ public interface AutoexecToolMapper {
     List<AutoexecToolVo> getAllTool();
 
     List<Long> getToolIdListByIdListAndTypeId(@Param("idList") List<Long> idList, @Param("typeId") Long typeId);
+
+    int getToolCountByLcd(Date lcd);
+
+    List<Long> getToolIdListByExcludeLcd(Date lcd);
 
     int updateActiveStatus(AutoexecToolVo toolVo);
 
