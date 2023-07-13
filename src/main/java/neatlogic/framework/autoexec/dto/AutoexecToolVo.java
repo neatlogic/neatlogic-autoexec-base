@@ -24,8 +24,8 @@ public class AutoexecToolVo extends AutoexecOperationVo {
     @EntityField(name = "common.isactive", type = ApiParamType.INTEGER)
     private Integer isActive;
 
-    @EntityField(name = "common.modifytimemilliseconds", type = ApiParamType.LONG)
-    private Long modifyTimeMilliseconds;
+    @EntityField(name = "common.editdate", type = ApiParamType.LONG)
+    private Long epochTime;
 
     public AutoexecToolVo() {
     }
@@ -35,7 +35,7 @@ public class AutoexecToolVo extends AutoexecOperationVo {
         setExecMode(object.getString("opType"));
         setParser(object.getString("interpreter"));
         setDescription(object.getString("description"));
-        this.modifyTimeMilliseconds = object.getLong("modifyTimeMilliseconds");
+        this.epochTime = object.getLong("epochTime");
     }
 
     public Integer getIsActive() {
@@ -46,11 +46,11 @@ public class AutoexecToolVo extends AutoexecOperationVo {
         this.isActive = isActive;
     }
 
-    public Long getModifyTimeMilliseconds() {
-        return modifyTimeMilliseconds;
+    public Long getEpochTime() {
+        return epochTime;
     }
 
-    public void setModifyTimeMilliseconds(Long modifyTimeMilliseconds) {
-        this.modifyTimeMilliseconds = modifyTimeMilliseconds;
+    public void setEpochTime(Long epochTime) {
+        this.epochTime = epochTime;
     }
 }
