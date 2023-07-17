@@ -25,7 +25,7 @@ public class AutoexecToolVo extends AutoexecOperationVo {
     private Integer isActive;
 
     @EntityField(name = "common.editdate", type = ApiParamType.LONG)
-    private Long epochTime;
+    private Long importTime;
 
     public AutoexecToolVo() {
     }
@@ -35,7 +35,7 @@ public class AutoexecToolVo extends AutoexecOperationVo {
         setExecMode(object.getString("opType"));
         setParser(object.getString("interpreter"));
         setDescription(object.getString("description"));
-        this.epochTime = object.getLong("epochTime");
+        this.importTime = object.getLong("importTime");
     }
 
     public Integer getIsActive() {
@@ -46,11 +46,11 @@ public class AutoexecToolVo extends AutoexecOperationVo {
         this.isActive = isActive;
     }
 
-    public Long getEpochTime() {
-        return epochTime;
+    public Long getImportTime() {
+        return importTime;
     }
 
-    public void setEpochTime(Long epochTime) {
-        this.epochTime = epochTime;
+    public void setImportTime(Long importTime) {
+        this.importTime = importTime;
     }
 }

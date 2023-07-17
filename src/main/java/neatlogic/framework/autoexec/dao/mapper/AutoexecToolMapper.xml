@@ -264,16 +264,16 @@
         </foreach>
     </select>
 
-    <select id="getToolCountByEpochTime" parameterType="java.lang.Long" resultType="int">
-        SELECT COUNT(1) FROM `autoexec_tool` WHERE `epoch_time` = #{value}
+    <select id="getToolCountByImportTime" parameterType="java.lang.Long" resultType="int">
+        SELECT COUNT(1) FROM `autoexec_tool` WHERE `import_time` = #{value}
     </select>
 
-    <select id="getToolIdListByExcludeEpochTime" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="getToolIdListByExcludeImportTime" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT
             `id`
         FROM `autoexec_tool`
-        WHERE `epoch_time` != #{value}
-        OR `epoch_time` IS NULL
+        WHERE `import_time` != #{value}
+        OR `import_time` IS NULL
     </select>
 
     <update id="updateActiveStatus" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo">
@@ -307,7 +307,7 @@
         `default_profile_id`,
         `is_lib`,
         `config`,
-        `epoch_time`,
+        `import_time`,
         `lcd`
         ) values (
         #{id},
@@ -321,7 +321,7 @@
         #{defaultProfileId},
         #{isLib},
         #{configStr},
-        #{epochTime},
+        #{importTime},
         NOW(3)
         )
         ON DUPLICATE KEY UPDATE
@@ -334,7 +334,7 @@
         `default_profile_id` = #{defaultProfileId},
         `is_lib` = #{isLib},
         `config` = #{configStr},
-        `epoch_time` = #{epochTime},
+        `import_time` = #{importTime},
         `lcd` = NOW(3);
     </update>
 
