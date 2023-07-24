@@ -36,6 +36,9 @@ public class AutoexecCombopScenarioVo implements Serializable {
     @EntityField(name = "是否拥有DEPLOY类型的工具库工具", type = ApiParamType.INTEGER)
     private int isHasDeployTypeTool = 0;
 
+    @EntityField(name = "前端展示时是否可选", type = ApiParamType.BOOLEAN)
+    private Boolean isEnable;
+
     public Long getScenarioId() {
         return scenarioId;
     }
@@ -58,6 +61,14 @@ public class AutoexecCombopScenarioVo implements Serializable {
 
     public void setCombopPhaseNameList(List<String> combopPhaseNameList) {
         this.combopPhaseNameList = combopPhaseNameList;
+    }
+
+    public Boolean getIsEnable() {
+        return isEnable;
+    }
+
+    public void setIsEnable(Boolean isEnable) {
+        this.isEnable = isEnable;
     }
 
     public int getIsHasBuildTypeTool() {
