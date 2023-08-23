@@ -34,7 +34,7 @@ import java.util.Objects;
 public enum ParamType implements IEnum {
     TEXT("text", "文本", "文本参数，可输入字符串、数字"),
     PASSWORD("password", "密码", "可输入数字或字符串，页面显示为密文"),
-    FILE("file", "文件", "common.autoexec.file"),
+    FILE("file", "文件", "common.file"),
     DATE("date", "日期", "日期选择器"),
     DATETIME("datetime", "日期时间", "日期时间选择器"),
     TIME("time", "时间", "时间选择器"),
@@ -44,7 +44,7 @@ public enum ParamType implements IEnum {
     RADIO("radio", "单选", "单选选择器"),
     CHECKBOX("checkbox", "复选", "复选选择器"),
     NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
-    ACCOUNT("account", "账号", "common.autoexec.account"),
+    ACCOUNT("account", "账号", "common.account"),
     USERSELECT("userselect", "用户选择器", "用于选择系统用户、分组、角色"),
     TEXTAREA("textarea", "文本域", "可输入字符串、数字"),
     PHASE("phase", "阶段", "可选择阶段"),
