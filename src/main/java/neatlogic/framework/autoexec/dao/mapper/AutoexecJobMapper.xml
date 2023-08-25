@@ -3035,6 +3035,11 @@ limitations under the License.
         set `runner_map_id` = #{runnerId}
         where id = #{jobId}
     </update>
+    <update id="updateJobParentIdById">
+        UPDATE autoexec_job
+        set `parent_id` = #{parentId}
+        where id = #{id}
+    </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE

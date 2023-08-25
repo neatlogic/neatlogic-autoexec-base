@@ -386,7 +386,9 @@ public interface AutoexecJobMapper {
 
     void resetJobSqlStatusBySqlIdList(@Param("idList") List<Long> idList);
 
-    Integer updateJobLocalRunnerId(@Param("jobId") Long jobId,@Param("runnerId") Long runnerId);
+    Integer updateJobLocalRunnerId(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId);
+
+    int updateJobParentIdById(@Param("id") Long id, @Param("parentId") int parentId);
 
     int insertDuplicateJobEnv(AutoexecJobEnvVo jobEnvVo);
 
@@ -396,7 +398,7 @@ public interface AutoexecJobMapper {
 
     void insertSqlDetailList(@Param("sqlList") List<AutoexecSqlNodeDetailVo> sqlList, @Param("phaseName") String phaseName, @Param("phaseId") Long phaseId, @Param("runnerId") Long runnerId, @Param("updateTag") Long updateTag);
 
-    void insertAutoexecJobProcessTaskStep(@Param("jobId")Long jobId, @Param("processTaskStepId")Long processTaskStepId);
+    void insertAutoexecJobProcessTaskStep(@Param("jobId") Long jobId, @Param("processTaskStepId") Long processTaskStepId);
 
     void deleteJobContentByHash(String paramHash);
 
