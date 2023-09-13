@@ -45,6 +45,8 @@ public class AutoexecProfileVo extends BaseEditorVo {
     private List<AutoexecProfileParamVo> profileParamVoList;
     @EntityField(name = "依赖数", type = ApiParamType.INTEGER)
     private Integer referredCount = 0;
+    @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecProfileOperationVo> profileOperationList;
 
     public AutoexecProfileVo() {
     }
@@ -175,5 +177,13 @@ public class AutoexecProfileVo extends BaseEditorVo {
 
     public void setReferredCount(Integer referredCount) {
         this.referredCount = referredCount;
+    }
+
+    public List<AutoexecProfileOperationVo> getProfileOperationList() {
+        return profileOperationList;
+    }
+
+    public void setProfileOperationList(List<AutoexecProfileOperationVo> profileOperationList) {
+        this.profileOperationList = profileOperationList;
     }
 }

@@ -32,6 +32,8 @@ public interface AutoexecRiskMapper {
 
     AutoexecRiskVo getAutoexecRiskById(Long riskId);
 
+    AutoexecRiskVo getAutoexecRiskByName(String name);
+
     int searchRiskCount(AutoexecRiskVo vo);
 
     List<AutoexecRiskVo> searchRisk(AutoexecRiskVo vo);

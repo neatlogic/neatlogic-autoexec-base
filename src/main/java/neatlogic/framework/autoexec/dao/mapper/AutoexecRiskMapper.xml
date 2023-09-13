@@ -40,6 +40,22 @@
         WHERE `id` = #{value}
     </select>
 
+    <select id="getAutoexecRiskByName" parameterType="java.lang.String" resultType="neatlogic.framework.autoexec.dto.AutoexecRiskVo">
+        SELECT
+            `id`,
+            `name`,
+            `color`,
+            `is_active` AS isActive,
+            `description`,
+            `sort`,
+            `fcd`,
+            `fcu`,
+            `lcd`,
+            `lcu`
+        FROM `autoexec_risk`
+        WHERE `name` = #{value}
+    </select>
+
     <select id="searchRiskCount" parameterType="neatlogic.framework.autoexec.dto.AutoexecRiskVo" resultType="int">
         select count(`id`)
         from `autoexec_risk`

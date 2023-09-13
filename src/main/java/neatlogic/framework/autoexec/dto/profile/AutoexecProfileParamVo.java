@@ -1,13 +1,10 @@
 package neatlogic.framework.autoexec.dto.profile;
 
-import neatlogic.framework.autoexec.constvalue.AutoexecProfileParamInvokeType;
+import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
-import com.alibaba.fastjson.JSONObject;
-
-import java.util.List;
 
 /**
  * @author longrf
