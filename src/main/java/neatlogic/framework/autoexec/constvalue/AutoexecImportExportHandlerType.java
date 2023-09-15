@@ -19,15 +19,15 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.importexport.core.ImportExportHandlerType;
 
 public enum AutoexecImportExportHandlerType implements ImportExportHandlerType {
-    AUTOEXEC_CATALOG("autoexecCatalog", "工具目录"),
-    AUTOEXEC_CUSTOM_TEMPLATE("autoexecCustomTemplate", "自定义模板"),
-    AUTOEXEC_GLOBAL_PARAM("autoexecGlobalParam", "全局参数"),
-    AUTOEXEC_PROFILE("autoexecProfile", "预置参数集"),
-    AUTOEXEC_RISK("autoexecRisk", "操作级别"),
-    AUTOEXEC_SCENARIO("autoexecScenario", "场景"),
-    AUTOEXEC_SCRIPT("autoexecScript", "自定义工具"),
-    AUTOEXEC_TOOL("autoexecTool", "工具"),
-    AUTOEXEC_TYPE("autoexecType", "工具分类"),
+    AUTOEXEC_CATALOG("autoexecCatalog", "term.autoexec.catalog"),
+    AUTOEXEC_CUSTOM_TEMPLATE("autoexecCustomTemplate", "term.autoexec.customtemplate"),
+    AUTOEXEC_GLOBAL_PARAM("autoexecGlobalParam", "term.autoexec.globalparam"),
+    AUTOEXEC_PROFILE("autoexecProfile", "term.autoexec.profile"),
+    AUTOEXEC_RISK("autoexecRisk", "term.autoexec.risk"),
+    AUTOEXEC_SCENARIO("autoexecScenario", "term.autoexec.scenario"),
+    AUTOEXEC_SCRIPT("autoexecScript", "term.autoexec.script"),
+    AUTOEXEC_TOOL("autoexecTool", "term.autoexec.tool"),
+    AUTOEXEC_TYPE("autoexecType", "term.autoexec.type"),
     ;
 
     private String value;
