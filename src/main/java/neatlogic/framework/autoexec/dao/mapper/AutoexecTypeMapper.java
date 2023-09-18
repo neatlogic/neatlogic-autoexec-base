@@ -27,6 +27,8 @@ public interface AutoexecTypeMapper {
 
     AutoexecTypeVo getTypeById(Long id);
 
+    AutoexecTypeVo getTypeByName(String name);
+
     List<AutoexecTypeVo> getTypeListByIdList(List<Long> idList);
 
     int checkTypeNameIsExists(AutoexecTypeVo vo);

@@ -14,6 +14,18 @@
         where a.`id` = #{value}
     </select>
 
+    <select id="getTypeByName" parameterType="java.lang.String" resultType="neatlogic.framework.autoexec.dto.AutoexecTypeVo">
+        SELECT
+            `id`,
+            `name`,
+            `description`,
+            `lcd`,
+            `lcu`,
+            `type`
+        FROM `autoexec_type`
+        WHERE `name` = #{value}
+    </select>
+
     <resultMap id="typeMap" type="neatlogic.framework.autoexec.dto.AutoexecTypeVo">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
@@ -264,7 +276,7 @@
                    `description` = #{description},
                    `type`        = #{type},
                    `lcu`         = #{lcu},
-                   `lcd`         = now(3);
+                   `lcd`         = now(3)
     </insert>
 
     <insert id="insertTypeList">
