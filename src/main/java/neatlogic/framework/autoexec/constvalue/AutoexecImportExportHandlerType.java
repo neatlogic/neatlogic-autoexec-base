@@ -17,6 +17,7 @@
 package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.importexport.core.ImportExportHandlerType;
+import neatlogic.framework.util.$;
 
 public enum AutoexecImportExportHandlerType implements ImportExportHandlerType {
     AUTOEXEC_CATALOG("autoexecCatalog", "term.autoexec.catalog"),
@@ -44,6 +45,6 @@ public enum AutoexecImportExportHandlerType implements ImportExportHandlerType {
 
     @Override
     public String getText() {
-        return this.text;
+        return $.t(this.text);
     }
 }
