@@ -62,4 +62,13 @@ public abstract class ScriptParamTypeBase implements IScriptParamType{
     protected Object getMyAutoexecParamByValue(Object value){
         return value;
     }
+
+
+    @Override
+    public Object getExchangeParamByValue(Object value) {
+        return getMyExchangeParamByValue(value);
+    }
+    protected Object getMyExchangeParamByValue(Object value){
+        return value;
+    }
 }

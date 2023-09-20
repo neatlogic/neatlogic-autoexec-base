@@ -69,4 +69,10 @@ public interface IScriptParamType {
      * @return param
      */
     Object getAutoexecParamByValue(Object value);
+
+    /**
+     * 将外部输入的参数的值转化为内部的值
+     * @return param
+     */
+    Object getExchangeParamByValue(Object value);
 }

@@ -26,11 +26,11 @@ public class AutoexecUtil {
     public static String requestRunner(String runnerUrl, JSONObject paramJson) {
         HttpRequestUtil requestUtil = HttpRequestUtil.post(runnerUrl).setPayload(paramJson.toJSONString()).setAuthType(AuthenticateType.BUILDIN).setConnectTimeout(5000).setReadTimeout(5000).sendRequest();
         if (StringUtils.isNotBlank(requestUtil.getError())) {
-            throw new RunnerHttpRequestException(runnerUrl + ":" + requestUtil.getError());
+            throw new RunnerHttpRequestException(runnerUrl + ":" + requestUtil.getErrorMsg());
         }
         JSONObject resultJson = requestUtil.getResultJson();
         if (!resultJson.containsKey("Status") || !"OK".equals(resultJson.getString("Status"))) {
-            throw new RunnerHttpRequestException(runnerUrl + ":" + requestUtil.getError());
+            throw new RunnerHttpRequestException(runnerUrl + ":" + requestUtil.getErrorMsg());
         }
         return resultJson.getString("Return");
     }
