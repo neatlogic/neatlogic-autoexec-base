@@ -17,7 +17,6 @@
 package neatlogic.framework.autoexec.crossover;
 
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopParamVo;
-import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import neatlogic.framework.crossover.ICrossoverService;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,8 +26,4 @@ public interface IAutoexecCombopCrossoverMapper extends ICrossoverService {
     List<AutoexecCombopParamVo> getAllAutoexecCombopPasswordParamList();
 
     int updateAutoexecCombopPasswordParam(@Param("param") AutoexecCombopParamVo autoexecCombopParamVo, @Param("password") String password);
-
-    List<AutoexecCombopVo> getAutoexecCombopByIdList(List<Long> idList);
-
-    int checkAutoexecCombopIsExists(Long id);
 }
