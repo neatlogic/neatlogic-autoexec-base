@@ -37,6 +37,12 @@ public class AutoexecNodeVo implements Serializable {
     private String ip;
     @EntityField(name = "端口号", type = ApiParamType.INTEGER)
     private Integer port;
+    @EntityField(name = "类型id", type = ApiParamType.LONG)
+    private Long typeId;
+    @EntityField(name = "类型名称", type = ApiParamType.STRING)
+    private String typeName;
+    @EntityField(name = "类型label", type = ApiParamType.STRING)
+    private String typeLabel;
 
     public AutoexecNodeVo() {
     }
@@ -62,6 +68,9 @@ public class AutoexecNodeVo implements Serializable {
         this.name = resourceVo.getName();
         this.ip = resourceVo.getIp();
         this.port = resourceVo.getPort();
+        this.typeId = resourceVo.getTypeId();
+        this.typeName = resourceVo.getTypeName();
+        this.typeLabel = resourceVo.getTypeLabel();
     }
 
     public Long getId() {
@@ -94,6 +103,30 @@ public class AutoexecNodeVo implements Serializable {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public Long getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public String getTypeLabel() {
+        return typeLabel;
+    }
+
+    public void setTypeLabel(String typeLabel) {
+        this.typeLabel = typeLabel;
     }
 
     @Override
