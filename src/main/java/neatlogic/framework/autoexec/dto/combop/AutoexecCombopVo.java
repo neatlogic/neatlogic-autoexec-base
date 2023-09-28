@@ -36,66 +36,71 @@ import java.util.List;
  **/
 public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
-    @EntityField(name = "主键id", type = ApiParamType.LONG)
+    @EntityField(name = "common.id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "显示名", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "描述", type = ApiParamType.STRING)
+    @EntityField(name = "common.description", type = ApiParamType.STRING)
     private String description;
-    @EntityField(name = "类型id", type = ApiParamType.LONG)
+    @EntityField(name = "common.typeid", type = ApiParamType.LONG)
     private Long typeId;
-    @EntityField(name = "类型名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.typename", type = ApiParamType.STRING)
     private String typeName;
-    @EntityField(name = "状态", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.isactive", type = ApiParamType.INTEGER)
     private Integer isActive;
-    @EntityField(name = "操作类型", type = ApiParamType.STRING)
+    @EntityField(name = "common.actiontype", type = ApiParamType.STRING)
     private String operationType;
-    @EntityField(name = "维护人", type = ApiParamType.STRING)
+    @EntityField(name = "common.owneruuid", type = ApiParamType.STRING)
     private String owner;
-    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "common.config", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopConfigVo config;
 
-    @EntityField(name = "是否可查看", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.viewable", type = ApiParamType.INTEGER)
     private Integer viewable;
-    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.editable", type = ApiParamType.INTEGER)
     private Integer editable;
-    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.deletable", type = ApiParamType.INTEGER)
     private Integer deletable;
-    @EntityField(name = "是否可执行", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.executable", type = ApiParamType.INTEGER)
     private Integer executable;
-    @EntityField(name = "是否可编辑维护人", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.ownereditable", type = ApiParamType.INTEGER)
     private Integer ownerEditable;
-    @EntityField(name = "是否可审核", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.reviewable", type = ApiParamType.INTEGER)
     private Integer reviewable;
-    @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
+    @EntityField(name = "term.autoexec.jobparamlist", type = ApiParamType.JSONARRAY)
     private List<AutoexecParamVo> runtimeParamList;
-    @EntityField(name = "执行页面是否需要设置执行用户", type = ApiParamType.BOOLEAN)
+    @EntityField(name = "term.autoexec.needexecuteuser", type = ApiParamType.BOOLEAN)
     private boolean needExecuteUser = false;
-    @EntityField(name = "执行页面是否需要设置连接协议", type = ApiParamType.BOOLEAN)
+    @EntityField(name = "term.autoexec.needprotocol", type = ApiParamType.BOOLEAN)
     private boolean needProtocol = false;
-    @EntityField(name = "执行页面是否需要设置执行目标", type = ApiParamType.BOOLEAN)
+    @EntityField(name = "term.autoexec.needexecutenode", type = ApiParamType.BOOLEAN)
     private boolean needExecuteNode = false;
-    @EntityField(name = "执行页面是否需要设置分批数量", type = ApiParamType.BOOLEAN)
+    @EntityField(name = "term.autoexec.needroundcount", type = ApiParamType.BOOLEAN)
     private boolean needRoundCount = false;
-    @EntityField(name = "版本数量", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.versioncount", type = ApiParamType.INTEGER)
     private Integer versionCount;
-    @EntityField(name = "查看权限列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "common.viewauthoritylist", type = ApiParamType.JSONARRAY)
     private List<String> viewAuthorityList;
-    @EntityField(name = "编辑权限列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "common.editauthoritylist", type = ApiParamType.JSONARRAY)
     private List<String> editAuthorityList;
-    @EntityField(name = "执行权限列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "common.executeauthoritylist", type = ApiParamType.JSONARRAY)
     private List<String> executeAuthorityList;
 
-    @EntityField(name = "激活版本ID", type = ApiParamType.LONG)
+    @EntityField(name = "common.activeversionid", type = ApiParamType.LONG)
     private Long activeVersionId;
-    @EntityField(name = "指定版本ID", type = ApiParamType.LONG)
+    @EntityField(name = "common.specifyversionid", type = ApiParamType.LONG)
     private Long specifyVersionId;
-    @EntityField(name = "版本列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "common.versionlist", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopVersionVo> versionList;
     @JSONField(serialize = false)
     private String configStr;
-    @EntityField(name = "所有阶段都是Runner或SQL执行方式", type = ApiParamType.BOOLEAN)
+    @EntityField(name = "term.autoexec.allphasesarerunnerorsqlexecmode", type = ApiParamType.BOOLEAN)
     private Boolean allPhasesAreRunnerOrSqlExecMode;
+
+    @EntityField(name = "term.autoexec.configexpired", type = ApiParamType.INTEGER)
+    private Integer configExpired;
+    @EntityField(name = "term.autoexec.configexpiredreason", type = ApiParamType.JSONOBJECT)
+    private JSONObject configExpiredReason;
 
     public AutoexecCombopVo() {
     }
@@ -357,5 +362,21 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setAllPhasesAreRunnerOrSqlExecMode(Boolean allPhasesAreRunnerOrSqlExecMode) {
         this.allPhasesAreRunnerOrSqlExecMode = allPhasesAreRunnerOrSqlExecMode;
+    }
+
+    public Integer getConfigExpired() {
+        return configExpired;
+    }
+
+    public void setConfigExpired(Integer configExpired) {
+        this.configExpired = configExpired;
+    }
+
+    public JSONObject getConfigExpiredReason() {
+        return configExpiredReason;
+    }
+
+    public void setConfigExpiredReason(JSONObject configExpiredReason) {
+        this.configExpiredReason = configExpiredReason;
     }
 }
