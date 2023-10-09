@@ -27,9 +27,6 @@ public class AutoexecParamMappingNotMappedException extends ApiRuntimeException 
     private static final long serialVersionUID = -977878375722886383L;
 
     public AutoexecParamMappingNotMappedException(String phaseName, String operationName, String key) {
-        super("阶段[{0}]工具[{1}]的新增必填参数：“{2}”没有默认值", phaseName, operationName, key);
-    }
-    public AutoexecParamMappingNotMappedException(String key) {
-        super("作业参数：“{0}”未映射", key);
+        super("nfae.autoexecparammappingnotmappedexception.autoexecparammappingnotmappedexception", phaseName, operationName, key);
     }
 }

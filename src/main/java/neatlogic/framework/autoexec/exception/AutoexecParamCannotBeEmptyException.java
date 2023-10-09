@@ -27,7 +27,7 @@ public class AutoexecParamCannotBeEmptyException extends ApiRuntimeException {
     private static final long serialVersionUID = -977868375722886186L;
 
     public AutoexecParamCannotBeEmptyException(String phaseName, String operationName, String key) {
-        super("阶段[{0}]工具[{1}]的参数：“{2}”不能为空", phaseName, operationName, key);
+        super("nfae.autoexecparamcannotbeemptyexception.autoexecparamcannotbeemptyexception", phaseName, operationName, key);
     }
 
 }
