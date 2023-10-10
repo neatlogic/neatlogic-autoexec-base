@@ -27,7 +27,7 @@ public class AutoexecParamNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = -977868375722886183L;
 
     public AutoexecParamNotFoundException(String phaseName, String operationName, String key) {
-        super("阶段[{0}]工具[{1}]的参数：“{2}”不存在", phaseName, operationName, key);
+        super("nfae.autoexecparamnotfoundexception.autoexecparamnotfoundexception", phaseName, operationName, key);
     }
 
 }

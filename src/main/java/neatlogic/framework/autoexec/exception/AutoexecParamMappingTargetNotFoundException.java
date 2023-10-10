@@ -27,17 +27,17 @@ public class AutoexecParamMappingTargetNotFoundException extends ApiRuntimeExcep
     private static final long serialVersionUID = -977868375722886184L;
 
     public AutoexecParamMappingTargetNotFoundException(String phaseName, String operationName, String key, String target) {
-        super("阶段[{0}]工具[{1}]的参数：“{2}”映射目标“{3}”不存在", phaseName, operationName, key, target);
+        super("nfae.autoexecparammappingtargetnotfoundexception.autoexecparammappingtargetnotfoundexception_a", phaseName, operationName, key, target);
     }
 
     public AutoexecParamMappingTargetNotFoundException(String phaseName, String target) {
-        super("阶段[{0}]的执行用户映射作业参数“{1}”不存在", phaseName, target);
+        super("nfae.autoexecparammappingtargetnotfoundexception.autoexecparammappingtargetnotfoundexception_b", phaseName, target);
     }
     public AutoexecParamMappingTargetNotFoundException(Integer groupSort, String target) {
-        super("阶段组[{0}]的执行用户映射作业参数“{1}”不存在", groupSort, target);
+        super("nfae.autoexecparammappingtargetnotfoundexception.autoexecparammappingtargetnotfoundexception_c", groupSort, target);
     }
     public AutoexecParamMappingTargetNotFoundException(String target) {
-        super("执行目标的执行用户映射作业参数“{0}”不存在", target);
+        super("nfae.autoexecparammappingtargetnotfoundexception.autoexecparammappingtargetnotfoundexception_d", target);
     }
 
 }
