@@ -29,19 +29,19 @@ import java.io.Serializable;
  **/
 public class AutoexecNodeVo implements Serializable {
     private static final long serialVersionUID = -4533004514694610443L;
-    @EntityField(name = "主键id", type = ApiParamType.LONG)
+    @EntityField(name = "common.id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "ip地址", type = ApiParamType.STRING)
+    @EntityField(name = "term.cmdb.ip", type = ApiParamType.STRING)
     private String ip;
-    @EntityField(name = "端口号", type = ApiParamType.INTEGER)
+    @EntityField(name = "term.cmdb.port", type = ApiParamType.INTEGER)
     private Integer port;
-    @EntityField(name = "类型id", type = ApiParamType.LONG)
+    @EntityField(name = "common.typeid", type = ApiParamType.LONG)
     private Long typeId;
-    @EntityField(name = "类型名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.typename", type = ApiParamType.STRING)
     private String typeName;
-    @EntityField(name = "类型label", type = ApiParamType.STRING)
+    @EntityField(name = "common.typename", type = ApiParamType.STRING)
     private String typeLabel;
 
     public AutoexecNodeVo() {
