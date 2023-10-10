@@ -16,9 +16,9 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.dao.mapper;
 
-import neatlogic.framework.autoexec.crossover.IAutoexecCombopCrossoverMapper;
 import neatlogic.framework.autoexec.dto.AutoexecTypeVo;
-import neatlogic.framework.autoexec.dto.combop.*;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopAuthorityVo;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import neatlogic.framework.common.dto.BasePageVo;
 import neatlogic.framework.dto.AuthenticationInfoVo;
 import org.apache.ibatis.annotations.Param;
@@ -31,7 +31,7 @@ import java.util.Set;
  * @author: linbq
  * @since: 2021/4/13 11:05
  **/
-public interface AutoexecCombopMapper extends IAutoexecCombopCrossoverMapper {
+public interface AutoexecCombopMapper {
     int checkAutoexecCombopIsExists(Long id);
 
     Long checkAutoexecCombopNameIsRepeat(AutoexecCombopVo autoexecCombopVo);
