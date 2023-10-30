@@ -435,4 +435,6 @@ public interface AutoexecJobMapper {
     void deleteJobSqlDetailByJobId(Long jobId);
 
     void deleteAutoexecJobByProcessTaskStepId(Long processTaskStepId);
+
+    List<AutoexecJobVo> getJobListLockByParentId(Long jobId);
 }
