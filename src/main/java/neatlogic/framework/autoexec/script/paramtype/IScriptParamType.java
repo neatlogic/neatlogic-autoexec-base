@@ -62,7 +62,7 @@ public interface IScriptParamType {
      * 根据参数值获取对应的text
      * @return text
      */
-    Object getTextByValue(Object value);
+    Object getTextByValue(Object value, JSONObject config);
 
     /**
      * 根据参数值获取对应给autoexec执行的参数

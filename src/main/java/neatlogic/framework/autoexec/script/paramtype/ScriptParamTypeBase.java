@@ -16,6 +16,8 @@ limitations under the License.
 
 package neatlogic.framework.autoexec.script.paramtype;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author lvzk
  * @since 2021/11/18 12:22
@@ -41,11 +43,11 @@ public abstract class ScriptParamTypeBase implements IScriptParamType{
      * @return text
      */
     @Override
-    public Object getTextByValue(Object value) {
-        return getMyTextByValue(value);
+    public Object getTextByValue(Object value, JSONObject config) {
+        return getMyTextByValue(value, config);
     }
 
-    protected Object getMyTextByValue(Object value){
+    protected Object getMyTextByValue(Object value, JSONObject config){
         return value;
     }
 
