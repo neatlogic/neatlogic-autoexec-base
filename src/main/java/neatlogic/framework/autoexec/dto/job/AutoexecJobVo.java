@@ -20,10 +20,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
-import neatlogic.framework.autoexec.constvalue.CombopOperationType;
-import neatlogic.framework.autoexec.constvalue.JobStatus;
-import neatlogic.framework.autoexec.constvalue.JobTriggerType;
-import neatlogic.framework.autoexec.constvalue.ReviewStatus;
+import neatlogic.framework.autoexec.constvalue.*;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
@@ -611,11 +608,11 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     }
 
     public Integer getCompletionRate() {
+        if (CollectionUtils.isNotEmpty(phaseList)) {
+            List<AutoexecJobPhaseVo> completedPhaseList = phaseList.stream().filter(p -> Objects.equals(JobPhaseStatus.COMPLETED.getValue(), p.getStatus())).collect(Collectors.toList());
+            return (int) (Double.parseDouble(Integer.toString(completedPhaseList.size())) / Double.parseDouble(Integer.toString(phaseList.size())) * 100);
+        }
         return completionRate;
-    }
-
-    public void setCompletionRate(Integer completionRate) {
-        this.completionRate = completionRate;
     }
 
     public String getAction() {
