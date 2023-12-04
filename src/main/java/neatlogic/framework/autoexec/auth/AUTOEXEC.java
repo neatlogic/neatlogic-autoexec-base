@@ -25,12 +25,12 @@ import neatlogic.framework.auth.core.AuthBase;
 public class AUTOEXEC extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "自动化数据消费权限";
+        return "nfaa.autoexec.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "查询工具库、自定义工具库相关数据";
+        return "nfaa.autoexec.getauthintroduction";
     }
 
     @Override
@@ -41,5 +41,10 @@ public class AUTOEXEC extends AuthBase {
     @Override
     public Integer getSort() {
         return 12;
+    }
+
+    @Override
+    public boolean isShow() {
+        return false;
     }
 }
