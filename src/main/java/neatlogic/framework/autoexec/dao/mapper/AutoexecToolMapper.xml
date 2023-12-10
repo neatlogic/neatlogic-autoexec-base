@@ -337,6 +337,11 @@
         `import_time` = #{importTime},
         `lcd` = NOW(3);
     </update>
+    <update id="updateImportTime">
+        update `autoexec_tool`
+        set `import_time` = #{importTime}
+        where `id` = #{id}
+    </update>
 
     <delete id="deleteToolByIdList" parameterType="java.util.List">
         delete from `autoexec_tool` where `id` in

@@ -63,4 +63,6 @@ public interface AutoexecToolMapper {
     int insertTool(AutoexecToolVo toolVo);
 
     int deleteToolByIdList(List<Long> list);
+
+    void updateImportTime(@Param("id") Long id, @Param("importTime") Long importTime);
 }
