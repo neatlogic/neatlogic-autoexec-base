@@ -248,6 +248,9 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "作业local 的runnerMapId", type = ApiParamType.LONG)
     private Long runnerMapId;
 
+    @EntityField(name = "sql列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecJobPhaseNodeVo> jobPhaseNodeSqlList;
+
     public AutoexecJobVo() {
     }
 
@@ -1049,5 +1052,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setRunnerMapId(Long runnerMapId) {
         this.runnerMapId = runnerMapId;
+    }
+
+    public List<AutoexecJobPhaseNodeVo> getJobPhaseNodeSqlList() {
+        return jobPhaseNodeSqlList;
+    }
+
+    public void setJobPhaseNodeSqlList(List<AutoexecJobPhaseNodeVo> jobPhaseNodeSqlList) {
+        this.jobPhaseNodeSqlList = jobPhaseNodeSqlList;
     }
 }
