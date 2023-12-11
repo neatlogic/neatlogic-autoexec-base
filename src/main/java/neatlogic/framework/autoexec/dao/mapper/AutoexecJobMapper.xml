@@ -3059,6 +3059,15 @@ limitations under the License.
         set `parent_id` = #{parentId}
         where id = #{id}
     </update>
+    <update id="updateJobSqlStatusByJobIdAndPhaseId">
+        UPDATE autoexec_job_sql_detail
+        SET `status` = #{status}
+        <if test="status != null and status == 'pending'">
+            ,`start_time` = null,
+            `end_time` = null
+        </if>
+        WHERE job_id = #{jobId} and job_phase_id = #{phaseId}
+    </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE

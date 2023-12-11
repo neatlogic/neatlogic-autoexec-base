@@ -437,4 +437,6 @@ public interface AutoexecJobMapper {
     void deleteAutoexecJobByProcessTaskStepId(Long processTaskStepId);
 
     List<AutoexecJobVo> getJobListLockByParentId(Long jobId);
+
+    void updateJobSqlStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
 }

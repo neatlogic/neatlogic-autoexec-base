@@ -71,14 +71,6 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     void resetSqlStatus(JSONObject paramObj, AutoexecJobVo jobVo);
 
-    /**
-     * 获取作业sqlIdList 和 执行节点list
-     *
-     * @param paramObj 入参
-     * @param jobVo    作业
-     * @return sqlIdList
-     */
-    List<Long> getSqlIdsAndExecuteJobNodes(JSONObject paramObj, AutoexecJobVo jobVo);
 
     int searchJobPhaseSqlCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
@@ -245,4 +237,12 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobVo 作业
      */
     void deleteJob(AutoexecJobVo jobVo);
+
+
+    /**
+     * 忽略sql
+     * @param paramObj 入参
+     * @param jobVo 作业
+     */
+    void ignoreSql(JSONObject paramObj, AutoexecJobVo jobVo);
 }
