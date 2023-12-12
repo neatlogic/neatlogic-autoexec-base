@@ -3071,6 +3071,16 @@ limitations under the License.
         </if>
         WHERE job_id = #{jobId} and job_phase_id = #{phaseId}
     </update>
+    <update id="updateJobPhaseRunnerStatusByJobIdAndPhaseId">
+        UPDATE
+        `autoexec_job_phase_runner`
+        SET
+        `status` = #{status}
+        <if test="status == 'pending'">
+            , `is_fire_next` = 0
+        </if>
+        WHERE `job_id` = #{jobId} and `job_phase_id` = #{phaseId}
+    </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE

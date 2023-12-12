@@ -439,4 +439,6 @@ public interface AutoexecJobMapper {
     List<AutoexecJobVo> getJobListLockByParentId(Long jobId);
 
     void updateJobSqlStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
+
+    void updateJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
 }
