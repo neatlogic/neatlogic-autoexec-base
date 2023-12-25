@@ -21,8 +21,10 @@ import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.autoexec.constvalue.AutoexecCombopOpType;
 import neatlogic.framework.autoexec.dto.AutoexecOperationVo;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
+import neatlogic.framework.cmdb.enums.CmdbTenantConfig;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.common.dto.BaseEditorVo;
+import neatlogic.framework.config.ConfigManager;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -401,4 +403,9 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         }
         return AutoexecCombopOpType.READONLY.getText();
     }
+
+    public String getIsResourcecenterAuth() {
+        return ConfigManager.getConfig(CmdbTenantConfig.IS_RESOURCECENTER_AUTH);
+    }
+
 }
