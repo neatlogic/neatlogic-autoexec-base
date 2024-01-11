@@ -18,12 +18,16 @@ package neatlogic.framework.autoexec.dto.combop;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import neatlogic.framework.autoexec.constvalue.AutoexecCombopOpType;
 import neatlogic.framework.autoexec.dto.AutoexecOperationVo;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
+import neatlogic.framework.cmdb.enums.CmdbTenantConfig;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.common.dto.BaseEditorVo;
+import neatlogic.framework.config.ConfigManager;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -44,6 +48,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String description;
     @EntityField(name = "common.typeid", type = ApiParamType.LONG)
     private Long typeId;
+    @EntityField(name = "操作类型", type = ApiParamType.STRING)
+    private String opType;
     @EntityField(name = "common.typename", type = ApiParamType.STRING)
     private String typeName;
     @EntityField(name = "common.isactive", type = ApiParamType.INTEGER)
@@ -379,4 +385,27 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     public void setConfigExpiredReason(JSONObject configExpiredReason) {
         this.configExpiredReason = configExpiredReason;
     }
+
+    public String getOpType() {
+        if (StringUtils.isBlank(opType)) {
+            return AutoexecCombopOpType.READONLY.getValue();
+        }
+        return opType;
+    }
+
+    public void setOpType(String opType) {
+        this.opType = opType;
+    }
+
+    public String getOpTypeName() {
+        if (StringUtils.isNotBlank(opType)) {
+            return AutoexecCombopOpType.getText(opType);
+        }
+        return AutoexecCombopOpType.READONLY.getText();
+    }
+
+    public String getIsResourcecenterAuth() {
+        return ConfigManager.getConfig(CmdbTenantConfig.IS_RESOURCECENTER_AUTH);
+    }
+
 }
