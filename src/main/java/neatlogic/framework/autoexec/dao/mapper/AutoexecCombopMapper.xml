@@ -122,6 +122,7 @@ limitations under the License.
         `type_id` AS typeId,
         `is_active` AS isActive,
         `operation_type` AS operationType,
+        `op_type` as opType,
         `owner`,
         `fcd`,
         `fcu`
