@@ -49,6 +49,8 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     private Integer isPresetExecuteConfig;
     @EntityField(name = "分批数量", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "前置执行目标配置", type = ApiParamType.JSONOBJECT)
+    private AutoexecCombopExecuteNodeConfigVo combopNodeConfig; //设置过滤器后，执行时只能在过滤器范围内选择执行目标
 
     public String getProtocol() {
         return protocol;
@@ -128,5 +130,13 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setRoundCount(Integer roundCount) {
         this.roundCount = roundCount;
+    }
+
+    public AutoexecCombopExecuteNodeConfigVo getCombopNodeConfig() {
+        return combopNodeConfig;
+    }
+
+    public void setCombopNodeConfig(AutoexecCombopExecuteNodeConfigVo combopNodeConfig) {
+        this.combopNodeConfig = combopNodeConfig;
     }
 }
