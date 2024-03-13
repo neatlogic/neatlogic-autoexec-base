@@ -22,6 +22,6 @@ public class AutoexecCombopHasSubmittedVersionException extends ApiRuntimeExcept
     private static final long serialVersionUID = 8178730734144911654L;
 
     public AutoexecCombopHasSubmittedVersionException(String combopName) {
-        super("exception.autoexec.autoexeccombophassubmittedversionexception", combopName);
+        super("nfae.autoexeccombophassubmittedversionexception.autoexeccombophassubmittedversionexception", combopName);
     }
 }

@@ -27,6 +27,6 @@ public class AutoexecServiceIsNotCatalogException extends ApiRuntimeException {
     private static final long serialVersionUID = -923453159471839786L;
 
     public AutoexecServiceIsNotCatalogException(String name) {
-        super("exception.autoexec.autoexecserviceisnotcatalogexception,name");
+        super("nfae.autoexecserviceisnotcatalogexception.autoexecserviceisnotcatalogexception", name);
     }
 }
