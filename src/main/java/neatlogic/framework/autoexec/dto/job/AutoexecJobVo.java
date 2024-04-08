@@ -23,6 +23,7 @@ import neatlogic.framework.autoexec.constvalue.*;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
+import neatlogic.framework.autoexec.dto.combop.ParamMappingVo;
 import neatlogic.framework.autoexec.source.AutoexecJobSourceFactory;
 import neatlogic.framework.autoexec.source.IAutoexecJobSource;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -249,6 +250,9 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     @EntityField(name = "sql列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseNodeVo> jobPhaseNodeSqlList;
+
+    @EntityField(name = "runner执行组", type = ApiParamType.JSONOBJECT)
+    private ParamMappingVo runnerGroup;
 
     public AutoexecJobVo() {
     }
@@ -1059,5 +1063,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setJobPhaseNodeSqlList(List<AutoexecJobPhaseNodeVo> jobPhaseNodeSqlList) {
         this.jobPhaseNodeSqlList = jobPhaseNodeSqlList;
+    }
+
+    public ParamMappingVo getRunnerGroup() {
+        return runnerGroup;
+    }
+
+    public void setRunnerGroup(ParamMappingVo runnerGroup) {
+        this.runnerGroup = runnerGroup;
     }
 }

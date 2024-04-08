@@ -101,7 +101,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private String configStr;
     @EntityField(name = "term.autoexec.allphasesarerunnerorsqlexecmode", type = ApiParamType.BOOLEAN)
     private Boolean allPhasesAreRunnerOrSqlExecMode;
-
+    @EntityField(name = "term.autoexec.existrunnerorsqlexecmode", type = ApiParamType.BOOLEAN)
+    private Boolean existRunnerOrSqlExecMode;
     @EntityField(name = "term.autoexec.configexpired", type = ApiParamType.INTEGER)
     private Integer configExpired;
     @EntityField(name = "term.autoexec.configexpiredreason", type = ApiParamType.JSONOBJECT)
@@ -407,4 +408,11 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
         return ConfigManager.getConfig(CmdbTenantConfig.IS_RESOURCECENTER_AUTH);
     }
 
+    public Boolean getExistRunnerOrSqlExecMode() {
+        return existRunnerOrSqlExecMode;
+    }
+
+    public void setExistRunnerOrSqlExecMode(Boolean existRunnerOrSqlExecMode) {
+        this.existRunnerOrSqlExecMode = existRunnerOrSqlExecMode;
+    }
 }

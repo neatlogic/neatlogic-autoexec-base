@@ -40,7 +40,8 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
     private boolean needRoundCount = false;
     @EntityField(name = "term.autoexec.allphasesarerunnerorsqlexecmode", type = ApiParamType.BOOLEAN)
     private Boolean allPhasesAreRunnerOrSqlExecMode;
-
+    @EntityField(name = "term.autoexec.existrunnerorsqlexecmode", type = ApiParamType.BOOLEAN)
+    private Boolean existRunnerOrSqlExecMode;
     @EntityField(name = "term.autoexec.configexpired", type = ApiParamType.INTEGER)
     private Integer configExpired;
     @EntityField(name = "term.autoexec.configexpiredreason", type = ApiParamType.JSONOBJECT)
@@ -211,5 +212,13 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
 
     public void setConfigExpiredReasonStr(String configExpiredReasonStr) {
         this.configExpiredReasonStr = configExpiredReasonStr;
+    }
+
+    public Boolean getExistRunnerOrSqlExecMode() {
+        return existRunnerOrSqlExecMode;
+    }
+
+    public void setExistRunnerOrSqlExecMode(Boolean existRunnerOrSqlExecMode) {
+        this.existRunnerOrSqlExecMode = existRunnerOrSqlExecMode;
     }
 }

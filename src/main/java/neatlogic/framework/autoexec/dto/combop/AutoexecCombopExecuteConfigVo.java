@@ -36,6 +36,8 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     private Long protocolId;
     @EntityField(name = "执行用户", type = ApiParamType.JSONOBJECT)
     private ParamMappingVo executeUser;
+    @EntityField(name = "runner执行组", type = ApiParamType.JSONOBJECT)
+    private ParamMappingVo runnerGroup;
     @EntityField(name = "如何指定执行目标，（现在指定执行目标、运行时再指定执行目标、运行参数作为执行目标）", type = ApiParamType.STRING)
     private String whenToSpecify;
     @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
@@ -137,5 +139,13 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setCombopNodeConfig(AutoexecCombopExecuteNodeConfigVo combopNodeConfig) {
         this.combopNodeConfig = combopNodeConfig;
+    }
+
+    public ParamMappingVo getRunnerGroup() {
+        return runnerGroup;
+    }
+
+    public void setRunnerGroup(ParamMappingVo runnerGroup) {
+        this.runnerGroup = runnerGroup;
     }
 }

@@ -31,24 +31,26 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum ParamType implements IEnum {
-    TEXT("text", "文本", "文本参数，可输入字符串、数字"),
-    PASSWORD("password", "密码", "可输入数字或字符串，页面显示为密文"),
-    FILE("file", "文件", "common.file"),
-    DATE("date", "日期", "日期选择器"),
-    DATETIME("datetime", "日期时间", "日期时间选择器"),
-    TIME("time", "时间", "时间选择器"),
-    JSON("json", "json对象", "支持json对象和json数组，输入内容需是合法Json格式"),
-    SELECT("select", "单选下拉", "单选下拉选择器"),
-    MULTISELECT("multiselect", "多选下拉", "多选下拉选择器"),
-    RADIO("radio", "单选", "单选选择器"),
-    CHECKBOX("checkbox", "复选", "复选选择器"),
-    NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
-    ACCOUNT("account", "账号", "common.account"),
-    USERSELECT("userselect", "用户选择器", "用于选择系统用户、分组、角色"),
-    TEXTAREA("textarea", "文本域", "可输入字符串、数字"),
-    PHASE("phase", "阶段", "可选择阶段"),
-    SWITCH("switch", "开关", "开关"),
-    FILEPATH("filepath", "文件路径", "可输出文件路径参数");
+    TEXT("text", "common.text", "nfac.paramtype.text"),
+    PASSWORD("password", "common.password", "nfac.paramtype.password"),
+    FILE("file", "common.file", "common.file"),
+    DATE("date", "common.date", "nfac.paramtype.date"),
+    DATETIME("datetime", "common.datetime", "nfac.paramtype.desc.date"),
+    TIME("time", "common.time", "nfac.paramtype.desc.time"),
+    JSON("json", "common.jsonobject", "nfac.paramtype.desc.json"),
+    SELECT("select", "nfac.paramtype.select", "nfac.paramtype.desc.multiselect"),
+    MULTISELECT("multiselect", "nfac.paramtype.multiselect", "nfac.paramtype.desc.multiselect"),
+    RADIO("radio", "nfac.paramtype.radio", "nfac.paramtype.desc.radio"),
+    CHECKBOX("checkbox", "nfac.paramtype.checkbox", "nfac.paramtype.desc.checkbox"),
+    NODE("node", "nfac.paramtype.node", "nfac.paramtype.desc.node"),
+    ACCOUNT("account", "common.account", "common.account"),
+    USERSELECT("userselect", "nfac.paramtype.userselect", "nfac.paramtype.desc.userselect"),
+    TEXTAREA("textarea", "nfac.paramtype.textarea", "nfac.paramtype.desc.textarea"),
+    PHASE("phase", "nfac.paramtype.phase", "nfac.paramtype.desc.phase"),
+    SWITCH("switch", "nfac.paramtype.switch", "nfac.paramtype.switch"),
+    FILEPATH("filepath", "common.filepath", "nfac.paramtype.desc.filepath"),
+    RUNNERGROUP("runnergroup", "nfac.paramtype.runnergroup", "nfac.paramtype.runnergroup")
+    ;
 
     private final String value;
     private final String text;
