@@ -1804,7 +1804,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             </if>
             <include refid="searchJobPhaseNodeSql"/>
         </where>
-        ORDER BY ajpn.`host`,ajpn.`port`
+        ORDER BY ajpn.`host`,ajpn.`port`,ajpn.resource_id
         limit #{startNum}, #{pageSize}
     </select>
     <select id="getJobGroupById" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobGroupVo">
