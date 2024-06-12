@@ -26,6 +26,7 @@ import neatlogic.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo;
 import neatlogic.framework.dto.runner.RunnerMapVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lvzk
@@ -244,4 +245,13 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobVo 作业
      */
     void ignoreSql(JSONObject paramObj, AutoexecJobVo jobVo);
+
+
+    /**
+     * 重载预置参数集，如：发布
+     * @param autoexecJobVo 作业
+     * @param returnMap 预置参数集keyValueMap
+     * @param profileId 预置参数集id
+     */
+    void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, Object> returnMap,Long profileId);
 }

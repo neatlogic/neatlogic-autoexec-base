@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Map;
+
 /**
  * @author longrf
  * @date 2022/5/31 5:12 下午
@@ -53,6 +55,12 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
     }
 
     protected void myExecuteAuthCheck(AutoexecJobVo jobParam) {
+    }
+
+
+    @Override
+    public void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, Object> returnMap, Long profileId) {
+
     }
 
 }
