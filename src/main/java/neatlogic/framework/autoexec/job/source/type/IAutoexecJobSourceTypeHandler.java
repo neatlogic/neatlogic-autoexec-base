@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.job.source.type;
 
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.INodeDetail;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
@@ -250,8 +251,8 @@ public interface IAutoexecJobSourceTypeHandler {
     /**
      * 重载预置参数集，如：发布
      * @param autoexecJobVo 作业
-     * @param returnMap 预置参数集keyValueMap
+     * @param autoexecProfileParamVoMap 预置参数集参数map
      * @param profileId 预置参数集id
      */
-    void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, Object> returnMap,Long profileId);
+    void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, AutoexecParamVo> autoexecProfileParamVoMap, Long profileId);
 }

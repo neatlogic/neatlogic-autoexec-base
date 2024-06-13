@@ -1,10 +1,11 @@
 package neatlogic.framework.autoexec.job.source.type;
 
+import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
 import neatlogic.framework.autoexec.dao.mapper.AutoexecJobMapper;
+import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.autoexec.exception.AutoexecJobExecutePermissionDeniedException;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,7 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
 
 
     @Override
-    public void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, Object> returnMap, Long profileId) {
+    public void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, AutoexecParamVo> autoexecProfileParamVoMap, Long profileId) {
 
     }
 

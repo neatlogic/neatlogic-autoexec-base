@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
-import neatlogic.framework.util.SnowflakeUtil;
 
 /**
  * @author longrf
@@ -12,8 +11,6 @@ import neatlogic.framework.util.SnowflakeUtil;
  */
 public class AutoexecProfileParamVo extends AutoexecParamVo {
 
-    @EntityField(name = "id", type = ApiParamType.LONG)
-    private Long id;
     @EntityField(name = "profile id", type = ApiParamType.LONG)
     private Long profileId;
 
@@ -37,18 +34,6 @@ public class AutoexecProfileParamVo extends AutoexecParamVo {
         }
         super.setArgumentCount(operationParamVo.getArgumentCount());
     }
-
-    public Long getId() {
-        if (id == null) {
-            id = SnowflakeUtil.uniqueLong();
-        }
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     public Long getProfileId() {
         return profileId;
