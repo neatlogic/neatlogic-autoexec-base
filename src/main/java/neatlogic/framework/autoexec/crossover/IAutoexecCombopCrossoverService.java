@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.crossover;
 
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVersionVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import neatlogic.framework.crossover.ICrossoverService;
 
@@ -41,4 +42,10 @@ public interface IAutoexecCombopCrossoverService extends ICrossoverService {
      * @return 是否合法
      */
     boolean verifyAutoexecCombopConfig(AutoexecCombopConfigVo autoexecCombopConfigVo, boolean isExecuteJob);
+    /**
+     * 判断是否需要设置执行目标、执行用户、连接协议、分批数量
+     *
+     * @param autoexecCombopVersionVo      组合工具版本信息
+     */
+    void needExecuteConfig(AutoexecCombopVersionVo autoexecCombopVersionVo);
 }
