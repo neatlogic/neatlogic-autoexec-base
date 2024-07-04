@@ -28,4 +28,8 @@ public class AutoexecCombopPhaseGroupIdIsNullException extends ApiRuntimeExcepti
     public AutoexecCombopPhaseGroupIdIsNullException(String name) {
         super("阶段：“{0}” GroupId 为 null", name);
     }
+
+    public AutoexecCombopPhaseGroupIdIsNullException() {
+        super("存在阶段的GroupId 为 null");
+    }
 }
