@@ -12,6 +12,7 @@
                c.`name`               AS typeName,
                a.`catalog_id`         AS catalogId,
                b.`name`               AS catalogName,
+               b.`upward_name_path`   AS fullCatalogName,
                d.`name`               AS riskName,
                a.`customtemplate_id`  AS customTemplateId,
                f.`name`               AS customTemplateName,

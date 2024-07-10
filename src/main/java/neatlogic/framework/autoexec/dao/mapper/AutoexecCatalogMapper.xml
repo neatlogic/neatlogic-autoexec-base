@@ -30,6 +30,20 @@
             `name` = #{value}
     </select>
 
+    <select id="getAutoexecCatalogByFullName" parameterType="java.lang.String"
+            resultType="neatlogic.framework.autoexec.dto.catalog.AutoexecCatalogVo">
+        SELECT
+            `id`,
+            `name`,
+            `parent_id` AS parentId,
+            `lft`,
+            `rht`
+        FROM
+            `autoexec_catalog`
+        WHERE
+            `upward_name_path` = #{value}
+    </select>
+
     <select id="getAutoexecCatalogByNameAndParentId"
             resultType="neatlogic.framework.autoexec.dto.catalog.AutoexecCatalogVo">
         SELECT
@@ -226,12 +240,16 @@
             `id`,
             `name`,
             `parent_id`,
+            `upward_id_path`,
+            `upward_name_path`,
             `lft`,
             `rht`
         ) values (
             #{id},
             #{name},
             #{parentId},
+            #{upwardIdPath},
+            #{upwardNamePath},
             #{lft},
             #{rht}
         )
