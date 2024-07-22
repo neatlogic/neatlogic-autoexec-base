@@ -255,4 +255,15 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param profileId 预置参数集id
      */
     void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, AutoexecParamVo> autoexecProfileParamVoMap, Long profileId);
+
+    /**
+     * 批量补充作业剧本实例节点列表额外的信息
+     *
+     * @param jobId 同一作业id
+     * @param jobPhaseNodeVoList 作业剧本同一阶段节点列表
+     * @return
+     */
+    default void addExtraJobPhaseNodeInfoByList(Long jobId, List<AutoexecJobPhaseNodeVo> jobPhaseNodeVoList) {
+        return;
+    }
 }
