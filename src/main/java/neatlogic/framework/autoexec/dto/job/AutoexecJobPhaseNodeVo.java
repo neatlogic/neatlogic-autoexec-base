@@ -99,6 +99,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     private Integer warnCount = 0;
     @EntityField(name = "sql名", type = ApiParamType.STRING)
     private String sqlFile;
+    @EntityField(name = "额外信息，如发布实例当前版本号名称", type = ApiParamType.JSONOBJECT)
+    private JSONObject extraInfo;
     @JSONField(serialize = false)
     private Integer isExecuted;//是否执行过，用于标识执行过的节点不能删除
     @JSONField(serialize = false)
@@ -422,6 +424,14 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
 
     public void setSqlFile(String sqlFile) {
         this.sqlFile = sqlFile;
+    }
+
+    public JSONObject getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(JSONObject extraInfo) {
+        this.extraInfo = extraInfo;
     }
 
     public Integer getIsExecuted() {
