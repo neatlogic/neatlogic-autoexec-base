@@ -190,7 +190,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
      * @param preOperationNameMap 记录上游阶段工具uuid对应的名称
      */
     private void exchangeParam(ParamMappingVo paramMappingVo, AutoexecParamVo param, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo, Map<String, String> preOperationNameMap) {
-        if (Objects.equals(paramMappingVo.getKey(), param.getKey())) {
+        if ((StringUtils.isBlank(paramMappingVo.getKey()) && StringUtils.isBlank(param.getKey())) || Objects.equals(paramMappingVo.getKey(), param.getKey())) {
             paramMappingVo.setType(param.getType());
             paramMappingVo.setName(param.getName());
             paramMappingVo.setDescription(param.getDescription());
