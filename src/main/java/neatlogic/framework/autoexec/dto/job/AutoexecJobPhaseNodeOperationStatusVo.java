@@ -61,6 +61,10 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     private List<AutoexecJobPhaseNodeOperationStatusVo> ifList;
     @EntityField(name = "ifBlock else 工具列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseNodeOperationStatusVo> elseList;
+    @EntityField(name = "循环项", type = ApiParamType.STRING)
+    private String loopItems;
+    @EntityField(name = "循环执行工具列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecJobPhaseNodeOperationStatusVo> operations;
 
     public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson, String description, List<AutoexecJobPhaseOperationVo> jobSonOperationList, Map<String, AutoexecCombopPhaseOperationVo> combopOperationUuidMap) {
         this.id = operationVo.getId();
@@ -81,17 +85,21 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         if (combopOperation != null) {
             AutoexecCombopPhaseOperationConfigVo combopPhaseOperationConfig = combopOperation.getConfig();
             if (combopPhaseOperationConfig != null) {
-                String condition = combopPhaseOperationConfig.getCondition();
-                if (StringUtils.isNotBlank(condition)) {
-                    this.condition = condition;
+                this.condition = combopPhaseOperationConfig.getCondition();
+                this.loopItems = combopPhaseOperationConfig.getLoopItems();
+                if (StringUtils.isNotBlank(condition) || StringUtils.isNotBlank(loopItems)) {
                     List<AutoexecCombopPhaseOperationVo> combopIfOperationList = combopPhaseOperationConfig.getIfList();
                     List<AutoexecCombopPhaseOperationVo> combopElseOperationList = combopPhaseOperationConfig.getElseList();
+                    List<AutoexecCombopPhaseOperationVo> combopLoopOperationList = combopPhaseOperationConfig.getOperations();
                     Map<String, AutoexecCombopPhaseOperationVo> combopSonOperationUuidMap = new HashMap<>();
                     if (CollectionUtils.isNotEmpty(combopIfOperationList)) {
                         combopSonOperationUuidMap.putAll(combopIfOperationList.stream().collect(toMap(AutoexecCombopPhaseOperationVo::getUuid, o -> o)));
                     }
                     if (CollectionUtils.isNotEmpty(combopElseOperationList)) {
                         combopSonOperationUuidMap.putAll(combopElseOperationList.stream().collect(toMap(AutoexecCombopPhaseOperationVo::getUuid, o -> o)));
+                    }
+                    if (CollectionUtils.isNotEmpty(combopLoopOperationList)) {
+                        combopSonOperationUuidMap.putAll(combopLoopOperationList.stream().collect(toMap(AutoexecCombopPhaseOperationVo::getUuid, o -> o)));
                     }
                     Map<Long, List<AutoexecJobPhaseOperationVo>> jobSonOperationMap = null;
                     if (CollectionUtils.isNotEmpty(jobSonOperationList)) {
@@ -101,12 +109,15 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
                             if (CollectionUtils.isNotEmpty(jobPhaseSonOperationList)) {
                                 ifList = new ArrayList<>();
                                 elseList = new ArrayList<>();
+                                operations = new ArrayList<>();
                                 for (AutoexecJobPhaseOperationVo jobPhaseSonOperation : jobPhaseSonOperationList) {
                                     AutoexecCombopPhaseOperationVo combopSonOperation = combopSonOperationUuidMap.get(jobPhaseSonOperation.getUuid());
                                     if (Objects.equals(jobPhaseSonOperation.getParentOperationType(), "if")) {
                                         ifList.add(new AutoexecJobPhaseNodeOperationStatusVo(statusJson, jobPhaseSonOperation, combopSonOperation == null ? StringUtils.EMPTY : combopSonOperation.getDescription()));
-                                    } else {
+                                    } else  if (Objects.equals(jobPhaseSonOperation.getParentOperationType(), "else")) {
                                         elseList.add(new AutoexecJobPhaseNodeOperationStatusVo(statusJson, jobPhaseSonOperation, combopSonOperation == null ? StringUtils.EMPTY : combopSonOperation.getDescription()));
+                                    }else  if (Objects.equals(jobPhaseSonOperation.getParentOperationType(), "loop")) {
+                                        operations.add(new AutoexecJobPhaseNodeOperationStatusVo(statusJson, jobPhaseSonOperation, combopSonOperation == null ? StringUtils.EMPTY : combopSonOperation.getDescription()));
                                     }
                                 }
 
@@ -227,5 +238,21 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
 
     public void setElseList(List<AutoexecJobPhaseNodeOperationStatusVo> elseList) {
         this.elseList = elseList;
+    }
+
+    public String getLoopItems() {
+        return loopItems;
+    }
+
+    public void setLoopItems(String loopItems) {
+        this.loopItems = loopItems;
+    }
+
+    public List<AutoexecJobPhaseNodeOperationStatusVo> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(List<AutoexecJobPhaseNodeOperationStatusVo> operations) {
+        this.operations = operations;
     }
 }

@@ -35,7 +35,6 @@ import neatlogic.framework.exception.type.ParamIrregularException;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
@@ -204,45 +203,13 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
                         value = values.getString(2);
                         Optional<AutoexecJobPhaseVo> phaseVoOptional = jobPhaseVoList.parallelStream().filter(o -> Objects.equals(o.getUuid(), phaseUuid)).findFirst();
                         if (phaseVoOptional.isPresent()) {
-                            AutoexecJobPhaseOperationVo jobPhaseOperation = null;
-                            List<AutoexecJobPhaseOperationVo> operationList = phaseVoOptional.get().getOperationList();
-                            for (AutoexecJobPhaseOperationVo autoexecJobPhaseOperationVo : operationList) {
-                                if (Objects.equals(autoexecJobPhaseOperationVo.getUuid(), opUuid)) {
-                                    jobPhaseOperation = autoexecJobPhaseOperationVo;
-                                    break;
-                                }
-                                if (Objects.equals(autoexecJobPhaseOperationVo.getName(), "native/IF-Block")) {
-                                    JSONObject paramConfig = autoexecJobPhaseOperationVo.getParam();
-                                    if (MapUtils.isNotEmpty(paramConfig)) {
-                                        JSONArray ifList = paramConfig.getJSONArray("ifList");
-                                        if (CollectionUtils.isNotEmpty(ifList)) {
-                                            List<AutoexecJobPhaseOperationVo> list = ifList.toJavaList(AutoexecJobPhaseOperationVo.class);
-                                            for (AutoexecJobPhaseOperationVo autoexecJobPhaseOperation : list) {
-                                                if (Objects.equals(autoexecJobPhaseOperation.getUuid(), opUuid)) {
-                                                    jobPhaseOperation = autoexecJobPhaseOperation;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        JSONArray elseList = paramConfig.getJSONArray("elseList");
-                                        if (CollectionUtils.isNotEmpty(elseList)) {
-                                            List<AutoexecJobPhaseOperationVo> list = elseList.toJavaList(AutoexecJobPhaseOperationVo.class);
-                                            for (AutoexecJobPhaseOperationVo autoexecJobPhaseOperation : list) {
-                                                if (Objects.equals(autoexecJobPhaseOperation.getUuid(), opUuid)) {
-                                                    jobPhaseOperation = autoexecJobPhaseOperation;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            if (jobPhaseOperation != null) {
+                            Optional<AutoexecJobPhaseOperationVo> operationVoOptional = phaseVoOptional.get().getOperationList().parallelStream().filter(o -> Objects.equals(o.getUuid(), opUuid)).findFirst();
+                            if (operationVoOptional.isPresent()) {
                                 String valueFormat = "${%s.%s_%d.%s}";
                                 if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.PRE_NODE_OUTPUT_PARAM_KEY.getValue())) {
                                     valueFormat = "#{%s.%s_%d.%s}";
                                 }
-                                paramMappingVo.setValue(String.format(valueFormat, phaseVoOptional.get().getName(), preOperationNameMap.get(opUuid), jobPhaseOperation.getId(), value));
+                                paramMappingVo.setValue(String.format(valueFormat, phaseVoOptional.get().getName(), preOperationNameMap.get(opUuid), operationVoOptional.get().getId(), value));
                             } else {
                                 throw new ParamIrregularException(phaseVo.getName() + ":" + operationVo.getName() + ":" + param.getName() + " operation");
                             }

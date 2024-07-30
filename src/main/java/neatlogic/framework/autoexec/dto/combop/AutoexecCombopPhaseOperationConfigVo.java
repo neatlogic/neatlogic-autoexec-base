@@ -44,6 +44,10 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
     private List<AutoexecCombopPhaseOperationVo> ifList;
     @EntityField(name = "条件不成立执行列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopPhaseOperationVo> elseList;
+    @EntityField(name = "循环项", type = ApiParamType.STRING)
+    private String loopItems;
+    @EntityField(name = "循环执行工具列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecCombopPhaseOperationVo> operations;
 
     public List<ParamMappingVo> getParamMappingList() {
         return paramMappingList;
@@ -107,5 +111,21 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
 
     public void setProfileParamList(List<AutoexecProfileParamVo> profileParamList) {
         this.profileParamList = profileParamList;
+    }
+
+    public List<AutoexecCombopPhaseOperationVo> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(List<AutoexecCombopPhaseOperationVo> operations) {
+        this.operations = operations;
+    }
+
+    public String getLoopItems() {
+        return loopItems;
+    }
+
+    public void setLoopItems(String loopItems) {
+        this.loopItems = loopItems;
     }
 }
