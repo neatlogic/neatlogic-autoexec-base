@@ -47,7 +47,7 @@ import java.util.Map;
 @Aspect
 @RootComponent
 public class JobCallbackAspect {
-    private final static Logger logger = LoggerFactory.getLogger(JobCallbackAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(JobCallbackAspect.class);
     private static AutoexecJobMapper jobMapper;
 
     @Autowired
