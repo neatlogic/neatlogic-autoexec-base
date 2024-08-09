@@ -46,6 +46,8 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
     private List<AutoexecCombopPhaseOperationVo> elseList;
     @EntityField(name = "循环项", type = ApiParamType.STRING)
     private String loopItems;
+    @EntityField(name = "循环项变量", type = ApiParamType.STRING)
+    private String loopItemVar;
     @EntityField(name = "循环执行工具列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopPhaseOperationVo> operations;
 
@@ -127,5 +129,13 @@ public class AutoexecCombopPhaseOperationConfigVo implements Serializable {
 
     public void setLoopItems(String loopItems) {
         this.loopItems = loopItems;
+    }
+
+    public String getLoopItemVar() {
+        return loopItemVar;
+    }
+
+    public void setLoopItemVar(String loopItemVar) {
+        this.loopItemVar = loopItemVar;
     }
 }
