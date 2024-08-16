@@ -16,18 +16,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.notify.core.INotifyTriggerType;
-import neatlogic.framework.util.I18n;
+import neatlogic.framework.util.$;
 
 public enum AutoexecJobNotifyTriggerType implements INotifyTriggerType {
 
-    FAILED("failed", new I18n("作业失败"), new I18n("作业失败时触发通知")),
+    JOB_FAILED("jobfailed", "nfac.autoexecjobnotifytriggertype.text.jobfailed", "nfac.autoexecjobnotifytriggertype.description.jobfailed"),
     ;
 
     private final String trigger;
-    private final I18n text;
-    private final I18n description;
+    private final String text;
+    private final String description;
 
-    AutoexecJobNotifyTriggerType(String _trigger, I18n _text, I18n _description) {
+    AutoexecJobNotifyTriggerType(String _trigger, String _text, String _description) {
         this.trigger = _trigger;
         this.text = _text;
         this.description = _description;
@@ -40,12 +40,12 @@ public enum AutoexecJobNotifyTriggerType implements INotifyTriggerType {
 
     @Override
     public String getText() {
-        return text.toString();
+        return $.t(text);
     }
 
     @Override
     public String getDescription() {
-        return description.toString();
+        return $.t(description);
     }
 
     public static String getText(String trigger) {
