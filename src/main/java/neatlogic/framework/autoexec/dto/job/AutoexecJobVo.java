@@ -254,6 +254,9 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "runner执行组", type = ApiParamType.JSONOBJECT)
     private ParamMappingVo runnerGroup;
 
+    @EntityField(name = "runner执行组标签", type = ApiParamType.JSONOBJECT)
+    private ParamMappingVo runnerGroupTag;
+
     public AutoexecJobVo() {
     }
 
@@ -1071,5 +1074,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setRunnerGroup(ParamMappingVo runnerGroup) {
         this.runnerGroup = runnerGroup;
+    }
+
+    public ParamMappingVo getRunnerGroupTag() {
+        return runnerGroupTag;
+    }
+
+    public void setRunnerGroupTag(ParamMappingVo runnerGroupTag) {
+        this.runnerGroupTag = runnerGroupTag;
     }
 }

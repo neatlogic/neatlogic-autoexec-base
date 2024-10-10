@@ -49,7 +49,8 @@ public enum ParamType implements IEnum {
     PHASE("phase", "nfac.paramtype.phase", "nfac.paramtype.desc.phase"),
     SWITCH("switch", "nfac.paramtype.switch", "nfac.paramtype.switch"),
     FILEPATH("filepath", "common.filepath", "nfac.paramtype.desc.filepath"),
-    RUNNERGROUP("runnergroup", "nfac.paramtype.runnergroup", "nfac.paramtype.runnergroup")
+    RUNNERGROUP("runnergroup", "nfac.paramtype.runnergroup", "nfac.paramtype.runnergroup"),
+    RUNNERGROUPTAG("runnergrouptag", "nfac.paramtype.runnergrouptag", "nfac.paramtype.runnergrouptag")
     ;
 
     private final String value;
