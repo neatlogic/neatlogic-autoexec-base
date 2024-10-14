@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.script.paramtype;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -74,4 +75,11 @@ public interface IScriptParamType {
      * @return param
      */
     Object getExchangeParamByValue(Object value);
+
+    /**
+     * 流程自动化节点，把表单表格组件中某列数据集合转换成作业参数对应的数据
+     * @param jsonArray
+     * @return
+     */
+    Object convertDataForProcessComponent(JSONArray jsonArray);
 }
