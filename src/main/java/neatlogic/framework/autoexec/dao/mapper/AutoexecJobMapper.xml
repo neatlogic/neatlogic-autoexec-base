@@ -295,10 +295,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.`start_time` AS startTime,
         ajpn.`end_time` AS endTime,
         ajpn.`status`,
+        ajpn.`error_type` as errorType,
         ajpn.`protocol_id` as protocolId,
         ajpn.`resource_id` AS resourceId,
         ajpn.`warn_count` as warnCount,
-        ri.`id` AS nodeId,
+        ajpn.`resource_id` AS nodeId,
         ajpn.name AS nodeName,
         ajpn.type AS nodeType,
         ajpn.is_delete as isDelete,
@@ -312,9 +313,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
-        LEFT JOIN @{DATA_SCHEMA}.`scence_ipobject_id` ri ON ajpn.resource_id = ri.`id`
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
         <where>
             <include refid="searchJobPhaseNodeSql"/>
@@ -358,8 +357,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
         <where>
             <if test="isDownloadGroup != null and isDownloadGroup == 1">
@@ -399,20 +397,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         </if>
         order by ajpn.`host`,ajpn.`port`
         limit #{startNum}, #{nodeVo.pageSize}
-    </select>
-
-    <select id="searchJobPhaseNodeCountWithResource" resultType="java.lang.Integer">
-        SELECT
-        count(ajpn.`id`)
-        FROM
-        `autoexec_job_phase_node` ajpn
-        LEFT JOIN `autoexec_job_phase` ajp on ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN @{DATA_SCHEMA}.`scence_ipobject_id` ri ON ajpn.resource_id = ri.`id`
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
-        <where>
-            <include refid="searchJobPhaseNodeSql"/>
-        </where>
     </select>
 
     <select id="searchJobPhaseNodeCount" resultType="java.lang.Integer">
@@ -765,16 +749,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
           AND `param_hash` = #{hash}
     </select>
 
-    <select id="checkIsJobPhaseNodeExist" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo"
-            resultType="java.lang.Integer">
-        select count(1)
-        from `autoexec_job_phase_node`
-        where `job_id` = #{jobId}
-          and `job_phase_id` = #{jobPhaseId}
-          and `host` = #{host}
-          and port = #{port}
-    </select>
-
     <select id="getJobPhaseByJobIdAndPhaseName"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo">
         SELECT id,
@@ -939,8 +913,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ap.`url`            AS runnerUrl
         FROM `autoexec_job_phase_node` ajpn
                  LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-                 LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-                 LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+                 LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
                  LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
         where ajpn.`id` = #{nodeId}
     </select>
@@ -958,8 +931,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajpn.`status`,
                arm.`runner_id`     as runnerId
         FROM `autoexec_job_phase_node` ajpn
-                 LEFT JOIN `autoexec_job_phase_node_runner` ajpnr on ajpn.id = ajpnr.`node_id`
-                 LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+                 LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         WHERE ajpn.`job_id` = #{jobId}
           AND ajpn.`job_phase_id` = #{phaseId}
     </select>
@@ -988,9 +960,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         arm.`runner_id` AS runnerId,
         ajp.`name` AS jobPhaseName
         FROM `autoexec_job_phase_node` ajpn
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         where ajpn.`job_id` = #{jobId} and ajp.`name` = #{phaseName} and arm.`runner_id` = #{runnerId} and
         ajpn.`status` not in
         <foreach collection="exceptStatus" item="status" separator="," open="(" close=")">
@@ -1027,9 +998,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.`end_time` AS endTime,
         ajpn.`status`
         FROM `autoexec_job_phase_node` ajpn
-        left join autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
         where ajpn.`job_id` = #{jobId} and ajpn.`job_phase_id` = #{phaseId}
-        and ajpnr.runner_map_id = #{runnerMapId}
+        and ajpn.runner_map_id = #{runnerMapId}
         and
         ajpn.`status` not in
         <foreach collection="exceptStatus" item="status" separator="," open="(" close=")">
@@ -1065,10 +1035,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajpn.`end_time`     AS endTime,
                ajpn.`status`,
                ajpn.`resource_id` as resourceId,
-               ajpnr.runner_map_id as runnerMapId
+               ajpn.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_node` ajpn
-                 left join autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
-        where ajpn.`job_id` = #{jobId}
+        where ajpn.`job_id` = #{jobId} and status not in ('error','ignored')
     </select>
 
     <select id="getJobPhaseNodeListWithoutDeleteByJobIdAndPhaseId"
@@ -1091,9 +1060,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <select id="getJobRunnerListByJobId" resultType="neatlogic.framework.dto.runner.RunnerVo">
         SELECT DISTINCT ar.`id`, ar.`name`, ar.`url`, ar.`host`, ar.`port`
         FROM `autoexec_job_phase_node` ajpn
-                 LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-                 LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
-                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+                  JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
+                  JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpn.`job_id` = #{value}
     </select>
 
@@ -1280,11 +1248,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.`type` as nodeType,
         ajpn.`protocol_id` as protocolId,
         ajpn.`status`,
-        ajpnr.runner_map_id as runnerMapId,
+        ajpn.runner_map_id as runnerMapId,
         r.url as runnerUrl
         FROM `autoexec_job_phase_node` ajpn
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpnr.`node_id` = ajpn.`id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` r on arm.runner_id = r.id
         where ajpn.`id` in
         <foreach collection="nodeIdList" item="nodeId" separator="," open="(" close=")">
@@ -1307,11 +1274,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.`type` as nodeType,
         ajpn.`protocol_id` as protocolId,
         ajpn.`status`,
-        ajpnr.runner_map_id as runnerMapId,
+        ajpn.runner_map_id as runnerMapId,
         r.url as runnerUrl
         FROM `autoexec_job_phase_node` ajpn
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpnr.`node_id` = ajpn.`id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` r on arm.runner_id = r.id
         where ajpn.`job_phase_id` = #{jobPhaseId} and ajpn.`is_delete` = 0 and ajpn.`status` not in
         <foreach collection="statusList" item="status" separator="," open="(" close=")">
@@ -1390,8 +1356,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ap.`url` AS runnerUrl
         FROM `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
         where ajpn.`job_phase_id` = #{jobPhaseId}
         <if test="resourceId == null">
@@ -1422,8 +1387,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ap.`url` AS runnerUrl
         FROM `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ap ON arm.`runner_id` = ap.`id`
         where ajpn.job_id = #{jobId} and ajp.`name` = #{jobPhaseName}
         <if test="resourceId == null">
@@ -1548,8 +1512,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.`resource_id` as resourceId
         FROM `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.`id` = ajpnr.`node_id`
-        WHERE ajpnr.`runner_map_id` = #{runnerId}
+        WHERE ajpn.`runner_map_id` = #{runnerId}
         AND ajpn.`job_phase_id` IN
         <foreach collection="jobPhaseIdList" separator="," open="(" close=")" item="jobPhaseId">
             #{jobPhaseId}
@@ -1663,12 +1626,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ar.`url`,
         ar.`host`,
         ar.`port`,
-        ajpr.runner_map_id as runnerMapId
-        FROM `autoexec_job_phase_node_runner` ajpr
-        LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+        ajpn.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node` ajpn
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
-        WHERE ajpr.`job_id` = #{jobId}
-        and ajpr.node_id in
+        WHERE ajpn.`job_id` = #{jobId}
+        and ajpn.node_id in
         <foreach collection="nodeIdList" item="nodeId" close=")" separator="," open="(">
             #{nodeId}
         </foreach>
@@ -1676,9 +1639,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
 
     <select id="getJobRunnerMapIdListByJobId" resultType="java.lang.Long">
         SELECT DISTINCT
-        ajpr.runner_map_id as runnerMapId
-        FROM `autoexec_job_phase_node_runner` ajpr
-        WHERE ajpr.`job_id` = #{jobId}
+        ajpn.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node` ajpn
+        WHERE ajpn.`job_id` = #{jobId}
     </select>
 
     <select id="getJobPhaseNodeRunnerListByJobPhaseId"
@@ -1688,11 +1651,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                         ar.`url`,
                         ar.`host`,
                         ar.`port`,
-                        ajpnr.runner_map_id as runnerMapId
-        FROM `autoexec_job_phase_node_runner` ajpnr
-                 LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+                        ajpn.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_node` ajpn
+                 LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
                  LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
-        WHERE ajpnr.`job_phase_id` = #{value}
+        WHERE ajpn.`job_phase_id` = #{value}
     </select>
     <select id="getJobPhaseListWithGroupByJobIdAndPhaseIdList"
             resultMap="AutoexecJobPhaseMap">
@@ -1796,8 +1759,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         `autoexec_job_phase_node` ajpn
         LEFT JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
         LEFT JOIN `autoexec_job_group` ajg ON ajp.job_id = ajg.job_id AND ajp.group_id = ajg.id
-        LEFT JOIN `autoexec_job_phase_node_runner` ajpnr ON ajpn.id = ajpnr.`node_id`
-        LEFT JOIN `runner_map` arm ON ajpnr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         <where>
             <if test="isDownloadGroup != null and isDownloadGroup == 1">
                 ajp.node_from != "0"
@@ -2087,7 +2049,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             <id column="id" property="id"/>
             <result column="name" property="name"/>
             <result column="status" property="status"/>
-            <result column="errorMsg" property="errorMsg"/>
+            <result column="errorType" property="errorType"/>
             <result column="planStartTime" property="planStartTime"/>
             <result column="startTime" property="startTime"/>
             <result column="endTime" property="endTime"/>
@@ -2317,12 +2279,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         select ajpn.job_id                          as jobId,
                ajpn.job_phase_id                    as jobPhaseId,
                GROUP_CONCAT(DISTINCT ajpn.`status`) as status,
-               ajpnr.runner_map_id                  as runnerMapId
-        from autoexec_job_phase_node ajpn
-                 JOIN autoexec_job_phase_node_runner ajpnr on ajpn.id = ajpnr.node_id
+               ajpn.runner_map_id                  as runnerMapId
+        from `autoexec_job_phase_node` ajpn
         where ajpn.job_id = #{jobId}
           and ajpn.job_phase_id = #{jobPhaseId}
-        group by ajpn.job_id, ajpn.job_phase_id, ajpnr.runner_map_id
+        group by ajpn.job_id, ajpn.job_phase_id, ajpn.runner_map_id
     </select>
 
     <select id="getJobIdListByProcessTaskStepId" parameterType="java.lang.Long" resultType="java.lang.Long">
@@ -2442,8 +2403,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                                                `type`,
                                                `user_name`,
                                                `resource_id`,
-                                               `lcd`,
-                                               `status`)
+                                               `status`,
+                                               `runner_map_id`)
         VALUES (#{id},
                 #{jobId},
                 #{jobPhaseId},
@@ -2454,11 +2415,77 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                 #{nodeType},
                 #{userName},
                 #{resourceId},
-                #{lcd},
-                #{status})
+                #{status},
+                #{runnerMapId})
     </insert>
 
     <insert id="batchInsertJobPhaseNode" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        INSERT IGNORE INTO `autoexec_job_phase_node` (`id`,
+        `job_id`,
+        `job_phase_id`,
+        `host`,
+        `port`,
+        `protocol_id`,
+        `name`,
+        `type`,
+        `user_name`,
+        `resource_id`,
+        `status`,
+        `update_tag`,
+        `runner_map_id`,
+        `error_type`)
+        VALUES   <foreach collection="list" item="node" separator="),(" open="(" close=")">
+        #{node.id},
+        #{node.jobId},
+        #{node.jobPhaseId},
+        #{node.host},
+        #{node.port},
+        #{node.protocolId},
+        #{node.nodeName},
+        #{node.nodeType},
+        #{node.userName},
+        #{node.resourceId},
+        #{node.status},
+        #{node.updateTag},
+        #{node.runnerMapId},
+        #{node.errorType}
+    </foreach>
+    </insert>
+
+    <insert id="batchInsertIgnoreJobPhaseNode" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        INSERT IGNORE INTO `autoexec_job_phase_node` (`id`,
+        `job_id`,
+        `job_phase_id`,
+        `host`,
+        `port`,
+        `protocol_id`,
+        `name`,
+        `type`,
+        `user_name`,
+        `resource_id`,
+        `status`,
+        `update_tag`,
+        `runner_map_id`,
+        `error_type`)
+        VALUES   <foreach collection="list" item="node" separator="),(" open="(" close=")">
+        #{node.id},
+        #{node.jobId},
+        #{node.jobPhaseId},
+        #{node.host},
+        #{node.port},
+        #{node.protocolId},
+        #{node.nodeName},
+        #{node.nodeType},
+        #{node.userName},
+        #{node.resourceId},
+        #{node.status},
+        #{node.updateTag},
+        #{node.runnerMapId},
+        #{node.errorType}
+    </foreach>
+    </insert>
+
+    <insert id="batchInsertDuplicateJobPhaseNode" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         INSERT INTO `autoexec_job_phase_node` (`id`,
                                                `job_id`,
                                                `job_phase_id`,
@@ -2469,8 +2496,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                                                `type`,
                                                `user_name`,
                                                `resource_id`,
-                                               `lcd`,
-                                               `status`)
+                                               `status`,
+                                               `update_tag`,
+                                                `runner_map_id`)
         VALUES   <foreach collection="list" item="node" separator="),(" open="(" close=")">
                 #{node.id},
                 #{node.jobId},
@@ -2482,15 +2510,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                 #{node.nodeType},
                 #{node.userName},
                 #{node.resourceId},
-                #{node.lcd},
-                #{node.status}
+                #{node.status},
+                #{node.updateTag},
+                #{node.runnerMapId}
             </foreach>
         ON DUPLICATE KEY UPDATE
         `status` = VALUES(`status`),
         `start_time` = VALUES(start_time),
         `end_time` = VALUES(end_time),
         `is_delete` = 0,
-        `lcd` = VALUES(lcd)
+        `update_tag` = VALUES(update_tag)
 
     </insert>
 
@@ -2548,20 +2577,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
         INSERT IGNORE INTO `autoexec_job_content` (`hash`, `content`)
         VALUES (#{hash}, #{content})
-    </insert>
-
-    <insert id="insertIgnoreJobPhaseNodeRunner"
-            parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeRunnerVo">
-        INSERT ignore INTO `autoexec_job_phase_node_runner` (`job_id`, `job_phase_id`, `node_id`, `runner_map_id`)
-        VALUES (#{jobId}, #{jobPhaseId}, #{nodeId}, #{runnerMapId})
-    </insert>
-
-    <insert id="batchInsertJobPhaseNodeRunner" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
-        INSERT ignore INTO `autoexec_job_phase_node_runner` (`job_id`, `job_phase_id`, `node_id`, `runner_map_id`)
-        VALUES
-            <foreach collection="list" item="nodeRunner" separator="),(" open="(" close=")">
-                #{nodeRunner.jobId}, #{nodeRunner.jobPhaseId}, #{nodeRunner.nodeId}, #{nodeRunner.runnerMapId}
-            </foreach>
     </insert>
 
     <insert id="insertJobPhaseRunner">
@@ -2906,25 +2921,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         WHERE `id` = #{id}
     </update>
 
-    <update id="updateJobPhaseNodeByJobIdAndPhaseIdAndResourceId">
-        UPDATE
-        `autoexec_job_phase_node`
-        SET `status` = #{status},
-        `start_time` = #{startTime},
-        `end_time` = #{endTime},
-        `is_delete` = 0,
-        `lcd` = #{lcd}
-        WHERE `job_id` = #{jobId}
-        and `job_phase_id` = #{jobPhaseId}
-        <if test="resourceId == null">
-            and `resource_id` is null
-        </if>
-        <if test="resourceId != null">
-            and `resource_id` = #{resourceId}
-        </if>
-
-    </update>
-
     <update id="updateJobPhaseNodeStatusByJobIdAndJobPhaseIdListAndRunnerId">
         UPDATE
         `autoexec_job_phase_node`
@@ -3041,12 +3037,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         `id` = #{id}
     </update>
 
-    <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd">
+    <delete id="updateJobPhaseNodeIsDeleteByJobPhaseIdAndUpdateTag">
         update
             `autoexec_job_phase_node`
         set `is_delete` = 1
         where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL)
+          and `update_tag` != #{updateTag}
           and `is_delete` != 1
     </delete>
 
@@ -3123,6 +3119,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         </if>
         WHERE `job_id` = #{jobId} and `job_phase_id` = #{phaseId}
     </update>
+    <update id="updateJobPhaseNodeBatch">
+        UPDATE
+        `autoexec_job_phase_node`
+        SET `update_tag` = #{updateTag},
+            `status` = #{status},
+            `start_time` = null,
+            `end_time` = null
+        WHERE
+        `job_phase_id` = #{jobPhaseId}
+        and `resource_id` in
+        <foreach collection="resourceIdList" item="resourceId" open="(" close=")" separator=",">
+            #{resourceId}
+        </foreach>
+        and `status` not in ('invalid')
+    </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE
@@ -3169,37 +3180,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         FROM `autoexec_job_phase_runner`
         WHERE `job_id` = #{value}
     </delete>
-    <delete id="deleteJobPhaseNodeRunnerByJobId">
-        DELETE ajpnr
-        FROM `autoexec_job_phase_node_runner` ajpnr
-                 LEFT JOIN `autoexec_job_phase_node` ajpn ON ajpnr.`node_id` = ajpn.`id`
-        WHERE ajpn.`job_id` = #{value}
-          and ajpn.`is_executed` = 0
-    </delete>
-    <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcd">
+
+    <delete id="deleteJobPhaseNodeByJobPhaseIdAndUpdateTagAndStatus">
         DELETE
         FROM `autoexec_job_phase_node`
         where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL)
-          and `is_executed` = 0
-    </delete>
-    <delete id="deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus">
-        DELETE
-        FROM `autoexec_job_phase_node`
-        where `job_phase_id` = #{jobPhaseId}
-          and (`lcd` != #{lcd} OR `lcd` IS NULL)
+          and `update_tag` != #{updateTag}
           and `status` = #{status}
           and `is_delete` = 0
           and `is_executed` = 0
-    </delete>
-    <delete id="deleteJobPhaseNodeRunnerByJobPhaseIdAndLcdAndStatus">
-        DELETE ajpnr
-        FROM `autoexec_job_phase_node_runner` ajpnr
-                 LEFT JOIN `autoexec_job_phase_node` ajpn ON ajpnr.`node_id` = ajpn.`id`
-        WHERE ajpn.`job_phase_id` = #{jobPhaseId}
-          and (ajpn.`lcd` != #{lcd} OR ajpn.`lcd` IS NULL)
-          and ajpn.`status` = #{status}
-          and ajpn.`is_executed` = 0
     </delete>
     <delete id="deleteJobEvnByJobId">
         DELETE

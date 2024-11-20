@@ -133,15 +133,11 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeIdListByNodeVoAndStartNum(@Param("nodeVo") AutoexecJobPhaseNodeVo jobPhaseNodeVo, @Param("startNum") Integer startNum);
 
-    int searchJobPhaseNodeCountWithResource(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
-
     int searchJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     int searchJobPhaseNodeByDistinctResourceIdCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     List<AutoexecJobPhaseNodeStatusCountVo> getJobPhaseNodeStatusCount(Long jobId);
-
-    int checkIsJobPhaseNodeExist(AutoexecJobPhaseNodeVo nodeVo);
 
     List<CustomTemplateVo> getJobPhaseOperationCustomTemplateListByJobPhaseId(Long jobPhaseId);
 
@@ -309,10 +305,6 @@ public interface AutoexecJobMapper {
 
     int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 
-    Integer insertIgnoreJobPhaseNodeRunner(AutoexecJobPhaseNodeRunnerVo nodeRunnerVo);
-    
-    Integer batchInsertJobPhaseNodeRunner(List<AutoexecJobPhaseNodeRunnerVo> nodeRunnerVo);
-
     Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobGroupId") Long jobGroupId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
 
     Integer insertJob(AutoexecJobVo jobVo);
@@ -324,6 +316,10 @@ public interface AutoexecJobMapper {
     Integer insertJobPhaseNode(AutoexecJobPhaseNodeVo jobVo);
 
     Integer batchInsertJobPhaseNode(List<AutoexecJobPhaseNodeVo> nodeList);
+
+    Integer batchInsertIgnoreJobPhaseNode(List<AutoexecJobPhaseNodeVo> nodeList);
+
+    Integer batchInsertDuplicateJobPhaseNode(List<AutoexecJobPhaseNodeVo> nodeList);
 
     Integer insertJobPhaseOperation(AutoexecJobPhaseOperationVo operationVo);
 
@@ -357,8 +353,6 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseNodeById(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
-    Integer updateJobPhaseNodeByJobIdAndPhaseIdAndResourceId(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
-
     Integer updateJobPhaseRunnerFireNextByPhaseIdAndRunnerId(@Param("phaseId") Long phaseId, @Param("isFireNext") int isFireNext, @Param("runnerMapId") Long runnerMapId);
 
     Integer updateJobPhaseRunnerFireNextByJobIdAndGroupSortAndRunnerId(@Param("jobId") Long jobId, @Param("groupSort") Integer groupSort, @Param("isFireNext") int isFireNext, @Param("runnerMapId") Long runnerMapId);
@@ -367,7 +361,7 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseLncdById(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
 
-    Integer updateJobPhaseNodeIsDeleteByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
+    Integer updateJobPhaseNodeIsDeleteByJobPhaseIdAndUpdateTag(@Param("jobPhaseId") Long jobPhaseId, @Param("updateTag") Long updateTag);
 
     Integer updateJobParamHashById(@Param("jobId") Long jobId, @Param("paramHash") String paramHash);
 
@@ -417,13 +411,7 @@ public interface AutoexecJobMapper {
 
     void deleteJobPhaseRunnerByJobId(Long jobId);
 
-    void deleteJobPhaseNodeRunnerByJobId(Long jobId);
-
-    void deleteJobPhaseNodeByJobPhaseIdAndLcd(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd);
-
-    Integer deleteJobPhaseNodeByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
-
-    void deleteJobPhaseNodeRunnerByJobPhaseIdAndLcdAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("lcd") Date lcd, @Param("status") String status);
+    Integer deleteJobPhaseNodeByJobPhaseIdAndUpdateTagAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("updateTag") Long updateTag, @Param("status") String status);
 
     void deleteJobEvnByJobId(Long jobId);
 
@@ -444,4 +432,6 @@ public interface AutoexecJobMapper {
     void updateJobSqlStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
 
     void updateJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
+
+    void updateJobPhaseNodeBatch(@Param("jobPhaseId") Long phaseId,@Param("resourceIdList") List<Long> resourceIdList,@Param("status") String value,@Param("updateTag") long time);
 }

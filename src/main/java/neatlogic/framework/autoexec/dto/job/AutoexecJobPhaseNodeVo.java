@@ -17,6 +17,7 @@ package neatlogic.framework.autoexec.dto.job;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import neatlogic.framework.autoexec.constvalue.AutoexecJobPhaseNodeErrorType;
 import neatlogic.framework.autoexec.constvalue.JobNodeStatus;
 import neatlogic.framework.autoexec.dto.INodeDetail;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopParamVo;
@@ -105,6 +106,8 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     private Integer isExecuted;//是否执行过，用于标识执行过的节点不能删除
     @JSONField(serialize = false)
     private Integer isDownloadGroup;//是否下载组节点，用于下载节点接口
+    @EntityField(name = "初始化节点异常类型", type = ApiParamType.STRING)
+    private Integer errorType;
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -466,4 +469,28 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
         this.isDownloadGroup = isDownloadGroup;
     }
 
+    public Long getUpdateTag(){
+        if(this.getLcd() != null){
+            return this.getLcd().getTime();
+        }
+        return null;
+    }
+
+    public Integer getErrorType() {
+        return errorType;
+    }
+
+    public void setErrorType(Integer errorType) {
+        this.errorType = errorType;
+    }
+
+    public String getErrorMsg() {
+        if(errorType != null){
+            AutoexecJobPhaseNodeErrorType errorTypeEnum = AutoexecJobPhaseNodeErrorType.getErrorType(errorType);
+            if(errorTypeEnum != null){
+                return errorTypeEnum.getText();
+            }
+        }
+        return StringUtils.EMPTY;
+    }
 }
