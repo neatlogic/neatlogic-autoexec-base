@@ -972,15 +972,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <select id="getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatus"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT ajpn.`id`,
-        ajpn.`job_id` AS jobId,
-        ajpn.`job_phase_id` AS jobPhaseId,
         ajpn.`host`,
-        ajpn.`port`,
-        ajpn.`start_time` AS startTime,
-        ajpn.`end_time` AS endTime,
-        ajpn.`status`
+        ajpn.`port`
         FROM `autoexec_job_phase_node` ajpn
-        where ajpn.`job_id` = #{jobId} and ajpn.`job_phase_id` = #{phaseId} and
+        where ajpn.`job_phase_id` = #{phaseId} and
         ajpn.`status` not in
         <foreach collection="exceptStatus" item="status" separator="," open="(" close=")">
             #{status}
@@ -1037,7 +1032,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajpn.`resource_id` as resourceId,
                ajpn.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_node` ajpn
-        where ajpn.`job_id` = #{jobId} and status not in ('error','ignored')
+        where ajpn.`job_id` = #{jobId} and status not in ('invalid')
     </select>
 
     <select id="getJobPhaseNodeListWithoutDeleteByJobIdAndPhaseId"
@@ -1631,7 +1626,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
         LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpn.`job_id` = #{jobId}
-        and ajpn.node_id in
+        and ajpn.id in
         <foreach collection="nodeIdList" item="nodeId" close=")" separator="," open="(">
             #{nodeId}
         </foreach>
@@ -1653,8 +1648,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                         ar.`port`,
                         ajpn.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_node` ajpn
-                 LEFT JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
-                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+                  JOIN `runner_map` arm ON ajpn.`runner_map_id` = arm.`id`
+                  JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpn.`job_phase_id` = #{value}
     </select>
     <select id="getJobPhaseListWithGroupByJobIdAndPhaseIdList"
@@ -2311,6 +2306,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         WHERE aj.`parent_id` = #{value} for
         update
     </select>
+    <select id="isHasPendingNode" resultType="java.lang.Integer">
+        select ajpn.id
+        from `autoexec_job_phase_node` ajpn
+        where ajpn.job_phase_id = #{value} and ajpn.`status` = 'pending'
+        limit 1
+    </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
@@ -2835,6 +2836,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
           , `end_time`   = NULL
         WHERE `job_id` = #{jobId}
           and `is_delete` = #{isDelete}
+          and `status` not in ('invalid')
     </update>
     <update id="updateJobPhaseNodeStatusByJobPhaseIdAndIsDelete">
         UPDATE `autoexec_job_phase_node`
@@ -2843,6 +2845,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
           , `end_time`   = NULL
         WHERE `job_phase_id` = #{jobPhaseId}
           and `is_delete` = #{isDelete}
+          and `status` not in ('invalid')
     </update>
     <update id="updateJobPhaseRunnerStatus">
         UPDATE
@@ -2900,6 +2903,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <foreach collection="nodeIdList" item="nodeId" open="(" close=")" separator=",">
             #{nodeId}
         </foreach>
+        and `status` != 'invalid'
         and `is_delete` = 0
     </update>
     <update id="updateJobPhaseStatusByPhaseIdList">
@@ -2921,22 +2925,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         WHERE `id` = #{id}
     </update>
 
-    <update id="updateJobPhaseNodeStatusByJobIdAndJobPhaseIdListAndRunnerId">
-        UPDATE
-        `autoexec_job_phase_node`
-        SET
-        `end_time` = NOW(3),
-        `status` = #{status}
-        WHERE `job_id` = #{jobId}
-        AND `job_phase_id` in
-        <foreach collection="jobPhaseIdList" item="jobPhaseId" separator="," open="(" close=")">
-            #{jobPhaseId}
-        </foreach>
-        and `status` in
-        <foreach collection="nodeStatusList" item="nodeStatus" open="(" separator="," close=")">
-            #{nodeStatus}
-        </foreach>
-    </update>
     <update id="updateJobPhaseRunnerFireNextByPhaseIdAndRunnerId">
         update `autoexec_job_phase_runner`
         set is_fire_next = #{isFireNext}
@@ -3043,6 +3031,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         set `is_delete` = 1
         where `job_phase_id` = #{jobPhaseId}
           and `update_tag` != #{updateTag}
+          and `status` not in ('invalid','ignored')
           and `is_delete` != 1
     </delete>
 
@@ -3132,7 +3121,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <foreach collection="resourceIdList" item="resourceId" open="(" close=")" separator=",">
             #{resourceId}
         </foreach>
-        and `status` not in ('invalid')
+        and `status` not in ('invalid',#{status})
+    </update>
+    <update id="updateJobPhaseNodeListStatusByPhaseIdAndExceptStatus">
+        UPDATE
+        `autoexec_job_phase_node`
+        SET
+        `status` = #{status},
+        <if test="status == 'pending'">
+            `start_time` = null,
+        </if>
+        <if test="status == 'pending'">
+            `end_time` = null
+        </if>
+        WHERE `job_phase_id` = #{phaseId} and
+        `status` not in
+        <foreach collection="exceptStatus" item="status" separator="," open="(" close=")">
+            #{status}
+        </foreach>
+        and `status` != 'invalid'
+        and `is_delete` = 0
     </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">

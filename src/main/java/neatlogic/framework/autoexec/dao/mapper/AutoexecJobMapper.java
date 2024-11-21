@@ -150,8 +150,6 @@ public interface AutoexecJobMapper {
 
     int updateJobPhaseNodeStatus(AutoexecJobPhaseNodeVo nodeVo);
 
-    int updateJobPhaseNodeStatusByJobIdAndJobPhaseIdListAndRunnerId(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("nodeStatusList") List<String> jobNodeStatusList, @Param("runnerId") Long runnerId);
-
     int searchJobPhaseSqlCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     AutoexecJobPhaseNodeVo getJobPhaseNodeInfoByJobNodeId(@Param("nodeId") Long nodeId);
@@ -164,7 +162,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseNameAndExceptStatusAndRunnerId(@Param("jobId") Long jobId, @Param("phaseName") String phaseName, @Param("exceptStatus") List<String> exceptStatus, @Param("runnerId") Long runnerId);
 
-    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatus(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus);
+    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatusAndRunnerMapId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus, @Param("runnerMapId") Long runnerMapId);
 
@@ -434,4 +432,8 @@ public interface AutoexecJobMapper {
     void updateJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
 
     void updateJobPhaseNodeBatch(@Param("jobPhaseId") Long phaseId,@Param("resourceIdList") List<Long> resourceIdList,@Param("status") String value,@Param("updateTag") long time);
+
+    void updateJobPhaseNodeListStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus,@Param("status") String status);
+
+    Integer isHasPendingNode(Long jobPhaseId);
 }
