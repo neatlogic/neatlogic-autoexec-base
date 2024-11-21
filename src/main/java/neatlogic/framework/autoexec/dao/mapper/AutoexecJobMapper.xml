@@ -2828,16 +2828,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
           , `end_time`   = NULL
         WHERE `job_id` = #{jobId}
     </update>
-    <update id="updateJobPhaseNodeStatusByJobIdAndIsDelete">
-        UPDATE `autoexec_job_phase_node`
-        SET `status`     = #{status}
-          , `start_time` = NULL
 
-          , `end_time`   = NULL
-        WHERE `job_id` = #{jobId}
-          and `is_delete` = #{isDelete}
-          and `status` not in ('invalid')
-    </update>
     <update id="updateJobPhaseNodeStatusByJobPhaseIdAndIsDelete">
         UPDATE `autoexec_job_phase_node`
         SET `status`     = #{status}
@@ -3121,7 +3112,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <foreach collection="resourceIdList" item="resourceId" open="(" close=")" separator=",">
             #{resourceId}
         </foreach>
-        and `status` not in ('invalid',#{status})
+        and `status` != 'invalid'
     </update>
     <update id="updateJobPhaseNodeListStatusByPhaseIdAndExceptStatus">
         UPDATE

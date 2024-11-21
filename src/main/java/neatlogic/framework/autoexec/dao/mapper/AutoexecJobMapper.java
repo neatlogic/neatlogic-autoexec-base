@@ -331,8 +331,6 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseStatusByJobIdAndPhaseStatus(@Param("jobId") Long jobId, @Param("whereStatus") String whereStatus, @Param("status") String status);
 
-    Integer updateJobPhaseNodeStatusByJobIdAndIsDelete(@Param("jobId") Long id, @Param("status") String status, @Param("isDelete") Integer isDelete);
-
     Integer updateJobPhaseNodeStatusByJobPhaseIdAndIsDelete(@Param("jobPhaseId") Long id, @Param("status") String status, @Param("isDelete") Integer isDelete);
 
     Integer updateJobPhaseRunnerStatusBatch(@Param("phaseIdList") List<Long> phaseIdList, @Param("status") String phaseStatus, @Param("runnerId") Long runnerId);
