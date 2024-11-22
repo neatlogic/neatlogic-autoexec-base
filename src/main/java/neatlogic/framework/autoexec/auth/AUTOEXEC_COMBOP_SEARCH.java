@@ -20,16 +20,16 @@ import neatlogic.framework.auth.core.AuthBase;
 import java.util.Collections;
 import java.util.List;
 
-public class AUTOEXEC_COMBOP_ADD extends AuthBase {
+public class AUTOEXEC_COMBOP_SEARCH extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "nfaa.autoexec_combop_add.getauthdisplayname";
+        return "nfaa.autoexec_combop_search.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "nfaa.autoexec_combop_add.getauthintroduction";
+        return "nfaa.autoexec_combop_search.getauthintroduction";
     }
 
     @Override
@@ -44,6 +44,6 @@ public class AUTOEXEC_COMBOP_ADD extends AuthBase {
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths(){
-        return Collections.singletonList(AUTOEXEC_COMBOP_SEARCH.class);
+        return Collections.singletonList(AUTOEXEC_BASE.class);
     }
 }
