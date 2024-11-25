@@ -257,6 +257,10 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "runner执行组标签", type = ApiParamType.JSONOBJECT)
     private ParamMappingVo runnerGroupTag;
 
+    @JSONField(serialize = false)
+    @EntityField(name = "是否第一次初始化", type = ApiParamType.JSONOBJECT)
+    private int isFirstInit = 0;
+
     public AutoexecJobVo() {
     }
 
@@ -1082,5 +1086,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setRunnerGroupTag(ParamMappingVo runnerGroupTag) {
         this.runnerGroupTag = runnerGroupTag;
+    }
+
+    public int getIsFirstInit() {
+        return isFirstInit;
+    }
+
+    public void setIsFirstInit(int isFirstInit) {
+        this.isFirstInit = isFirstInit;
     }
 }

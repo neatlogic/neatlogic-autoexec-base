@@ -17,7 +17,8 @@ public enum JobNodeStatus implements IEnum {
     SUCCEED("succeed", "已成功"),
     FAILED("failed", "已失败"),
     IGNORED("ignored", "已忽略"),
-    WAIT_INPUT("waitInput", "待输入");
+    WAIT_INPUT("waitInput", "待输入"),
+    INVALID("invalid", "非法节点");
     private final String status;
     private final String text;
 
