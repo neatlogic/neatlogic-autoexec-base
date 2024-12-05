@@ -735,13 +735,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
           and `parent_operation_id` is null
     </select>
 
-    <select id="checkIsJobParamReference" resultType="java.lang.Integer">
-        SELECT COUNT(1)
-        FROM `autoexec_job` aj
-        WHERE aj.id != #{jobId}
-          AND aj.`param_hash` = #{hash}
-    </select>
-
     <select id="checkIsJobPhaseOperationParamReference" resultType="java.lang.Integer">
         SELECT COUNT(1)
         FROM `autoexec_job_phase_operation`
@@ -2311,6 +2304,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         from `autoexec_job_phase_node` ajpn
         where ajpn.job_phase_id = #{value} and ajpn.`status` = 'pending'
         limit 1
+    </select>
+    <select id="getHashUseByOtherCount" resultType="java.lang.Integer">
+        select count(1) from autoexec_job_content ajc
+         left join autoexec_job aj  on aj.config_hash = ajc.`hash`
+         left join autoexec_job aj1  on aj1.param_hash = ajc.`hash`
+         left join autoexec_job_phase_operation ajpo  on ajpo.param_hash = ajc.`hash`
+        where ajc.`hash` = #{hash} and aj.`id` != #{jobId} and aj1.`id` !=#{jobId} and ajpo.job_id != #{jobId}
     </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">

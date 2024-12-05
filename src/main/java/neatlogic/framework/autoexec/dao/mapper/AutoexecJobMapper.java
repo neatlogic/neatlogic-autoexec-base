@@ -65,8 +65,6 @@ public interface AutoexecJobMapper {
 
     AutoexecJobContentVo getJobContent(String hash);
 
-    int checkIsJobParamReference(@Param("jobId") Long jobId, @Param("hash") String hash);
-
     AutoexecJobVo getJobLockByOperationId(Long operationId);
 
     //jobGroup
@@ -301,6 +299,8 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobIdListByProcessTaskStepId(Long processTaskStepId);
 
+    int getHashUseByOtherCount(@Param("jobId") Long id, @Param("hash") String hash);
+
     int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobGroupId") Long jobGroupId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
@@ -434,4 +434,5 @@ public interface AutoexecJobMapper {
     void updateJobPhaseNodeListStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus,@Param("status") String status);
 
     Integer isHasPendingNode(Long jobPhaseId);
+
 }
