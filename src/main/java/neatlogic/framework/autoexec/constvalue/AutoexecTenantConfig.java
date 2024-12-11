@@ -20,12 +20,11 @@ import neatlogic.framework.util.$;
 
 public enum AutoexecTenantConfig implements ITenantConfig {
     MAX_NUM_OF_COMBOP_VERSION("maxNumOfCombopVersion", "10", "nfac.autoexectenantconfig.maxnumofcombopversion"),
-    AUTOEXEC_JOB_LOG_ENCODING("autoexec.job.log.encoding", null, "nfac.autoexectenantconfig.autoexecjoblogencoding"),
-    ;
+    AUTOEXEC_JOB_LOG_ENCODING("autoexec.job.log.encoding", null, "nfac.autoexectenantconfig.autoexecjoblogencoding");
 
-    String key;
-    String value;
-    String description;
+    final String key;
+    final String value;
+    final String description;
 
     AutoexecTenantConfig(String key, String value, String description) {
         this.key = key;
