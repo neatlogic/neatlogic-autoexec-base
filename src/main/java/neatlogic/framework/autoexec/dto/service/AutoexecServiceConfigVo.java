@@ -32,6 +32,10 @@ public class AutoexecServiceConfigVo implements Serializable {
 
     private ParamMappingVo executeUser;
 
+    private ParamMappingVo runnerGroup;
+
+    private ParamMappingVo runnerGroupTag;
+
     private List<ParamMappingVo> runtimeParamList;
 
     public Long getScenarioId() {
@@ -72,6 +76,22 @@ public class AutoexecServiceConfigVo implements Serializable {
 
     public void setExecuteUser(ParamMappingVo executeUser) {
         this.executeUser = executeUser;
+    }
+
+    public ParamMappingVo getRunnerGroup() {
+        return runnerGroup;
+    }
+
+    public void setRunnerGroup(ParamMappingVo runnerGroup) {
+        this.runnerGroup = runnerGroup;
+    }
+
+    public ParamMappingVo getRunnerGroupTag() {
+        return runnerGroupTag;
+    }
+
+    public void setRunnerGroupTag(ParamMappingVo runnerGroupTag) {
+        this.runnerGroupTag = runnerGroupTag;
     }
 
     public List<ParamMappingVo> getRuntimeParamList() {
