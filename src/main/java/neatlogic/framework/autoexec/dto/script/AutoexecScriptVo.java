@@ -15,15 +15,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.dto.script;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.autoexec.constvalue.ScriptVersionStatus;
 import neatlogic.framework.autoexec.dto.AutoexecOperationVo;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.file.dto.FileVo;
 import neatlogic.framework.restful.annotation.EntityField;
-import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -85,6 +84,9 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
     private String packageFileName;
     @EntityField(name = "包文件", type = ApiParamType.JSONOBJECT)
     private FileVo packageFile;
+
+    @EntityField(name = "引用数量", type = ApiParamType.INTEGER)
+    private Integer referenceCount;
 
 
     public AutoexecScriptVo() {
@@ -269,5 +271,15 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     public void setPackageFile(FileVo packageFile) {
         this.packageFile = packageFile;
+    }
+
+    @Override
+    public Integer getReferenceCount() {
+        return referenceCount;
+    }
+
+    @Override
+    public void setReferenceCount(Integer referenceCount) {
+        this.referenceCount = referenceCount;
     }
 }
