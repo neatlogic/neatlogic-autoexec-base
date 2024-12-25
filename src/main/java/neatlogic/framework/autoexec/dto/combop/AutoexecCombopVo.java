@@ -108,6 +108,9 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "term.autoexec.configexpiredreason", type = ApiParamType.JSONOBJECT)
     private JSONObject configExpiredReason;
 
+    @EntityField(name = "引用数量", type = ApiParamType.INTEGER)
+    private Integer referenceCount;
+
     public AutoexecCombopVo() {
     }
 
@@ -414,5 +417,13 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setExistRunnerOrSqlExecMode(Boolean existRunnerOrSqlExecMode) {
         this.existRunnerOrSqlExecMode = existRunnerOrSqlExecMode;
+    }
+
+    public Integer getReferenceCount() {
+        return referenceCount;
+    }
+
+    public void setReferenceCount(Integer referenceCount) {
+        this.referenceCount = referenceCount;
     }
 }
