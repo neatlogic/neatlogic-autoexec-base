@@ -299,7 +299,7 @@ public interface AutoexecJobMapper {
 
     List<Long> getJobIdListByProcessTaskStepId(Long processTaskStepId);
 
-    int getHashUseByOtherCount(@Param("jobId") Long id, @Param("hash") String hash);
+    AutoexecJobContentReferenceVo getHashUseByOtherCount(@Param("jobId") Long id, @Param("hash") String hash);
 
     int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 

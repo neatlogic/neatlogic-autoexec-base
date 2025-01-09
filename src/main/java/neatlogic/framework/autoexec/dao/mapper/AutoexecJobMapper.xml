@@ -2305,12 +2305,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         where ajpn.job_phase_id = #{value} and ajpn.`status` = 'pending'
         limit 1
     </select>
-    <select id="getHashUseByOtherCount" resultType="java.lang.Integer">
-        select count(1) from autoexec_job_content ajc
-         left join autoexec_job aj  on aj.config_hash = ajc.`hash`
-         left join autoexec_job aj1  on aj1.param_hash = ajc.`hash`
-         left join autoexec_job_phase_operation ajpo  on ajpo.param_hash = ajc.`hash`
-        where ajc.`hash` = #{hash} and aj.`id` != #{jobId} and aj1.`id` !=#{jobId} and ajpo.job_id != #{jobId}
+    <select id="getHashUseByOtherCount" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentReferenceVo">
+        SELECT ajc.`hash`,
+               CASE
+                   WHEN EXISTS (
+                       SELECT 1
+                       FROM `autoexec_job` aj
+                       WHERE aj.config_hash = ajc.`hash`
+                         AND aj.id != #{jobId}
+                   ) THEN 1
+                   ELSE 0
+                   END AS isUsedInJobConfig,
+               CASE
+                   WHEN EXISTS (
+                       SELECT 1
+                       FROM `autoexec_job` aj1
+                       WHERE aj1.param_hash = ajc.`hash`
+                         AND aj1.id != #{jobId}
+                   ) THEN 1
+                   ELSE 0
+                   END AS isUsedInJobParam,
+               CASE
+                   WHEN EXISTS (
+                       SELECT 1
+                       FROM `autoexec_job_phase_operation` ajpo
+                       WHERE ajpo.param_hash = ajc.`hash`
+                         AND ajpo.job_id != #{jobId}
+                   ) THEN 1
+                   ELSE 0
+                   END AS isUsedInPhaseOperation
+        FROM `autoexec_job_content` ajc
+        WHERE ajc.`hash` = #{hash};
     </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
