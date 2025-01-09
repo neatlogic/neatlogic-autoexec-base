@@ -17,6 +17,7 @@ package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.asynchronization.threadlocal.TenantContext;
 import neatlogic.framework.autoexec.config.AutoexecConfig;
+import neatlogic.framework.common.constvalue.systemuser.ISystemUser;
 import neatlogic.framework.dto.AuthenticationInfoVo;
 import neatlogic.framework.dto.JwtVo;
 import neatlogic.framework.dto.UserVo;
@@ -26,9 +27,11 @@ import neatlogic.framework.util.I18n;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-public enum SystemUser {
+public enum SystemUser implements ISystemUser {
     AUTOEXEC("autoexec", "autoexec", new I18n("自动化用户"));
 
     private final Logger logger = LoggerFactory.getLogger(SystemUser.class);
@@ -46,22 +49,33 @@ public enum SystemUser {
         this.authenticationInfoVo = new AuthenticationInfoVo(userUuid);
     }
 
+
+    @Override
+    public List<ISystemUser> getSystemUserList() {
+        return Arrays.asList(values());
+    }
+
+    @Override
     public String getUserId() {
         return userId;
     }
 
+    @Override
     public String getUserUuid() {
         return userUuid;
     }
 
+    @Override
     public String getUserName() {
         return $.t(userName.toString());
     }
 
+    @Override
     public String getTimezone() {
         return timezone;
     }
 
+    @Override
     public String getToken() {
         if (Objects.equals(userId, AUTOEXEC.getUserId())) {
             return AutoexecConfig.AUTOEXEC_TOKEN();
@@ -69,6 +83,7 @@ public enum SystemUser {
         return null;
     }
 
+    @Override
     public UserVo getUserVo() {
         UserVo userVo = new UserVo();
         userVo.setUuid(userUuid);
@@ -87,6 +102,7 @@ public enum SystemUser {
         return userVo;
     }
 
+    @Override
     public UserVo getUserVo(Boolean isNeedJwt) {
         UserVo userVo = new UserVo();
         userVo.setUuid(userUuid);
@@ -107,34 +123,17 @@ public enum SystemUser {
         return userVo;
     }
 
+    @Override
     public AuthenticationInfoVo getAuthenticationInfoVo() {
         return authenticationInfoVo;
     }
 
-    public static String getUserName(String userUuid) {
+    public String getUserName(String userUuid) {
         for (SystemUser user : values()) {
             if (user.getUserUuid().equals(userUuid)) {
                 return user.getUserName();
             }
         }
         return "";
-    }
-
-    public static UserVo getUserVoByUser(String user) {
-        for (SystemUser systemUser : values()) {
-            if (systemUser.getUserUuid().equals(user) || systemUser.getUserId().equals(user)) {
-                return systemUser.getUserVo();
-            }
-        }
-        return null;
-    }
-
-    public static String getUserTokenByUser(String user) {
-        for (SystemUser systemUser : values()) {
-            if (systemUser.getUserUuid().equals(user) || systemUser.getUserId().equals(user)) {
-                return systemUser.getToken();
-            }
-        }
-        return null;
     }
 }
