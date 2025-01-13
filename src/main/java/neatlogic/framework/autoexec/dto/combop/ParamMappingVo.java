@@ -33,6 +33,8 @@ public class ParamMappingVo implements Serializable {
     private String mappingMode;
     @EntityField(name = "值", type = ApiParamType.NOAUTH)
     private Object value;
+    @EntityField(name = "值名称", type = ApiParamType.NOAUTH)
+    private Object text;
     @EntityField(name = "参数表单类型", type = ApiParamType.STRING)
     private String type;
     @EntityField(name = "参数描述", type = ApiParamType.STRING)
@@ -93,5 +95,13 @@ public class ParamMappingVo implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Object getText() {
+        return text;
+    }
+
+    public void setText(Object text) {
+        this.text = text;
     }
 }
