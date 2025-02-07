@@ -106,7 +106,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "来源名", type = ApiParamType.STRING)
     private String sourceName;
     @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
-    private Integer roundCount = 3;
+    private Integer roundCount;
     @JSONField(serialize = false)
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
