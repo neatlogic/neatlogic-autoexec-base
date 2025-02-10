@@ -632,8 +632,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
           and aj.`parent_id` = -1
     </select>
 
-    <select id="getJobContentLock"
-            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
+    <resultMap id="jobContent" type="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
+        <result property="content" column="content" typeHandler="CompressHandler"/>
+        <result property="hash" column="hash"/>
+    </resultMap>
+    <select id="getJobContentLock" resultMap="jobContent">
         SELECT `hash`,
                `content`
         FROM `autoexec_job_content`
@@ -641,8 +644,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         update
     </select>
 
-    <select id="getJobContent"
-            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
+    <select id="getJobContent" resultMap="jobContent">
         SELECT `hash`,
                `content`
         FROM `autoexec_job_content`
@@ -1077,8 +1079,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         WHERE `job_id` = #{value}
           and `status` = 'running'
     </select>
-    <select id="getJobContentList"
-            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
+    <select id="getJobContentList" resultMap="jobContent">
         SELECT `hash`,
         `content`
         FROM `autoexec_job_content`
@@ -2602,7 +2603,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <insert id="insertIgnoreJobContent"
             parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
         INSERT IGNORE INTO `autoexec_job_content` (`hash`, `content`)
-        VALUES (#{hash}, #{content})
+        VALUES (#{hash}, #{content,typeHandler=CompressHandler})
     </insert>
 
     <insert id="insertJobPhaseRunner">
