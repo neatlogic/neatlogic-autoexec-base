@@ -776,56 +776,45 @@
     <sql id="searchScriptCondition">
         <where>
             <if test="keyword != null and keyword != ''">
-                and (
-                `name` like CONCAT('%', #{keyword}, '%')
-                or `description` like CONCAT('%', #{keyword}, '%')
-                or exists (select 1 from `fulltextindex_word` fw
-                join `fulltextindex_field_autoexec` ff on fw.`id` = ff.`word_id`
-                join `autoexec_script_version` asv on ff.`target_id` = asv.`id`
-                where a.`id` = asv.`script_id` and fw.`word` in
-                <foreach collection="keywordList" item="k" open="(" separator="," close=")">
-                    #{k}
-                </foreach>
-                )
-                )
+                and a.`name` like CONCAT('%', #{keyword}, '%')
             </if>
             <if test="execMode != null and execMode != ''">
-                and `exec_mode` = #{execMode}
+                and a.`exec_mode` = #{execMode}
             </if>
             <if test="isLib != null">
-                and `is_lib` = #{isLib}
+                and a.`is_lib` = #{isLib}
             </if>
             <if test="typeIdList != null and typeIdList.size() != 0">
-                and `type_id` in
+                and a.`type_id` in
                 <foreach collection="typeIdList" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
             <if test="catalogIdList != null and catalogIdList.size() != 0">
-                and `catalog_id` in
+                and a.`catalog_id` in
                 <foreach collection="catalogIdList" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
             <if test="riskIdList != null and riskIdList.size() != 0">
-                and `risk_id` in
+                and a.`risk_id` in
                 <foreach collection="riskIdList" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
             <if test="excludeList != null and excludeList.size() != 0">
-                and `id` not in
+                and a.`id` not in
                 <foreach collection="excludeList" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
             <choose>
                 <when test="customTemplateId != null and customTemplateId == 0">
-                    and `customtemplate_id` is not null
+                    and a.`customtemplate_id` is not null
                 </when>
                 <otherwise>
                     <if test="customTemplateIdList != null and customTemplateIdList.size() > 0">
-                        and `customtemplate_id` in
+                        and a.`customtemplate_id` in
                         <foreach collection="customTemplateIdList" item="item" open="(" separator="," close=")">
                             #{item}
                         </foreach>
@@ -848,7 +837,7 @@
     <select id="searchScriptCount" parameterType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo"
             resultType="int">
         select
-        count(`id`)
+        count(1)
         from `autoexec_script` a
         <include refid="searchScriptCondition"/>
     </select>
@@ -864,9 +853,6 @@
         <result column="versionId" property="versionId"/>
         <result column="submittedVersionId" property="submittedVersionId"/>
         <result column="catalogId" property="catalogId"/>
-        <!--<result column="currentVersion" property="currentVersion"/>-->
-        <!--<result column="versionCount" property="versionCount"/>-->
-        <!--<result column="passedVersionCount" property="passedVersionCount"/>-->
         <association property="riskVo" javaType="neatlogic.framework.autoexec.dto.AutoexecRiskVo">
             <result property="id" column="riskId"/>
             <result property="name" column="riskName"/>
@@ -877,25 +863,19 @@
     <select id="searchScript" parameterType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo"
             resultMap="AutoexecScriptMap">
         select
-        `id`,
-        `name`,
-        `exec_mode` as execMode,
-        `is_lib` as isLib,
-        `description`,
+        a.`id`,
+        a.`name`,
+        a.`exec_mode` as execMode,
+        a.`is_lib` as isLib,
+        a.`description`,
         (select `name` from `autoexec_type` where a.`type_id` = `id`) as typeName,
         (select `name` from `autoexec_risk` where a.`risk_id` = `id`) as riskName,
         (select `color` from `autoexec_risk` where a.`risk_id` = `id`) as riskColor,
-        (select `id` from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'submitted')
-        as submittedVersionId,
-        `catalog_id` as catalogId
-        -- (select `version` from `autoexec_script_version` where a.`id` = `script_id` and `is_active` = 1)
-        -- as currentVersion,
-        -- (select count(`id`) from `autoexec_script_version` where a.`id` = `script_id`) as versionCount,
-        -- (select count(`id`) from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'passed')
-        -- as passedVersionCount
+        (select `id` from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'submitted') as submittedVersionId,
+        a.`catalog_id` as catalogId
         from `autoexec_script` a
         <include refid="searchScriptCondition"/>
-        order by `id` desc
+        order by a.`id` desc
         <if test="needPage == true">
             limit #{startNum}, #{pageSize}
         </if>
