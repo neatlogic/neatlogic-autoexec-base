@@ -403,8 +403,6 @@ public interface AutoexecJobMapper {
 
     void deleteJobByJobId(Long jobId);
 
-    void deleteJobPhaseNodeByJobPhaseIdList(@Param("jobPhaseIdList") List<Long> jobPhaseIdList);
-
     void deleteJobPhaseRunnerByJobId(Long jobId);
 
     Integer deleteJobPhaseNodeByJobPhaseIdAndUpdateTagAndStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("updateTag") Long updateTag, @Param("status") String status);

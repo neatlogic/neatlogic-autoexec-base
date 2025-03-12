@@ -3176,7 +3176,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         DELETE
         FROM `autoexec_job_phase_node`
         WHERE `job_id` = #{value}
-          and `is_executed` = 0
     </delete>
 
     <delete id="deleteJobPhaseByJobId" parameterType="java.lang.Long">
@@ -3191,15 +3190,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         WHERE `id` = #{value}
     </delete>
 
-    <delete id="deleteJobPhaseNodeByJobPhaseIdList">
-        DELETE
-        FROM `autoexec_job_phase_node`
-        WHERE `job_phase_id` in
-        <foreach collection="jobPhaseIdList" item="phaseId" open="(" close=")" separator=",">
-            #{phaseId}
-        </foreach>
-        and `is_executed` = 0
-    </delete>
     <delete id="deleteJobPhaseRunnerByJobId">
         DELETE
         FROM `autoexec_job_phase_runner`
