@@ -2447,7 +2447,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     </insert>
 
     <insert id="batchInsertJobPhaseNode" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
-        INSERT IGNORE INTO `autoexec_job_phase_node` (`id`,
+        INSERT INTO `autoexec_job_phase_node` (`id`,
         `job_id`,
         `job_phase_id`,
         `host`,
