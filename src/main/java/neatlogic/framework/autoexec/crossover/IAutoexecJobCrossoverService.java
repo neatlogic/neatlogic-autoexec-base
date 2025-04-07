@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.crossover;
 
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
+import neatlogic.framework.cmdb.dto.resourcecenter.ResourceVo;
 import neatlogic.framework.crossover.ICrossoverService;
 
 import java.util.List;
@@ -29,4 +30,14 @@ public interface IAutoexecJobCrossoverService extends ICrossoverService {
     List<AutoexecJobVo> searchJob(AutoexecJobVo jobVo);
 
     void saveAutoexecCombopJob(AutoexecJobVo jobVo);
+
+
+    /**
+     * 获取目标节点并入库
+     * @param jobVo 作业
+     * @param resourceVoList 资产列表
+     * @param userName 执行用户
+     * @param protocolId 协议id
+     */
+    void updateJobPhaseNode(AutoexecJobVo jobVo, List<ResourceVo> resourceVoList, String userName, Long protocolId);
 }
