@@ -40,6 +40,8 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
     private List<AutoexecNodeVo> inputNodeList;
     @EntityField(name = "过滤器选择条件", type = ApiParamType.JSONOBJECT)
     private JSONObject filter; // 过滤器
+    @EntityField(name = "其他场景过滤器", type = ApiParamType.JSONOBJECT)
+    private JSONObject otherFilter;
     @EntityField(name = "上游出参列表", type = ApiParamType.JSONARRAY)
     private List<String> preOutputList;
 
@@ -75,6 +77,14 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
         this.filter = filter;
     }
 
+    public JSONObject getOtherFilter() {
+        return otherFilter;
+    }
+
+    public void setOtherFilter(JSONObject otherFilter) {
+        this.otherFilter = otherFilter;
+    }
+
     public List<String> getPreOutputList() {
         return preOutputList;
     }
@@ -85,6 +95,6 @@ public class AutoexecCombopExecuteNodeConfigVo implements Serializable {
 
     @JSONField(serialize = false)
     public boolean isNull(){
-        return CollectionUtils.isEmpty(paramList) && CollectionUtils.isEmpty(selectNodeList) && CollectionUtils.isEmpty(inputNodeList) && MapUtils.isEmpty(filter) && CollectionUtils.isEmpty(preOutputList);
+        return CollectionUtils.isEmpty(paramList) && CollectionUtils.isEmpty(selectNodeList) && CollectionUtils.isEmpty(inputNodeList) && MapUtils.isEmpty(filter)  && MapUtils.isEmpty(otherFilter) && CollectionUtils.isEmpty(preOutputList);
     }
 }

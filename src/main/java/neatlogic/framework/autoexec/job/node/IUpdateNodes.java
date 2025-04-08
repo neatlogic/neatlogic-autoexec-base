@@ -1,4 +1,4 @@
-/*Copyright (C) 2024  深圳极向量科技有限公司 All Rights Reserved.
+/*Copyright (C) $today.year  深圳极向量科技有限公司 All Rights Reserved.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -13,31 +13,20 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package neatlogic.framework.autoexec.crossover;
+package neatlogic.framework.autoexec.job.node;
 
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteNodeConfigVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
-import neatlogic.framework.cmdb.dto.resourcecenter.ResourceVo;
-import neatlogic.framework.crossover.ICrossoverService;
 
-import java.util.List;
-
-/**
- * @author longrf
- * @date 2022/5/23 7:00 下午
- */
-public interface IAutoexecJobCrossoverService extends ICrossoverService {
-
-    List<AutoexecJobVo> searchJob(AutoexecJobVo jobVo);
-
-    void saveAutoexecCombopJob(AutoexecJobVo jobVo);
-
+public interface IUpdateNodes {
 
     /**
-     * 获取目标节点并入库
+     * 更新自动化执行目标
+     * @param executeNodeConfigVo 执行目标配置
      * @param jobVo 作业
-     * @param resourceVoList 资产列表
      * @param userName 执行用户
      * @param protocolId 协议id
      */
-    void updateJobPhaseNode(AutoexecJobVo jobVo, List<ResourceVo> resourceVoList, String userName, Long protocolId);
+    boolean update(AutoexecCombopExecuteNodeConfigVo executeNodeConfigVo, AutoexecJobVo jobVo, String userName, Long protocolId);
+
 }
