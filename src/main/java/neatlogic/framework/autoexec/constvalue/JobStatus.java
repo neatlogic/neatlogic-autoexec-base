@@ -27,6 +27,7 @@ import java.util.List;
 public enum JobStatus implements IEnum {
     SAVED("saved", "待提交"),
     PENDING("pending", "待运行"),
+    QUEUE("queue", "排队中"),
     RUNNING("running", "运行中"),
     PAUSING("pausing", "暂停中"),
     PAUSED("paused", "已暂停"),

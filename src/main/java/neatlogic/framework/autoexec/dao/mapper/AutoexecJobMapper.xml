@@ -1073,6 +1073,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             </foreach>
         </if>
     </select>
+
+    <select id="getJobPhaseRunnerMapByJobId" resultType="neatlogic.framework.dto.runner.RunnerMapVo">
+        SELECT DISTINCT ar.`id`,
+        ar.`name`,
+        ar.`url`,
+        ar.`host`,
+        ar.`port`,
+        ajpr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_runner` ajpr
+        LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        WHERE ajpr.`job_id` = #{jobId}
+    </select>
     <select id="checkIsHasRunningNode" resultType="java.lang.Integer">
         select count(1)
         from `autoexec_job_phase_node`
