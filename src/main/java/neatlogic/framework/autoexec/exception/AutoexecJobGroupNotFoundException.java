@@ -25,5 +25,9 @@ public class AutoexecJobGroupNotFoundException extends ApiRuntimeException {
         super("作业({0}) 组（{1}）不存在", jobId, groupSort);
     }
 
+    public AutoexecJobGroupNotFoundException(Long jobId) {
+        super("作业({0}) 组不存在", jobId);
+    }
+
 
 }

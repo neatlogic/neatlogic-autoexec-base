@@ -303,6 +303,8 @@ public interface AutoexecJobMapper {
 
     AutoexecJobContentReferenceVo getHashUseByOtherCount(@Param("jobId") Long id, @Param("hash") String hash);
 
+    AutoexecJobPhaseVo getJobFirstPhaseByGroupId(Long groupId);
+
     int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 
     Integer insertJobPhaseRunner(@Param("jobId") Long jobId, @Param("jobGroupId") Long jobGroupId, @Param("jobPhaseId") Long jobPhaseId, @Param("runnerMapId") Long runnerMapId, @Param("lcd") Date lcd);
@@ -340,6 +342,8 @@ public interface AutoexecJobMapper {
     Integer updateJobPhaseStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
 
     Integer updateJobPhaseRunnerStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status);
+
+    Integer updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList(@Param("jobPhaseIdList") List<Long> jobPhaseIdList,@Param("runnerIdList")List<Long> runnerIdList, @Param("status") String status);
 
     Integer updateJobPhaseRunnerStatusAndWarnCount(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount);
 

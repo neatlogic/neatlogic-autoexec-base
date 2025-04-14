@@ -2351,6 +2351,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         FROM `autoexec_job_content` ajc
         WHERE ajc.`hash` = #{hash};
     </select>
+    <select id="getJobFirstPhaseByGroupId"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        select * from autoexec_job_phase where group_id = #{value}
+        order by `sort` asc
+        limit 1
+    </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
@@ -2891,6 +2897,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         </foreach>
         AND `runner_map_id` = #{runnerId}
     </update>
+    <update id="updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList">
+        UPDATE
+        `autoexec_job_phase_runner`
+        SET
+        `status` = #{status}
+        <if test="status == 'pending'">
+            , `is_fire_next` = 0
+        </if>
+        WHERE `job_phase_id` in
+        <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
+            #{phaseId}
+        </foreach>
+        AND `runner_map_id` in
+        <foreach collection="runnerIdList" item="runnerId" separator="," open="(" close=")">
+            #{runnerId}
+        </foreach>
+    </update>
     <update id="updateJobPhaseRunnerStatusAndWarnCount">
         UPDATE
         `autoexec_job_phase_runner`
@@ -2923,10 +2946,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         `autoexec_job_phase_node`
         SET
         `status` = #{status},
-        <if test="status == 'pending'">
+        <if test="status == 'pending' or status == 'waiting'">
             `start_time` = null,
         </if>
-        <if test="status == 'pending'">
+        <if test="status == 'pending' or status == 'waiting'">
             `end_time` = null
         </if>
         WHERE `id` in
