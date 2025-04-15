@@ -162,8 +162,6 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                 HttpRequestUtil requestUtil = HttpRequestUtil.download(url, "POST", bos)
                         .setPayload(paramJson.toJSONString())
                         .setAuthType(AuthenticateType.BUILDIN)
-                        .setConnectTimeout(5000)
-                        .setReadTimeout(5000)
                         .sendRequest();
                 String error = requestUtil.getError();
                 if (StringUtils.isNotBlank(error)) {
