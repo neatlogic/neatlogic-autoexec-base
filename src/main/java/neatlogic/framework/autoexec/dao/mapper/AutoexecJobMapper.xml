@@ -1150,7 +1150,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                `exec_user`  as execUser,
                `exec_mode`  as execMode,
                `name`       as name,
-               `sort`,
+               `sort`
         FROM `autoexec_job_phase`
         where `job_id` = #{jobId}
           and `status` = #{status}
