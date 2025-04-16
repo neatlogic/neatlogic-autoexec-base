@@ -1527,6 +1527,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         WHERE job_id = #{jobId}
           and `status` = #{status}
     </select>
+
+    <select id="getJobPhaseRunnerStatusCountByJobIdAndStatus" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM autoexec_job_phase_runner
+        WHERE job_id = #{jobId}
+          and `status` = #{status}
+    </select>
     <select id="getJobPhaseRunnerByJobIdAndPhaseIdListAndStatus"
             resultType="neatlogic.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
