@@ -231,6 +231,8 @@ public interface AutoexecJobMapper {
 
     List<RunnerMapVo> getJobPhaseRunnerMapByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
 
+    List<RunnerMapVo> getJobPhaseRunnerMapByJobId(@Param("jobId") Long jobId);
+
     List<RunnerMapVo> getJobPhaseRunnerByJobIdAndPhaseIdListAndStatus(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId, @Param("status") String status);
 
     List<RunnerMapVo> getJobRunnerListByJobIdAndGroupId(@Param("jobId") Long jobId, @Param("groupId") Long groupId);
@@ -266,6 +268,8 @@ public interface AutoexecJobMapper {
 
     Integer getJobPhaseStatusCountByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
 
+    Integer getJobPhaseRunnerStatusCountByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
+
     //inspect
     List<AutoexecJobResourceInspectVo> getJobResourceInspectByResourceId(List<Long> resourceIdList);
 
@@ -300,6 +304,8 @@ public interface AutoexecJobMapper {
     List<Long> getJobIdListByProcessTaskStepId(Long processTaskStepId);
 
     AutoexecJobContentReferenceVo getHashUseByOtherCount(@Param("jobId") Long id, @Param("hash") String hash);
+
+    AutoexecJobPhaseVo getJobFirstPhaseByGroupId(Long groupId);
 
     int insertJobInvoke(AutoexecJobInvokeVo invokeVo);
 
@@ -338,6 +344,8 @@ public interface AutoexecJobMapper {
     Integer updateJobPhaseStatusByJobId(@Param("jobId") Long id, @Param("status") String value);
 
     Integer updateJobPhaseRunnerStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status);
+
+    Integer updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList(@Param("jobPhaseIdList") List<Long> jobPhaseIdList,@Param("runnerIdList")List<Long> runnerIdList, @Param("status") String status);
 
     Integer updateJobPhaseRunnerStatusAndWarnCount(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount);
 

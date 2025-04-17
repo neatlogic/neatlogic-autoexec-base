@@ -1073,6 +1073,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             </foreach>
         </if>
     </select>
+
+    <select id="getJobPhaseRunnerMapByJobId" resultType="neatlogic.framework.dto.runner.RunnerMapVo">
+        SELECT DISTINCT ar.`id`,
+        ar.`name`,
+        ar.`url`,
+        ar.`host`,
+        ar.`port`,
+        ajpr.runner_map_id as runnerMapId
+        FROM `autoexec_job_phase_runner` ajpr
+        LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+        LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        WHERE ajpr.`job_id` = #{jobId}
+    </select>
     <select id="checkIsHasRunningNode" resultType="java.lang.Integer">
         select count(1)
         from `autoexec_job_phase_node`
@@ -1137,7 +1150,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                `exec_user`  as execUser,
                `exec_mode`  as execMode,
                `name`       as name,
-               `sort`,
+               `sort`
         FROM `autoexec_job_phase`
         where `job_id` = #{jobId}
           and `status` = #{status}
@@ -1511,6 +1524,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <select id="getJobPhaseStatusCountByJobIdAndStatus" resultType="java.lang.Integer">
         SELECT COUNT(1)
         FROM autoexec_job_phase
+        WHERE job_id = #{jobId}
+          and `status` = #{status}
+    </select>
+
+    <select id="getJobPhaseRunnerStatusCountByJobIdAndStatus" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM autoexec_job_phase_runner
         WHERE job_id = #{jobId}
           and `status` = #{status}
     </select>
@@ -2338,6 +2358,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         FROM `autoexec_job_content` ajc
         WHERE ajc.`hash` = #{hash};
     </select>
+    <select id="getJobFirstPhaseByGroupId"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        select * from autoexec_job_phase where group_id = #{value}
+        order by `sort` asc
+        limit 1
+    </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
@@ -2878,6 +2904,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         </foreach>
         AND `runner_map_id` = #{runnerId}
     </update>
+    <update id="updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList">
+        UPDATE
+        `autoexec_job_phase_runner`
+        SET
+        `status` = #{status}
+        <if test="status == 'pending'">
+            , `is_fire_next` = 0
+        </if>
+        WHERE `job_phase_id` in
+        <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
+            #{phaseId}
+        </foreach>
+        AND `runner_map_id` in
+        <foreach collection="runnerIdList" item="runnerId" separator="," open="(" close=")">
+            #{runnerId}
+        </foreach>
+    </update>
     <update id="updateJobPhaseRunnerStatusAndWarnCount">
         UPDATE
         `autoexec_job_phase_runner`
@@ -2910,10 +2953,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         `autoexec_job_phase_node`
         SET
         `status` = #{status},
-        <if test="status == 'pending'">
+        <if test="status == 'pending' or status == 'waiting'">
             `start_time` = null,
         </if>
-        <if test="status == 'pending'">
+        <if test="status == 'pending' or status == 'waiting'">
             `end_time` = null
         </if>
         WHERE `id` in

@@ -24,7 +24,7 @@ public class AutoexecUtil {
      * @return runner response
      */
     public static String requestRunner(String runnerUrl, JSONObject paramJson) {
-        HttpRequestUtil requestUtil = HttpRequestUtil.post(runnerUrl).setPayload(paramJson.toJSONString()).setAuthType(AuthenticateType.BUILDIN).setConnectTimeout(5000).setReadTimeout(5000).sendRequest();
+        HttpRequestUtil requestUtil = HttpRequestUtil.post(runnerUrl).setPayload(paramJson.toJSONString()).setAuthType(AuthenticateType.BUILDIN).sendRequest();
         if (StringUtils.isNotBlank(requestUtil.getErrorMsg())) {
             throw new RunnerHttpRequestException(requestUtil.getErrorMsg());
         }
