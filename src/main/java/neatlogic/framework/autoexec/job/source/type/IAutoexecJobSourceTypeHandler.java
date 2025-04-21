@@ -283,4 +283,12 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param updateTag 更新标记
      */
     default void handleDeleteJobPhaseNodeEvent(Long jobPhaseId,Long updateTag){}
+
+    /**
+     * 批量补充作业剧本实例节点列表蓝绿的信息
+     *
+     * @param jobId 同一作业id
+     * @param jobPhaseNodeVoList 作业剧本同一阶段节点列表
+     */
+    default void addExtraJobPhaseNodeBlueGreenInfoByList(Long jobId, List<AutoexecJobPhaseNodeVo> jobPhaseNodeVoList){}
 }
