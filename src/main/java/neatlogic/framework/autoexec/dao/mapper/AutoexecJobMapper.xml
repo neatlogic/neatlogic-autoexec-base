@@ -1756,7 +1756,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <select id="searchJobPhaseNodeByDistinct"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT
-        DISTINCT ajpn.`resource_id` AS resourceId,
+        DISTINCT
+        ajpn.`id` AS id,
+        ajpn.`resource_id` AS resourceId,
         ajpn.`host`,
         ajpn.`port`,
         ajpn.`protocol_id` AS protocolId,

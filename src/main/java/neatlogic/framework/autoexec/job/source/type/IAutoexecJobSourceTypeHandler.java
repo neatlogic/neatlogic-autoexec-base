@@ -264,6 +264,31 @@ public interface IAutoexecJobSourceTypeHandler {
      * @return
      */
     default void addExtraJobPhaseNodeInfoByList(Long jobId, List<AutoexecJobPhaseNodeVo> jobPhaseNodeVoList) {
-        return;
+
     }
+
+    /**
+     * 批量处理其它数据源作业节点相关数据
+     *
+     * @param jobVo 作业
+     * @param autoexecJobPhaseNodeVos 作业节点列表
+     * @param userName 执行用户
+     * @param protocolId 协议id
+     */
+    default void handleAddJobPhaseNodeEvent(AutoexecJobVo jobVo, List<AutoexecJobPhaseNodeVo> autoexecJobPhaseNodeVos, String userName, Long protocolId, Long updateTag) {}
+
+    /**
+     * 批量处理删除作业节点时其它数据源作业节点相关数据
+     * @param jobPhaseId 作业阶段id
+     * @param updateTag 更新标记
+     */
+    default void handleDeleteJobPhaseNodeEvent(Long jobPhaseId,Long updateTag){}
+
+    /**
+     * 批量补充作业剧本实例节点列表蓝绿的信息
+     *
+     * @param jobId 同一作业id
+     * @param jobPhaseNodeVoList 作业剧本同一阶段节点列表
+     */
+    default void addExtraJobPhaseNodeBlueGreenInfoByList(Long jobId, List<AutoexecJobPhaseNodeVo> jobPhaseNodeVoList){}
 }
