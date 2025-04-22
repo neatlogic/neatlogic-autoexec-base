@@ -131,6 +131,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeIdListByNodeVoAndStartNum(@Param("nodeVo") AutoexecJobPhaseNodeVo jobPhaseNodeVo, @Param("startNum") Integer startNum);
 
+    List<AutoexecJobPhaseNodeVo> getJobPhaseNodeIdListByNodeVoAndSeqNo(@Param("nodeVo") AutoexecJobPhaseNodeVo jobPhaseNodeVo, @Param("seqNo") Integer seqNo);
+
     int searchJobPhaseNodeCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
     int searchJobPhaseNodeByDistinctResourceIdCount(AutoexecJobPhaseNodeVo jobPhaseNodeVo);

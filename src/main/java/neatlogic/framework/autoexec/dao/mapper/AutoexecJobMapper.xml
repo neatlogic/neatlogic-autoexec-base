@@ -399,6 +399,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         limit #{startNum}, #{nodeVo.pageSize}
     </select>
 
+    <select id="getJobPhaseNodeIdListByNodeVoAndSeqNo"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
+        SELECT
+        ajpn.`id`,
+        ajpn.`status`
+        FROM
+        `autoexec_job_phase_node` ajpn
+        JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
+        join `deploy_job_resource_blue_green` djrbg on ajpn.resource_id = djrbg.resource_id
+        join `deploy_blue_green` dbg on djrbg.blue_green_id = dbg.id
+        where
+        ajp.`job_id` = #{nodeVo.jobId}
+        <if test="seqNo == 0">
+            and dbg.sort is null
+        </if>
+        <if test="seqNo != 0">
+            and dbg.sort = #{seqNo}
+        </if>
+
+        <if test="nodeVo.jobPhaseName != null and nodeVo.jobPhaseName != ''">
+            and ajp.`name` = #{nodeVo.jobPhaseName}
+        </if>
+        <if test="nodeVo.isDelete != null">
+            and ajpn.`is_delete` = #{nodeVo.isDelete}
+        </if>
+        <if test="nodeVo.statusList != null and nodeVo.statusList.size() > 0 ">
+            and ajpn.`status` in
+            <foreach collection="nodeVo.statusList" item="status" open="(" close=")" separator=",">
+                #{status}
+            </foreach>
+        </if>
+        <if test="nodeVo.statusBlackList != null and nodeVo.statusBlackList.size() > 0 ">
+            and ajpn.`status` not in
+            <foreach collection="nodeVo.statusBlackList" item="statusBlack" open="(" close=")" separator=",">
+                #{statusBlack}
+            </foreach>
+        </if>
+        limit 1
+    </select>
+
     <select id="searchJobPhaseNodeCount" resultType="java.lang.Integer">
         SELECT
         count(distinct ajpn.`id`)
