@@ -1,5 +1,6 @@
 package neatlogic.framework.autoexec.job;
 
+import com.alibaba.fastjson.JSONException;
 import neatlogic.framework.autoexec.dto.INodeDetail;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo;
@@ -121,11 +122,14 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                         if (value instanceof Map) {
                             ((Map<String, Object>) value).forEach((paramKey, paramValue) -> {
                                 if (outputParamKey.contains(paramKey)) {
-                                    sb.append((new JSONObject() {
-                                        {
-                                            this.put(paramKey, paramValue);
-                                        }
-                                    }).toJSONString()).append(";");
+                                    JSONObject jsonObject = new JSONObject();
+                                    try {
+                                        JSONObject json = JSONObject.parseObject(paramValue.toString());
+                                        jsonObject.put(paramKey, json);
+                                    } catch (JSONException e) {
+                                        jsonObject.put(paramKey, paramValue);
+                                    }
+                                    sb.append(jsonObject.toJSONString()).append(";");
                                 }
                             });
                         }
