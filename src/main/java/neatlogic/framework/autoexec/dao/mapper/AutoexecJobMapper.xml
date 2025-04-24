@@ -466,6 +466,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajp.`sort`,
                ajp.`warn_count`                as warnCount,
                ajp.`round_count`               as roundCount,
+               ajp.`user_name`                 as userName,
+               ajp.`user_name_from`            as userNameFrom,
+               ajp.`protocol_from`             as protocolFrom,
+               ajp.`node_from`                 as nodeFrom,
+               ajp.`round_count_from`          as roundCountFrom,
+               ajp.`protocol`,
                ajg.id                          as groupId,
                ajg.sort                        as groupSort,
                ajg.config,
@@ -527,6 +533,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <result column="nodeFrom" property="nodeFrom"/>
         <result column="protocolFrom" property="protocolFrom"/>
         <result column="userNameFrom" property="userNameFrom"/>
+        <result column="roundCountFrom" property="roundCountFrom"/>
+        <result column="userName" property="userName"/>
+        <result column="protocol" property="protocol"/>
         <collection property="jobGroupVo" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobGroupVo">
             <result column="groupId" property="id"/>
             <result column="groupSort" property="sort"/>
@@ -1720,6 +1729,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajp.`execute_policy` as executePolicy,
         ajp.`sort`,
         ajp.`warn_count` as warnCount,
+        ajp.`user_name`        as userName,
+        ajp.`user_name_from`        as userNameFrom,
+        ajp.`protocol_from`    as protocolFrom,
+        ajp.`node_from`        as nodeFrom,
+        ajp.`round_count_from` as roundCountFrom,
+        ajp.`round_count` as roundCount,
+        ajp.`protocol`,
         ajg.id as groupId,
         ajg.sort as groupSort,
         ajg.config,
@@ -3055,8 +3071,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         update `autoexec_job_phase`
         set `node_from`      = #{nodeFrom},
             `user_name_from` = #{userNameFrom},
-            `protocol_from`  = #{protocolFrom}
-        where id = #{currentPhase.id}
+            `protocol_from`  = #{protocolFrom},
+            `round_count_from`  = #{roundCountFrom},
+            `user_name` =#{userName},
+            `protocol` = #{protocol},
+            `round_count` = #{roundCount}
+        where id = #{id}
     </update>
     <update id="updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList">
         update `autoexec_job_phase_node`

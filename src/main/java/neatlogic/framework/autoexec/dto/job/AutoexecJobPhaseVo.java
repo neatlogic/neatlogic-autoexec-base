@@ -83,12 +83,20 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer warnCount = 0;
     @EntityField(name = "分批数", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "执行用户", type = ApiParamType.STRING)
+    private String userName;
+    @EntityField(name = "执行协议", type = ApiParamType.STRING)
+    private String protocol;
+    @EntityField(name = "执行策略", type = ApiParamType.STRING)
+    private String groupPolicy;
     @EntityField(name = "执行目标配置来源", type = ApiParamType.STRING)
     private String nodeFrom;
     @EntityField(name = "执行用户来源", type = ApiParamType.STRING)
     private String userNameFrom;//node 协议来源 job|group|phase
     @EntityField(name = "执行协议来源", type = ApiParamType.STRING)
     private String protocolFrom;//node 协议来源 job|group|phase
+    @EntityField(name = "分批数来源", type = ApiParamType.STRING)
+    private String roundCountFrom;//node 协议来源 job|group|phase
 
     @JSONField(serialize = false)
     private AutoexecJobNodeVo currentNode;
@@ -372,5 +380,37 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setProtocolFrom(String protocolFrom) {
         this.protocolFrom = protocolFrom;
+    }
+
+    public String getRoundCountFrom() {
+        return roundCountFrom;
+    }
+
+    public void setRoundCountFrom(String roundCountFrom) {
+        this.roundCountFrom = roundCountFrom;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getGroupPolicy() {
+        return groupPolicy;
+    }
+
+    public void setGroupPolicy(String groupPolicy) {
+        this.groupPolicy = groupPolicy;
     }
 }
