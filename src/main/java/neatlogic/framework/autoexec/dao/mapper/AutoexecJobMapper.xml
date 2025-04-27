@@ -2999,7 +2999,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             `autoexec_job_phase_runner`
         SET `status` = #{status}
         WHERE `job_id` = #{jobId}
-          AND `runner_map_id` = #{runnerId}
+          AND `runner_map_id` = #{runnerId} and `status` = #{fromStatus}
     </update>
     <update id="updateBatchJobPhaseRunnerStatus">
         UPDATE

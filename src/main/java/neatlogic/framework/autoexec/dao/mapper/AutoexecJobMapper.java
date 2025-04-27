@@ -351,7 +351,7 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseRunnerStatusAndWarnCount(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount);
 
-    Integer updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId, @Param("status") String status);
+    Integer updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId, @Param("status") String status,@Param("fromStatus") String fromStatus);
 
     Integer updateBatchJobPhaseRunnerStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("status") String status);
 
