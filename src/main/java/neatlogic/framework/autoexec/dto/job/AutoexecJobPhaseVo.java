@@ -144,6 +144,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.warnCount = _warnCount;
     }
 
+    public AutoexecJobPhaseVo(Long _id, String _status, Integer _warnCount,Date _startTime) {
+        this.id = _id;
+        this.status = _status;
+        this.warnCount = _warnCount;
+        this.startTime = _startTime;
+    }
+
     public AutoexecJobPhaseVo(Long _id, String _status) {
         this.id = _id;
         this.status = _status;
