@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.dto.job;
 
 import neatlogic.framework.common.constvalue.ApiParamType;
+import neatlogic.framework.dto.runner.RunnerMapVo;
 import neatlogic.framework.restful.annotation.EntityField;
 
 import java.util.Date;
@@ -24,7 +25,7 @@ import java.util.Date;
  * @author lvzk
  * @since 2021/6/17 11:10
  **/
-public class AutoexecJobPhaseRunnerVo {
+public class AutoexecJobPhaseRunnerVo extends RunnerMapVo {
     @EntityField(name = "作业id", type = ApiParamType.LONG)
     private Long jobId;
     @EntityField(name = "作业组id", type = ApiParamType.LONG)
@@ -33,8 +34,6 @@ public class AutoexecJobPhaseRunnerVo {
     private Long jobPhaseId;
     @EntityField(name = "作业阶段runner状态", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "作业阶段runner 映射id", type = ApiParamType.LONG)
-    private Long runnerMapId;
     @EntityField(name = "是否已经fireNext", type = ApiParamType.INTEGER)
     private Integer isFireNext;
     @EntityField(name = "最近一次更新时间", type = ApiParamType.STRING)
@@ -72,14 +71,6 @@ public class AutoexecJobPhaseRunnerVo {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Long getRunnerMapId() {
-        return runnerMapId;
-    }
-
-    public void setRunnerMapId(Long runnerMapId) {
-        this.runnerMapId = runnerMapId;
     }
 
     public Integer getIsFireNext() {

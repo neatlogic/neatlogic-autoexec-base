@@ -233,7 +233,9 @@ public interface AutoexecJobMapper {
 
     List<RunnerMapVo> getJobPhaseRunnerMapByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
 
-    List<RunnerMapVo> getJobPhaseRunnerMapByJobId(@Param("jobId") Long jobId);
+    List<RunnerMapVo> getJobRunnerMapByJobId(@Param("jobId") Long jobId);
+
+    List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerMapByJobId(@Param("jobId") Long jobId);
 
     List<RunnerMapVo> getJobPhaseRunnerByJobIdAndPhaseIdListAndStatus(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId, @Param("status") String status);
 
@@ -353,6 +355,8 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId, @Param("status") String status,@Param("fromStatus") String fromStatus);
 
+    Integer updateJobPhaseRunnerStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId,  @Param("status") String status,@Param("fromStatusList") List<String> fromStatusList);
+
     Integer updateBatchJobPhaseRunnerStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("status") String status);
 
     Integer updateJobPhaseStatusByPhaseIdList(@Param("phaseIdList") List<Long> phaseIdList, @Param("status") String status);
@@ -443,4 +447,5 @@ public interface AutoexecJobMapper {
 
     Integer isHasPendingNode(Long jobPhaseId);
 
+    void updateJobPhaseRunnerStatusByPhaseIdAndRunnerIdAndStatus(@Param("phaseId") Long phaseId,@Param("runnerMapId") Long runnerMapId,@Param("status") String status);
 }

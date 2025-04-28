@@ -1123,7 +1123,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         </if>
     </select>
 
-    <select id="getJobPhaseRunnerMapByJobId" resultType="neatlogic.framework.dto.runner.RunnerMapVo">
+    <select id="getJobRunnerMapByJobId" resultType="neatlogic.framework.dto.runner.RunnerMapVo">
         SELECT DISTINCT ar.`id`,
         ar.`name`,
         ar.`url`,
@@ -1135,6 +1135,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
         WHERE ajpr.`job_id` = #{jobId}
     </select>
+
+    <select id="getJobPhaseRunnerMapByJobId" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
+        SELECT DISTINCT ar.`id`,
+                        ar.`name`,
+                        ar.`url`,
+                        ar.`host`,
+                        ar.`port`,
+                        ajpr.job_phase_id  as jobPhaseId,
+                        ajpr.runner_map_id as runnerMapId,
+                        ajpr.`status`
+        FROM `autoexec_job_phase_runner` ajpr
+                 LEFT JOIN `runner_map` arm ON ajpr.`runner_map_id` = arm.`id`
+                 LEFT JOIN `runner` ar ON arm.`runner_id` = ar.`id`
+        WHERE ajpr.`job_id` = #{jobId}
+    </select>
+
     <select id="checkIsHasRunningNode" resultType="java.lang.Integer">
         select count(1)
         from `autoexec_job_phase_node`
@@ -2963,6 +2979,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         </foreach>
         AND `runner_map_id` = #{runnerId}
     </update>
+    <update id="updateJobPhaseRunnerStatusByPhaseIdAndRunnerIdAndStatus">
+        UPDATE
+            `autoexec_job_phase_runner`
+        SET `status` = #{status}
+        WHERE `job_phase_id` = #{phaseId}
+          AND `runner_map_id` = #{runnerMapId}
+    </update>
     <update id="updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList">
         UPDATE
         `autoexec_job_phase_runner`
@@ -3000,6 +3023,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         SET `status` = #{status}
         WHERE `job_id` = #{jobId}
           AND `runner_map_id` = #{runnerId} and `status` = #{fromStatus}
+    </update>
+    <update id="updateJobPhaseRunnerStatusByPhaseIdAndExceptStatus">
+        UPDATE
+            `autoexec_job_phase_runner`
+        SET `status` = #{status}
+        WHERE `job_phase_id` = #{phaseId}
+          and `status` not in
+              <foreach collection="fromStatusList" item="fromStatus" open="(" close=")" separator=",">
+                  #{fromStatus}
+              </foreach>
     </update>
     <update id="updateBatchJobPhaseRunnerStatus">
         UPDATE
