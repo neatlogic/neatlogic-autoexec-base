@@ -3312,6 +3312,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         and `status` != 'invalid'
         and `is_delete` = 0
     </update>
+    <update id="updateJobPhaseNodeStatusByJobAndStatus">
+        UPDATE
+        `autoexec_job_phase_node`
+        SET
+        `status` = #{status}
+        WHERE `job_id` = #{jobId} and
+        `status` in
+        <foreach collection="whereStatusList" item="whereStatus" separator="," open="(" close=")">
+            #{whereStatus}
+        </foreach>
+    </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE

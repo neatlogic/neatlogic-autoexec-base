@@ -450,4 +450,6 @@ public interface AutoexecJobMapper {
     Integer isHasPendingNode(Long jobPhaseId);
 
     void updateJobPhaseRunnerStatusByPhaseIdAndRunnerIdAndStatus(@Param("phaseId") Long phaseId,@Param("runnerMapId") Long runnerMapId,@Param("status") String status);
+
+    void updateJobPhaseNodeStatusByJobAndStatus(@Param("jobId") Long jobId,@Param("whereStatusList") List<String> whereStatusList,@Param("status") String status);
 }
