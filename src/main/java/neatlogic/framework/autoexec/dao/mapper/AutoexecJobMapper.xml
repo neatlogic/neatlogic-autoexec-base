@@ -3003,7 +3003,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             #{runnerId}
         </foreach>
     </update>
-    <update id="updateJobPhaseRunnerStatusAndWarnCount">
+    <update id="updateJobPhaseRunnerStatusAndWarnCountByExceptStatus">
         UPDATE
         `autoexec_job_phase_runner`
         SET
@@ -3014,6 +3014,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         WHERE `job_phase_id` in
         <foreach collection="jobPhaseIdList" item="phaseId" separator="," open="(" close=")">
             #{phaseId}
+        </foreach>
+        and `status` not in
+        <foreach collection="exceptStatusList" separator="," close=")" open="(" item="exceptStatus" >
+            #{exceptStatus}
         </foreach>
         AND `runner_map_id` = #{runnerId}
     </update>
@@ -3033,6 +3037,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
               <foreach collection="fromStatusList" item="fromStatus" open="(" close=")" separator=",">
                   #{fromStatus}
               </foreach>
+    </update>
+    <update id="updateJobPhaseRunnerStatusByJobIdAndExceptStatus">
+        UPDATE
+        `autoexec_job_phase_runner`
+        SET `status` = #{status}
+        WHERE `job_id` = #{jobId}
+        and `status` not in
+        <foreach collection="fromStatusList" item="fromStatus" open="(" close=")" separator=",">
+            #{fromStatus}
+        </foreach>
     </update>
     <update id="updateBatchJobPhaseRunnerStatus">
         UPDATE

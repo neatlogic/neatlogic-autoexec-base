@@ -351,11 +351,13 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList(@Param("jobPhaseIdList") List<Long> jobPhaseIdList,@Param("runnerIdList")List<Long> runnerIdList, @Param("status") String status);
 
-    Integer updateJobPhaseRunnerStatusAndWarnCount(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount);
+    Integer updateJobPhaseRunnerStatusAndWarnCountByExceptStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount,@Param("exceptStatusList") List<String> exceptStatusList);
 
     Integer updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId, @Param("status") String status,@Param("fromStatus") String fromStatus);
 
     Integer updateJobPhaseRunnerStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId,  @Param("status") String status,@Param("fromStatusList") List<String> fromStatusList);
+
+    Integer updateJobPhaseRunnerStatusByJobIdAndExceptStatus(@Param("jobId") Long jobId,  @Param("status") String status,@Param("fromStatusList") List<String> fromStatusList);
 
     Integer updateBatchJobPhaseRunnerStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("status") String status);
 
