@@ -88,6 +88,21 @@ public abstract class ScriptParamTypeBase implements IScriptParamType{
         return value;
     }
 
+    protected String getString(JSONArray jsonArray) {
+        if (jsonArray.size() > 1) {
+            return jsonArray.toJSONString();
+        } else if (jsonArray.size() == 1) {
+            Object obj = jsonArray.get(0);
+            if (obj instanceof JSONObject || obj instanceof JSONArray) {
+                return JSONObject.toJSONString(obj);
+            } else {
+                return obj.toString();
+            }
+        } else {
+            return null;
+        }
+    }
+
     protected List<String> getStringList(JSONArray jsonArray) {
         List<String> resultList = new ArrayList<>();
         for (Object obj : jsonArray) {
