@@ -28,7 +28,6 @@ import neatlogic.framework.file.dto.FileVo;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -130,11 +129,11 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     }
 
     public String getTitle() {
-        if (StringUtils.isNotBlank(status)) {
-            if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
-                title = "版本" + version;
-            }
-        }
+//        if (StringUtils.isNotBlank(status)) {
+//            if (Objects.equals(status, ScriptVersionStatus.PASSED.getValue())) {
+//                title = "版本" + version;
+//            }
+//        }
         return title;
     }
 
