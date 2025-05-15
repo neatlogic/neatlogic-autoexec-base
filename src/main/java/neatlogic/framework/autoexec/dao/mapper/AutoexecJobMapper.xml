@@ -1057,6 +1057,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajpn.`start_time`   AS startTime,
                ajpn.`end_time`     AS endTime,
                ajpn.`resource_id`  as resourceId,
+               ajpn.`runner_map_id` as runnerMapId,
                ajpn.`status`
         FROM `autoexec_job_phase_node` ajpn
         where ajpn.`job_id` = #{jobId}
@@ -1450,6 +1451,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.`user_name` as userName,
         ajpn.`protocol_id` AS protocolId,
         ajpn.`resource_id` as resourceId,
+        ajpn.`runner_map_id` as runnerMapId,
         ap.`id` AS runnerId,
         ap.`url` AS runnerUrl
         FROM `autoexec_job_phase_node` ajpn

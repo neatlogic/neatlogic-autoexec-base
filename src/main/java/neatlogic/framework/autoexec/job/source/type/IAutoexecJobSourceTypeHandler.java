@@ -168,6 +168,15 @@ public interface IAutoexecJobSourceTypeHandler {
     boolean getIsCanUpdatePhaseRunner(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId);
 
     /**
+     * 是否可以更新sql节点状态
+     *
+     * @param jobPhaseVo  作业阶段
+     * @param runnerMapId 执行器id
+     * @return 是｜否
+     */
+    boolean getIsCanUpdateSqlNode(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId);
+
+    /**
      * 执行用户是否可以执行作业
      *
      * @param jobVo 作业
