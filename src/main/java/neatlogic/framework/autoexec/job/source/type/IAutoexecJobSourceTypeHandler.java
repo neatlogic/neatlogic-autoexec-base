@@ -18,6 +18,7 @@ package neatlogic.framework.autoexec.job.source.type;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.INodeDetail;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopPhaseConfigVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
@@ -113,7 +114,15 @@ public interface IAutoexecJobSourceTypeHandler {
      *
      * @param jobVo 作业参数
      */
-    List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo);
+    default List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo) {
+        return  getRunnerMapList( jobVo, null);
+    }
+    /**
+     * 获取runnerMapList
+     *
+     * @param jobVo 作业参数
+     */
+    List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo, AutoexecCombopPhaseConfigVo combopPhaseExecuteConfigVo);
 
     /**
      * @param jobId       作业id
