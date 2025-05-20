@@ -96,6 +96,10 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     private String scriptHash;
     @EntityField(name = "预制参数集id", type = ApiParamType.LONG)
     private Long profileId;
+    @EntityField(name = "脚本版本备注", type = ApiParamType.STRING)
+    private String title;
+    @EntityField(name = "脚本版本", type = ApiParamType.INTEGER)
+    private Integer version;
 
     public AutoexecJobPhaseOperationVo() {
     }
@@ -435,5 +439,21 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     public void setLetter(String letter) {
         this.letter = letter;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

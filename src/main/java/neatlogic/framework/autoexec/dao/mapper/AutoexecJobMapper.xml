@@ -739,29 +739,119 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         order by `sort` asc
     </select>
 
-    <select id="getJobPhaseOperationListWithParentByJobIdAndPhaseId"
+    <select id="getJobPhaseOperationListWithVersionWithoutParentByJobIdAndPhaseId"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
-        SELECT `job_id`                as jobId,
-               `job_phase_id`          as jobPhaseId,
-               `id`,
-               `name`,
-               `type`,
-               `parser`,
-               `exec_mode`             as execMode,
-               `sort`,
-               `fail_policy`           as failPolicy,
-               version_id              as versionId,
-               `param_hash`            as paramHash,
-               `profile_id`            as profileId,
-               `parent_operation_id`   as parentOperationId,
-               `parent_operation_type` as parentOperationType,
-               `uuid`,
-               `letter`
+        SELECT ajpo.`job_id`       as jobId,
+               ajpo.`job_phase_id` as jobPhaseId,
+               ajpo.`id`,
+               ajpo.`name`,
+               ajpo.`type`,
+               ajpo.`parser`,
+               ajpo.`exec_mode`    as execMode,
+               ajpo.`sort`,
+               ajpo.`operation_id` as operationId,
+               ajpo.`fail_policy`  as failPolicy,
+               ajpo.version_id     as versionId,
+               ajpo.`param_hash`   as paramHash,
+               ajpo.`profile_id`   as profileId,
+               ajpo.`uuid`,
+               ajpo.`letter`,
+               asv.title,
+               asv.version
+        FROM `autoexec_job_phase_operation` ajpo
+        left join  `autoexec_script_version` asv on ajpo.operation_id = asv.script_id and ajpo.version_id = asv.id
+        where ajpo.`job_id` = #{jobId}
+          and ajpo.`job_phase_id` = #{phaseId}
+          and ajpo.`parent_operation_id` is null
+        order by ajpo.`sort` asc
+    </select>
+
+    <resultMap id="AutoexecJobPhaseWithOperationMap" type="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo">
+        <id column="id" property="id"/>
+        <result column="jobId" property="jobId"/>
+        <result column="status" property="status"/>
+        <result column="startTime" property="startTime"/>
+        <result column="endTime" property="endTime"/>
+        <result column="execUser" property="execUser"/>
+        <result column="execMode" property="execMode"/>
+        <result column="executePolicy" property="executePolicy"/>
+        <result column="name" property="name"/>
+        <result column="groupId" property="groupId"/>
+        <result column="sort" property="sort"/>
+        <result column="warnCount" property="warnCount"/>
+        <result column="uuid" property="uuid"/>
+        <result column="isPreOutputUpdateNode" property="isPreOutputUpdateNode"/>
+        <result column="roundCount" property="roundCount"/>
+        <result column="nodeFrom" property="nodeFrom"/>
+        <result column="protocolFrom" property="protocolFrom"/>
+        <result column="userNameFrom" property="userNameFrom"/>
+        <result column="roundCountFrom" property="roundCountFrom"/>
+        <result column="userName" property="userName"/>
+        <result column="protocol" property="protocol"/>
+        <collection property="operationList" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+            <result column="jobOperationId" property="id"/>
+            <result column="operationName" property="name"/>
+            <result column="operationType" property="type"/>
+            <result column="operationParser" property="parser"/>
+            <result column="operationExecMode" property="execMode"/>
+            <result column="operationId" property="operationId"/>
+            <result column="operationFailPolicy" property="failPolicy"/>
+            <result column="operationVersionId" property="versionId"/>
+            <result column="operationParamHash" property="paramHash"/>
+            <result column="operationProfileId" property="profileId"/>
+            <result column="operationUuid" property="uuid"/>
+            <result column="operationLetter" property="letter"/>
+        </collection>
+    </resultMap>
+    <select id="getJobPhaseListWithOperationWithoutParentByJobId" resultMap="AutoexecJobPhaseWithOperationMap">
+        SELECT `job_id`       as jobId,
+               `job_phase_id` as id,
+               `id` as jobOperationId,
+               `name` as operationName,
+               `type` as operationType,
+               `parser` as operationParser,
+               `exec_mode`    as operationExecMode,
+               `sort` as operationSort,
+               `operation_id` as operationId,
+               `fail_policy`  as operationFailPolicy,
+                version_id     as operationVersionId,
+               `param_hash`   as operationParamHash,
+               `profile_id`   as operationProfileId,
+               `uuid` as operationUuid,
+               `letter` as operationLetter
         FROM `autoexec_job_phase_operation`
         where `job_id` = #{jobId}
-          and `job_phase_id` = #{phaseId}
-          and `parent_operation_id` is not null
+          and `parent_operation_id` is null
         order by `sort` asc
+    </select>
+
+
+    <select id="getJobPhaseOperationListWithVersionAndParentByJobIdAndPhaseId"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+        SELECT ajpo.`job_id`                as jobId,
+               ajpo.`job_phase_id`          as jobPhaseId,
+               ajpo.`id`,
+               ajpo.`name`,
+               ajpo.`type`,
+               ajpo.`parser`,
+               ajpo.`exec_mode`             as execMode,
+               ajpo.`sort`,
+               ajpo.`fail_policy`           as failPolicy,
+               ajpo.version_id              as versionId,
+               ajpo.`param_hash`            as paramHash,
+               ajpo.`profile_id`            as profileId,
+               ajpo.`parent_operation_id`   as parentOperationId,
+               ajpo.`parent_operation_type` as parentOperationType,
+               ajpo.`uuid`,
+               ajpo.`letter`,
+               asv.title,
+               asv.version
+        FROM `autoexec_job_phase_operation` ajpo
+        left join  `autoexec_script_version` asv on ajpo.operation_id = asv.script_id and ajpo.version_id = asv.id
+        where  ajpo.`job_id` = #{jobId}
+          and ajpo.`job_phase_id` = #{phaseId}
+          and ajpo.`parent_operation_id` is not null
+        order by ajpo.`sort` asc
     </select>
 
     <select id="getJobPhaseOperationByJobIdAndPhaseUuidAndUuid"
