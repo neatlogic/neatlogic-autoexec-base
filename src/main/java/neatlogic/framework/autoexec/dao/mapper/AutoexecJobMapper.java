@@ -383,6 +383,8 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseFrom(AutoexecJobPhaseVo jobVo);
 
+    Integer updateJobPhaseRunnerGroupFrom(@Param("runnerGroupFrom") String runnerGroupFrom, @Param("id") Long phaseId);
+
     Integer updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList(@Param("nodeIdList") List<Long> nodeIdList);
 
     Integer updateJobPhaseOperationVersionIdByJobIdAndOperationId(@Param("versionId") Long versionId, @Param("jobId") Long jobId, @Param("operationId") Long operationId);

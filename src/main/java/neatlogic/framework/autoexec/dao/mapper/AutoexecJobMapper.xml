@@ -897,7 +897,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                `user_name_from`            as userNameFrom,
                `protocol_from`             as protocolFrom,
                `is_pre_output_update_node` as isPreOutputUpdateNode,
-               `round_count`               as roundCount
+               `round_count`               as roundCount,
+               `runner_group_from`         as runnerGroupFrom
         FROM `autoexec_job_phase`
         WHERE `job_id` = #{jobId}
           and `name` = #{jobPhaseName}
@@ -1076,7 +1077,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                `name`,
                `exec_mode` as execMode,
                `sort`,
-               `status`
+               `status`,
+               `runner_group_from` as runnerGroupFrom
         FROM `autoexec_job_phase`
         WHERE `job_id` = #{jobId}
           and `id` = #{jobPhaseId}
@@ -3218,6 +3220,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             `user_name` =#{userName},
             `protocol` = #{protocol},
             `round_count` = #{roundCount}
+        where id = #{id}
+    </update>
+
+    <update id="updateJobPhaseRunnerGroupFrom">
+        update `autoexec_job_phase`
+        set `runner_group_from`      = #{runnerGroupFrom}
         where id = #{id}
     </update>
     <update id="updateJobPhaseNodeResetStartTimeAndEndTimeByNodeIdList">
