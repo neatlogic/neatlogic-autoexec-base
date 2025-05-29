@@ -3102,6 +3102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         UPDATE
         `autoexec_job_phase_runner`
         SET
+        `lcd` = now(),
         `status` = #{status}
         <if test="warnCount != null">
             ,`warn_count` = #{warnCount}
