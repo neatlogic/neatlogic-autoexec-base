@@ -407,8 +407,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         FROM
         `autoexec_job_phase_node` ajpn
         JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        join `deploy_job_resource_blue_green` djrbg on djrbg.job_id = ajpn.job_id and  ajpn.resource_id = djrbg.resource_id
-        join `deploy_blue_green` dbg on djrbg.blue_green_id = dbg.id
+        left join `deploy_job_resource_blue_green` djrbg on djrbg.job_id = ajpn.job_id and  ajpn.resource_id = djrbg.resource_id
+        left join `deploy_blue_green` dbg on djrbg.blue_green_id = dbg.id
         where
         ajpn.`job_id` = #{nodeVo.jobId}
         <if test="seqNo == 0">
