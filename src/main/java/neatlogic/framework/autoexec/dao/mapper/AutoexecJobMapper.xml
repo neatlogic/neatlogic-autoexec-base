@@ -407,10 +407,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         FROM
         `autoexec_job_phase_node` ajpn
         JOIN `autoexec_job_phase` ajp ON ajpn.`job_phase_id` = ajp.`id`
-        join `deploy_job_resource_blue_green` djrbg on ajpn.resource_id = djrbg.resource_id
+        join `deploy_job_resource_blue_green` djrbg on djrbg.job_id = ajpn.job_id and  ajpn.resource_id = djrbg.resource_id
         join `deploy_blue_green` dbg on djrbg.blue_green_id = dbg.id
         where
-        ajp.`job_id` = #{nodeVo.jobId}
+        ajpn.`job_id` = #{nodeVo.jobId}
         <if test="seqNo == 0">
             and dbg.sort is null
         </if>
@@ -3105,7 +3105,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <update id="updateJobPhaseRunnerStatusAndWarnCount">
         UPDATE
             `autoexec_job_phase_runner`
-        SET `status` = #{status},
+        SET `status` = #{status}
         <if test="warnCount != null">
             ,`warn_count` = #{warnCount}
         </if>
