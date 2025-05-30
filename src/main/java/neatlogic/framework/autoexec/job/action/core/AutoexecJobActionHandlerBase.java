@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.job.action.core;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthActionChecker;
 import neatlogic.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
@@ -183,7 +184,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         if (CollectionUtils.isEmpty(jsonObj.getJSONArray("resourceIdList"))) {
             throw new ParamIrregularException("resourceIdList");
         }
-        List<Long> resourceIdList = JSONObject.parseArray(jsonObj.getJSONArray("resourceIdList").toJSONString(), Long.class);
+        List<Long> resourceIdList = JSON.parseArray(jsonObj.getJSONArray("resourceIdList").toJSONString(), Long.class);
         List<AutoexecJobPhaseNodeVo> nodeVoList = autoexecJobMapper.getJobPhaseNodeListByJobPhaseIdAndResourceIdList(jobVo.getCurrentPhaseId(), resourceIdList);
         if (CollectionUtils.isEmpty(nodeVoList)) {
             throw new AutoexecJobPhaseNodeNotFoundException(StringUtils.EMPTY, resourceIdList.stream().map(Object::toString).collect(Collectors.joining(",")));
