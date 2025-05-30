@@ -142,7 +142,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 throw new AutoexecJobNotFoundException(phaseVo.getJobId());
             }
             jobVo.setSource(jobVoTmp.getSource());
-            jobVo.setCurrentPhase(phaseVo);
+            jobVo.setExecutePhase(phaseVo);
             jobVo.setId(phaseVo.getJobId());
         }
 
@@ -152,7 +152,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         //如果nodeVo为null，说明phase是local模式,没有resourceId,phase只有唯一node
         //TODO 需要分拆接口
         Long nodeId = jobVo.getActionParam().getLong("nodeId");
-        if (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") != null) {
+        if (Objects.equals(ExecMode.SQL.getValue(), jobVo.getExecutePhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") != null) {
             if (StringUtils.isBlank(jobVo.getActionParam().getString("sqlName"))) {
                 throw new ParamIrregularException("sqlName");
             }
@@ -167,7 +167,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             }
             RunnerMapVo runnerMapVo = runnerMapper.getRunnerMapByRunnerMapId(sqlDetailVo.getRunnerId());
             jobVo.setCurrentNode(new AutoexecJobPhaseNodeVo(sqlDetailVo.getJobId(), sqlDetailVo.getPhaseName(), sqlDetailVo.getHost(), sqlDetailVo.getPort(), sqlDetailVo.getResourceId(), runnerMapVo.getUrl(), sqlDetailVo.getRunnerId()));
-        } else if (jobVo.getCurrentNodeResourceId() != null || (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") == null) || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
+        } else if (jobVo.getCurrentNodeResourceId() != null || (Objects.equals(ExecMode.SQL.getValue(), jobVo.getExecutePhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") == null) || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getExecutePhase().getExecMode())) {
             AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
             if (nodeVo == null) {
                 throw new AutoexecJobPhaseNodeNotFoundException(jobVo.getCurrentPhaseId().toString(), jobVo.getCurrentNodeResourceId() == null ? StringUtils.EMPTY : jobVo.getCurrentNodeResourceId().toString());

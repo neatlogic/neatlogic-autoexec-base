@@ -157,7 +157,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @JSONField(serialize = false)
     private Long currentPhaseId;
     @JSONField(serialize = false)
-    private AutoexecJobPhaseVo currentPhase;
+    private AutoexecJobPhaseVo executePhase;
     @JSONField(serialize = false)
     private AutoexecJobPhaseVo preOutputPhase;
     @JSONField(serialize = false)
@@ -825,12 +825,12 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         this.lncd = lncd;
     }
 
-    public AutoexecJobPhaseVo getCurrentPhase() {
-        return currentPhase;
+    public AutoexecJobPhaseVo getExecutePhase() {
+        return executePhase;
     }
 
-    public void setCurrentPhase(AutoexecJobPhaseVo currentPhase) {
-        this.currentPhase = currentPhase;
+    public void setExecutePhase(AutoexecJobPhaseVo executePhase) {
+        this.executePhase = executePhase;
     }
 
     public JSONObject getParam() {
