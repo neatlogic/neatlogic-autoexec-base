@@ -177,8 +177,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @JSONField(serialize = false)
     private AutoexecJobGroupVo executeJobGroupVo;
     @JSONField(serialize = false)
-    private List<AutoexecJobPhaseVo> executeJobPhaseList;
-    @JSONField(serialize = false)
     List<AutoexecParamVo> runTimeParamList = new ArrayList<>();
     @JSONField(serialize = false)
     String runTimeParamListStr;
@@ -801,14 +799,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setExecuteJobGroupVo(AutoexecJobGroupVo executeJobGroupVo) {
         this.executeJobGroupVo = executeJobGroupVo;
-    }
-
-    public List<AutoexecJobPhaseVo> getExecuteJobPhaseList() {
-        return executeJobPhaseList;
-    }
-
-    public void setExecuteJobPhaseList(List<AutoexecJobPhaseVo> executeJobPhaseList) {
-        this.executeJobPhaseList = executeJobPhaseList;
     }
 
     public String getNodeFrom() {
