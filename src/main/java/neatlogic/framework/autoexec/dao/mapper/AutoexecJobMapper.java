@@ -166,6 +166,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatusAndRunnerMapId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus, @Param("runnerMapId") Long runnerMapId);
 
+    List<String> getJobPhaseNodeStatusList(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("runnerMapId") Long runnerMapId);
+
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListWithRunnerByJobId(@Param("jobId") Long jobId);
@@ -305,6 +307,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecSqlNodeDetailVo> getJobSqlDetailListByJobIdAndPhaseNameAndExceptStatusAndRunnerMapId(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("exceptStatusList") List<String> exceptStatusList, @Param("runnerMapId") Long runnerMapId);
 
+    List<String> getJobSqlDetailStatusList(@Param("jobId") Long jobId, @Param("jobPhaseName") String jobPhaseName, @Param("runnerMapId") Long runnerMapId);
+
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
     List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long id, @Param("jobPhaseId") Long id1);
@@ -353,15 +357,15 @@ public interface AutoexecJobMapper {
 
     Integer updateJobPhaseRunnerStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status);
 
-    Integer updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList(@Param("jobPhaseIdList") List<Long> jobPhaseIdList,@Param("runnerIdList")List<Long> runnerIdList, @Param("status") String status);
+    Integer updateJobPhaseRunnerStatusByPhaseIdListAndRunnerIdList(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerIdList") List<Long> runnerIdList, @Param("status") String status);
 
-    Integer updateJobPhaseRunnerStatusAndWarnCountByExceptStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount,@Param("exceptStatusList") List<String> exceptStatusList);
+    Integer updateJobPhaseRunnerStatusAndWarnCountByExceptStatus(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("warnCount") Integer warnCount, @Param("exceptStatusList") List<String> exceptStatusList);
 
-    Integer updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId, @Param("status") String status,@Param("fromStatus") String fromStatus);
+    Integer updateJobPhaseRunnerStatusByJobIdAndRunnerIdAndStatus(@Param("jobId") Long jobId, @Param("runnerId") Long runnerId, @Param("status") String status, @Param("fromStatus") String fromStatus);
 
-    Integer updateJobPhaseRunnerStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId,  @Param("status") String status,@Param("fromStatusList") List<String> fromStatusList);
+    Integer updateJobPhaseRunnerStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId, @Param("status") String status, @Param("fromStatusList") List<String> fromStatusList);
 
-    Integer updateJobPhaseRunnerStatusByJobIdAndExceptStatus(@Param("jobId") Long jobId,  @Param("status") String status,@Param("fromStatusList") List<String> fromStatusList);
+    Integer updateJobPhaseRunnerStatusByJobIdAndExceptStatus(@Param("jobId") Long jobId, @Param("status") String status, @Param("fromStatusList") List<String> fromStatusList);
 
     Integer updateBatchJobPhaseRunnerStatus(@Param("jobPhaseId") Long jobPhaseId, @Param("status") String status);
 
@@ -445,17 +449,19 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobVo> getJobListLockByParentId(Long jobId);
 
-    void updateJobSqlStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
+    void updateJobSqlStatusByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("status") String status);
 
-    void updateJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long jobId,@Param("phaseId") Long phaseId,@Param("status") String status);
+    void updateJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("status") String status);
 
-    void updateJobPhaseNodeBatch(@Param("jobPhaseId") Long phaseId,@Param("resourceIdList") List<Long> resourceIdList,@Param("status") String value,@Param("updateTag") long time);
+    void updateJobPhaseNodeBatch(@Param("jobPhaseId") Long phaseId, @Param("resourceIdList") List<Long> resourceIdList, @Param("status") String value, @Param("updateTag") long time);
 
-    void updateJobPhaseNodeListStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus,@Param("status") String status);
+    void updateJobPhaseNodeListStatusByPhaseIdAndExceptStatus(@Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus, @Param("status") String status);
 
     Integer isHasPendingNode(Long jobPhaseId);
 
-    void updateJobPhaseRunnerStatusByPhaseIdAndRunnerIdAndStatus(@Param("phaseId") Long phaseId,@Param("runnerMapId") Long runnerMapId,@Param("status") String status);
+    void updateJobPhaseRunnerStatusByPhaseIdAndRunnerIdAndStatus(@Param("phaseId") Long phaseId, @Param("runnerMapId") Long runnerMapId, @Param("status") String status);
 
-    void updateJobPhaseNodeStatusByJobAndStatus(@Param("jobId") Long jobId,@Param("whereStatusList") List<String> whereStatusList,@Param("status") String status);
+    void updateJobPhaseRunnerStatusAndWarnCount(@Param("phaseId") Long phaseId, @Param("runnerMapId") Long runnerMapId, @Param("status") String status,@Param("warnCount") Integer warnCount);
+
+    void updateJobPhaseNodeStatusByJobAndStatus(@Param("jobId") Long jobId, @Param("whereStatusList") List<String> whereStatusList, @Param("status") String status);
 }

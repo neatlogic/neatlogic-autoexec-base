@@ -1139,6 +1139,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         and ajpn.`is_delete` = 0
     </select>
 
+    <select id="getJobPhaseNodeStatusList" resultType="java.lang.String">
+        SELECT
+        ajpn.`status`
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_id` = #{jobId} and ajpn.`job_phase_id` = #{phaseId}
+        and ajpn.runner_map_id = #{runnerMapId}
+        and ajpn.`is_delete` = 0
+        and ajpn.`status` != 'invalid'
+        group by ajpn.`status`
+    </select>
+
     <select id="getJobPhaseNodeListByJobIdAndPhaseId"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
         SELECT ajpn.`id`,
@@ -2178,6 +2189,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             #{status}
         </foreach>
     </select>
+    <select id="getJobSqlDetailStatusList" resultType="java.lang.String">
+        select
+        ajsd.`status`
+        from autoexec_job_sql_detail ajsd
+        where ajsd.job_id = #{jobId}
+        and ajsd.job_phase_name = #{jobPhaseName}
+        and ajsd.`runner_id` = #{runnerMapId}
+        and ajsd.`is_delete` = 0
+        group by  ajsd.`status`
+    </select>
     <select id="getJobListLockByParentIdAndStatus"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         SELECT aj.`id`,
@@ -3078,6 +3099,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         UPDATE
             `autoexec_job_phase_runner`
         SET `status` = #{status}
+        WHERE `job_phase_id` = #{phaseId}
+          AND `runner_map_id` = #{runnerMapId}
+    </update>
+    <update id="updateJobPhaseRunnerStatusAndWarnCount">
+        UPDATE
+            `autoexec_job_phase_runner`
+        SET `status` = #{status},
+        <if test="warnCount != null">
+            ,`warn_count` = #{warnCount}
+        </if>
         WHERE `job_phase_id` = #{phaseId}
           AND `runner_map_id` = #{runnerMapId}
     </update>
