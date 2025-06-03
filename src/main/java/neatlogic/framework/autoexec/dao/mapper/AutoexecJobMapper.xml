@@ -1140,14 +1140,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     </select>
 
     <select id="getJobPhaseNodeStatusList" resultType="java.lang.String">
-        SELECT
-        ajpn.`status`
-        FROM `autoexec_job_phase_node` ajpn
-        where ajpn.`job_id` = #{jobId} and ajpn.`job_phase_id` = #{phaseId}
-        and ajpn.runner_map_id = #{runnerMapId}
-        and ajpn.`is_delete` = 0
-        and ajpn.`status` != 'invalid'
-        group by ajpn.`status`
+        <foreach collection="statusList" item="status" open="(" separator=") union (" close=")">
+            SELECT
+            ajpn.`status`
+            FROM `autoexec_job_phase_node` ajpn
+            where ajpn.`job_id` = #{jobId}
+            and ajpn.`job_phase_id` = #{phaseId}
+            and ajpn.runner_map_id = #{runnerMapId}
+            and ajpn.`is_delete` = 0
+            and ajpn.`status` = #{status}
+            limit 1
+        </foreach>
     </select>
 
     <select id="getJobPhaseNodeListByJobIdAndPhaseId"
@@ -1246,6 +1249,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                         ar.`url`,
                         ar.`host`,
                         ar.`port`,
+                        ajpr.job_id  as jobId,
                         ajpr.job_phase_id  as jobPhaseId,
                         ajpr.runner_map_id as runnerMapId,
                         ajpr.`status`
@@ -2190,14 +2194,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         </foreach>
     </select>
     <select id="getJobSqlDetailStatusList" resultType="java.lang.String">
-        select
-        ajsd.`status`
-        from autoexec_job_sql_detail ajsd
-        where ajsd.job_id = #{jobId}
-        and ajsd.job_phase_name = #{jobPhaseName}
-        and ajsd.`runner_id` = #{runnerMapId}
-        and ajsd.`is_delete` = 0
-        group by  ajsd.`status`
+        <foreach collection="statusList" item="status" open="" separator=" union " close="">
+            select
+            ajsd.`status`
+            from autoexec_job_sql_detail ajsd
+            where ajsd.job_id = #{jobId}
+            and ajsd.job_phase_name = #{jobPhaseName}
+            and ajsd.`runner_id` = #{runnerMapId}
+            and ajsd.`is_delete` = 0
+            and ajsd.`status` = #{status}
+            limit 1
+        </foreach>
     </select>
     <select id="getJobListLockByParentIdAndStatus"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
@@ -2553,6 +2560,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         order by `sort` asc
         limit 1
     </select>
+    <select id="getJobRunnerExec" resultType="java.lang.Long">
+        select `job_id`        as jobId
+        from `autoexec_job_exec`
+        where `job_id` = #{jobId}
+        limit 1
+    </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         INSERT INTO `autoexec_job` (`id`,
@@ -2832,6 +2845,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                    `lcd`           = #{lcd}
     </insert>
 
+    <insert id="insertJobRunner">
+        INSERT INTO `autoexec_job_runner` (`job_id`, `runner_map_id`,`status`, `lcd`)
+        VALUES
+        <foreach collection="autoexecJobPhaseRunnerList" separator="),(" close=")" open="("
+                 item="autoexecJobPhaseRunner">
+            #{autoexecJobPhaseRunner.jobId}, #{autoexecJobPhaseRunner.runnerMapId}, #{autoexecJobPhaseRunner.status},
+            #{updateTag}
+        </foreach>
+        ON DUPLICATE KEY
+        UPDATE
+        `status` = VALUES(`status`),
+        `lcd` = VALUES(`lcd`)
+    </insert>
+
+
     <insert id="insertDuplicateJobEnv" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobEnvVo">
         INSERT INTO `autoexec_job_env` (`job_id`, `name`, `value`)
         VALUES (#{jobId}, #{name}, #{value})
@@ -2996,6 +3024,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <insert id="insertAutoexecJobProcessTaskStep">
         INSERT INTO `autoexec_job_processtask_step` (`processtask_step_id`, `job_id`)
         VALUES (#{processTaskStepId}, #{jobId})
+    </insert>
+    <insert id="insertJobExec">
+        INSERT INTO `autoexec_job_exec` (`job_id`, `runner_map_id`, `exec_id`, `action`, `fcd`)
+        VALUES (#{jobId}, #{runnerMapId}, #{execId}, #{action}, now())
     </insert>
 
     <update id="updateJobPhaseStatus" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo">
@@ -3537,6 +3569,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         DELETE
         FROM `autoexec_job_processtask_step`
         WHERE `processtask_step_id` = #{value}
+    </delete>
+
+    <delete id="deleteJobRunnerByJobId" parameterType="java.lang.Long">
+        DELETE
+        FROM `autoexec_job_runner`
+        WHERE `job_id` = #{value}
+    </delete>
+    <delete id="deleteJobByJobIdAndUpdateTag">
+        DELETE
+        FROM `autoexec_job_runner`
+        WHERE `job_id` = #{jobId}
+          and `lcd` = #{updateTag}
+    </delete>
+    <delete id="deleteJobExec">
+        delete
+        from  `autoexec_job_exec`
+        where `job_id` = #{jobId}
+        and `runner_map_id` = #{runnerMapId}
+        and `exec_id` = #{execId}
+    </delete>
+    <delete id="deleteJobExecByJobId">
+        delete
+        from  `autoexec_job_exec`
+        where `job_id` = #{value}
     </delete>
 </mapper>
 

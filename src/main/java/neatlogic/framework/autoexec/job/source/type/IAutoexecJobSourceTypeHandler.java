@@ -172,10 +172,11 @@ public interface IAutoexecJobSourceTypeHandler {
      * 获取对应阶段的sql或节点的所有状态
      *
      * @param jobPhaseVo  作业阶段
+     * @param needCountStatusList 需要统计的节点状态
      * @param runnerMapId 执行器id
      * @return 是｜否
      */
-    List<String> getPhaseNodeOrSqlStatusList(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId);
+    List<String> getPhaseSqlStatusList(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId,  List<String> needCountStatusList);
 
     /**
      * 是否可以更新sql节点状态

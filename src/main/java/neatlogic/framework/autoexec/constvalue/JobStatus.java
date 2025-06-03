@@ -45,7 +45,6 @@ public enum JobStatus implements IEnum {
     private static List<String> completedStatusList = Arrays.asList(JobStatus.COMPLETED.getValue(), JobStatus.CHECKED.getValue());
     private static List<String> runningStatusList = Arrays.asList(JobStatus.PAUSED.getValue(), JobStatus.PAUSING.getValue(), JobStatus.PENDING.getValue(), JobStatus.READY.getValue(), JobStatus.RUNNING.getValue(), JobStatus.SAVED.getValue(), JobStatus.WAIT_INPUT.getValue(), JobStatus.WAITING.getValue());
     private static List<String> failedStatusList = Arrays.asList(JobStatus.ABORTED.getValue(), JobStatus.ABORTING.getValue(), JobStatus.FAILED.getValue(), JobStatus.REVOKED.getValue());
-
     private JobStatus(String _status, String _text) {
         this.status = _status;
         this.text = _text;
