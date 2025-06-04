@@ -3137,7 +3137,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <update id="updateJobPhaseRunnerStatusAndWarnCount">
         UPDATE
             `autoexec_job_phase_runner`
-        SET `status` = #{status}
+        SET `status` = #{status},
+            `lcd` = now(),
         <if test="warnCount != null">
             ,`warn_count` = #{warnCount}
         </if>
