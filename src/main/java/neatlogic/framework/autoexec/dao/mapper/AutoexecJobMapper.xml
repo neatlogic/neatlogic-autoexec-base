@@ -484,6 +484,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
     </select>
 
+    <select id="getJobPhaseListWithGroupAndRunnerByJobId" parameterType="java.lang.Long"
+            resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+               ajp.`job_id`                    as jobId,
+               ajp.`status`,
+               ajp.`start_time`                as startTime,
+               ajp.`end_time`                  as endTime,
+               ajp.`exec_user`                 as execUser,
+               ajp.`exec_mode`                 as execMode,
+               ajp.`name`                      as name,
+               ajp.`group_id`                  as groupId,
+               ajp.`execute_policy`            as executePolicy,
+               ajp.`sort`,
+               ajp.`warn_count`                as warnCount,
+               ajp.`round_count`               as roundCount,
+               ajp.`user_name`                 as userName,
+               ajp.`user_name_from`            as userNameFrom,
+               ajp.`protocol_from`             as protocolFrom,
+               ajp.`node_from`                 as nodeFrom,
+               ajp.`round_count_from`          as roundCountFrom,
+               ajp.`protocol`,
+               ajg.id                          as groupId,
+               ajg.sort                        as groupSort,
+               ajg.config,
+               ajg.policy                      as groupPolicy,
+               ajp.`uuid`,
+               ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
+               ajpr.runner_map_id as runnerMapId,
+               ajpr.status as runnerStatus,
+               ajpr.is_fire_next as isFireNext,
+               ajpr.lcd as runnerLcd,
+               r.host as runnerHost,
+               r.port as runnerPort,
+               r.name as runnerName
+        FROM `autoexec_job_phase` ajp
+                 left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+                left join `autoexec_job_phase_runner` ajpr on ajpr.job_phase_id = ajp.id
+                left join `runner_map` rm on rm.id = ajpr.runner_map_id
+                left join `runner` r on rm.runner_id = r.id
+        where ajp.`job_id` = #{value}
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
+    </select>
+
     <select id="getJobPhaseListWithGroupByJobIdList" parameterType="java.lang.Long"
             resultMap="AutoexecJobPhaseMap">
         SELECT ajp.`id`,
@@ -541,6 +584,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             <result column="groupSort" property="sort"/>
             <result column="groupPolicy" property="policy"/>
             <result column="config" property="configStr"/>
+        </collection>
+        <collection property="runnerVos" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
+            <result column="runnerMapId" property="id"/>
+            <result column="runnerStatus" property="status"/>
+            <result column="isFireNext" property="isFireNext"/>
+            <result column="runnerLcd" property="lcd"/>
+            <result column="runnerHost" property="host"/>
+            <result column="runnerPort" property="port"/>
+            <result column="runnerName" property="name"/>
         </collection>
     </resultMap>
 
@@ -1869,6 +1921,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajp.`is_pre_output_update_node` as isPreOutputUpdateNode
         FROM `autoexec_job_phase` ajp
         left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        WHERE ajp.job_id = #{jobId} and ajp.id in
+        <foreach collection="jobPhaseIdList" item="value" separator="," open="(" close=")">
+            #{value}
+        </foreach>
+        ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
+    </select>
+
+    <select id="getJobPhaseListWithGroupAndRunnerByJobIdAndPhaseIdList"
+            resultMap="AutoexecJobPhaseMap">
+        SELECT ajp.`id`,
+        ajp.`job_id` as jobId,
+        ajp.`status`,
+        ajp.`start_time` as startTime,
+        ajp.`end_time` as endTime,
+        ajp.`exec_user` as execUser,
+        ajp.`exec_mode` as execMode,
+        ajp.`name` as name,
+        ajp.`group_id` as groupId,
+        ajp.`execute_policy` as executePolicy,
+        ajp.`sort`,
+        ajp.`warn_count` as warnCount,
+        ajp.`user_name`        as userName,
+        ajp.`user_name_from`        as userNameFrom,
+        ajp.`protocol_from`    as protocolFrom,
+        ajp.`node_from`        as nodeFrom,
+        ajp.`round_count_from` as roundCountFrom,
+        ajp.`round_count` as roundCount,
+        ajp.`protocol`,
+        ajg.id as groupId,
+        ajg.sort as groupSort,
+        ajg.config,
+        ajg.policy as groupPolicy,
+        ajp.`uuid`,
+        ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
+        ajpr.runner_map_id as runnerMapId,
+        ajpr.status as runnerStatus,
+        ajpr.is_fire_next as isFireNext,
+        ajpr.lcd as runnerLcd,
+        r.host as runnerHost,
+        r.port as runnerPort,
+        r.name as runnerName
+        FROM `autoexec_job_phase` ajp
+        left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
+        left join `autoexec_job_phase_runner` ajpr on ajpr.job_phase_id = ajp.id
+        left join `runner_map` rm on rm.id = ajpr.runner_map_id
+        left join `runner` r on rm.runner_id = r.id
         WHERE ajp.job_id = #{jobId} and ajp.id in
         <foreach collection="jobPhaseIdList" item="value" separator="," open="(" close=")">
             #{value}

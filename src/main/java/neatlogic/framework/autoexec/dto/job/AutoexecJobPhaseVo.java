@@ -99,6 +99,8 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private String roundCountFrom;//node 协议来源 job|group|phase
     @EntityField(name = "分批数来源", type = ApiParamType.STRING)
     private String runnerGroupFrom;//runner阶段执行器组来源 job|group|phase
+    @EntityField(name = "执行器列表", type = ApiParamType.JSONARRAY)
+    private List<AutoexecJobPhaseRunnerVo> runnerVos;
 
     @JSONField(serialize = false)
     private AutoexecJobNodeVo currentNode;
@@ -429,5 +431,13 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setRunnerGroupFrom(String runnerGroupFrom) {
         this.runnerGroupFrom = runnerGroupFrom;
+    }
+
+    public List<AutoexecJobPhaseRunnerVo> getRunnerVos() {
+        return runnerVos;
+    }
+
+    public void setRunnerVos(List<AutoexecJobPhaseRunnerVo> runnerVos) {
+        this.runnerVos = runnerVos;
     }
 }
