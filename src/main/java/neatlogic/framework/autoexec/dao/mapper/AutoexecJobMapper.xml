@@ -2599,7 +2599,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             #{status}
         </foreach>
     </select>
-    <select id="getJobPhaseRunnerStatusByJobIdAndPhaseId"
+    <select id="getJobPhaseRunnerStatusByNodeStatus"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
         select ajpn.job_id                          as jobId,
                ajpn.job_phase_id                    as jobPhaseId,
@@ -2685,6 +2685,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         from `autoexec_job_exec`
         where `job_id` = #{jobId}
         limit 1
+    </select>
+    <select id="getJobPhaseRunnerStatus"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
+        SELECT
+        job_id as jobId,
+        job_group_id as jobGroupId,
+        job_phase_id as jobPhaseId,
+        `status`,
+        runner_map_id as runnerMapId,
+        is_fire_next as isFireNext,
+        lcd,
+        warn_count as warnCount
+        FROM
+        autoexec_job_phase_runner
+        where job_id = #{jobId} and job_phase_id = #{jobPhaseId}
     </select>
 
     <insert id="insertJob" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">

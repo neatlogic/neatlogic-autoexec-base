@@ -317,7 +317,9 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseVo> getJobPhaseListByJobId(Long jobId);
 
-    List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerStatusByJobIdAndPhaseId(@Param("jobId") Long id, @Param("jobPhaseId") Long id1);
+    List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerStatusByNodeStatus(@Param("jobId") Long id, @Param("jobPhaseId") Long id1);
+
+    AutoexecJobPhaseRunnerVo getJobPhaseRunnerStatus(@Param("jobId") Long jobId, @Param("jobPhaseId") Long phaseId);
 
     List<Long> getJobIdListByProcessTaskStepId(Long processTaskStepId);
 
@@ -484,4 +486,5 @@ public interface AutoexecJobMapper {
     void deleteJobExec(@Param("jobId") Long jobId, @Param("runnerMapId")Long runnerMapId, @Param("execId")Long execId);
 
     void deleteJobExecByJobId(Long jobId);
+
 }
