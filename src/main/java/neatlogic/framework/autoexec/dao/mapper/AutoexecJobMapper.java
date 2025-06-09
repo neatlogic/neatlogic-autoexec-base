@@ -126,6 +126,8 @@ public interface AutoexecJobMapper {
     //jobPhaseRunner
     List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
 
+    List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdListAndExceptStatus(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId,@Param("exceptStatus") List<String> exceptStatus);
+
     //jobPhaseNode
     List<AutoexecJobPhaseNodeVo> searchJobPhaseNodeWithResource(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
 
