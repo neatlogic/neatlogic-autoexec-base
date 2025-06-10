@@ -3152,6 +3152,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         `is_delete`= 0,
         `sort` = VALUES(`sort`),
         `md5` = VALUES(`md5`),
+        `host` = VALUES(`host`),
+        `port` = VALUES(`port`),
         `is_modified` = VALUES(`is_modified`),
         `warn_count` = VALUES(`warn_count`)
     </insert>
