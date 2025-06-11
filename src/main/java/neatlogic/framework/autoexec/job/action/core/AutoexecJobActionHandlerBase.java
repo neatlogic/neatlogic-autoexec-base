@@ -110,7 +110,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (Objects.equals(jobVo.getSource(), JobSource.TEST.getValue())
                     || Objects.equals(jobVo.getSource(), JobSource.SCRIPT_TEST.getValue())
                     || Objects.equals(jobVo.getSource(), JobSource.TOOL_TEST.getValue())) {//测试仅需判断是否有脚本维护权限即可
-                if (!AuthActionChecker.check(AUTOEXEC_SCRIPT_MODIFY.class)) {
+                if (Boolean.FALSE.equals(AuthActionChecker.check(AUTOEXEC_SCRIPT_MODIFY.class))) {
                     throw new AutoexecOperationHasNoModifyAuthException();
                 }
             } else {
