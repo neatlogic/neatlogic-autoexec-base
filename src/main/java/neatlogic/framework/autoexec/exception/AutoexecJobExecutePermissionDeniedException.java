@@ -21,8 +21,8 @@ public class AutoexecJobExecutePermissionDeniedException extends ApiRuntimeExcep
 
     private static final long serialVersionUID = 4744487624323943559L;
 
-    public AutoexecJobExecutePermissionDeniedException(Long jobId) {
-        super("无作业 “{0}” 的执行权限,请刷新页面，重新接管作业", jobId);
+    public AutoexecJobExecutePermissionDeniedException(Long jobId, String currentUser, String execUser) {
+        super("nfae.autoexecjobexecutepermissiondeniedexception.autoexecjobexecutepermissiondeniedexception", jobId, currentUser, execUser);
     }
 
 

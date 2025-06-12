@@ -48,7 +48,7 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
                 if (jobParam.getIsTakeOver() == 1) {
                     autoexecJobMapper.updateJobExecUser(jobId, jobParam.getExecUser());
                 } else {
-                    throw new AutoexecJobExecutePermissionDeniedException(jobId);
+                    throw new AutoexecJobExecutePermissionDeniedException(jobId, execUser, jobParam.getExecUser());
                 }
             }
         }
