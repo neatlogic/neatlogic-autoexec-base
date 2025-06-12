@@ -1,9 +1,9 @@
 package neatlogic.framework.autoexec.util;
 
-import neatlogic.framework.exception.runner.RunnerHttpRequestException;
+import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.exception.core.ApiRuntimeException;
 import neatlogic.framework.integration.authentication.enums.AuthenticateType;
 import neatlogic.framework.util.HttpRequestUtil;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,9 @@ public class AutoexecUtil {
      */
     public static String requestRunner(String runnerUrl, JSONObject paramJson) {
         HttpRequestUtil requestUtil = HttpRequestUtil.post(runnerUrl).setPayload(paramJson.toJSONString()).setAuthType(AuthenticateType.BUILDIN).sendRequest();
-        if (StringUtils.isNotBlank(requestUtil.getErrorMsg())) {
-            throw new RunnerHttpRequestException(requestUtil.getErrorMsg());
+        if (requestUtil.getResponseCode() != 200 || StringUtils.isNotBlank(requestUtil.getError())) {
+            throw new ApiRuntimeException(String.format("Request to %s failed, result: %s, ResponseCode: %s, ErrorMsg: %s, Exception %s",
+                    runnerUrl, requestUtil.getResult(), requestUtil.getResponseCode(), requestUtil.getErrorMsg(), requestUtil.getError()));
         }
         JSONObject resultJson = requestUtil.getResultJson();
         return resultJson.getString("Return");
