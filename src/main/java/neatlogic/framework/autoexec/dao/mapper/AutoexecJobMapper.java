@@ -351,7 +351,7 @@ public interface AutoexecJobMapper {
 
     Integer insertJobPhaseOperation(AutoexecJobPhaseOperationVo operationVo);
 
-    Integer insertIgnoreJobContent(AutoexecJobContentVo contentVo);
+    Integer insertJobContent(AutoexecJobContentVo contentVo);
 
     Integer updateJobLncdById(@Param("jobId") Long jobId, @Param("lcd") Date lcd);
 
