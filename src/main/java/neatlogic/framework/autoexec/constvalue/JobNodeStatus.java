@@ -5,13 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.common.constvalue.IEnum;
 import neatlogic.framework.util.$;
 
+import java.util.Arrays;
 import java.util.List;
 
 public enum JobNodeStatus implements IEnum {
     PENDING("pending", "待运行"),
     RUNNING("running", "运行中"),
-    PAUSING("pausing","暂停中"),
-    PAUSED("paused","已暂停"),
+    PAUSING("pausing", "暂停中"),
+    PAUSED("paused", "已暂停"),
     ABORTING("aborting", "中止中"),
     ABORTED("aborted", "已中止"),
     SUCCEED("succeed", "已成功"),
@@ -22,6 +23,10 @@ public enum JobNodeStatus implements IEnum {
     INVALID("invalid", "非法节点");
     private final String status;
     private final String text;
+
+    private static final List<String> completedStatusList = Arrays.asList(JobNodeStatus.SUCCEED.getValue(), JobNodeStatus.IGNORED.getValue());
+    private static final List<String> runningStatusList = Arrays.asList(JobNodeStatus.ABORTING.getValue(), JobNodeStatus.PAUSING.getValue(), JobNodeStatus.PENDING.getValue(), JobNodeStatus.RUNNING.getValue(), JobNodeStatus.WAIT_INPUT.getValue(), JobNodeStatus.WAITING.getValue());
+    private static final List<String> failedStatusList = Arrays.asList(JobNodeStatus.PAUSED.getValue(), JobNodeStatus.ABORTED.getValue(), JobNodeStatus.FAILED.getValue(), JobNodeStatus.INVALID.getValue());
 
     private JobNodeStatus(String _status, String _text) {
         this.status = _status;
@@ -59,5 +64,17 @@ public enum JobNodeStatus implements IEnum {
             });
         }
         return array;
+    }
+
+    public static boolean isRunningStatus(String status) {
+        return runningStatusList.contains(status);
+    }
+
+    public static boolean isCompletedStatus(String status) {
+        return completedStatusList.contains(status);
+    }
+
+    public static boolean isFailedStatus(String status) {
+        return failedStatusList.contains(status);
     }
 }
