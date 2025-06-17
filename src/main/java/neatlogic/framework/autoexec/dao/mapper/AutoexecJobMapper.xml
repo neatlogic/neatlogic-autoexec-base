@@ -277,9 +277,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <if test="protocolFrom != null and protocolFrom != ''">
             and ajp.`protocol_from` = #{protocolFrom}
         </if>
-        <if test="nodeFrom != null and nodeFrom != ''">
-            and ajp.`node_from` = #{nodeFrom}
-        </if>
         <if test="groupSort != null">
             and ajg.`sort` = #{groupSort}
         </if>
