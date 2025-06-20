@@ -173,7 +173,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 throw new AutoexecJobPhaseNodeNotFoundException(jobVo.getCurrentPhaseId().toString(), jobVo.getCurrentNodeResourceId() == null ? StringUtils.EMPTY : jobVo.getCurrentNodeResourceId().toString());
             }
             if (StringUtils.isBlank(nodeVo.getRunnerUrl())) {
-                throw new AutoexecJobHostPortRunnerNotFoundException(jobVo.getCurrentNode().getHost() + ":" + jobVo.getCurrentNode().getPort());
+                throw new AutoexecJobHostPortRunnerNotFoundException(nodeVo.getHost() + (nodeVo.getPort() != null ? (":" + nodeVo.getPort()) : StringUtils.EMPTY));
             }
             jobVo.setCurrentNode(nodeVo);
         }

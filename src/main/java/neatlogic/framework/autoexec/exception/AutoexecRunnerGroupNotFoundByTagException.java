@@ -10,6 +10,6 @@ public class AutoexecRunnerGroupNotFoundByTagException extends ApiRuntimeExcepti
     }
 
     public AutoexecRunnerGroupNotFoundByTagException(String value, AutoexecJobPhaseVo jobPhaseVo) {
-        super("根据作业阶段”{0}“设置的执行器组标签“{1}”，找不到执行器组", jobPhaseVo.getName(), value);
+        super("nfae.autoexecrunnergroupnotfoundbytagexception.autoexecrunnergroupnotfoundbytagexceptionphase", jobPhaseVo.getName(), value);
     }
 }
