@@ -83,6 +83,10 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
     private Integer warnCount = 0;
     @EntityField(name = "分批数", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "并发数", type = ApiParamType.INTEGER)
+    private Integer parallelCount;
+    @EntityField(name = "并发策略", type = ApiParamType.STRING)
+    private String parallelPolicy;
     @EntityField(name = "执行用户", type = ApiParamType.STRING)
     private String userName;
     @EntityField(name = "执行协议", type = ApiParamType.STRING)
@@ -138,7 +142,9 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.groupId = jobGroupVo.getId();
         this.executePolicy = Arrays.stream(AutoexecJobPhaseExecutePolicy.values()).map(AutoexecJobPhaseExecutePolicy::getValue).collect(Collectors.toList()).contains(autoexecCombopPhaseVo.getPolicy()) ? autoexecCombopPhaseVo.getPolicy() : null;
         if (autoexecCombopPhaseVo.getConfig() != null && autoexecCombopPhaseVo.getConfig().getExecuteConfig() != null) {
+            this.parallelPolicy = autoexecCombopPhaseVo.getConfig().getExecuteConfig().getParallelPolicy();
             this.roundCount = autoexecCombopPhaseVo.getConfig().getExecuteConfig().getRoundCount();
+            this.parallelCount = autoexecCombopPhaseVo.getConfig().getExecuteConfig().getRoundCount();
         }
     }
 
@@ -148,7 +154,7 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
         this.warnCount = _warnCount;
     }
 
-    public AutoexecJobPhaseVo(Long _id, String _status, Integer _warnCount,Date _startTime) {
+    public AutoexecJobPhaseVo(Long _id, String _status, Integer _warnCount, Date _startTime) {
         this.id = _id;
         this.status = _status;
         this.warnCount = _warnCount;
@@ -439,5 +445,21 @@ public class AutoexecJobPhaseVo extends BaseEditorVo implements Serializable {
 
     public void setRunnerVos(List<AutoexecJobPhaseRunnerVo> runnerVos) {
         this.runnerVos = runnerVos;
+    }
+
+    public Integer getParallelCount() {
+        return parallelCount;
+    }
+
+    public void setParallelCount(Integer parallelCount) {
+        this.parallelCount = parallelCount;
+    }
+
+    public String getParallelPolicy() {
+        return parallelPolicy;
+    }
+
+    public void setParallelPolicy(String parallelPolicy) {
+        this.parallelPolicy = parallelPolicy;
     }
 }

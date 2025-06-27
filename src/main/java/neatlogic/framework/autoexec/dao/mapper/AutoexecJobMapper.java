@@ -126,7 +126,7 @@ public interface AutoexecJobMapper {
     //jobPhaseRunner
     List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdList(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId);
 
-    List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdListAndExceptStatus(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId,@Param("exceptStatus") List<String> exceptStatus);
+    List<AutoexecJobPhaseRunnerVo> getJobPhaseRunnerByJobIdAndPhaseIdListAndExceptStatus(@Param("jobId") Long jobId, @Param("jobPhaseIdList") List<Long> jobPhaseId, @Param("exceptStatus") List<String> exceptStatus);
 
     //jobPhaseNode
     List<AutoexecJobPhaseNodeVo> searchJobPhaseNodeWithResource(AutoexecJobPhaseNodeVo jobPhaseNodeVo);
@@ -172,7 +172,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseIdAndExceptStatusAndRunnerMapId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("exceptStatus") List<String> exceptStatus, @Param("runnerMapId") Long runnerMapId);
 
-    List<String> getJobPhaseNodeStatusList(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("runnerMapId") Long runnerMapId,  @Param("statusList") List<String> statusList);
+    List<String> getJobPhaseNodeStatusList(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("runnerMapId") Long runnerMapId, @Param("statusList") List<String> statusList);
 
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
@@ -181,6 +181,8 @@ public interface AutoexecJobMapper {
     List<AutoexecJobPhaseNodeVo> getJobPhaseNodeListWithoutDeleteByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
     int getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
+
+    int getJobPhaseNodeCountWithoutDeleteAndInvalidByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
     int getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseIdAndExceptStatusList(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId, @Param("statusList") List<String> statusList);
 
@@ -483,7 +485,7 @@ public interface AutoexecJobMapper {
 
     void insertJobExec(AutoexecJobExecVo execVo);
 
-    void deleteJobExec(@Param("jobId") Long jobId, @Param("runnerMapId")Long runnerMapId, @Param("execId")Long execId);
+    void deleteJobExec(@Param("jobId") Long jobId, @Param("runnerMapId") Long runnerMapId, @Param("execId") Long execId);
 
     void deleteJobExecByJobId(Long jobId);
 

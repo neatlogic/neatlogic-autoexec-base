@@ -496,6 +496,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajp.`sort`,
                ajp.`warn_count`                as warnCount,
                ajp.`round_count`               as roundCount,
+               ajp.`parallel_count`            as parallelCount,
+               ajp.`parallel_policy`           as parallelPolicy,
                ajp.`user_name`                 as userName,
                ajp.`user_name_from`            as userNameFrom,
                ajp.`protocol_from`             as protocolFrom,
@@ -508,18 +510,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajg.policy                      as groupPolicy,
                ajp.`uuid`,
                ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
-               ajpr.runner_map_id as runnerMapId,
-               ajpr.status as runnerStatus,
-               ajpr.is_fire_next as isFireNext,
-               ajpr.lcd as runnerLcd,
-               r.host as runnerHost,
-               r.port as runnerPort,
-               r.name as runnerName
+               ajpr.runner_map_id              as runnerMapId,
+               ajpr.status                     as runnerStatus,
+               ajpr.is_fire_next               as isFireNext,
+               ajpr.lcd                        as runnerLcd,
+               r.host                          as runnerHost,
+               r.port                          as runnerPort,
+               r.name                          as runnerName
         FROM `autoexec_job_phase` ajp
                  left join `autoexec_job_group` ajg on ajp.job_id = ajg.job_id and ajp.group_id = ajg.id
-                left join `autoexec_job_phase_runner` ajpr on ajpr.job_phase_id = ajp.id
-                left join `runner_map` rm on rm.id = ajpr.runner_map_id
-                left join `runner` r on rm.runner_id = r.id
+                 left join `autoexec_job_phase_runner` ajpr on ajpr.job_phase_id = ajp.id
+                 left join `runner_map` rm on rm.id = ajpr.runner_map_id
+                 left join `runner` r on rm.runner_id = r.id
         where ajp.`job_id` = #{value}
         ORDER BY ajg.`sort`, ajp.`sort`, ajp.`id`
     </select>
@@ -570,6 +572,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <result column="uuid" property="uuid"/>
         <result column="isPreOutputUpdateNode" property="isPreOutputUpdateNode"/>
         <result column="roundCount" property="roundCount"/>
+        <result column="parallelCount" property="parallelCount"/>
+        <result column="parallelPolicy" property="parallelPolicy"/>
         <result column="nodeFrom" property="nodeFrom"/>
         <result column="protocolFrom" property="protocolFrom"/>
         <result column="userNameFrom" property="userNameFrom"/>
@@ -1945,6 +1949,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajp.`node_from`        as nodeFrom,
         ajp.`round_count_from` as roundCountFrom,
         ajp.`round_count` as roundCount,
+        ajp.`parallel_count`            as parallelCount,
+        ajp.`parallel_policy`           as parallelPolicy,
         ajp.`protocol`,
         ajg.id as groupId,
         ajg.sort as groupSort,
@@ -2583,6 +2589,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         where ajpn.`job_id` = #{jobId}
           and ajpn.`job_phase_id` = #{phaseId}
           and ajpn.`is_delete` = 0
+    </select>
+    <select id="getJobPhaseNodeCountWithoutDeleteAndInvalidByJobIdAndPhaseId" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM `autoexec_job_phase_node` ajpn
+        where ajpn.`job_id` = #{jobId}
+          and ajpn.`job_phase_id` = #{phaseId}
+          and ajpn.`is_delete` = 0
+          and ajpn.`status` != 'invalid'
     </select>
     <select id="getJobPhaseNodeCountWithoutDeleteByJobIdAndPhaseIdAndExceptStatusList"
             resultType="java.lang.Integer">
@@ -3421,7 +3435,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             `round_count_from`  = #{roundCountFrom},
             `user_name` =#{userName},
             `protocol` = #{protocol},
-            `round_count` = #{roundCount}
+            `round_count` = #{roundCount},
+            `parallel_count` = #{parallelCount},
+            `parallel_policy` = #{parallelPolicy}
         where id = #{id}
     </update>
 

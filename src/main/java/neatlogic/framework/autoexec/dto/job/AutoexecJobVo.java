@@ -105,8 +105,12 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private String sourceType;
     @EntityField(name = "来源名", type = ApiParamType.STRING)
     private String sourceName;
-    @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
+    @EntityField(name = "分批数", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
+    private Integer parallelCount;
+    @EntityField(name = "并发线策略", type = ApiParamType.STRING)
+    private String parallelPolicy;
     @JSONField(serialize = false)
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
@@ -468,6 +472,14 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setRoundCount(Integer roundCount) {
         this.roundCount = roundCount;
+    }
+
+    public Integer getParallelCount() {
+        return parallelCount;
+    }
+
+    public void setParallelCount(Integer parallelCount) {
+        this.parallelCount = parallelCount;
     }
 
     public String getConfigStr() {
@@ -1064,5 +1076,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setIsFirstInit(int isFirstInit) {
         this.isFirstInit = isFirstInit;
+    }
+
+    public String getParallelPolicy() {
+        return parallelPolicy;
+    }
+
+    public void setParallelPolicy(String parallelPolicy) {
+        this.parallelPolicy = parallelPolicy;
     }
 }
