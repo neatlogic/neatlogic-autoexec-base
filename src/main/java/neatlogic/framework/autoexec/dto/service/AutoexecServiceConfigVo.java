@@ -26,6 +26,10 @@ public class AutoexecServiceConfigVo implements Serializable {
 
     private ParamMappingVo roundCount;
 
+    private ParamMappingVo parallelCount;
+
+    private ParamMappingVo parallelPolicy;
+
     private ParamMappingVo protocol;
 
     private ParamMappingVo executeNodeConfig;
@@ -100,5 +104,21 @@ public class AutoexecServiceConfigVo implements Serializable {
 
     public void setRuntimeParamList(List<ParamMappingVo> runtimeParamList) {
         this.runtimeParamList = runtimeParamList;
+    }
+
+    public ParamMappingVo getParallelCount() {
+        return parallelCount;
+    }
+
+    public void setParallelCount(ParamMappingVo parallelCount) {
+        this.parallelCount = parallelCount;
+    }
+
+    public ParamMappingVo getParallelPolicy() {
+        return parallelPolicy;
+    }
+
+    public void setParallelPolicy(ParamMappingVo parallelPolicy) {
+        this.parallelPolicy = parallelPolicy;
     }
 }
