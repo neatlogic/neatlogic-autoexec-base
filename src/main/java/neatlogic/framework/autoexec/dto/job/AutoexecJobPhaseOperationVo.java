@@ -120,20 +120,20 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
 
     }
 
-    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecOperationVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, String script, List<AutoexecJobPhaseVo> jobPhaseVoList, Map<String, String> preOperationNameMap) {
+    public AutoexecJobPhaseOperationVo(AutoexecJobVo jobVo, AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecOperationVo scriptVo, AutoexecScriptVersionVo scriptVersionVo, String script, List<AutoexecJobPhaseVo> jobPhaseVoList, Map<String, String> preOperationNameMap) {
         scriptVo.setParser(scriptVersionVo.getParser());
         scriptVo.setOperationType(CombopOperationType.SCRIPT.getValue());
         this.versionId = scriptVersionVo.getId();
         this.scriptId = scriptVo.getId();
-        construct(autoexecCombopPhaseOperationVo, phaseVo, jobPhaseVoList, scriptVo, preOperationNameMap);
+        construct(jobVo, autoexecCombopPhaseOperationVo, phaseVo, jobPhaseVoList, scriptVo, preOperationNameMap);
     }
 
-    public AutoexecJobPhaseOperationVo(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecToolVo toolVo, List<AutoexecJobPhaseVo> jobPhaseVoList, Map<String, String> preOperationNameMap) {
+    public AutoexecJobPhaseOperationVo(AutoexecJobVo jobVo, AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, AutoexecToolVo toolVo, List<AutoexecJobPhaseVo> jobPhaseVoList, Map<String, String> preOperationNameMap) {
         toolVo.setOperationType(CombopOperationType.TOOL.getValue());
-        construct(autoexecCombopPhaseOperationVo, phaseVo, jobPhaseVoList, toolVo, preOperationNameMap);
+        construct(jobVo, autoexecCombopPhaseOperationVo, phaseVo, jobPhaseVoList, toolVo, preOperationNameMap);
     }
 
-    private void construct(AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo, Map<String, String> preOperationNameMap) {
+    private void construct(AutoexecJobVo jobVo, AutoexecCombopPhaseOperationVo autoexecCombopPhaseOperationVo, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo, Map<String, String> preOperationNameMap) {
         this.jobId = phaseVo.getJobId();
         this.execMode = phaseVo.getExecMode();
         this.uk = operationVo.getUk();
@@ -168,7 +168,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         if (CollectionUtils.isNotEmpty(argumentMappingVos)) {
             for (ParamMappingVo argumentMappingVo : argumentMappingVos) {
                 if (argumentParam != null) {
-                    exchangeParam(argumentMappingVo, argumentParam, phaseVo, jobPhaseVoList, operationVo, preOperationNameMap);
+                    exchangeArgumentParam(jobVo.getConfig().getRuntimeParamList(), argumentMappingVo, argumentParam);
                 }
             }
         }
@@ -183,6 +183,30 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     }
 
     /**
+     * 自由参数引用作业，应该以作业参数的类型为准
+     *
+     * @param runtimeParamList 组合工具作业参数
+     * @param paramMappingVo   工具自由参数值
+     * @param param            工具自由参数
+     */
+    private void exchangeArgumentParam(List<AutoexecParamVo> runtimeParamList, ParamMappingVo paramMappingVo, AutoexecParamVo param) {
+        Optional<AutoexecParamVo> argumentParamOptional;
+        if (CollectionUtils.isNotEmpty(runtimeParamList)) {
+            argumentParamOptional = runtimeParamList.stream().filter(o -> Objects.equals(o.getKey(), paramMappingVo.getValue())).findFirst();
+            if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.RUNTIME_PARAM.getValue()) && argumentParamOptional.isPresent()) {
+                paramMappingVo.setType(argumentParamOptional.get().getType());
+            } else {
+                paramMappingVo.setType(param.getType());
+            }
+        } else {
+            paramMappingVo.setType(param.getType());
+        }
+        paramMappingVo.setName(param.getName());
+        paramMappingVo.setDescription(param.getDescription());
+
+    }
+
+    /**
      * 替换参数值（上游参数）
      *
      * @param paramMappingVo      输入值
@@ -193,7 +217,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
      * @param preOperationNameMap 记录上游阶段工具uuid对应的名称
      */
     private void exchangeParam(ParamMappingVo paramMappingVo, AutoexecParamVo param, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo, Map<String, String> preOperationNameMap) {
-        if ((StringUtils.isBlank(paramMappingVo.getKey()) && StringUtils.isBlank(param.getKey())) || Objects.equals(paramMappingVo.getKey(), param.getKey())) {
+        if (Objects.equals(paramMappingVo.getKey(), param.getKey())) {
             paramMappingVo.setType(param.getType());
             paramMappingVo.setName(param.getName());
             paramMappingVo.setDescription(param.getDescription());
