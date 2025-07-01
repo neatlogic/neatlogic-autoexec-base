@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.common.constvalue.IEnum;
 import neatlogic.framework.util.$;
 
+import java.util.Arrays;
 import java.util.List;
 
 public enum JobPhaseStatus implements IEnum {
@@ -21,6 +22,10 @@ public enum JobPhaseStatus implements IEnum {
     WAIT_INPUT("waitInput", "待输入");
     private final String status;
     private final String text;
+
+    private static final List<String> completedStatusList = Arrays.asList(JobPhaseStatus.IGNORED.getValue(), JobPhaseStatus.COMPLETED.getValue());
+    private static final List<String> runningStatusList = Arrays.asList(JobPhaseStatus.ABORTING.getValue(), JobPhaseStatus.PAUSING.getValue(), JobPhaseStatus.PENDING.getValue(), JobPhaseStatus.RUNNING.getValue(), JobPhaseStatus.WAIT_INPUT.getValue(), JobPhaseStatus.WAITING.getValue());
+    private static final List<String> failedStatusList = Arrays.asList(JobPhaseStatus.PAUSED.getValue(), JobPhaseStatus.ABORTED.getValue(), JobPhaseStatus.FAILED.getValue());
 
     JobPhaseStatus(String _status, String _text) {
         this.status = _status;
@@ -58,4 +63,17 @@ public enum JobPhaseStatus implements IEnum {
         }
         return array;
     }
+
+    public static boolean isRunningStatus(String status) {
+        return runningStatusList.contains(status);
+    }
+
+    public static boolean isCompletedStatus(String status) {
+        return completedStatusList.contains(status);
+    }
+
+    public static boolean isFailedStatus(String status) {
+        return failedStatusList.contains(status);
+    }
+
 }

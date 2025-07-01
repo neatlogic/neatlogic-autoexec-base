@@ -106,8 +106,10 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     private Integer isExecuted;//是否执行过，用于标识执行过的节点不能删除
     @JSONField(serialize = false)
     private Integer isDownloadGroup;//是否下载组节点，用于下载节点接口
-    @EntityField(name = "初始化节点异常类型", type = ApiParamType.STRING)
+    @EntityField(name = "初始化节点异常类型", type = ApiParamType.INTEGER)
     private Integer errorType;
+    @EntityField(name = "runner类型阶段的执行器组来源", type = ApiParamType.STRING)
+    private String phaseRunnerGroupFrom;
 
     public AutoexecJobPhaseNodeVo() {
     }
@@ -492,5 +494,13 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
             }
         }
         return StringUtils.EMPTY;
+    }
+
+    public String getPhaseRunnerGroupFrom() {
+        return phaseRunnerGroupFrom;
+    }
+
+    public void setPhaseRunnerGroupFrom(String phaseRunnerGroupFrom) {
+        this.phaseRunnerGroupFrom = phaseRunnerGroupFrom;
     }
 }

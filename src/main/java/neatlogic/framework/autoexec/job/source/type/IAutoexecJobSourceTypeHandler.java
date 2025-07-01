@@ -18,6 +18,7 @@ package neatlogic.framework.autoexec.job.source.type;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.INodeDetail;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopPhaseConfigVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopPhaseVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
@@ -113,7 +114,16 @@ public interface IAutoexecJobSourceTypeHandler {
      *
      * @param jobVo 作业参数
      */
-    List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo);
+    default List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo) {
+        return getRunnerMapList(jobVo, null);
+    }
+
+    /**
+     * 获取runnerMapList
+     *
+     * @param jobVo 作业参数
+     */
+    List<RunnerMapVo> getRunnerMapList(AutoexecJobVo jobVo, AutoexecCombopPhaseConfigVo combopPhaseExecuteConfigVo);
 
     /**
      * @param jobId       作业id
@@ -159,13 +169,23 @@ public interface IAutoexecJobSourceTypeHandler {
 
 
     /**
-     * 是否可以更新阶段runner
+     * 获取对应阶段的sql或节点的所有状态
+     *
+     * @param jobPhaseVo  作业阶段
+     * @param needCountStatusList 需要统计的节点状态
+     * @param runnerMapId 执行器id
+     * @return 是｜否
+     */
+    List<String> getPhaseSqlStatusList(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId,  List<String> needCountStatusList);
+
+    /**
+     * 是否可以更新sql节点状态
      *
      * @param jobPhaseVo  作业阶段
      * @param runnerMapId 执行器id
      * @return 是｜否
      */
-    boolean getIsCanUpdatePhaseRunner(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId);
+    boolean getIsCanUpdateSqlNode(AutoexecJobPhaseVo jobPhaseVo, Long runnerMapId);
 
     /**
      * 执行用户是否可以执行作业
@@ -220,7 +240,9 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     default JSONObject getExtraRefreshJobInfo(AutoexecJobVo jobVo) {
         return null;
-    };
+    }
+
+    ;
 
     /**
      * 获取作业额外的信息
@@ -230,7 +252,9 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     default JSONObject getExtraJobInfo(AutoexecJobVo jobVo) {
         return null;
-    };
+    }
+
+    ;
 
     /**
      * 删除作业
@@ -242,24 +266,26 @@ public interface IAutoexecJobSourceTypeHandler {
 
     /**
      * 忽略sql
+     *
      * @param paramObj 入参
-     * @param jobVo 作业
+     * @param jobVo    作业
      */
     void ignoreSql(JSONObject paramObj, AutoexecJobVo jobVo);
 
 
     /**
      * 重载预置参数集，如：发布
-     * @param autoexecJobVo 作业
+     *
+     * @param autoexecJobVo             作业
      * @param autoexecProfileParamVoMap 预置参数集参数map
-     * @param profileId 预置参数集id
+     * @param profileId                 预置参数集id
      */
     void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, AutoexecParamVo> autoexecProfileParamVoMap, Long profileId);
 
     /**
      * 批量补充作业剧本实例节点列表额外的信息
      *
-     * @param jobId 同一作业id
+     * @param jobId              同一作业id
      * @param jobPhaseNodeVoList 作业剧本同一阶段节点列表
      * @return
      */
@@ -270,25 +296,29 @@ public interface IAutoexecJobSourceTypeHandler {
     /**
      * 批量处理其它数据源作业节点相关数据
      *
-     * @param jobVo 作业
+     * @param jobVo                   作业
      * @param autoexecJobPhaseNodeVos 作业节点列表
-     * @param userName 执行用户
-     * @param protocolId 协议id
+     * @param userName                执行用户
+     * @param protocolId              协议id
      */
-    default void handleAddJobPhaseNodeEvent(AutoexecJobVo jobVo, List<AutoexecJobPhaseNodeVo> autoexecJobPhaseNodeVos, String userName, Long protocolId, Long updateTag) {}
+    default void handleAddJobPhaseNodeEvent(AutoexecJobVo jobVo, List<AutoexecJobPhaseNodeVo> autoexecJobPhaseNodeVos, String userName, Long protocolId, Long updateTag) {
+    }
 
     /**
      * 批量处理删除作业节点时其它数据源作业节点相关数据
+     *
      * @param jobPhaseId 作业阶段id
-     * @param updateTag 更新标记
+     * @param updateTag  更新标记
      */
-    default void handleDeleteJobPhaseNodeEvent(Long jobPhaseId,Long updateTag){}
+    default void handleDeleteJobPhaseNodeEvent(Long jobPhaseId, Long updateTag) {
+    }
 
     /**
      * 批量补充作业剧本实例节点列表蓝绿的信息
      *
-     * @param jobId 同一作业id
+     * @param jobId              同一作业id
      * @param jobPhaseNodeVoList 作业剧本同一阶段节点列表
      */
-    default void addExtraJobPhaseNodeBlueGreenInfoByList(Long jobId, List<AutoexecJobPhaseNodeVo> jobPhaseNodeVoList){}
+    default void addExtraJobPhaseNodeBlueGreenInfoByList(Long jobId, List<AutoexecJobPhaseNodeVo> jobPhaseNodeVoList) {
+    }
 }

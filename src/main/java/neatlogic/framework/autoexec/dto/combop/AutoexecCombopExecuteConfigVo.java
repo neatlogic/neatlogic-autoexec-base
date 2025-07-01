@@ -52,6 +52,10 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     private Integer isPresetExecuteConfig;
     @EntityField(name = "分批数量", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "并发数量", type = ApiParamType.INTEGER)
+    private Integer parallelCount;
+    @EntityField(name = "并发策略", type = ApiParamType.STRING)
+    private String parallelPolicy;
     @EntityField(name = "前置执行目标配置", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteNodeConfigVo combopNodeConfig; //设置过滤器后，执行时只能在过滤器范围内选择执行目标
 
@@ -157,5 +161,21 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
 
     public void setRunnerGroupTag(ParamMappingVo runnerGroupTag) {
         this.runnerGroupTag = runnerGroupTag;
+    }
+
+    public String getParallelPolicy() {
+        return parallelPolicy;
+    }
+
+    public void setParallelPolicy(String parallelPolicy) {
+        this.parallelPolicy = parallelPolicy;
+    }
+
+    public Integer getParallelCount() {
+        return parallelCount;
+    }
+
+    public void setParallelCount(Integer parallelCount) {
+        this.parallelCount = parallelCount;
     }
 }

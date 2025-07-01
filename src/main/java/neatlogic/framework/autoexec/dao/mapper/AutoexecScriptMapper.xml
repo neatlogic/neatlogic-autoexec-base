@@ -207,6 +207,7 @@
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select `id`,
                `script_id` as scriptId,
+               `title`,
                `version`,
                `encoding`,
                `parser`,
@@ -251,6 +252,7 @@
         select
         `id`,
         `version`,
+        `title`,
         `status`,
         `reviewer`,
         `is_active` as isActive,
@@ -267,6 +269,7 @@
     <resultMap id="scriptVersionIncludeLineMap" type="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         <id column="id" property="id"/>
         <id column="scriptId" property="scriptId"/>
+        <id column="title" property="title"/>
         <result column="encoding" property="encoding"/>
         <result column="parser" property="parser"/>
         <result column="packageFileId" property="packageFileId"/>
@@ -292,6 +295,7 @@
         select
         a.`id`,
         a.`script_id` as scriptId,
+        a.`title`,
         a.`version`,
         a.`encoding`,
         a.`parser`,
@@ -473,6 +477,7 @@
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select `id`,
                `script_id` as scriptId,
+               `title`,
                `version`,
                `encoding`,
                `parser`,
@@ -491,6 +496,7 @@
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select `id`,
                `script_id` as scriptId,
+               `title`,
                `version`,
                `encoding`,
                `parser`,
@@ -526,6 +532,7 @@
     <select id="getActiveVersionWithUseLibsByScriptId" resultMap="scriptVersionUseLibMap">
         select asv.`id`,
                asv.`script_id` as scriptId,
+               asv.`title`,
                asv.`version`,
                asv.`encoding`,
                asv.`parser`,
@@ -546,6 +553,7 @@
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select `id`,
                `script_id` as scriptId,
+               `title`,
                `version`,
                `encoding`,
                `parser`,
@@ -565,6 +573,7 @@
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select `id`,
                `script_id` as scriptId,
+               `title`,
                `version`,
                `encoding`,
                `parser`,
@@ -1395,6 +1404,7 @@
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         select `id`,
                `script_id` as scriptId,
+               `title`,
                `version`,
                `encoding`,
                `parser`,
@@ -1585,6 +1595,7 @@
         SELECT `id`,
                `version`,
                `script_id` as scriptId,
+               `title`,
                `parser`
         FROM `autoexec_script_version`
         where `script_id` = #{id}
@@ -1597,6 +1608,7 @@
         select
         a.`id`,
         a.`script_id` as scriptId,
+        a.`title`,
         a.`parser`,
         a.`package_file_id` as packageFileId,
         c.`id` AS lineId,
@@ -1927,6 +1939,7 @@
         insert into `autoexec_script_version` (
         `id`,
         `script_id`,
+        `title`,
         `version`,
         `encoding`,
         `parser`,
@@ -1941,6 +1954,7 @@
             (
             #{item.id},
             #{item.scriptId},
+            #{item.title},
             #{item.version},
             #{item.encoding},
             #{item.parser},

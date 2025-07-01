@@ -105,8 +105,12 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private String sourceType;
     @EntityField(name = "来源名", type = ApiParamType.STRING)
     private String sourceName;
-    @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
+    @EntityField(name = "分批数", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "并发线程数", type = ApiParamType.INTEGER)
+    private Integer parallelCount;
+    @EntityField(name = "并发线策略", type = ApiParamType.STRING)
+    private String parallelPolicy;
     @JSONField(serialize = false)
     private String configStr;
     @EntityField(name = "作业其它配置", type = ApiParamType.JSONOBJECT)
@@ -157,7 +161,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @JSONField(serialize = false)
     private Long currentPhaseId;
     @JSONField(serialize = false)
-    private AutoexecJobPhaseVo currentPhase;
+    private AutoexecJobPhaseVo executePhase;
     @JSONField(serialize = false)
     private AutoexecJobPhaseVo preOutputPhase;
     @JSONField(serialize = false)
@@ -176,8 +180,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private List<AutoexecJobPhaseNodeVo> executeJobNodeVoList;//场景：工具库测试|重跑节点
     @JSONField(serialize = false)
     private AutoexecJobGroupVo executeJobGroupVo;
-    @JSONField(serialize = false)
-    private List<AutoexecJobPhaseVo> executeJobPhaseList;
     @JSONField(serialize = false)
     List<AutoexecParamVo> runTimeParamList = new ArrayList<>();
     @JSONField(serialize = false)
@@ -470,6 +472,14 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setRoundCount(Integer roundCount) {
         this.roundCount = roundCount;
+    }
+
+    public Integer getParallelCount() {
+        return parallelCount;
+    }
+
+    public void setParallelCount(Integer parallelCount) {
+        this.parallelCount = parallelCount;
     }
 
     public String getConfigStr() {
@@ -803,14 +813,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         this.executeJobGroupVo = executeJobGroupVo;
     }
 
-    public List<AutoexecJobPhaseVo> getExecuteJobPhaseList() {
-        return executeJobPhaseList;
-    }
-
-    public void setExecuteJobPhaseList(List<AutoexecJobPhaseVo> executeJobPhaseList) {
-        this.executeJobPhaseList = executeJobPhaseList;
-    }
-
     public String getNodeFrom() {
         return nodeFrom;
     }
@@ -835,12 +837,12 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         this.lncd = lncd;
     }
 
-    public AutoexecJobPhaseVo getCurrentPhase() {
-        return currentPhase;
+    public AutoexecJobPhaseVo getExecutePhase() {
+        return executePhase;
     }
 
-    public void setCurrentPhase(AutoexecJobPhaseVo currentPhase) {
-        this.currentPhase = currentPhase;
+    public void setExecutePhase(AutoexecJobPhaseVo executePhase) {
+        this.executePhase = executePhase;
     }
 
     public JSONObject getParam() {
@@ -1074,5 +1076,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setIsFirstInit(int isFirstInit) {
         this.isFirstInit = isFirstInit;
+    }
+
+    public String getParallelPolicy() {
+        return parallelPolicy;
+    }
+
+    public void setParallelPolicy(String parallelPolicy) {
+        this.parallelPolicy = parallelPolicy;
     }
 }

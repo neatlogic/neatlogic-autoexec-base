@@ -1,4 +1,6 @@
-/*Copyright (C) 2023  深圳极向量科技有限公司 All Rights Reserved.
+
+
+/*Copyright (C) $today.year  深圳极向量科技有限公司 All Rights Reserved.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -15,15 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.exception;
 
+import neatlogic.framework.dto.runner.RunnerMapVo;
 import neatlogic.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobExecutePermissionDeniedException extends ApiRuntimeException {
+public class AutoexecJobDeleteException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 4744487624323943559L;
-
-    public AutoexecJobExecutePermissionDeniedException(Long jobId, String currentUser, String execUser) {
-        super("nfae.autoexecjobexecutepermissiondeniedexception.autoexecjobexecutepermissiondeniedexception", jobId, currentUser, execUser);
+    public AutoexecJobDeleteException(RunnerMapVo runnerMapVo) {
+        super("nfae.autoexecjobdeleteexception.autoexecjobdeleteexception",runnerMapVo.getName(), runnerMapVo.getId());
     }
-
 
 }

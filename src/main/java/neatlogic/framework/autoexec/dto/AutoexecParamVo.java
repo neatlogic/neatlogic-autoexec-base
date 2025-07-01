@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.dto;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -199,11 +200,15 @@ public class AutoexecParamVo implements Serializable {
                     case "multiselect":
                     case "checkbox":
                     case "node":
-                        value = JSONObject.parseArray((String) value);
-                        break;
+                        try {
+                            value = JSON.parseArray((String) value);
+                            break;
+                        } catch (JSONException e) {
+                            break;
+                        }
                     case "file":
                         try {
-                            value = JSONObject.parseObject((String) value);
+                            value = JSON.parseObject((String) value);
                             break;
                         } catch (JSONException ex) {
                             break;
@@ -211,9 +216,9 @@ public class AutoexecParamVo implements Serializable {
                     case "json":
                         String valueStr = (String) value;
                         if (valueStr.startsWith("[") && valueStr.endsWith("]")) {
-                            value = JSONObject.parseArray(valueStr);
+                            value = JSON.parseArray(valueStr);
                         } else if (valueStr.startsWith("{") && valueStr.endsWith("}")) {
-                            value = JSONObject.parseObject(valueStr);
+                            value = JSON.parseObject(valueStr);
                         }
                         break;
                     case "switch":
@@ -222,7 +227,7 @@ public class AutoexecParamVo implements Serializable {
                     case "userselect":
                         String valueString = (String) defaultValue;
                         if (valueString.startsWith("[") && valueString.endsWith("]")) {
-                            defaultValue = JSONObject.parseArray(valueString);
+                            defaultValue = JSON.parseArray(valueString);
                         }
                         break;
                     default:

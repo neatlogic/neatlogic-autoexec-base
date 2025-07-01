@@ -65,6 +65,10 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
     private String loopItems;
     @EntityField(name = "循环执行工具列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobPhaseNodeOperationStatusVo> operations;
+    @EntityField(name = "脚本版本备注", type = ApiParamType.STRING)
+    private String title;
+    @EntityField(name = "脚本版本", type = ApiParamType.INTEGER)
+    private Integer version;
 
     public AutoexecJobPhaseNodeOperationStatusVo(AutoexecJobPhaseOperationVo operationVo, JSONObject statusJson, String description, List<AutoexecJobPhaseOperationVo> jobSonOperationList, Map<String, AutoexecCombopPhaseOperationVo> combopOperationUuidMap) {
         this.id = operationVo.getId();
@@ -79,6 +83,8 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         this.failIgnore = operationVo.getFailIgnore();
         this.description = StringUtils.isBlank(description) ? StringUtils.EMPTY : description;
         this.letter = operationVo.getLetter();
+        this.version = operationVo.getVersion();
+        this.title = operationVo.getTitle();
 
         //condition
         AutoexecCombopPhaseOperationVo combopOperation = combopOperationUuidMap.get(operationVo.getUuid());
@@ -143,6 +149,8 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
         this.failIgnore = operationVo.getFailIgnore();
         this.description = StringUtils.isBlank(description) ? StringUtils.EMPTY : description;
         this.letter = operationVo.getLetter();
+        this.version = operationVo.getVersion();
+        this.title = operationVo.getTitle();
     }
 
     public Long getId() {
@@ -254,5 +262,21 @@ public class AutoexecJobPhaseNodeOperationStatusVo {
 
     public void setOperations(List<AutoexecJobPhaseNodeOperationStatusVo> operations) {
         this.operations = operations;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

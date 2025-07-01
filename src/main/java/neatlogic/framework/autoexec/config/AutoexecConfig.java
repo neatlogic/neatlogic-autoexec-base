@@ -31,6 +31,7 @@ public class AutoexecConfig implements IConfigListener {
     private static String PROXY_BASIC_PASSWORD;
     private static Boolean AUTOEXEC_JOB_IS_ALLOWED_MANUAL_TRIGGER_IN_ADVANCE; // 是否允许人工提前触发自动化作业
     private static String AUTOEXEC_TOKEN;// autoexec用户的token
+    private static Integer RUNNER_CONNECT_TIMEOUT;// runner请求的timeout时间（毫秒）
 
     public static String PROXY_BASIC_USER_NAME() {
         return PROXY_BASIC_USER_NAME;
@@ -46,6 +47,9 @@ public class AutoexecConfig implements IConfigListener {
     public static String AUTOEXEC_TOKEN() {
         return AUTOEXEC_TOKEN;
     }
+    public static Integer RUNNER_CONNECT_TIMEOUT() {
+        return RUNNER_CONNECT_TIMEOUT;
+    }
 
     @Override
     public void loadConfig(Properties prop) {
@@ -53,6 +57,7 @@ public class AutoexecConfig implements IConfigListener {
         PROXY_BASIC_PASSWORD = prop.getProperty("proxy.basic.password", "123456");
         AUTOEXEC_JOB_IS_ALLOWED_MANUAL_TRIGGER_IN_ADVANCE = Boolean.valueOf(prop.getProperty("autoexec.job.isallowed.manualtrigger.inadvance", "true"));
         AUTOEXEC_TOKEN = prop.getProperty("autoexec.token");
+        RUNNER_CONNECT_TIMEOUT = Integer.valueOf(prop.getProperty("runner.connect.timeout","5000"));
         if(StringUtils.isBlank(AUTOEXEC_TOKEN)){
             System.out.println(I18nUtils.getStaticMessage("nmac.autoexecconfig.loadconfig.autoexectoken"));
             logger.error(I18nUtils.getStaticMessage("nmac.autoexecconfig.loadconfig.autoexectoken"));

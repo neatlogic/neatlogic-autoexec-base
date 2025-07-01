@@ -1,4 +1,4 @@
-/*Copyright (C) 2023  深圳极向量科技有限公司 All Rights Reserved.
+/*Copyright (C) 2024  深圳极向量科技有限公司 All Rights Reserved.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -17,13 +17,9 @@ package neatlogic.framework.autoexec.exception;
 
 import neatlogic.framework.exception.core.ApiRuntimeException;
 
-public class AutoexecJobExecutePermissionDeniedException extends ApiRuntimeException {
+public class AutoexecParallelCountIsRequiredException extends ApiRuntimeException {
 
-    private static final long serialVersionUID = 4744487624323943559L;
-
-    public AutoexecJobExecutePermissionDeniedException(Long jobId, String currentUser, String execUser) {
-        super("nfae.autoexecjobexecutepermissiondeniedexception.autoexecjobexecutepermissiondeniedexception", jobId, currentUser, execUser);
+    public AutoexecParallelCountIsRequiredException() {
+        super("nfae.autoexecparallelcountisrequiredexception.autoexecparallelcountisrequiredexception");
     }
-
-
 }

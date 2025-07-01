@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.job.action.core;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthActionChecker;
 import neatlogic.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
@@ -109,7 +110,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             if (Objects.equals(jobVo.getSource(), JobSource.TEST.getValue())
                     || Objects.equals(jobVo.getSource(), JobSource.SCRIPT_TEST.getValue())
                     || Objects.equals(jobVo.getSource(), JobSource.TOOL_TEST.getValue())) {//测试仅需判断是否有脚本维护权限即可
-                if (!AuthActionChecker.check(AUTOEXEC_SCRIPT_MODIFY.class)) {
+                if (Boolean.FALSE.equals(AuthActionChecker.check(AUTOEXEC_SCRIPT_MODIFY.class))) {
                     throw new AutoexecOperationHasNoModifyAuthException();
                 }
             } else {
@@ -141,7 +142,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                 throw new AutoexecJobNotFoundException(phaseVo.getJobId());
             }
             jobVo.setSource(jobVoTmp.getSource());
-            jobVo.setCurrentPhase(phaseVo);
+            jobVo.setExecutePhase(phaseVo);
             jobVo.setId(phaseVo.getJobId());
         }
 
@@ -151,7 +152,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         //如果nodeVo为null，说明phase是local模式,没有resourceId,phase只有唯一node
         //TODO 需要分拆接口
         Long nodeId = jobVo.getActionParam().getLong("nodeId");
-        if (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") != null) {
+        if (Objects.equals(ExecMode.SQL.getValue(), jobVo.getExecutePhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") != null) {
             if (StringUtils.isBlank(jobVo.getActionParam().getString("sqlName"))) {
                 throw new ParamIrregularException("sqlName");
             }
@@ -166,13 +167,13 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
             }
             RunnerMapVo runnerMapVo = runnerMapper.getRunnerMapByRunnerMapId(sqlDetailVo.getRunnerId());
             jobVo.setCurrentNode(new AutoexecJobPhaseNodeVo(sqlDetailVo.getJobId(), sqlDetailVo.getPhaseName(), sqlDetailVo.getHost(), sqlDetailVo.getPort(), sqlDetailVo.getResourceId(), runnerMapVo.getUrl(), sqlDetailVo.getRunnerId()));
-        } else if (jobVo.getCurrentNodeResourceId() != null || (Objects.equals(ExecMode.SQL.getValue(), jobVo.getCurrentPhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") == null) || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getCurrentPhase().getExecMode())) {
+        } else if (jobVo.getCurrentNodeResourceId() != null || (Objects.equals(ExecMode.SQL.getValue(), jobVo.getExecutePhase().getExecMode()) && jobVo.getActionParam().getLong("resourceId") == null) || Objects.equals(ExecMode.RUNNER.getValue(), jobVo.getExecutePhase().getExecMode())) {
             AutoexecJobPhaseNodeVo nodeVo = autoexecJobMapper.getJobPhaseNodeInfoByJobPhaseIdAndResourceId(jobVo.getCurrentPhaseId(), jobVo.getCurrentNodeResourceId());
             if (nodeVo == null) {
                 throw new AutoexecJobPhaseNodeNotFoundException(jobVo.getCurrentPhaseId().toString(), jobVo.getCurrentNodeResourceId() == null ? StringUtils.EMPTY : jobVo.getCurrentNodeResourceId().toString());
             }
             if (StringUtils.isBlank(nodeVo.getRunnerUrl())) {
-                throw new AutoexecJobHostPortRunnerNotFoundException(jobVo.getCurrentNode().getHost() + ":" + jobVo.getCurrentNode().getPort());
+                throw new AutoexecJobHostPortRunnerNotFoundException(nodeVo.getHost() + (nodeVo.getPort() != null ? (":" + nodeVo.getPort()) : StringUtils.EMPTY));
             }
             jobVo.setCurrentNode(nodeVo);
         }
@@ -183,7 +184,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         if (CollectionUtils.isEmpty(jsonObj.getJSONArray("resourceIdList"))) {
             throw new ParamIrregularException("resourceIdList");
         }
-        List<Long> resourceIdList = JSONObject.parseArray(jsonObj.getJSONArray("resourceIdList").toJSONString(), Long.class);
+        List<Long> resourceIdList = JSON.parseArray(jsonObj.getJSONArray("resourceIdList").toJSONString(), Long.class);
         List<AutoexecJobPhaseNodeVo> nodeVoList = autoexecJobMapper.getJobPhaseNodeListByJobPhaseIdAndResourceIdList(jobVo.getCurrentPhaseId(), resourceIdList);
         if (CollectionUtils.isEmpty(nodeVoList)) {
             throw new AutoexecJobPhaseNodeNotFoundException(StringUtils.EMPTY, resourceIdList.stream().map(Object::toString).collect(Collectors.joining(",")));
