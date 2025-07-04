@@ -2982,11 +2982,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
 
     <insert id="insertJobContent"
             parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
-        INSERT INTO `autoexec_job_content` (`hash`, `content`)
+        INSERT IGNORE INTO `autoexec_job_content` (`hash`, `content`)
         VALUES (#{hash}, #{content,typeHandler=CompressHandler})
-        ON DUPLICATE KEY
-            UPDATE `hash`    = #{hash},
-                   `content` = #{content,typeHandler=CompressHandler}
     </insert>
 
     <insert id="insertJobPhaseRunner">
