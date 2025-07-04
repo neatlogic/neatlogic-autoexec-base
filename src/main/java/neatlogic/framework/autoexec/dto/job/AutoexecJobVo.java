@@ -142,8 +142,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private Integer isCanTakeOver = 0;
     @EntityField(name = "是否拥有验证权限", type = ApiParamType.INTEGER)
     private Integer isCanCheck = 0;
-    @EntityField(name = "是否接管", type = ApiParamType.INTEGER)
-    private Integer isTakeOver = 0;
     @EntityField(name = "最近一次节点变动时间", type = ApiParamType.STRING)
     private Date lncd;
     @EntityField(name = "场景id", type = ApiParamType.LONG)
@@ -930,14 +928,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         this.extraInfo = extraInfo;
     }
 
-    public Integer getIsTakeOver() {
-        return isTakeOver;
-    }
-
-    public void setIsTakeOver(Integer isTakeOver) {
-        this.isTakeOver = isTakeOver;
-    }
-
     public JSONObject getPassThroughEnv() {
         return passThroughEnv;
     }
@@ -952,14 +942,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setIsCanCheck(Integer isCanCheck) {
         this.isCanCheck = isCanCheck;
-    }
-
-    public String getAssignExecUser() {
-        return assignExecUser;
-    }
-
-    public void setAssignExecUser(String assignExecUser) {
-        this.assignExecUser = assignExecUser;
     }
 
     public Integer getWarnCount() {

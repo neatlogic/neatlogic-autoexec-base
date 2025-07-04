@@ -192,7 +192,7 @@ public interface IAutoexecJobSourceTypeHandler {
      *
      * @param jobVo 作业
      */
-    void executeAuthCheck(AutoexecJobVo jobVo, boolean isNeedCheckTakeOver);
+    void executeAuthCheck(AutoexecJobVo jobVo);
 
     /**
      * 获取对应管理员权限
@@ -320,5 +320,11 @@ public interface IAutoexecJobSourceTypeHandler {
      * @param jobPhaseNodeVoList 作业剧本同一阶段节点列表
      */
     default void addExtraJobPhaseNodeBlueGreenInfoByList(Long jobId, List<AutoexecJobPhaseNodeVo> jobPhaseNodeVoList) {
+    }
+
+    /**
+     * 自动接管，目前用于批量流水线
+     */
+    default void autoexecTakeOver(AutoexecJobVo jobVo){
     }
 }

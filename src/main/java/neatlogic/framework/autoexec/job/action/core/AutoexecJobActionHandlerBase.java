@@ -20,7 +20,6 @@ import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthActionChecker;
 import neatlogic.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
 import neatlogic.framework.autoexec.constvalue.ExecMode;
-import neatlogic.framework.autoexec.constvalue.JobAction;
 import neatlogic.framework.autoexec.constvalue.JobSource;
 import neatlogic.framework.autoexec.constvalue.JobStatus;
 import neatlogic.framework.autoexec.dao.mapper.AutoexecCombopMapper;
@@ -45,7 +44,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -119,8 +117,7 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
                     throw new AutoexecJobSourceInvalidException(jobVo.getSource());
                 }
                 IAutoexecJobSourceTypeHandler autoexecJobSourceActionHandler = AutoexecJobSourceTypeHandlerFactory.getAction(jobSource.getType());
-                boolean isNeedCheckTakeOver = !Arrays.asList(JobAction.CHECK.getValue(), JobAction.TAKE_OVER.getValue()).contains(jobVo.getAction());
-                autoexecJobSourceActionHandler.executeAuthCheck(jobVo, isNeedCheckTakeOver);
+                autoexecJobSourceActionHandler.executeAuthCheck(jobVo);
             }
         }
         return myValidate(jobVo);

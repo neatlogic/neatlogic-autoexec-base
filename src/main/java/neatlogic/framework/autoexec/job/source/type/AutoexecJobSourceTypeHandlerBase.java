@@ -6,7 +6,6 @@ import neatlogic.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.autoexec.exception.AutoexecJobExecutePermissionDeniedException;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +35,19 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
 
 
     @Override
-    public void executeAuthCheck(AutoexecJobVo jobParam, boolean isNeedCheckTakeOver) {
+    public void executeAuthCheck(AutoexecJobVo jobParam) {
         Long jobId = jobParam.getId();
-        String execUser = StringUtils.isNotBlank(jobParam.getAssignExecUser()) ? jobParam.getAssignExecUser() : UserContext.get().getUserUuid(true);
+        String execUser = UserContext.get().getUserUuid(true);
         jobParam.setExecUser(execUser);
-        if (isNeedCheckTakeOver) {
-            AutoexecJobVo originJob = autoexecJobMapper.getJobInfo(jobId);
-            //作业存在 且 执行人不相等，则需要先接管作业
-            if (originJob != null && !execUser.equals(originJob.getExecUser())) {
-                //是否需要替换execUser
-                if (jobParam.getIsTakeOver() == 1) {
-                    autoexecJobMapper.updateJobExecUser(jobId, jobParam.getExecUser());
-                } else {
-                    throw new AutoexecJobExecutePermissionDeniedException(jobId, execUser, jobParam.getExecUser());
-                }
+        //来源功能不一定会带source和parentId,则这里补一下已存在的作业这两个信息
+        AutoexecJobVo job = autoexecJobMapper.getJobInfoWithInvoke(jobId);
+        //不为空代表不是新建作业
+        if (job != null) {
+            jobParam.setSource(job.getSource());
+            jobParam.setParentId(job.getParentId());
+            autoexecTakeOver(job);
+            if (!execUser.equals(job.getExecUser())){
+                throw new AutoexecJobExecutePermissionDeniedException(jobId, execUser, jobParam.getExecUser());
             }
         }
         myExecuteAuthCheck(jobParam);
