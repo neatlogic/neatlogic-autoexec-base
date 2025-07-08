@@ -3036,8 +3036,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                    `lcd`         = #{lcd}
     </insert>
     <insert id="insertJobGroup">
-        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`, `round_count`)
-        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount})
+        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`, `round_count`, `parallel_count`,
+                                          `parallel_policy`)
+        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount}, #{parallelCount}, #{parallelPolicy})
     </insert>
 
     <insert id="insertSqlDetail" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
@@ -3644,6 +3645,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <foreach collection="whereStatusList" item="whereStatus" separator="," open="(" close=")">
             #{whereStatus}
         </foreach>
+    </update>
+    <update id="updateJobRoundCount">
+        update `autoexec_job` set `round_count` = #{roundCount} where `id` = #{jobId}
     </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">

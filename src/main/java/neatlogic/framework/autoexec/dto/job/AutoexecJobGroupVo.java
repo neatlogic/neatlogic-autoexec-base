@@ -46,6 +46,10 @@ public class AutoexecJobGroupVo implements Serializable {
     private Date lncd;
     @EntityField(name = "分批数", type = ApiParamType.INTEGER)
     private Integer roundCount;
+    @EntityField(name = "并发数", type = ApiParamType.INTEGER)
+    private Integer parallelCount;
+    @EntityField(name = "并发策略", type = ApiParamType.STRING)
+    private String parallelPolicy;
     @JSONField(serialize = false)
     private String configStr;
 
@@ -128,5 +132,25 @@ public class AutoexecJobGroupVo implements Serializable {
 
     public void setRoundCount(Integer roundCount) {
         this.roundCount = roundCount;
+    }
+
+    public void setConfig(AutoexecCombopGroupConfigVo config) {
+        this.config = config;
+    }
+
+    public Integer getParallelCount() {
+        return parallelCount;
+    }
+
+    public void setParallelCount(Integer parallelCount) {
+        this.parallelCount = parallelCount;
+    }
+
+    public String getParallelPolicy() {
+        return parallelPolicy;
+    }
+
+    public void setParallelPolicy(String parallelPolicy) {
+        this.parallelPolicy = parallelPolicy;
     }
 }
