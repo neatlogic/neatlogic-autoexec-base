@@ -507,6 +507,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajg.id                          as groupId,
                ajg.sort                        as groupSort,
                ajg.config,
+               ajg.round_count                 as groupRoundCount,
+               ajg.parallel_count              as groupParallelCount,
+               ajg.parallel_policy             as groupParallelPolicy,
                ajg.policy                      as groupPolicy,
                ajp.`uuid`,
                ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
@@ -585,6 +588,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             <result column="groupSort" property="sort"/>
             <result column="groupPolicy" property="policy"/>
             <result column="config" property="configStr"/>
+            <result column="groupRoundCount" property="roundCount"/>
+            <result column="groupParallelCount" property="parallelCount"/>
+            <result column="groupParallelPolicy" property="parallelPolicy"/>
         </collection>
         <collection property="runnerVos" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
             <result column="runnerMapId" property="id"/>
@@ -1958,6 +1964,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajg.sort as groupSort,
         ajg.config,
         ajg.policy as groupPolicy,
+        ajg.round_count                 as groupRoundCount,
+        ajg.parallel_count              as groupParallelCount,
+        ajg.parallel_policy             as groupParallelPolicy,
         ajp.`uuid`,
         ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
         ajpr.runner_map_id as runnerMapId,
