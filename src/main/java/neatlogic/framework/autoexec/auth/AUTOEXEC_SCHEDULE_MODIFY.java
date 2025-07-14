@@ -17,22 +17,18 @@ package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-/**
- * @author longrf
- * @date 2022/4/25 10:15 上午
- */
-public class AUTOEXEC_MODIFY extends AuthBase {
+public class AUTOEXEC_SCHEDULE_MODIFY extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "自动化管理员权限";
+        return "自动化定时管理权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "自动化菜单下，【配置】子菜单下的所有功能";
+        return "自动化定时作业管理";
     }
 
     @Override
@@ -42,18 +38,11 @@ public class AUTOEXEC_MODIFY extends AuthBase {
 
     @Override
     public Integer getSort() {
-        return 11;
+        return 12;
     }
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths() {
-        List<Class<? extends AuthBase>> list = new ArrayList<>();
-        list.add(AUTOEXEC_COMBOP_ADD.class);
-        list.add(AUTOEXEC_CUSTOMTEMPLATE_MODIFY.class);
-        list.add(AUTOEXEC_JOB_MODIFY.class);
-        list.add(AUTOEXEC_SCRIPT_MANAGE.class);
-        list.add(AUTOEXEC_SERVICE_MANAGE.class);
-        list.add(AUTOEXEC_SCHEDULE_MODIFY.class);
-        return list;
+        return Collections.singletonList(AUTOEXEC_BASE.class);
     }
 }
