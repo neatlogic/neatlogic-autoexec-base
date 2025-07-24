@@ -3215,8 +3215,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <update id="updateJobStatus" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         UPDATE `autoexec_job`
         SET `status` = #{status}
-        <if test="status == 'running' and isFirstFire == 1">
+        <if test="startTime == null">
             ,`start_time` = NOW(3)
+        </if>
+        <if test="status == 'running'">
             ,`end_time` = NULL
         </if>
         <if test="status == 'completed' or status == 'failed' or status == 'aborted' or status == 'paused'">
