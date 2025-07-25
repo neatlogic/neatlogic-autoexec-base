@@ -20,16 +20,16 @@ import neatlogic.framework.auth.core.AuthBase;
 import java.util.Collections;
 import java.util.List;
 
-public class AUTOEXEC_JOB_MODIFY extends AuthBase {
+public class AUTOEXEC_CREATE_PUBLIC_JOB extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "作业维护权限";
+        return "外部作业创建权限";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "拥有作业删除权限";
+        return "拥有外部作业创建权限";
     }
 
     @Override
@@ -39,11 +39,11 @@ public class AUTOEXEC_JOB_MODIFY extends AuthBase {
 
     @Override
     public Integer getSort() {
-        return 7;
+        return 14;
     }
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths(){
-        return Collections.singletonList(AUTOEXEC_CREATE_PUBLIC_JOB.class);
+        return Collections.singletonList(AUTOEXEC_BASE.class);
     }
 }
