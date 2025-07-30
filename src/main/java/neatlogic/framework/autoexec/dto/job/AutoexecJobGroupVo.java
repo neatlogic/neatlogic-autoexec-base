@@ -50,6 +50,8 @@ public class AutoexecJobGroupVo implements Serializable {
     private Integer parallelCount;
     @EntityField(name = "并发策略", type = ApiParamType.STRING)
     private String parallelPolicy;
+    @EntityField(name = "并发策略来源", type = ApiParamType.STRING)
+    private String parallelFrom;
     @JSONField(serialize = false)
     private String configStr;
 
@@ -152,5 +154,13 @@ public class AutoexecJobGroupVo implements Serializable {
 
     public void setParallelPolicy(String parallelPolicy) {
         this.parallelPolicy = parallelPolicy;
+    }
+
+    public String getParallelFrom() {
+        return parallelFrom;
+    }
+
+    public void setParallelFrom(String parallelFrom) {
+        this.parallelFrom = parallelFrom;
     }
 }

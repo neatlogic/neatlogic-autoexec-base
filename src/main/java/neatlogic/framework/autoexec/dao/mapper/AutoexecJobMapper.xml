@@ -510,6 +510,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajg.round_count                 as groupRoundCount,
                ajg.parallel_count              as groupParallelCount,
                ajg.parallel_policy             as groupParallelPolicy,
+               ajg.parallel_from               as groupParallelFrom,
                ajg.policy                      as groupPolicy,
                ajp.`uuid`,
                ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
@@ -591,6 +592,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             <result column="groupRoundCount" property="roundCount"/>
             <result column="groupParallelCount" property="parallelCount"/>
             <result column="groupParallelPolicy" property="parallelPolicy"/>
+            <result column="groupParallelFrom" property="parallelFrom"/>
         </collection>
         <collection property="runnerVos" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
             <result column="runnerMapId" property="id"/>
@@ -1969,6 +1971,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajg.round_count                 as groupRoundCount,
         ajg.parallel_count              as groupParallelCount,
         ajg.parallel_policy             as groupParallelPolicy,
+        ajg.parallel_from               as groupParallelFrom,
         ajp.`uuid`,
         ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
         ajpr.runner_map_id as runnerMapId,
@@ -3048,8 +3051,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     </insert>
     <insert id="insertJobGroup">
         INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`, `round_count`, `parallel_count`,
-                                          `parallel_policy`)
-        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount}, #{parallelCount}, #{parallelPolicy})
+                                          `parallel_policy`, `parallel_from`)
+        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount}, #{parallelCount}, #{parallelPolicy}, #{parallelFrom})
     </insert>
 
     <insert id="insertSqlDetail" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
