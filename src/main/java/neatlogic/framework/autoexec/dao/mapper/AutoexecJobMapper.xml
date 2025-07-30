@@ -1886,6 +1886,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_node` ajpn
         WHERE ajpn.`job_id` = #{jobId}
+          and ajpn.`is_delete` = 0
+          and ajpn.`status` != 'invalid'
     </select>
 
     <select id="getJobPhaseNodeRunnerListByJobPhaseId"
