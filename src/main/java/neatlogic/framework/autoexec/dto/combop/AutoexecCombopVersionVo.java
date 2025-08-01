@@ -38,6 +38,8 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
     private boolean needExecuteNode = false;
     @EntityField(name = "term.autoexec.needroundcount", type = ApiParamType.BOOLEAN)
     private boolean needRoundCount = false;
+    @EntityField(name = "term.autoexec.needrunnergroup", type = ApiParamType.BOOLEAN)
+    private boolean needRunnerGroup = false;
     @EntityField(name = "term.autoexec.allphasesarerunnerorsqlexecmode", type = ApiParamType.BOOLEAN)
     private Boolean allPhasesAreRunnerOrSqlExecMode;
     @EntityField(name = "term.autoexec.existrunnerorsqlexecmode", type = ApiParamType.BOOLEAN)
@@ -174,6 +176,14 @@ public class AutoexecCombopVersionVo extends BaseEditorVo {
 
     public void setNeedRoundCount(boolean needRoundCount) {
         this.needRoundCount = needRoundCount;
+    }
+
+    public boolean getNeedRunnerGroup() {
+        return needRunnerGroup;
+    }
+
+    public void setNeedRunnerGroup(boolean needRunnerGroup) {
+        this.needRunnerGroup = needRunnerGroup;
     }
 
     public Boolean getAllPhasesAreRunnerOrSqlExecMode() {
