@@ -154,6 +154,7 @@ public class AutoexecParamVo implements Serializable {
                 switch (type) {
                     case "multiselect":
                     case "checkbox":
+                    case "runnergrouptag":
                     case "node":
                         defaultValue = JSONObject.parseArray((String) defaultValue);
                         break;
