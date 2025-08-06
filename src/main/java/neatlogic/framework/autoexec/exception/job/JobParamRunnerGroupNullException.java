@@ -25,7 +25,7 @@ public class JobParamRunnerGroupNullException extends ApiRuntimeException {
     private static final long serialVersionUID = 2288195002963691117L;
 
     public JobParamRunnerGroupNullException(String phaseName, Object key) {
-        super("nfaej.jobparamrunnergroupnullexception.jobparamrunnergroupnullexception", phaseName, key);
+        super("nfaej.jobparamrunnergroupnullexception.jobparamrunnergroupnullexceptiona", phaseName, key);
     }
 
     public JobParamRunnerGroupNullException(Object key) {
