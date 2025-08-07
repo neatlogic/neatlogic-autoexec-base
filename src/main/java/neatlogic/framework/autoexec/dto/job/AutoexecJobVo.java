@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.dto.job;
 
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
@@ -592,7 +592,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public String getRunTimeParamListStr() {
         if (CollectionUtils.isNotEmpty(runTimeParamList)) {
-            runTimeParamListStr = JSONArray.toJSONString(runTimeParamList);
+            runTimeParamListStr = JSON.toJSONString(runTimeParamList);
         }
         return runTimeParamListStr;
     }

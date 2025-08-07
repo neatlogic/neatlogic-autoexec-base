@@ -5,6 +5,8 @@ import neatlogic.framework.exception.core.ApiRuntimeException;
 
 public class AutoexecRunnerGroupTagInvalidException extends ApiRuntimeException {
 
+    private static final long serialVersionUID = -8429963336414538508L;
+
     public AutoexecRunnerGroupTagInvalidException(String value) {
         super("nfae.autoexecrunnergrouptaginvalidexception.autoexecrunnergrouptaginvalidexception", value);
     }

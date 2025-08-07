@@ -20,7 +20,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.autoexec.constvalue.AutoexecJobPhaseNodeErrorType;
 import neatlogic.framework.autoexec.constvalue.JobNodeStatus;
 import neatlogic.framework.autoexec.dto.INodeDetail;
-import neatlogic.framework.autoexec.dto.combop.AutoexecCombopParamVo;
 import neatlogic.framework.cmdb.dto.resourcecenter.ResourceVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.dto.runner.RunnerVo;
@@ -177,10 +176,6 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
         this.setLcd(jobPhaseVo.getLcd());
     }
 
-    public AutoexecJobPhaseNodeVo(AutoexecCombopParamVo paramVo) {
-
-    }
-
     public AutoexecJobPhaseNodeVo(Long jobId, String phaseName, String host, Integer port, Long resourceId, String runnerUrl, Long runnerMapId) {
         this.setJobId(jobId);
         this.jobPhaseName = phaseName;
@@ -194,6 +189,15 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     public AutoexecJobPhaseNodeVo(Long jobPhaseId, int isDelete) {
         this.jobPhaseId = jobPhaseId;
         this.isDelete = isDelete;
+    }
+
+    public AutoexecJobPhaseNodeVo(Long jobId, AutoexecJobPhaseVo jobPhaseVo, String host, String status) {
+        this.setJobId(jobId);
+        this.jobPhaseId = jobPhaseVo.getId();
+        this.jobGroupId = jobPhaseVo.getGroupId();
+        this.status = status;
+        this.setHost(host);
+        this.setLcd(jobPhaseVo.getLcd());
     }
 
     public Long getId() {
