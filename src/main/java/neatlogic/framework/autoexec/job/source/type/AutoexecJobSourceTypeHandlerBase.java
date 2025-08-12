@@ -6,11 +6,9 @@ import neatlogic.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.autoexec.exception.AutoexecJobExecutePermissionDeniedException;
-import neatlogic.framework.autoexec.exception.AutoexecJobNotFoundException;
 import neatlogic.framework.dao.mapper.UserMapper;
 import neatlogic.framework.dto.UserVo;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,28 +55,26 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
         //来源功能不一定会带source和parentId,则这里补一下已存在的作业这两个信息
         AutoexecJobVo originJob = autoexecJobMapper.getJobInfoWithInvoke(jobId);
         //不为空代表不是新建作业
-        if (originJob == null) {
-            throw new AutoexecJobNotFoundException(jobId);
-        }
-        jobParam.setSource(originJob.getSource());
-        jobParam.setParentId(originJob.getParentId());
-        autoexecTakeOver(originJob);
-        if (!execUser.equals(originJob.getExecUser())){
-            List<UserVo> userVos = userMapper.getUserByUserUuidList(Arrays.asList(execUser, originJob.getExecUser()));
-            String currentUserName = execUser;
-            String originUserName = originJob.getExecUser();
-            if (CollectionUtils.isNotEmpty(userVos)) {
-                for (UserVo userVo : userVos) {
-                    if (Objects.equals(userVo.getUuid(), currentUserName)) {
-                        currentUserName = userVo.getName() + "(" + userVo.getUserId() + ")";
-                    } else if (Objects.equals(userVo.getUuid(), originUserName)) {
-                        originUserName = userVo.getName() + "(" + userVo.getUserId() + ")";
+        if (originJob != null) {
+            jobParam.setSource(originJob.getSource());
+            jobParam.setParentId(originJob.getParentId());
+            autoexecTakeOver(originJob);
+            if (!execUser.equals(originJob.getExecUser())) {
+                List<UserVo> userVos = userMapper.getUserByUserUuidList(Arrays.asList(execUser, originJob.getExecUser()));
+                String currentUserName = execUser;
+                String originUserName = originJob.getExecUser();
+                if (CollectionUtils.isNotEmpty(userVos)) {
+                    for (UserVo userVo : userVos) {
+                        if (Objects.equals(userVo.getUuid(), currentUserName)) {
+                            currentUserName = userVo.getName() + "(" + userVo.getUserId() + ")";
+                        } else if (Objects.equals(userVo.getUuid(), originUserName)) {
+                            originUserName = userVo.getName() + "(" + userVo.getUserId() + ")";
+                        }
                     }
                 }
+                throw new AutoexecJobExecutePermissionDeniedException(jobId, currentUserName, originUserName);
             }
-            throw new AutoexecJobExecutePermissionDeniedException(jobId, currentUserName, originUserName);
         }
-
         myExecuteAuthCheck(jobParam);
     }
 
@@ -87,7 +83,8 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
 
 
     @Override
-    public void overrideProfile(AutoexecJobVo autoexecJobVo, Map<String, AutoexecParamVo> autoexecProfileParamVoMap, Long profileId) {
+    public void overrideProfile(AutoexecJobVo
+                                        autoexecJobVo, Map<String, AutoexecParamVo> autoexecProfileParamVoMap, Long profileId) {
 
     }
 
