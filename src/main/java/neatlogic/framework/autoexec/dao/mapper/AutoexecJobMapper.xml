@@ -507,6 +507,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                ajg.id                          as groupId,
                ajg.sort                        as groupSort,
                ajg.config,
+               ajg.round_count                 as groupRoundCount,
+               ajg.parallel_count              as groupParallelCount,
+               ajg.parallel_policy             as groupParallelPolicy,
+               ajg.parallel_from               as groupParallelFrom,
                ajg.policy                      as groupPolicy,
                ajp.`uuid`,
                ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
@@ -585,6 +589,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             <result column="groupSort" property="sort"/>
             <result column="groupPolicy" property="policy"/>
             <result column="config" property="configStr"/>
+            <result column="groupRoundCount" property="roundCount"/>
+            <result column="groupParallelCount" property="parallelCount"/>
+            <result column="groupParallelPolicy" property="parallelPolicy"/>
+            <result column="groupParallelFrom" property="parallelFrom"/>
         </collection>
         <collection property="runnerVos" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseRunnerVo">
             <result column="runnerMapId" property="id"/>
@@ -1911,6 +1919,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajpn.runner_map_id as runnerMapId
         FROM `autoexec_job_phase_node` ajpn
         WHERE ajpn.`job_id` = #{jobId}
+          and ajpn.`is_delete` = 0
+          and ajpn.`status` != 'invalid'
     </select>
 
     <select id="getJobPhaseNodeRunnerListByJobPhaseId"
@@ -1989,6 +1999,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         ajg.sort as groupSort,
         ajg.config,
         ajg.policy as groupPolicy,
+        ajg.round_count                 as groupRoundCount,
+        ajg.parallel_count              as groupParallelCount,
+        ajg.parallel_policy             as groupParallelPolicy,
+        ajg.parallel_from               as groupParallelFrom,
         ajp.`uuid`,
         ajp.`is_pre_output_update_node` as isPreOutputUpdateNode,
         ajpr.runner_map_id as runnerMapId,
@@ -3013,11 +3027,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
 
     <insert id="insertJobContent"
             parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobContentVo">
-        INSERT INTO `autoexec_job_content` (`hash`, `content`)
+        INSERT IGNORE INTO `autoexec_job_content` (`hash`, `content`)
         VALUES (#{hash}, #{content,typeHandler=CompressHandler})
-        ON DUPLICATE KEY
-            UPDATE `hash`    = #{hash},
-                   `content` = #{content,typeHandler=CompressHandler}
     </insert>
 
     <insert id="insertJobPhaseRunner">
@@ -3070,8 +3081,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                    `lcd`         = #{lcd}
     </insert>
     <insert id="insertJobGroup">
-        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`, `round_count`)
-        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount})
+        INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`, `round_count`, `parallel_count`,
+                                          `parallel_policy`, `parallel_from`)
+        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount}, #{parallelCount}, #{parallelPolicy}, #{parallelFrom})
     </insert>
 
     <insert id="insertSqlDetail" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
@@ -3239,8 +3251,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <update id="updateJobStatus" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         UPDATE `autoexec_job`
         SET `status` = #{status}
-        <if test="status == 'running' and isFirstFire == 1">
+        <if test="startTime == null">
             ,`start_time` = NOW(3)
+        </if>
+        <if test="status == 'running'">
             ,`end_time` = NULL
         </if>
         <if test="status == 'completed' or status == 'failed' or status == 'aborted' or status == 'paused'">
@@ -3678,6 +3692,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         <foreach collection="whereStatusList" item="whereStatus" separator="," open="(" close=")">
             #{whereStatus}
         </foreach>
+    </update>
+    <update id="updateJobRoundCount">
+        update `autoexec_job` set `round_count` = #{roundCount} where `id` = #{jobId}
     </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">

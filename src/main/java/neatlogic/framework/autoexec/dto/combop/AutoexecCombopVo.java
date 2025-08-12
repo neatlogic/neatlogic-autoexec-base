@@ -82,6 +82,8 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
     private boolean needExecuteNode = false;
     @EntityField(name = "term.autoexec.needroundcount", type = ApiParamType.BOOLEAN)
     private boolean needRoundCount = false;
+    @EntityField(name = "term.autoexec.needrunnergroup", type = ApiParamType.BOOLEAN)
+    private boolean needRunnerGroup = false;
     @EntityField(name = "common.versioncount", type = ApiParamType.INTEGER)
     private Integer versionCount;
     @EntityField(name = "common.viewauthoritylist", type = ApiParamType.JSONARRAY)
@@ -293,6 +295,14 @@ public class AutoexecCombopVo extends BaseEditorVo implements Serializable {
 
     public void setNeedRoundCount(boolean needRoundCount) {
         this.needRoundCount = needRoundCount;
+    }
+
+    public boolean getNeedRunnerGroup() {
+        return needRunnerGroup;
+    }
+
+    public void setNeedRunnerGroup(boolean needRunnerGroup) {
+        this.needRunnerGroup = needRunnerGroup;
     }
 
     public String getConfigStr() {

@@ -491,4 +491,5 @@ public interface AutoexecJobMapper {
 
     void deleteJobExecByJobId(Long jobId);
 
+    void updateJobRoundCount(@Param("jobId") Long id,@Param("roundCount") Integer roundCount);
 }

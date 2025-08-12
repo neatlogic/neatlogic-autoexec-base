@@ -154,13 +154,15 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         List<ParamMappingVo> paramMappingVos = operationConfigVo.getParamMappingList();
         List<ParamMappingVo> argumentMappingVos = operationConfigVo.getArgumentMappingList();
         AutoexecOperationBaseVo autoexecOperationBaseVo = autoexecCombopPhaseOperationVo.getOperation();
-        List<AutoexecParamVo> inputParamList = autoexecOperationBaseVo.getInputParamList();
+        List<AutoexecParamVo> operationInputParamList = autoexecOperationBaseVo.getInputParamList();
         AutoexecParamVo argumentParam = autoexecOperationBaseVo.getArgument();
         //替换输入参数（上游参数）
         if (CollectionUtils.isNotEmpty(paramMappingVos)) {
             for (ParamMappingVo paramMappingVo : paramMappingVos) {
-                for (AutoexecParamVo input : inputParamList) {
-                    exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo, preOperationNameMap);
+                if (CollectionUtils.isNotEmpty(operationInputParamList)) {
+                    for (AutoexecParamVo input : operationInputParamList) {
+                        exchangeParam(paramMappingVo, input, phaseVo, jobPhaseVoList, operationVo, preOperationNameMap, null);
+                    }
                 }
             }
         }
@@ -168,7 +170,7 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
         if (CollectionUtils.isNotEmpty(argumentMappingVos)) {
             for (ParamMappingVo argumentMappingVo : argumentMappingVos) {
                 if (argumentParam != null) {
-                    exchangeArgumentParam(jobVo.getConfig().getRuntimeParamList(), argumentMappingVo, argumentParam);
+                    exchangeParam(argumentMappingVo, argumentParam, phaseVo, jobPhaseVoList, operationVo, preOperationNameMap, jobVo.getConfig().getRuntimeParamList());
                 }
             }
         }
@@ -183,30 +185,6 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
     }
 
     /**
-     * 自由参数引用作业，应该以作业参数的类型为准
-     *
-     * @param runtimeParamList 组合工具作业参数
-     * @param paramMappingVo   工具自由参数值
-     * @param param            工具自由参数
-     */
-    private void exchangeArgumentParam(List<AutoexecParamVo> runtimeParamList, ParamMappingVo paramMappingVo, AutoexecParamVo param) {
-        Optional<AutoexecParamVo> argumentParamOptional;
-        if (CollectionUtils.isNotEmpty(runtimeParamList)) {
-            argumentParamOptional = runtimeParamList.stream().filter(o -> Objects.equals(o.getKey(), paramMappingVo.getValue())).findFirst();
-            if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.RUNTIME_PARAM.getValue()) && argumentParamOptional.isPresent()) {
-                paramMappingVo.setType(argumentParamOptional.get().getType());
-            } else {
-                paramMappingVo.setType(param.getType());
-            }
-        } else {
-            paramMappingVo.setType(param.getType());
-        }
-        paramMappingVo.setName(param.getName());
-        paramMappingVo.setDescription(param.getDescription());
-
-    }
-
-    /**
      * 替换参数值（上游参数）
      *
      * @param paramMappingVo      输入值
@@ -215,10 +193,21 @@ public class AutoexecJobPhaseOperationVo implements Serializable {
      * @param jobPhaseVoList      所有阶段
      * @param operationVo         工具
      * @param preOperationNameMap 记录上游阶段工具uuid对应的名称
+     * @param runtimeParamList    组合工具作业参数
      */
-    private void exchangeParam(ParamMappingVo paramMappingVo, AutoexecParamVo param, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo, Map<String, String> preOperationNameMap) {
-        if (Objects.equals(paramMappingVo.getKey(), param.getKey())) {
-            paramMappingVo.setType(param.getType());
+    private void exchangeParam(ParamMappingVo paramMappingVo, AutoexecParamVo param, AutoexecJobPhaseVo phaseVo, List<AutoexecJobPhaseVo> jobPhaseVoList, AutoexecOperationVo operationVo, Map<String, String> preOperationNameMap, List<AutoexecParamVo> runtimeParamList) {
+        if ((StringUtils.isBlank(paramMappingVo.getKey()) && StringUtils.isBlank(param.getKey())) || Objects.equals(paramMappingVo.getKey(), param.getKey())) {
+            Optional<AutoexecParamVo> argumentParamOptional;
+            if (CollectionUtils.isNotEmpty(runtimeParamList)) {
+                argumentParamOptional = runtimeParamList.stream().filter(o -> Objects.equals(o.getKey(), paramMappingVo.getValue())).findFirst();
+                if (Objects.equals(paramMappingVo.getMappingMode(), ParamMappingMode.RUNTIME_PARAM.getValue()) && argumentParamOptional.isPresent()) {
+                    paramMappingVo.setType(argumentParamOptional.get().getType());
+                } else {
+                    paramMappingVo.setType(param.getType());
+                }
+            } else {
+                paramMappingVo.setType(param.getType());
+            }
             paramMappingVo.setName(param.getName());
             paramMappingVo.setDescription(param.getDescription());
             Object value = paramMappingVo.getValue();

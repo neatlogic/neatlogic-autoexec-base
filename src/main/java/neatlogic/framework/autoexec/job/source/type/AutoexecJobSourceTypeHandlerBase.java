@@ -6,11 +6,19 @@ import neatlogic.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.autoexec.exception.AutoexecJobExecutePermissionDeniedException;
+import neatlogic.framework.autoexec.exception.AutoexecJobNotFoundException;
+import neatlogic.framework.dao.mapper.UserMapper;
+import neatlogic.framework.dto.UserVo;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author longrf
@@ -19,9 +27,16 @@ import java.util.Map;
 public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSourceTypeHandler {
     protected static AutoexecJobMapper autoexecJobMapper;
 
+    protected static UserMapper userMapper;
+
     @Autowired
     private void setAutoexecJobMapper(AutoexecJobMapper _autoexecJobMapper) {
         autoexecJobMapper = _autoexecJobMapper;
+    }
+
+    @Autowired
+    private void setUserMapper(UserMapper _userMapper) {
+        userMapper = _userMapper;
     }
 
     Logger logger = LoggerFactory.getLogger(AutoexecJobSourceTypeHandlerBase.class);
@@ -40,16 +55,30 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
         String execUser = UserContext.get().getUserUuid(true);
         jobParam.setExecUser(execUser);
         //来源功能不一定会带source和parentId,则这里补一下已存在的作业这两个信息
-        AutoexecJobVo job = autoexecJobMapper.getJobInfoWithInvoke(jobId);
+        AutoexecJobVo originJob = autoexecJobMapper.getJobInfoWithInvoke(jobId);
         //不为空代表不是新建作业
-        if (job != null) {
-            jobParam.setSource(job.getSource());
-            jobParam.setParentId(job.getParentId());
-            autoexecTakeOver(job);
-            if (!execUser.equals(job.getExecUser())){
-                throw new AutoexecJobExecutePermissionDeniedException(jobId, execUser, jobParam.getExecUser());
-            }
+        if (originJob == null) {
+            throw new AutoexecJobNotFoundException(jobId);
         }
+        jobParam.setSource(originJob.getSource());
+        jobParam.setParentId(originJob.getParentId());
+        autoexecTakeOver(originJob);
+        if (!execUser.equals(originJob.getExecUser())){
+            List<UserVo> userVos = userMapper.getUserByUserUuidList(Arrays.asList(execUser, originJob.getExecUser()));
+            String currentUserName = execUser;
+            String originUserName = originJob.getExecUser();
+            if (CollectionUtils.isNotEmpty(userVos)) {
+                for (UserVo userVo : userVos) {
+                    if (Objects.equals(userVo.getUuid(), currentUserName)) {
+                        currentUserName = userVo.getName() + "(" + userVo.getUserId() + ")";
+                    } else if (Objects.equals(userVo.getUuid(), originUserName)) {
+                        originUserName = userVo.getName() + "(" + userVo.getUserId() + ")";
+                    }
+                }
+            }
+            throw new AutoexecJobExecutePermissionDeniedException(jobId, currentUserName, originUserName);
+        }
+
         myExecuteAuthCheck(jobParam);
     }
 
