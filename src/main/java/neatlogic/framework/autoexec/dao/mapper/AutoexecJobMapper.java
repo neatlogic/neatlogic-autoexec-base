@@ -41,6 +41,8 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobInfo(Long jobId);
 
+    AutoexecJobVo getJobInfoWithInvoke(Long jobId);
+
     List<AutoexecJobVo> getJobWarnCountAndStatus(List<Long> idList);
 
     List<AutoexecJobVo> getJobListByIdList(List<Long> idList);
