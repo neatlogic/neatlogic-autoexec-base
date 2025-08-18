@@ -221,9 +221,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "贯穿作业的参数", type = ApiParamType.STRING)
     private JSONObject passThroughEnv = new JSONObject();
 
-    @EntityField(name = "指定执行用户", type = ApiParamType.STRING)
-    @JSONField(serialize = false)
-    private String assignExecUser;
     @EntityField(name = "告警数量", type = ApiParamType.INTEGER)
     private Integer warnCount = 0;
     @EntityField(name = "是否含有已忽略节点", type = ApiParamType.INTEGER)
@@ -439,10 +436,6 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     }
 
     public String getExecUser() {
-        //优先使用指定执行用户
-        if (StringUtils.isNotBlank(assignExecUser)) {
-            return assignExecUser;
-        }
         if (StringUtils.isBlank(execUser)) {
             return UserContext.get().getUserUuid();
         }
