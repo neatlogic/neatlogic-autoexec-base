@@ -2,6 +2,7 @@ package neatlogic.framework.autoexec.job.source.type;
 
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
+import neatlogic.framework.autoexec.constvalue.JobAction;
 import neatlogic.framework.autoexec.dao.mapper.AutoexecJobMapper;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
@@ -59,7 +60,7 @@ public abstract class AutoexecJobSourceTypeHandlerBase implements IAutoexecJobSo
             jobParam.setSource(originJob.getSource());
             jobParam.setParentId(originJob.getParentId());
             autoexecTakeOver(originJob);
-            if (!execUser.equals(originJob.getExecUser())) {
+            if (!execUser.equals(originJob.getExecUser()) && !Objects.equals(jobParam.getAction(), JobAction.TAKE_OVER.getValue())) {
                 List<UserVo> userVos = userMapper.getUserByUserUuidList(Arrays.asList(execUser, originJob.getExecUser()));
                 String currentUserName = execUser;
                 String originUserName = originJob.getExecUser();
