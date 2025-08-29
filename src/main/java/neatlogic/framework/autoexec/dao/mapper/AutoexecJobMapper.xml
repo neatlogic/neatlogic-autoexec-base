@@ -3293,9 +3293,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
             `is_executed` = #{isExecuted},
         </if>
         `status` = #{status}
-        WHERE `job_id` = #{jobId}
-        AND `job_phase_id` = #{jobPhaseId}
-        AND `id` = #{id}
+        WHERE `id` = #{id}
     </update>
     <update id="updateJobPhaseStatusByJobId">
         UPDATE `autoexec_job_phase`
