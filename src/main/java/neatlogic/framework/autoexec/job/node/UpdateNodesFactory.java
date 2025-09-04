@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.job.node;
 
 import neatlogic.framework.applicationlistener.core.ModuleInitializedListenerBase;
-import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteNodeConfigVo;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.bootstrap.NeatLogicWebApplicationContext;
 import neatlogic.framework.common.RootComponent;
@@ -51,14 +51,14 @@ public class UpdateNodesFactory extends ModuleInitializedListenerBase {
     /**
      * 遍历所有获取目标的方式，获取到就退出
      * @param jobVo 作业
-     * @param executeNodeConfigVo 执行目标配置
+     * @param executeConfigVo 执行目标配置
      * @param userName 执行用户
      * @param protocolId 协议id
      */
-    public static boolean updateNodes(AutoexecCombopExecuteNodeConfigVo executeNodeConfigVo, AutoexecJobVo jobVo,String userName,Long protocolId){
+    public static boolean updateNodes(AutoexecCombopExecuteConfigVo executeConfigVo, AutoexecJobVo jobVo, String userName, Long protocolId){
         boolean isHasNode = false;
         for (IUpdateNodes updateNode : updateNodeList){
-            isHasNode = updateNode.update(executeNodeConfigVo,jobVo,userName,protocolId);
+            isHasNode = updateNode.update(executeConfigVo,jobVo,userName,protocolId);
             if(isHasNode){
                 break;
             }
