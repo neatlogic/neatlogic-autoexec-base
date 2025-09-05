@@ -16,11 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.job.node;
 
 import neatlogic.framework.applicationlistener.core.ModuleInitializedListenerBase;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.bootstrap.NeatLogicWebApplicationContext;
 import neatlogic.framework.common.RootComponent;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class UpdateNodesFactory extends ModuleInitializedListenerBase {
         if (beansOfTypeMap.size() == 0) {
             return;
         }
-        if(CollectionUtils.isNotEmpty(beansOfTypeMap.values())) {
+        if (CollectionUtils.isNotEmpty(beansOfTypeMap.values())) {
             updateNodeList.addAll(beansOfTypeMap.values());
         }
     }
@@ -50,16 +52,28 @@ public class UpdateNodesFactory extends ModuleInitializedListenerBase {
 
     /**
      * 遍历所有获取目标的方式，获取到就退出
-     * @param jobVo 作业
+     *
+     * @param jobVo           作业
      * @param executeConfigVo 执行目标配置
-     * @param userName 执行用户
-     * @param protocolId 协议id
+     * @param userName        执行用户
+     * @param protocolId      协议id
      */
-    public static boolean updateNodes(AutoexecCombopExecuteConfigVo executeConfigVo, AutoexecJobVo jobVo, String userName, Long protocolId){
+    public static boolean updateNodes(AutoexecCombopExecuteConfigVo executeConfigVo, AutoexecJobVo jobVo, String userName, Long protocolId) {
         boolean isHasNode = false;
-        for (IUpdateNodes updateNode : updateNodeList){
-            isHasNode = updateNode.update(executeConfigVo,jobVo,userName,protocolId);
-            if(isHasNode){
+        for (IUpdateNodes updateNode : updateNodeList) {
+            AutoexecCombopConfigVo config = jobVo.getConfig();
+            //如果局部不存在前置过滤器，则使用全局的
+            if (executeConfigVo == null || executeConfigVo.getExecuteNodeConfig() == null) {
+               return false;
+            } else {
+                if (MapUtils.isEmpty(executeConfigVo.getPreCondition()) && config != null && config.getExecuteConfig() != null
+                        && MapUtils.isNotEmpty(config.getExecuteConfig().getPreCondition())
+                ) {
+                    executeConfigVo.setPreCondition(config.getExecuteConfig().getPreCondition());
+                }
+            }
+            isHasNode = updateNode.update(executeConfigVo, jobVo, userName, protocolId);
+            if (isHasNode) {
                 break;
             }
         }
