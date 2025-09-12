@@ -2695,7 +2695,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         update
     </select>
     <select id="isHasPendingNode" resultType="java.lang.Integer">
-        select ajpn.id
+        select count(ajpn.id)
         from `autoexec_job_phase_node` ajpn
         where ajpn.job_phase_id = #{value} and ajpn.`status` = 'pending'
         limit 1
