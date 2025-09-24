@@ -15,18 +15,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.job.node;
 
-import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteNodeConfigVo;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 
 public interface IUpdateNodes {
 
     /**
      * 更新自动化执行目标
-     * @param executeNodeConfigVo 执行目标配置
+     * @param executeConfigVo 执行目标配置
      * @param jobVo 作业
      * @param userName 执行用户
      * @param protocolId 协议id
      */
-    boolean update(AutoexecCombopExecuteNodeConfigVo executeNodeConfigVo, AutoexecJobVo jobVo, String userName, Long protocolId);
+    boolean update(AutoexecCombopExecuteConfigVo executeConfigVo, AutoexecJobVo jobVo, String userName, Long protocolId);
 
 }

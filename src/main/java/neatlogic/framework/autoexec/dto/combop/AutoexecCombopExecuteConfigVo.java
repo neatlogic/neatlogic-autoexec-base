@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.dto.combop;
 
+import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.autoexec.dto.node.AutoexecNodeVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
@@ -57,7 +58,8 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
     @EntityField(name = "并发策略", type = ApiParamType.STRING)
     private String parallelPolicy;
     @EntityField(name = "前置执行目标配置", type = ApiParamType.JSONOBJECT)
-    private AutoexecCombopExecuteNodeConfigVo combopNodeConfig; //设置过滤器后，执行时只能在过滤器范围内选择执行目标
+    private JSONObject preCondition; //设置过滤器后，执行时只能在过滤器范围内选择执行目标
+
 
     public String getProtocol() {
         return protocol;
@@ -139,12 +141,12 @@ public class AutoexecCombopExecuteConfigVo implements Serializable {
         this.roundCount = roundCount;
     }
 
-    public AutoexecCombopExecuteNodeConfigVo getCombopNodeConfig() {
-        return combopNodeConfig;
+    public JSONObject getPreCondition() {
+        return preCondition;
     }
 
-    public void setCombopNodeConfig(AutoexecCombopExecuteNodeConfigVo combopNodeConfig) {
-        this.combopNodeConfig = combopNodeConfig;
+    public void setPreCondition(JSONObject preCondition) {
+        this.preCondition = preCondition;
     }
 
     public ParamMappingVo getRunnerGroup() {
