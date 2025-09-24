@@ -750,6 +750,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                aj.`exec_user`       as execUser,
                aj.`source`,
                aj.`round_count`     as roundCount,
+               aj.`parallel_count`     as parallelCount,
+               aj.`parallel_policy`     as parallelPolicy,
                aj.`param_hash`      as paramHash,
                aj.`config_hash`     as configHash,
                aj.`trigger_type`    as triggerType
