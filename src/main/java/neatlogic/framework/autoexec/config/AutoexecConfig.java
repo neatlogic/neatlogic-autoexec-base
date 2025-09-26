@@ -62,7 +62,7 @@ public class AutoexecConfig implements IConfigListener {
         AUTOEXEC_JOB_IS_ALLOWED_MANUAL_TRIGGER_IN_ADVANCE = Boolean.valueOf(prop.getProperty("autoexec.job.isallowed.manualtrigger.inadvance", "true"));
         AUTOEXEC_TOKEN = prop.getProperty("autoexec.token");
         RUNNER_CONNECT_TIMEOUT = Integer.valueOf(prop.getProperty("runner.connect.timeout","5000"));
-        RUNNER_READ_TIMEOUT = Integer.valueOf(prop.getProperty("runner.read.timeout","3600000"));
+        RUNNER_READ_TIMEOUT = Integer.valueOf(prop.getProperty("runner.read.timeout","15000"));
         if(StringUtils.isBlank(AUTOEXEC_TOKEN)){
             System.out.println(I18nUtils.getStaticMessage("nmac.autoexecconfig.loadconfig.autoexectoken"));
             logger.error(I18nUtils.getStaticMessage("nmac.autoexecconfig.loadconfig.autoexectoken"));
