@@ -3061,11 +3061,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
 
     <insert id="insertDuplicateJobEnv" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecJobEnvVo">
         INSERT INTO `autoexec_job_env` (`job_id`, `name`, `value`)
-        VALUES (#{jobId}, #{name}, #{value})
+        VALUES (#{jobId}, #{name}, #{value, typeHandler=CompressHandler})
         ON DUPLICATE KEY
             UPDATE `job_id` = #{jobId},
                    `name`   = #{name},
-                   `value`  = #{value}
+                   `value`  = #{value, typeHandler=CompressHandler}
     </insert>
 
     <insert id="insertJobInvoke">
@@ -3085,7 +3085,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <insert id="insertJobGroup">
         INSERT INTO `autoexec_job_group` (`id`, `job_id`, `sort`, `policy`, `config`, `round_count`, `parallel_count`,
                                           `parallel_policy`, `parallel_from`)
-        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr}, #{roundCount}, #{parallelCount}, #{parallelPolicy}, #{parallelFrom})
+        values (#{id}, #{jobId}, #{sort}, #{policy}, #{configStr, typeHandler=CompressHandler}, #{roundCount}, #{parallelCount}, #{parallelPolicy}, #{parallelFrom})
     </insert>
 
     <insert id="insertSqlDetail" parameterType="neatlogic.framework.autoexec.dto.job.AutoexecSqlNodeDetailVo">
