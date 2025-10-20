@@ -267,13 +267,13 @@
                                     `lcd`)
         values (#{id},
                 #{name},
-                #{description},
+                #{description, typeHandler=CompressHandler},
                 #{type},
                 #{lcu},
                 now(3))
         ON DUPLICATE KEY
             UPDATE `name`        = #{name},
-                   `description` = #{description},
+                   `description` = #{description, typeHandler=CompressHandler},
                    `type`        = #{type},
                    `lcu`         = #{lcu},
                    `lcd`         = now(3)
@@ -290,7 +290,7 @@
         <foreach collection="list" item="param" separator=",">
             (#{param.id},
             #{param.name},
-            #{param.description},
+            #{param.description, typeHandler=CompressHandler},
             #{param.type},
             #{param.lcu},
             #{param.lcd})
@@ -343,7 +343,7 @@
     <update id="updateType" parameterType="neatlogic.framework.autoexec.dto.AutoexecTypeVo">
         update `autoexec_type`
         set `name`        = #{name},
-            `description` = #{description},
+            `description` = #{description, typeHandler=CompressHandler},
             `lcu`         = #{lcu},
             `lcd`         = now(3)
         where `id` = #{id}

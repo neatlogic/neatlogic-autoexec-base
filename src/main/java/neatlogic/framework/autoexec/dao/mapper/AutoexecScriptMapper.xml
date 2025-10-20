@@ -1757,7 +1757,7 @@
             `risk_id`            = #{riskId},
             `is_lib`             = #{isLib},
             `customtemplate_id`  = #{customTemplateId},
-            `description`        = #{description},
+            `description`        = #{description, typeHandler=CompressHandler},
             `default_profile_id` = #{defaultProfileId}
         where `id` = #{id}
     </update>
@@ -1794,7 +1794,7 @@
     </update>
     <update id="updateScriptVersionParamPassword">
         update `autoexec_script_version_param`
-        set default_value = #{password}
+        set default_value = #{password, typeHandler=CompressHandler}
         where script_version_id = #{param.scriptVersionId}
           and `key` = #{param.key}
           and `mode` = #{param.mode}
@@ -1820,7 +1820,7 @@
                 #{riskId},
                 #{customTemplateId},
                 #{execMode},
-                #{description},
+                #{description, typeHandler=CompressHandler},
                 #{defaultProfileId},
                 #{isLib},
                 #{fcu},
@@ -1871,14 +1871,14 @@
             #{item.scriptVersionId},
             #{item.key},
             #{item.name},
-            #{item.defaultValueStr},
+            #{item.defaultValueStr, typeHandler=CompressHandler},
             #{item.type},
             #{item.mode},
             #{item.mappingMode},
             #{item.isRequired},
             #{item.description},
             #{item.sort},
-            #{item.configStr}
+            #{item.configStr, typeHandler=CompressHandler}
             )
         </foreach>
     </insert>
@@ -1907,7 +1907,7 @@
         insert ignore into `autoexec_script_line_content` (`hash`,
                                                            `content`)
         values (#{hash},
-                #{content})
+                #{content, typeHandler=CompressHandler})
     </insert>
 
     <insert id="insertScriptAudit" parameterType="neatlogic.framework.autoexec.dto.script.AutoexecScriptAuditVo">
@@ -1932,7 +1932,7 @@
         insert ignore into `autoexec_script_audit_detail`(`hash`,
                                                           `content`)
         values (#{hash},
-                #{content})
+                #{content, typeHandler=CompressHandler})
     </insert>
 
     <insert id="batchInsertScriptVersion" parameterType="java.util.List">

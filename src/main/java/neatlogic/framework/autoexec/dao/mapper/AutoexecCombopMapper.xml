@@ -332,13 +332,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                                        `lcu`)
         VALUES (#{id},
                 #{name},
-                #{description},
+                #{description, typeHandler=CompressHandler},
                 #{typeId},
                 #{opType},
                 #{isActive},
                 #{operationType},
                 #{owner},
-                #{configStr},
+                #{configStr, typeHandler=CompressHandler},
                 NOW(3),
                 #{fcu},
                 NOW(3),
@@ -376,11 +376,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <update id="updateAutoexecCombopById" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo">
         UPDATE `autoexec_combop`
         SET `name`             = #{name},
-            `description`      = #{description},
+            `description`      = #{description, typeHandler=CompressHandler},
             `type_id`          = #{typeId},
             `op_type`          = #{opType},
             `owner`            = #{owner},
-            `config`           = #{configStr},
+            `config`           = #{configStr, typeHandler=CompressHandler},
             `lcu`              = #{lcu},
             `lcd`              = NOW(3)
         WHERE `id` = #{id}
@@ -398,14 +398,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <update id="updateAutoexecCombopConfigById"
             parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo">
         UPDATE `autoexec_combop`
-        SET `config` = #{configStr},
+        SET `config` = #{configStr, typeHandler=CompressHandler},
             `lcu`    = #{lcu},
             `lcd`    = NOW(3)
         WHERE `id` = #{id}
     </update>
 
     <update id="updateAutoexecCombopConfigByIdAndConfigStr" parameterType="java.util.Map">
-        UPDATE `autoexec_combop` SET `config` = #{configStr} WHERE `id` = #{id}
+        UPDATE `autoexec_combop` SET `config` = #{configStr, typeHandler=CompressHandler} WHERE `id` = #{id}
     </update>
 
     <delete id="deleteAutoexecCombopById" parameterType="java.lang.Long">
