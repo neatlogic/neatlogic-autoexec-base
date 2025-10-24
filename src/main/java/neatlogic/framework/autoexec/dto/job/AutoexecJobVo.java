@@ -229,6 +229,9 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "作业执行参数", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
+    @EntityField(name = "前置执行目标配置", type = ApiParamType.JSONOBJECT)
+    private JSONObject preCondition;
+
     @EntityField(name = "子作业列表", type = ApiParamType.JSONARRAY)
     private List<AutoexecJobVo> children;
 
@@ -959,6 +962,14 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
         this.executeConfig = executeConfig;
+    }
+
+    public JSONObject getPreCondition() {
+        return preCondition;
+    }
+
+    public void setPreCondition(JSONObject preCondition) {
+        this.preCondition = preCondition;
     }
 
     public void setCombopId(Long combopId) {
