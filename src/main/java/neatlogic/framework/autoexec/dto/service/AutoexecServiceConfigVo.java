@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.autoexec.dto.service;
 
+import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.autoexec.dto.combop.ParamMappingVo;
 
 import java.io.Serializable;
@@ -41,6 +42,8 @@ public class AutoexecServiceConfigVo implements Serializable {
     private ParamMappingVo runnerGroupTag;
 
     private List<ParamMappingVo> runtimeParamList;
+
+    private JSONObject preCondition;
 
     public Long getScenarioId() {
         return scenarioId;
@@ -120,5 +123,13 @@ public class AutoexecServiceConfigVo implements Serializable {
 
     public void setParallelPolicy(ParamMappingVo parallelPolicy) {
         this.parallelPolicy = parallelPolicy;
+    }
+
+    public JSONObject getPreCondition() {
+        return preCondition;
+    }
+
+    public void setPreCondition(JSONObject preCondition) {
+        this.preCondition = preCondition;
     }
 }
