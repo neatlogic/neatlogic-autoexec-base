@@ -20,9 +20,13 @@ import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.autoexec.script.paramtype.ScriptParamTypeFactory;
 import neatlogic.framework.common.constvalue.IEnum;
 import neatlogic.framework.util.$;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * 全局参数类型枚举类
@@ -31,36 +35,38 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum ParamType implements IEnum {
-    TEXT("text", "common.text", "nfac.paramtype.text"),
-    PASSWORD("password", "common.password", "nfac.paramtype.password"),
-    FILE("file", "common.file", "common.file"),
-    DATE("date", "common.date", "nfac.paramtype.date"),
-    DATETIME("datetime", "common.datetime", "nfac.paramtype.desc.date"),
-    TIME("time", "common.time", "nfac.paramtype.desc.time"),
-    JSON("json", "common.jsonobject", "nfac.paramtype.desc.json"),
-    SELECT("select", "nfac.paramtype.select", "nfac.paramtype.desc.multiselect"),
-    MULTISELECT("multiselect", "nfac.paramtype.multiselect", "nfac.paramtype.desc.multiselect"),
-    RADIO("radio", "nfac.paramtype.radio", "nfac.paramtype.desc.radio"),
-    CHECKBOX("checkbox", "nfac.paramtype.checkbox", "nfac.paramtype.desc.checkbox"),
-    NODE("node", "nfac.paramtype.node", "nfac.paramtype.desc.node"),
-    ACCOUNT("account", "common.account", "common.account"),
-    USERSELECT("userselect", "nfac.paramtype.userselect", "nfac.paramtype.desc.userselect"),
-    TEXTAREA("textarea", "nfac.paramtype.textarea", "nfac.paramtype.desc.textarea"),
-    PHASE("phase", "nfac.paramtype.phase", "nfac.paramtype.desc.phase"),
-    SWITCH("switch", "nfac.paramtype.switch", "nfac.paramtype.switch"),
-    FILEPATH("filepath", "common.filepath", "nfac.paramtype.desc.filepath"),
-    RUNNERGROUP("runnergroup", "nfac.paramtype.runnergroup", "nfac.paramtype.runnergroup"),
-    RUNNERGROUPTAG("runnergrouptag", "nfac.paramtype.runnergrouptag", "nfac.paramtype.runnergrouptag")
+    TEXT("text", "common.text", "nfac.paramtype.text", v -> v == null || StringUtils.isBlank(v.toString())),
+    PASSWORD("password", "common.password", "nfac.paramtype.password",v -> v == null || StringUtils.isBlank(v.toString())),
+    FILE("file", "common.file", "common.file", v->v == null || MapUtils.isEmpty(JSONObject.parseObject(JSONObject.toJSONString(v))) || CollectionUtils.isEmpty(JSONObject.parseObject(JSONObject.toJSONString(v)).getJSONArray("fileIdList"))),
+    DATE("date", "common.date", "nfac.paramtype.date", v -> v == null || StringUtils.isBlank(v.toString())),
+    DATETIME("datetime", "common.datetime", "nfac.paramtype.desc.date", v -> v == null || StringUtils.isBlank(v.toString())),
+    TIME("time", "common.time", "nfac.paramtype.desc.time", v -> v == null || StringUtils.isBlank(v.toString())),
+    JSON("json", "common.jsonobject", "nfac.paramtype.desc.json", v -> v == null || StringUtils.isBlank(v.toString())),
+    SELECT("select", "nfac.paramtype.select", "nfac.paramtype.desc.select",v -> v == null || StringUtils.isBlank(v.toString())),
+    MULTISELECT("multiselect", "nfac.paramtype.multiselect", "nfac.paramtype.desc.multiselect", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
+    RADIO("radio", "nfac.paramtype.radio", "nfac.paramtype.desc.radio",v -> v == null || StringUtils.isBlank(v.toString())),
+    CHECKBOX("checkbox", "nfac.paramtype.checkbox", "nfac.paramtype.desc.checkbox", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
+    NODE("node", "nfac.paramtype.node", "nfac.paramtype.desc.node", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
+    ACCOUNT("account", "common.account", "common.account",v -> v == null || StringUtils.isBlank(v.toString())),
+    USERSELECT("userselect", "nfac.paramtype.userselect", "nfac.paramtype.desc.userselect", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
+    TEXTAREA("textarea", "nfac.paramtype.textarea", "nfac.paramtype.desc.textarea",v -> v == null || StringUtils.isBlank(v.toString())),
+    PHASE("phase", "nfac.paramtype.phase", "nfac.paramtype.desc.phase",v -> v == null || StringUtils.isBlank(v.toString())),
+    SWITCH("switch", "nfac.paramtype.switch", "nfac.paramtype.switch",v -> v == null || StringUtils.isBlank(v.toString())),
+    FILEPATH("filepath", "common.filepath", "nfac.paramtype.desc.filepath",v -> v == null || StringUtils.isBlank(v.toString())),
+    RUNNERGROUP("runnergroup", "nfac.paramtype.runnergroup", "nfac.paramtype.runnergroup",v -> v == null || StringUtils.isBlank(v.toString())),
+    RUNNERGROUPTAG("runnergrouptag", "nfac.paramtype.runnergrouptag", "nfac.paramtype.runnergrouptag", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v))))
     ;
 
     private final String value;
     private final String text;
     private final String description;
+    private final Function<Object, Boolean> emptyChecker;
 
-    ParamType(String value, String text, String description) {
+    ParamType(String value, String text, String description, Function<Object, Boolean> emptyChecker) {
         this.value = value;
         this.text = text;
         this.description = description;
+        this.emptyChecker = emptyChecker;
     }
 
     public String getValue() {
@@ -73,6 +79,10 @@ public enum ParamType implements IEnum {
 
     public String getDescription() {
         return $.t(description);
+    }
+
+    public boolean isValueEmpty(Object value) {
+        return emptyChecker.apply(value);
     }
 
     public static ParamType getParamType(String _value) {
