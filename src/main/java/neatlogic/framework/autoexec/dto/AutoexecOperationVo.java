@@ -233,7 +233,7 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
     }
 
     public String getIsLibName() {
-        if (StringUtils.isBlank(isLibName)) {
+        if (StringUtils.isBlank(isLibName) && isLib != null) {
             return isLib == 1 ? "是" : "否";
         }
         return isLibName;
