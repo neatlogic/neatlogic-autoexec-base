@@ -16,7 +16,7 @@ import neatlogic.framework.form.constvalue.IFormHandler;
 
 public enum AutoexecFormHandler implements IFormHandler {
 
-    FORMRESOURECES("formautoexecservice", "自动化服务组件"),
+    FORMAUTOEXECSERVICE("formautoexecservice", "自动化服务组件"),
     ;
 
     private final String handler;
