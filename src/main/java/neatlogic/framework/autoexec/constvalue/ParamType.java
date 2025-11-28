@@ -40,18 +40,18 @@ public enum ParamType implements IEnum {
     TIME("time", "common.time", "nfac.paramtype.desc.time", v -> v == null || StringUtils.isBlank(v.toString())),
     JSON("json", "common.jsonobject", "nfac.paramtype.desc.json", v -> v == null || StringUtils.isBlank(v.toString())),
     SELECT("select", "nfac.paramtype.select", "nfac.paramtype.desc.select",v -> v == null || StringUtils.isBlank(v.toString())),
-    MULTISELECT("multiselect", "nfac.paramtype.multiselect", "nfac.paramtype.desc.multiselect", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
+    MULTISELECT("multiselect", "nfac.paramtype.multiselect", "nfac.paramtype.desc.multiselect", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v)))) ,
     RADIO("radio", "nfac.paramtype.radio", "nfac.paramtype.desc.radio",v -> v == null || StringUtils.isBlank(v.toString())),
-    CHECKBOX("checkbox", "nfac.paramtype.checkbox", "nfac.paramtype.desc.checkbox", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
-    NODE("node", "nfac.paramtype.node", "nfac.paramtype.desc.node", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
+    CHECKBOX("checkbox", "nfac.paramtype.checkbox", "nfac.paramtype.desc.checkbox", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v)))) ,
+    NODE("node", "nfac.paramtype.node", "nfac.paramtype.desc.node", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v)))) ,
     ACCOUNT("account", "common.account", "common.account",v -> v == null || StringUtils.isBlank(v.toString())),
-    USERSELECT("userselect", "nfac.paramtype.userselect", "nfac.paramtype.desc.userselect", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v)))) ,
+    USERSELECT("userselect", "nfac.paramtype.userselect", "nfac.paramtype.desc.userselect", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v)))) ,
     TEXTAREA("textarea", "nfac.paramtype.textarea", "nfac.paramtype.desc.textarea",v -> v == null || StringUtils.isBlank(v.toString())),
     PHASE("phase", "nfac.paramtype.phase", "nfac.paramtype.desc.phase",v -> v == null || StringUtils.isBlank(v.toString())),
     SWITCH("switch", "nfac.paramtype.switch", "nfac.paramtype.switch",v -> v == null || StringUtils.isBlank(v.toString())),
     FILEPATH("filepath", "common.filepath", "nfac.paramtype.desc.filepath",v -> v == null || StringUtils.isBlank(v.toString())),
     RUNNERGROUP("runnergroup", "nfac.paramtype.runnergroup", "nfac.paramtype.runnergroup",v -> v == null || StringUtils.isBlank(v.toString())),
-    RUNNERGROUPTAG("runnergrouptag", "nfac.paramtype.runnergrouptag", "nfac.paramtype.runnergrouptag", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray(JSONArray.toJSONString(v))))
+    RUNNERGROUPTAG("runnergrouptag", "nfac.paramtype.runnergrouptag", "nfac.paramtype.runnergrouptag", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v))))
     ;
 
     private final String value;
