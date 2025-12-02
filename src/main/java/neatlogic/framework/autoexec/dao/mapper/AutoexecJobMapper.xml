@@ -822,6 +822,29 @@
         order by `sort` asc
     </select>
 
+    <select id="getJobPhaseOperationListByJobIdAndPhaseId"
+            resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
+        SELECT `job_id`       as jobId,
+               `job_phase_id` as jobPhaseId,
+               `id`,
+               `name`,
+               `type`,
+               `parser`,
+               `exec_mode`    as execMode,
+               `sort`,
+               `operation_id` as operationId,
+               `fail_policy`  as failPolicy,
+               version_id     as versionId,
+               `param_hash`   as paramHash,
+               `profile_id`   as profileId,
+               `uuid`,
+               `letter`
+        FROM `autoexec_job_phase_operation`
+        where `job_id` = #{jobId}
+          and `job_phase_id` = #{phaseId}
+        order by `sort` asc
+    </select>
+
     <select id="getJobPhaseOperationListWithVersionWithoutParentByJobIdAndPhaseId"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseOperationVo">
         SELECT ajpo.`job_id`       as jobId,

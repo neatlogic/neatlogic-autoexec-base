@@ -214,6 +214,8 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseOperationVo> getJobPhaseOperationListWithoutParentByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
+    List<AutoexecJobPhaseOperationVo> getJobPhaseOperationListByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
+
     List<AutoexecJobPhaseOperationVo> getJobPhaseOperationListWithVersionWithoutParentByJobIdAndPhaseId(@Param("jobId") Long jobId, @Param("phaseId") Long phaseId);
 
     List<AutoexecJobPhaseVo> getJobPhaseListWithOperationWithoutParentByJobId(@Param("jobId") Long jobId);
