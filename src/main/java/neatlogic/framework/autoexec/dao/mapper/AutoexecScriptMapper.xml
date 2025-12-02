@@ -880,7 +880,7 @@
         (select `name` from `autoexec_type` where a.`type_id` = `id`) as typeName,
         (select `name` from `autoexec_risk` where a.`risk_id` = `id`) as riskName,
         (select `color` from `autoexec_risk` where a.`risk_id` = `id`) as riskColor,
-        (select `id` from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'submitted') as submittedVersionId,
+        (select `id` from `autoexec_script_version` where a.`id` = `script_id` and `status` = 'submitted' order by `id` limit 1) as submittedVersionId,
         a.`catalog_id` as catalogId
         from `autoexec_script` a
         <include refid="searchScriptCondition"/>
