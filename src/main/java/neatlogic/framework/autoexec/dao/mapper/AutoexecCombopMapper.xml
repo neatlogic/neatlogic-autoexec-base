@@ -75,7 +75,7 @@
         </foreach>
     </select>
 
-    <select id="getAutoexecCombopCount" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo"
+    <!--<select id="getAutoexecCombopCount" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo"
             resultType="int">
         SELECT
         COUNT(`id`)
@@ -97,9 +97,9 @@
                 AND `is_active` = #{isActive}
             </if>
         </where>
-    </select>
+    </select>-->
 
-    <select id="getAutoexecCombopList" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo"
+    <!--<select id="getAutoexecCombopList" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo"
             resultType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT
         `id`,
@@ -132,9 +132,9 @@
         </where>
         ORDER BY `id` DESC
         LIMIT #{startNum}, #{pageSize}
-    </select>
+    </select>-->
 
-    <select id="getAutoexecCombopIdList" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo"
+    <!--<select id="getAutoexecCombopIdList" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo"
             resultType="java.lang.Long">
         SELECT
         `id`
@@ -152,9 +152,9 @@
         </where>
         ORDER BY `id` DESC
         LIMIT #{startNum}, #{pageSize}
-    </select>
+    </select>-->
 
-    <select id="getAutoexecCombopListByIdList" parameterType="java.lang.Long"
+    <!--<select id="getAutoexecCombopListByIdList" parameterType="java.lang.Long"
             resultType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo">
         SELECT
         `id`,
@@ -171,6 +171,80 @@
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </select>-->
+
+    <sql id="getAutoexecCombopSearchWhere">
+        <choose>
+            <when test="versionStatus == 'draft'">
+                AND b.status = 'draft'
+            </when>
+            <when test="versionStatus == 'submitted'">
+                AND b.status = 'submitted'
+            </when>
+            <when test="versionStatus == 'rejected'">
+                AND b.status = 'rejected'
+            </when>
+            <otherwise>
+                AND b.status = 'passed' AND b.is_active = 1
+            </otherwise>
+        </choose>
+        <if test="keyword != null and keyword != ''">
+            AND (a.`name` LIKE concat('%', #{keyword}, '%') OR a.`description` LIKE concat('%', #{keyword}, '%'))
+        </if>
+        <if test="typeId != null">
+            AND a.`type_id` = #{typeId}
+        </if>
+        <if test="isActive != null">
+            AND a.`is_active` = #{isActive}
+        </if>
+        <if test="isHasAllAuthority == null or isHasAllAuthority == 0">
+            AND (a.`owner` = #{userUuid}
+            OR (c.`uuid` = 'alluser'
+            <if test="action != null and action != ''">
+                AND c.`action` = #{action}
+            </if>)
+            <choose>
+                <when test="uuidList != null and uuidList.size() > 0">
+                    OR (c.`uuid` IN
+                    <foreach collection="uuidList" item="uuid" open="(" separator="," close=")">
+                        #{uuid}
+                    </foreach>
+                    <if test="action != null and action != ''">
+                        AND c.`action` = #{action}
+                    </if>
+                    )
+                </when>
+                <otherwise>
+                    OR 1 != 1
+                </otherwise>
+            </choose>
+            )
+        </if>
+    </sql>
+
+    <select id="getAutoexecCombopCount" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopSearchVo" resultType="int">
+        SELECT
+        COUNT(DISTINCT a.`id`)
+        FROM `autoexec_combop` a
+        JOIN `autoexec_combop_version` b on b.combop_id = a.id
+        JOIN `autoexec_combop_authority` c on c.combop_id = a.id
+        <where>
+            <include refid="getAutoexecCombopSearchWhere"/>
+        </where>
+    </select>
+
+    <select id="getAutoexecCombopIdList" parameterType="neatlogic.framework.autoexec.dto.combop.AutoexecCombopSearchVo" resultType="java.lang.Long">
+        SELECT
+        a.`id`
+        FROM `autoexec_combop` a
+        join `autoexec_combop_version` b on b.`combop_id` = a.`id`
+        join `autoexec_combop_authority` c on c.`combop_id` = a.`id`
+        <where>
+            <include refid="getAutoexecCombopSearchWhere"/>
+        </where>
+        GROUP BY a.`id`
+        ORDER BY a.`id` DESC
+        LIMIT #{startNum}, #{pageSize}
     </select>
 
     <select id="getAutoexecCombopAuthorityListByCombopId" parameterType="java.lang.Long"

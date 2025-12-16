@@ -14,6 +14,7 @@ package neatlogic.framework.autoexec.dao.mapper;
 
 import neatlogic.framework.autoexec.dto.AutoexecTypeVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopAuthorityVo;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopSearchVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import neatlogic.framework.common.dto.BasePageVo;
 import neatlogic.framework.dto.AuthenticationInfoVo;
@@ -40,13 +41,17 @@ public interface AutoexecCombopMapper {
 
     List<AutoexecCombopVo> getAutoexecCombopByIdList(List<Long> idList);
 
-    int getAutoexecCombopCount(AutoexecCombopVo searchVo);
+//    int getAutoexecCombopCount(AutoexecCombopVo searchVo);
+//
+//    List<AutoexecCombopVo> getAutoexecCombopList(AutoexecCombopVo searchVo);
 
-    List<AutoexecCombopVo> getAutoexecCombopList(AutoexecCombopVo searchVo);
+//    List<Long> getAutoexecCombopIdList(AutoexecCombopVo searchVo);
 
-    List<Long> getAutoexecCombopIdList(AutoexecCombopVo searchVo);
+//    List<AutoexecCombopVo> getAutoexecCombopListByIdList(List<Long> idList);
 
-    List<AutoexecCombopVo> getAutoexecCombopListByIdList(List<Long> idList);
+    int getAutoexecCombopCount(AutoexecCombopSearchVo searchVo);
+
+    List<Long> getAutoexecCombopIdList(AutoexecCombopSearchVo searchVo);
 
     List<AutoexecCombopAuthorityVo> getAutoexecCombopAuthorityListByCombopId(Long combopId);
 
