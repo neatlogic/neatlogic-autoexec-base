@@ -41,14 +41,6 @@ public interface AutoexecCombopMapper {
 
     List<AutoexecCombopVo> getAutoexecCombopByIdList(List<Long> idList);
 
-//    int getAutoexecCombopCount(AutoexecCombopVo searchVo);
-//
-//    List<AutoexecCombopVo> getAutoexecCombopList(AutoexecCombopVo searchVo);
-
-//    List<Long> getAutoexecCombopIdList(AutoexecCombopVo searchVo);
-
-//    List<AutoexecCombopVo> getAutoexecCombopListByIdList(List<Long> idList);
-
     int getAutoexecCombopCount(AutoexecCombopSearchVo searchVo);
 
     List<Long> getAutoexecCombopIdList(AutoexecCombopSearchVo searchVo);
