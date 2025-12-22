@@ -28,6 +28,7 @@
             `autoexec_catalog`
         WHERE
             `name` = #{value}
+        limit 1
     </select>
 
     <select id="getAutoexecCatalogByFullName" parameterType="java.lang.String"
