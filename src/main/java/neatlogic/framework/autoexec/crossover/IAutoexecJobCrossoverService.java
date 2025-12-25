@@ -12,6 +12,7 @@
 
 package neatlogic.framework.autoexec.crossover;
 
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
 import neatlogic.framework.cmdb.dto.resourcecenter.ResourceVo;
 import neatlogic.framework.crossover.ICrossoverService;
@@ -37,4 +38,11 @@ public interface IAutoexecJobCrossoverService extends ICrossoverService {
      * @param protocolId 协议id
      */
     void updateJobPhaseNode(AutoexecJobVo jobVo, List<ResourceVo> resourceVoList, String userName, Long protocolId);
+
+    /**
+     * 处理老数据中的executeConfigVo
+     * @param executeConfigVo 老数据executeConfigVo
+     * @param autoexecJobVo
+     */
+    void handleOldDataExecuteConfig(AutoexecCombopExecuteConfigVo executeConfigVo, AutoexecJobVo autoexecJobVo);
 }

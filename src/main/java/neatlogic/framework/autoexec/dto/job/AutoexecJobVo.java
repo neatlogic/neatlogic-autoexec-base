@@ -19,7 +19,7 @@ import neatlogic.framework.asynchronization.threadlocal.UserContext;
 import neatlogic.framework.autoexec.constvalue.*;
 import neatlogic.framework.autoexec.dto.AutoexecParamVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopConfigVo;
-import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteConfigVo;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopExecuteNodeConfigVo;
 import neatlogic.framework.autoexec.dto.combop.ParamMappingVo;
 import neatlogic.framework.autoexec.source.AutoexecJobSourceFactory;
 import neatlogic.framework.autoexec.source.IAutoexecJobSource;
@@ -222,9 +222,18 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     private Integer warnCount = 0;
     @EntityField(name = "是否含有已忽略节点", type = ApiParamType.INTEGER)
     private Integer isHasIgnored = 0;
-    @JSONField(serialize = false)
-    @EntityField(name = "作业执行参数", type = ApiParamType.JSONOBJECT)
-    private AutoexecCombopExecuteConfigVo executeConfig;
+//    @JSONField(serialize = false)
+//    @EntityField(name = "作业执行参数", type = ApiParamType.JSONOBJECT)
+//    private AutoexecCombopExecuteConfigVo executeConfig;
+
+    @EntityField(name = "协议id", type = ApiParamType.LONG)
+    private Long protocolId;
+
+    @EntityField(name = "执行用户", type = ApiParamType.JSONOBJECT)
+    private ParamMappingVo executeUser;
+
+    @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
+    private AutoexecCombopExecuteNodeConfigVo executeNodeConfig;
 
     @EntityField(name = "如何指定执行目标，（现在指定执行目标、运行时再指定执行目标、运行参数作为执行目标）", type = ApiParamType.STRING)
     private String whenToSpecify;
@@ -956,12 +965,36 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         this.isHasIgnored = isHasIgnored;
     }
 
-    public AutoexecCombopExecuteConfigVo getExecuteConfig() {
-        return executeConfig;
+//    public AutoexecCombopExecuteConfigVo getExecuteConfig() {
+//        return executeConfig;
+//    }
+//
+//    public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
+//        this.executeConfig = executeConfig;
+//    }
+
+    public Long getProtocolId() {
+        return protocolId;
     }
 
-    public void setExecuteConfig(AutoexecCombopExecuteConfigVo executeConfig) {
-        this.executeConfig = executeConfig;
+    public void setProtocolId(Long protocolId) {
+        this.protocolId = protocolId;
+    }
+
+    public ParamMappingVo getExecuteUser() {
+        return executeUser;
+    }
+
+    public void setExecuteUser(ParamMappingVo executeUser) {
+        this.executeUser = executeUser;
+    }
+
+    public AutoexecCombopExecuteNodeConfigVo getExecuteNodeConfig() {
+        return executeNodeConfig;
+    }
+
+    public void setExecuteNodeConfig(AutoexecCombopExecuteNodeConfigVo executeNodeConfig) {
+        this.executeNodeConfig = executeNodeConfig;
     }
 
     public String getWhenToSpecify() {
