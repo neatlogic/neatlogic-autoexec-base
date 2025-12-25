@@ -9,7 +9,9 @@
             `name`,
             `parent_id` AS parentId,
             `lft`,
-            `rht`
+            `rht`,
+            `upward_name_path` AS upwardNamePath,
+            `upward_id_path` AS upwardIdPath
         FROM
             `autoexec_catalog`
         WHERE
