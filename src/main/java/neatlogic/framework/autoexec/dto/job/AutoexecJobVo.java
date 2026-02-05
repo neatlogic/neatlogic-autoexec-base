@@ -266,6 +266,9 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
     @EntityField(name = "是否第一次初始化", type = ApiParamType.JSONOBJECT)
     private int isFirstInit = 0;
 
+    @JSONField(serialize = false)
+    private List<Long> parentIdList;
+
     public AutoexecJobVo() {
     }
 
@@ -1111,5 +1114,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public void setParallelPolicy(String parallelPolicy) {
         this.parallelPolicy = parallelPolicy;
+    }
+
+    public List<Long> getParentIdList() {
+        return parentIdList;
+    }
+
+    public void setParentIdList(List<Long> parentIdList) {
+        this.parentIdList = parentIdList;
     }
 }

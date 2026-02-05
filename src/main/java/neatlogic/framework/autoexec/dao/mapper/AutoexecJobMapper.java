@@ -58,7 +58,7 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobVo> getJobListByParentIdAndNotInStatus(@Param("parentId") Long id, @Param("status") String status);
 
-    List<AutoexecJobVo> getParentAutoexecJobListIdList(List<Long> idList);
+    List<AutoexecJobVo> getAutoexecSubJobListByFilter(AutoexecJobVo jobFilter);
 
     AutoexecJobContentVo getJobContentLock(String hash);
 
@@ -285,6 +285,10 @@ public interface AutoexecJobMapper {
 
     List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByJobPhaseIdListAndStatusAndRunnerId(@Param("jobPhaseIdList") List<Long> jobPhaseIdList, @Param("status") String status, @Param("runnerId") Long runnerId);
 
+    List<AutoexecJobPhaseNodeVo> getAutoexecJobNodeListByJobPhaseIdAndExcludeStatusList(@Param("jobPhaseId") Long jobPhaseId, @Param("statusList") List<String> excludeStatusList, @Param("startNum") Integer startNum, @Param("pageSize") Integer pageSize);
+
+    Integer getAutoexecJobNodeCountByJobPhaseIdAndExcludeStatusList(@Param("jobPhaseId") Long jobPhaseId, @Param("statusList") List<String> excludeStatusList);
+
     Integer getJobPhaseStatusCountByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
 
     Integer getJobPhaseRunnerStatusCountByJobIdAndStatus(@Param("jobId") Long jobId, @Param("status") String status);
@@ -490,5 +494,5 @@ public interface AutoexecJobMapper {
 
     void deleteJobExecByJobId(Long jobId);
 
-    void updateJobRoundCount(@Param("jobId") Long id,@Param("roundCount") Integer roundCount);
+    void updateJobRoundCount(@Param("jobId") Long id, @Param("roundCount") Integer roundCount);
 }
