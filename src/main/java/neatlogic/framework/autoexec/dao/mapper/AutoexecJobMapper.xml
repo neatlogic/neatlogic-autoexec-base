@@ -3871,6 +3871,11 @@
     <update id="updateJobRoundCount">
         update `autoexec_job` set `round_count` = #{roundCount} where `id` = #{jobId}
     </update>
+    <update id="updateJobPhaseCreateTime">
+        update `autoexec_job_phase`
+        set `start_time` = `end_time`
+        where id = #{jobPhaseId} and `start_time` is null
+    </update>
 
     <delete id="deleteJobContentByHash" parameterType="java.lang.String">
         DELETE
