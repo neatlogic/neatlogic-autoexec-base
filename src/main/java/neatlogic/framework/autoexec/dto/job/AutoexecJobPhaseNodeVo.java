@@ -116,7 +116,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     }
 
     public AutoexecJobPhaseNodeVo(String host,Integer port , Long resourceId){
-        this.setHost(host);
+        if (host != null && host.length() > 50) {
+            this.setHost(host.substring(0, 47)+"...");
+        } else {
+            this.setHost(host);
+        }
         this.setPort(port);
         this.setResourceId(resourceId);
     }
@@ -140,7 +144,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
         this.jobGroupId = jobPhaseVo.getGroupId();
         this.status = status;
         this.setUserName(userName);
-        this.setHost(host);
+        if (host != null && host.length() > 50) {
+            this.setHost(host.substring(0, 47)+"...");
+        } else {
+            this.setHost(host);
+        }
         this.setProtocolId(protocolId);
         this.setLcd(jobPhaseVo.getLcd());
     }
@@ -150,7 +158,12 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
             this.setJobId(jsonObj.getLong("jobId"));
             this.jobPhaseName = jsonObj.getString("phase");
             this.id = jsonObj.getLong("nodeId");
-            this.setHost(jsonObj.getString("host"));
+            String ip = jsonObj.getString("host");
+            if (ip != null && ip.length() > 50) {
+                this.setHost(ip.substring(0, 47)+"...");
+            } else {
+                this.setHost(ip);
+            }
             this.setPort(jsonObj.getInteger("port"));
             this.status = jsonObj.getString("status");
             this.interactStr = jsonObj.getString("interact");
@@ -159,7 +172,12 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
 
     public AutoexecJobPhaseNodeVo(ResourceVo resourceVo, Long jobId, AutoexecJobPhaseVo jobPhaseVo, String status, String userName, Long protocolId) {
         this.setResourceId(resourceVo.getId());
-        this.setHost(resourceVo.getIp());
+        String ip = resourceVo.getIp();
+        if (ip != null && ip.length() > 50) {
+            this.setHost(ip.substring(0, 47)+"...");
+        } else {
+            this.setHost(ip);
+        }
         this.setNodeName(resourceVo.getName());
         this.setPort(resourceVo.getPort());
         this.setJobId(jobId);
@@ -176,7 +194,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
     public AutoexecJobPhaseNodeVo(Long jobId, String phaseName, String host, Integer port, Long resourceId, String runnerUrl, Long runnerMapId) {
         this.setJobId(jobId);
         this.jobPhaseName = phaseName;
-        this.setHost(host);
+        if (host != null && host.length() > 50) {
+            this.setHost(host.substring(0, 47)+"...");
+        } else {
+            this.setHost(host);
+        }
         this.setPort(port);
         this.resourceId = resourceId;
         this.runnerMapId = runnerMapId;
@@ -193,7 +215,11 @@ public class AutoexecJobPhaseNodeVo extends AutoexecJobNodeVo implements INodeDe
         this.jobPhaseId = jobPhaseVo.getId();
         this.jobGroupId = jobPhaseVo.getGroupId();
         this.status = status;
-        this.setHost(host);
+        if (host != null && host.length() > 50) {
+            this.setHost(host.substring(0, 47)+"...");
+        } else {
+            this.setHost(host);
+        }
         this.setLcd(jobPhaseVo.getLcd());
     }
 
