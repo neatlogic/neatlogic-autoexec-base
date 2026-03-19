@@ -42,7 +42,10 @@
         select
         `id`,
         `name`,
-        `description`
+        `description`,
+        `type`,
+        `lcu`,
+        `lcd`
         from
         `autoexec_type`
         where `id` IN
@@ -66,8 +69,8 @@
     </select>
 
     <select id="searchTypeCount" parameterType="neatlogic.framework.autoexec.dto.AutoexecTypeVo" resultType="int">
-        select
-        count(1)
+        SELECT
+        COUNT(DISTINCT a.`id`)
         <include refid="searchType"></include>
     </select>
 
@@ -96,17 +99,13 @@
         </where>
     </sql>
 
-    <select id="searchType" parameterType="neatlogic.framework.autoexec.dto.AutoexecTypeVo"
-            resultType="neatlogic.framework.autoexec.dto.AutoexecTypeVo">
-        select
-        a.`id`,
-        a.`name`,
-        a.`type`,
-        a.`description`,
-        a.`lcu`,
-        a.`lcd`
-      <include refid="searchType"></include>
-        order by `lcd` desc
+    <select id="searchTypeIdList" parameterType="neatlogic.framework.autoexec.dto.AutoexecTypeVo"
+            resultType="java.lang.Long">
+        SELECT
+            a.`id`
+        <include refid="searchType"></include>
+        GROUP BY a.`id`
+        ORDER BY MAX(a.`lcd`) DESC
         <if test="needPage == true">
             LIMIT #{startNum}, #{pageSize}
         </if>
