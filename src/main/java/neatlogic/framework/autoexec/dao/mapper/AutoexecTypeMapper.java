@@ -33,7 +33,7 @@ public interface AutoexecTypeMapper {
 
     int searchTypeCount(AutoexecTypeVo vo);
 
-    List<AutoexecTypeVo> searchType(AutoexecTypeVo vo);
+    List<Long> searchTypeIdList(AutoexecTypeVo vo);
 
     int checkTypeIsExistsById(Long id);
 
