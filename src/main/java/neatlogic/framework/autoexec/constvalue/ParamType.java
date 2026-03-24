@@ -14,6 +14,7 @@ package neatlogic.framework.autoexec.constvalue;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.autoexec.exception.job.JobParamValidException;
 import neatlogic.framework.autoexec.script.paramtype.ScriptParamTypeFactory;
 import neatlogic.framework.common.constvalue.IEnum;
 import neatlogic.framework.util.$;
@@ -78,8 +79,12 @@ public enum ParamType implements IEnum {
         return $.t(description);
     }
 
-    public boolean isValueEmpty(Object value) {
-        return emptyChecker.apply(value);
+    public boolean isValueEmpty(Object value,String key,String name) {
+        try {
+            return emptyChecker.apply(value);
+        }catch (Exception e) {
+            throw new JobParamValidException(String.format("%s(%s)", name, key));
+        }
     }
 
     public static ParamType getParamType(String _value) {
