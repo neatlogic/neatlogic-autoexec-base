@@ -198,9 +198,11 @@
         WHERE `id` = #{id}
     </update>
 
-    <update id="updateAutoexecScheduleIsActiveById" parameterType="java.lang.Long">
+    <update id="updateAutoexecScheduleIsActiveById" parameterType="neatlogic.framework.autoexec.dto.schedule.AutoexecScheduleVo">
         UPDATE `autoexec_schedule`
-        SET `is_active` = 1-`is_active`
+        SET `is_active` = 1-`is_active`,
+            `lcd`       = NOW(3),
+            `lcu`       = #{lcu}
         WHERE `id` = #{id}
     </update>
 
