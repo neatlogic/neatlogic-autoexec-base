@@ -167,7 +167,7 @@
     <sql id="searchSubJobSql">
         and ajj.parent_id is not null
         <if test="combopName != null and combopName != ''">
-            (acc.name like concat('%', #{combopName}, '%')
+            and (acc.name like concat('%', #{combopName}, '%'))
         </if>
         <if test="excludeIdList != null and excludeIdList.size() > 0">
             AND ajj.id not in
@@ -225,7 +225,7 @@
     <sql id="searchParentJobSql">
         and ajj.parent_id is not null
         <if test="combopName != null and combopName != ''">
-            (ac.name like concat('%', #{combopName}, '%')
+            and (ac.name like concat('%', #{combopName}, '%'))
         </if>
         <if test="excludeIdList != null and excludeIdList.size() > 0">
             AND aj.id not in
@@ -282,7 +282,7 @@
 
     <sql id="searchJobSql">
         <if test="combopName != null and combopName != ''">
-            (ac.name like concat('%', #{combopName}, '%')
+            and (ac.name like concat('%', #{combopName}, '%')
             or acc.name like concat('%', #{combopName}, '%'))
         </if>
         <if test="excludeIdList != null and excludeIdList.size() > 0">
