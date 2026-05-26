@@ -28,22 +28,22 @@ import java.util.Objects;
  * @since: 2021/4/15 14:26
  **/
 public enum OutputParamType implements IEnum {
-    TEXT("text", "文本", "可输出字符串、数字"),
-    PASSWORD("password", "密码", "可输出数字或字符串，页面显示为密文"),
-    FILE("file", "文件", "common.autoexec.file"),
-    DATE("date", "日期", "日期选择器"),
-    DATETIME("datetime", "日期时间", "日期时间选择器"),
-    TIME("time", "时间", "时间选择器"),
-    JSON("json", "json对象", "支持json对象和json数组，输出内容需是合法Json格式"),
-    SELECT("select", "单选下拉", "单选下拉选择器"),
-    MULTISELECT("multiselect", "多选下拉器", "多选下拉"),
-    RADIO("radio", "单选", "单选选择器"),
-    CHECKBOX("checkbox", "复选框", "复选选择器"),
-    NODE("node", "节点信息", "将节点的相关信息生成脚本变量，但不会分派到该节点执行"),
-    ACCOUNT("account", "账号", "common.autoexec.account"),
-    FILEPATH("filepath", "文件路径", "可输出文件路径参数"),
-    TEXTAREA("textarea", "文本域", "可输出字符串、数字"),
-    PHASE("phase", "阶段", "可输出阶段");
+    TEXT("text", "common.text", "nfac.outputparamtype.desc.text"),
+    PASSWORD("password", "common.password", "nfac.outputparamtype.desc.password"),
+    FILE("file", "common.file", "common.file"),
+    DATE("date", "common.date", "nfac.paramtype.date"),
+    DATETIME("datetime", "common.datetime", "nfac.paramtype.desc.date"),
+    TIME("time", "common.time", "nfac.paramtype.desc.time"),
+    JSON("json", "common.jsonobject", "nfac.outputparamtype.desc.jsonobject"),
+    SELECT("select", "common.singleselect", "nfac.paramtype.desc.select"),
+    MULTISELECT("multiselect", "common.multiselect", "common.multiselect"),
+    RADIO("radio", "common.radio", "nfac.paramtype.desc.radio"),
+    CHECKBOX("checkbox", "common.checkbox", "nfac.paramtype.desc.checkbox"),
+    NODE("node", "common.nodeinfo", "nfac.paramtype.desc.node"),
+    ACCOUNT("account", "common.account", "common.account"),
+    FILEPATH("filepath", "common.filepath", "nfac.paramtype.desc.filepath"),
+    TEXTAREA("textarea", "common.textarea", "nfac.outputparamtype.desc.text"),
+    PHASE("phase", "common.phase", "nfac.outputparamtype.desc.phase");
 
     private final String value;
     private final String text;
