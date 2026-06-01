@@ -565,11 +565,13 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
 
     public String getCostTime() {
         if (startTime != null) {
+            long costTimeMillis;
             if (endTime != null) {
-                return TimeUtil.millisecondsTransferMaxTimeUnit(endTime.getTime() - startTime.getTime());
+                costTimeMillis = endTime.getTime() - startTime.getTime();
             } else {
-                return TimeUtil.millisecondsTransferMaxTimeUnit(new Date().getTime() - startTime.getTime());
+                costTimeMillis = new Date().getTime() - startTime.getTime();
             }
+            return TimeUtil.millisecondsTransferMaxTimeUnit(Math.max(costTimeMillis, 0L));
         }
         return costTime;
     }
