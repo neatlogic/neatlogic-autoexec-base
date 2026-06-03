@@ -49,4 +49,9 @@ public enum AutoexecTenantConfig implements ITenantConfig {
     public String getDescription() {
         return $.t(description);
     }
+
+    @Override
+    public String getModuleGroup() {
+        return "autoexec";
+    }
 }
