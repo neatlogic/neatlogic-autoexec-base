@@ -21,5 +21,7 @@ public interface IAutoexecScriptExecrtoolCrossoverService extends ICrossoverServ
 
     JSONObject execAutoexecScriptByTagentWithAudit(JSONObject paramObj) throws Exception;
 
+    JSONObject getAutoexecScriptExecrtoolAuditById(Long auditId);
+
     boolean checkAutoexecScriptHasExecrtoolAuthority(Long scriptId);
 }
