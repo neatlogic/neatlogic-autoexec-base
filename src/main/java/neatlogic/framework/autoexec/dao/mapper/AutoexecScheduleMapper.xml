@@ -132,8 +132,8 @@
         b.last_fire_time as lastFireTime,
         b.next_fire_time as nextFireTime,
         b.exec_count as execCount,
-        c.server_id AS serverId,
-        c.server_group AS serverGroup
+        c.server_id AS sourceServerId,
+        c.server_group AS sourceServerGroup
         FROM `autoexec_schedule` a
         LEFT JOIN schedule_job_status b ON a.uuid = b.job_name
         LEFT JOIN `schedule_job_source` c ON c.`job_name` = a.`uuid`
