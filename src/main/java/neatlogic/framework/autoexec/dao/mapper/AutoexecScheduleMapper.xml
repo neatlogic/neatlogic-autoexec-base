@@ -49,22 +49,37 @@
         WHERE `uuid` = #{value}
     </select>
 
-    <select id="getAutoexecScheduleCount" parameterType="neatlogic.framework.autoexec.dto.schedule.AutoexecScheduleVo"
-            resultType="int">
-        SELECT
-        COUNT(1)
-        FROM `autoexec_schedule`
+    <sql id="getAutoexecScheduleWhere">
         <where>
+            (c.`job_name` IS NULL
+            <choose>
+                <when test="sourceServerGroup != null and sourceServerGroup != ''">
+                    OR c.`server_group` = #{sourceServerGroup}
+                </when>
+                <otherwise>
+                    OR c.`server_group` IS NULL
+                </otherwise>
+            </choose>
+            )
             <if test="keyword != null and keyword != ''">
-                AND `name` LIKE concat('%', #{keyword}, '%')
+                AND a.`name` LIKE concat('%', #{keyword}, '%')
             </if>
             <if test="isActive != null">
-                AND `is_active` = #{isActive}
+                AND a.`is_active` = #{isActive}
             </if>
             <if test="autoexecCombopId != null">
-                AND `autoexec_combop_id` = #{autoexecCombopId}
+                AND a.`autoexec_combop_id` = #{autoexecCombopId}
             </if>
         </where>
+    </sql>
+
+    <select id="getAutoexecScheduleCount" parameterType="neatlogic.framework.autoexec.dto.schedule.AutoexecScheduleVo"
+            resultType="int"><!-- aa -->
+        SELECT
+        COUNT(1)
+        FROM `autoexec_schedule` a
+        LEFT JOIN `schedule_job_source` c ON c.`job_name` = a.`uuid`
+        <include refid="getAutoexecScheduleWhere"/>
     </select>
 
     <resultMap id="jobDetailMap" type="neatlogic.framework.autoexec.dto.schedule.AutoexecScheduleVo">
@@ -116,20 +131,13 @@
         b.last_finish_time as lastFinishTime,
         b.last_fire_time as lastFireTime,
         b.next_fire_time as nextFireTime,
-        b.exec_count as execCount
+        b.exec_count as execCount,
+        c.server_id AS serverId,
+        c.server_group AS serverGroup
         FROM `autoexec_schedule` a
         LEFT JOIN schedule_job_status b ON a.uuid = b.job_name
-        <where>
-            <if test="keyword != null and keyword != ''">
-                AND a.`name` LIKE concat('%', #{keyword}, '%')
-            </if>
-            <if test="isActive != null">
-                AND a.`is_active` = #{isActive}
-            </if>
-            <if test="autoexecCombopId != null">
-                AND a.`autoexec_combop_id` = #{autoexecCombopId}
-            </if>
-        </where>
+        LEFT JOIN `schedule_job_source` c ON c.`job_name` = a.`uuid`
+        <include refid="getAutoexecScheduleWhere"/>
         ORDER BY a.`lcd` DESC
         LIMIT #{startNum}, #{pageSize}
     </select>
