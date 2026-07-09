@@ -23,5 +23,5 @@ public interface IAutoexecScriptExecrtoolCrossoverService extends ICrossoverServ
 
     JSONObject getAutoexecScriptExecrtoolAuditById(Long auditId);
 
-    boolean checkAutoexecScriptHasExecrtoolAuthority(Long scriptId);
+    boolean checkAutoexecOperationHasExecrtoolAuthority(String operationType, Long operationId);
 }
