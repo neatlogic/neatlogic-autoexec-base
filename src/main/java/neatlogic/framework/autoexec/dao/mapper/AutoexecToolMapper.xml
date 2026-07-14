@@ -74,6 +74,28 @@
         <include refid="getToolListByIdList"></include>
     </select>
 
+    <select id="getActiveToolDetailListByNameList" resultMap="autoexecOperationMap">
+        select
+            a.`id`,
+            a.`name`,
+            'tool' as `type`,
+            a.`exec_mode` as execMode,
+            a.`type_id` as typeId,
+            ate.`name` as typeName,
+            a.`risk_id` as riskId,
+            ar.`name` as riskName,
+            ar.`color` as riskColor,
+            a.`description`
+        from `autoexec_tool` a
+        left join `autoexec_type` ate on a.`type_id` = ate.`id`
+        left join `autoexec_risk` ar on a.`risk_id` = ar.`id`
+        where a.`is_active` = 1
+        and a.`name` in
+        <foreach collection="list" item="name" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+    </select>
+
     <sql id="searchToolCondition">
         <where>
             <if test="keyword != null and keyword != ''">
@@ -350,4 +372,3 @@
         </foreach>
     </delete>
 </mapper>
-
