@@ -183,7 +183,8 @@
         select
         `id`,
         `name`,
-        `is_active`
+        `is_active` AS isActive,
+        `exec_mode` AS execMode
         from `autoexec_tool`
         where `name` = #{value}
     </select>
