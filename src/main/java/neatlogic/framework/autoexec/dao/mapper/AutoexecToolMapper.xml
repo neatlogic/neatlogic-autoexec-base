@@ -96,33 +96,41 @@
         </foreach>
     </select>
 
+    <sql id="searchToolExecrtoolAuthorityFilterJoin">
+        <if test="(execrtoolAuthorityStatus != null and execrtoolAuthorityStatus != '') or (execrtoolAuthorityUuidList != null and execrtoolAuthorityUuidList.size() > 0)">
+            left join `autoexec_script_execrtool_authority` execrtoolAuthority
+              on execrtoolAuthority.`operation_type` = 'tool'
+             and execrtoolAuthority.`operation_id` = a.`id`
+        </if>
+    </sql>
+
     <sql id="searchToolCondition">
         <where>
             <if test="keyword != null and keyword != ''">
-                and (`name` like CONCAT('%', #{keyword}, '%') or `description` like CONCAT('%', #{keyword}, '%'))
+                and (a.`name` like CONCAT('%', #{keyword}, '%') or a.`description` like CONCAT('%', #{keyword}, '%'))
             </if>
             <if test="execMode != null and execMode != ''">
-                and `exec_mode` = #{execMode}
+                and a.`exec_mode` = #{execMode}
             </if>
             <if test="typeIdList != null and typeIdList.size() != 0">
-                and `type_id` in
+                and a.`type_id` in
                 <foreach collection="typeIdList" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
             <if test="riskIdList != null and riskIdList.size() != 0">
-                and `risk_id` in
+                and a.`risk_id` in
                 <foreach collection="riskIdList" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
             <choose>
                 <when test="customTemplateId != null and customTemplateId == 0">
-                    and `customtemplate_id` is not null
+                    and a.`customtemplate_id` is not null
                 </when>
                 <otherwise>
                     <if test="customTemplateIdList != null and customTemplateIdList.size() > 0">
-                        and `customtemplate_id` in
+                        and a.`customtemplate_id` in
                         <foreach collection="customTemplateIdList" item="item" open="(" separator="," close=")">
                             #{item}
                         </foreach>
@@ -130,14 +138,29 @@
                 </otherwise>
             </choose>
             <if test="isActive != null">
-                and `is_active` = #{isActive}
+                and a.`is_active` = #{isActive}
+            </if>
+            <choose>
+                <when test="execrtoolAuthorityStatus == 'authorized'">
+                    and execrtoolAuthority.`operation_id` is not null
+                </when>
+                <when test="execrtoolAuthorityStatus == 'unauthorized'">
+                    and execrtoolAuthority.`operation_id` is null
+                </when>
+            </choose>
+            <if test="execrtoolAuthorityUuidList != null and execrtoolAuthorityUuidList.size() > 0">
+                and execrtoolAuthority.`uuid` in
+                <foreach collection="execrtoolAuthorityUuidList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
             </if>
         </where>
     </sql>
 
     <select id="searchToolCount" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo" resultType="int">
-        select count(`id`)
-        from `autoexec_tool`
+        select count(distinct a.`id`)
+        from `autoexec_tool` a
+        <include refid="searchToolExecrtoolAuthorityFilterJoin"/>
         <include refid="searchToolCondition"/>
     </select>
 
@@ -157,26 +180,55 @@
         </association>
     </resultMap>
 
-    <select id="searchTool" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo"
-            resultMap="AutoexecToolMap">
-        select
-        `id`,
-        `name`,
-        `exec_mode` as execMode,
-        `parser`,
-        `description`,
-        `type_id` as typeId,
-        (select `name` from `autoexec_type` where `type_id` = `id`) as typeName,
-        `risk_id` as riskId,
-        (select `name` from `autoexec_risk` where `risk_id` = `id`) as riskName,
-        (select `color` from `autoexec_risk` where `risk_id` = `id`) as riskColor,
-        `is_active` as isActive
-        from `autoexec_tool`
+    <!-- 列表查询专用映射，避免其他工具查询被要求返回授权明细列。 -->
+    <resultMap id="AutoexecToolSearchMap" type="neatlogic.framework.autoexec.dto.AutoexecToolVo" extends="AutoexecToolMap">
+        <collection
+            property="execrtoolAuthorityList"
+            ofType="neatlogic.framework.autoexec.dto.script.AutoexecScriptExecrtoolAuthorityVo"
+            notNullColumn="execrtoolAuthorityType,execrtoolAuthorityUuid"
+        >
+            <result column="execrtoolAuthorityType" property="type"/>
+            <result column="execrtoolAuthorityUuid" property="uuid"/>
+        </collection>
+    </resultMap>
+
+    <!-- 先分页查询工具ID，保证权限一对多明细不会改变父记录分页。 -->
+    <select id="searchToolIdList" parameterType="neatlogic.framework.autoexec.dto.AutoexecToolVo" resultType="java.lang.Long">
+        select distinct a.`id`
+        from `autoexec_tool` a
+        <include refid="searchToolExecrtoolAuthorityFilterJoin"/>
         <include refid="searchToolCondition"/>
-        order by `lcd` desc
+        order by a.`id` desc
         <if test="needPage == true">
-            LIMIT #{startNum}, #{pageSize}
+            limit #{startNum}, #{pageSize}
         </if>
+    </select>
+
+    <!-- 通过工具主键批量回取列表VO，权限明细交由 MyBatis collection 组装。 -->
+    <select id="getToolListForSearchByIdList" resultMap="AutoexecToolSearchMap">
+        select
+        a.`id`,
+        a.`name`,
+        a.`exec_mode` as execMode,
+        a.`parser`,
+        a.`description`,
+        a.`type_id` as typeId,
+        (select `name` from `autoexec_type` where a.`type_id` = `id`) as typeName,
+        a.`risk_id` as riskId,
+        (select `name` from `autoexec_risk` where a.`risk_id` = `id`) as riskName,
+        (select `color` from `autoexec_risk` where a.`risk_id` = `id`) as riskColor,
+        a.`is_active` as isActive,
+        execrtoolAuthority.`type` as execrtoolAuthorityType,
+        execrtoolAuthority.`uuid` as execrtoolAuthorityUuid
+        from `autoexec_tool` a
+        left join `autoexec_script_execrtool_authority` execrtoolAuthority
+          on execrtoolAuthority.`operation_type` = 'tool'
+         and execrtoolAuthority.`operation_id` = a.`id`
+        where a.`id` in
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        order by a.`id` desc, execrtoolAuthority.`type`, execrtoolAuthority.`uuid`
     </select>
 
     <select id="getToolByName" parameterType="java.lang.String" resultType="neatlogic.framework.autoexec.dto.AutoexecToolVo">

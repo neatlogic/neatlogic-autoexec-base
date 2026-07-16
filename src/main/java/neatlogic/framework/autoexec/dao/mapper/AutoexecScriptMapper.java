@@ -129,7 +129,9 @@ public interface AutoexecScriptMapper {
 
     int searchScriptCount(AutoexecScriptVo scriptVo);
 
-    List<AutoexecScriptVo> searchScript(AutoexecScriptVo scriptVo);
+    List<Long> searchScriptIdList(AutoexecScriptVo scriptVo);
+
+    List<AutoexecScriptVo> getScriptListForSearchByIdList(@Param("idList") List<Long> idList);
 
     int searchScriptAndToolCount(AutoexecOperationVo searchVo);
 

@@ -31,7 +31,9 @@ public interface AutoexecToolMapper {
 
     List<AutoexecOperationVo> getActiveToolDetailListByNameList(List<String> toolNameList);
 
-    List<AutoexecToolVo> searchTool(AutoexecToolVo toolVo);
+    List<Long> searchToolIdList(AutoexecToolVo toolVo);
+
+    List<AutoexecToolVo> getToolListForSearchByIdList(@Param("idList") List<Long> idList);
 
     AutoexecToolVo getToolByName(String name);
 

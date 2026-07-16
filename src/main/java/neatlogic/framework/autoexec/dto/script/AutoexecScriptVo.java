@@ -88,6 +88,14 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
     @EntityField(name = "引用数量", type = ApiParamType.INTEGER)
     private Integer referenceCount;
 
+    // 直接执行权限过滤参数仅用于列表 Mapper 动态拼接，不直接输出给调用方。
+    @JSONField(serialize = false)
+    private String execrtoolAuthorityStatus;
+    @JSONField(serialize = false)
+    private List<String> execrtoolAuthorityUuidList;
+    @EntityField(name = "common.executeauthoritylist", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptExecrtoolAuthorityVo> execrtoolAuthorityList;
+
 
     public AutoexecScriptVo() {
     }
@@ -281,5 +289,29 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
     @Override
     public void setReferenceCount(Integer referenceCount) {
         this.referenceCount = referenceCount;
+    }
+
+    public String getExecrtoolAuthorityStatus() {
+        return execrtoolAuthorityStatus;
+    }
+
+    public void setExecrtoolAuthorityStatus(String execrtoolAuthorityStatus) {
+        this.execrtoolAuthorityStatus = execrtoolAuthorityStatus;
+    }
+
+    public List<String> getExecrtoolAuthorityUuidList() {
+        return execrtoolAuthorityUuidList;
+    }
+
+    public void setExecrtoolAuthorityUuidList(List<String> execrtoolAuthorityUuidList) {
+        this.execrtoolAuthorityUuidList = execrtoolAuthorityUuidList;
+    }
+
+    public List<AutoexecScriptExecrtoolAuthorityVo> getExecrtoolAuthorityList() {
+        return execrtoolAuthorityList;
+    }
+
+    public void setExecrtoolAuthorityList(List<AutoexecScriptExecrtoolAuthorityVo> execrtoolAuthorityList) {
+        this.execrtoolAuthorityList = execrtoolAuthorityList;
     }
 }

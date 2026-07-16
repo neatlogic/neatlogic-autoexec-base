@@ -16,8 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.dto;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
+import neatlogic.framework.autoexec.dto.script.AutoexecScriptExecrtoolAuthorityVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
+
+import java.util.List;
 
 public class AutoexecToolVo extends AutoexecOperationVo {
     @EntityField(name = "common.isactive", type = ApiParamType.INTEGER)
@@ -25,6 +29,14 @@ public class AutoexecToolVo extends AutoexecOperationVo {
 
     @EntityField(name = "common.editdate", type = ApiParamType.LONG)
     private Long importTime;
+
+    // 直接执行权限过滤参数仅用于列表 Mapper 动态拼接，不直接输出给调用方。
+    @JSONField(serialize = false)
+    private String execrtoolAuthorityStatus;
+    @JSONField(serialize = false)
+    private List<String> execrtoolAuthorityUuidList;
+    @EntityField(name = "common.executeauthoritylist", type = ApiParamType.JSONARRAY)
+    private List<AutoexecScriptExecrtoolAuthorityVo> execrtoolAuthorityList;
 
     public AutoexecToolVo() {
     }
@@ -51,5 +63,29 @@ public class AutoexecToolVo extends AutoexecOperationVo {
 
     public void setImportTime(Long importTime) {
         this.importTime = importTime;
+    }
+
+    public String getExecrtoolAuthorityStatus() {
+        return execrtoolAuthorityStatus;
+    }
+
+    public void setExecrtoolAuthorityStatus(String execrtoolAuthorityStatus) {
+        this.execrtoolAuthorityStatus = execrtoolAuthorityStatus;
+    }
+
+    public List<String> getExecrtoolAuthorityUuidList() {
+        return execrtoolAuthorityUuidList;
+    }
+
+    public void setExecrtoolAuthorityUuidList(List<String> execrtoolAuthorityUuidList) {
+        this.execrtoolAuthorityUuidList = execrtoolAuthorityUuidList;
+    }
+
+    public List<AutoexecScriptExecrtoolAuthorityVo> getExecrtoolAuthorityList() {
+        return execrtoolAuthorityList;
+    }
+
+    public void setExecrtoolAuthorityList(List<AutoexecScriptExecrtoolAuthorityVo> execrtoolAuthorityList) {
+        this.execrtoolAuthorityList = execrtoolAuthorityList;
     }
 }
