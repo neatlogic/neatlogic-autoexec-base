@@ -18,6 +18,8 @@ import com.alibaba.fastjson.JSONReader;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -34,6 +36,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexecJobPhaseNodeExportHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(AutoexecJobPhaseNodeExportHandlerBase.class);
 
     @Resource
     MongoTemplate mongoTemplate;
@@ -185,12 +189,13 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                     }
                 }
                 jsonReader.endArray();
-                jsonReader.close();
                 try {
+                    // Fastjson 2 的 JSONReader.close() 声明抛出 IOException，统一在资源关闭分支处理。
+                    jsonReader.close();
                     bis.close();
                     bos.close();
                 } catch (IOException e) {
-
+                    logger.error(e.getMessage(), e);
                 }
             }
         }
