@@ -190,6 +190,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                 }
                 jsonReader.endArray();
                 try {
+                    // Fastjson 2 的 JSONReader.close() 声明抛出 IOException，统一在资源关闭分支处理。
                     jsonReader.close();
                     bis.close();
                     bos.close();
