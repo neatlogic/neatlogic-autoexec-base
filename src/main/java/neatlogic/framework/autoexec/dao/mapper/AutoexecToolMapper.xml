@@ -235,6 +235,7 @@
         select
         `id`,
         `name`,
+         description,
         `is_active` AS isActive,
         `exec_mode` AS execMode
         from `autoexec_tool`
