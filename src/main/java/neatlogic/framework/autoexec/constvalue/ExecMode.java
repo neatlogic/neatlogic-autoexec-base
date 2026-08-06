@@ -24,10 +24,10 @@ import java.util.List;
 import java.util.Objects;
 
 public enum ExecMode implements IEnum {
-    RUNNER("runner", "runner执行", "无需指定执行目标，工具在runner执行，适用于数据汇总处理等"),
-    TARGET("target", "target执行", "需指定执行目标，工具在指定的远程主机上执行，只适用于主机信息采集或命令下发"),
-    RUNNER_TARGET("runner_target", "runner->target执行", "需指定执行目标，工具在runner上执行，适用于网络设备、存储设备、软件系统等的信息采集或命令下发"),
-    SQL("sqlfile", "sql文件执行", "需选定DB执行目标，工具在runner上执行，适用于SQL文件的检查、执行等操作");
+    RUNNER("runner", "nfac.execmode.text.runner", "nfac.execmode.description.runner"),
+    TARGET("target", "nfac.execmode.text.target", "nfac.execmode.description.target"),
+    RUNNER_TARGET("runner_target", "nfac.execmode.text.runner_target", "nfac.execmode.description.runner_target"),
+    SQL("sqlfile", "nfac.execmode.text.sqlfile", "nfac.execmode.description.sqlfile");
     private final String value;
     private final String text;
     private final String description;
