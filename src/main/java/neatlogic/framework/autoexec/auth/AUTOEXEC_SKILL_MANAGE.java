@@ -8,12 +8,12 @@ import java.util.List;
 public class AUTOEXEC_SKILL_MANAGE extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "Skill管理权限";
+        return "nfaa.autoexec_skill_manage.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "对自动化Skill进行审批、发布、取消发布和启停";
+        return "nfaa.autoexec_skill_manage.getauthintroduction";
     }
 
     @Override

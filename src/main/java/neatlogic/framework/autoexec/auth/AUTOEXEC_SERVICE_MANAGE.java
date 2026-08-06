@@ -25,12 +25,12 @@ public class AUTOEXEC_SERVICE_MANAGE extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "服务目录管理权限";
+        return "nfaa.autoexec_service_manage.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "添加、修改及删除服务目录";
+        return "nfaa.autoexec_service_manage.getauthintroduction";
     }
 
     @Override

@@ -20,8 +20,8 @@ import neatlogic.framework.util.$;
 import java.util.List;
 
 public enum AutoexecParallelPolicy implements IEnum {
-    PARALLEL("parallel", "并发"),
-    ROUND_COUNT("roundCount", "分批");
+    PARALLEL("parallel", "nfacv.autoexecparallelpolicy.text.parallel"),
+    ROUND_COUNT("roundCount", "nfacv.autoexecparallelpolicy.text.round_count");
     private final String value;
     private final String name;
 

@@ -21,12 +21,12 @@ public class AUTOEXEC_JOB_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "作业维护权限";
+        return "nfaa.autoexec_job_modify.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "拥有作业删除权限";
+        return "nfaa.autoexec_job_modify.getauthintroduction";
     }
 
     @Override

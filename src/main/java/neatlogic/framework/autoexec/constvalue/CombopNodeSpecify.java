@@ -27,9 +27,9 @@ import java.util.List;
  * @since: 2021/4/22 18:41
  **/
 public enum CombopNodeSpecify implements IEnum {
-    NOW("now", "现在指定执行目标"),
-    RUNTIME("runtime", "运行时再指定执行目标"),
-    RUNTIMEPARAM("runtimeparam", "作业参数作为执行目标");
+    NOW("now", "nfacv.combopnodespecify.text.now"),
+    RUNTIME("runtime", "nfacv.combopnodespecify.text.runtime"),
+    RUNTIMEPARAM("runtimeparam", "nfacv.combopnodespecify.text.runtimeparam");
     private final String value;
     private final String text;
 

@@ -24,55 +24,55 @@ public class AutoexecGlobalParamVo extends AutoexecParamVo {
     private static final int OFFSET_SIZE = 5;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "依赖数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.referencecount", type = ApiParamType.INTEGER)
     private Integer referredCount = 0;
     @JSONField(serialize = false)
     private JSONArray typeList;
     @JSONField(serialize = false)
     private boolean needPage = true;
     @JSONField(serialize = false)
-    @EntityField(name = "每页条数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.pagesize", type = ApiParamType.INTEGER)
     private Integer pageSize = 20;
     @JSONField(serialize = false)
-    @EntityField(name = "当前页数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.currentpage", type = ApiParamType.INTEGER)
     private Integer currentPage = 1;
     @JSONField(serialize = false)
-    @EntityField(name = "页数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.pagecount", type = ApiParamType.INTEGER)
     private Integer pageCount = 0;
     @JSONField(serialize = false)
     private Integer startNum;
     @JSONField(serialize = false)
     private String keyword;
-    @EntityField(name = "总条数", type = ApiParamType.INTEGER)
+    @EntityField(name = "term.autoexec.totalcount", type = ApiParamType.INTEGER)
     @JSONField(serialize = false)
     private Integer rowNum = 0;
-    @EntityField(name = "开始页数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.startpage.name", type = ApiParamType.INTEGER)
     private Integer startPage;
-    @EntityField(name = "结束页数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.endpage.name", type = ApiParamType.INTEGER)
     private Integer endPage;
-    @EntityField(name = "以当前页起实际分页条数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.offsetrownum.name", type = ApiParamType.INTEGER)
     @JSONField(serialize = false)
     private Integer offsetRowNum;
-    @EntityField(name = "以当前页起预计分页条数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.expectoffsetrownum.name", type = ApiParamType.INTEGER)
     @JSONField(serialize = false)
     private Integer expectOffsetRowNum;
 
-    @EntityField(name = "创建者", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.fcu.name", type = ApiParamType.STRING)
     private String fcu;
-    @EntityField(name = "创建者中文名", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.fcuname.name", type = ApiParamType.STRING)
     private String fcuName;
-    @EntityField(name = "创建日期", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.fcd.name", type = ApiParamType.STRING)
     private Date fcd;
-    @EntityField(name = "修改者", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.lcu.name", type = ApiParamType.STRING)
     private String lcu;
-    @EntityField(name = "修改者中文名", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.lcuname.name", type = ApiParamType.STRING)
     private String lcuName;
-    @EntityField(name = "修改日期", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.lcd.name", type = ApiParamType.STRING)
     private Date lcd;
 
-    @EntityField(name = "创建者VO")
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.fcuvo.name")
     private UserVo fcuVo;
-    @EntityField(name = "修改者VO")
+    @EntityField(name = "nfad.autoexecglobalparamvo.entityfield.lcuvo.name")
     private UserVo lcuVo;
 
     public AutoexecGlobalParamVo() {

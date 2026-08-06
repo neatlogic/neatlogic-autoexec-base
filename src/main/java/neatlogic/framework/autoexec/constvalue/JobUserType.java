@@ -14,12 +14,13 @@ package neatlogic.framework.autoexec.constvalue;
 
 import neatlogic.framework.common.constvalue.IUserType;
 import neatlogic.framework.dto.UserTypeVo;
+import neatlogic.framework.util.$;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum JobUserType implements IUserType {
-    EXEC_USER("execuser", "执行人", true);
+    EXEC_USER("execuser", "nfacv.jobusertype.text.exec_user", true);
 
     private final String status;
     private final String text;
@@ -36,7 +37,7 @@ public enum JobUserType implements IUserType {
     }
 
     public String getText() {
-        return text;
+        return $.t(text);
     }
 
     public boolean getIsShow() {

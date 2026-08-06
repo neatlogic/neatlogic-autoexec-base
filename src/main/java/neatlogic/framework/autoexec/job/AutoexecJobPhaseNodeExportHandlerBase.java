@@ -1,5 +1,7 @@
 package neatlogic.framework.autoexec.job;
 
+import neatlogic.framework.util.$;
+
 import com.alibaba.fastjson.JSONException;
 import neatlogic.framework.autoexec.dto.INodeDetail;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
@@ -137,7 +139,7 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                 }
                 String content = sb.toString();
                 if (content.length() > 2048) {
-                    content = content.substring(0, 2048) + "\n更多内容请前往系统查看";
+                    content = content.substring(0, 2048) + $.t("nmar.export.morecontent");
                 }
                 nodeOutputParamMap.put(resourceId, content);
             }

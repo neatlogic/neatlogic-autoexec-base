@@ -15,8 +15,8 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.$;
 
 public enum AutoexecJobPhaseNodeErrorType{
-    IP_INVALID(1,"ip不合法"),
-    RUNNER_NOT_MATCH(2,"根据ip找不到匹配的runner，请核对runner组配置")
+    IP_INVALID(1,"nfacv.autoexecjobphasenodeerrortype.text.ip_invalid"),
+    RUNNER_NOT_MATCH(2,"nfacv.autoexecjobphasenodeerrortype.text.runner_not_match")
     ;
 
     private final int value;

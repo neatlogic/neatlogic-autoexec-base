@@ -28,29 +28,29 @@ public class AutoexecCatalogVo extends BasePageVo {
 
     public static final Long ROOT_PARENTID = -1L;
     public static final Long ROOT_ID = 0L;
-    public static final String ROOT_NAME = "所有";
+    public static final String ROOT_NAME = "common.all";
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "父ID", type = ApiParamType.LONG)
+    @EntityField(name = "common.parentid", type = ApiParamType.LONG)
     private Long parentId;
-    @EntityField(name = "左编码", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.lft", type = ApiParamType.INTEGER)
     private Integer lft;
-    @EntityField(name = "右编码", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.rht", type = ApiParamType.INTEGER)
     private Integer rht;
-    @EntityField(name = "子目录数量", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexeccatalogvo.entityfield.childcount.name", type = ApiParamType.INTEGER)
     private Integer childCount;
-    @EntityField(name = "子目录列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexeccatalogvo.entityfield.children.name", type = ApiParamType.JSONARRAY)
     private List<AutoexecCatalogVo> children = new ArrayList<>();
-    @EntityField(name = "关联的自定义工具数量", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexeccatalogvo.entityfield.referencecountforscript.name", type = ApiParamType.INTEGER)
     private Integer referenceCountForScript;
-    @EntityField(name = "工具完整目录名称", type = ApiParamType.STRING)
+    @EntityField(name = "term.autoexec.fullcatalogname", type = ApiParamType.STRING)
     private String fullCatalogName;
-    @EntityField(name = "所有父id路径", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexeccatalogvo.entityfield.upwardidpath.name", type = ApiParamType.STRING)
     private String upwardIdPath;
-    @EntityField(name = "所有父name路径", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexeccatalogvo.entityfield.upwardnamepath.name", type = ApiParamType.STRING)
     private String upwardNamePath;
 
     private Integer referenceCountOfSelfAndChildren;// 目录自身与子目录关联的工具数量

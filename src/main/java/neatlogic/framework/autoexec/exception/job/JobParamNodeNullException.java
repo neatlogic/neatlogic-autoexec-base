@@ -19,15 +19,15 @@ public class JobParamNodeNullException extends ApiRuntimeException {
     private static final long serialVersionUID = -5243209742690310814L;
 
     public JobParamNodeNullException(String phaseName, Object key) {
-        super("执行目标非法，阶段“{0}”引用{1}", phaseName, key);
+        super("nfaej.jobparamnodenullexception.jobparamnodenullexceptionphase", phaseName, key);
     }
 
     public JobParamNodeNullException(int groupId, Object key) {
-        super("执行目标非法，阶段组“{0}”引用{1}", groupId, key);
+        super("nfaej.jobparamnodenullexception.jobparamnodenullexceptionb", groupId, key);
     }
 
     public JobParamNodeNullException(String key, Integer isJob) {
-        super("执行目标非法，引用{0}", key);
+        super("nfaej.jobparamnodenullexception.jobparamnodenullexceptionc", key);
     }
 
     public JobParamNodeNullException(String key) {

@@ -13,11 +13,11 @@ public class AutoexecScenarioVo extends BaseEditorVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "描述", type = ApiParamType.STRING)
+    @EntityField(name = "common.description", type = ApiParamType.STRING)
     private String description;
-    @EntityField(name = "被应用引用个数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecscenariovo.entityfield.referredcount.name", type = ApiParamType.INTEGER)
     private Integer referredCount;
 
     public Long getId() {

@@ -21,20 +21,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoexecServiceBreadcrumbVo extends BasePageVo {
-    @EntityField(name = "服务目录ID", type = ApiParamType.LONG)
+    @EntityField(name = "nfad.autoexecservicebreadcrumbvo.entityfield.id.name", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "上游服务目录名称列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecservicebreadcrumbvo.entityfield.upwardnamelist.name", type = ApiParamType.JSONARRAY)
     private List<String> upwardNameList = new ArrayList<>();
-    @EntityField(name = "服务目录列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.servicelist", type = ApiParamType.JSONARRAY)
     private List<AutoexecServiceVo> tbodyList = new ArrayList<>();
 
-    @EntityField(name = "每页条数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.pagesize", type = ApiParamType.INTEGER)
     private Integer pageSize = 20;
-    @EntityField(name = "当前页数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.currentpage", type = ApiParamType.INTEGER)
     private Integer currentPage = 1;
-    @EntityField(name = "页数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.pagecount", type = ApiParamType.INTEGER)
     private Integer pageCount = 0;
-    @EntityField(name = "总条数", type = ApiParamType.INTEGER)
+    @EntityField(name = "term.autoexec.totalcount", type = ApiParamType.INTEGER)
     private Integer rowNum = 0;
 
     @JSONField(serialize = false)

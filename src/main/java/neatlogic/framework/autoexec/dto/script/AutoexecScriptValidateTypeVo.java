@@ -23,9 +23,9 @@ public class AutoexecScriptValidateTypeVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "高危代码ID", type = ApiParamType.LONG)
+    @EntityField(name = "nfad.autoexecscriptvalidatetypevo.entityfield.validateid.name", type = ApiParamType.LONG)
     private String validateId;
-    @EntityField(name = "脚本类型", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptvalidatetypevo.entityfield.scripttype.name", type = ApiParamType.STRING)
     private String scriptType;
 
     public AutoexecScriptValidateTypeVo() {

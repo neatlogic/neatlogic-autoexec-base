@@ -15,7 +15,7 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.$;
 
 public enum JobGroupSearch {
-    JOBUSERTYPE("jobUserType", "作业干系人");
+    JOBUSERTYPE("jobUserType", "nfacv.jobgroupsearch.text.jobusertype");
     private final String value;
     private final String text;
 

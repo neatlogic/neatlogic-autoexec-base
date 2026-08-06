@@ -20,12 +20,12 @@ import java.util.List;
 public class AUTOEXEC_SCHEDULE_MODIFY extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "自动化定时管理权限";
+        return "nfaa.autoexec_schedule_modify.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "自动化定时作业管理";
+        return "nfaa.autoexec_schedule_modify.getauthintroduction";
     }
 
     @Override

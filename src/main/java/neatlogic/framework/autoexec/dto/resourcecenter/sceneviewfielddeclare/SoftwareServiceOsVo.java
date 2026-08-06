@@ -17,30 +17,30 @@ import neatlogic.framework.cmdb.annotation.ResourceType;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
 
-@ResourceType(name = "scence_softwareservice_os", label = "软件服务与操作系统场景", moduleId= "autoexec")
+@ResourceType(name = "scence_softwareservice_os", label = "nmar.resource.softwareserviceos", moduleId= "autoexec")
 public class SoftwareServiceOsVo {
     @EntityField(name = "ID", type = ApiParamType.LONG)
     @ResourceField(name = "id")
     private Long id;
 
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     @ResourceField(name = "name")
     private String name;
 
-    @EntityField(name = "类型ID", type = ApiParamType.LONG)
+    @EntityField(name = "common.typeid", type = ApiParamType.LONG)
     @ResourceField(name = "type_id")
     private Long typeId;
-    @EntityField(name = "类型名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.typename", type = ApiParamType.STRING)
     @ResourceField(name = "type_name")
     private String typeName;
-    @EntityField(name = "类型Label", type = ApiParamType.STRING)
+    @EntityField(name = "nfcdrcs.common.entityfield.typelabel.name", type = ApiParamType.STRING)
     @ResourceField(name = "type_label")
     private String typeLabel;
 
-    @EntityField(name = "系统ID", type = ApiParamType.LONG)
+    @EntityField(name = "nfad.softwareserviceosvo.entityfield.osid.name", type = ApiParamType.LONG)
     @ResourceField(name = "os_id")
     private Long osId;
-    @EntityField(name = "系统名称", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.softwareserviceosvo.entityfield.osname.name", type = ApiParamType.STRING)
     @ResourceField(name = "os_name")
     private String osName;
 }

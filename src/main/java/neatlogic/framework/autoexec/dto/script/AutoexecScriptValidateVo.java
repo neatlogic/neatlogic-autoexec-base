@@ -24,11 +24,11 @@ public class AutoexecScriptValidateVo extends BaseEditorVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "危险代码", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptvalidatevo.entityfield.code.name", type = ApiParamType.STRING)
     private String code;
-    @EntityField(name = "等级", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptvalidatevo.entityfield.level.name", type = ApiParamType.STRING)
     private String level;
 
     public AutoexecScriptValidateVo() {

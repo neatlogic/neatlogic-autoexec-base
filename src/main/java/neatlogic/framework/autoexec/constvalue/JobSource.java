@@ -16,14 +16,14 @@ import neatlogic.framework.autoexec.source.IAutoexecJobSource;
 import neatlogic.framework.util.$;
 
 public enum JobSource implements IAutoexecJobSource {
-    HUMAN("人工", "human"),
-    SERVICE("快捷服务", "service"),
-    AUTOEXEC_SCHEDULE("定时任务", "autoexecschedule"),
-    COMBOP("组合工具", "combop"),
-    COMBOP_TEST("组合工具测试", "comboptest"),
-    SCRIPT_TEST("自定义工具测试", "scripttest"),
-    TOOL_TEST("工具测试", "tooltest"),
-    TEST("测试", "test");
+    HUMAN("nfacv.jobsource.text.human", "human"),
+    SERVICE("nfacv.jobsource.text.service", "service"),
+    AUTOEXEC_SCHEDULE("nfacv.jobsource.text.autoexec_schedule", "autoexecschedule"),
+    COMBOP("term.autoexec.combop", "combop"),
+    COMBOP_TEST("nfacv.jobsource.text.combop_test", "comboptest"),
+    SCRIPT_TEST("nfacv.jobsource.text.script_test", "scripttest"),
+    TOOL_TEST("nfacv.jobsource.text.tool_test", "tooltest"),
+    TEST("common.test", "test");
     private final String text;
     private final String value;
 

@@ -20,9 +20,9 @@ import neatlogic.framework.util.$;
  * @since: 2021/4/13 14:43
  **/
 public enum CombopOperationType {
-    COMBOP("combop", "组合"),
-    SCRIPT("script", "脚本"),
-    TOOL("tool", "工具");
+    COMBOP("combop", "nfacv.combopoperationtype.text.combop"),
+    SCRIPT("script", "term.autoexec.script"),
+    TOOL("tool", "term.autoexec.tool");
 
     private CombopOperationType(String value, String text) {
         this.value = value;

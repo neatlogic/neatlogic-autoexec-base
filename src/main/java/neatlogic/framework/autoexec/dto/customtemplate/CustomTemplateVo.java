@@ -21,21 +21,21 @@ import neatlogic.framework.util.SnowflakeUtil;
 public class CustomTemplateVo extends BaseEditorVo {
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "模板", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.customtemplatevo.entityfield.template.name", type = ApiParamType.STRING)
     private String template;
-    @EntityField(name = "配置文本", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.customtemplatevo.entityfield.config.name", type = ApiParamType.STRING)
     private String config;
-    @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.isactive", type = ApiParamType.INTEGER)
     private Integer isActive;
-    @EntityField(name = "关联的工具数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.customtemplatevo.entityfield.referencecount.name", type = ApiParamType.INTEGER)
     private Integer referenceCount = 0;
     @JSONField(serialize = false)
     private Integer referenceCountForTool = 0;//关联的工具数
     @JSONField(serialize = false)
     private Integer referenceCountForScript = 0;//关联的自定义工具数
-    @EntityField(name = "工具ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.operationid", type = ApiParamType.LONG)
     private Long operationId;
 
     public Long getId() {

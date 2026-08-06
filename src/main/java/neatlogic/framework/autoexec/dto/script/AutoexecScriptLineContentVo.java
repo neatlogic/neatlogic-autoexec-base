@@ -19,9 +19,9 @@ import org.springframework.util.DigestUtils;
 
 public class AutoexecScriptLineContentVo {
 
-    @EntityField(name = "内容hash值", type = ApiParamType.STRING)
+    @EntityField(name = "term.autoexec.contenthash", type = ApiParamType.STRING)
     private String hash;
-    @EntityField(name = "行脚本内容", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptlinecontentvo.entityfield.content.name", type = ApiParamType.STRING)
     private String content;
 
     public AutoexecScriptLineContentVo() {

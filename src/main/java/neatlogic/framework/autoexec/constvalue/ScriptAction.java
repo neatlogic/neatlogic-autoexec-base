@@ -15,13 +15,13 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.$;
 
 public enum ScriptAction {
-    SWITCH_VERSION("switchversion", "切换版本", "从版本${DATA.oldVersion}切换到版本${DATA.newVersion}", true),
-    DISABLE("disable", "禁用", "禁用了版本${DATA.version}", true),
-    DELETE("delete", "删除版本", "删除了版本${DATA.version}", true),
-    SUBMIT("submit", "提交", "提交了版本${DATA.version}", true),
-    PASS("pass", "通过", "通过了版本${DATA.version}", true),
-    REJECT("reject", "驳回", "驳回了版本${DATA.version}", true),
-    REVOKE("revoke", "撤回", "撤回了提交版本${DATA.version}", true);
+    SWITCH_VERSION("switchversion", "nfacv.scriptaction.text.switch_version", "nfacv.scriptaction.description.switch_version", true),
+    DISABLE("disable", "nfacv.scriptaction.text.disable", "nfacv.scriptaction.description.disable", true),
+    DELETE("delete", "nfacv.scriptaction.text.delete", "nfacv.scriptaction.description.delete", true),
+    SUBMIT("submit", "nfacv.scriptaction.text.submit", "nfacv.scriptaction.description.submit", true),
+    PASS("pass", "term.autoexec.approve", "nfacv.scriptaction.description.pass", true),
+    REJECT("reject", "common.reject", "nfacv.scriptaction.description.reject", true),
+    REVOKE("revoke", "common.recall", "nfacv.scriptaction.description.revoke", true);
     private String value;
     private String text;
     private String title;

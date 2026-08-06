@@ -21,12 +21,12 @@ public class AUTOEXEC_CREATE_PUBLIC_JOB extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "外部作业创建权限";
+        return "nfaa.autoexec_create_public_job.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "拥有外部作业创建权限";
+        return "nfaa.autoexec_create_public_job.getauthintroduction";
     }
 
     @Override

@@ -19,6 +19,6 @@ public class AutoexecRoundCountIsRequiredException extends ApiRuntimeException {
     private static final long serialVersionUID = -6179270634867916138L;
 
     public AutoexecRoundCountIsRequiredException() {
-        super("分批数量必须设置");
+        super("nfae.autoexecroundcountisrequiredexception.autoexecroundcountisrequiredexception");
     }
 }

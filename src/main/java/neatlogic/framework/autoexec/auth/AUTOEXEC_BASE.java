@@ -25,12 +25,12 @@ public class AUTOEXEC_BASE extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "自动化基础权限";
+        return "nfaa.autoexec_base.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "查看组合工具";
+        return "nfaa.autoexec_base.getauthintroduction";
     }
 
     @Override

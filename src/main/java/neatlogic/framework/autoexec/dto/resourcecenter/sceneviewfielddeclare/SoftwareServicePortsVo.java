@@ -17,8 +17,8 @@ import neatlogic.framework.cmdb.annotation.ResourceType;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.restful.annotation.EntityField;
 
-@ResourceType(name = "scence_softwareservice_ports", label = "软件服务服务端口场景", moduleId= "autoexec", functionPathList = {"下载作业剧本节点接口/autoexec/job/phase/nodes/download"})
-@ResourceType(name = "scence_osservice_ports", label = "操作系统服务端口场景", moduleId= "autoexec", functionPathList = {"下载作业剧本节点接口/autoexec/job/phase/nodes/download"})
+@ResourceType(name = "scence_softwareservice_ports", label = "nmar.resource.softwareserviceports", moduleId= "autoexec", functionPathList = {"下载作业剧本节点接口/autoexec/job/phase/nodes/download"})
+@ResourceType(name = "scence_osservice_ports", label = "nmar.resource.osserviceports", moduleId= "autoexec", functionPathList = {"下载作业剧本节点接口/autoexec/job/phase/nodes/download"})
 public class SoftwareServicePortsVo {
     @EntityField(name = "ID", type = ApiParamType.LONG)
     @ResourceField(name = "id")
@@ -26,7 +26,7 @@ public class SoftwareServicePortsVo {
     @EntityField(name = "service_ports_id", type = ApiParamType.LONG)
     @ResourceField(name = "service_ports_id")
     private Long servicePortsId;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     @ResourceField(name = "name")
     private String name;
     @EntityField(name = "listen_port", type = ApiParamType.INTEGER)

@@ -24,10 +24,10 @@ import java.util.Objects;
 
 public class AutoexecServiceNodeVo extends AutoexecServiceVo {
 
-    @EntityField(name = "子节点", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecservicenodevo.entityfield.children.name", type = ApiParamType.JSONARRAY)
     private List<AutoexecServiceNodeVo> children;
 
-    @EntityField(name = "子节点数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecservicenodevo.entityfield.childrencount.name", type = ApiParamType.INTEGER)
     private Integer childrenCount;
 
     @JSONField(serialize=false)

@@ -21,12 +21,12 @@ public class AUTOEXEC_CUSTOMTEMPLATE_MODIFY extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "自定义模板管理权限";
+        return "nfaa.autoexec_customtemplate_modify.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "对自定义模板进行新增、编辑、查看、删除";
+        return "nfaa.autoexec_customtemplate_modify.getauthintroduction";
     }
 
     @Override

@@ -19,6 +19,6 @@ public class AutoexecServiceNotReferencedFormException extends ApiRuntimeExcepti
     private static final long serialVersionUID = -923453159471839787L;
 
     public AutoexecServiceNotReferencedFormException() {
-        super("服务目录未引用表单，不能映射表单属性");
+        super("nfae.autoexecservicenotreferencedformexception.autoexecservicenotreferencedformexception");
     }
 }

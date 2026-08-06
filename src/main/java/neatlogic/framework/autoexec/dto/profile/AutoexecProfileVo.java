@@ -17,33 +17,33 @@ public class AutoexecProfileVo extends BaseEditorVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "描述", type = ApiParamType.STRING)
+    @EntityField(name = "common.description", type = ApiParamType.STRING)
     private String description;
-    @EntityField(name = "工具类型", type = ApiParamType.STRING)
+    @EntityField(name = "term.autoexec.operationtype", type = ApiParamType.STRING)
     private String type;
-    @EntityField(name = "所属系统id", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.sourcesystemid", type = ApiParamType.LONG)
     private Long fromSystemId;
-    @EntityField(name = "所属系统名称", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecprofilevo.entityfield.fromsystemname.name", type = ApiParamType.STRING)
     private String fromSystemName;
-    @EntityField(name = "关联配置项id", type = ApiParamType.LONG)
+    @EntityField(name = "term.cmdb.cientityid", type = ApiParamType.LONG)
     private Long ciEntityId;
-    @EntityField(name = "关联配置项名称", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecprofilevo.entityfield.cientityname.name", type = ApiParamType.STRING)
     private String ciEntityName;
-    @EntityField(name = "关联配置项列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecprofilevo.entityfield.cientitylist.name", type = ApiParamType.JSONARRAY)
     private List<CiEntityVo> ciEntityList;
-    @EntityField(name = "工具库工具id/脚本工具id", type = ApiParamType.LONG)
+    @EntityField(name = "nfad.autoexecprofilevo.entityfield.operationid.name", type = ApiParamType.LONG)
     private Long operationId;
-    @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.associatedtoollist", type = ApiParamType.JSONARRAY)
     private List<AutoexecOperationVo> autoexecOperationVoList;
-    @EntityField(name = "关联的工具和脚本列表", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecprofilevo.entityfield.autoexecoperationcount.name", type = ApiParamType.INTEGER)
     private Integer autoexecOperationCount = 0;
-    @EntityField(name = "工具库工具id/脚本工具id列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecprofilevo.entityfield.operationidlist.name", type = ApiParamType.JSONARRAY)
     private List<Long> operationIdList;
-    @EntityField(name = "profile参数列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecprofilevo.entityfield.profileparamvolist.name", type = ApiParamType.JSONARRAY)
     private List<AutoexecProfileParamVo> profileParamVoList;
-    @EntityField(name = "依赖数", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.referencecount", type = ApiParamType.INTEGER)
     private Integer referredCount = 0;
 
     public AutoexecProfileVo() {

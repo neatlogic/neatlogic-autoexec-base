@@ -24,9 +24,9 @@ import java.util.List;
  **/
 public class AutoexecCombopPhaseConfigVo implements Serializable {
     private static final long serialVersionUID = -9186252904413790405L;
-    @EntityField(name = "工具列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexeccombopphaseconfigvo.entityfield.phaseoperationlist.name", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopPhaseOperationVo> phaseOperationList;
-    @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "term.autoexec.executetargetconfig", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
     public List<AutoexecCombopPhaseOperationVo> getPhaseOperationList() {

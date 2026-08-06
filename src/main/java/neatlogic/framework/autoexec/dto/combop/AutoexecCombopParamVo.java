@@ -23,7 +23,7 @@ import neatlogic.framework.restful.annotation.EntityField;
  * @since: 2021/4/13 10:04
  **/
 public class AutoexecCombopParamVo extends AutoexecParamVo {
-    @EntityField(name = "组合工具id", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.combopid", type = ApiParamType.LONG)
     private Long combopId;
 
     public AutoexecCombopParamVo() {

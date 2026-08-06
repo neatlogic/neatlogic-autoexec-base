@@ -23,16 +23,16 @@ public class AutoexecScriptAuditVo extends BaseEditorVo {
 
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "脚本ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.scriptid", type = ApiParamType.LONG)
     private Long scriptId;
-    @EntityField(name = "脚本版本ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.scriptversionid", type = ApiParamType.LONG)
     private Long scriptVersionId;
-    @EntityField(name = "操作类型", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptauditvo.entityfield.operate.name", type = ApiParamType.STRING)
     private String operate;
     @JSONField(serialize = false)
-    @EntityField(name = "内容hash", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptauditvo.entityfield.contenthash.name", type = ApiParamType.STRING)
     private String contentHash;
-    @EntityField(name = "内容", type = ApiParamType.STRING)
+    @EntityField(name = "common.content", type = ApiParamType.STRING)
     private String content;
 
     private JSONObject config;

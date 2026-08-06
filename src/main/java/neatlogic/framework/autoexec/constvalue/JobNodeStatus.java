@@ -9,18 +9,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum JobNodeStatus implements IEnum {
-    PENDING("pending", "待运行"),
-    RUNNING("running", "运行中"),
-    PAUSING("pausing", "暂停中"),
-    PAUSED("paused", "已暂停"),
-    ABORTING("aborting", "中止中"),
-    ABORTED("aborted", "已中止"),
-    SUCCEED("succeed", "已成功"),
-    FAILED("failed", "已失败"),
-    IGNORED("ignored", "已忽略"),
-    WAITING("waiting", "排队中"),
-    WAIT_INPUT("waitInput", "待输入"),
-    INVALID("invalid", "非法节点");
+    PENDING("pending", "term.autoexec.jobstatus.pending"),
+    RUNNING("running", "term.autoexec.jobstatus.running"),
+    PAUSING("pausing", "term.autoexec.jobstatus.pausing"),
+    PAUSED("paused", "term.autoexec.jobstatus.paused"),
+    ABORTING("aborting", "term.autoexec.jobstatus.aborting"),
+    ABORTED("aborted", "common.aborted"),
+    SUCCEED("succeed", "nfacv.jobnodestatus.text.succeed"),
+    FAILED("failed", "term.autoexec.jobstatus.failed"),
+    IGNORED("ignored", "term.autoexec.jobstatus.ignored"),
+    WAITING("waiting", "term.autoexec.jobstatus.queued"),
+    WAIT_INPUT("waitInput", "term.autoexec.jobstatus.waitinput"),
+    INVALID("invalid", "nfacv.jobnodestatus.text.invalid");
     private final String status;
     private final String text;
 

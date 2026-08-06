@@ -22,7 +22,7 @@ public class AutoexecJobCanNotPauseException extends ApiRuntimeException {
     private static final long serialVersionUID = 3401067630822603011L;
 
     public AutoexecJobCanNotPauseException(String jobId) {
-        super("无法暂停作业: {0}，请确保作业存于'运行中（running）'状态", jobId);
+        super("nfae.autoexecjobcannotpauseexception.autoexecjobcannotpauseexception", jobId);
     }
 
 

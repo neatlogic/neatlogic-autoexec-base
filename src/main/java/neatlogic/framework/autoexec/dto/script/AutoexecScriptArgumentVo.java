@@ -21,9 +21,9 @@ import neatlogic.framework.restful.annotation.EntityField;
 import java.util.Objects;
 
 public class AutoexecScriptArgumentVo extends AutoexecParamVo {
-    @EntityField(name = "脚本版本ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.scriptversionid", type = ApiParamType.LONG)
     private Long scriptVersionId;
-    @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
+    @EntityField(name = "term.autoexec.changetype", type = ApiParamType.ENUM, member = ChangeType.class)
     private String changeType;
 
     public AutoexecScriptArgumentVo() {

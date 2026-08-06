@@ -19,6 +19,6 @@ public class AutoexecOperationHasNoModifyAuthException extends ApiRuntimeExcepti
     private static final long serialVersionUID = 5100862744151707233L;
 
     public AutoexecOperationHasNoModifyAuthException(){
-        super("没有工具库维护权限,请联系管理员");
+        super("nfae.autoexecoperationhasnomodifyauthexception.autoexecoperationhasnomodifyauthexception");
     }
 }

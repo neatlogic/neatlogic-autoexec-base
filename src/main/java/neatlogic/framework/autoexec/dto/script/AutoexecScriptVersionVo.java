@@ -38,61 +38,61 @@ public class AutoexecScriptVersionVo extends BaseEditorVo implements Serializabl
     private static final long serialVersionUID = 541000255046247832L;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "脚本ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.scriptid", type = ApiParamType.LONG)
     private Long scriptId;
-    @EntityField(name = "标题", type = ApiParamType.STRING)
+    @EntityField(name = "common.title", type = ApiParamType.STRING)
     private String title;
-    @EntityField(name = "版本号", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.versionnum", type = ApiParamType.INTEGER)
     private Integer version;
-    @EntityField(name = "状态(draft:草稿、rejected:已驳回、passed:已通过、submitted:待审批)", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptversionvo.entityfield.status.name", type = ApiParamType.STRING)
     private String status;
-    @EntityField(name = "状态", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "common.status", type = ApiParamType.JSONOBJECT)
     private ValueTextVo statusVo;
-    @EntityField(name = "审批人", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptversionvo.entityfield.reviewer.name", type = ApiParamType.STRING)
     private String reviewer;
-    @EntityField(name = "审批用户")
+    @EntityField(name = "nfad.autoexecscriptversionvo.entityfield.reviewervo.name")
     private UserVo reviewerVo;
-    @EntityField(name = "脚本编码", type = ApiParamType.STRING)
+    @EntityField(name = "term.autoexec.encoding", type = ApiParamType.STRING)
     private String encoding;
-    @EntityField(name = "脚本解析器", type = ApiParamType.STRING)
+    @EntityField(name = "term.autoexec.scriptparser", type = ApiParamType.STRING)
     private String parser;
-    @EntityField(name = "脚本配置信息", type = ApiParamType.STRING)
+    @EntityField(name = "common.config", type = ApiParamType.STRING)
     private String config;
-    @EntityField(name = "是否激活", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.isactive", type = ApiParamType.INTEGER)
     private Integer isActive;
 
-    @EntityField(name = "参数列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.paramlist", type = ApiParamType.JSONARRAY)
     @JSONField(serialize = false)
     private List<AutoexecScriptVersionParamVo> paramList;
-    @EntityField(name = "脚本内容行列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.linelist", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptLineVo> lineList;
 
-    @EntityField(name = "入参列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.inputparamlist", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> inputParamList;
-    @EntityField(name = "出参列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.outputparamlist", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptVersionParamVo> outputParamList;
 
-    @EntityField(name = "自由参数", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "term.autoexec.freeparam", type = ApiParamType.JSONOBJECT)
     private AutoexecScriptArgumentVo argument;
 
-    @EntityField(name = "驳回原因", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptversionvo.entityfield.rejectreason.name", type = ApiParamType.STRING)
     private String rejectReason;
 
     private Integer versionCount; // 版本数
 
-    @EntityField(name = "操作列表")
+    @EntityField(name = "term.autoexec.actionlist")
     private List<OperateVo> operateList;
 
-    @EntityField(name = "审核人列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecscriptversionvo.entityfield.reviewervolist.name", type = ApiParamType.JSONARRAY)
     private List<WorkAssignmentUnitVo> reviewerVoList;
 
-    @EntityField(name = "依赖工具", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.dependenttool", type = ApiParamType.JSONARRAY)
     private List<Long> useLib = new ArrayList<>();
-    @EntityField(name = "依赖工具名", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.dependenttoolname", type = ApiParamType.JSONARRAY)
     private List<String> useLibName = new ArrayList<>();
-    @EntityField(name = "包文件id", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.packagefileid", type = ApiParamType.LONG)
     private Long packageFileId;
-    @EntityField(name = "包文件", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "term.autoexec.packagefile", type = ApiParamType.JSONOBJECT)
     private FileVo packageFile;
 
     @JSONField(serialize = false)

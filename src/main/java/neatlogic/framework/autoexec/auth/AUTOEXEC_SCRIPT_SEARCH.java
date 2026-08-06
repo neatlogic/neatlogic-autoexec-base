@@ -21,12 +21,12 @@ public class AUTOEXEC_SCRIPT_SEARCH extends AuthBase {
 
     @Override
     public String getAuthDisplayName() {
-        return "工具、自定义工具查看权限";
+        return "nfaa.autoexec_script_search.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "查看工具、自定义工具";
+        return "nfaa.autoexec_script_search.getauthintroduction";
     }
 
     @Override

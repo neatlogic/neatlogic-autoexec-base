@@ -21,6 +21,6 @@ import neatlogic.framework.exception.core.ApiRuntimeException;
 public class AutoexecParameterControlTypeParamNotExistException extends ApiRuntimeException {
 
     public AutoexecParameterControlTypeParamNotExistException(int index, String key) {
-        super("第：{0}个参数“{1}”的控件类型不能为空", index, key);
+        super("nfae.autoexecparametercontroltypeparamnotexistexception.autoexecparametercontroltypeparamnotexistexception", index, key);
     }
 }

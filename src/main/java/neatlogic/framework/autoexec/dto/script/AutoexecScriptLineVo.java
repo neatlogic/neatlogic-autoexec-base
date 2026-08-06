@@ -27,24 +27,24 @@ public class AutoexecScriptLineVo extends BaseLineVo implements Serializable {
     private static final long serialVersionUID = 8790853531134615524L;
     @EntityField(name = "id", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "脚本ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.scriptid", type = ApiParamType.LONG)
     private Long scriptId;
-    @EntityField(name = "脚本版本ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.scriptversionid", type = ApiParamType.LONG)
     private Long scriptVersionId;
-    @EntityField(name = "脚本内容hash", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptlinevo.entityfield.contenthash.name", type = ApiParamType.STRING)
     private String contentHash;
-//    @EntityField(name = "脚本内容行号", type = ApiParamType.INTEGER)
+//    @EntityField(name = "nfad.autoexecscriptlinevo.entityfield.linenumber.name", type = ApiParamType.INTEGER)
 //    private Integer lineNumber;
 //
-//    @EntityField(name = "脚本内容", type = ApiParamType.STRING)
+//    @EntityField(name = "nfad.autoexecscriptlinevo.entityfield.content.name", type = ApiParamType.STRING)
 //    private String content;
 //
-//    @EntityField(name = "插入(insert)、删除(delete)、更新(update)", type = ApiParamType.ENUM, member = ChangeType.class)
+//    @EntityField(name = "term.autoexec.changetype", type = ApiParamType.ENUM, member = ChangeType.class)
 //    private String changeType;
 
     private Integer isAnnotation; // 是否是注释行
 
-    @EntityField(name = "含有的危险代码等级", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptlinevo.entityfield.riskcodelevel.name", type = ApiParamType.STRING)
     private String riskCodeLevel;
 
     public AutoexecScriptLineVo() {

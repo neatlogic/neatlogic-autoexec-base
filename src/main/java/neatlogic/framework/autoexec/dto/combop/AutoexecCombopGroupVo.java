@@ -25,15 +25,15 @@ import java.io.Serializable;
  * @since 2022/3/23 14:23
  **/
 public class AutoexecCombopGroupVo implements Serializable {
-    @EntityField(name = "主键id", type = ApiParamType.LONG)
+    @EntityField(name = "nfad.autoexeccombopgroupvo.entityfield.id.name", type = ApiParamType.LONG)
     private Long id;
     @EntityField(name = "uuid", type = ApiParamType.STRING)
     private String uuid;
-    @EntityField(name = "运行策略", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexeccombopgroupvo.entityfield.policy.name", type = ApiParamType.STRING)
     private String policy;
-    @EntityField(name = "排序", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.sort", type = ApiParamType.INTEGER)
     private Integer sort;
-    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "common.config", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopGroupConfigVo config;
     @JSONField(serialize = false)
     private String configStr;

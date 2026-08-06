@@ -27,49 +27,49 @@ public class AutoexecServiceVo implements Serializable {
 
     private static final long serialVersionUID = 9045187703084309758L;
 
-    @EntityField(name = "唯一标识ID", type = ApiParamType.LONG)
+    @EntityField(name = "nfad.autoexecservicevo.entityfield.id.name", type = ApiParamType.LONG)
     private Long id;
 
-    @EntityField(name = "名称", type = ApiParamType.STRING)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
     private String name;
 
-    @EntityField(name = "父级ID", type = ApiParamType.LONG)
+    @EntityField(name = "common.parentid", type = ApiParamType.LONG)
     private Long parentId;
 
-    @EntityField(name = "是否启用，0：禁用，1：启用", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecservicevo.entityfield.isactive.name", type = ApiParamType.INTEGER)
     private Integer isActive;
 
-    @EntityField(name = "描述", type = ApiParamType.STRING)
+    @EntityField(name = "common.description", type = ApiParamType.STRING)
     private String description;
 
-    @EntityField(name = "类型", type = ApiParamType.STRING)
+    @EntityField(name = "common.type", type = ApiParamType.STRING)
     private String type;
 
-    @EntityField(name = "授权对象", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecservicevo.entityfield.authoritylist.name", type = ApiParamType.JSONARRAY)
     private List<String> authorityList;
 
-    @EntityField(name = "组合工具ID", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.combopid", type = ApiParamType.LONG)
     private Long combopId;
 
-    @EntityField(name = "表单", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecservicevo.entityfield.formuuid.name", type = ApiParamType.STRING)
     private String formUuid;
 
-    @EntityField(name = "是否已收藏", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecservicevo.entityfield.isfavorite.name", type = ApiParamType.INTEGER)
     private Integer isFavorite;
 
-    @EntityField(name = "左编码", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.lft", type = ApiParamType.INTEGER)
     private Integer lft;
 
-    @EntityField(name = "右编码", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.rht", type = ApiParamType.INTEGER)
     private Integer rht;
 
-    @EntityField(name = "配置已失效", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecservicevo.entityfield.configexpired.name", type = ApiParamType.INTEGER)
     private Integer configExpired;
 
-    @EntityField(name = "配置失效原因", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "nfad.autoexecservicevo.entityfield.configexpiredreason.name", type = ApiParamType.JSONOBJECT)
     private JSONObject configExpiredReason;
 
-    @EntityField(name = "配置信息", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "common.config", type = ApiParamType.JSONOBJECT)
     private AutoexecServiceConfigVo config;
 
     @JSONField(serialize = false)

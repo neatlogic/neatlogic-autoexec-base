@@ -22,7 +22,7 @@ public class AutoexecScriptCheckHandlerNotFoundException extends ApiRuntimeExcep
     private static final long serialVersionUID = 8704155163065816926L;
 
     public AutoexecScriptCheckHandlerNotFoundException(String parser) {
-        super("脚本校验器：“{0}”不存在", parser);
+        super("nfae.autoexecscriptcheckhandlernotfoundexception.autoexecscriptcheckhandlernotfoundexception", parser);
     }
 
 

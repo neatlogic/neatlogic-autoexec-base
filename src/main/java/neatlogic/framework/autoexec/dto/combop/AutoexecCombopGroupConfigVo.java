@@ -23,7 +23,7 @@ import java.io.Serializable;
  **/
 public class AutoexecCombopGroupConfigVo implements Serializable {
 
-    @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "term.autoexec.executetargetconfig", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
     public AutoexecCombopExecuteConfigVo getExecuteConfig() {

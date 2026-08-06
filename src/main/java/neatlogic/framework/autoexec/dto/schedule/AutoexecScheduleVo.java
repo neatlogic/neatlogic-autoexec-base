@@ -31,35 +31,35 @@ import java.util.UUID;
  **/
 public class AutoexecScheduleVo extends BaseEditorVo {
 
-    @EntityField(name = "定时作业id", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.scheduleid", type = ApiParamType.LONG)
     private Long id;
-    @EntityField(name = "定时作业uuid", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.uuid.name", type = ApiParamType.STRING)
     private String uuid;
-    @EntityField(name = "定时作业名称", type = ApiParamType.STRING)
+    @EntityField(name = "term.autoexec.schedulename", type = ApiParamType.STRING)
     private String name;
-    @EntityField(name = "组合工具id", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.combopid", type = ApiParamType.LONG)
     private Long autoexecCombopId;
-    @EntityField(name = "组合工具名称", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.autoexeccombopname.name", type = ApiParamType.STRING)
     private String autoexecCombopName;
-    @EntityField(name = "cron表达式", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.cron.name", type = ApiParamType.STRING)
     private String cron;
-    @EntityField(name = "开始时间", type = ApiParamType.LONG)
+    @EntityField(name = "common.starttime", type = ApiParamType.LONG)
     private Date beginTime;
-    @EntityField(name = "结束时间", type = ApiParamType.LONG)
+    @EntityField(name = "common.endtime", type = ApiParamType.LONG)
     private Date endTime;
-    @EntityField(name = "状态(0:禁用，1：启用)", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.isactive.name", type = ApiParamType.INTEGER)
     private Integer isActive;
-    @EntityField(name = "执行次数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.execcount.name", type = ApiParamType.INTEGER)
     private Integer execCount;
-    @EntityField(name = "执行配置信息", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.config.name", type = ApiParamType.JSONOBJECT)
     private JSONObject config;
     @JSONField(serialize = false)
     private String configStr;
-    @EntityField(name = "是否可编辑", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.editable", type = ApiParamType.INTEGER)
     private Integer editable;
-    @EntityField(name = "是否可删除", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.deletable.name", type = ApiParamType.INTEGER)
     private Integer deletable;
-    @EntityField(name = "执行情况", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "nfad.autoexecschedulevo.entityfield.jobstatus.name", type = ApiParamType.JSONOBJECT)
     private JobStatusVo jobStatus;
 
     // 记录定时作业配置最初由哪个应用服务器创建，用于按应用服务分组过滤管理页数据。

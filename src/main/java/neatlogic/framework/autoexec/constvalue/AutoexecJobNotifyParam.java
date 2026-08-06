@@ -21,10 +21,10 @@ import neatlogic.framework.util.$;
  * @since 2022/11/14 14:02
  **/
 public enum AutoexecJobNotifyParam implements INotifyParam {
-    ID("jobId", "作业ID", ParamType.NUMBER),
-    NAME("jobName", "作业名称", ParamType.STRING),
-    STATUS("jobStatus", "作业状态", ParamType.STRING),
-    PHASELIST("jobPhaseList", "阶段列表", ParamType.ARRAY),
+    ID("jobId", "term.autoexec.jobid", ParamType.NUMBER),
+    NAME("jobName", "nfacv.autoexecjobnotifyparam.text.name", ParamType.STRING),
+    STATUS("jobStatus", "term.autoexec.jobstatuslabel", ParamType.STRING),
+    PHASELIST("jobPhaseList", "nfacv.autoexecjobnotifyparam.text.phaselist", ParamType.ARRAY),
     ;
     private final String value;
     private final String text;

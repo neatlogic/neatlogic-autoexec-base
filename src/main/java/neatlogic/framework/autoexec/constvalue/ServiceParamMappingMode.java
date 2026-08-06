@@ -15,12 +15,13 @@ package neatlogic.framework.autoexec.constvalue;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.common.constvalue.IEnum;
+import neatlogic.framework.util.$;
 
 import java.util.List;
 
 public enum ServiceParamMappingMode implements IEnum  {
-    CONSTANT("constant", "常量"),
-    FORMATTR("formattr", "表单属性"),
+    CONSTANT("constant", "term.autoexec.constant"),
+    FORMATTR("formattr", "nfacv.serviceparammappingmode.text.formattr"),
     IS_EMPTY("isempty", "enum.autoexec.serviceparammappingmode.is_empty"),
     NOT_SET_UP("notsetup", "enum.autoexec.serviceparammappingmode.not_set_up"),
     ;
@@ -38,7 +39,7 @@ public enum ServiceParamMappingMode implements IEnum  {
     }
 
     public String getText() {
-        return text;
+        return $.t(text);
     }
 
     @Override

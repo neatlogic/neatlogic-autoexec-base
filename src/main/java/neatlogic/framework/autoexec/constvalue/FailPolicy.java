@@ -23,8 +23,8 @@ import neatlogic.framework.util.$;
 import java.util.List;
 
 public enum FailPolicy implements IEnum {
-    STOP("stop", "失败停止"),
-    GOON("goon", "失败继续");
+    STOP("stop", "nfac.failpolicy.text.stop"),
+    GOON("goon", "nfac.failpolicy.text.goon");
     private final String value;
     private final String text;
 

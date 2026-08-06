@@ -25,22 +25,22 @@ import java.util.List;
  **/
 public class AutoexecCombopVersionConfigVo implements Serializable {
 
-    @EntityField(name = "阶段列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.combopphaselist", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopPhaseVo> combopPhaseList;
 
-    @EntityField(name = "阶段组列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.combopgrouplist", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopGroupVo> combopGroupList;
 
-    @EntityField(name = "执行目标配置", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "term.autoexec.executetargetconfig", type = ApiParamType.JSONOBJECT)
     private AutoexecCombopExecuteConfigVo executeConfig;
 
-    @EntityField(name = "场景列表", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.scenariolist", type = ApiParamType.JSONARRAY)
     private List<AutoexecCombopScenarioVo> scenarioList;
 
-    @EntityField(name = "默认场景id", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.defaultscenarioid", type = ApiParamType.LONG)
     private Long defaultScenarioId;
 
-    @EntityField(name = "运行时参数列表", type = ApiParamType.INTEGER)
+    @EntityField(name = "term.autoexec.runtimeparamlist", type = ApiParamType.INTEGER)
     private List<AutoexecParamVo> runtimeParamList;
 
     public List<AutoexecCombopPhaseVo> getCombopPhaseList() {

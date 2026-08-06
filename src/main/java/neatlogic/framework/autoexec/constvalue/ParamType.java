@@ -35,8 +35,8 @@ import java.util.function.Function;
 public enum ParamType implements IEnum {
     TEXT("text", "common.text", "nfac.paramtype.desc.text", v -> v == null || StringUtils.isBlank(v.toString())),
     PASSWORD("password", "common.password", "nfac.paramtype.desc.password",v -> v == null || StringUtils.isBlank(v.toString())),
-    FILE("file", "common.file", "common.file", v->v == null || MapUtils.isEmpty(JSONObject.parseObject(JSONObject.toJSONString(v))) || CollectionUtils.isEmpty(JSONObject.parseObject(JSONObject.toJSONString(v)).getJSONArray("fileIdList"))),
-    DATE("date", "common.date", "nfac.paramtype.date", v -> v == null || StringUtils.isBlank(v.toString())),
+    FILE("file", "common.file", "nfac.paramtype.desc.file", v->v == null || MapUtils.isEmpty(JSONObject.parseObject(JSONObject.toJSONString(v))) || CollectionUtils.isEmpty(JSONObject.parseObject(JSONObject.toJSONString(v)).getJSONArray("fileIdList"))),
+    DATE("date", "common.date", "nfac.paramtype.desc.dateonly", v -> v == null || StringUtils.isBlank(v.toString())),
     DATETIME("datetime", "common.datetime", "nfac.paramtype.desc.date", v -> v == null || StringUtils.isBlank(v.toString())),
     TIME("time", "common.time", "nfac.paramtype.desc.time", v -> v == null || StringUtils.isBlank(v.toString())),
     JSON("json", "common.jsonobject", "nfac.paramtype.desc.json", v -> v == null || StringUtils.isBlank(v.toString())),
@@ -45,14 +45,14 @@ public enum ParamType implements IEnum {
     RADIO("radio", "common.radio", "nfac.paramtype.desc.radio",v -> v == null || StringUtils.isBlank(v.toString())),
     CHECKBOX("checkbox", "common.checkbox", "nfac.paramtype.desc.checkbox", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v)))) ,
     NODE("node", "common.nodeinfo", "nfac.paramtype.desc.node", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v)))) ,
-    ACCOUNT("account", "common.account", "common.account",v -> v == null || StringUtils.isBlank(v.toString())),
+    ACCOUNT("account", "common.account", "nfac.paramtype.desc.account",v -> v == null || StringUtils.isBlank(v.toString())),
     USERSELECT("userselect", "common.userselect", "nfac.paramtype.desc.userselect", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v)))) ,
     TEXTAREA("textarea", "common.textarea", "nfac.paramtype.desc.textarea",v -> v == null || StringUtils.isBlank(v.toString())),
     PHASE("phase", "common.phase", "nfac.paramtype.desc.phase",v -> v == null || StringUtils.isBlank(v.toString())),
-    SWITCH("switch", "common.switch", "common.switch",v -> v == null || StringUtils.isBlank(v.toString())),
+    SWITCH("switch", "common.switch", "nfac.paramtype.desc.switch",v -> v == null || StringUtils.isBlank(v.toString())),
     FILEPATH("filepath", "common.filepath", "nfac.paramtype.desc.filepath",v -> v == null || StringUtils.isBlank(v.toString())),
-    RUNNERGROUP("runnergroup", "common.runnergroup", "common.runnergroup",v -> v == null || StringUtils.isBlank(v.toString())),
-    RUNNERGROUPTAG("runnergrouptag", "common.runnergrouptag", "common.runnergrouptag", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v))))
+    RUNNERGROUP("runnergroup", "common.runnergroup", "nfac.paramtype.desc.runnergroup",v -> v == null || StringUtils.isBlank(v.toString())),
+    RUNNERGROUPTAG("runnergrouptag", "common.runnergrouptag", "nfac.paramtype.desc.runnergrouptag", v -> v == null || CollectionUtils.isEmpty(JSONArray.parseArray((v instanceof String) ? v.toString() : JSONArray.toJSONString(v))))
     ;
 
     private final String value;

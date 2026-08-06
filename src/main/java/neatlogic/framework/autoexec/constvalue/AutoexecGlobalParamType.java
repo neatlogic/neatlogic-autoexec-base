@@ -14,12 +14,12 @@ import java.util.Objects;
  * @date 2022/4/20 2:29 下午
  */
 public enum AutoexecGlobalParamType implements IEnum {
-    TEXT("text", "文本", "文本参数，可输入字符串、数字"),
-    PASSWORD("password", "密码", "可输入数字或字符串，页面显示为密文"),
-    DATE("date", "日期", "日期选择器"),
-    DATETIME("datetime", "日期时间", "日期时间选择器"),
-    TIME("time", "时间", "时间选择器"),
-    TEXTAREA("textarea", "文本域", "文本域"),
+    TEXT("text", "nfacv.autoexecglobalparamtype.text.text", "nfacv.autoexecglobalparamtype.description.text"),
+    PASSWORD("password", "common.password", "nmaspt.common.description.password"),
+    DATE("date", "nfacv.autoexecglobalparamtype.text.date", "nmaspt.common.description.date"),
+    DATETIME("datetime", "nfacv.autoexecglobalparamtype.text.datetime", "nmaspt.common.description.datetime"),
+    TIME("time", "common.time", "nmaspt.common.description.time"),
+    TEXTAREA("textarea", "common.textarea", "common.textarea"),
     ;
 
     private final String value;

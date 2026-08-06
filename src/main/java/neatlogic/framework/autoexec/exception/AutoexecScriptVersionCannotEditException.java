@@ -22,7 +22,7 @@ public class AutoexecScriptVersionCannotEditException extends ApiRuntimeExceptio
     private static final long serialVersionUID = -8817163347169486141L;
 
     public AutoexecScriptVersionCannotEditException() {
-        super("当前版本处于不可编辑状态");
+        super("nfae.autoexecscriptversioncannoteditexception.autoexecscriptversioncannoteditexception");
     }
 
 

@@ -17,8 +17,8 @@ import neatlogic.framework.util.$;
 import java.util.Objects;
 
 public enum ParamMode {
-    INPUT("input", "入参"),
-    OUTPUT("output", "出参");
+    INPUT("input", "nfacv.parammode.text.input"),
+    OUTPUT("output", "nfacv.parammode.text.output");
     private String value;
     private String text;
 

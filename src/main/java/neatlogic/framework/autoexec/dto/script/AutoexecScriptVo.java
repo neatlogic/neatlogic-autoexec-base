@@ -32,22 +32,22 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
 
     private static final long serialVersionUID = -4568586521653070167L;
 
-    @EntityField(name = "当前激活版本号", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.currentversion.name", type = ApiParamType.INTEGER)
     private Integer currentVersion;
-    @EntityField(name = "版本总数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.versioncount.name", type = ApiParamType.INTEGER)
     private Integer versionCount;
-    @EntityField(name = "待审批版本ID", type = ApiParamType.LONG)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.submittedversionid.name", type = ApiParamType.LONG)
     private Long submittedVersionId;
-    @EntityField(name = "已通过版本数", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.passedversioncount.name", type = ApiParamType.INTEGER)
     private Integer passedVersionCount;
 
-    @EntityField(name = "版本ID", type = ApiParamType.LONG)
+    @EntityField(name = "common.versionid", type = ApiParamType.LONG)
     private Long versionId;
 
-    @EntityField(name = "脚本内容行", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.linelist.name", type = ApiParamType.JSONARRAY)
     private List<AutoexecScriptLineVo> lineList;
 
-    @EntityField(name = "版本号", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.versionnum", type = ApiParamType.INTEGER)
     private Integer version;
 
     @JSONField(serialize = false)
@@ -56,36 +56,36 @@ public class AutoexecScriptVo extends AutoexecOperationVo implements Serializabl
     @JSONField(serialize = false)
     private AutoexecScriptArgumentVo versionArgument;
 
-    @EntityField(name = "版本")
+    @EntityField(name = "term.autoexec.version")
     private AutoexecScriptVersionVo versionVo;
 
-    @EntityField(name = "当前版本")
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.currentversionvo.name")
     private AutoexecScriptVersionVo currentVersionVo;
 
-    @EntityField(name = "版本状态", type = ApiParamType.ENUM, member = ScriptVersionStatus.class)
+    @EntityField(name = "term.autoexec.versionstatus", type = ApiParamType.ENUM, member = ScriptVersionStatus.class)
     private String versionStatus;
 
     private List<AutoexecScriptVersionVo> versionList;
 
-    @EntityField(name = "所属工具目录名称", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.catalogname.name", type = ApiParamType.STRING)
     private String catalogName;
-    @EntityField(name = "所属工具目录完整路径", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.catalogpath.name", type = ApiParamType.STRING)
     private String catalogPath;
 
-    @EntityField(name = "是否作为库文件被依赖", type = ApiParamType.INTEGER)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.islibreference.name", type = ApiParamType.INTEGER)
     private Integer isLibReference = 0;
-    @EntityField(name = "依赖工具", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.dependenttool", type = ApiParamType.JSONARRAY)
     private List<Long> useLib = new ArrayList<>();
-    @EntityField(name = "依赖工具名", type = ApiParamType.JSONARRAY)
+    @EntityField(name = "term.autoexec.dependenttoolname", type = ApiParamType.JSONARRAY)
     private List<String> useLibName;
-    @EntityField(name = "包文件id", type = ApiParamType.LONG)
+    @EntityField(name = "term.autoexec.packagefileid", type = ApiParamType.LONG)
     private Long packageFileId;
-    @EntityField(name = "包文件名", type = ApiParamType.STRING)
+    @EntityField(name = "nfad.autoexecscriptvo.entityfield.packagefilename.name", type = ApiParamType.STRING)
     private String packageFileName;
-    @EntityField(name = "包文件", type = ApiParamType.JSONOBJECT)
+    @EntityField(name = "term.autoexec.packagefile", type = ApiParamType.JSONOBJECT)
     private FileVo packageFile;
 
-    @EntityField(name = "引用数量", type = ApiParamType.INTEGER)
+    @EntityField(name = "common.referencecount", type = ApiParamType.INTEGER)
     private Integer referenceCount;
 
     // 直接执行权限过滤参数仅用于列表 Mapper 动态拼接，不直接输出给调用方。

@@ -19,7 +19,7 @@ public class AutoexecScriptVersionHasBeenActivedException extends ApiRuntimeExce
     private static final long serialVersionUID = -7762115095407337956L;
 
     public AutoexecScriptVersionHasBeenActivedException() {
-        super("当前版本已激活，不可删除");
+        super("nfae.common.versionactivecannotdelete");
     }
 
 
