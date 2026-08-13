@@ -22,7 +22,7 @@ public class AutoexecScriptHasSubmittedVersionException extends ApiRuntimeExcept
     private static final long serialVersionUID = -860666271351211364L;
 
     public AutoexecScriptHasSubmittedVersionException() {
-        super("当前自定义工具已经有其他待审核版本");
+        super("nfae.autoexecscripthassubmittedversionexception.autoexecscripthassubmittedversionexception");
     }
 
 

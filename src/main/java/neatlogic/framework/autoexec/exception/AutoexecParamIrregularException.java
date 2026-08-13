@@ -19,6 +19,6 @@ public class AutoexecParamIrregularException extends ApiRuntimeException {
     private static final long serialVersionUID = -9042969741757909219L;
 
     public AutoexecParamIrregularException(int index, String paramName, String keyName) {
-        super("第：\"{0}\"个参数“{1}”的“{2}”不符合格式要求", index, paramName, keyName);
+        super("nfae.autoexecparamirregularexception.autoexecparamirregularexception", index, paramName, keyName);
     }
 }

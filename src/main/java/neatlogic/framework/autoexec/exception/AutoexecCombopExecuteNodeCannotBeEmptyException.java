@@ -27,6 +27,6 @@ public class AutoexecCombopExecuteNodeCannotBeEmptyException extends ApiRuntimeE
     private static final long serialVersionUID = -971868378722876383L;
 
     public AutoexecCombopExecuteNodeCannotBeEmptyException(){
-        super("选择'现在指定执行目标'时，执行目标不能为空");
+        super("nfae.autoexeccombopexecutenodecannotbeemptyexception.autoexeccombopexecutenodecannotbeemptyexception");
     }
 }

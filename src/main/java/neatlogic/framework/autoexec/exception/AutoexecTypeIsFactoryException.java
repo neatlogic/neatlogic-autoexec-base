@@ -22,6 +22,6 @@ public class AutoexecTypeIsFactoryException extends ApiRuntimeException {
     private static final long serialVersionUID = -1939208635453400846L;
 
     public AutoexecTypeIsFactoryException(Long id, String name) {
-        super("工具分类:“{1}”（id:“{0}”）是出厂默认分类，不可删除", id, name);
+        super("nfae.autoexectypeisfactoryexception.autoexectypeisfactoryexception", id, name);
     }
 }

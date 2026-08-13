@@ -22,6 +22,6 @@ public class AutoexecCombopCannotBeRepeatReleaseException extends ApiRuntimeExce
     private static final long serialVersionUID = -1671537106753075273L;
 
     public AutoexecCombopCannotBeRepeatReleaseException(String name) {
-        super("“{0}”不能重复发布为组合工具");
+        super("nfae.autoexeccombopcannotberepeatreleaseexception.autoexeccombopcannotberepeatreleaseexception");
     }
 }

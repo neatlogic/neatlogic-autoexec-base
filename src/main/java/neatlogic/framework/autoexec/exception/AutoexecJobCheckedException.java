@@ -19,7 +19,7 @@ public class AutoexecJobCheckedException extends ApiRuntimeException {
     private static final long serialVersionUID = -117494411614528544L;
 
     public AutoexecJobCheckedException(String jobId) {
-        super("作业 “{0}” 已验证", jobId);
+        super("nfae.autoexecjobcheckedexception.autoexecjobcheckedexception", jobId);
     }
 
 

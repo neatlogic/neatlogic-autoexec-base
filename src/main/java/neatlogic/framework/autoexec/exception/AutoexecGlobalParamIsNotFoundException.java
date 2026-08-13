@@ -10,10 +10,10 @@ public class AutoexecGlobalParamIsNotFoundException extends ApiRuntimeException 
     private static final long serialVersionUID = -8092385572700724749L;
 
     public AutoexecGlobalParamIsNotFoundException(Long paramId) {
-        super("全局参数: “{0}”不存在", paramId);
+        super("nfae.autoexecglobalparamisnotfoundexception.autoexecglobalparamisnotfoundexception", paramId);
     }
 
     public AutoexecGlobalParamIsNotFoundException(String key) {
-        super("全局参数: “{0}”不存在", key);
+        super("nfae.autoexecglobalparamisnotfoundexception.autoexecglobalparamisnotfoundexception", key);
     }
 }

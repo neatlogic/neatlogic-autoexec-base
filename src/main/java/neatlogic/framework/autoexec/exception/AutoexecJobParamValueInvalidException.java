@@ -19,6 +19,6 @@ public class AutoexecJobParamValueInvalidException extends ApiRuntimeException {
     private static final long serialVersionUID = 6972470248227737992L;
 
     public AutoexecJobParamValueInvalidException(String paramName, Object paramValue) {
-        super("参数“{0}”值 “{1}” 不合法", paramName, paramValue);
+        super("nfae.autoexecjobparamvalueinvalidexception.autoexecjobparamvalueinvalidexception", paramName, paramValue);
     }
 }

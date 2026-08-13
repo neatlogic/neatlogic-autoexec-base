@@ -25,6 +25,6 @@ public class AutoexecCombopAtLeastOnePhaseException extends ApiRuntimeException 
     private static final long serialVersionUID = -977867274723886183L;
 
     public AutoexecCombopAtLeastOnePhaseException() {
-        super("组合工具至少要有一个阶段");
+        super("nfae.autoexeccombopatleastonephaseexception.autoexeccombopatleastonephaseexception");
     }
 }

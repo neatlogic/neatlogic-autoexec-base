@@ -10,6 +10,6 @@ public class AutoexecGlobalParamHasBeenReferredException extends ApiRuntimeExcep
     private static final long serialVersionUID = -7697433532280027555L;
 
     public AutoexecGlobalParamHasBeenReferredException(String name) {
-        super("全局参数: “{0}”被引用,无法删除", name);
+        super("nfae.autoexecglobalparamhasbeenreferredexception.autoexecglobalparamhasbeenreferredexception", name);
     }
 }

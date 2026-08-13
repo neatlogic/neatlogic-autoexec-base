@@ -23,7 +23,7 @@ public class AutoexecJobGroupNotFoundException extends ApiRuntimeException {
     }
 
     public AutoexecJobGroupNotFoundException(Long jobId) {
-        super("作业({0}) 组不存在", jobId);
+        super("nfae.autoexecjobgroupnotfoundexception.autoexecjobgroupnotfoundexceptionb", jobId);
     }
 
 

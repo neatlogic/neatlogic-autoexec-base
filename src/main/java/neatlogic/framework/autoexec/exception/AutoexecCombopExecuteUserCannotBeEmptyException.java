@@ -24,6 +24,6 @@ public class AutoexecCombopExecuteUserCannotBeEmptyException extends ApiRuntimeE
     private static final long serialVersionUID = -977868376722876383L;
 
     public AutoexecCombopExecuteUserCannotBeEmptyException(){
-        super("选择'现在指定执行目标'时，执行用户不能为空");
+        super("nfae.autoexeccombopexecuteusercannotbeemptyexception.autoexeccombopexecuteusercannotbeemptyexception");
     }
 }

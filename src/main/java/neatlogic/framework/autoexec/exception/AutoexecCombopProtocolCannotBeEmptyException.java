@@ -25,6 +25,6 @@ public class AutoexecCombopProtocolCannotBeEmptyException extends ApiRuntimeExce
     private static final long serialVersionUID = 4131868854355517683L;
 
     public AutoexecCombopProtocolCannotBeEmptyException(){
-        super("选择'现在指定执行目标'时，协议不能为空");
+        super("nfae.autoexeccombopprotocolcannotbeemptyexception.autoexeccombopprotocolcannotbeemptyexception");
     }
 }

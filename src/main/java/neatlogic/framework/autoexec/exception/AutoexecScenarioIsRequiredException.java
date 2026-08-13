@@ -19,6 +19,6 @@ public class AutoexecScenarioIsRequiredException extends ApiRuntimeException {
     private static final long serialVersionUID = -6179270634867916137L;
 
     public AutoexecScenarioIsRequiredException() {
-        super("场景必须设置");
+        super("nfae.autoexecscenarioisrequiredexception.autoexecscenarioisrequiredexception");
     }
 }
