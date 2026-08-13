@@ -23,6 +23,6 @@ public class AutoexecGlobalParamValueEmptyException extends ApiRuntimeException 
     private static final long serialVersionUID = 1084492354771333701L;
 
     public AutoexecGlobalParamValueEmptyException(String paramKey) {
-        super("参数：{0}的全局参数值为空", paramKey);
+        super("nfae.autoexecglobalparamvalueemptyexception.autoexecglobalparamvalueemptyexception", paramKey);
     }
 }

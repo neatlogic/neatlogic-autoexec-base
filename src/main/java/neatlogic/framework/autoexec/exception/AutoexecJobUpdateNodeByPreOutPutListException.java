@@ -24,10 +24,10 @@ public class AutoexecJobUpdateNodeByPreOutPutListException extends ApiRuntimeExc
     private static final long serialVersionUID = 4165697641029305057L;
 
     public AutoexecJobUpdateNodeByPreOutPutListException(AutoexecJobVo jobVo) {
-        super("作业“{0}”通过上游出参更新执行目标异常：配置错误，请确认配置后重试", jobVo.getId());
+        super("nfae.autoexecjobupdatenodebypreoutputlistexception.autoexecjobupdatenodebypreoutputlistexception", jobVo.getId());
     }
 
     public AutoexecJobUpdateNodeByPreOutPutListException(AutoexecJobPhaseVo currentJobPhaseVo, List<AutoexecCombopPhaseVo> autoexecCombopPhaseVos) {
-        super("作业通过上游出参更新阶段({1})的执行目标异常：target阶段({0}) 只允许存在一个节点", autoexecCombopPhaseVos.stream().map(AutoexecCombopPhaseVo::getName).collect(Collectors.joining(",")), currentJobPhaseVo.getName());
+        super("nfae.autoexecjobupdatenodebypreoutputlistexception.autoexecjobupdatenodebypreoutputlistexceptionb", autoexecCombopPhaseVos.stream().map(AutoexecCombopPhaseVo::getName).collect(Collectors.joining(",")), currentJobPhaseVo.getName());
     }
 }

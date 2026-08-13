@@ -22,7 +22,7 @@ public class AutoexecJobParamNotFoundException extends ApiRuntimeException {
     private static final long serialVersionUID = 3718741083995150835L;
 
     public AutoexecJobParamNotFoundException(String combopName, String keyName) {
-        super("组合工具“{0}”的作业参数中没有“{1}”的参数", combopName, keyName);
+        super("nfae.autoexecjobparamnotfoundexception.autoexecjobparamnotfoundexception", combopName, keyName);
     }
 
 

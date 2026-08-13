@@ -22,6 +22,6 @@ public class AutoexecToolExportNotFoundToolException extends ApiRuntimeException
     private static final long serialVersionUID = 8416602353870129229L;
 
     public AutoexecToolExportNotFoundToolException () {
-        super("没有找到需要导出的工具");
+        super("nfae.autoexectoolexportnotfoundtoolexception.autoexectoolexportnotfoundtoolexception");
     }
 }

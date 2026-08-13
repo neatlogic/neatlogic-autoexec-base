@@ -22,10 +22,10 @@ public class AutoexecScriptVersionNotFoundException extends ApiRuntimeException 
     private static final long serialVersionUID = 1348684378031136217L;
 
     public AutoexecScriptVersionNotFoundException(Long id) {
-        super("版本：“{0}”不存在", id);
+        super("nfae.autoexecscriptversionnotfoundexception.autoexecscriptversionnotfoundexception", id);
     }
 
     public AutoexecScriptVersionNotFoundException(String s) {
-        super("版本：“{0}”不存在", s);
+        super("nfae.autoexecscriptversionnotfoundexception.autoexecscriptversionnotfoundexception", s);
     }
 }

@@ -19,7 +19,7 @@ public class AutoexecJobPhaseOperationMustBeCombopException extends ApiRuntimeEx
     private static final long serialVersionUID = -1846754071829308117L;
 
     public AutoexecJobPhaseOperationMustBeCombopException() {
-        super("此操作仅支持'组合工具'");
+        super("nfae.autoexecjobphaseoperationmustbecombopexception.autoexecjobphaseoperationmustbecombopexception");
     }
 
 

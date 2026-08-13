@@ -9,7 +9,7 @@ public class AutoexecRunnerGroupRuleNotMatchException extends ApiRuntimeExceptio
     }
 
     public AutoexecRunnerGroupRuleNotMatchException(RunnerGroupVo runnerGroupVo, String form, String formName) {
-        super("{0}“{3}”设置的执行器组“{1}({2})”,不满足规则", form, runnerGroupVo.getName(), runnerGroupVo.getId(), formName);
+        super("nfae.autoexecrunnergrouprulenotmatchexception.autoexecrunnergrouprulenotmatchexception_a", form, runnerGroupVo.getName(), runnerGroupVo.getId(), formName);
     }
 
 }

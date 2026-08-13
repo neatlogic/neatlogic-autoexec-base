@@ -19,7 +19,7 @@ public class AutoexecJobLogEncodingIllegalException extends ApiRuntimeException 
     private static final long serialVersionUID = -1640145007212453847L;
 
     public AutoexecJobLogEncodingIllegalException(String encoding) {
-        super("非法的字符编码：{0}", encoding);
+        super("nfae.autoexecjoblogencodingillegalexception.autoexecjoblogencodingillegalexception", encoding);
     }
 
 

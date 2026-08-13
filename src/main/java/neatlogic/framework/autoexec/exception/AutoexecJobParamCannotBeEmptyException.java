@@ -19,6 +19,6 @@ public class AutoexecJobParamCannotBeEmptyException extends ApiRuntimeException 
     private static final long serialVersionUID = -6179270634867916143L;
 
     public AutoexecJobParamCannotBeEmptyException(String combopName, String keyName) {
-        super("组合工具“{0}”的作业参数“{1}“不能为空", combopName, keyName);
+        super("nfae.autoexecjobparamcannotbeemptyexception.autoexecjobparamcannotbeemptyexception", combopName, keyName);
     }
 }

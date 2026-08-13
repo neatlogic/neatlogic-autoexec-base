@@ -22,7 +22,7 @@ public class AutoexecJobNotSupportedExecuteAndRevokeException extends ApiRuntime
     private static final long serialVersionUID = -3197031921753145510L;
 
     public AutoexecJobNotSupportedExecuteAndRevokeException() {
-        super("只有从组合工具保存的作业才支持执行与撤销");
+        super("nfae.autoexecjobnotsupportedexecuteandrevokeexception.autoexecjobnotsupportedexecuteandrevokeexception");
     }
 
 

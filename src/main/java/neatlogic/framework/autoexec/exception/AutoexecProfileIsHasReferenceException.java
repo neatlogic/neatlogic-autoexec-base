@@ -20,6 +20,6 @@ import neatlogic.framework.exception.core.ApiRuntimeException;
 
 public class AutoexecProfileIsHasReferenceException extends ApiRuntimeException {
     public AutoexecProfileIsHasReferenceException(String name) {
-        super("profile：{0}”已被引用，无法删除", name);
+        super("nfae.autoexecprofileishasreferenceexception.autoexecprofileishasreferenceexception", name);
     }
 }

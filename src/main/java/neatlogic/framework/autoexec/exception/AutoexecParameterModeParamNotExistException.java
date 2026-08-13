@@ -21,6 +21,6 @@ import neatlogic.framework.exception.core.ApiRuntimeException;
 public class AutoexecParameterModeParamNotExistException extends ApiRuntimeException {
 
     public AutoexecParameterModeParamNotExistException(int index, String key) {
-        super("第：{0}个参数“{1}”的参数模式不能为空", index, key);
+        super("nfae.autoexecparametermodeparamnotexistexception.autoexecparametermodeparamnotexistexception", index, key);
     }
 }

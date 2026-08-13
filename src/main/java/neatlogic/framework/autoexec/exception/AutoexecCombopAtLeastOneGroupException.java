@@ -19,6 +19,6 @@ public class AutoexecCombopAtLeastOneGroupException extends ApiRuntimeException 
     private static final long serialVersionUID = -977867274723886193L;
 
     public AutoexecCombopAtLeastOneGroupException() {
-        super("组合工具至少要有一个组");
+        super("nfae.autoexeccombopatleastonegroupexception.autoexeccombopatleastonegroupexception");
     }
 }

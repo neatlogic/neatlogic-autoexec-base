@@ -23,6 +23,6 @@ public class AutoexecScheduleNameRepeatException extends ApiRuntimeException {
     private static final long serialVersionUID = -977867974799886183L;
 
     public AutoexecScheduleNameRepeatException(String name) {
-        super("定时作业名: “{0}”已存在", name);
+        super("nfae.autoexecschedulenamerepeatexception.autoexecschedulenamerepeatexception", name);
     }
 }

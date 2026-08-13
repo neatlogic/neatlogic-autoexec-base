@@ -18,6 +18,6 @@ public class AutoexecCombopDraftVersionNotFoundException extends ApiRuntimeExcep
     private static final long serialVersionUID = 8178730734144911653L;
 
     public AutoexecCombopDraftVersionNotFoundException(String combopName) {
-        super("组合工具：“{0}”没有草稿版本", combopName);
+        super("nfae.autoexeccombopdraftversionnotfoundexception.autoexeccombopdraftversionnotfoundexception", combopName);
     }
 }
