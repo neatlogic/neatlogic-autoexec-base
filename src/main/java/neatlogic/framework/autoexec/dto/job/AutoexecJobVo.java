@@ -30,6 +30,7 @@ import neatlogic.framework.dto.RoleVo;
 import neatlogic.framework.dto.TeamVo;
 import neatlogic.framework.dto.UserVo;
 import neatlogic.framework.restful.annotation.EntityField;
+import neatlogic.framework.util.$;
 import neatlogic.framework.util.SnowflakeUtil;
 import neatlogic.framework.util.TimeUtil;
 import org.apache.commons.collections4.CollectionUtils;
@@ -521,7 +522,7 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
                 return autoexecJobSource.getText();
             }
         }
-        return sourceName;
+        return StringUtils.isNotBlank(sourceName) ? sourceName : $.t("nfac.autoexecjobvo.unknownsource");
     }
 
     public void setSourceList(List<String> sourceList) {
