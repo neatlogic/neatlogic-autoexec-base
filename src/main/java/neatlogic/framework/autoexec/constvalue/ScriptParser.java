@@ -19,31 +19,47 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.common.constvalue.IEnum;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
+/** 自动化脚本解析器及其对应的文件扩展名。 */
 public enum ScriptParser implements IEnum {
-    PYTHON("python"),
-    RUBY("ruby"),
-    VBS("vbscript"),
-    PERL("perl"),
-    POWERSHELL("powershell"),
-    CMD("cmd"),
-    BASH("bash"),
-    KSH("ksh"),
-    CSH("csh"),
-    SH("sh"),
-    JAVASCRIPT("javascript"),
-    PACKAGE("package");
+    PYTHON("python", "py"),
+    RUBY("ruby", "rb"),
+    VBS("vbscript", "vbs", "vbscript"),
+    PERL("perl", "pl"),
+    POWERSHELL("powershell", "ps1"),
+    CMD("cmd", "cmd", "bat"),
+    BASH("bash", "bash"),
+    KSH("ksh", "ksh"),
+    CSH("csh", "csh"),
+    SH("sh", "sh"),
+    JAVASCRIPT("javascript", "js"),
+    PACKAGE("package", "zip");
     private final String value;
+    private final List<String> extensionList;
 
-    private ScriptParser(String value) {
+    /** 初始化 parser 标识及扩展名，首个扩展名作为新文件的规范扩展名。 */
+    ScriptParser(String value, String... extensionArray) {
         this.value = value;
+        this.extensionList = Collections.unmodifiableList(Arrays.asList(extensionArray));
     }
 
     public String getValue() {
         return value;
     }
 
+    public String getExtension() {
+        return extensionList.get(0);
+    }
+
+    public List<String> getExtensionList() {
+        return extensionList;
+    }
+
+    /** 根据平台 parser 标识查询枚举。 */
     public static ScriptParser getScriptParser(String value) {
         for (ScriptParser parser : ScriptParser.values()) {
             if (parser.getValue().equals(value)) {
@@ -53,7 +69,24 @@ public enum ScriptParser implements IEnum {
         return null;
     }
 
+    /** 根据文件扩展名查询 parser，兼容带点号和大小写不同的输入。 */
+    public static ScriptParser getScriptParserByExtension(String extension) {
+        if (extension == null) {
+            return null;
+        }
+        String normalizedExtension = extension.trim().toLowerCase(Locale.ROOT);
+        if (normalizedExtension.startsWith(".")) {
+            normalizedExtension = normalizedExtension.substring(1);
+        }
+        for (ScriptParser parser : ScriptParser.values()) {
+            if (parser.getExtensionList().contains(normalizedExtension)) {
+                return parser;
+            }
+        }
+        return null;
+    }
 
+    /** 返回 parser 下拉选项数据。 */
     @Override
     public List getValueTextList() {
         JSONArray resultList = new JSONArray();
