@@ -12,7 +12,7 @@
                c.`name`               AS typeName,
                a.`catalog_id`         AS catalogId,
                b.`name`               AS catalogName,
-               b.`upward_name_path`   AS fullCatalogName,
+               CASE WHEN a.`catalog_id` IS NULL OR a.`catalog_id` = 0 THEN '/' ELSE b.`upward_name_path` END AS fullCatalogName,
                d.`name`               AS riskName,
                a.`customtemplate_id`  AS customTemplateId,
                f.`name`               AS customTemplateName,
@@ -35,7 +35,7 @@
         WHERE a.`id` = #{value}
     </select>
 
-    <select id="getScriptBaseInfoByName" parameterType="java.lang.String"
+    <select id="getScriptCandidatesByName" parameterType="java.lang.String"
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo">
         <include refid="getScriptBaseInfo"/>
         WHERE a.`name` = #{value}
@@ -73,21 +73,13 @@
 
     <select id="getAutoexecScriptByNameList" parameterType="java.util.List"
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo">
-        select
-        `id`,
-        `name`,
-        `exec_mode` as execMode,
-        `type_id` as typeId,
-        `risk_id` as riskId,
-        `description`,
-        `default_profile_id` as defaultProfileId,
-        `fcu`,
-        `fcd`
-        from `autoexec_script` a
-        where `name` in
-        <foreach collection="list" item="id" separator="," open="(" close=")">
-            #{id}
-        </foreach>
+        SELECT candidate.*, requested.lookupName
+        FROM (<include refid="getScriptBaseInfo"/>) candidate
+        JOIN (
+            <foreach collection="list" item="name" separator=" UNION ALL ">
+                SELECT #{name} AS lookupName
+            </foreach>
+        ) requested ON candidate.`name` = requested.lookupName
     </select>
 
     <select id="getScriptLockById" parameterType="java.lang.Long"
@@ -117,7 +109,10 @@
         select count(1)
         from `autoexec_script`
         where `name` = #{name}
+          and COALESCE(`catalog_id`, 0) = COALESCE(#{catalogId}, 0)
+        <if test="id != null">
           and `id` != #{id}
+        </if>
     </select>
 
     <select id="checkScriptUkIsExists" parameterType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo"
@@ -1623,25 +1618,6 @@
         </foreach>
     </select>
 
-    <select id="getScriptListByNameList" resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVo">
-        select `id`,
-               name
-        from `autoexec_script`
-        where `name` in
-        <foreach collection="nameList" item="name" separator="," open="(" close=")">
-            #{name}
-        </foreach>
-    </select>
-
-    <select id="getScriptIdListByNameList" resultType="java.lang.Long">
-        select id
-        from `autoexec_script`
-        where `name` in
-        <foreach collection="nameList" item="name" separator="," open="(" close=")">
-            #{name}
-        </foreach>
-    </select>
-
     <select id="getVersionByScriptIdAndVersionStatus"
             resultType="neatlogic.framework.autoexec.dto.script.AutoexecScriptVersionVo">
         SELECT `id`,
@@ -1805,7 +1781,7 @@
         set `name`               = #{name},
             `exec_mode`          = #{execMode},
             `type_id`            = #{typeId},
-            `catalog_id`         = #{catalogId},
+            `catalog_id`         = COALESCE(#{catalogId}, 0),
             `risk_id`            = #{riskId},
             `is_lib`             = #{isLib},
             `customtemplate_id`  = #{customTemplateId},
@@ -1868,7 +1844,7 @@
         values (#{id},
                 #{name},
                 #{typeId},
-                #{catalogId},
+                COALESCE(#{catalogId}, 0),
                 #{riskId},
                 #{customTemplateId},
                 #{execMode},

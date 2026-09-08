@@ -47,6 +47,8 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
     private Long operationId;
     @EntityField(name = "工具名", type = ApiParamType.STRING)
     private String operationName;
+    @EntityField(name = "term.autoexec.fullcatalogname", type = ApiParamType.STRING)
+    private String fullCatalogName;
     @EntityField(name = "操作类型，自定义工具或工具", type = ApiParamType.STRING)
     private String operationType;
     @EntityField(name = "失败策略", type = ApiParamType.STRING)
@@ -145,6 +147,14 @@ public class AutoexecCombopPhaseOperationVo implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFullCatalogName() {
+        return fullCatalogName;
+    }
+
+    public void setFullCatalogName(String fullCatalogName) {
+        this.fullCatalogName = fullCatalogName;
     }
 
     public String getOperationName() {

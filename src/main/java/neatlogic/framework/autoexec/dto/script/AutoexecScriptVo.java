@@ -29,6 +29,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoexecScriptVo extends AutoexecOperationVo implements Serializable {
+    /** Internal batch-query association; database collation decides which requested names match. */
+    @JSONField(serialize = false)
+    @EntityField(name = "common.name", type = ApiParamType.STRING)
+    private String lookupName;
+
+    public String getLookupName() { return lookupName; }
+
+    public void setLookupName(String lookupName) { this.lookupName = lookupName; }
+
 
     private static final long serialVersionUID = -4568586521653070167L;
 

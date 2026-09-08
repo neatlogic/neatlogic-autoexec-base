@@ -25,7 +25,8 @@ public interface AutoexecScriptMapper {
 
     AutoexecScriptVo getScriptBaseInfoById(Long id);
 
-    AutoexecScriptVo getScriptBaseInfoByName(String name);
+    /** Returns all name matches; callers must resolve catalog identity in AutoexecScriptService. */
+    List<AutoexecScriptVo> getScriptCandidatesByName(String name);
 
     List<AutoexecScriptVo> getAutoexecScriptByIdList(List<Long> idList);
 
@@ -42,10 +43,6 @@ public interface AutoexecScriptMapper {
     int checkScriptUkIsExists(AutoexecScriptVo vo);
 
     List<Long> checkScriptIdListExists(List<Long> idList);
-
-    List<AutoexecScriptVo> getScriptListByNameList(@Param("nameList") List<String> nameList);
-
-    List<Long> getScriptIdListByNameList(@Param("nameList") List<String> nameList);
 
     int checkScriptLineContentHashIsExists(String hash);
 
