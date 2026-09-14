@@ -859,6 +859,10 @@
         limit 1
     </select>
 
+    <select id="getJobStatusForShare" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
+        SELECT id, status FROM autoexec_job WHERE id = #{value} LOCK IN SHARE MODE
+    </select>
+
     <select id="getJobLockByJobId" resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobVo">
         SELECT aj.`id`,
                aj.`name`,

@@ -54,6 +54,9 @@ public interface AutoexecJobMapper {
 
     AutoexecJobVo getJobLockByJobId(Long jobId);
 
+    /** 共享锁读取作业状态，允许不同资源并行申请并阻止终态更新穿透。 */
+    AutoexecJobVo getJobStatusForShare(Long jobId);
+
     List<AutoexecJobVo> getJobListLockByParentIdAndStatus(@Param("parentId") Long id, @Param("status") String status);
 
     List<AutoexecJobVo> getJobListByParentIdAndNotInStatus(@Param("parentId") Long id, @Param("status") String status);
