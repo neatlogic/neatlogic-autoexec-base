@@ -21,15 +21,16 @@ import java.util.List;
  * @author longrf
  * @date 2022/4/25 10:15 上午
  */
+/** 权限名称与说明使用国际化键，权限标识及校验规则保持不变。 */
 public class AUTOEXEC_MODIFY extends AuthBase {
     @Override
     public String getAuthDisplayName() {
-        return "自动化管理员权限";
+        return "nfaa.autoexec_modify.getauthdisplayname";
     }
 
     @Override
     public String getAuthIntroduction() {
-        return "自动化菜单下，【配置】子菜单下的所有功能";
+        return "nfaa.autoexec_modify.getauthintroduction";
     }
 
     @Override

@@ -24,6 +24,7 @@ import neatlogic.framework.autoexec.dto.script.AutoexecScriptVo;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.dto.OperateVo;
 import neatlogic.framework.restful.annotation.EntityField;
+import neatlogic.framework.util.$;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -229,9 +230,10 @@ public class AutoexecOperationVo extends AutoexecOperationBaseVo {
         this.isLibName = isLibName;
     }
 
+    /** 未指定展示名称时，按当前请求语言返回库文件标识对应的是否文案。 */
     public String getIsLibName() {
         if (StringUtils.isBlank(isLibName) && isLib != null) {
-            return isLib == 1 ? "是" : "否";
+            return $.t(isLib == 1 ? "nmar.common.yes" : "nmar.common.no");
         }
         return isLibName;
     }
