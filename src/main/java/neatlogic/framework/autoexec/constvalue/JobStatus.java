@@ -21,21 +21,22 @@ import neatlogic.framework.util.$;
 import java.util.Arrays;
 import java.util.List;
 
+/** 作业状态值保持稳定，显示文案在读取时按当前请求语言翻译。 */
 public enum JobStatus implements IEnum {
-    SAVED("saved", "待提交"),
-    PENDING("pending", "待运行"),
-    WAITING("waiting", "排队中"),
-    RUNNING("running", "运行中"),
-    PAUSING("pausing", "暂停中"),
-    PAUSED("paused", "已暂停"),
-    ABORTING("aborting", "中止中"),
-    ABORTED("aborted", "已中止"),
-    COMPLETED("completed", "已完成"),
-    FAILED("failed", "已失败"),
-    READY("ready", "已就绪"),
-    WAIT_INPUT("waitInput", "待输入"),
-    CHECKED("checked", "已验证"),
-    REVOKED("revoked", "已撤销");
+    SAVED("saved", "nfac.jobstatus.text.saved"),
+    PENDING("pending", "term.autoexec.jobstatus.pending"),
+    WAITING("waiting", "term.autoexec.jobstatus.queued"),
+    RUNNING("running", "term.autoexec.jobstatus.running"),
+    PAUSING("pausing", "term.autoexec.jobstatus.pausing"),
+    PAUSED("paused", "term.autoexec.jobstatus.paused"),
+    ABORTING("aborting", "term.autoexec.jobstatus.aborting"),
+    ABORTED("aborted", "common.aborted"),
+    COMPLETED("completed", "common.done"),
+    FAILED("failed", "term.autoexec.jobstatus.failed"),
+    READY("ready", "nfac.jobstatus.text.ready"),
+    WAIT_INPUT("waitInput", "term.autoexec.jobstatus.waitinput"),
+    CHECKED("checked", "nfac.jobstatus.text.checked"),
+    REVOKED("revoked", "nfac.jobstatus.text.revoked");
     private final String status;
     private final String text;
 

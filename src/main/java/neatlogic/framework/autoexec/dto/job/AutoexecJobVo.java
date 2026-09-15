@@ -392,9 +392,14 @@ public class AutoexecJobVo extends BaseEditorVo implements Serializable {
         this.status = status;
     }
 
+    /** 按当前请求语言展示已知作业状态，未知状态保留原展示文案。 */
     public String getStatusName() {
-        if (StringUtils.isBlank(statusName) && StringUtils.isNotBlank(status)) {
-            return JobStatus.getText(status);
+        if (StringUtils.isNotBlank(status)) {
+            // 反序列化或缓存中的 statusName 可能属于其他语言，不能覆盖状态枚举的翻译。
+            String localizedStatusName = JobStatus.getText(status);
+            if (StringUtils.isNotBlank(localizedStatusName)) {
+                return localizedStatusName;
+            }
         }
         return statusName;
     }
