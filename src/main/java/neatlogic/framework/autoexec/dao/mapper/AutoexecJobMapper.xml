@@ -2632,6 +2632,14 @@
             <result column="reviewStatus" property="reviewStatus"/>
             <result column="reviewTime" property="reviewTime"/>
             <result column="scenarioName" property="scenarioName"/>
+            <!-- 补齐子作业阶段数据，沿用作业的阶段完成比例计算进度；无阶段时不创建空对象。 -->
+            <collection property="phaseList" ofType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseVo" notNullColumn="phaseId">
+                <id column="phaseId" property="id"/>
+                <result column="phaseName" property="name"/>
+                <result column="lncd" property="lncd"/>
+                <result column="lcd" property="lcd"/>
+                <result column="phaseStatus" property="status"/>
+            </collection>
         </collection>
     </resultMap>
 
@@ -2653,9 +2661,15 @@
         ajj.`parent_id` as parentId,
         ajj.`reviewer` as reviewer,
         ajj.`review_status` as reviewStatus,
-        ajj.`review_time` as reviewTime
+        ajj.`review_time` as reviewTime,
+        ajp.id as phaseId,
+        ajp.name as phaseName,
+        ajp.lcd,
+        ajp.lncd,
+        ajp.status as phaseStatus
         FROM autoexec_job ajj
         left join`autoexec_combop` acc ON ajj.`operation_id` = acc.`id`
+        left join `autoexec_job_phase` ajp ON ajj.`id` = ajp.`job_id`
         <where>
             ajj.parent_id in
             <foreach collection="parentIdList" item="parentId" open="(" separator="," close=")">
