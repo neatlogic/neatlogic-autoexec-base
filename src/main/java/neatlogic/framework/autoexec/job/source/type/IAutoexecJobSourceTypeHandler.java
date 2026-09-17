@@ -324,4 +324,8 @@ public interface IAutoexecJobSourceTypeHandler {
      */
     default void autoexecTakeOver(AutoexecJobVo jobVo){
     }
+    /** 获取当前来源的 SQL 操作快照页，仅调用本地查询，不访问 Runner。 */
+    default JSONObject getOperationAuditSqlPage(AutoexecJobPhaseNodeVo search) {
+        return searchJobPhaseSql(search);
+    }
 }

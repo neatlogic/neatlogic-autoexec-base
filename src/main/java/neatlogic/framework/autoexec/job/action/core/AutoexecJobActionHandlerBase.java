@@ -17,6 +17,8 @@ import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthActionChecker;
 import neatlogic.framework.autoexec.auth.AUTOEXEC_SCRIPT_MODIFY;
 import neatlogic.framework.autoexec.constvalue.ExecMode;
+import neatlogic.framework.autoexec.constvalue.JobAction;
+import neatlogic.framework.autoexec.job.audit.IJobOperationAuditService;
 import neatlogic.framework.autoexec.constvalue.JobSource;
 import neatlogic.framework.autoexec.constvalue.JobStatus;
 import neatlogic.framework.autoexec.dao.mapper.AutoexecCombopMapper;
@@ -53,6 +55,9 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
     Logger logger = LoggerFactory.getLogger(AutoexecJobActionHandlerBase.class);
 
     protected static AutoexecJobMapper autoexecJobMapper;
+
+    @Autowired(required = false)
+    private IJobOperationAuditService operationAuditService;
 
     @Autowired
     private void setAutoexecJobMapper(AutoexecJobMapper _autoexecJobMapper) {
@@ -186,8 +191,25 @@ public abstract class AutoexecJobActionHandlerBase implements IAutoexecJobAction
         jobVo.setExecuteJobNodeVoList(nodeVoList);
     }
 
+    /** 白名单动作统一采集，嵌套处理由采集服务去重，不依赖 API 包装。 */
     @Override
     public JSONObject doService(AutoexecJobVo jobVo) throws Exception {
+        if (operationAuditService != null) {
+            for (JobAction action : JobAction.values()) {
+                if (action.isAuditAction() && action.getValue().equals(getName())) {
+                    JSONObject request = new JSONObject();
+                    if (jobVo.getActionParam() != null) { request.putAll(jobVo.getActionParam()); }
+                    request.put("jobId", jobVo.getId());
+                    if (jobVo.getExecutePhase() != null) { request.put("jobPhaseId", jobVo.getExecutePhase().getId()); }
+                    return operationAuditService.execute(action, request, () -> executeValidated(jobVo));
+                }
+            }
+        }
+        return executeValidated(jobVo);
+    }
+
+    /** 保持原有验证与业务处理顺序，验证异常原样透传。 */
+    private JSONObject executeValidated(AutoexecJobVo jobVo) throws Exception {
         if (!validate(jobVo)) {
             throw new AutoexecJobCanNotFireException(jobVo.getId().toString());
         }

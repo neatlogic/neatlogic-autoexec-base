@@ -1403,6 +1403,7 @@
                ajpn.`job_id`       AS jobId,
                ajpn.`job_phase_id` AS jobPhaseId,
                ajpn.`host`,
+               ajpn.`name` AS nodeName,
                ajpn.`port`,
                ajpn.`start_time`   AS startTime,
                ajpn.`end_time`     AS endTime,
