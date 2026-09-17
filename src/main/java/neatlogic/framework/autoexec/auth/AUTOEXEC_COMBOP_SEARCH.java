@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
-
 import java.util.Collections;
 import java.util.List;
 

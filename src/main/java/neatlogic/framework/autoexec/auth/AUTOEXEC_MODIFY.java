@@ -13,7 +13,6 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
-
 import java.util.ArrayList;
 import java.util.List;
 
