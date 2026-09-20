@@ -1,0 +1,2377 @@
+{
+  "auth": {
+    "autoexec_resourcecenter_account_modify": {
+      "description": "Manage accounts, account protocols, and account tags in the Automation module resource center.",
+      "name": "Automation Resource Center Account Management Permission"
+    },
+    "autoexec_resourcecenter_resource_view": {
+      "description": "View the asset list in the Automation module resource center.",
+      "name": "Automation Resource Center Asset List View Permission"
+    },
+    "autoexec_resourcecenter_tag_modify": {
+      "description": "Add, modify, and delete tags in the Automation module resource center.",
+      "name": "Automation Resource Center Tag Management Permission"
+    },
+    "autoexec_resourcecenter_view_modify": {
+      "description": "Add, modify, copy, and delete views in the Automation module resource center, and view their data.",
+      "name": "Automation Resource Center View Settings Permission"
+    }
+  },
+  "autoexec": {
+    "operationaudit": {
+      "action": {
+        "abort": "Abort",
+        "check": "Verify",
+        "execute": "Execute",
+        "ignore": "Ignore",
+        "interact": "Continue",
+        "label": "Operation Type",
+        "nodeRefire": "Re-execute",
+        "pause": "Pause",
+        "phaseExecute": "Execute",
+        "phaseIgnore": "Ignore",
+        "refire": "Re-execute",
+        "reset": "Reset",
+        "revoke": "Revoke",
+        "sqlReset": "Reset",
+        "takeover": "Take Over"
+      },
+      "auditid": "Operation Record ID",
+      "currentexecuser": "New Execution User",
+      "host": "IP",
+      "id": "Record ID",
+      "interactiontype": "Interaction Type",
+      "interactionvalue": "Interaction Choice",
+      "jobid": "Job ID",
+      "nodename": "Node Name",
+      "notfound": "Operation record {1} does not exist or does not belong to job {0}.",
+      "object": {
+        "job": "Job",
+        "node": "Node",
+        "phase": "Phase",
+        "sql": "SQL File"
+      },
+      "objectid": "Object ID",
+      "objecttype": "Object Type",
+      "operatetime": "Operation Time",
+      "operatoruuid": "Operator ID",
+      "phaseid": "Phase ID",
+      "phasename": "Phase Name",
+      "previousexecuser": "Previous Execution User",
+      "resourceid": "Resource ID",
+      "sqlfile": "SQL File",
+      "strategy": {
+        "label": "Execution Strategy",
+        "refireAll": "Skip Successful and Ignored Nodes",
+        "refireResetAll": "Reset and Execute All Nodes"
+      },
+      "targetcount": "Target Count",
+      "targetname": "Target Object"
+    }
+  },
+  "globallock": {
+    "error": {
+      "jobrequired": "Missing handlerParam.jobId for job resource lock acquisition; lockId={0}, key={1}, handler={2}. Job status and lock ownership cannot be validated.",
+      "terminalrequest": "Job is in a terminal state; resource lock acquisition rejected. jobId={0}, status={1}, lockId={2}, key={3}, handler={4}, execId={5}, runnerId={6}."
+    },
+    "terminal": "Job {0} is in state {1} and cannot acquire resource locks."
+  },
+  "nfaa": {
+    "autoexec": {
+      "getauthdisplayname": "Automation Data Access Permission",
+      "getauthintroduction": "Query tool library and custom tool library data."
+    },
+    "autoexec_base": {
+      "getauthdisplayname": "Automation Access Permission",
+      "getauthintroduction": "View composite tools."
+    },
+    "autoexec_combop_add": {
+      "getauthdisplayname": "Composite Tool Creation Permission",
+      "getauthintroduction": "Add, copy, import, and export composite tools."
+    },
+    "autoexec_combop_search": {
+      "getauthdisplayname": "Composite Tool Viewing Permission",
+      "getauthintroduction": "View the composite tool menu."
+    },
+    "autoexec_create_public_job": {
+      "getauthdisplayname": "External Job Creation Permission",
+      "getauthintroduction": "Create external jobs."
+    },
+    "autoexec_customtemplate_modify": {
+      "getauthdisplayname": "Custom Template Management Permission",
+      "getauthintroduction": "Add, edit, view, and delete custom templates."
+    },
+    "autoexec_job_modify": {
+      "getauthdisplayname": "Job Maintenance Permission",
+      "getauthintroduction": "Delete jobs."
+    },
+    "autoexec_modify": {
+      "getauthdisplayname": "Automation Administrator Permission",
+      "getauthintroduction": "Access all functions under Automation > Configuration."
+    },
+    "autoexec_schedule_modify": {
+      "getauthdisplayname": "Scheduled Automation Management Permission",
+      "getauthintroduction": "Manage scheduled automation jobs."
+    },
+    "autoexec_script_manage": {
+      "getauthdisplayname": "Tool and Custom Tool Management Permission",
+      "getauthintroduction": "View, edit, copy, test, approve, activate, and delete tools and custom tools."
+    },
+    "autoexec_script_modify": {
+      "getauthdisplayname": "Tool and Custom Tool Maintenance Permission",
+      "getauthintroduction": "View, edit, copy, and test tools and custom tools."
+    },
+    "autoexec_script_search": {
+      "getauthdisplayname": "Tool and Custom Tool Viewing Permission",
+      "getauthintroduction": "View tools and custom tools."
+    },
+    "autoexec_service_manage": {
+      "getauthdisplayname": "Service Catalog Management Permission",
+      "getauthintroduction": "Add, modify, and delete service catalogs."
+    },
+    "autoexec_skill_manage": {
+      "getauthdisplayname": "Skill Management Permission",
+      "getauthintroduction": "Approve, publish, unpublish, enable, and disable automation skills."
+    },
+    "autoexec_skill_modify": {
+      "getauthdisplayname": "Skill Maintenance Permission",
+      "getauthintroduction": "View, edit, submit, and test automation skills."
+    }
+  },
+  "nfac": {
+    "autoexecjobnotifytriggertype": {
+      "description": {
+        "jobcompleted": "Trigger a notification when the job completes",
+        "jobfailed": "Trigger a notification when the job fails",
+        "jobwaitinput": "Trigger a notification when the job is waiting for input"
+      },
+      "text": {
+        "jobcompleted": "Job Completed",
+        "jobfailed": "Job Failed",
+        "jobwaitinput": "Job Waiting for Input"
+      }
+    },
+    "autoexecjobvo": {
+      "unknownsource": "Unknown Source"
+    },
+    "autoexecnotifytriggertype": {
+      "description": {
+        "createjobfailed": "Trigger notification when job creation fails"
+      },
+      "text": {
+        "createjobfailed": "Failed to create homework"
+      }
+    },
+    "autoexectenantconfig": {
+      "autoexecjoblogencoding": "Automation job log Character encoding set",
+      "maxnumofcombopversion": "The maximum number of versions of the combination tool, such as setting a maximum of 10 versions, will automatically delete the oldest and inactive version when creating and saving the 11th version."
+    },
+    "execmode": {
+      "description": {
+        "runner": "No execution target is required. The tool runs on the Runner and is suitable for data aggregation and similar processing.",
+        "runner_target": "An execution target is required. The tool runs on the Runner and connects to network devices, storage devices, software systems, and other targets for data collection or command execution.",
+        "sqlfile": "A DB execution target is required. The tool runs on the Runner and is suitable for validating and executing SQL files.",
+        "target": "An execution target is required. The tool runs on the specified remote host and is suitable for host data collection or command execution."
+      },
+      "text": {
+        "native": "Native Execution",
+        "runner": "Runner Execution",
+        "runner_target": "Runner-to-Target Execution",
+        "sqlfile": "SQL File Execution",
+        "target": "Target Execution"
+      }
+    },
+    "failpolicy": {
+      "text": {
+        "goon": "Continue on Failure",
+        "stop": "Stop on Failure"
+      }
+    },
+    "jobstatus": {
+      "text": {
+        "checked": "Verified",
+        "ready": "Ready",
+        "revoked": "Revoked",
+        "saved": "Pending Submission"
+      }
+    },
+    "outputparamtype": {
+      "desc": {
+        "jsonobject": "Support JSON objects and JSON arrays, with output content in legal JSON format",
+        "password": "Can output numbers or strings, displayed as ciphertext on the page",
+        "phase": "Output stage",
+        "text": "Can output strings and numbers"
+      }
+    },
+    "parammappingmode": {
+      "text": {
+        "isempty": "Empty",
+        "prenodeoutputparam": "Upstream Node Output Value",
+        "prenodeoutputparamkey": "Upstream Node Output Parameter"
+      }
+    },
+    "paramtype": {
+      "accounttag": "Account label",
+      "checkbox": "check",
+      "date": "Date Pickers ",
+      "desc": {
+        "account": "Connection protocol and account used to access databases, middleware, and other services on a host",
+        "checkbox": "Checkbox selector",
+        "date": "Date/time picker",
+        "dateonly": "Date picker",
+        "file": "Supports uploading multiple files. During execution, files are uploaded automatically to the specified directory on the target host with their original names preserved.",
+        "filepath": "File path parameter",
+        "json": "Supports JSON objects and arrays. The input must be valid JSON.",
+        "multiselect": "Multi-select dropdown",
+        "node": "Generates script variables from node information without dispatching execution to the node",
+        "password": "Accepts numbers or strings and masks the value on the page",
+        "phase": "Phase selector",
+        "radio": "Radio button selector",
+        "runnergroup": "Runner group",
+        "runnergrouptag": "Runner group tag",
+        "select": "Single-select dropdown",
+        "switch": "Switch selector",
+        "text": "Text parameter that accepts strings or numbers",
+        "textarea": "Accepts strings or numbers",
+        "time": "Time picker",
+        "userselect": "Selects system users, teams, or roles"
+      }
+    },
+    "reviewstatus": {
+      "failed": "Approval not approved",
+      "waiting": "Pending Review"
+    },
+    "scriptandtooloperate": {
+      "active": {
+        "text": "Enable"
+      }
+    }
+  },
+  "nfacv": {
+    "autoexeccombopoptype": {
+      "text": {
+        "autoexec": "Action",
+        "readonly": "Query"
+      }
+    },
+    "autoexecformhandler": {
+      "text": {
+        "formautoexecservice": "Automation Service Component"
+      }
+    },
+    "autoexecfromtype": {
+      "text": {
+        "autoexec_catalog": "Automation Tool Catalog",
+        "autoexec_profile_operation": "Preset Parameter Set Tools and Custom Tools",
+        "custom_template": "Custom Template",
+        "script": "Custom Tool"
+      }
+    },
+    "autoexecglobalparamtype": {
+      "description": {
+        "text": "Text parameter that accepts strings or numbers."
+      },
+      "text": {
+        "date": "Date",
+        "datetime": "Date and Time",
+        "text": "Text"
+      }
+    },
+    "autoexecjobnotifyparam": {
+      "text": {
+        "name": "Job Name",
+        "phaselist": "Phase List"
+      }
+    },
+    "autoexecjobphasenodeerrortype": {
+      "text": {
+        "ip_invalid": "Invalid IP Address",
+        "runner_not_match": "No matching Runner was found for the IP address. Verify the Runner group configuration."
+      }
+    },
+    "autoexecjobphasenodefrom": {
+      "text": {
+        "group": "Group",
+        "job": "Job"
+      }
+    },
+    "autoexecnotifyparam": {
+      "text": {
+        "create_job_failed_content": "Job Creation Failure Reason"
+      }
+    },
+    "autoexecparallelpolicy": {
+      "text": {
+        "parallel": "Concurrent",
+        "round_count": "Batched"
+      }
+    },
+    "autoexecservicetype": {
+      "text": {
+        "catalog": "Catalog",
+        "service": "Service"
+      }
+    },
+    "autoexectenantconfig": {
+      "text": {
+        "autoexec_execrtool_runner_read_timeout": "Timeout for the execution tool to read a response from Runner, in milliseconds. Default: 5 minutes.",
+        "autoexec_job_param_valid": "Enable job parameter validation. Validation is enabled by default.",
+        "autoexec_job_sync_max_concurrent": "Maximum number of synchronous Job requests being created or monitored per tenant on the current server instance. Default: 20.",
+        "autoexec_job_sync_output_max_target_count": "Maximum number of target-node outputs returned by the synchronous Job creation API. Default: 10.",
+        "autoexec_job_sync_wait_timeout": "Maximum time that the synchronous Job creation API monitors Job status, in milliseconds. Default: 5 minutes."
+      }
+    },
+    "autoexectypeauthorityaction": {
+      "text": {
+        "add": "Add Custom Tools or Tools under the classification",
+        "review": "Review Combination Tools under the classification"
+      }
+    },
+    "autoexectypetype": {
+      "text": {
+        "custom": "Custom",
+        "factory": "Factory Default"
+      }
+    },
+    "combopauthorityaction": {
+      "text": {
+        "execute": "Execute",
+        "view": "View"
+      }
+    },
+    "combopnodespecify": {
+      "text": {
+        "now": "Specify Execution Targets Now",
+        "runtime": "Specify Execution Targets at Runtime",
+        "runtimeparam": "Use Job Parameter as Execution Target"
+      }
+    },
+    "combopoperationtype": {
+      "text": {
+        "combop": "Combination"
+      }
+    },
+    "jobaction": {
+      "text": {
+        "abort": "Abort",
+        "check": "Validate",
+        "console_log_audit_list": "List Console Log Audit Records",
+        "console_log_tail": "Get Console Log",
+        "download_console_log": "Download Console Log",
+        "download_console_log_audit": "Download Console Log Audit Records",
+        "download_node_audit": "Download Node Audit Records",
+        "download_node_in_put": "Download Node Input Parameters",
+        "download_node_log": "Download Node Log",
+        "download_node_out_put": "Download Node Output Parameters",
+        "download_node_sql_file": "Download Node SQL File",
+        "fire": "Execute",
+        "get_node_operation_input_param": "Get Node Tool Input Parameters",
+        "get_node_operation_list": "List Node Operations",
+        "get_node_output_param": "Get Node Output Parameters",
+        "get_node_sql_content": "Get Node SQL Content",
+        "get_node_sql_list": "Get Node SQL List",
+        "get_operation_custom_data": "Get Tool Custom Data",
+        "goon": "Continue",
+        "ignore_node": "Ignore Node",
+        "ignore_phase": "Ignore Phase",
+        "inform_phase_round": "Notify Next Phase Batch",
+        "node_audit_list": "Get Node Audit Records",
+        "pause": "Pause",
+        "refire": "Rerun",
+        "refire_node": "Rerun Node",
+        "refire_phase": "Rerun Phase",
+        "reset_node": "Reset Node",
+        "reset_refire": "Reset and Rerun",
+        "submit_node_wait_input": "Submit Node Input",
+        "tail_node_log": "Get Node Log",
+        "take_over": "Take Over"
+      }
+    },
+    "jobgroupsearch": {
+      "text": {
+        "jobusertype": "Job Stakeholder"
+      }
+    },
+    "jobnodestatus": {
+      "text": {
+        "invalid": "Invalid Node",
+        "succeed": "Succeeded"
+      }
+    },
+    "jobsource": {
+      "text": {
+        "autoexec_schedule": "Scheduled Job",
+        "combop_test": "Combination Tool Test",
+        "human": "Manual",
+        "script_test": "Custom Tool Test",
+        "service": "Quick Service",
+        "tool_test": "Tool Test"
+      }
+    },
+    "jobtriggertype": {
+      "text": {
+        "auto": "Automatic",
+        "manual": "Manual"
+      }
+    },
+    "jobusertype": {
+      "text": {
+        "exec_user": "Execution User"
+      }
+    },
+    "nodestatus": {
+      "text": {
+        "node_not_found": "Execution Target Not Found",
+        "normal": "Normal",
+        "user_not_found": "Execution User Not Found"
+      }
+    },
+    "paramdatasource": {
+      "text": {
+        "matrix": "Matrix Data Source",
+        "static": "Static Data Source"
+      }
+    },
+    "parammode": {
+      "text": {
+        "input": "Input Parameter",
+        "output": "Output Parameter"
+      }
+    },
+    "scriptaction": {
+      "description": {
+        "delete": "Deleted version ${DATA.version}",
+        "disable": "Disabled version ${DATA.version}",
+        "pass": "Approved version ${DATA.version}",
+        "reject": "Rejected version ${DATA.version}",
+        "revoke": "Withdrew submitted version ${DATA.version}",
+        "submit": "Submitted version ${DATA.version}",
+        "switch_version": "Switched from version ${DATA.oldVersion} to version ${DATA.newVersion}"
+      },
+      "text": {
+        "delete": "Delete Version",
+        "disable": "Disable",
+        "submit": "Submit",
+        "switch_version": "Switch Version"
+      }
+    },
+    "scriptandtooloperate": {
+      "text": {
+        "active": "Enable/Disable",
+        "compare": "Compare",
+        "generatetocombop": "Publish as Combination Tool",
+        "save": "Save as Draft",
+        "submit": "Submit for Review",
+        "switch_version": "Roll Back",
+        "validate": "Validate"
+      }
+    },
+    "scriptversionstatus": {
+      "text": {
+        "current": "Active",
+        "draft": "Draft",
+        "history": "Historical",
+        "passed": "Approved",
+        "rejected": "Rejected",
+        "submitted": "Pending Review"
+      }
+    },
+    "serviceparammappingmode": {
+      "text": {
+        "formattr": "Form Attribute"
+      }
+    }
+  },
+  "nfad": {
+    "autoexeccatalogvo": {
+      "entityfield": {
+        "childcount": {
+          "name": "Child Count"
+        },
+        "children": {
+          "name": "Children"
+        },
+        "referencecountforscript": {
+          "name": "Associated Custom Tool Count"
+        },
+        "upwardidpath": {
+          "name": "Ancestor ID Path"
+        },
+        "upwardnamepath": {
+          "name": "Ancestor Name Path"
+        }
+      }
+    },
+    "autoexeccombopauthorityvo": {
+      "entityfield": {
+        "action": {
+          "name": "Action"
+        },
+        "type": {
+          "name": "Type"
+        },
+        "uuid": {
+          "name": "UUID"
+        }
+      }
+    },
+    "autoexeccombopconfigvo": {
+      "entityfield": {
+        "invokenotifypolicyconfig": {
+          "name": "Invocation Notification Policy Configuration"
+        }
+      }
+    },
+    "autoexeccombopexecuteconfigvo": {
+      "entityfield": {
+        "blacklist": {
+          "name": "Blocklist"
+        },
+        "executenodeconfig": {
+          "name": "Execute Node Configuration"
+        },
+        "executeuser": {
+          "name": "Execute User"
+        },
+        "ispresetexecuteconfig": {
+          "name": "Preset Execution Target"
+        },
+        "parallelcount": {
+          "name": "Concurrency Count"
+        },
+        "whitelist": {
+          "name": "Allowlist"
+        }
+      }
+    },
+    "autoexeccombopexecutenodeconfigvo": {
+      "entityfield": {
+        "filter": {
+          "name": "Filter"
+        },
+        "inputnodelist": {
+          "name": "Input Node List"
+        },
+        "otherfilter": {
+          "name": "Additional Scenario Filter"
+        },
+        "preoutputlist": {
+          "name": "Upstream Output Parameter List"
+        },
+        "selectnodelist": {
+          "name": "Select Node List"
+        }
+      }
+    },
+    "autoexeccombopgroupvo": {
+      "entityfield": {
+        "id": {
+          "name": "ID"
+        },
+        "policy": {
+          "name": "Policy"
+        }
+      }
+    },
+    "autoexeccombopphaseconfigvo": {
+      "entityfield": {
+        "phaseoperationlist": {
+          "name": "Phase Tool List"
+        }
+      }
+    },
+    "autoexeccombopphaseoperationconfigvo": {
+      "entityfield": {
+        "condition": {
+          "name": "Condition"
+        },
+        "elselist": {
+          "name": "Else Tool List"
+        },
+        "iflist": {
+          "name": "If Tool List"
+        },
+        "loopitemvar": {
+          "name": "Loop Item Variable"
+        },
+        "parammappinglist": {
+          "name": "Parameter Mapping List"
+        },
+        "profileid": {
+          "name": "Preset Parameter Set ID"
+        },
+        "profilename": {
+          "name": "Preset Parameter Set Name"
+        },
+        "profileparamlist": {
+          "name": "Preset Parameter List"
+        }
+      }
+    },
+    "autoexeccombopphaseoperationvo": {
+      "entityfield": {
+        "failpolicy": {
+          "name": "Fail Policy"
+        },
+        "operation": {
+          "name": "Tool Information"
+        },
+        "operationtype": {
+          "name": "Tool Type"
+        },
+        "scriptversionid": {
+          "name": "Custom Tool Version ID"
+        }
+      }
+    },
+    "autoexeccombopphasevo": {
+      "entityfield": {
+        "execmodename": {
+          "name": "Execution Mode Name"
+        },
+        "groupsort": {
+          "name": "Group Order"
+        },
+        "groupuuid": {
+          "name": "Group UUID"
+        },
+        "groupvo": {
+          "name": "Phase Group"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "policy": {
+          "name": "Policy"
+        }
+      }
+    },
+    "autoexeccombopscenariovo": {
+      "entityfield": {
+        "combopphasenamelist": {
+          "name": "Combination Tool Phase Name List"
+        },
+        "isenable": {
+          "name": "Selectable"
+        },
+        "ishasbuildtypetool": {
+          "name": "Has BUILD Tool"
+        },
+        "ishasdeploytypetool": {
+          "name": "Has DEPLOY Tool"
+        }
+      }
+    },
+    "autoexecglobalparamvo": {
+      "entityfield": {
+        "endpage": {
+          "name": "End Page"
+        },
+        "expectoffsetrownum": {
+          "name": "Expected Row Count from Current Page"
+        },
+        "fcd": {
+          "name": "Created At"
+        },
+        "fcu": {
+          "name": "Created By"
+        },
+        "fcuname": {
+          "name": "Created By Name"
+        },
+        "fcuvo": {
+          "name": "Created By"
+        },
+        "lcd": {
+          "name": "Updated At"
+        },
+        "lcu": {
+          "name": "Updated By"
+        },
+        "lcuname": {
+          "name": "Updated By Name"
+        },
+        "lcuvo": {
+          "name": "Updated By"
+        },
+        "offsetrownum": {
+          "name": "Actual Row Count from Current Page"
+        },
+        "startpage": {
+          "name": "Start Page"
+        }
+      }
+    },
+    "autoexecjobenvvo": {
+      "entityfield": {
+        "name": {
+          "name": "Name"
+        },
+        "value": {
+          "name": "Value"
+        }
+      }
+    },
+    "autoexecjobexecvo": {
+      "entityfield": {
+        "action": {
+          "name": "Action"
+        },
+        "execid": {
+          "name": "Execution ID"
+        },
+        "fcd": {
+          "name": "Created At"
+        },
+        "runnermapid": {
+          "name": "Runner Mapping ID"
+        }
+      }
+    },
+    "autoexecjobgroupvo": {
+      "entityfield": {
+        "config": {
+          "name": "Configuration"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "parallelfrom": {
+          "name": "Concurrency Source"
+        },
+        "policy": {
+          "name": "Policy"
+        },
+        "sort": {
+          "name": "Sort"
+        }
+      }
+    },
+    "autoexecjobinvokevo": {
+      "entityfield": {
+        "type": {
+          "name": "Type"
+        }
+      }
+    },
+    "autoexecjobnodesqlvo": {
+      "entityfield": {
+        "interact": {
+          "name": "Interactive Input Initialization Data"
+        },
+        "sqlname": {
+          "name": "Job SQL Name"
+        },
+        "status": {
+          "name": "Status"
+        },
+        "statusname": {
+          "name": "Status Name"
+        }
+      }
+    },
+    "autoexecjobnodevo": {
+      "entityfield": {
+        "host": {
+          "name": "Host"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "password": {
+          "name": "Password"
+        },
+        "port": {
+          "name": "Port"
+        },
+        "username": {
+          "name": "User Name"
+        }
+      }
+    },
+    "autoexecjobphasenodeoperationstatusvo": {
+      "entityfield": {
+        "condition": {
+          "name": "Condition"
+        },
+        "elselist": {
+          "name": "Else Tool List"
+        },
+        "failignore": {
+          "name": "Ignore Failure"
+        },
+        "iflist": {
+          "name": "If Tool List"
+        },
+        "letter": {
+          "name": "Operation Name Suffix"
+        }
+      }
+    },
+    "autoexecjobphasenodevo": {
+      "entityfield": {
+        "errortype": {
+          "name": "Error Type"
+        },
+        "extrainfo": {
+          "name": "Additional Information"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "interactstr": {
+          "name": "Interactive Input Rendering JSON"
+        },
+        "isdelete": {
+          "name": "Deleted"
+        },
+        "nodeid": {
+          "name": "Node ID"
+        },
+        "operationstatusvolist": {
+          "name": "Node Tool Status List"
+        },
+        "phaserunnergroupfrom": {
+          "name": "Runner Group Source"
+        },
+        "runnerid": {
+          "name": "Runner ID"
+        },
+        "runnerurl": {
+          "name": "Runner Information"
+        },
+        "runnervo": {
+          "name": "Runner"
+        },
+        "sqlfile": {
+          "name": "SQL File Name"
+        },
+        "status": {
+          "name": "Status"
+        },
+        "statusname": {
+          "name": "Status Name"
+        }
+      }
+    },
+    "autoexecjobphaseoperationvo": {
+      "entityfield": {
+        "description": {
+          "name": "Description"
+        },
+        "execmode": {
+          "name": "Execution Mode"
+        },
+        "failignore": {
+          "name": "Ignore Failure"
+        },
+        "failpolicy": {
+          "name": "Fail Policy"
+        },
+        "inputparamlist": {
+          "name": "Input Parameter List"
+        },
+        "letter": {
+          "name": "Operation Name Suffix"
+        },
+        "outputparamlist": {
+          "name": "Output Parameter List"
+        },
+        "param": {
+          "name": "Parameter"
+        },
+        "paramstr": {
+          "name": "Parameter String"
+        },
+        "profileid": {
+          "name": "Preset Parameter Set ID"
+        },
+        "sort": {
+          "name": "Sort"
+        },
+        "uk": {
+          "name": "Unique Key"
+        }
+      }
+    },
+    "autoexecjobphaserunnervo": {
+      "entityfield": {
+        "isfirenext": {
+          "name": "Next Group Started"
+        },
+        "lcd": {
+          "name": "Updated At"
+        },
+        "status": {
+          "name": "Status"
+        }
+      }
+    },
+    "autoexecjobphasevo": {
+      "entityfield": {
+        "endtime": {
+          "name": "End Time"
+        },
+        "execmode": {
+          "name": "Execution Mode"
+        },
+        "execuser": {
+          "name": "Execution User"
+        },
+        "executepolicy": {
+          "name": "Execute Policy"
+        },
+        "grouppolicy": {
+          "name": "Group Policy"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "isactive": {
+          "name": "Active"
+        },
+        "ispreoutputupdatenode": {
+          "name": "Updates Downstream Nodes from Upstream Output"
+        },
+        "jobgroupvo": {
+          "name": "Job Group"
+        },
+        "name": {
+          "name": "Name"
+        },
+        "operationlist": {
+          "name": "Phase Tool List"
+        },
+        "protocol": {
+          "name": "Protocol"
+        },
+        "roundcountfrom": {
+          "name": "Batch Count Source"
+        },
+        "runnergroupfrom": {
+          "name": "Runner Group Source"
+        },
+        "runnervos": {
+          "name": "Runner List"
+        },
+        "sort": {
+          "name": "Sort"
+        },
+        "starttime": {
+          "name": "Start Time"
+        },
+        "status": {
+          "name": "Status"
+        },
+        "statuscountvolist": {
+          "name": "Status Count List"
+        },
+        "statusvo": {
+          "name": "Status"
+        },
+        "uk": {
+          "name": "Unique Key"
+        },
+        "username": {
+          "name": "User Name"
+        }
+      }
+    },
+    "autoexecjobresourceinspectvo": {
+      "entityfield": {
+        "phaseid": {
+          "name": "Phase ID"
+        }
+      }
+    },
+    "autoexecjobsortvo": {
+      "entityfield": {
+        "key": {
+          "name": "Parameter Name"
+        },
+        "type": {
+          "name": "Type"
+        }
+      }
+    },
+    "autoexecjobstatusvo": {
+      "entityfield": {
+        "name": {
+          "name": "Name"
+        },
+        "text": {
+          "name": "Text"
+        }
+      }
+    },
+    "autoexecjobvo": {
+      "entityfield": {
+        "children": {
+          "name": "Children"
+        },
+        "config": {
+          "name": "Configuration"
+        },
+        "excludeidlist": {
+          "name": "Exclude ID List"
+        },
+        "execusertype": {
+          "name": "Execution User Type"
+        },
+        "extrainfo": {
+          "name": "Additional Information"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "idlist": {
+          "name": "ID List"
+        },
+        "iscancheck": {
+          "name": "Can Validate"
+        },
+        "iscanedit": {
+          "name": "Can Edit"
+        },
+        "iscanexecute": {
+          "name": "Can Execute"
+        },
+        "iscantakeover": {
+          "name": "Can Take Over"
+        },
+        "isfirstinit": {
+          "name": "First Initialization"
+        },
+        "ishasignored": {
+          "name": "Contains Ignored Nodes"
+        },
+        "jobphasenodesqllist": {
+          "name": "Job Phase Node SQL List"
+        },
+        "name": {
+          "name": "Name"
+        },
+        "operationname": {
+          "name": "Tool Name"
+        },
+        "operationtypename": {
+          "name": "Tool Type Name"
+        },
+        "parallelpolicy": {
+          "name": "Concurrency Policy"
+        },
+        "paramhash": {
+          "name": "Runtime Parameter Hash"
+        },
+        "passthroughenv": {
+          "name": "Job-Wide Environment Variables"
+        },
+        "phaseidlist": {
+          "name": "Phase ID List"
+        },
+        "phaselist": {
+          "name": "Phase List"
+        },
+        "phasenamelist": {
+          "name": "Phase Name List"
+        },
+        "planstarttime": {
+          "name": "Plan Start Time"
+        },
+        "reviewer": {
+          "name": "Reviewer"
+        },
+        "reviewstatusname": {
+          "name": "Review Status Name"
+        },
+        "reviewtime": {
+          "name": "Review Time"
+        },
+        "route": {
+          "name": "Route"
+        },
+        "runnermapid": {
+          "name": "Runner Mapping ID"
+        },
+        "sourcename": {
+          "name": "Source Name"
+        },
+        "sourcetype": {
+          "name": "Source Type"
+        },
+        "statusname": {
+          "name": "Status Name"
+        },
+        "triggertypename": {
+          "name": "Trigger Type"
+        }
+      }
+    },
+    "autoexecoperationbasevo": {
+      "entityfield": {
+        "catalogname": {
+          "name": "Catalog Name"
+        },
+        "customtemplatename": {
+          "name": "Custom Template Name"
+        },
+        "execmodetext": {
+          "name": "Execution Mode Text"
+        },
+        "inputparamlist": {
+          "name": "Input Parameter List"
+        },
+        "outputparamlist": {
+          "name": "Output Parameter List"
+        },
+        "riskname": {
+          "name": "Operation Level Name"
+        },
+        "riskvo": {
+          "name": "Operation Level"
+        },
+        "type": {
+          "name": "Type"
+        },
+        "typedescription": {
+          "name": "Type Description"
+        },
+        "typeid": {
+          "name": "Type ID"
+        },
+        "typename": {
+          "name": "Type Name"
+        }
+      }
+    },
+    "autoexecoperationvo": {
+      "entityfield": {
+        "comboplist": {
+          "name": "Combination Tool List"
+        },
+        "defaultprofileid": {
+          "name": "Default Preset Parameter Set ID"
+        },
+        "defaultprofilename": {
+          "name": "Default Preset Parameter Set Name"
+        },
+        "hasbeengeneratedtocombop": {
+          "name": "Published as Combination Tool"
+        },
+        "islib": {
+          "name": "Library File"
+        },
+        "islibname": {
+          "name": "Library File Text"
+        },
+        "operatelist": {
+          "name": "Action List"
+        },
+        "referencecount": {
+          "name": "Reference Count"
+        }
+      }
+    },
+    "autoexecparamconfigvo": {
+      "entityfield": {
+        "datalist": {
+          "name": "Static Data Source List"
+        },
+        "datasource": {
+          "name": "Data Source"
+        },
+        "filter": {
+          "name": "Filter"
+        },
+        "grouplist": {
+          "name": "Group List"
+        },
+        "ismultiple": {
+          "name": "Multiple Selection"
+        },
+        "isrequired": {
+          "name": "Required"
+        },
+        "mapping": {
+          "name": "Mapping"
+        },
+        "matrixuuid": {
+          "name": "Matrix UUID"
+        },
+        "validatelist": {
+          "name": "Validation Rule List"
+        }
+      }
+    },
+    "autoexecparamvo": {
+      "entityfield": {
+        "argumentcount": {
+          "name": "Free-Form Argument Count"
+        },
+        "defaultvalue": {
+          "name": "Default Value"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "isrequired": {
+          "name": "Required"
+        },
+        "mappingmode": {
+          "name": "Mapping Mode"
+        },
+        "mappingmodetext": {
+          "name": "Parameter Mapping Mode Text"
+        },
+        "mode": {
+          "name": "Mode"
+        },
+        "name": {
+          "name": "Name"
+        },
+        "operationid": {
+          "name": "Tool ID"
+        },
+        "operationtype": {
+          "name": "Tool Type"
+        },
+        "type": {
+          "name": "Type"
+        },
+        "typetext": {
+          "name": "Form Type Name"
+        },
+        "validate": {
+          "name": "Regular Expression Validation"
+        },
+        "value": {
+          "name": "Value"
+        }
+      }
+    },
+    "autoexecphaseoperationparamvo": {
+      "entityfield": {
+        "name": {
+          "name": "Name"
+        },
+        "parser": {
+          "name": "Parser"
+        }
+      }
+    },
+    "autoexecprofilevo": {
+      "entityfield": {
+        "autoexecoperationcount": {
+          "name": "Associated Tool Count"
+        },
+        "cientitylist": {
+          "name": "CI Entity List"
+        },
+        "cientityname": {
+          "name": "CI Entity Name"
+        },
+        "fromsystemname": {
+          "name": "Source System Name"
+        },
+        "operationid": {
+          "name": "Tool ID"
+        },
+        "operationidlist": {
+          "name": "Tool ID List"
+        },
+        "profileparamvolist": {
+          "name": "Preset Parameter List"
+        }
+      }
+    },
+    "autoexecriskvo": {
+      "entityfield": {
+        "color": {
+          "name": "Color"
+        }
+      }
+    },
+    "autoexecscenariovo": {
+      "entityfield": {
+        "referredcount": {
+          "name": "Referred Count"
+        }
+      }
+    },
+    "autoexecschedulevo": {
+      "entityfield": {
+        "autoexeccombopname": {
+          "name": "Automation Combination Tool Name"
+        },
+        "config": {
+          "name": "Configuration"
+        },
+        "cron": {
+          "name": "Cron"
+        },
+        "deletable": {
+          "name": "Deletable"
+        },
+        "execcount": {
+          "name": "Execution Count"
+        },
+        "isactive": {
+          "name": "Active"
+        },
+        "jobstatus": {
+          "name": "Job Status"
+        },
+        "uuid": {
+          "name": "UUID"
+        }
+      }
+    },
+    "autoexecscriptauditcontentvo": {
+      "entityfield": {
+        "content": {
+          "name": "Content"
+        }
+      }
+    },
+    "autoexecscriptauditvo": {
+      "entityfield": {
+        "contenthash": {
+          "name": "Content Hash"
+        },
+        "operate": {
+          "name": "Operation"
+        }
+      }
+    },
+    "autoexecscriptlinecontentvo": {
+      "entityfield": {
+        "content": {
+          "name": "Content"
+        }
+      }
+    },
+    "autoexecscriptlinevo": {
+      "entityfield": {
+        "content": {
+          "name": "Content"
+        },
+        "contenthash": {
+          "name": "Content Hash"
+        },
+        "linenumber": {
+          "name": "Line Number"
+        },
+        "riskcodelevel": {
+          "name": "Risky Code Level"
+        }
+      }
+    },
+    "autoexecscriptvalidatetypevo": {
+      "entityfield": {
+        "scripttype": {
+          "name": "Custom Tool Type"
+        },
+        "validateid": {
+          "name": "Risky Code ID"
+        }
+      }
+    },
+    "autoexecscriptvalidatevo": {
+      "entityfield": {
+        "code": {
+          "name": "Code"
+        },
+        "level": {
+          "name": "Level"
+        }
+      }
+    },
+    "autoexecscriptversionvo": {
+      "entityfield": {
+        "rejectreason": {
+          "name": "Reject Reason"
+        },
+        "reviewer": {
+          "name": "Reviewer"
+        },
+        "reviewervo": {
+          "name": "Reviewer"
+        },
+        "reviewervolist": {
+          "name": "Reviewer List"
+        },
+        "status": {
+          "name": "Status"
+        }
+      }
+    },
+    "autoexecscriptvo": {
+      "entityfield": {
+        "catalogname": {
+          "name": "Catalog Name"
+        },
+        "catalogpath": {
+          "name": "Catalog Path"
+        },
+        "currentversion": {
+          "name": "Current Version"
+        },
+        "currentversionvo": {
+          "name": "Current Version"
+        },
+        "islibreference": {
+          "name": "Referenced as Library File"
+        },
+        "linelist": {
+          "name": "Line List"
+        },
+        "packagefilename": {
+          "name": "Package File Name"
+        },
+        "passedversioncount": {
+          "name": "Passed Version Count"
+        },
+        "submittedversionid": {
+          "name": "Submitted Version ID"
+        },
+        "versioncount": {
+          "name": "Version Count"
+        }
+      }
+    },
+    "autoexecservicebreadcrumbvo": {
+      "entityfield": {
+        "id": {
+          "name": "ID"
+        },
+        "upwardnamelist": {
+          "name": "Ancestor Service Catalog Name List"
+        }
+      }
+    },
+    "autoexecservicenodevo": {
+      "entityfield": {
+        "children": {
+          "name": "Children"
+        },
+        "childrencount": {
+          "name": "Children Count"
+        }
+      }
+    },
+    "autoexecservicevo": {
+      "entityfield": {
+        "authoritylist": {
+          "name": "Authorization List"
+        },
+        "configexpired": {
+          "name": "Configuration Expired"
+        },
+        "configexpiredreason": {
+          "name": "Configuration Expired Reason"
+        },
+        "formuuid": {
+          "name": "Form UUID"
+        },
+        "id": {
+          "name": "ID"
+        },
+        "isactive": {
+          "name": "Active"
+        },
+        "isfavorite": {
+          "name": "Favorited"
+        }
+      }
+    },
+    "autoexecsqlnodedetailvo": {
+      "entityfield": {
+        "isdelete": {
+          "name": "Deleted"
+        },
+        "ismodified": {
+          "name": "Modified"
+        },
+        "nodename": {
+          "name": "Node Name"
+        },
+        "phaseid": {
+          "name": "Phase ID"
+        },
+        "port": {
+          "name": "Port"
+        },
+        "runnerport": {
+          "name": "Runner Port"
+        },
+        "serviceaddr": {
+          "name": "Service Address"
+        },
+        "sort": {
+          "name": "Sort"
+        },
+        "sqlfile": {
+          "name": "SQL File Name"
+        },
+        "statusname": {
+          "name": "Status Name"
+        },
+        "warncount": {
+          "name": "Warning Count"
+        }
+      }
+    },
+    "autoexectagvo": {
+      "entityfield": {
+        "name": {
+          "name": "Name"
+        }
+      }
+    },
+    "autoexectypeauthvo": {
+      "entityfield": {
+        "action": {
+          "name": "Action"
+        },
+        "authtype": {
+          "name": "Authorization Type"
+        },
+        "authuuid": {
+          "name": "Authorization UUID"
+        },
+        "typeid": {
+          "name": "Type ID"
+        }
+      }
+    },
+    "autoexectypevo": {
+      "entityfield": {
+        "authlist": {
+          "name": "Authorization List"
+        },
+        "name": {
+          "name": "Name"
+        },
+        "referencecountforcombop": {
+          "name": "Reference Count For Combination Tool"
+        },
+        "referencecountforscript": {
+          "name": "Associated Custom Tool Count"
+        },
+        "referencecountfortool": {
+          "name": "Associated Tool Count"
+        },
+        "reviewauthlist": {
+          "name": "Review Authorization List"
+        }
+      }
+    },
+    "customtemplatevo": {
+      "entityfield": {
+        "config": {
+          "name": "Configuration"
+        },
+        "referencecount": {
+          "name": "Reference Count"
+        },
+        "template": {
+          "name": "Template"
+        }
+      }
+    },
+    "ossoftwareserviceenvappmoduleappsystemvo": {
+      "entityfield": {
+        "envseqno": {
+          "name": "Environment Sequence No"
+        }
+      }
+    },
+    "parammappingvo": {
+      "entityfield": {
+        "description": {
+          "name": "Description"
+        },
+        "mappingmode": {
+          "name": "Mapping Mode"
+        },
+        "name": {
+          "name": "Name"
+        },
+        "text": {
+          "name": "Text"
+        },
+        "type": {
+          "name": "Type"
+        }
+      }
+    },
+    "softwareserviceosvo": {
+      "entityfield": {
+        "osid": {
+          "name": "OS ID"
+        },
+        "osname": {
+          "name": "OS Name"
+        }
+      }
+    }
+  },
+  "nfadc": {
+    "autoexeccombopversionvo": {
+      "precondition": "pre-filter"
+    }
+  },
+  "nfae": {
+    "autoexeccataloghasbeenreferredexception": {
+      "autoexeccataloghasbeenreferredexception": "Tool catalog \"{0}\" or one of its subcatalogs still contains tools and cannot be deleted."
+    },
+    "autoexeccatalognotfoundexception": {
+      "autoexeccatalognotfoundexception": "Tool Catalog \"{0}\" does not exist."
+    },
+    "autoexeccatalogrepeatexception": {
+      "autoexeccatalogrepeatexception": "Tool catalog \"{0}\" already exists."
+    },
+    "autoexeccombopactiveversionnotfoundexception": {
+      "autoexeccombopactiveversionnotfoundexception": "Combination Tool \"{0}\" has no active version."
+    },
+    "autoexeccombopatleastonegroupexception": {
+      "autoexeccombopatleastonegroupexception": "A Combination Tool must contain at least one group."
+    },
+    "autoexeccombopatleastonephaseexception": {
+      "autoexeccombopatleastonephaseexception": "A Combination Tool must contain at least one phase."
+    },
+    "autoexeccombopcannotberepeatreleaseexception": {
+      "autoexeccombopcannotberepeatreleaseexception": "\"{0}\" cannot be published repeatedly as a Combination Tool."
+    },
+    "autoexeccombopcannotexecuteexception": {
+      "autoexeccombopcannotexecuteexception": "You do not have permission to execute Combination Tool \"{0}\"."
+    },
+    "autoexeccombopdraftversionnotfoundexception": {
+      "autoexeccombopdraftversionnotfoundexception": "Combination Tool \"{0}\" has no draft version."
+    },
+    "autoexeccombopexecutenodecannotbeemptyexception": {
+      "autoexeccombopexecutenodecannotbeemptyexception": "Execution targets are required when Specify Execution Targets Now is selected."
+    },
+    "autoexeccombopexecuteparamcannotbeemptyexception": {
+      "autoexeccombopexecuteparamcannotbeemptyexception": "A runtime parameter is required when Use Runtime Parameter as Execution Target is selected."
+    },
+    "autoexeccombopexecuteusercannotbeemptyexception": {
+      "autoexeccombopexecuteusercannotbeemptyexception": "An execution user is required when Specify Execution Targets Now is selected."
+    },
+    "autoexeccombophassubmittedversionexception": {
+      "autoexeccombophassubmittedversionexception": "Combination Tool \"{0}\" already has another version pending review."
+    },
+    "autoexeccombopnamerepeatexception": {
+      "autoexeccombopnamerepeatexception": "Combination Tool \"{0}\" already exists."
+    },
+    "autoexeccombopnotfoundexception": {
+      "autoexeccombopnotfoundexception": "Combination Tool \"{0}\" does not exist."
+    },
+    "autoexeccombopoperationnotfoundexception": {
+      "autoexeccombopoperationnotfoundexception": "In phase \"{0}\", Tool \"{1}\" was deleted. Remove it from the Combination Tool and save the configuration."
+    },
+    "autoexeccombopphaseatleastoneoperationexception": {
+      "autoexeccombopphaseatleastoneoperationexception": "Each Combination Tool phase must contain at least one tool."
+    },
+    "autoexeccombopphasegroupidisnullexception": {
+      "autoexeccombopphasegroupidisnullexception": "The group ID of phase \"{0}\" is null.",
+      "autoexeccombopphasegroupidisnullexceptionb": "A phase has a null group ID."
+    },
+    "autoexeccombopphasenamerepeatexception": {
+      "autoexeccombopphasenamerepeatexception": "Phase name \"{0}\" already exists in the Combination Tool."
+    },
+    "autoexeccombopprotocolcannotbeemptyexception": {
+      "autoexeccombopprotocolcannotbeemptyexception": "A protocol is required when Specify Execution Targets Now is selected."
+    },
+    "autoexeccomboprejectedversionnotfoundexception": {
+      "autoexeccomboprejectedversionnotfoundexception": "Combination Tool \"{0}\" has no rejected version."
+    },
+    "autoexeccombopsubmittedversionnotfoundexception": {
+      "autoexeccombopsubmittedversionnotfoundexception": "Combination Tool \"{0}\" has no version pending review."
+    },
+    "autoexeccombopversionnotfoundexception": {
+      "autoexeccombopversionnotfoundexception": "Combination Tool version \"{0}\" does not exist."
+    },
+    "autoexeccombopversionnotpassedexception": {
+      "autoexeccombopversionnotpassedexception": "Combination Tool version \"{0}\" has not passed review and cannot be activated."
+    },
+    "autoexecexecutenodeisrequiredexception": {
+      "autoexecexecutenodeisrequiredexception": "Execution targets are required."
+    },
+    "autoexecexecuteuserisrequiredexception": {
+      "autoexecexecuteuserisrequiredexception": "An execution user is required."
+    },
+    "autoexecglobalparamhasbeenreferredexception": {
+      "autoexecglobalparamhasbeenreferredexception": "Global parameter \"{0}\" is referenced and cannot be deleted."
+    },
+    "autoexecglobalparamisnotfoundexception": {
+      "autoexecglobalparamisnotfoundexception": "Global parameter \"{0}\" does not exist."
+    },
+    "autoexecglobalparamkeyrepeatexception": {
+      "autoexecglobalparamkeyrepeatexception": "Global parameter name \"{0}\" already exists."
+    },
+    "autoexecglobalparamnamerepeatexception": {
+      "autoexecglobalparamnamerepeatexception": "Global parameter display name \"{0}\" already exists."
+    },
+    "autoexecglobalparamtypenotfoundexception": {
+      "autoexecglobalparamtypenotfoundexception": "Parameter {0} has an invalid mapping: global parameter type \"{1}\" does not exist."
+    },
+    "autoexecglobalparamvalueemptyexception": {
+      "autoexecglobalparamvalueemptyexception": "The global parameter value mapped by parameter {0} is empty."
+    },
+    "autoexecjobactioninvalidexception": {
+      "autoexecjobactioninvalidexception": "The job execution policy cannot be null. Use refireResetAll to execute all nodes or refireAll to skip completed and ignored nodes."
+    },
+    "autoexecjobcannotcreateexception": {
+      "autoexecjobcannotcreateexception": "Job creation failed because you do not have execution permission for Combination Tool \"{0}\"."
+    },
+    "autoexecjobcannotexecuteexception": {
+      "autoexecjobcannotexecuteexception": "Job {0} cannot be executed. The job must be Ready and the current user must be the execution user."
+    },
+    "autoexecjobcannotexecuteinadvanceexception": {
+      "autoexecjobcannotexecuteinadvanceexception": "The job cannot be executed ahead of schedule."
+    },
+    "autoexecjobcannotfireexception": {
+      "autoexecjobcannotfireexception": "Job {0} cannot be started. Ensure that the job and all phases are Pending."
+    },
+    "autoexecjobcannotignorejobnodeexception": {
+      "autoexecjobcannotignorejobnodeexception": "Job node {0} cannot be ignored. Ensure that the job is Aborted, Paused, or Completed."
+    },
+    "autoexecjobcannotpauseexception": {
+      "autoexecjobcannotpauseexception": "Job {0} cannot be paused. Ensure that the job is Running."
+    },
+    "autoexecjobcannotrefirejobnodeexception": {
+      "autoexecjobcannotrefirejobnodeexception": "Job {0} cannot be rerun. Ensure that the job is Running."
+    },
+    "autoexecjobcannotrevokeexception": {
+      "autoexecjobcannotrevokeexception": "Job {0} cannot be revoked. Only the execution user can revoke a job, and the job must be Ready."
+    },
+    "autoexecjobcannottestexception": {
+      "autoexecjobcannottestexception": "Tool test {0} cannot start because another test job is running for this tool."
+    },
+    "autoexecjobcannotupdateexception": {
+      "autoexecjobcannotupdateexception": "The scheduled time and trigger type of job {0} cannot be updated. The job must be Ready and the current user must be the execution user."
+    },
+    "autoexecjobcheckedexception": {
+      "autoexecjobcheckedexception": "Job \"{0}\" has already been validated."
+    },
+    "autoexecjobconfignotfoundexception": {
+      "autoexecjobconfignotfoundexception": "The configuration snapshot for job \"{0}\" does not exist."
+    },
+    "autoexecjobdeleteexception": {
+      "autoexecjobdeleteexception": "Failed to clean up Automation Job {0} ({1})."
+    },
+    "autoexecjobexecutepermissiondeniedexception": {
+      "autoexecjobexecutepermissiondeniedexception": "Current user {1} is not the execution user for Job {0}; the assigned execution user is {2}. Refresh the page and take over the Job again."
+    },
+    "autoexecjobgroupnotfoundexception": {
+      "autoexecjobgroupnotfoundexception": "In Job {0}, group {1} does not exist.",
+      "autoexecjobgroupnotfoundexceptionb": "No group exists in job {0}."
+    },
+    "autoexecjobhostportrunnernotfoundexception": {
+      "autoexecjobhostportrunnernotfoundexception": "No Runner is assigned to {0}."
+    },
+    "autoexecjoblogencodingillegalexception": {
+      "autoexecjoblogencodingillegalexception": "Unsupported character encoding: {0}."
+    },
+    "autoexecjobnodepreparamvaluenotinvalidexception": {
+      "autoexecjobnodepreparamvaluenotinvalidexception": "For Job \"{0}\", failed to initialize execution targets for phase \"{1}\" from upstream parameters because the upstream output value is missing or invalid."
+    },
+    "autoexecjobnotfoundexception": {
+      "autoexecjobnotfoundexception": "Job \"{0}\" does not exist."
+    },
+    "autoexecjobnotsupportedexecuteandrevokeexception": {
+      "autoexecjobnotsupportedexecuteandrevokeexception": "Only jobs saved from a Combination Tool support execution and revocation."
+    },
+    "autoexecjobnotsupportmultiparentexception": {
+      "autoexecjobnotsupportmultiparentexception": "Parent Job {0} already has a parent. A Job supports at most two parent Jobs."
+    },
+    "autoexecjoboperationparamvalueinvalidexception": {
+      "autoexecjoboperationparamvalueinvalidexception": "In phase \"{0}\", Tool \"{1}\" has parameter \"{2}\" with invalid value \"{3}\"."
+    },
+    "autoexecjobparamcannotbeemptyexception": {
+      "autoexecjobparamcannotbeemptyexception": "In Combination Tool \"{0}\", Job parameter \"{1}\" cannot be empty."
+    },
+    "autoexecjobparamisrequiredexception": {
+      "autoexecjobparamisrequiredexception": "In Combination Tool \"{0}\", Job parameter \"{1}\" is required."
+    },
+    "autoexecjobparamnotexistexception": {
+      "autoexecjobparamnotexistexception": "Job parameter \"{0}\" ({1}) cannot be empty."
+    },
+    "autoexecjobparamnotfoundexception": {
+      "autoexecjobparamnotfoundexception": "In Combination Tool \"{0}\", Job parameter \"{1}\" does not exist."
+    },
+    "autoexecjobparamtypechangedexception": {
+      "autoexecjobparamtypechangedexception": "In Combination Tool \"{0}\", Job parameter \"{1}\" changed type from \"{2}\" to \"{3}\"."
+    },
+    "autoexecjobparamvalueinvalidexception": {
+      "autoexecjobparamvalueinvalidexception": "Parameter \"{0}\" has invalid value \"{1}\"."
+    },
+    "autoexecjobphasenodenotfoundexception": {
+      "autoexecjobphasenodenotfoundexceptiona": "Job phase \"{0}\" has no executable nodes. Verify that the selected targets satisfy the Combination Tool filter and exist in the asset inventory, then retry.",
+      "autoexecjobphasenodenotfoundexceptionb": "Node \"{1}\" does not exist in Job phase \"{0}\".",
+      "autoexecjobphasenodenotfoundexceptionc": "In Job phase \"{0}\", resource ID \"{1}\" does not exist."
+    },
+    "autoexecjobphasenotfoundexception": {
+      "autoexecjobphasenotfoundexception": "Job phase \"{0}\" does not exist.",
+      "autoexecjobphasenotfoundexceptionb": "In Job \"{0}\", the phase in group \"{1}\" does not exist."
+    },
+    "autoexecjobphaseoperationmustbecombopexception": {
+      "autoexecjobphaseoperationmustbecombopexception": "This operation is supported only for Combination Tools."
+    },
+    "autoexecjobphaseoperationnotfoundexception": {
+      "autoexecjobphaseoperationnotfoundexception": "Tool \"{0}\" does not exist in the job phase."
+    },
+    "autoexecjobphaserunnernotfoundexception": {
+      "autoexecjobphaserunnernotfoundexception": "For Job {0}, no Runner was found for phase \"{1}\" ({2}).",
+      "autoexecjobphaserunnernotfoundexceptionb": "No executable Runner matches phases: {0}."
+    },
+    "autoexecjobrunnernotfoundexception": {
+      "autoexecjobrunnernotfoundexceptiona": "Runner ID {0} does not exist.",
+      "autoexecjobrunnernotfoundexceptionb": "No Runner exists for Job ID {0} and Job phase ID {1}.",
+      "autoexecjobrunnernotfoundexceptionc": "Runner \"{0}\" does not exist."
+    },
+    "autoexecjobsourceinvalidexception": {
+      "autoexecjobsourceinvalidexception": "Job source \"{0}\" is invalid."
+    },
+    "autoexecjobsqldetailnotfoundexception": {
+      "autoexecjobsqldetailnotfoundexception": "SQL details do not exist."
+    },
+    "autoexecjobupdatenodebypreoutputlistexception": {
+      "autoexecjobupdatenodebypreoutputlistexception": "Failed to update execution targets for job \"{0}\" from upstream outputs because the configuration is invalid. Verify the configuration and try again.",
+      "autoexecjobupdatenodebypreoutputlistexceptionb": "Failed to update execution targets of phase {1} from upstream outputs because target phase {0} can contain only one node."
+    },
+    "autoexecoperationhasnomodifyauthexception": {
+      "autoexecoperationhasnomodifyauthexception": "You do not have tool maintenance permission. Contact an administrator."
+    },
+    "autoexecparallelcountisrequiredexception": {
+      "autoexecparallelcountisrequiredexception": "Concurrency is required."
+    },
+    "autoexecparallelpolicyinvalidexception": {
+      "autoexecparallelpolicyinvalidexception": "Concurrency policy \"{0}\" is invalid."
+    },
+    "autoexecparamcannotbeemptyexception": {
+      "autoexecparamcannotbeemptyexception": "In phase \"{0}\", Tool \"{1}\" has parameter {2}, which cannot be empty."
+    },
+    "autoexecparameterchinesenameparamnotexistexception": {
+      "autoexecparameterchinesenameparamnotexistexception": "The Chinese name of parameter {0} (\"{1}\") cannot be empty."
+    },
+    "autoexecparametercontroltypeparamnotexistexception": {
+      "autoexecparametercontroltypeparamnotexistexception": "The control type of parameter {0} (\"{1}\") cannot be empty."
+    },
+    "autoexecparameterenglishnameparamnotexistexception": {
+      "autoexecparameterenglishnameparamnotexistexception": "The English name of parameter {0} cannot be empty."
+    },
+    "autoexecparametermodeparamnotexistexception": {
+      "autoexecparametermodeparamnotexistexception": "The parameter mode of parameter {0} (\"{1}\") cannot be empty."
+    },
+    "autoexecparameterrequiredparamnotexistexception": {
+      "autoexecparameterrequiredparamnotexistexception": "The Required setting of parameter {0} (\"{1}\") cannot be empty."
+    },
+    "autoexecparamirregularexception": {
+      "autoexecparamirregularexception": "Parameter {0} (\"{1}\") has field \"{2}\" that does not meet the format requirements."
+    },
+    "autoexecparammappingargumentcountmismatchexception": {
+      "autoexecparammappingargumentcountmismatchexception": "In phase \"{0}\", Tool \"{1}\" has Free-Form Argument {2} with a mapping count that differs from configured count {3}."
+    },
+    "autoexecparammappingincorrectexception": {
+      "autoexecparammappingincorrectexception": "In phase \"{0}\", Tool \"{1}\" has parameter {2} with an invalid mapping."
+    },
+    "autoexecparammappingnotfoundexception": {
+      "autoexecparammappingnotfoundexception": "Parameter \"{0}\" references mapping mode {1}, which does not exist."
+    },
+    "autoexecparammappingnotmappedexception": {
+      "autoexecparammappingnotmappedexception": "In phase \"{0}\", Tool \"{1}\" has new required parameter {2} without a default value."
+    },
+    "autoexecparammappingtargetnotfoundexception": {
+      "autoexecparammappingtargetnotfoundexception_a": "In phase \"{0}\", Tool \"{1}\" has parameter {2} whose mapping target {3} does not exist.",
+      "autoexecparammappingtargetnotfoundexception_b": "Job parameter {1}, mapped to the execution user, does not exist in phase \"{0}\".",
+      "autoexecparammappingtargetnotfoundexception_c": "Job parameter {1}, mapped to the execution user, does not exist in phase group \"{0}\".",
+      "autoexecparammappingtargetnotfoundexception_d": "Job parameter {0}, mapped to the execution user for the execution target, does not exist."
+    },
+    "autoexecparammappingtargettypemismatchexception": {
+      "autoexecparammappingtargettypemismatchexception": "In phase \"{0}\", Tool \"{1}\" has parameter {2} whose mapping target {3} has an incompatible type."
+    },
+    "autoexecparamnotfoundexception": {
+      "autoexecparamnotfoundexception": "In phase \"{0}\", Tool \"{1}\" has parameter {2}, which does not exist."
+    },
+    "autoexecparamvalueirregularexception": {
+      "autoexecparamvalueirregularexception_a": "In phase \"{0}\", Tool \"{1}\" has parameter {2} ({3}) with value {4} that does not meet the format requirements.",
+      "autoexecparamvalueirregularexception_b": "In {0}, parameter {1} ({2}) has value {3} that does not meet the format requirements.",
+      "autoexecparamvalueirregularexception_c": "Value {2} of parameter {0} ({1}) does not meet the format requirements."
+    },
+    "autoexecparamvaluerepeatexception": {
+      "autoexecparamvaluerepeatexception": "In phase \"{0}\", Tool \"{1}\" has parameter {2} ({3}) with duplicate value {4}."
+    },
+    "autoexecprofilehasbeenreferredexception": {
+      "autoexecprofilehasbeenreferredexception": "The current profile '{0}' has been referenced and cannot be deleted"
+    },
+    "autoexecprofileishasreferenceexception": {
+      "autoexecprofileishasreferenceexception": "Profile: {0} \"has been referenced and cannot be deleted"
+    },
+    "autoexecprofileisnotfoundexception": {
+      "autoexecprofileisnotfoundexception": "Preset Parameter Set \"{0}\" does not exist."
+    },
+    "autoexecprofilenamerepeatsexception": {
+      "autoexecprofilenamerepeatsexception": "Profile name: '{0}' already exists"
+    },
+    "autoexecprofilenotreferencedbyoperationexception": {
+      "autoexecprofilenotreferencedbyoperationexception": "Profile: '{0}' not associated with tool: {1}"
+    },
+    "autoexecprotocolisrequiredexception": {
+      "autoexecprotocolisrequiredexception": "A connection protocol is required."
+    },
+    "autoexecriskhasbeenreferredexception": {
+      "autoexecriskhasbeenreferredexception": "Operation Level \"{0}\" is referenced."
+    },
+    "autoexecrisknamerepeatexception": {
+      "autoexecrisknamerepeatexception": "Operation Level \"{0}\" already exists."
+    },
+    "autoexecrisknotfoundexception": {
+      "autoexecrisknotfoundexception": "Operation Level \"{0}\" does not exist."
+    },
+    "autoexecroundcountisrequiredexception": {
+      "autoexecroundcountisrequiredexception": "The batch count is required."
+    },
+    "autoexecrunnergroupnotfoundbytagandruleexception": {
+      "autoexecrunnergroupnotfoundbytagandruleexception": "No Runner group has tag \"{0}\" and satisfies the Job rule.",
+      "autoexecrunnergroupnotfoundbytagandruleexceptionphase": "No Runner group has tag \"{1}\" and satisfies the rule configured for phase \"{0}\"."
+    },
+    "autoexecrunnergroupnotfoundbytagexception": {
+      "autoexecrunnergroupnotfoundbytagexception": "No Runner group has tag \"{0}\" configured for the Job.",
+      "autoexecrunnergroupnotfoundbytagexceptionphase": "No Runner group has tag \"{1}\" configured for phase \"{0}\"."
+    },
+    "autoexecrunnergrouprulenotmatchexception": {
+      "autoexecrunnergrouprulenotmatchexception": "Runner group \"{1}\" ({2}), configured by {0}, does not satisfy the rule.",
+      "autoexecrunnergrouprulenotmatchexception_a": "The executor group '{1} ({2})' set by '{0}' and '{3}' does not meet the rules",
+      "autoexecrunnergrouprulenotmatchexceptionwithformname": "{0} \"{3}\" configures Runner group \"{1}\" ({2}), which does not satisfy the rule."
+    },
+    "autoexecrunnergrouptaginvalidexception": {
+      "autoexecrunnergrouptaginvalidexception": "Runner group tag value \"{0}\" for the Job is invalid.",
+      "autoexecrunnergrouptaginvalidexceptiona": "Runner group tag value \"{1}\" in Job phase {0} is invalid."
+    },
+    "autoexecrunnergrouptagnotmatchexception": {
+      "autoexecrunnergrouptagnotmatchexception": "Runner group \"{1}\" (configured by {0}) does not have tag \"{3}\" (configured by {2}).",
+      "autoexecrunnergrouptagnotmatchexceptionbytagandrule": "No Runner group satisfies both tag \"{0}\" and the configured rule."
+    },
+    "autoexecrunnertagnotmatchexception": {
+      "autoexecrunnertagnotmatchexception": "No Runner group satisfies both tag \"{0}\" and the configured rule."
+    },
+    "autoexecscenarioisnotfoundexception": {
+      "autoexecscenarioisnotfoundexception": "Scenario \"{0}\" does not exist."
+    },
+    "autoexecscenarioisrequiredexception": {
+      "autoexecscenarioisrequiredexception": "A Scenario is required."
+    },
+    "autoexecscenariorepeatexception": {
+      "autoexecscenariorepeatexception": "Scenario name \"{0}\" already exists."
+    },
+    "autoexecschedulenamerepeatexception": {
+      "autoexecschedulenamerepeatexception": "Scheduled Job name \"{0}\" already exists."
+    },
+    "autoexecschedulenotfoundexception": {
+      "autoexecschedulenotfoundexception": "Scheduled Job \"{0}\" does not exist."
+    },
+    "autoexecscriptcheckhandlernotfoundexception": {
+      "autoexecscriptcheckhandlernotfoundexception": "Custom Tool validator \"{0}\" does not exist."
+    },
+    "autoexecscripthasnoactiveversionexception": {
+      "autoexecscripthasnoactiveversionexception": "Tool \"{0}\" has no active version."
+    },
+    "autoexecscripthasnodraftversionexception": {
+      "autoexecscripthasnodraftversionexception": "The current Custom Tool has no draft version."
+    },
+    "autoexecscripthasnorejectedversionexception": {
+      "autoexecscripthasnorejectedversionexception": "The current Custom Tool has no rejected version."
+    },
+    "autoexecscripthasnotanyversionexception": {
+      "autoexecscripthasnotanyversionexception": "The current Custom Tool has no versions."
+    },
+    "autoexecscripthasreferenceexception": {
+      "autoexecscripthasreferenceexception": "The current Custom Tool is referenced and cannot be deleted or left without an active version. Activate another version before switching the active version."
+    },
+    "autoexecscripthassubmittedversionexception": {
+      "autoexecscripthassubmittedversionexception": "The current Custom Tool already has another version pending review."
+    },
+    "autoexecscriptjobcannotexecuteexception": {
+      "autoexecscriptjobcannotexecuteexception": "Job {0} cannot be executed because the current user lacks Tool and Custom Tool management permission."
+    },
+    "autoexecscriptnameambiguousexception": "Multiple custom tools named \"{0}\" exist. Specify fullCatalogName to identify the tool. Matching directories: {1}.",
+    "autoexecscriptnameorukrepeatexception": {
+      "autoexecscriptnameorukrepeatexception": "A custom tool named \"{0}\" already exists in this catalog."
+    },
+    "autoexecscriptnotfoundexception": {
+      "autoexecscriptnotfoundexception": "Custom Tool \"{0}\" does not exist."
+    },
+    "autoexecscriptversioncannotactiveexception": {
+      "autoexecscriptversioncannotactiveexception": "The current version cannot be activated."
+    },
+    "autoexecscriptversioncannotdeleteexception": {
+      "autoexecscriptversioncannotdeleteexception": "The current Custom Tool has only one version. Deleting it would delete the Custom Tool."
+    },
+    "autoexecscriptversioncannoteditexception": {
+      "autoexecscriptversioncannoteditexception": "The current version cannot be edited in its current state."
+    },
+    "autoexecscriptversioncannotreviewexception": {
+      "autoexecscriptversioncannotreviewexception": "The current version cannot be reviewed."
+    },
+    "autoexecscriptversioncannotsubmitexception": {
+      "autoexecscriptversioncannotsubmitexception": "The current version cannot be submitted for review."
+    },
+    "autoexecscriptversionhasnoactivedexception": {
+      "autoexecscriptversionhasnoactivedexception": "Custom Tool \"{0}\" has no active version.",
+      "autoexecscriptversionhasnoactivedexceptionb": "The current Custom Tool has no active version."
+    },
+    "autoexecscriptversionisnotsubmittedexception": {
+      "autoexecscriptversionisnotsubmittedexception": "The current version is not pending review."
+    },
+    "autoexecscriptversionnotfoundexception": {
+      "autoexecscriptversionnotfoundexception": "Version \"{0}\" does not exist."
+    },
+    "autoexecserviceconfigexpiredexception": {
+      "autoexecserviceconfigexpiredexception": "The configuration of service \"{0}\" has expired."
+    },
+    "autoexecservicehasbeenreferredexception": {
+      "autoexecservicehasbeenreferredexception": "Service Catalog \"{0}\" or one of its subcatalogs still contains services and cannot be deleted."
+    },
+    "autoexecserviceisnotcatalogexception": {
+      "autoexecserviceisnotcatalogexception": "Service {0} is not a catalog."
+    },
+    "autoexecservicenameisrepeatexception": {
+      "autoexecservicenameisrepeatexception": "Service Catalog name \"{0}\" already exists."
+    },
+    "autoexecservicenotfoundexception": {
+      "autoexecservicenotfoundexception": "Service Catalog \"{0}\" does not exist."
+    },
+    "autoexecservicenotreferencedformexception": {
+      "autoexecservicenotreferencedformexception": "The Service Catalog does not reference a form, so form attributes cannot be mapped."
+    },
+    "autoexectoolexportnotfoundtoolexception": {
+      "autoexectoolexportnotfoundtoolexception": "No tools were found to export."
+    },
+    "autoexectoolnotactiveexception": {
+      "autoexectoolnotactiveexception": "Tool \"{0}\" is not active."
+    },
+    "autoexectoolnotfoundexception": {
+      "autoexectoolnotfoundexception": "Tool \"{0}\" does not exist."
+    },
+    "autoexectoolparamdatasourceemptyexception": {
+      "autoexectoolparamdatasourceemptyexception": "No data source is configured for parameter \"{0}\"."
+    },
+    "autoexectoolparamdatasourceillegalexception": {
+      "autoexectoolparamdatasourceillegalexception": "The data source for parameter \"{0}\" has an invalid format. Expected: '{\"dataList\":[{\"text\":\"Yes\",\"value\":\"1\"},{\"text\":\"No\",\"value\":\"0\"}]}'. The text key and value, and the value key, cannot be empty."
+    },
+    "autoexectoolparamvalidatefieldformatillegalexception": {
+      "autoexectoolparamvalidatefieldformatillegalexception": "Parameter \"{0}\" has field \"{1}\" in its validate configuration that must be a JSON object."
+    },
+    "autoexectoolparamvalidatefieldlostexception": {
+      "autoexectoolparamvalidatefieldlostexception": "Parameter \"{0}\" has rule \"{1}\" in its validate configuration that is missing field \"{2}\".",
+      "autoexectoolparamvalidatefieldlostexceptionb": "Parameter \"{0}\" has rule {1} in its validate configuration that is missing field \"{2}\"."
+    },
+    "autoexectypehasbeenreferredexception": {
+      "autoexectypehasbeenreferredexception": "Tool Classification \"{0}\" is referenced by a Tool, Custom Tool, or Combination Tool."
+    },
+    "autoexectypeisfactoryexception": {
+      "autoexectypeisfactoryexception": "Tool Classification \"{1}\" (ID: \"{0}\") is a factory default and cannot be deleted."
+    },
+    "autoexectypenamerepeatexception": {
+      "autoexectypenamerepeatexception": "Tool Classification \"{0}\" already exists."
+    },
+    "autoexectypenotfoundexception": {
+      "autoexectypenotfoundexception": "Tool Classification \"{0}\" does not exist."
+    },
+    "autoexecusernamenotfoundexception": {
+      "autoexecusernamenotfoundexception": "An execution user is required."
+    },
+    "common": {
+      "versionactivecannotdelete": "The current version is active and cannot be deleted."
+    },
+    "customtemplatenotfoundexception": {
+      "customtemplatenotfoundexception": "Custom Template \"{0}\" does not exist."
+    },
+    "runnergroupmatchrulenotfoundexception": {
+      "runnergroupmatchrulenotfoundexception": "No Runner group satisfies the configured rule."
+    }
+  },
+  "nfaec": {
+    "autoexeccombopnotfoundedittargetexception": {
+      "autoexeccombopnotfoundedittargetexception": "Combination tool: {0} does not exist"
+    },
+    "autoexeccombopversionnotfoundedittargetexception": {
+      "autoexeccombopversionnotfoundedittargetexception": "Combination tool version: {0} does not exist"
+    }
+  },
+  "nfaej": {
+    "autoexecinputoutofcountexception": {
+      "autoexecinputoutofcountexception": "For a text-filter execution target, the number of targets cannot exceed {0}."
+    },
+    "autoexecjobfirenextgroupexception": {
+      "autoexecjobfirenextgroupexception": "Failed to start the next phase group {0} for the Job: {1}."
+    },
+    "autoexecjobnotfoundedittargetexception": {
+      "autoexecjobnotfoundedittargetexception": "Job {0} does not exist."
+    },
+    "autoexecjobsyncinterruptedexception": {
+      "autoexecjobsyncinterruptedexception": "The thread was interrupted while monitoring Job {0}."
+    },
+    "autoexecjobsynclimitexception": {
+      "autoexecjobsynclimitexception": "The number of synchronous Job requests being created or monitored has reached the limit of {0}."
+    },
+    "autoexecjobsyncparamnotsupportedexception": {
+      "autoexecjobsyncparamnotsupportedexception": "Parameter {0} is not supported in synchronous execution mode."
+    },
+    "autoexecjobtargetinvalidexception": {
+      "autoexecjobtargetinvalidexception": "Execution target {0} has an invalid format. Use IP, IP:port, or IP:port/name."
+    },
+    "autoexecjobtargetorrunnernotfoundexception": {
+      "autoexecjobtargetorrunnernotfoundexception": "No execution target or Runner group exists. A phase may depend on upstream Tool output, but the upstream phase is missing or failed to produce targets."
+    },
+    "executeusermappingmodeparaminvalidexception": {
+      "executeusermappingmodeparaminvalidexception": "mappingMode \"{0}\" in executeConfig.executeUser is invalid. The execution user mapping mode configured at the Combination Tool Job level is \"{1}\"."
+    },
+    "executeuservalueparamnullexception": {
+      "executeuservalueparamnullexception": "executeConfig.executeUser.value cannot be empty."
+    },
+    "jobparamnodenullexception": {
+      "jobparamnodenullexception": "The execution target is invalid because referenced Job parameter \"{0}\" is empty.",
+      "jobparamnodenullexceptionb": "The execution target is invalid because phase group \"{0}\" references {1}.",
+      "jobparamnodenullexceptionc": "The execution target is invalid because it references {0}.",
+      "jobparamnodenullexceptionphase": "The execution target is invalid because phase \"{0}\" references {1}."
+    },
+    "jobparamnullexception": {
+      "jobparamnullexception": "Job parameter \"{0}\" cannot be empty."
+    },
+    "jobparamrunnergroupnullexception": {
+      "jobparamrunnergroupnullexception": "The Runner group is invalid because mapped Job parameter \"{0}\" is empty.",
+      "jobparamrunnergroupnullexceptiona": "The Runner group is invalid because phase \"{0}\" references empty Job parameter \"{1}\"."
+    },
+    "jobparamrunnergrouptagnullexception": {
+      "jobparamrunnergrouptagnullexception": "The Runner group tag is invalid because phase \"{0}\" references empty Job parameter \"{1}\".",
+      "jobparamrunnergrouptagnullexceptiona": "The Runner group tag is invalid because referenced Job parameter \"{0}\" is empty."
+    },
+    "jobparamusernamenullexception": {
+      "jobparamusernamenullexception": "The execution user is invalid because phase \"{0}\" references empty Job parameter \"{1}\".",
+      "jobparamusernamenullexceptiona": "The execution user is invalid because phase group \"{0}\" references empty Job parameter \"{1}\".",
+      "jobparamusernamenullexceptionb": "The execution user is invalid because referenced Job parameter \"{0}\" is empty."
+    },
+    "jobparamvalidexception": {
+      "jobparamvalidexception": "Job parameter {0} is invalid."
+    },
+    "protocolidparamnullexception": {
+      "protocolidparamnullexception": "executeConfig.protocolId cannot be empty."
+    },
+    "runnergroupmappingmodeparaminvalidexception": {
+      "runnergroupmappingmodeparaminvalidexception": "mappingMode \"{0}\" in runnerGroup is invalid. The Runner group mapping mode configured at the Combination Tool Job level is \"{1}\"."
+    },
+    "runnergroupparamnullexception": {
+      "runnergroupparamnullexception": "runnerGroup.value cannot be empty."
+    }
+  },
+  "nfaes": {
+    "autoexecschedulenotfoundedittargetexception": {
+      "autoexecschedulenotfoundedittargetexception": "Scheduled job {0} does not exist"
+    },
+    "autoexecscriptnotfoundedittargetexception": {
+      "autoexecscriptnotfoundedittargetexception": "Custom tool: {0} does not exist"
+    },
+    "autoexecscriptversionnotfoundedittargetexception": {
+      "autoexecscriptversionnotfoundedittargetexception": "Version: {0} does not exist"
+    }
+  },
+  "nfaet": {
+    "autoexectoolnotfoundedittargetexception": {
+      "autoexectoolnotfoundedittargetexception": "Tool: {0} does not exist"
+    }
+  },
+  "nmac": {
+    "autoexecconfig": {
+      "loadconfig": {
+        "autoexectoken": "✖ Please define the autoexec.token parameter in the configuration file"
+      }
+    }
+  },
+  "nmar": {
+    "export": {
+      "morecontent": "\nView additional content in the system."
+    },
+    "resource": {
+      "osserviceports": "OS Service Port Scenario",
+      "ossoftwareenvironmentapplication": "OS, Software Service, Environment, Module, and Application Scenario",
+      "softwareserviceos": "Software Service and OS Scenario",
+      "softwareserviceports": "Software Service Port Scenario"
+    }
+  },
+  "nmas": {
+    "autoexec": {
+      "loopitems": "Loop item",
+      "loopitemvar": "Loop term variable"
+    }
+  },
+  "term": {
+    "autoexec": {
+      "actionlist": "Action List",
+      "alertcount": "Alert Count",
+      "allphasesarerunnerorsqlexecmode": "All stages are Runner or SQL execution mode",
+      "approve": "Approve",
+      "argumentmappinglist": "Free-Form Argument Mapping List",
+      "assignexecuser": "Specified Execution User",
+      "associatedtoollist": "Associated Tool List",
+      "auditid": "Audit Record ID",
+      "catalog": "Tool Catalog",
+      "catalogid": "Tool Catalog ID",
+      "changetype": "Change Type",
+      "combop": "Combination Tool",
+      "combopbaseinfo": "Basic information of combination tools",
+      "combopdetailsinfo": "Combination Tool Details",
+      "combopgrouplist": "Combination Tool Phase Group List",
+      "combopid": "Combination Tool ID",
+      "comboplist": "Combination Tool List",
+      "combopname": "Combination Tool Name",
+      "combopphaselist": "Combination Tool Phase List",
+      "combopversionid": "Combination Tool Version ID",
+      "completionrate": "Completion Rate",
+      "configexpired": "Configuration has expired",
+      "configexpiredreason": "Reason for configuration failure",
+      "constant": "Constant",
+      "contenthash": "Content Hash",
+      "customtemplate": "Custom Template",
+      "customtemplateid": "Custom Template ID",
+      "customtemplateidlist": "Custom Template ID List",
+      "defaultscenarioid": "Default Scenario ID",
+      "defaultvalue": "Default Value",
+      "dependenttool": "Dependent Tool",
+      "dependenttoolname": "Dependent Tool Name",
+      "displayname": "Display Name",
+      "downloadpath": "Download Path",
+      "encoding": "Encoding",
+      "execmode": "Execution Mode",
+      "executeconfig": "Execution Target",
+      "executeparam": "Execution Parameters",
+      "executetargetconfig": "Execution Target Configuration",
+      "executetargetsource": "Execution Target Source",
+      "executetargetspecificationtiming": "Execution Target Specification Timing",
+      "executeuser": "Execution User",
+      "executeusersource": "Execution User Source",
+      "executeuseruuid": "Execution User UUID",
+      "executeuservo": "Execution User Object",
+      "executionparam": "Execution Parameter",
+      "executionstatus": "Execution Status",
+      "executionstatusname": "Execution Status Name",
+      "existrunnerorsqlexecmode": "Stage with Runner or SQL execution mode",
+      "freeparam": "Free-Form Argument",
+      "fullcatalogname": "Full Tool Catalog Path",
+      "generatetocombop": "Publish As A Combination Tool",
+      "globalparam": "Global Parameter",
+      "globalparamid": "Global Parameter ID",
+      "groupdesc": "Automation platform",
+      "groupid": "Stage Group ID",
+      "groupname": "Automation",
+      "inputparamlist": "Input Parameter List",
+      "invokeid": "Invocation ID",
+      "islib": "Is it a library file",
+      "jobexecuteconfig": "Job Execution Configuration",
+      "jobgroupid": "Job Group ID",
+      "jobid": "Job ID",
+      "jobinfo": "Automated job information",
+      "jobparam": "Job Parameter",
+      "jobparamlist": "Job parameter list",
+      "jobphaseid": "Job Phase ID",
+      "jobphasenodeid": "Job Phase Node ID",
+      "jobphasenodetoolstatuslist": "Job Phase Node Tool Status List",
+      "jobphaseoperationid": "Job Phase Operation ID",
+      "jobphaseoperationname": "Job Phase Operation Name",
+      "jobsourcelist": "Job Source List",
+      "jobsqlname": "Job SQL Name",
+      "jobstatus": {
+        "aborting": "Aborting",
+        "failed": "Failed",
+        "ignored": "Ignored",
+        "paused": "Paused",
+        "pausing": "Pausing",
+        "pending": "Pending",
+        "queued": "Queued",
+        "running": "Running",
+        "waitinput": "Waiting for Input"
+      },
+      "jobstatuslabel": "Job Status",
+      "jobstatuslist": "Job Status List",
+      "jobstatusname": "Job Status Name",
+      "lastnodechangetime": "Last Node Change Time",
+      "linelist": "Script Content Line List",
+      "loopitems": "Loop Items",
+      "looptoollist": "Loop Tool List",
+      "name": "Autoexec",
+      "needexecutenode": "Do you need to set execution targets for the execution page",
+      "needexecuteuser": "Do you need to set the execution user for the execution page",
+      "needprotocol": "Do you need to set a connection protocol for the execution page",
+      "needroundcount": "Do you need to set the batch quantity for the execution page",
+      "needrunnergroup": "Do you need to set up a runner group on the execution page",
+      "nodeauditlist": "Node Operation Record List",
+      "nodename": "Node Name",
+      "nodetype": "Node Type",
+      "operationid": "Tool ID",
+      "operationname": "Tool Name",
+      "operationtype": "Tool Type",
+      "outputparamlist": "Output Parameter List",
+      "packagefile": "Package File",
+      "packagefileid": "Package File ID",
+      "parallelcount": "Concurrency Count",
+      "parallelpolicy": "Concurrency Policy",
+      "paramlist": "Parameter List",
+      "paramname": "Parameter Name",
+      "parentjobid": "Parent Job ID",
+      "parentoperationid": "Parent Tool ID",
+      "parentoperationtype": "Parent Tool Type",
+      "passthroughenv": "Job-Wide Environment Variables",
+      "phase": "Phase",
+      "phasename": "Job Phase Name",
+      "precedingexecutetargetconfig": "Preceding Execution Target Configuration",
+      "profile": "Preset Parameter Set",
+      "protocolsource": "Execution Protocol Source",
+      "resourceidlist": "Resource ID List",
+      "reviewstatus": "Review Status",
+      "risk": "Operation level",
+      "riskid": "Operation Level ID",
+      "riskidlist": "Operation Level ID List",
+      "risklist": "Operation Level List",
+      "riskname": "Operation level name",
+      "roundcount": "Batch Count",
+      "routeid": "Configuration Route ID",
+      "runnermappingid": "Runner Mapping ID",
+      "runtimeparamlist": "Runtime Parameter List",
+      "scenario": "Scenario",
+      "scenarioid": "Scenario ID",
+      "scenariolist": "Scenario List",
+      "scenarioname": "Scenario Name",
+      "scheduleid": "Scheduled Job ID",
+      "scheduleinfo": "Automated scheduled job information",
+      "schedulename": "Scheduled Job Name",
+      "script": "Custom Tool",
+      "scriptid": "Custom Tool ID",
+      "scriptidlist": "Custom Tool ID List",
+      "scriptinfo": "Script Content",
+      "scriptparser": "Script Parser",
+      "scriptversion": "Custom Tool Version",
+      "scriptversionid": "Custom Tool Version ID",
+      "scriptversiontitle": "Custom Tool Version Note",
+      "serviceinfo": "Automation Service Catalog Information",
+      "servicelist": "Service Catalog List",
+      "servicetreedata": "Service Catalog Tree Data",
+      "sourcesystemid": "Source System ID",
+      "sqlidlist": "SQL ID List",
+      "sqlsourcetype": "SQL Source Type",
+      "starttimefilter": "Start Time Filter",
+      "systemid": "System ID",
+      "tool": "Tool",
+      "totalcount": "Total Count",
+      "triggertype": "Trigger Type",
+      "type": "Tool classification",
+      "typeid": "Tool Type ID",
+      "typeidlist": "Tool Type ID List",
+      "uniquekey": "Unique Key",
+      "userlib": "Dependency tools",
+      "version": "Version",
+      "versionstatus": "Version Status"
+    }
+  }
+}

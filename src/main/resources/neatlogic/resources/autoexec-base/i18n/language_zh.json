@@ -1,0 +1,2377 @@
+{
+  "auth": {
+    "autoexec_resourcecenter_account_modify": {
+      "description": "管理自动化模块资源中心的账号、账号协议和账号标签。",
+      "name": "自动化资源中心-账号管理权限"
+    },
+    "autoexec_resourcecenter_resource_view": {
+      "description": "查看自动化模块资源中心的资产清单。",
+      "name": "自动化资源中心-资产清单查看权限"
+    },
+    "autoexec_resourcecenter_tag_modify": {
+      "description": "对自动化模块资源中心的标签进行新增、修改和删除。",
+      "name": "自动化资源中心-标签管理权限"
+    },
+    "autoexec_resourcecenter_view_modify": {
+      "description": "对自动化模块资源中心的视图进行新增、修改、复制和删除，并查看视图数据。",
+      "name": "自动化资源中心-视图设置权限"
+    }
+  },
+  "autoexec": {
+    "operationaudit": {
+      "action": {
+        "abort": "终止",
+        "check": "验证",
+        "execute": "执行",
+        "ignore": "忽略",
+        "interact": "继续执行",
+        "label": "操作类型",
+        "nodeRefire": "重新执行",
+        "pause": "暂停",
+        "phaseExecute": "执行",
+        "phaseIgnore": "忽略",
+        "refire": "重新执行",
+        "reset": "重置",
+        "revoke": "撤销",
+        "sqlReset": "重置",
+        "takeover": "接管"
+      },
+      "auditid": "操作记录 ID",
+      "currentexecuser": "新执行人",
+      "host": "IP",
+      "id": "记录 ID",
+      "interactiontype": "交互类型",
+      "interactionvalue": "交互选择",
+      "jobid": "作业 ID",
+      "nodename": "节点名称",
+      "notfound": "作业 {0} 的操作记录 {1} 不存在或不属于该作业",
+      "object": {
+        "job": "作业",
+        "node": "节点",
+        "phase": "阶段",
+        "sql": "SQL 文件"
+      },
+      "objectid": "对象 ID",
+      "objecttype": "对象类型",
+      "operatetime": "操作时间",
+      "operatoruuid": "操作人 ID",
+      "phaseid": "阶段 ID",
+      "phasename": "阶段名称",
+      "previousexecuser": "原执行人",
+      "resourceid": "资源 ID",
+      "sqlfile": "SQL 文件",
+      "strategy": {
+        "label": "执行策略",
+        "refireAll": "跳过成功和已忽略节点",
+        "refireResetAll": "重置并执行全部节点"
+      },
+      "targetcount": "目标数量",
+      "targetname": "目标对象"
+    }
+  },
+  "globallock": {
+    "error": {
+      "jobrequired": "申请作业资源锁缺少 handlerParam.jobId；lockId={0}，key={1}，handler={2}。无法校验作业状态及锁归属。",
+      "terminalrequest": "作业已进入终结状态，拒绝申请资源锁；jobId={0}，status={1}，lockId={2}，key={3}，handler={4}，execId={5}，runnerId={6}。"
+    },
+    "terminal": "作业 {0} 当前状态为 {1}，不允许申请资源锁"
+  },
+  "nfaa": {
+    "autoexec": {
+      "getauthdisplayname": "自动化数据消费权限",
+      "getauthintroduction": "查询工具库、自定义工具库相关数据"
+    },
+    "autoexec_base": {
+      "getauthdisplayname": "自动化基础权限",
+      "getauthintroduction": "查看组合工具"
+    },
+    "autoexec_combop_add": {
+      "getauthdisplayname": "组合工具新建权限",
+      "getauthintroduction": "对组合工具进行新增、复制、导入/导出"
+    },
+    "autoexec_combop_search": {
+      "getauthdisplayname": "组合工具查看权限",
+      "getauthintroduction": "对组合工具菜单查看权限"
+    },
+    "autoexec_create_public_job": {
+      "getauthdisplayname": "外部作业创建权限",
+      "getauthintroduction": "拥有外部作业创建权限"
+    },
+    "autoexec_customtemplate_modify": {
+      "getauthdisplayname": "自定义模板管理权限",
+      "getauthintroduction": "对自定义模板进行新增、编辑、查看、删除"
+    },
+    "autoexec_job_modify": {
+      "getauthdisplayname": "作业维护权限",
+      "getauthintroduction": "拥有作业删除权限"
+    },
+    "autoexec_modify": {
+      "getauthdisplayname": "自动化管理员权限",
+      "getauthintroduction": "自动化菜单下，【配置】子菜单下的所有功能"
+    },
+    "autoexec_schedule_modify": {
+      "getauthdisplayname": "自动化定时管理权限",
+      "getauthintroduction": "自动化定时作业管理"
+    },
+    "autoexec_script_manage": {
+      "getauthdisplayname": "工具、自定义工具管理权限",
+      "getauthintroduction": "对工具和自定义工具进行查看、编辑、复制、测试、审核、激活和删除"
+    },
+    "autoexec_script_modify": {
+      "getauthdisplayname": "工具、自定义工具维护权限",
+      "getauthintroduction": "对工具和自定义工具进行查看、编辑、复制和测试"
+    },
+    "autoexec_script_search": {
+      "getauthdisplayname": "工具、自定义工具查看权限",
+      "getauthintroduction": "查看工具、自定义工具"
+    },
+    "autoexec_service_manage": {
+      "getauthdisplayname": "服务目录管理权限",
+      "getauthintroduction": "添加、修改及删除服务目录"
+    },
+    "autoexec_skill_manage": {
+      "getauthdisplayname": "Skill管理权限",
+      "getauthintroduction": "对自动化Skill进行审批、发布、取消发布和启停"
+    },
+    "autoexec_skill_modify": {
+      "getauthdisplayname": "Skill维护权限",
+      "getauthintroduction": "对自动化Skill进行查看、编辑、提交和测试"
+    }
+  },
+  "nfac": {
+    "autoexecjobnotifytriggertype": {
+      "description": {
+        "jobcompleted": "作业已完成时触发通知",
+        "jobfailed": "作业失败时触发通知",
+        "jobwaitinput": "作业待输入时触发通知"
+      },
+      "text": {
+        "jobcompleted": "作业已完成",
+        "jobfailed": "作业失败",
+        "jobwaitinput": "作业待输入"
+      }
+    },
+    "autoexecjobvo": {
+      "unknownsource": "未知来源"
+    },
+    "autoexecnotifytriggertype": {
+      "description": {
+        "createjobfailed": "创建作业失败时触发通知"
+      },
+      "text": {
+        "createjobfailed": "创建作业失败"
+      }
+    },
+    "autoexectenantconfig": {
+      "autoexecjoblogencoding": "自动化作业日志字符编码集合",
+      "maxnumofcombopversion": "组合工具版本数量上限，例如设置最多10个版本，创建保存第11个版本时，自动删除掉最老的一个，非激活状态的版本。"
+    },
+    "execmode": {
+      "description": {
+        "runner": "无需指定执行目标。工具在 Runner 上执行，适用于数据汇总等处理。",
+        "runner_target": "需指定执行目标。工具在 Runner 上执行，适用于对网络设备、存储设备、软件系统等进行信息采集或命令下发。",
+        "sqlfile": "需选定 DB 执行目标。工具在 Runner 上执行，适用于 SQL 文件检查、执行等操作。",
+        "target": "需指定执行目标。工具在指定的远程主机上执行，适用于主机信息采集或命令下发。"
+      },
+      "text": {
+        "native": "原生执行",
+        "runner": "Runner 执行",
+        "runner_target": "Runner 到目标节点执行",
+        "sqlfile": "SQL 文件执行",
+        "target": "目标节点执行"
+      }
+    },
+    "failpolicy": {
+      "text": {
+        "goon": "失败后继续",
+        "stop": "失败后停止"
+      }
+    },
+    "jobstatus": {
+      "text": {
+        "checked": "已验证",
+        "ready": "已就绪",
+        "revoked": "已撤销",
+        "saved": "待提交"
+      }
+    },
+    "outputparamtype": {
+      "desc": {
+        "jsonobject": "支持json对象和json数组，输出内容需是合法Json格式",
+        "password": "可输出数字或字符串，页面显示为密文",
+        "phase": "可输出阶段",
+        "text": "可输出字符串、数字"
+      }
+    },
+    "parammappingmode": {
+      "text": {
+        "isempty": "为空",
+        "prenodeoutputparam": "上游节点输出参数值",
+        "prenodeoutputparamkey": "上游节点输出参数名"
+      }
+    },
+    "paramtype": {
+      "accounttag": "账号标签",
+      "checkbox": "复选",
+      "date": "日期选择器",
+      "desc": {
+        "account": "服务连接使用的协议和账号，适用于连接主机上的数据库、中间件等服务",
+        "checkbox": "复选选择器",
+        "date": "日期时间选择器",
+        "dateonly": "日期选择器",
+        "file": "支持同时上传多个文件；执行时自动将文件上传到目标主机的指定目录，并保留原文件名",
+        "filepath": "可输出文件路径参数",
+        "json": "支持json对象和json数组，输入内容需是合法Json格式",
+        "multiselect": "多选下拉选择器",
+        "node": "将节点的相关信息生成脚本变量，但不会分派到该节点执行",
+        "password": "可输入数字或字符串，页面显示为密文",
+        "phase": "可选择阶段",
+        "radio": "单选选择器",
+        "runnergroup": "Runner 组",
+        "runnergrouptag": "Runner 组标签",
+        "select": "单选下拉选择器",
+        "switch": "开关选择器",
+        "text": "文本参数，可输入字符串、数字",
+        "textarea": "可输入字符串、数字",
+        "time": "时间选择器",
+        "userselect": "用于选择系统用户、分组、角色"
+      }
+    },
+    "reviewstatus": {
+      "failed": "审批未通过",
+      "waiting": "待审核"
+    },
+    "scriptandtooloperate": {
+      "active": {
+        "text": "启用/禁用"
+      }
+    }
+  },
+  "nfacv": {
+    "autoexeccombopoptype": {
+      "text": {
+        "autoexec": "操作类",
+        "readonly": "查询类"
+      }
+    },
+    "autoexecformhandler": {
+      "text": {
+        "formautoexecservice": "自动化服务组件"
+      }
+    },
+    "autoexecfromtype": {
+      "text": {
+        "autoexec_catalog": "自动化工具目录",
+        "autoexec_profile_operation": "预置参数集自动化工具库工具和自定义工具",
+        "custom_template": "自定义模版",
+        "script": "自定义工具"
+      }
+    },
+    "autoexecglobalparamtype": {
+      "description": {
+        "text": "文本参数，可输入字符串、数字"
+      },
+      "text": {
+        "date": "日期",
+        "datetime": "日期时间",
+        "text": "文本"
+      }
+    },
+    "autoexecjobnotifyparam": {
+      "text": {
+        "name": "作业名称",
+        "phaselist": "阶段列表"
+      }
+    },
+    "autoexecjobphasenodeerrortype": {
+      "text": {
+        "ip_invalid": "IP不合法",
+        "runner_not_match": "根据IP找不到匹配的Runner，请核对Runner组配置"
+      }
+    },
+    "autoexecjobphasenodefrom": {
+      "text": {
+        "group": "组",
+        "job": "作业全局"
+      }
+    },
+    "autoexecnotifyparam": {
+      "text": {
+        "create_job_failed_content": "创建作业失败原因"
+      }
+    },
+    "autoexecparallelpolicy": {
+      "text": {
+        "parallel": "并发",
+        "round_count": "分批"
+      }
+    },
+    "autoexecservicetype": {
+      "text": {
+        "catalog": "目录",
+        "service": "服务"
+      }
+    },
+    "autoexectenantconfig": {
+      "text": {
+        "autoexec_execrtool_runner_read_timeout": "execrtool请求Runner读取超时时间，单位毫秒，默认5分钟",
+        "autoexec_job_param_valid": "启用作业参数校验,默认启动校验",
+        "autoexec_job_sync_max_concurrent": "当前服务实例内每个租户允许同时创建或监听的同步作业请求数，默认20个",
+        "autoexec_job_sync_output_max_target_count": "同步创建作业接口最多返回的目标节点输出数，默认10个",
+        "autoexec_job_sync_wait_timeout": "同步创建作业接口监听作业状态的最长时间，单位毫秒，默认5分钟"
+      }
+    },
+    "autoexectypeauthorityaction": {
+      "text": {
+        "add": "添加分类下的自定义工具或工具库工具",
+        "review": "审核分类下的组合工具"
+      }
+    },
+    "autoexectypetype": {
+      "text": {
+        "custom": "自定义",
+        "factory": "默认出厂"
+      }
+    },
+    "combopauthorityaction": {
+      "text": {
+        "execute": "执行",
+        "view": "查看"
+      }
+    },
+    "combopnodespecify": {
+      "text": {
+        "now": "现在指定执行目标",
+        "runtime": "运行时再指定执行目标",
+        "runtimeparam": "作业参数作为执行目标"
+      }
+    },
+    "combopoperationtype": {
+      "text": {
+        "combop": "组合"
+      }
+    },
+    "jobaction": {
+      "text": {
+        "abort": "中止",
+        "check": "验证",
+        "console_log_audit_list": "获取控制台日志记录列表",
+        "console_log_tail": "获取控制台日志",
+        "download_console_log": "下载控制台日志",
+        "download_console_log_audit": "下载控制台日志记录",
+        "download_node_audit": "下载节点记录",
+        "download_node_in_put": "下载节点输入参数",
+        "download_node_log": "下载节点日志",
+        "download_node_out_put": "下载节点输出参数",
+        "download_node_sql_file": "下载节点SQL文件",
+        "fire": "执行",
+        "get_node_operation_input_param": "获取节点工具入参",
+        "get_node_operation_list": "获取节点操作列表",
+        "get_node_output_param": "获取节点出参",
+        "get_node_sql_content": "获取节点SQL内容",
+        "get_node_sql_list": "获取节点SQL列表",
+        "get_operation_custom_data": "获取工具个性化数据",
+        "goon": "继续",
+        "ignore_node": "忽略节点",
+        "ignore_phase": "忽略阶段",
+        "inform_phase_round": "通知下一个phase round",
+        "node_audit_list": "获取节点记录",
+        "pause": "暂停",
+        "refire": "重新执行",
+        "refire_node": "重新执行节点",
+        "refire_phase": "重新执行阶段",
+        "reset_node": "重置节点",
+        "reset_refire": "重置并重新执行",
+        "submit_node_wait_input": "提交节点输入",
+        "tail_node_log": "获取节点日志",
+        "take_over": "接管"
+      }
+    },
+    "jobgroupsearch": {
+      "text": {
+        "jobusertype": "作业干系人"
+      }
+    },
+    "jobnodestatus": {
+      "text": {
+        "invalid": "非法节点",
+        "succeed": "已成功"
+      }
+    },
+    "jobsource": {
+      "text": {
+        "autoexec_schedule": "定时任务",
+        "combop_test": "组合工具测试",
+        "human": "人工",
+        "script_test": "自定义工具测试",
+        "service": "快捷服务",
+        "tool_test": "工具测试"
+      }
+    },
+    "jobtriggertype": {
+      "text": {
+        "auto": "自动",
+        "manual": "手动"
+      }
+    },
+    "jobusertype": {
+      "text": {
+        "exec_user": "执行人"
+      }
+    },
+    "nodestatus": {
+      "text": {
+        "node_not_found": "执行目标不存在",
+        "normal": "正常",
+        "user_not_found": "执行用户不存在"
+      }
+    },
+    "paramdatasource": {
+      "text": {
+        "matrix": "矩阵数据源",
+        "static": "静态数据源"
+      }
+    },
+    "parammode": {
+      "text": {
+        "input": "入参",
+        "output": "出参"
+      }
+    },
+    "scriptaction": {
+      "description": {
+        "delete": "删除了版本${DATA.version}",
+        "disable": "禁用了版本${DATA.version}",
+        "pass": "通过了版本${DATA.version}",
+        "reject": "驳回了版本${DATA.version}",
+        "revoke": "撤回了提交版本${DATA.version}",
+        "submit": "提交了版本${DATA.version}",
+        "switch_version": "从版本${DATA.oldVersion}切换到版本${DATA.newVersion}"
+      },
+      "text": {
+        "delete": "删除版本",
+        "disable": "禁用",
+        "submit": "提交",
+        "switch_version": "切换版本"
+      }
+    },
+    "scriptandtooloperate": {
+      "text": {
+        "active": "启用/禁用",
+        "compare": "对比",
+        "generatetocombop": "发布为组合工具",
+        "save": "存为草稿",
+        "submit": "提交审核",
+        "switch_version": "回退",
+        "validate": "校验"
+      }
+    },
+    "scriptversionstatus": {
+      "text": {
+        "current": "激活",
+        "draft": "草稿",
+        "history": "历史",
+        "passed": "已通过",
+        "rejected": "已驳回",
+        "submitted": "待审核"
+      }
+    },
+    "serviceparammappingmode": {
+      "text": {
+        "formattr": "表单属性"
+      }
+    }
+  },
+  "nfad": {
+    "autoexeccatalogvo": {
+      "entityfield": {
+        "childcount": {
+          "name": "子目录数量"
+        },
+        "children": {
+          "name": "子目录列表"
+        },
+        "referencecountforscript": {
+          "name": "关联的自定义工具数量"
+        },
+        "upwardidpath": {
+          "name": "所有父ID路径"
+        },
+        "upwardnamepath": {
+          "name": "所有父name路径"
+        }
+      }
+    },
+    "autoexeccombopauthorityvo": {
+      "entityfield": {
+        "action": {
+          "name": "权限类型，执行或编辑"
+        },
+        "type": {
+          "name": "授权目标类型，用户、组、角色"
+        },
+        "uuid": {
+          "name": "授权目标UUID"
+        }
+      }
+    },
+    "autoexeccombopconfigvo": {
+      "entityfield": {
+        "invokenotifypolicyconfig": {
+          "name": "通知策略配置"
+        }
+      }
+    },
+    "autoexeccombopexecuteconfigvo": {
+      "entityfield": {
+        "blacklist": {
+          "name": "黑名单"
+        },
+        "executenodeconfig": {
+          "name": "执行目标配置"
+        },
+        "executeuser": {
+          "name": "执行用户"
+        },
+        "ispresetexecuteconfig": {
+          "name": "是否预设执行目标"
+        },
+        "parallelcount": {
+          "name": "并发数量"
+        },
+        "whitelist": {
+          "name": "白名单"
+        }
+      }
+    },
+    "autoexeccombopexecutenodeconfigvo": {
+      "entityfield": {
+        "filter": {
+          "name": "过滤器选择条件"
+        },
+        "inputnodelist": {
+          "name": "输入节点列表"
+        },
+        "otherfilter": {
+          "name": "其他场景过滤器"
+        },
+        "preoutputlist": {
+          "name": "上游出参列表"
+        },
+        "selectnodelist": {
+          "name": "选择节点列表"
+        }
+      }
+    },
+    "autoexeccombopgroupvo": {
+      "entityfield": {
+        "id": {
+          "name": "主键ID"
+        },
+        "policy": {
+          "name": "运行策略"
+        }
+      }
+    },
+    "autoexeccombopphaseconfigvo": {
+      "entityfield": {
+        "phaseoperationlist": {
+          "name": "工具列表"
+        }
+      }
+    },
+    "autoexeccombopphaseoperationconfigvo": {
+      "entityfield": {
+        "condition": {
+          "name": "条件"
+        },
+        "elselist": {
+          "name": "条件不成立执行列表"
+        },
+        "iflist": {
+          "name": "条件成立执行列表"
+        },
+        "loopitemvar": {
+          "name": "循环项变量"
+        },
+        "parammappinglist": {
+          "name": "参数映射列表"
+        },
+        "profileid": {
+          "name": "预置参数集ID"
+        },
+        "profilename": {
+          "name": "预置参数集名"
+        },
+        "profileparamlist": {
+          "name": "预置参数列表"
+        }
+      }
+    },
+    "autoexeccombopphaseoperationvo": {
+      "entityfield": {
+        "failpolicy": {
+          "name": "失败策略"
+        },
+        "operation": {
+          "name": "工具信息"
+        },
+        "operationtype": {
+          "name": "操作类型，自定义工具或工具"
+        },
+        "scriptversionid": {
+          "name": "指定脚本版本ID"
+        }
+      }
+    },
+    "autoexeccombopphasevo": {
+      "entityfield": {
+        "execmodename": {
+          "name": "执行方式名称"
+        },
+        "groupsort": {
+          "name": "组排序"
+        },
+        "groupuuid": {
+          "name": "组UUID"
+        },
+        "groupvo": {
+          "name": "阶段组"
+        },
+        "id": {
+          "name": "主键ID"
+        },
+        "policy": {
+          "name": "执行策略"
+        }
+      }
+    },
+    "autoexeccombopscenariovo": {
+      "entityfield": {
+        "combopphasenamelist": {
+          "name": "阶段名列表"
+        },
+        "isenable": {
+          "name": "前端展示时是否可选"
+        },
+        "ishasbuildtypetool": {
+          "name": "是否拥有BUILD类型的工具库工具"
+        },
+        "ishasdeploytypetool": {
+          "name": "是否拥有DEPLOY类型的工具库工具"
+        }
+      }
+    },
+    "autoexecglobalparamvo": {
+      "entityfield": {
+        "endpage": {
+          "name": "结束页数"
+        },
+        "expectoffsetrownum": {
+          "name": "以当前页起预计分页条数"
+        },
+        "fcd": {
+          "name": "创建日期"
+        },
+        "fcu": {
+          "name": "创建者"
+        },
+        "fcuname": {
+          "name": "创建者中文名"
+        },
+        "fcuvo": {
+          "name": "创建者VO"
+        },
+        "lcd": {
+          "name": "修改日期"
+        },
+        "lcu": {
+          "name": "修改者"
+        },
+        "lcuname": {
+          "name": "修改者中文名"
+        },
+        "lcuvo": {
+          "name": "修改者VO"
+        },
+        "offsetrownum": {
+          "name": "以当前页起实际分页条数"
+        },
+        "startpage": {
+          "name": "开始页数"
+        }
+      }
+    },
+    "autoexecjobenvvo": {
+      "entityfield": {
+        "name": {
+          "name": "作业环境变量名"
+        },
+        "value": {
+          "name": "作业环境变量值"
+        }
+      }
+    },
+    "autoexecjobexecvo": {
+      "entityfield": {
+        "action": {
+          "name": "作业执行动作"
+        },
+        "execid": {
+          "name": "作业执行ID"
+        },
+        "fcd": {
+          "name": "作业执行时间"
+        },
+        "runnermapid": {
+          "name": "作业执行器ID"
+        }
+      }
+    },
+    "autoexecjobgroupvo": {
+      "entityfield": {
+        "config": {
+          "name": "执行目标配置"
+        },
+        "id": {
+          "name": "组ID"
+        },
+        "parallelfrom": {
+          "name": "并发策略来源"
+        },
+        "policy": {
+          "name": "策略"
+        },
+        "sort": {
+          "name": "阶段序号"
+        }
+      }
+    },
+    "autoexecjobinvokevo": {
+      "entityfield": {
+        "type": {
+          "name": "来源类型"
+        }
+      }
+    },
+    "autoexecjobnodesqlvo": {
+      "entityfield": {
+        "interact": {
+          "name": "暂停输入初始化数据"
+        },
+        "sqlname": {
+          "name": "作业执行SQL名"
+        },
+        "status": {
+          "name": "SQL执行状态"
+        },
+        "statusname": {
+          "name": "SQL执行状态名"
+        }
+      }
+    },
+    "autoexecjobnodevo": {
+      "entityfield": {
+        "host": {
+          "name": "作业剧本主机"
+        },
+        "id": {
+          "name": "作业节点ID"
+        },
+        "password": {
+          "name": "执行目标账号"
+        },
+        "port": {
+          "name": "作业剧本主机端口"
+        },
+        "username": {
+          "name": "执行目标账号"
+        }
+      }
+    },
+    "autoexecjobphasenodeoperationstatusvo": {
+      "entityfield": {
+        "condition": {
+          "name": "ifBlock条件"
+        },
+        "elselist": {
+          "name": "ifBlock else 工具列表"
+        },
+        "failignore": {
+          "name": "是否失败忽略"
+        },
+        "iflist": {
+          "name": "ifBlock if 工具别表"
+        },
+        "letter": {
+          "name": "作业剧本操作后缀"
+        }
+      }
+    },
+    "autoexecjobphasenodevo": {
+      "entityfield": {
+        "errortype": {
+          "name": "初始化节点异常类型"
+        },
+        "extrainfo": {
+          "name": "额外信息，如发布实例当前版本号名称"
+        },
+        "id": {
+          "name": "作业剧本节点ID"
+        },
+        "interactstr": {
+          "name": "作业节点等待输入渲染jsonStr"
+        },
+        "isdelete": {
+          "name": "是否已删除"
+        },
+        "nodeid": {
+          "name": "节点ID"
+        },
+        "operationstatusvolist": {
+          "name": "作业节点工具状态Vo列表"
+        },
+        "phaserunnergroupfrom": {
+          "name": "Runner类型阶段的执行器组来源"
+        },
+        "runnerid": {
+          "name": "作业剧本Runner ID"
+        },
+        "runnerurl": {
+          "name": "Runner 信息"
+        },
+        "runnervo": {
+          "name": "作业剧本Runner "
+        },
+        "sqlfile": {
+          "name": "SQL名"
+        },
+        "status": {
+          "name": "作业剧本节点状态"
+        },
+        "statusname": {
+          "name": "作业剧本节点状态名"
+        }
+      }
+    },
+    "autoexecjobphaseoperationvo": {
+      "entityfield": {
+        "description": {
+          "name": "工具描述"
+        },
+        "execmode": {
+          "name": "执行方式 local|remote"
+        },
+        "failignore": {
+          "name": "失败跳过 1：是 0：否"
+        },
+        "failpolicy": {
+          "name": "失败策略 stop|goon"
+        },
+        "inputparamlist": {
+          "name": "入参"
+        },
+        "letter": {
+          "name": "作业剧本操作名后缀"
+        },
+        "outputparamlist": {
+          "name": "出参"
+        },
+        "param": {
+          "name": "参数JSON"
+        },
+        "paramstr": {
+          "name": "参数Str"
+        },
+        "profileid": {
+          "name": "预制参数集ID"
+        },
+        "sort": {
+          "name": "顺序"
+        },
+        "uk": {
+          "name": "作业剧本操作唯一标识"
+        }
+      }
+    },
+    "autoexecjobphaserunnervo": {
+      "entityfield": {
+        "isfirenext": {
+          "name": "是否已经fireNext"
+        },
+        "lcd": {
+          "name": "最近一次更新时间"
+        },
+        "status": {
+          "name": "作业阶段Runner状态"
+        }
+      }
+    },
+    "autoexecjobphasevo": {
+      "entityfield": {
+        "endtime": {
+          "name": "作业剧本结束时间"
+        },
+        "execmode": {
+          "name": "作业剧本执行方式"
+        },
+        "execuser": {
+          "name": "作业剧本执行用户"
+        },
+        "executepolicy": {
+          "name": "执行策略"
+        },
+        "grouppolicy": {
+          "name": "执行策略"
+        },
+        "id": {
+          "name": "作业剧本ID"
+        },
+        "isactive": {
+          "name": "是否当前步骤"
+        },
+        "ispreoutputupdatenode": {
+          "name": "当前阶段是否存在根据出参更新其他阶段执行节点"
+        },
+        "jobgroupvo": {
+          "name": "组vo"
+        },
+        "name": {
+          "name": "作业剧本名"
+        },
+        "operationlist": {
+          "name": "作业剧本操作集合"
+        },
+        "protocol": {
+          "name": "执行协议"
+        },
+        "roundcountfrom": {
+          "name": "分批数来源"
+        },
+        "runnergroupfrom": {
+          "name": "分批数来源"
+        },
+        "runnervos": {
+          "name": "执行器列表"
+        },
+        "sort": {
+          "name": "执行顺序"
+        },
+        "starttime": {
+          "name": "作业剧本开始时间"
+        },
+        "status": {
+          "name": "作业剧本状态"
+        },
+        "statuscountvolist": {
+          "name": "状态统计数量"
+        },
+        "statusvo": {
+          "name": "作业状态Vo"
+        },
+        "uk": {
+          "name": "作业剧本唯一标识"
+        },
+        "username": {
+          "name": "执行用户"
+        }
+      }
+    },
+    "autoexecjobresourceinspectvo": {
+      "entityfield": {
+        "phaseid": {
+          "name": "阶段ID"
+        }
+      }
+    },
+    "autoexecjobsortvo": {
+      "entityfield": {
+        "key": {
+          "name": "排序字段"
+        },
+        "type": {
+          "name": "排序类型"
+        }
+      }
+    },
+    "autoexecjobstatusvo": {
+      "entityfield": {
+        "name": {
+          "name": "作业状态"
+        },
+        "text": {
+          "name": "作业状态名"
+        }
+      }
+    },
+    "autoexecjobvo": {
+      "entityfield": {
+        "children": {
+          "name": "子作业列表"
+        },
+        "config": {
+          "name": "作业其它配置"
+        },
+        "excludeidlist": {
+          "name": "排除作业ID列表"
+        },
+        "execusertype": {
+          "name": "执行用户类型"
+        },
+        "extrainfo": {
+          "name": "额外信息，如发布的系统名等"
+        },
+        "id": {
+          "name": "作业ID(如果是人工发起则ID正常生成，其它情况存放来源ID)"
+        },
+        "idlist": {
+          "name": "作业ID列表"
+        },
+        "iscancheck": {
+          "name": "是否拥有验证权限"
+        },
+        "iscanedit": {
+          "name": "是否拥有编辑权限"
+        },
+        "iscanexecute": {
+          "name": "是否拥有执行权限"
+        },
+        "iscantakeover": {
+          "name": "是否拥有接管权限"
+        },
+        "isfirstinit": {
+          "name": "是否第一次初始化"
+        },
+        "ishasignored": {
+          "name": "是否含有已忽略节点"
+        },
+        "jobphasenodesqllist": {
+          "name": "SQL列表"
+        },
+        "name": {
+          "name": "作业名称（唯一标识）"
+        },
+        "operationname": {
+          "name": "操作Name"
+        },
+        "operationtypename": {
+          "name": "操作类型名"
+        },
+        "parallelpolicy": {
+          "name": "并发线策略"
+        },
+        "paramhash": {
+          "name": "运行参数hash"
+        },
+        "passthroughenv": {
+          "name": "贯穿作业的参数"
+        },
+        "phaseidlist": {
+          "name": "作业剧本ID集合"
+        },
+        "phaselist": {
+          "name": "作业剧本集合"
+        },
+        "phasenamelist": {
+          "name": "作业剧本Name集合"
+        },
+        "planstarttime": {
+          "name": "作业计划开始时间"
+        },
+        "reviewer": {
+          "name": "审核人"
+        },
+        "reviewstatusname": {
+          "name": "审核状态名称"
+        },
+        "reviewtime": {
+          "name": "审核时间"
+        },
+        "route": {
+          "name": "配置路由"
+        },
+        "runnermapid": {
+          "name": "作业local 的runnerMapId"
+        },
+        "sourcename": {
+          "name": "来源名"
+        },
+        "sourcetype": {
+          "name": "来源类型"
+        },
+        "statusname": {
+          "name": "作业状态Vo"
+        },
+        "triggertypename": {
+          "name": "触发方式Vo"
+        }
+      }
+    },
+    "autoexecoperationbasevo": {
+      "entityfield": {
+        "catalogname": {
+          "name": "工具目录名称"
+        },
+        "customtemplatename": {
+          "name": "自定义模版名称"
+        },
+        "execmodetext": {
+          "name": "执行方式显示文本"
+        },
+        "inputparamlist": {
+          "name": "输入参数列表"
+        },
+        "outputparamlist": {
+          "name": "输出参数列表"
+        },
+        "riskname": {
+          "name": "操作级别名称"
+        },
+        "riskvo": {
+          "name": "操作级别"
+        },
+        "type": {
+          "name": "类型(tool:工具;script:脚本)"
+        },
+        "typedescription": {
+          "name": "分类描述"
+        },
+        "typeid": {
+          "name": "分类ID"
+        },
+        "typename": {
+          "name": "分类名称"
+        }
+      }
+    },
+    "autoexecoperationvo": {
+      "entityfield": {
+        "comboplist": {
+          "name": "关联的组合工具"
+        },
+        "defaultprofileid": {
+          "name": "默认profileId"
+        },
+        "defaultprofilename": {
+          "name": "默认默认预置参数集名称"
+        },
+        "hasbeengeneratedtocombop": {
+          "name": "是否已经被发布为组合工具"
+        },
+        "islib": {
+          "name": "是否库文件"
+        },
+        "islibname": {
+          "name": "是否库文件 名"
+        },
+        "operatelist": {
+          "name": "按钮列表"
+        },
+        "referencecount": {
+          "name": "关联的组合工具数"
+        }
+      }
+    },
+    "autoexecparamconfigvo": {
+      "entityfield": {
+        "datalist": {
+          "name": "静态数据源列表"
+        },
+        "datasource": {
+          "name": "数据源类型"
+        },
+        "filter": {
+          "name": "过滤条件"
+        },
+        "grouplist": {
+          "name": "用户、组、角色列表"
+        },
+        "ismultiple": {
+          "name": "是否多选"
+        },
+        "isrequired": {
+          "name": "是否必填"
+        },
+        "mapping": {
+          "name": "字段映射"
+        },
+        "matrixuuid": {
+          "name": "矩阵UUID"
+        },
+        "validatelist": {
+          "name": "校验规则列表"
+        }
+      }
+    },
+    "autoexecparamvo": {
+      "entityfield": {
+        "argumentcount": {
+          "name": "自由参数数量"
+        },
+        "defaultvalue": {
+          "name": "参数默认值"
+        },
+        "id": {
+          "name": "唯一标识"
+        },
+        "isrequired": {
+          "name": "是否必填(1:是;0:否)"
+        },
+        "mappingmode": {
+          "name": "参数映射模式"
+        },
+        "mappingmodetext": {
+          "name": "参数映射模式中文名"
+        },
+        "mode": {
+          "name": "参数类型(出参、入参)"
+        },
+        "name": {
+          "name": "中文名"
+        },
+        "operationid": {
+          "name": "key来源的工具ID"
+        },
+        "operationtype": {
+          "name": "key来源的工具类型"
+        },
+        "type": {
+          "name": "表单类型"
+        },
+        "typetext": {
+          "name": "表单类型名称"
+        },
+        "validate": {
+          "name": "正则校验"
+        },
+        "value": {
+          "name": "参数值"
+        }
+      }
+    },
+    "autoexecphaseoperationparamvo": {
+      "entityfield": {
+        "name": {
+          "name": "参数名"
+        },
+        "parser": {
+          "name": "解析器"
+        }
+      }
+    },
+    "autoexecprofilevo": {
+      "entityfield": {
+        "autoexecoperationcount": {
+          "name": "关联的工具和脚本列表"
+        },
+        "cientitylist": {
+          "name": "关联配置项列表"
+        },
+        "cientityname": {
+          "name": "关联配置项名称"
+        },
+        "fromsystemname": {
+          "name": "所属系统名称"
+        },
+        "operationid": {
+          "name": "工具库工具ID/脚本工具ID"
+        },
+        "operationidlist": {
+          "name": "工具库工具ID/脚本工具ID列表"
+        },
+        "profileparamvolist": {
+          "name": "预置参数集参数列表"
+        }
+      }
+    },
+    "autoexecriskvo": {
+      "entityfield": {
+        "color": {
+          "name": "颜色"
+        }
+      }
+    },
+    "autoexecscenariovo": {
+      "entityfield": {
+        "referredcount": {
+          "name": "被应用引用个数"
+        }
+      }
+    },
+    "autoexecschedulevo": {
+      "entityfield": {
+        "autoexeccombopname": {
+          "name": "组合工具名称"
+        },
+        "config": {
+          "name": "执行配置信息"
+        },
+        "cron": {
+          "name": "cron表达式"
+        },
+        "deletable": {
+          "name": "是否可删除"
+        },
+        "execcount": {
+          "name": "执行次数"
+        },
+        "isactive": {
+          "name": "状态(0:禁用，1：启用)"
+        },
+        "jobstatus": {
+          "name": "执行情况"
+        },
+        "uuid": {
+          "name": "定时作业UUID"
+        }
+      }
+    },
+    "autoexecscriptauditcontentvo": {
+      "entityfield": {
+        "content": {
+          "name": "活动内容"
+        }
+      }
+    },
+    "autoexecscriptauditvo": {
+      "entityfield": {
+        "contenthash": {
+          "name": "内容hash"
+        },
+        "operate": {
+          "name": "操作类型"
+        }
+      }
+    },
+    "autoexecscriptlinecontentvo": {
+      "entityfield": {
+        "content": {
+          "name": "行脚本内容"
+        }
+      }
+    },
+    "autoexecscriptlinevo": {
+      "entityfield": {
+        "content": {
+          "name": "脚本内容"
+        },
+        "contenthash": {
+          "name": "脚本内容hash"
+        },
+        "linenumber": {
+          "name": "脚本内容行号"
+        },
+        "riskcodelevel": {
+          "name": "含有的危险代码等级"
+        }
+      }
+    },
+    "autoexecscriptvalidatetypevo": {
+      "entityfield": {
+        "scripttype": {
+          "name": "脚本类型"
+        },
+        "validateid": {
+          "name": "高危代码ID"
+        }
+      }
+    },
+    "autoexecscriptvalidatevo": {
+      "entityfield": {
+        "code": {
+          "name": "危险代码"
+        },
+        "level": {
+          "name": "等级"
+        }
+      }
+    },
+    "autoexecscriptversionvo": {
+      "entityfield": {
+        "rejectreason": {
+          "name": "驳回原因"
+        },
+        "reviewer": {
+          "name": "审批人"
+        },
+        "reviewervo": {
+          "name": "审批用户"
+        },
+        "reviewervolist": {
+          "name": "审核人列表"
+        },
+        "status": {
+          "name": "状态(draft:草稿、rejected:已驳回、passed:已通过、submitted:待审批)"
+        }
+      }
+    },
+    "autoexecscriptvo": {
+      "entityfield": {
+        "catalogname": {
+          "name": "所属工具目录名称"
+        },
+        "catalogpath": {
+          "name": "所属工具目录完整路径"
+        },
+        "currentversion": {
+          "name": "当前激活版本号"
+        },
+        "currentversionvo": {
+          "name": "当前版本"
+        },
+        "islibreference": {
+          "name": "是否作为库文件被依赖"
+        },
+        "linelist": {
+          "name": "脚本内容行"
+        },
+        "packagefilename": {
+          "name": "包文件名"
+        },
+        "passedversioncount": {
+          "name": "已通过版本数"
+        },
+        "submittedversionid": {
+          "name": "待审批版本ID"
+        },
+        "versioncount": {
+          "name": "版本总数"
+        }
+      }
+    },
+    "autoexecservicebreadcrumbvo": {
+      "entityfield": {
+        "id": {
+          "name": "服务目录ID"
+        },
+        "upwardnamelist": {
+          "name": "上游服务目录名称列表"
+        }
+      }
+    },
+    "autoexecservicenodevo": {
+      "entityfield": {
+        "children": {
+          "name": "子节点"
+        },
+        "childrencount": {
+          "name": "子节点数"
+        }
+      }
+    },
+    "autoexecservicevo": {
+      "entityfield": {
+        "authoritylist": {
+          "name": "授权对象"
+        },
+        "configexpired": {
+          "name": "配置已失效"
+        },
+        "configexpiredreason": {
+          "name": "配置失效原因"
+        },
+        "formuuid": {
+          "name": "表单"
+        },
+        "id": {
+          "name": "唯一标识ID"
+        },
+        "isactive": {
+          "name": "是否启用，0：禁用，1：启用"
+        },
+        "isfavorite": {
+          "name": "是否已收藏"
+        }
+      }
+    },
+    "autoexecsqlnodedetailvo": {
+      "entityfield": {
+        "isdelete": {
+          "name": "是否已经被删除"
+        },
+        "ismodified": {
+          "name": "是否改动"
+        },
+        "nodename": {
+          "name": "作业剧本节点名称"
+        },
+        "phaseid": {
+          "name": "作业剧本ID"
+        },
+        "port": {
+          "name": "端口"
+        },
+        "runnerport": {
+          "name": "Runner 端口"
+        },
+        "serviceaddr": {
+          "name": "服务地址"
+        },
+        "sort": {
+          "name": "序号"
+        },
+        "sqlfile": {
+          "name": "SQL文件名"
+        },
+        "statusname": {
+          "name": "状态名"
+        },
+        "warncount": {
+          "name": "告警个数"
+        }
+      }
+    },
+    "autoexectagvo": {
+      "entityfield": {
+        "name": {
+          "name": "标签名称"
+        }
+      }
+    },
+    "autoexectypeauthvo": {
+      "entityfield": {
+        "action": {
+          "name": "操作类型"
+        },
+        "authtype": {
+          "name": "授权对象类型"
+        },
+        "authuuid": {
+          "name": "授权对象UUID"
+        },
+        "typeid": {
+          "name": "工具分类ID"
+        }
+      }
+    },
+    "autoexectypevo": {
+      "entityfield": {
+        "authlist": {
+          "name": "授权字符串列表"
+        },
+        "name": {
+          "name": "分类名"
+        },
+        "referencecountforcombop": {
+          "name": "关联的组合工具数"
+        },
+        "referencecountforscript": {
+          "name": "关联的自定义工具数"
+        },
+        "referencecountfortool": {
+          "name": "关联的工具数"
+        },
+        "reviewauthlist": {
+          "name": "审核授权字符串列表"
+        }
+      }
+    },
+    "customtemplatevo": {
+      "entityfield": {
+        "config": {
+          "name": "配置文本"
+        },
+        "referencecount": {
+          "name": "关联的工具数"
+        },
+        "template": {
+          "name": "模板"
+        }
+      }
+    },
+    "ossoftwareserviceenvappmoduleappsystemvo": {
+      "entityfield": {
+        "envseqno": {
+          "name": "环境序号"
+        }
+      }
+    },
+    "parammappingvo": {
+      "entityfield": {
+        "description": {
+          "name": "参数描述"
+        },
+        "mappingmode": {
+          "name": "映射方式"
+        },
+        "name": {
+          "name": "参数中文名"
+        },
+        "text": {
+          "name": "值名称"
+        },
+        "type": {
+          "name": "参数表单类型"
+        }
+      }
+    },
+    "softwareserviceosvo": {
+      "entityfield": {
+        "osid": {
+          "name": "系统ID"
+        },
+        "osname": {
+          "name": "系统名称"
+        }
+      }
+    }
+  },
+  "nfadc": {
+    "autoexeccombopversionvo": {
+      "precondition": "前置过滤器"
+    }
+  },
+  "nfae": {
+    "autoexeccataloghasbeenreferredexception": {
+      "autoexeccataloghasbeenreferredexception": "目录：“{0}”或其子目录中还有工具，不可删除"
+    },
+    "autoexeccatalognotfoundexception": {
+      "autoexeccatalognotfoundexception": "工具目录：{0}不存在"
+    },
+    "autoexeccatalogrepeatexception": {
+      "autoexeccatalogrepeatexception": "工具目录：“{0}”已存在"
+    },
+    "autoexeccombopactiveversionnotfoundexception": {
+      "autoexeccombopactiveversionnotfoundexception": "组合工具：“{0}”没有激活版本"
+    },
+    "autoexeccombopatleastonegroupexception": {
+      "autoexeccombopatleastonegroupexception": "组合工具至少要有一个组"
+    },
+    "autoexeccombopatleastonephaseexception": {
+      "autoexeccombopatleastonephaseexception": "组合工具至少要有一个阶段"
+    },
+    "autoexeccombopcannotberepeatreleaseexception": {
+      "autoexeccombopcannotberepeatreleaseexception": "“{0}”不能重复发布为组合工具"
+    },
+    "autoexeccombopcannotexecuteexception": {
+      "autoexeccombopcannotexecuteexception": "组合工具：“{0}”没执行权限"
+    },
+    "autoexeccombopdraftversionnotfoundexception": {
+      "autoexeccombopdraftversionnotfoundexception": "组合工具：“{0}”没有草稿版本"
+    },
+    "autoexeccombopexecutenodecannotbeemptyexception": {
+      "autoexeccombopexecutenodecannotbeemptyexception": "选择'现在指定执行目标'时，执行目标不能为空"
+    },
+    "autoexeccombopexecuteparamcannotbeemptyexception": {
+      "autoexeccombopexecuteparamcannotbeemptyexception": "选择运行参数作为执行目标时，运行参数不能为空"
+    },
+    "autoexeccombopexecuteusercannotbeemptyexception": {
+      "autoexeccombopexecuteusercannotbeemptyexception": "选择'现在指定执行目标'时，执行用户不能为空"
+    },
+    "autoexeccombophassubmittedversionexception": {
+      "autoexeccombophassubmittedversionexception": "组合工具：{0}已经有其他待审核版本"
+    },
+    "autoexeccombopnamerepeatexception": {
+      "autoexeccombopnamerepeatexception": "组合工具：“{0}”已存在"
+    },
+    "autoexeccombopnotfoundexception": {
+      "autoexeccombopnotfoundexception": "组合工具：“{0}”不存在"
+    },
+    "autoexeccombopoperationnotfoundexception": {
+      "autoexeccombopoperationnotfoundexception": "阶段[{0}] 工具[{1}]已被删除，请在组合工具中清理该工具并保存"
+    },
+    "autoexeccombopphaseatleastoneoperationexception": {
+      "autoexeccombopphaseatleastoneoperationexception": "组合工具的每一个阶段至少要有一个操作工具"
+    },
+    "autoexeccombopphasegroupidisnullexception": {
+      "autoexeccombopphasegroupidisnullexception": "阶段：“{0}” GroupId 为 null",
+      "autoexeccombopphasegroupidisnullexceptionb": "存在阶段的GroupId 为 null"
+    },
+    "autoexeccombopphasenamerepeatexception": {
+      "autoexeccombopphasenamerepeatexception": "组合工具阶段名称“{0}”已存在"
+    },
+    "autoexeccombopprotocolcannotbeemptyexception": {
+      "autoexeccombopprotocolcannotbeemptyexception": "选择'现在指定执行目标'时，协议不能为空"
+    },
+    "autoexeccomboprejectedversionnotfoundexception": {
+      "autoexeccomboprejectedversionnotfoundexception": "组合工具：“{0}”没有已驳回版本"
+    },
+    "autoexeccombopsubmittedversionnotfoundexception": {
+      "autoexeccombopsubmittedversionnotfoundexception": "组合工具：“{0}”没有待审核版本"
+    },
+    "autoexeccombopversionnotfoundexception": {
+      "autoexeccombopversionnotfoundexception": "组合工具版本：“{0}”不存在"
+    },
+    "autoexeccombopversionnotpassedexception": {
+      "autoexeccombopversionnotpassedexception": "组合工具版本：“{0}”未审核，不能激活"
+    },
+    "autoexecexecutenodeisrequiredexception": {
+      "autoexecexecutenodeisrequiredexception": "执行目标必须设置"
+    },
+    "autoexecexecuteuserisrequiredexception": {
+      "autoexecexecuteuserisrequiredexception": "执行用户必须设置"
+    },
+    "autoexecglobalparamhasbeenreferredexception": {
+      "autoexecglobalparamhasbeenreferredexception": "全局参数: “{0}”被引用,无法删除"
+    },
+    "autoexecglobalparamisnotfoundexception": {
+      "autoexecglobalparamisnotfoundexception": "全局参数: “{0}”不存在"
+    },
+    "autoexecglobalparamkeyrepeatexception": {
+      "autoexecglobalparamkeyrepeatexception": "全局参数名：“{0}”已存在"
+    },
+    "autoexecglobalparamnamerepeatexception": {
+      "autoexecglobalparamnamerepeatexception": "全局参数显示名：“{0}”已存在"
+    },
+    "autoexecglobalparamtypenotfoundexception": {
+      "autoexecglobalparamtypenotfoundexception": "参数：{0}的参数映射不正确，不存在“{1}”类型的全局参数"
+    },
+    "autoexecglobalparamvalueemptyexception": {
+      "autoexecglobalparamvalueemptyexception": "参数：{0}的全局参数值为空"
+    },
+    "autoexecjobactioninvalidexception": {
+      "autoexecjobactioninvalidexception": "作业执行策略不能为null，执行所有节点：refireResetAll；跳过所有已完成、已忽略的节点：refireAll"
+    },
+    "autoexecjobcannotcreateexception": {
+      "autoexecjobcannotcreateexception": "无法创建作业，没有组合工具: “{0}” 执行权限"
+    },
+    "autoexecjobcannotexecuteexception": {
+      "autoexecjobcannotexecuteexception": "无法执行作业: {0}，需同时满足：状态为'已就绪'且当前用户为'执行用户'"
+    },
+    "autoexecjobcannotexecuteinadvanceexception": {
+      "autoexecjobcannotexecuteinadvanceexception": "禁止提前执行作业"
+    },
+    "autoexecjobcannotfireexception": {
+      "autoexecjobcannotfireexception": "无法激活作业: {0}，请确保作业以及作业所有阶段处于'未开始（pending）'状态"
+    },
+    "autoexecjobcannotignorejobnodeexception": {
+      "autoexecjobcannotignorejobnodeexception": "无法忽略作业节点：{0}，请确保作业处于已中止、已暂停或已完成状态"
+    },
+    "autoexecjobcannotpauseexception": {
+      "autoexecjobcannotpauseexception": "无法暂停作业: {0}，请确保作业存于'运行中（running）'状态"
+    },
+    "autoexecjobcannotrefirejobnodeexception": {
+      "autoexecjobcannotrefirejobnodeexception": "无法重跑作业: {0}，请确保作业存于'运行中（running）'状态"
+    },
+    "autoexecjobcannotrevokeexception": {
+      "autoexecjobcannotrevokeexception": "无法撤销作业: {0}，执行用户才有权限撤销，且作业需要处于'已就绪'状态"
+    },
+    "autoexecjobcannottestexception": {
+      "autoexecjobcannottestexception": "无法测试工具库: {0}，存在正在测试该工具库的作业"
+    },
+    "autoexecjobcannotupdateexception": {
+      "autoexecjobcannotupdateexception": "无法修改作业计划时间与触发方式: {0}，作业处于'已就绪'状态且执行用户才能修改"
+    },
+    "autoexecjobcheckedexception": {
+      "autoexecjobcheckedexception": "作业 “{0}” 已验证"
+    },
+    "autoexecjobconfignotfoundexception": {
+      "autoexecjobconfignotfoundexception": "作业：“{0}” 配置快照不存在"
+    },
+    "autoexecjobdeleteexception": {
+      "autoexecjobdeleteexception": "{0}({1})清理自动化作业失败"
+    },
+    "autoexecjobexecutepermissiondeniedexception": {
+      "autoexecjobexecutepermissiondeniedexception": "当前用户：{1} 不是当前作业({0})的执行用户：{2},请刷新页面，重新接管作业"
+    },
+    "autoexecjobgroupnotfoundexception": {
+      "autoexecjobgroupnotfoundexception": "作业({0}) 组（{1}）不存在",
+      "autoexecjobgroupnotfoundexceptionb": "作业({0}) 组不存在"
+    },
+    "autoexecjobhostportrunnernotfoundexception": {
+      "autoexecjobhostportrunnernotfoundexception": "{0} 没有分配 Runner"
+    },
+    "autoexecjoblogencodingillegalexception": {
+      "autoexecjoblogencodingillegalexception": "非法的字符编码：{0}"
+    },
+    "autoexecjobnodepreparamvaluenotinvalidexception": {
+      "autoexecjobnodepreparamvaluenotinvalidexception": "作业“{0}”-阶段“{1}” 根据上游参数初始化执行目标失败，上游出参的值不存在或不合法"
+    },
+    "autoexecjobnotfoundexception": {
+      "autoexecjobnotfoundexception": "作业：“{0}”不存在"
+    },
+    "autoexecjobnotsupportedexecuteandrevokeexception": {
+      "autoexecjobnotsupportedexecuteandrevokeexception": "只有从组合工具保存的作业才支持执行与撤销"
+    },
+    "autoexecjobnotsupportmultiparentexception": {
+      "autoexecjobnotsupportmultiparentexception": "父作业{0}已经存在父作业,一个作业最多支持2个父作业"
+    },
+    "autoexecjoboperationparamvalueinvalidexception": {
+      "autoexecjoboperationparamvalueinvalidexception": "阶段“{0}” 工具“{1}” 参数“{2}” 的值 “{3}” 不合法"
+    },
+    "autoexecjobparamcannotbeemptyexception": {
+      "autoexecjobparamcannotbeemptyexception": "组合工具“{0}”的作业参数“{1}“不能为空"
+    },
+    "autoexecjobparamisrequiredexception": {
+      "autoexecjobparamisrequiredexception": "组合工具“{0}”的作业参数“{1}“必须设置"
+    },
+    "autoexecjobparamnotexistexception": {
+      "autoexecjobparamnotexistexception": "参数：“作业参数[{0}]（{1}）”不能为空"
+    },
+    "autoexecjobparamnotfoundexception": {
+      "autoexecjobparamnotfoundexception": "组合工具“{0}”的作业参数中没有“{1}”的参数"
+    },
+    "autoexecjobparamtypechangedexception": {
+      "autoexecjobparamtypechangedexception": "组合工具“{0}”的作业参数“{1}“类型发生变化，由“{2}”变成“{3}”类型"
+    },
+    "autoexecjobparamvalueinvalidexception": {
+      "autoexecjobparamvalueinvalidexception": "参数“{0}”值 “{1}” 不合法"
+    },
+    "autoexecjobphasenodenotfoundexception": {
+      "autoexecjobphasenodenotfoundexceptiona": "作业阶段“{0}”：缺少可执行节点.请确认：1.如果组合工具如果设置过滤器，则所选择的执行目标需满足过滤器范围；2.是否在资产清单；重试",
+      "autoexecjobphasenodenotfoundexceptionb": "作业阶段：“{0}” 节点“{1}”不存在",
+      "autoexecjobphasenodenotfoundexceptionc": "作业剧本：“{0}” 节点“{1}” 资产ID不存在"
+    },
+    "autoexecjobphasenotfoundexception": {
+      "autoexecjobphasenotfoundexception": "作业剧本：“{0}”不存在",
+      "autoexecjobphasenotfoundexceptionb": "作业“{0}” 组：“{1}” 的phase不存在"
+    },
+    "autoexecjobphaseoperationmustbecombopexception": {
+      "autoexecjobphaseoperationmustbecombopexception": "此操作仅支持'组合工具'"
+    },
+    "autoexecjobphaseoperationnotfoundexception": {
+      "autoexecjobphaseoperationnotfoundexception": "作业阶段工具“{0}”不存在"
+    },
+    "autoexecjobphaserunnernotfoundexception": {
+      "autoexecjobphaserunnernotfoundexception": "作业（{0}）阶段{1}（{2}） 找不到Runner",
+      "autoexecjobphaserunnernotfoundexceptionb": "匹配不到可执行Runner,执行phaseName :{0}"
+    },
+    "autoexecjobrunnernotfoundexception": {
+      "autoexecjobrunnernotfoundexceptiona": "执行器（Runner）ID:{0}不存在",
+      "autoexecjobrunnernotfoundexceptionb": "根据作业ID：{0}，作业阶段ID：{1}，执行器（Runner不存在",
+      "autoexecjobrunnernotfoundexceptionc": "执行器（Runner）名:{0}不存在"
+    },
+    "autoexecjobsourceinvalidexception": {
+      "autoexecjobsourceinvalidexception": "作业来源：“{0}”不合法"
+    },
+    "autoexecjobsqldetailnotfoundexception": {
+      "autoexecjobsqldetailnotfoundexception": "SQL详情不存在"
+    },
+    "autoexecjobupdatenodebypreoutputlistexception": {
+      "autoexecjobupdatenodebypreoutputlistexception": "作业“{0}”通过上游出参更新执行目标异常：配置错误，请确认配置后重试",
+      "autoexecjobupdatenodebypreoutputlistexceptionb": "作业通过上游出参更新阶段({1})的执行目标异常：target阶段({0}) 只允许存在一个节点"
+    },
+    "autoexecoperationhasnomodifyauthexception": {
+      "autoexecoperationhasnomodifyauthexception": "没有工具库维护权限,请联系管理员"
+    },
+    "autoexecparallelcountisrequiredexception": {
+      "autoexecparallelcountisrequiredexception": "并发数量必须设置"
+    },
+    "autoexecparallelpolicyinvalidexception": {
+      "autoexecparallelpolicyinvalidexception": "并发策略“{0}”非法"
+    },
+    "autoexecparamcannotbeemptyexception": {
+      "autoexecparamcannotbeemptyexception": "阶段[{0}] 工具[{1}]的参数：{2}不能为空"
+    },
+    "autoexecparameterchinesenameparamnotexistexception": {
+      "autoexecparameterchinesenameparamnotexistexception": "第：{0}个参数“{1}”的中文名不能为空"
+    },
+    "autoexecparametercontroltypeparamnotexistexception": {
+      "autoexecparametercontroltypeparamnotexistexception": "第：{0}个参数“{1}”的控件类型不能为空"
+    },
+    "autoexecparameterenglishnameparamnotexistexception": {
+      "autoexecparameterenglishnameparamnotexistexception": "第：{0}个参数英文名不能为空"
+    },
+    "autoexecparametermodeparamnotexistexception": {
+      "autoexecparametermodeparamnotexistexception": "第：{0}个参数“{1}”的参数模式不能为空"
+    },
+    "autoexecparameterrequiredparamnotexistexception": {
+      "autoexecparameterrequiredparamnotexistexception": "第：{0}个参数“{1}”的是否必填不能为空"
+    },
+    "autoexecparamirregularexception": {
+      "autoexecparamirregularexception": "第：\\\"{0}\\\"个参数“{1}”的“{2}”不符合格式要求"
+    },
+    "autoexecparammappingargumentcountmismatchexception": {
+      "autoexecparammappingargumentcountmismatchexception": "阶段[{0}] 工具[{1}]的自由参数：{2}映射个数不匹配，设置数量为{3}"
+    },
+    "autoexecparammappingincorrectexception": {
+      "autoexecparammappingincorrectexception": "阶段[{0}] 工具[{1}]的参数：{2}映射不正确"
+    },
+    "autoexecparammappingnotfoundexception": {
+      "autoexecparammappingnotfoundexception": "参数：“{0}”的映射模式：{1}不存在"
+    },
+    "autoexecparammappingnotmappedexception": {
+      "autoexecparammappingnotmappedexception": "阶段[{0}] 工具[{1}]的新增必填参数：{2}没有默认值"
+    },
+    "autoexecparammappingtargetnotfoundexception": {
+      "autoexecparammappingtargetnotfoundexception_a": "阶段[{0}] 工具[{1}]的参数：{2}映射目标{3}不存在",
+      "autoexecparammappingtargetnotfoundexception_b": "阶段[{0}]的执行用户映射作业参数{1}不存在",
+      "autoexecparammappingtargetnotfoundexception_c": "阶段组[{0}]的执行用户映射作业参数{1}不存在",
+      "autoexecparammappingtargetnotfoundexception_d": "执行目标的执行用户映射作业参数{0}不存在"
+    },
+    "autoexecparammappingtargettypemismatchexception": {
+      "autoexecparammappingtargettypemismatchexception": "阶段[{0}] 工具[{1}]的参数：{2}映射目标{3}类型不匹配"
+    },
+    "autoexecparamnotfoundexception": {
+      "autoexecparamnotfoundexception": "阶段[{0}] 工具[{1}]的参数：{2}不存在"
+    },
+    "autoexecparamvalueirregularexception": {
+      "autoexecparamvalueirregularexception_a": "阶段[{0}] 工具[{1}]的参数：{2}（{3}）的值：{4}不符合格式要求",
+      "autoexecparamvalueirregularexception_b": "{0}的参数：{1}（{2}）的值：{3}不符合格式要求",
+      "autoexecparamvalueirregularexception_c": "参数{0}（{1}）的值{2}不符合格式要求"
+    },
+    "autoexecparamvaluerepeatexception": {
+      "autoexecparamvaluerepeatexception": "阶段[{0}] 工具[{1}]的参数：{2}（{3}）的值：{4} 重复"
+    },
+    "autoexecprofilehasbeenreferredexception": {
+      "autoexecprofilehasbeenreferredexception": "当前预置参数集“{0}”已被引用，无法删除"
+    },
+    "autoexecprofileishasreferenceexception": {
+      "autoexecprofileishasreferenceexception": "预置参数集：{0}”已被引用，无法删除"
+    },
+    "autoexecprofileisnotfoundexception": {
+      "autoexecprofileisnotfoundexception": "预置参数集{0}不存在"
+    },
+    "autoexecprofilenamerepeatsexception": {
+      "autoexecprofilenamerepeatsexception": "预置参数集名称：“{0}”已存在"
+    },
+    "autoexecprofilenotreferencedbyoperationexception": {
+      "autoexecprofilenotreferencedbyoperationexception": "预置参数集：“{0}”未关联工具：{1}"
+    },
+    "autoexecprotocolisrequiredexception": {
+      "autoexecprotocolisrequiredexception": "连接协议必须设置"
+    },
+    "autoexecriskhasbeenreferredexception": {
+      "autoexecriskhasbeenreferredexception": "操作级别：“{0}”被引用"
+    },
+    "autoexecrisknamerepeatexception": {
+      "autoexecrisknamerepeatexception": "操作级别：“{0}”已存在"
+    },
+    "autoexecrisknotfoundexception": {
+      "autoexecrisknotfoundexception": "操作级别：“{0}”不存在"
+    },
+    "autoexecroundcountisrequiredexception": {
+      "autoexecroundcountisrequiredexception": "分批数量必须设置"
+    },
+    "autoexecrunnergroupnotfoundbytagandruleexception": {
+      "autoexecrunnergroupnotfoundbytagandruleexception": "不存在标签为“{0}”（作业设置）且满足规则的执行器组",
+      "autoexecrunnergroupnotfoundbytagandruleexceptionphase": "不存在标签为“{1}”（阶段”{0}“设置）且满足规则的执行器组"
+    },
+    "autoexecrunnergroupnotfoundbytagexception": {
+      "autoexecrunnergroupnotfoundbytagexception": "不存在标签为“{0}”（作业设置）的执行器组",
+      "autoexecrunnergroupnotfoundbytagexceptionphase": "不存在标签为“{1}”（阶段“{0}”设置）的执行器组"
+    },
+    "autoexecrunnergrouprulenotmatchexception": {
+      "autoexecrunnergrouprulenotmatchexception": "{0}设置的Runner组“{1}（{2}）”不满足规则。",
+      "autoexecrunnergrouprulenotmatchexception_a": "{0}“{3}”设置的执行器组“{1}({2})”,不满足规则",
+      "autoexecrunnergrouprulenotmatchexceptionwithformname": "{0}“{3}”设置的Runner组“{1}（{2}）”不满足规则。"
+    },
+    "autoexecrunnergrouptaginvalidexception": {
+      "autoexecrunnergrouptaginvalidexception": "作业执行器组标签值“{0}”非法",
+      "autoexecrunnergrouptaginvalidexceptiona": "作业阶段{0}执行器组标签值“{1}”非法"
+    },
+    "autoexecrunnergrouptagnotmatchexception": {
+      "autoexecrunnergrouptagnotmatchexception": "Runner组“{1}”（由{0}指定）不存在标签“{3}”（由{2}指定）。",
+      "autoexecrunnergrouptagnotmatchexceptionbytagandrule": "找不到同时满足标签“{0}”和已配置规则的Runner组。"
+    },
+    "autoexecrunnertagnotmatchexception": {
+      "autoexecrunnertagnotmatchexception": "找不到同时满足：标签“{0}”和规则的执行器组"
+    },
+    "autoexecscenarioisnotfoundexception": {
+      "autoexecscenarioisnotfoundexception": "场景 “{0}”不存在"
+    },
+    "autoexecscenarioisrequiredexception": {
+      "autoexecscenarioisrequiredexception": "场景必须设置"
+    },
+    "autoexecscenariorepeatexception": {
+      "autoexecscenariorepeatexception": "场景名称：“{0}”已存在"
+    },
+    "autoexecschedulenamerepeatexception": {
+      "autoexecschedulenamerepeatexception": "定时作业名: “{0}”已存在"
+    },
+    "autoexecschedulenotfoundexception": {
+      "autoexecschedulenotfoundexception": "定时作业：“{0}”不存在"
+    },
+    "autoexecscriptcheckhandlernotfoundexception": {
+      "autoexecscriptcheckhandlernotfoundexception": "脚本校验器：“{0}”不存在"
+    },
+    "autoexecscripthasnoactiveversionexception": {
+      "autoexecscripthasnoactiveversionexception": "工具：“{0}”不存在激活版本"
+    },
+    "autoexecscripthasnodraftversionexception": {
+      "autoexecscripthasnodraftversionexception": "当前自定义工具没有草稿"
+    },
+    "autoexecscripthasnorejectedversionexception": {
+      "autoexecscripthasnorejectedversionexception": "当前自定义工具没有已驳回版本"
+    },
+    "autoexecscripthasnotanyversionexception": {
+      "autoexecscripthasnotanyversionexception": "当前脚本没有任何版本"
+    },
+    "autoexecscripthasreferenceexception": {
+      "autoexecscripthasreferenceexception": "当前自定义工具已经被引用，不可删除或无激活版本，如需切换激活版本，请激活其他版本"
+    },
+    "autoexecscripthassubmittedversionexception": {
+      "autoexecscripthassubmittedversionexception": "当前自定义工具已经有其他待审核版本"
+    },
+    "autoexecscriptjobcannotexecuteexception": {
+      "autoexecscriptjobcannotexecuteexception": "无法执行作业: {0}，当前用户没有'工具、自定义工具管理权限'"
+    },
+    "autoexecscriptnameambiguousexception": "存在多个名为“{0}”的自定义工具，请补充完整工具目录 fullCatalogName。匹配目录：{1}。",
+    "autoexecscriptnameorukrepeatexception": {
+      "autoexecscriptnameorukrepeatexception": "当前目录下已存在名为“{0}”的自定义工具"
+    },
+    "autoexecscriptnotfoundexception": {
+      "autoexecscriptnotfoundexception": "自定义工具：“{0}”不存在"
+    },
+    "autoexecscriptversioncannotactiveexception": {
+      "autoexecscriptversioncannotactiveexception": "当前版本不可激活"
+    },
+    "autoexecscriptversioncannotdeleteexception": {
+      "autoexecscriptversioncannotdeleteexception": "当前自定义工具仅有一个版本，删除此版本将导致删除当前自定义工具。"
+    },
+    "autoexecscriptversioncannoteditexception": {
+      "autoexecscriptversioncannoteditexception": "当前版本处于不可编辑状态"
+    },
+    "autoexecscriptversioncannotreviewexception": {
+      "autoexecscriptversioncannotreviewexception": "当前版本不可审核"
+    },
+    "autoexecscriptversioncannotsubmitexception": {
+      "autoexecscriptversioncannotsubmitexception": "当前版本不可提交审核"
+    },
+    "autoexecscriptversionhasnoactivedexception": {
+      "autoexecscriptversionhasnoactivedexception": "自定义工具“{0}”未设置激活版本",
+      "autoexecscriptversionhasnoactivedexceptionb": "当前自定义工具没有激活版本"
+    },
+    "autoexecscriptversionisnotsubmittedexception": {
+      "autoexecscriptversionisnotsubmittedexception": "当前版本不是待审批状态"
+    },
+    "autoexecscriptversionnotfoundexception": {
+      "autoexecscriptversionnotfoundexception": "版本：“{0}”不存在"
+    },
+    "autoexecserviceconfigexpiredexception": {
+      "autoexecserviceconfigexpiredexception": "服务：“{0}”配置已失效"
+    },
+    "autoexecservicehasbeenreferredexception": {
+      "autoexecservicehasbeenreferredexception": "目录：“{0}”或其子目录中还有服务，不可删除"
+    },
+    "autoexecserviceisnotcatalogexception": {
+      "autoexecserviceisnotcatalogexception": "服务：{0}不是目录"
+    },
+    "autoexecservicenameisrepeatexception": {
+      "autoexecservicenameisrepeatexception": "服务目录名称“{0}”重复"
+    },
+    "autoexecservicenotfoundexception": {
+      "autoexecservicenotfoundexception": "服务目录：“{0}”不存在"
+    },
+    "autoexecservicenotreferencedformexception": {
+      "autoexecservicenotreferencedformexception": "服务目录未引用表单，不能映射表单属性"
+    },
+    "autoexectoolexportnotfoundtoolexception": {
+      "autoexectoolexportnotfoundtoolexception": "没有找到需要导出的工具"
+    },
+    "autoexectoolnotactiveexception": {
+      "autoexectoolnotactiveexception": "工具：“{0}”未激活"
+    },
+    "autoexectoolnotfoundexception": {
+      "autoexectoolnotfoundexception": "工具：“{0}”不存在"
+    },
+    "autoexectoolparamdatasourceemptyexception": {
+      "autoexectoolparamdatasourceemptyexception": "参数：“{0}”未配置数据源"
+    },
+    "autoexectoolparamdatasourceillegalexception": {
+      "autoexectoolparamdatasourceillegalexception": "参数：“{0}”的数据源格式不正确，正确格式为：'{\\\"dataList\\\":[{\\\"text\\\":\\\"是\\\",\\\"value\\\":\\\"1\\\"},{\\\"text\\\":\\\"否\\\",\\\"value\\\":\\\"0\\\"}]}'，其中(text的key和value)与(value的key)不能为空"
+    },
+    "autoexectoolparamvalidatefieldformatillegalexception": {
+      "autoexectoolparamvalidatefieldformatillegalexception": "参数“{0}”的validate配置中，“{1}”的格式不正确，应该为JSON对象"
+    },
+    "autoexectoolparamvalidatefieldlostexception": {
+      "autoexectoolparamvalidatefieldlostexception": "参数“{0}”的validate配置中，名称为“{1}”的规则缺少“{2}”字段",
+      "autoexectoolparamvalidatefieldlostexceptionb": "参数“{0}”的validate配置中，第：{1} 个的规则缺少“{2}”字段"
+    },
+    "autoexectypehasbeenreferredexception": {
+      "autoexectypehasbeenreferredexception": "工具类型：“{0}”已经被工具、自定义工具或组合工具引用"
+    },
+    "autoexectypeisfactoryexception": {
+      "autoexectypeisfactoryexception": "工具分类:“{1}”（ID:“{0}”）是出厂默认分类，不可删除"
+    },
+    "autoexectypenamerepeatexception": {
+      "autoexectypenamerepeatexception": "插件类型：“{0}”已存在"
+    },
+    "autoexectypenotfoundexception": {
+      "autoexectypenotfoundexception": "工具类型：“{0}”不存在"
+    },
+    "autoexecusernamenotfoundexception": {
+      "autoexecusernamenotfoundexception": "执行用户不能为空"
+    },
+    "common": {
+      "versionactivecannotdelete": "当前版本已激活，不可删除"
+    },
+    "customtemplatenotfoundexception": {
+      "customtemplatenotfoundexception": "自定义模板“{0}”不存在"
+    },
+    "runnergroupmatchrulenotfoundexception": {
+      "runnergroupmatchrulenotfoundexception": "不存在满足规则的执行器组"
+    }
+  },
+  "nfaec": {
+    "autoexeccombopnotfoundedittargetexception": {
+      "autoexeccombopnotfoundedittargetexception": "组合工具：{0}不存在"
+    },
+    "autoexeccombopversionnotfoundedittargetexception": {
+      "autoexeccombopversionnotfoundedittargetexception": "组合工具版本：{0}不存在"
+    }
+  },
+  "nfaej": {
+    "autoexecinputoutofcountexception": {
+      "autoexecinputoutofcountexception": "执行目标，如果是筛选类型：“输入文本”，数量不能大于{0}"
+    },
+    "autoexecjobfirenextgroupexception": {
+      "autoexecjobfirenextgroupexception": "作业激活下一个阶段组{0}失败：{1}"
+    },
+    "autoexecjobnotfoundedittargetexception": {
+      "autoexecjobnotfoundedittargetexception": "作业：{0}不存在"
+    },
+    "autoexecjobsyncinterruptedexception": {
+      "autoexecjobsyncinterruptedexception": "监听作业“{0}”状态时线程被中断"
+    },
+    "autoexecjobsynclimitexception": {
+      "autoexecjobsynclimitexception": "当前正在创建或监听的同步作业请求数已达到上限“{0}”"
+    },
+    "autoexecjobsyncparamnotsupportedexception": {
+      "autoexecjobsyncparamnotsupportedexception": "同步执行模式不支持参数“{0}”"
+    },
+    "autoexecjobtargetinvalidexception": {
+      "autoexecjobtargetinvalidexception": "执行目标“{0}”格式不正确，应为IP、IP:端口或IP:端口/名称"
+    },
+    "autoexecjobtargetorrunnernotfoundexception": {
+      "autoexecjobtargetorrunnernotfoundexception": "不存在执行目标或执行器组。可能存在阶段的目标来源于上游阶段工具出参，然而上游阶段不存在或设置目标失败"
+    },
+    "executeusermappingmodeparaminvalidexception": {
+      "executeusermappingmodeparaminvalidexception": "执行用户(executeConfig.executeUser)入参值“{0}”中的类型(mappingMode)不合法，组合工具作业层配置的执行用户类型(mappingMode)为“{1}”"
+    },
+    "executeuservalueparamnullexception": {
+      "executeuservalueparamnullexception": "执行用户(executeConfig.executeUser.value)入参不能为空"
+    },
+    "jobparamnodenullexception": {
+      "jobparamnodenullexception": "执行目标非法，引用{0}",
+      "jobparamnodenullexceptionb": "执行目标非法，阶段组“{0}”引用{1}",
+      "jobparamnodenullexceptionc": "执行目标非法，引用{0}",
+      "jobparamnodenullexceptionphase": "执行目标非法，阶段“{0}”引用{1}"
+    },
+    "jobparamnullexception": {
+      "jobparamnullexception": "作业参数“{0}”不能为空"
+    },
+    "jobparamrunnergroupnullexception": {
+      "jobparamrunnergroupnullexception": "执行器组非法，引用作业参数“{0}”的值为空",
+      "jobparamrunnergroupnullexceptiona": "执行器组非法，阶段“{0}”引用作业参数“{1}”的值为空"
+    },
+    "jobparamrunnergrouptagnullexception": {
+      "jobparamrunnergrouptagnullexception": "执行器组标签非法，阶段“{0}”引用作业参数“{1}”的值为空",
+      "jobparamrunnergrouptagnullexceptiona": "执行器组标签非法，引用作业参数“{0}”的值为空"
+    },
+    "jobparamusernamenullexception": {
+      "jobparamusernamenullexception": "执行用户非法，阶段“{0}”引用作业参数“{1}”的值为空",
+      "jobparamusernamenullexceptiona": "执行用户非法，阶段组“{0}”引用作业参数“{1}”的值为空",
+      "jobparamusernamenullexceptionb": "执行用户非法，引用作业参数“{0}”的值为空"
+    },
+    "jobparamvalidexception": {
+      "jobparamvalidexception": "作业参数: {0} 非法"
+    },
+    "protocolidparamnullexception": {
+      "protocolidparamnullexception": "协议(executeConfig.protocolId)入参不能为空"
+    },
+    "runnergroupmappingmodeparaminvalidexception": {
+      "runnergroupmappingmodeparaminvalidexception": "执行器组(runnerGroup)入参值“{0}”中的类型(mappingMode)不合法，组合工具作业层配置的执行器组类型(mappingMode)为“{1}”"
+    },
+    "runnergroupparamnullexception": {
+      "runnergroupparamnullexception": "执行器组(runnerGroup.value)入参不能为空"
+    }
+  },
+  "nfaes": {
+    "autoexecschedulenotfoundedittargetexception": {
+      "autoexecschedulenotfoundedittargetexception": "定时作业：{0}不存在"
+    },
+    "autoexecscriptnotfoundedittargetexception": {
+      "autoexecscriptnotfoundedittargetexception": "自定义工具：{0}不存在"
+    },
+    "autoexecscriptversionnotfoundedittargetexception": {
+      "autoexecscriptversionnotfoundedittargetexception": "版本：{0}不存在"
+    }
+  },
+  "nfaet": {
+    "autoexectoolnotfoundedittargetexception": {
+      "autoexectoolnotfoundedittargetexception": "工具：{0}不存在"
+    }
+  },
+  "nmac": {
+    "autoexecconfig": {
+      "loadconfig": {
+        "autoexectoken": "✖请在配置文件中定义autoexec.token参数。如果autoexec-backend的config.ini中的server.username是autoexec，则server.password必须也和autoexec.token的值一致"
+      }
+    }
+  },
+  "nmar": {
+    "export": {
+      "morecontent": "\n更多内容请前往系统查看"
+    },
+    "resource": {
+      "osserviceports": "操作系统服务端口场景",
+      "ossoftwareenvironmentapplication": "操作系统与软件服务、环境、模块及应用场景",
+      "softwareserviceos": "软件服务与操作系统场景",
+      "softwareserviceports": "软件服务服务端口场景"
+    }
+  },
+  "nmas": {
+    "autoexec": {
+      "loopitems": "循环项",
+      "loopitemvar": "循环项变量"
+    }
+  },
+  "term": {
+    "autoexec": {
+      "actionlist": "操作列表",
+      "alertcount": "告警数量",
+      "allphasesarerunnerorsqlexecmode": "所有阶段都是Runner或SQL执行方式",
+      "approve": "通过",
+      "argumentmappinglist": "自由参数映射列表",
+      "assignexecuser": "指定执行用户",
+      "associatedtoollist": "关联工具列表",
+      "auditid": "审计记录ID",
+      "catalog": "工具目录",
+      "catalogid": "工具目录ID",
+      "changetype": "变更类型",
+      "combop": "组合工具",
+      "combopbaseinfo": "组合工具基本信息",
+      "combopdetailsinfo": "组合工具详细信息",
+      "combopgrouplist": "组合工具阶段组列表",
+      "combopid": "组合工具ID",
+      "comboplist": "组合工具列表",
+      "combopname": "组合工具名称",
+      "combopphaselist": "组合工具阶段列表",
+      "combopversionid": "组合工具版本ID",
+      "completionrate": "完成率",
+      "configexpired": "配置已失效",
+      "configexpiredreason": "配置失效原因",
+      "constant": "常量",
+      "contenthash": "内容哈希值",
+      "customtemplate": "自定义模板",
+      "customtemplateid": "自定义模板ID",
+      "customtemplateidlist": "自定义模板ID列表",
+      "defaultscenarioid": "默认场景ID",
+      "defaultvalue": "默认值",
+      "dependenttool": "依赖工具",
+      "dependenttoolname": "依赖工具名称",
+      "displayname": "显示名",
+      "downloadpath": "记录下载链接",
+      "encoding": "字符编码",
+      "execmode": "执行方式",
+      "executeconfig": "执行目标",
+      "executeparam": "执行参数",
+      "executetargetconfig": "执行目标配置",
+      "executetargetsource": "执行目标配置来源",
+      "executetargetspecificationtiming": "执行目标指定时机",
+      "executeuser": "执行用户",
+      "executeusersource": "执行用户来源",
+      "executeuseruuid": "执行用户UUID",
+      "executeuservo": "执行用户对象",
+      "executionparam": "执行参数",
+      "executionstatus": "执行状态",
+      "executionstatusname": "执行状态名称",
+      "existrunnerorsqlexecmode": "存在Runner或SQL执行方式的阶段",
+      "freeparam": "自由参数",
+      "fullcatalogname": "工具完整目录名称",
+      "generatetocombop": "发布为组合工具",
+      "globalparam": "全局参数",
+      "globalparamid": "全局参数ID",
+      "groupdesc": "自动化平台",
+      "groupid": "阶段组ID",
+      "groupname": "自动化",
+      "inputparamlist": "输入参数列表",
+      "invokeid": "调用来源ID",
+      "islib": "是否库文件",
+      "jobexecuteconfig": "作业执行配置",
+      "jobgroupid": "作业组ID",
+      "jobid": "作业ID",
+      "jobinfo": "自动化作业信息",
+      "jobparam": "作业参数",
+      "jobparamlist": "作业参数列表",
+      "jobphaseid": "作业剧本ID",
+      "jobphasenodeid": "作业剧本节点ID",
+      "jobphasenodetoolstatuslist": "作业剧本节点工具状态列表",
+      "jobphaseoperationid": "作业剧本操作ID",
+      "jobphaseoperationname": "作业剧本操作名",
+      "jobsourcelist": "作业来源列表",
+      "jobsqlname": "作业SQL名称",
+      "jobstatus": {
+        "aborting": "中止中",
+        "failed": "已失败",
+        "ignored": "已忽略",
+        "paused": "已暂停",
+        "pausing": "暂停中",
+        "pending": "待运行",
+        "queued": "排队中",
+        "running": "运行中",
+        "waitinput": "待输入"
+      },
+      "jobstatuslabel": "作业状态",
+      "jobstatuslist": "作业状态列表",
+      "jobstatusname": "作业状态名称",
+      "lastnodechangetime": "最近一次节点变动时间",
+      "linelist": "脚本内容行列表",
+      "loopitems": "循环项",
+      "looptoollist": "循环执行工具列表",
+      "name": "自动化模块",
+      "needexecutenode": "执行页面是否需要设置执行目标",
+      "needexecuteuser": "执行页面是否需要设置执行用户",
+      "needprotocol": "执行页面是否需要设置连接协议",
+      "needroundcount": "执行页面是否需要设置分批数量",
+      "needrunnergroup": "执行页面是否需要设置runner组",
+      "nodeauditlist": "节点操作记录列表",
+      "nodename": "节点名称",
+      "nodetype": "节点类型",
+      "operationid": "工具ID",
+      "operationname": "工具名称",
+      "operationtype": "工具类型",
+      "outputparamlist": "输出参数列表",
+      "packagefile": "包文件",
+      "packagefileid": "包文件ID",
+      "parallelcount": "并发数",
+      "parallelpolicy": "并发策略",
+      "paramlist": "参数列表",
+      "paramname": "参数名",
+      "parentjobid": "父作业ID",
+      "parentoperationid": "父工具ID",
+      "parentoperationtype": "父工具类型",
+      "passthroughenv": "返回参数",
+      "phase": "阶段",
+      "phasename": "作业剧本名",
+      "precedingexecutetargetconfig": "前置执行目标配置",
+      "profile": "预置参数集",
+      "protocolsource": "执行协议来源",
+      "resourceidlist": "资源ID列表",
+      "reviewstatus": "审核状态",
+      "risk": "操作级别",
+      "riskid": "操作级别ID",
+      "riskidlist": "操作级别ID列表",
+      "risklist": "操作级别列表",
+      "riskname": "操作级别名称",
+      "roundcount": "分批数量",
+      "routeid": "配置路由ID",
+      "runnermappingid": "Runner映射ID",
+      "runtimeparamlist": "运行时参数列表",
+      "scenario": "场景",
+      "scenarioid": "场景ID",
+      "scenariolist": "场景列表",
+      "scenarioname": "场景名",
+      "scheduleid": "定时作业ID",
+      "scheduleinfo": "自动化定时作业信息",
+      "schedulename": "定时作业名称",
+      "script": "自定义工具",
+      "scriptid": "自定义工具ID",
+      "scriptidlist": "自定义工具ID列表",
+      "scriptinfo": "脚本内容",
+      "scriptparser": "脚本解析器",
+      "scriptversion": "自定义工具版本",
+      "scriptversionid": "自定义工具版本ID",
+      "scriptversiontitle": "自定义工具版本备注",
+      "serviceinfo": "自动化服务目录信息",
+      "servicelist": "服务目录列表",
+      "servicetreedata": "服务目录树结构数据",
+      "sourcesystemid": "来源系统ID",
+      "sqlidlist": "SQL ID列表",
+      "sqlsourcetype": "SQL来源类型",
+      "starttimefilter": "开始时间过滤",
+      "systemid": "系统ID",
+      "tool": "工具",
+      "totalcount": "总条数",
+      "triggertype": "触发方式",
+      "type": "工具分类",
+      "typeid": "工具分类ID",
+      "typeidlist": "工具分类ID列表",
+      "uniquekey": "唯一标识",
+      "userlib": "依赖工具",
+      "version": "版本",
+      "versionstatus": "版本状态"
+    }
+  }
+}
