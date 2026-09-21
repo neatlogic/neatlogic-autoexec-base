@@ -26,13 +26,13 @@ import java.util.List;
  * @since: 2021/4/14 17:47
  **/
 public enum ParamMappingMode implements IEnum {
-    CONSTANT("constant", "常量"),
-    RUNTIME_PARAM("runtimeparam", "作业参数"),
-    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "上游节点输出参数值"),
-    PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "上游节点输出参数名"),
-    IS_EMPTY("isempty", "为空"),
-    PROFILE("profile", "预置参数集"),
-    GLOBAL_PARAM("globalparam", "全局参数");
+    CONSTANT("constant", "nfae.parammappingmode.constant"),
+    RUNTIME_PARAM("runtimeparam", "nfae.parammappingmode.runtimeparam"),
+    PRE_NODE_OUTPUT_PARAM("prenodeoutputparam", "nfae.parammappingmode.prenodeoutputparam"),
+    PRE_NODE_OUTPUT_PARAM_KEY("prenodeoutputparamkey", "nfae.parammappingmode.prenodeoutputparamkey"),
+    IS_EMPTY("isempty", "nfae.parammappingmode.isempty"),
+    PROFILE("profile", "nfae.parammappingmode.profile"),
+    GLOBAL_PARAM("globalparam", "nfae.parammappingmode.globalparam");
 
     private final String value;
     private final String text;

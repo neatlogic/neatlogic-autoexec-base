@@ -248,7 +248,7 @@
     }
   },
   "nfacv": {
-    "autoexeccombopoptype": {
+    "autoexeccomboptype": {
       "text": {
         "autoexec": "操作类",
         "readonly": "查询类"
@@ -1622,6 +1622,15 @@
     }
   },
   "nfae": {
+    "parammappingmode": {
+      "constant": "常量",
+      "globalparam": "全局参数",
+      "isempty": "为空",
+      "prenodeoutputparam": "上游节点输出参数值",
+      "prenodeoutputparamkey": "上游节点输出参数名",
+      "profile": "预置参数集",
+      "runtimeparam": "作业参数"
+    },
     "autoexeccataloghasbeenreferredexception": {
       "autoexeccataloghasbeenreferredexception": "目录：“{0}”或其子目录中还有工具，不可删除"
     },

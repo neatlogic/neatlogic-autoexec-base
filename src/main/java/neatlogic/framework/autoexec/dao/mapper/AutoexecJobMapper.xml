@@ -2676,7 +2676,10 @@
             <foreach collection="parentIdList" item="parentId" open="(" separator="," close=")">
                 #{parentId}
             </foreach>
-            <include refid="searchSubJobSql"/>
+            <!-- 父作业过滤只约束父作业，装配时保留父作业下的完整子作业。 -->
+            <if test="hasParent == null or hasParent == true">
+                <include refid="searchSubJobSql"/>
+            </if>
         </where>
     </select>
 

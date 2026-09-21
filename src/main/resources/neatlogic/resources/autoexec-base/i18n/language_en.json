@@ -248,7 +248,7 @@
     }
   },
   "nfacv": {
-    "autoexeccombopoptype": {
+    "autoexeccomboptype": {
       "text": {
         "autoexec": "Action",
         "readonly": "Query"
@@ -1622,6 +1622,15 @@
     }
   },
   "nfae": {
+    "parammappingmode": {
+      "constant": "Constant",
+      "globalparam": "Global Parameter",
+      "isempty": "Is Empty",
+      "prenodeoutputparam": "Upstream Node Output Value",
+      "prenodeoutputparamkey": "Upstream Node Output Parameter Name",
+      "profile": "Preset Parameter Set",
+      "runtimeparam": "Job Parameter"
+    },
     "autoexeccataloghasbeenreferredexception": {
       "autoexeccataloghasbeenreferredexception": "Tool catalog \"{0}\" or one of its subcatalogs still contains tools and cannot be deleted."
     },

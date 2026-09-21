@@ -20,8 +20,8 @@ import neatlogic.framework.util.$;
 import java.util.List;
 
 public enum AutoexecCombopOpType implements IEnum {
-    READONLY("readonly", "查询类"),
-    AUTOEXEC("autoexec", "操作类");
+    READONLY("readonly", "nfacv.autoexeccomboptype.text.readonly"),
+    AUTOEXEC("autoexec", "nfacv.autoexeccomboptype.text.autoexec");
     private final String value;
     private final String text;
 
