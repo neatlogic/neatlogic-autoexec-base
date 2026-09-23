@@ -39,4 +39,13 @@ public interface IAutoexecJobSource {
 		return JobSourceType.AUTOEXEC.getValue();
 	}
 
+	/**
+	 * 当前来源的父作业操作是否需要级联全部后代作业。
+	 *
+	 * @return 是或否
+	 */
+	default boolean isBatch() {
+		return false;
+	}
+
 }

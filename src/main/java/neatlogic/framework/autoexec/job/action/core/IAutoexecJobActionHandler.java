@@ -44,6 +44,17 @@ public interface IAutoexecJobActionHandler {
     JSONObject doService(AutoexecJobVo jobVo) throws Exception;
 
     /**
+     * 当前作业是否参与父作业触发的批量动作。
+     *
+     * @param jobVo 作业
+     * @param isParent 是否为本次批量动作的父作业
+     * @return 是否执行
+     */
+    default boolean isCanBatchExecute(AutoexecJobVo jobVo, boolean isParent) {
+        return true;
+    }
+
+    /**
      * 是否需要校验是否拥有组合工具执行权限
      * @return true|false
      */
