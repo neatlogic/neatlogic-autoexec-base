@@ -16,12 +16,12 @@ public interface IAutoexecJobPhaseNodeExportHandler {
      *
      * @param jobVo          作业
      * @param phaseVo        阶段
-     * @param outputParamMap 工具与输出参数名称的映射
+     * @param outputParamConfigMap 工具与输出参数导出配置的映射
      * @param excelBuilder   ExcelBuilder
      * @param headList       表头中文名
      * @param columnList     表头英文名
      */
-    void exportJobPhaseNodeWithNodeOutputParam(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, Map<String, List<String>> outputParamMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList);
+    void exportJobPhaseNodeWithNodeOutputParam(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, Map<String, AutoexecJobOutputParamExportConfig> outputParamConfigMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList);
 
     /**
      * 导出节点（包含节点日志）

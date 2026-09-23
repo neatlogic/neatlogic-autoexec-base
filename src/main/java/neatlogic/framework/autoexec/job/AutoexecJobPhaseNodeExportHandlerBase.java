@@ -1,7 +1,5 @@
 package neatlogic.framework.autoexec.job;
 
-import neatlogic.framework.util.$;
-
 import com.alibaba.fastjson.JSONException;
 import neatlogic.framework.autoexec.dto.INodeDetail;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo;
@@ -17,6 +15,7 @@ import neatlogic.framework.util.excel.SheetBuilder;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,12 +36,16 @@ import java.util.stream.Collectors;
 
 public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexecJobPhaseNodeExportHandler {
 
+    private static final String PASSWORD_MASK = "******";
+    private static final int EXCEL_CELL_MAX_LENGTH = 32767;
+    private static final String META_KEY = "_meta";
+
     @Resource
     MongoTemplate mongoTemplate;
 
     @Override
-    final public void exportJobPhaseNodeWithNodeOutputParam(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, Map<String, List<String>> outputParamMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
-        exportJobPhaseNode(jobVo, phaseVo, true, false, outputParamMap, excelBuilder, headList, columnList);
+    final public void exportJobPhaseNodeWithNodeOutputParam(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, Map<String, AutoexecJobOutputParamExportConfig> outputParamConfigMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
+        exportJobPhaseNode(jobVo, phaseVo, true, false, outputParamConfigMap, excelBuilder, headList, columnList);
     }
 
     @Override
@@ -57,12 +60,12 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
      * @param phaseVo         阶段
      * @param withOutputParam 是否需要导出节点输出参数
      * @param withNodeLog     是否需要导出节点日志
-     * @param outputParamMap  工具与输出参数名称的映射
+     * @param outputParamConfigMap 工具与输出参数导出配置的映射
      * @param excelBuilder    excelBuilder
      * @param headList        表头中文名
      * @param columnList      表头英文名
      */
-    private void exportJobPhaseNode(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, boolean withOutputParam, boolean withNodeLog, Map<String, List<String>> outputParamMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
+    private void exportJobPhaseNode(AutoexecJobVo jobVo, AutoexecJobPhaseVo phaseVo, boolean withOutputParam, boolean withNodeLog, Map<String, AutoexecJobOutputParamExportConfig> outputParamConfigMap, ExcelBuilder excelBuilder, List<String> headList, List<String> columnList) {
         IAutoexecJobSource jobSource = AutoexecJobSourceFactory.getEnumInstance(jobVo.getSource());
         if (jobSource == null) {
             throw new AutoexecJobSourceInvalidException(jobVo.getSource());
@@ -84,14 +87,12 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
                 Map<String, List<Long>> runnerNodeMap = new HashMap<>();
                 Map<Long, JSONObject> nodeLogTailParamMap = new HashMap<>();
                 Map<Long, String> nodeOutputParamMap = null;
-                if (withOutputParam) {
-                    if (MapUtils.isNotEmpty(outputParamMap)) {
-                        List<JSONObject> nodeOutputList = mongoTemplate.find(new Query(Criteria.where("jobId").is(jobVo.getId().toString())
-                                        .and("resourceId").in(list.stream().map(INodeDetail::getResourceId).collect(Collectors.toList())))
-                                , JSONObject.class, "_node_output");
-                        if (CollectionUtils.isNotEmpty(nodeOutputList)) {
-                            nodeOutputParamMap = getNodeOutputParamMap(outputParamMap, nodeOutputList);
-                        }
+                if (withOutputParam && MapUtils.isNotEmpty(outputParamConfigMap)) {
+                    List<JSONObject> nodeOutputList = mongoTemplate.find(new Query(Criteria.where("jobId").is(jobVo.getId().toString())
+                                    .and("resourceId").in(list.stream().map(INodeDetail::getResourceId).collect(Collectors.toList())))
+                            , JSONObject.class, "_node_output");
+                    if (CollectionUtils.isNotEmpty(nodeOutputList)) {
+                        nodeOutputParamMap = getNodeOutputParamMap(outputParamConfigMap, nodeOutputList);
                     }
                 }
                 assembleData(jobVo, phaseVo, list, nodeDataMap, runnerNodeMap, nodeLogTailParamMap, nodeOutputParamMap);
@@ -106,45 +107,87 @@ public abstract class AutoexecJobPhaseNodeExportHandlerBase implements IAutoexec
     /**
      * 获取节点输出参数
      *
-     * @param outputParamMap 工具与输出参数名称的映射
+     * @param outputParamConfigMap 工具与输出参数导出配置的映射
      * @param nodeOutputList 从mongodb查询的节点输出参数值
      * @return 节点resourceId与输出参数的映射
      */
-    private Map<Long, String> getNodeOutputParamMap(Map<String, List<String>> outputParamMap, List<JSONObject> nodeOutputList) {
+    protected Map<Long, String> getNodeOutputParamMap(Map<String, AutoexecJobOutputParamExportConfig> outputParamConfigMap, List<JSONObject> nodeOutputList) {
         Map<Long, String> nodeOutputParamMap = new HashMap<>();
         for (JSONObject object : nodeOutputList) {
             Long resourceId = object.getLong("resourceId");
             JSONObject data = object.getJSONObject("data");
             if (MapUtils.isNotEmpty(data)) {
-                StringBuilder sb = new StringBuilder();
+                JSONObject outputParamJson = new JSONObject(new LinkedHashMap<>());
                 for (Map.Entry<String, Object> entry : data.entrySet()) {
-                    List<String> outputParamKey = outputParamMap.get(entry.getKey());
-                    if (CollectionUtils.isNotEmpty(outputParamKey)) {
+                    AutoexecJobOutputParamExportConfig outputParamConfig = outputParamConfigMap.get(entry.getKey());
+                    if (outputParamConfig != null) {
                         Object value = entry.getValue();
                         if (value instanceof Map) {
+                            JSONObject operationOutputJson = new JSONObject(new LinkedHashMap<>());
                             ((Map<String, Object>) value).forEach((paramKey, paramValue) -> {
-                                if (outputParamKey.contains(paramKey)) {
-                                    JSONObject jsonObject = new JSONObject();
-                                    try {
-                                        JSONObject json = JSONObject.parseObject(paramValue.toString());
-                                        jsonObject.put(paramKey, json);
-                                    } catch (JSONException e) {
-                                        jsonObject.put(paramKey, paramValue);
+                                if (outputParamConfig.isIncluded(paramKey)) {
+                                    if (outputParamConfig.isPassword(paramKey)) {
+                                        operationOutputJson.put(paramKey, PASSWORD_MASK);
+                                    } else if (paramValue == null) {
+                                        operationOutputJson.put(paramKey, null);
+                                    } else {
+                                        try {
+                                            JSONObject json = JSONObject.parseObject(paramValue.toString());
+                                            operationOutputJson.put(paramKey, json);
+                                        } catch (JSONException e) {
+                                            operationOutputJson.put(paramKey, paramValue);
+                                        }
                                     }
-                                    sb.append(jsonObject.toJSONString()).append(";");
                                 }
                             });
+                            if (MapUtils.isNotEmpty(operationOutputJson)) {
+                                outputParamJson.put(entry.getKey(), operationOutputJson);
+                            }
                         }
                     }
                 }
-                String content = sb.toString();
-                if (content.length() > 2048) {
-                    content = content.substring(0, 2048) + $.t("nmar.export.morecontent");
-                }
-                nodeOutputParamMap.put(resourceId, content);
+                nodeOutputParamMap.put(resourceId, serializeWithinExcelCellLimit(outputParamJson));
             }
         }
         return nodeOutputParamMap;
+    }
+
+    /**
+     * 将输出参数序列化为合法 JSON；超过 Excel 单元格上限时仅省略完整字段并添加截断标记。
+     */
+    private String serializeWithinExcelCellLimit(JSONObject outputParamJson) {
+        String content = toJSONString(outputParamJson);
+        if (content.length() <= EXCEL_CELL_MAX_LENGTH) {
+            return content;
+        }
+        JSONObject truncatedJson = new JSONObject(new LinkedHashMap<>());
+        JSONObject metaJson = new JSONObject(new LinkedHashMap<>());
+        metaJson.put("truncated", true);
+        truncatedJson.put(META_KEY, metaJson);
+        for (Map.Entry<String, Object> operationEntry : outputParamJson.entrySet()) {
+            if (!(operationEntry.getValue() instanceof Map)) {
+                continue;
+            }
+            JSONObject retainedOperationJson = new JSONObject(new LinkedHashMap<>());
+            truncatedJson.put(operationEntry.getKey(), retainedOperationJson);
+            for (Map.Entry<String, Object> paramEntry : ((Map<String, Object>) operationEntry.getValue()).entrySet()) {
+                retainedOperationJson.put(paramEntry.getKey(), paramEntry.getValue());
+                if (toJSONString(truncatedJson).length() > EXCEL_CELL_MAX_LENGTH) {
+                    retainedOperationJson.remove(paramEntry.getKey());
+                }
+            }
+            if (retainedOperationJson.isEmpty()) {
+                truncatedJson.remove(operationEntry.getKey());
+            }
+        }
+        return toJSONString(truncatedJson);
+    }
+
+    /**
+     * 序列化输出参数并保留值为 null 的字段。
+     */
+    private String toJSONString(JSONObject outputParamJson) {
+        return JSONObject.toJSONString(outputParamJson, SerializerFeature.WriteMapNullValue);
     }
 
     /**
