@@ -13,14 +13,20 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
-import java.util.ArrayList;
+import neatlogic.framework.auth.label.ADMIN;
+import neatlogic.framework.common.constvalue.systemuser.ISystemUser;
+import neatlogic.framework.common.constvalue.systemuser.SystemUser;
+
 import java.util.List;
 
 /**
  * @author longrf
  * @date 2022/4/25 10:15 上午
  */
-/** 权限名称与说明使用国际化键，权限标识及校验规则保持不变。 */
+
+/**
+ * 权限名称与说明使用国际化键，权限标识及校验规则保持不变。
+ */
 public class AUTOEXEC_MODIFY extends AuthBase {
     @Override
     public String getAuthDisplayName() {
@@ -44,13 +50,17 @@ public class AUTOEXEC_MODIFY extends AuthBase {
 
     @Override
     public List<Class<? extends AuthBase>> getIncludeAuths() {
-        List<Class<? extends AuthBase>> list = new ArrayList<>();
-        list.add(AUTOEXEC_COMBOP_ADD.class);
-        list.add(AUTOEXEC_CUSTOMTEMPLATE_MODIFY.class);
-        list.add(AUTOEXEC_JOB_MODIFY.class);
-        list.add(AUTOEXEC_SCRIPT_MANAGE.class);
-        list.add(AUTOEXEC_SERVICE_MANAGE.class);
-        list.add(AUTOEXEC_SCHEDULE_MODIFY.class);
-        return list;
+        return List.of(AUTOEXEC_COMBOP_ADD.class, AUTOEXEC_CUSTOMTEMPLATE_MODIFY.class,
+                AUTOEXEC_JOB_MODIFY.class, AUTOEXEC_SCRIPT_MANAGE.class,
+                AUTOEXEC_SERVICE_MANAGE.class, AUTOEXEC_SCHEDULE_MODIFY.class,
+                AUTOEXEC_SKILL_MANAGE.class, AUTOEXEC_RESOURCECENTER_ACCOUNT_MODIFY.class,
+                AUTOEXEC_RESOURCECENTER_RESOURCE_VIEW.class, AUTOEXEC_RESOURCECENTER_TAG_MODIFY.class,
+                AUTOEXEC_RESOURCECENTER_VIEW_MODIFY.class, ADMIN.class
+        );
+    }
+
+    @Override
+    public List<ISystemUser> getDefaultSystemUserList() {
+        return List.of(SystemUser.AUTOEXEC);
     }
 }
