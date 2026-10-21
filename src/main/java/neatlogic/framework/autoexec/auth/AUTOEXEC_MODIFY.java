@@ -12,12 +12,11 @@
 
 package neatlogic.framework.autoexec.auth;
 
+import java.util.List;
 import neatlogic.framework.auth.core.AuthBase;
 import neatlogic.framework.auth.label.ADMIN;
 import neatlogic.framework.common.constvalue.systemuser.ISystemUser;
 import neatlogic.framework.common.constvalue.systemuser.SystemUser;
-
-import java.util.List;
 
 /**
  * @author longrf
@@ -53,7 +52,7 @@ public class AUTOEXEC_MODIFY extends AuthBase {
         return List.of(AUTOEXEC_COMBOP_ADD.class, AUTOEXEC_CUSTOMTEMPLATE_MODIFY.class,
                 AUTOEXEC_JOB_MODIFY.class, AUTOEXEC_SCRIPT_MANAGE.class,
                 AUTOEXEC_SERVICE_MANAGE.class, AUTOEXEC_SCHEDULE_MODIFY.class,
-                AUTOEXEC_SKILL_MANAGE.class, AUTOEXEC_RESOURCECENTER_ACCOUNT_MODIFY.class,
+                AUTOEXEC_RESOURCECENTER_ACCOUNT_MODIFY.class,
                 AUTOEXEC_RESOURCECENTER_RESOURCE_VIEW.class, AUTOEXEC_RESOURCECENTER_TAG_MODIFY.class,
                 AUTOEXEC_RESOURCECENTER_VIEW_MODIFY.class, ADMIN.class
         );
