@@ -1622,15 +1622,6 @@
     }
   },
   "nfae": {
-    "parammappingmode": {
-      "constant": "Constant",
-      "globalparam": "Global Parameter",
-      "isempty": "Is Empty",
-      "prenodeoutputparam": "Upstream Node Output Value",
-      "prenodeoutputparamkey": "Upstream Node Output Parameter Name",
-      "profile": "Preset Parameter Set",
-      "runtimeparam": "Job Parameter"
-    },
     "autoexeccataloghasbeenreferredexception": {
       "autoexeccataloghasbeenreferredexception": "Tool catalog \"{0}\" or one of its subcatalogs still contains tools and cannot be deleted."
     },
@@ -2097,6 +2088,15 @@
     },
     "customtemplatenotfoundexception": {
       "customtemplatenotfoundexception": "Custom Template \"{0}\" does not exist."
+    },
+    "parammappingmode": {
+      "constant": "Constant",
+      "globalparam": "Global Parameter",
+      "isempty": "Is Empty",
+      "prenodeoutputparam": "Upstream Node Output Value",
+      "prenodeoutputparamkey": "Upstream Node Output Parameter Name",
+      "profile": "Preset Parameter Set",
+      "runtimeparam": "Job Parameter"
     },
     "runnergroupmatchrulenotfoundexception": {
       "runnergroupmatchrulenotfoundexception": "No Runner group satisfies the configured rule."
