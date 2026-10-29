@@ -21,7 +21,7 @@ import java.util.List;
 
 public enum ReviewStatus implements IEnum {
     WAITING("waiting", "nfac.reviewstatus.waiting"),
-    PASSED("passed", "term.diagram.status.passed"),
+    PASSED("passed", "nfac.reviewstatus.passed"),
     FAILED("failed", "nfac.reviewstatus.failed");
     private final String value;
     private final String text;

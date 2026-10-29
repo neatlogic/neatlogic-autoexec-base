@@ -239,6 +239,7 @@
     },
     "reviewstatus": {
       "failed": "Approval not approved",
+      "passed": "Approved",
       "waiting": "Pending Review"
     },
     "scriptandtooloperate": {

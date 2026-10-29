@@ -15,12 +15,12 @@ package neatlogic.framework.autoexec.constvalue;
 import neatlogic.framework.util.$;
 
 public enum ScriptVersionStatus {
-    DRAFT("draft", "nmautoexec.autoexecskillstatusdraft"),
-    SUBMITTED("submitted", "nfac.reviewstatus.waiting"),
-    PASSED("passed", "term.diagram.status.passed"),
-    REJECTED("rejected", "nmautoexec.autoexecskillstatusrejected"),
-    CURRENT("current", "common.active"),
-    HISTORY("history", "nmautoexec.autoexecskillhistoricalversion");
+    DRAFT("draft", "nfacv.scriptversionstatus.text.draft"),
+    SUBMITTED("submitted", "nfacv.scriptversionstatus.text.submitted"),
+    PASSED("passed", "nfacv.scriptversionstatus.text.passed"),
+    REJECTED("rejected", "nfacv.scriptversionstatus.text.rejected"),
+    CURRENT("current", "nfacv.scriptversionstatus.text.current"),
+    HISTORY("history", "nfacv.scriptversionstatus.text.history");
     private String value;
     private String text;
 

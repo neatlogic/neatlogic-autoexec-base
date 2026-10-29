@@ -239,6 +239,7 @@
     },
     "reviewstatus": {
       "failed": "审批未通过",
+      "passed": "审批通过",
       "waiting": "待审核"
     },
     "scriptandtooloperate": {
