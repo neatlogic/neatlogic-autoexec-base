@@ -13,12 +13,14 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
 import neatlogic.framework.cmdb.auth.label.RESOURCECENTER_RESOURCE_VIEW;
 
 import java.util.Collections;
 import java.util.List;
 
 /** 自动化模块资产清单查看权限，并授予对应的CMDB资产清单查看能力。 */
+@AuthModule("autoexec")
 public class AUTOEXEC_RESOURCECENTER_RESOURCE_VIEW extends AuthBase {
 
     @Override

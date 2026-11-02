@@ -12,6 +12,8 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
  * @date 2023/2/17 15:53
  */
 
+@AuthModule("autoexec")
 public class AUTOEXEC_SERVICE_MANAGE extends AuthBase {
 
     @Override

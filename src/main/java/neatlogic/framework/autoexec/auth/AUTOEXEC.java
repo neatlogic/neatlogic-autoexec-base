@@ -12,12 +12,14 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
 
 /**
  * @author longrf
  * @date 2022/10/14 12:15
  */
 
+@AuthModule("autoexec")
 public class AUTOEXEC extends AuthBase {
     @Override
     public String getAuthDisplayName() {

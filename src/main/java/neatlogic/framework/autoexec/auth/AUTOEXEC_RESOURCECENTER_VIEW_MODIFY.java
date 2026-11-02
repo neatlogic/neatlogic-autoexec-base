@@ -13,12 +13,14 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
 import neatlogic.framework.cmdb.auth.label.RESOURCECENTER_VIEW_MODIFY;
 
 import java.util.Collections;
 import java.util.List;
 
 /** 自动化模块资源中心视图设置权限，并授予对应的CMDB视图设置能力。 */
+@AuthModule("autoexec")
 public class AUTOEXEC_RESOURCECENTER_VIEW_MODIFY extends AuthBase {
 
     @Override

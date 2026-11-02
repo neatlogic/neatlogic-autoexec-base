@@ -16,9 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
+
 import java.util.Collections;
 import java.util.List;
 
+@AuthModule("autoexec")
 public class AUTOEXEC_COMBOP_ADD extends AuthBase {
 
     @Override

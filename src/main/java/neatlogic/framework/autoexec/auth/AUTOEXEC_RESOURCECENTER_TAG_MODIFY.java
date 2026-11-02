@@ -13,12 +13,14 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
 import neatlogic.framework.cmdb.auth.label.RESOURCECENTER_TAG_MODIFY;
 
 import java.util.Collections;
 import java.util.List;
 
 /** 自动化模块标签管理权限，并授予对应的CMDB标签管理能力。 */
+@AuthModule("autoexec")
 public class AUTOEXEC_RESOURCECENTER_TAG_MODIFY extends AuthBase {
 
     @Override

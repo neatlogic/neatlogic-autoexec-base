@@ -13,9 +13,12 @@
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
+
 import java.util.Collections;
 import java.util.List;
 
+@AuthModule("autoexec")
 public class AUTOEXEC_JOB_MODIFY extends AuthBase {
 
     @Override

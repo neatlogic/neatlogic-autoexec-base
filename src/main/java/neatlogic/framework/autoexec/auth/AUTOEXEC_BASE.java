@@ -16,11 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package neatlogic.framework.autoexec.auth;
 
 import neatlogic.framework.auth.core.AuthBase;
+import neatlogic.framework.auth.core.AuthModule;
 import neatlogic.framework.cmdb.auth.label.CMDB;
 
 import java.util.Arrays;
 import java.util.List;
 
+@AuthModule("autoexec")
 public class AUTOEXEC_BASE extends AuthBase {
 
     @Override
