@@ -67,6 +67,17 @@
       },
       "targetcount": "Target Count",
       "targetname": "Target Object"
+    },
+    "runnerrequest": {
+      "failed": "Runner request {0} failed: {1}.",
+      "invalidresponse": "The Runner did not return a valid success response",
+      "rejected": "The Runner returned HTTP {0,number,0}",
+      "timeout": "The Runner request timed out",
+      "transport": "The Runner request could not be completed"
+    },
+    "waitinput": {
+      "failed": "Runner operation {0} failed for job {1}, node {2}: {3}.",
+      "missinginteraction": "The node has no active interaction or input pipe"
     }
   },
   "globallock": {

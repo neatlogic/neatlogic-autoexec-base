@@ -67,6 +67,17 @@
       },
       "targetcount": "目标数量",
       "targetname": "目标对象"
+    },
+    "runnerrequest": {
+      "failed": "Runner 请求 {0} 失败：{1}。",
+      "invalidresponse": "Runner 未返回有效的成功响应",
+      "rejected": "Runner 返回 HTTP {0,number,0}",
+      "timeout": "等待 Runner 请求超时",
+      "transport": "未能完成 Runner 请求"
+    },
+    "waitinput": {
+      "failed": "Runner 操作 {0} 失败（作业 {1}，节点 {2}）：{3}。",
+      "missinginteraction": "节点没有有效的交互或输入管道"
     }
   },
   "globallock": {
