@@ -1754,8 +1754,10 @@
                aj.`param_hash`      as paramHash,
                aj.`config_hash`     as configHash
         FROM `autoexec_job` aj
-        WHERE aj.`operation_id` = #{value} for
-        update
+        <!-- 工具测试只复用测试记录；同一版本的正式步骤作业保留在执行历史中。 -->
+        WHERE aj.`operation_id` = #{value}
+          AND aj.`source` IN ('test', 'scripttest', 'tooltest')
+        FOR UPDATE
     </select>
     <select id="getJobPhaseNodeInfoByJobPhaseIdAndResourceId"
             resultType="neatlogic.framework.autoexec.dto.job.AutoexecJobPhaseNodeVo">
