@@ -12,7 +12,10 @@
 
 package neatlogic.framework.autoexec.crossover;
 
+import com.alibaba.fastjson.JSONObject;
+import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVersionConfigVo;
 import neatlogic.framework.autoexec.dto.job.AutoexecJobVo;
+import neatlogic.framework.autoexec.dto.node.AutoexecNodeVo;
 import neatlogic.framework.cmdb.dto.resourcecenter.ResourceVo;
 import neatlogic.framework.crossover.ICrossoverService;
 
@@ -37,4 +40,16 @@ public interface IAutoexecJobCrossoverService extends ICrossoverService {
      * @param protocolId 协议id
      */
     void updateJobPhaseNode(AutoexecJobVo jobVo, List<ResourceVo> resourceVoList, String userName, Long protocolId);
+
+    /** 核验选定资源的执行权限和地址，并回填资源中心记录。 */
+    void checkSelectedTargets(Long combopId, JSONObject preCondition, List<AutoexecNodeVo> nodes);
+
+    /** 在组合工具可执行范围内，将输入地址解析为唯一资源。 */
+    List<AutoexecNodeVo> resolveInputTargets(Long combopId, JSONObject preCondition, String ip);
+
+    /** 按已解析的作业配置逐台校验 Tagent 协议、凭据及执行器路由。 */
+    void validateTagentRoutes(AutoexecCombopVersionConfigVo config, List<AutoexecNodeVo> nodes);
+
+    /** 批量读取有权查看的作业概要。 */
+    List<AutoexecJobVo> getVisibleJobs(List<Long> ids);
 }

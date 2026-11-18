@@ -30,4 +30,7 @@ public interface IAutoexecServiceCrossoverService extends ICrossoverService {
     void mergeConfig(AutoexecParamVo autoexecParamVo);
 
     void validateRuntimeParamList(List<? extends AutoexecParamVo> runtimeParamList);
+
+    /** 按原生参数的文本约束校验运行值。 */
+    boolean validateTextTypeParamValue(AutoexecParamVo param, Object value);
 }

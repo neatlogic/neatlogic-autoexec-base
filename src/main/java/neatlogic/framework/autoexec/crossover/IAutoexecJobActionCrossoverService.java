@@ -38,4 +38,10 @@ public interface IAutoexecJobActionCrossoverService extends ICrossoverService {
      * @param jobVo 作业vo
      */
     void getJobDetailAndFireJob(AutoexecJobVo jobVo) throws Exception;
+
+    /** 在调用方事务内校验版本并创建手动作业，返回已持久化的作业编号。 */
+    Long createReadyCombopJob(AutoexecJobVo job);
+
+    /** 行锁下复核就绪作业的执行人、版本与目标后启动，重复启动返回已有状态。 */
+    AutoexecJobVo startReadyTagentCombopJob(Long jobId);
 }

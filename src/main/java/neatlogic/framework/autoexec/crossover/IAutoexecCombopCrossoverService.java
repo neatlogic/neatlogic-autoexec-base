@@ -17,6 +17,8 @@ import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVersionVo;
 import neatlogic.framework.autoexec.dto.combop.AutoexecCombopVo;
 import neatlogic.framework.crossover.ICrossoverService;
 
+import java.util.List;
+
 /**
  * @author lvzk
  * @since 2021/11/9 15:03
@@ -45,4 +47,13 @@ public interface IAutoexecCombopCrossoverService extends ICrossoverService {
      * @param autoexecCombopVersionVo      组合工具版本信息
      */
     void needExecuteConfig(AutoexecCombopVersionVo autoexecCombopVersionVo);
+
+    /** 校验当前用户的执行权限，读取已激活的工具版本。 */
+    AutoexecCombopVersionVo getExecutableActiveVersion(Long id);
+
+    /** 按当前用户的执行权限统计激活版本。 */
+    int countExecutableVersions(String keyword, List<Long> ids);
+
+    /** 按工具编号倒序游标读取有执行权限的激活版本。 */
+    List<AutoexecCombopVersionVo> searchExecutableVersions(String keyword, List<Long> ids, Long beforeId, int size);
 }
