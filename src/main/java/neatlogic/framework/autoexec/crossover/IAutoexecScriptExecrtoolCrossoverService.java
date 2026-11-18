@@ -30,6 +30,9 @@ public interface IAutoexecScriptExecrtoolCrossoverService extends ICrossoverServ
 
     JSONObject getAutoexecScriptExecrtoolAuditById(Long auditId);
 
+    /** 校验指定脚本版本已审批通过，并且当前执行人有权执行该脚本。 */
+    void requireApprovedScriptVersion(Long versionId);
+
     boolean checkAutoexecOperationHasExecrtoolAuthority(String operationType, Long operationId);
     /** 查询有效绑定候选；条件由 Skill 服务端构造，不授予执行权限。 */
     List<Map<String, Object>> searchBindingCandidates(JSONObject condition);
