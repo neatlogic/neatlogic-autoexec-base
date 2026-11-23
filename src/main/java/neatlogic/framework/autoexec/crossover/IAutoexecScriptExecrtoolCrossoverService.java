@@ -16,6 +16,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 import java.util.Map;
+import neatlogic.framework.autoexec.dto.execrtool.ExecrtoolRequest;
+import neatlogic.framework.autoexec.dto.execrtool.ExecrtoolResult;
 import neatlogic.framework.crossover.ICrossoverService;
 import neatlogic.framework.exception.type.PermissionDeniedException;
 
@@ -24,14 +26,28 @@ public interface IAutoexecScriptExecrtoolCrossoverService extends ICrossoverServ
     /** 为同一 Skill 的多步执行创建隔离资源句柄。 */
     IAutoexecScriptExecutionSession openExecutionSession();
 
-    Object execAutoexecScriptByTagent(JSONObject paramObj) throws Exception;
+    /** 受理一个目标，提交后同步等待下发结果。 */
+    ExecrtoolResult execute(ExecrtoolRequest request) throws Exception;
 
-    JSONObject execAutoexecScriptByTagentWithAudit(JSONObject paramObj) throws Exception;
+    /** 整批受理，在事务提交后执行；业务入口提供下发前的来源权限复核。 */
+    Long submit(ExecrtoolRequest request, Runnable checkSource) throws Exception;
+
+    /** 根据当前用户及已验证的来源范围读取幂等请求。 */
+    Long findInvocation(String source, Long sourceId, Long scopeId, String requestId);
+
+    /** 从已授权的业务对象中查询调用或其某条目标审计。 */
+    JSONObject readInvocation(String source, Long sourceId, Long invokeId, Long auditId);
+
+    /** 在来源范围内分页返回目标审计及未完成调用状态。 */
+    JSONObject searchInvocations(String source, Long sourceId, String operationType, Long operationId, JSONObject filters);
 
     JSONObject getAutoexecScriptExecrtoolAuditById(Long auditId);
 
     /** 校验指定脚本版本已审批通过，并且当前执行人有权执行该脚本。 */
     void requireApprovedScriptVersion(Long versionId);
+
+    /** 返回当前用户可复制执行的输入定义；没有执行资格时返回空。 */
+    JSONObject getCopyExecutionDefinition(String type, Long id);
 
     boolean checkAutoexecOperationHasExecrtoolAuthority(String operationType, Long operationId);
     /** 查询有效绑定候选；条件由 Skill 服务端构造，不授予执行权限。 */

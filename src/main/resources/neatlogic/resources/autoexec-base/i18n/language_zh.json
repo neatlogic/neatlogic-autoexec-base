@@ -80,6 +80,22 @@
       "missinginteraction": "节点没有有效的交互或输入管道"
     }
   },
+  "execrtoolinvoke": {
+    "expectedVersion": "确认的脚本版本ID",
+    "failure": "执行异常",
+    "includeStdout": "返回标准输出",
+    "items": "执行目标列表",
+    "operation": "实际执行对象",
+    "outputLabels": "输出参数名称",
+    "outputParam": "工具输出",
+    "param": "工具输入参数",
+    "prepareFailed": "目标 {0} 准备失败：{1}",
+    "requestId": "幂等标识",
+    "runnerName": "Runner名称",
+    "scopeId": "来源范围ID",
+    "source": "调用来源",
+    "sourceId": "来源对象ID"
+  },
   "globallock": {
     "error": {
       "jobrequired": "申请作业资源锁缺少 handlerParam.jobId；lockId={0}，key={1}，handler={2}。无法校验作业状态及锁归属。",

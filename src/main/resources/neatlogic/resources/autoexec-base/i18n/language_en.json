@@ -80,6 +80,22 @@
       "missinginteraction": "The node has no active interaction or input pipe"
     }
   },
+  "execrtoolinvoke": {
+    "expectedVersion": "Confirmed Script Version ID",
+    "failure": "Execution Error",
+    "includeStdout": "Include Standard Output",
+    "items": "Execution Items",
+    "operation": "Executed Operation",
+    "outputLabels": "Output Parameter Labels",
+    "outputParam": "Tool Output",
+    "param": "Tool Input Parameters",
+    "prepareFailed": "Failed to prepare target {0}: {1}",
+    "requestId": "Idempotency Key",
+    "runnerName": "Runner Name",
+    "scopeId": "Source Scope ID",
+    "source": "Invocation Source",
+    "sourceId": "Source Object ID"
+  },
   "globallock": {
     "error": {
       "jobrequired": "Missing handlerParam.jobId for job resource lock acquisition; lockId={0}, key={1}, handler={2}. Job status and lock ownership cannot be validated.",
